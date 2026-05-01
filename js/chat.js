@@ -300,7 +300,8 @@ const Chat = (() => {
       const parsed = Files.parse(raw.slice(9));
       if (parsed) {
         const result = Files.create(parsed.type, parsed.name);
-        addMessage('joe', result);
+        if (result.startsWith('__HTML__:')) addMessage('joe', result.slice(9), true);
+        else addMessage('joe', result);
       } else {
         addMessage('joe', "I can make: html, css, js, ts, md, txt, json, py, sh, svg, csv files. Which type do you want?");
       }

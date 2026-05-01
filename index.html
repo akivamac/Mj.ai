@@ -61,6 +61,20 @@
     </div>
   </div>
 
+  <!-- File viewer modal -->
+  <div id="viewer-modal" class="modal hidden">
+    <div class="modal-box viewer-box">
+      <div class="viewer-header">
+        <span id="viewer-title">File</span>
+        <div style="display:flex;gap:8px;">
+          <button id="viewer-download-btn" class="file-btn file-btn-dl">⬇ Download</button>
+          <button onclick="document.getElementById('viewer-modal').classList.add('hidden')" class="file-btn">✕ Close</button>
+        </div>
+      </div>
+      <div id="viewer-body" class="viewer-body"></div>
+    </div>
+  </div>
+
   <!-- Photo modal -->
   <div id="photo-modal" class="modal hidden">
     <div class="modal-box">
