@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   Search.init();
   Draw.init();
   Photo.init();
-  Chat.init();
+  await Chat.init();
 
   const input = document.getElementById('user-input');
   const sendBtn = document.getElementById('send-btn');

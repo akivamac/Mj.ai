@@ -4,9 +4,8 @@ const Chat = (() => {
   let activeId = null;
   let activeProjectId = null; // project scope for new chats
 
-  function init() {
-    chats    = Storage.getChats();
-    projects = Storage.getProjects();
+  async function init() {
+    [chats, projects] = await Promise.all([Storage.loadChats(), Storage.loadProjects()]);
     activeId = Storage.getActiveChat();
     if (!activeId || !chats.find(c => c.id === activeId)) newChat();
     else { renderSidebar(); loadActiveMessages(); }
@@ -18,7 +17,7 @@ const Chat = (() => {
     const chat = { id, title: 'New Chat', messages: [], projectId: projectId || activeProjectId || null };
     chats.unshift(chat);
     activeId = id;
-    Storage.saveChats(chats);
+    Storage.saveChat(chat);
     Storage.setActiveChat(id);
     renderSidebar();
     clearMessages();
@@ -54,7 +53,7 @@ const Chat = (() => {
       document.getElementById('chat-title').textContent = chat.title;
       renderSidebar();
     }
-    Storage.saveChats(chats);
+    Storage.saveChat(chat);
     renderMessage(msg);
     scrollBottom();
   }
@@ -193,8 +192,8 @@ const Chat = (() => {
       if (!confirm('Delete project "' + proj.name + '"? Chats will move to main list.')) return;
       chats.forEach(c => { if (c.projectId === id) c.projectId = null; });
       projects = projects.filter(p => p.id !== id);
-      Storage.saveProjects(projects);
-      Storage.saveChats(chats);
+      Storage.deleteProject(id);
+      chats.forEach(c => { if (c.projectId === id) { c.projectId = null; Storage.saveChat(c); } });
     }
     renderSidebar();
   }
@@ -244,6 +243,7 @@ const Chat = (() => {
     } else if (action === 'delete') {
       if (!confirm('Delete this chat?')) return;
       chats = chats.filter(c => c.id !== id);
+      Storage.deleteChat(id);
       if (id === activeId) newChat();
     } else if (action === 'add-proj') {
       if (!projects.length) return;
@@ -254,7 +254,7 @@ const Chat = (() => {
     } else if (action === 'remove-proj') {
       chat.projectId = null;
     }
-    Storage.saveChats(chats);
+    Storage.saveChat(chats.find(c => c.id === id) || {});
     renderSidebar();
   }
 

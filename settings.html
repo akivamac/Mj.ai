@@ -112,7 +112,9 @@
     <button class="save-btn" id="mcp-save">Save MCP URL</button>
   </div>
 
+  <script src="../config.js"></script>
   <script src="js/storage.js"></script>
+  <script src="js/backside.js"></script>
   <script src="js/brain.js"></script>
   <script>
     // Render brain parts
@@ -185,9 +187,9 @@
 
     // MCP
     const mcpInput = document.getElementById('mcp-url');
-    mcpInput.value = localStorage.getItem('mj_mcp_url') || '';
+    mcpInput.value = Storage.getMcpUrl();
     document.getElementById('mcp-save').addEventListener('click', () => {
-      localStorage.setItem('mj_mcp_url', mcpInput.value.trim());
+      Storage.setMcpUrl(mcpInput.value.trim());
       document.getElementById('mcp-save').textContent = 'Saved ✓';
       setTimeout(() => document.getElementById('mcp-save').textContent = 'Save MCP URL', 1500);
     });
