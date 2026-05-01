@@ -37,7 +37,7 @@ body {
   height: 100%;
   min-height: 0;
 }
-#sidebar.hidden { position: absolute; transform: translateX(calc(-1 * var(--sidebar-w))); }
+#sidebar.hidden { transform: translateX(calc(-1 * var(--sidebar-w))); }
 
 #sidebar-header {
   display: flex;

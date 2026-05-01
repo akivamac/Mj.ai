@@ -34,13 +34,14 @@ const Search = (() => {
       if (data.AbstractText) return data.AbstractText;
       if (data.Answer)       return data.Answer;
       if (data.RelatedTopics?.length) {
-        return data.RelatedTopics.slice(0, 3).map(t => t.Text).filter(Boolean).join('\n\n');
+        const text = data.RelatedTopics.slice(0, 3).map(t => t.Text).filter(Boolean).join('\n\n');
+        if (text.trim()) return text;
       }
     } catch(_) {}
 
-    // Fallback: open tab
+    // Open tab as fallback
     window.open(`https://duckduckgo.com/?q=${encodeURIComponent(query)}`, '_blank');
-    return 'I opened a DuckDuckGo search in a new tab.';
+    return "I couldn't find a quick answer, so I opened DuckDuckGo in a new tab for you.";
   }
 
   return { init, ask };

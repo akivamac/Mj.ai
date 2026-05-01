@@ -1,24 +1,17 @@
 {
   "rules": [
-    {
-      "if": "thank",
-      "then": "You're welcome! Anything else?"
-    },
-    {
-      "if": "bye",
-      "then": "See you later! 🐒"
-    },
-    {
-      "if": "help",
-      "then": "I can chat, search the web (with your permission), look at drawings, and run terminal commands. What do you need?"
-    },
-    {
-      "if": "draw",
-      "then": "Hit the ✏️ button to open the drawing pad!"
-    },
-    {
-      "if": "search",
-      "then": "Just ask me something and I'll offer to search the web for it."
-    }
+    { "if": "thank", "then": "You're welcome! Anything else?" },
+    { "if": "bye", "then": "See you later! 🐒" },
+    { "if": "i like you", "then": "Aw, I like you too! 🐒" },
+    { "if": "you're cute", "then": "Thanks, I try 🐒" },
+    { "if": "you are cute", "then": "Thanks, I try 🐒" },
+    { "if": "good job", "then": "Thanks! Doing my best 🐒" },
+    { "if": "good boy", "then": "🐒 *monkey noises*" },
+    { "if": "why didn't you answer", "then": "Sorry about that! My brain is still small. Try asking me to search the web for things I don't know yet." },
+    { "if": "why did you not answer", "then": "Sorry! I didn't have that in my brain. Try asking me to search for it." },
+    { "if": "help", "then": "I can chat, search the web (with your permission), look at drawings, and answer terminal questions. What do you need?" },
+    { "if": "draw", "then": "Hit the ✏️ button to open the drawing pad!" },
+    { "if": "search", "then": "Sure! What do you want me to search for?" },
+    { "if": "what can you do", "then": "I can chat, search the web, look at drawings, answer terminal/coding questions, and connect to MCP servers. I'm growing!" }
   ]
 }
