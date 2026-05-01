@@ -1,9 +1,19 @@
 const Brain = (() => {
+  const BRAIN_VERSION = '3'; // bump when brain JSON files change
+
   let knowledge = null;
   let rules = null;
   let terminal = null;
 
   async function load() {
+    // If version changed, clear cache and reload from JSON
+    if (localStorage.getItem('mj_brain_version') !== BRAIN_VERSION) {
+      localStorage.removeItem('mj_brain_knowledge');
+      localStorage.removeItem('mj_brain_rules');
+      localStorage.removeItem('mj_brain_terminal');
+      localStorage.setItem('mj_brain_version', BRAIN_VERSION);
+    }
+
     knowledge = Storage.getBrain('knowledge');
     rules     = Storage.getBrain('rules');
     terminal  = Storage.getBrain('terminal');
@@ -23,14 +33,14 @@ const Brain = (() => {
     const lower = input.toLowerCase().trim();
 
     // Just "search the web" with no query
-    if (/^search(\s+the\s+web)?!?$/.test(lower)) {
+    if (/^s[ea]rch(\s+the\s+web)?!?$/.test(lower)) {
       return "Sure! What do you want me to search for?";
     }
 
     // Greeting check
     if (rules && rules.greetings) {
       for (const g of rules.greetings) {
-        if (g.if.some(w => lower === w || lower.startsWith(w + ' ') || lower.startsWith(w + '!'))) {
+        if (g.if.some(w => lower === w || lower.startsWith(w + ' ') || lower.startsWith(w + '!') || lower.startsWith(w + ','))) {
           return pick(g.responses);
         }
       }
@@ -72,7 +82,7 @@ const Brain = (() => {
     // Knowledge check
     if (knowledge && knowledge.facts) {
       for (const fact of knowledge.facts) {
-        if (fact.keywords && fact.keywords.some(k => lower.includes(k))) {
+        if (fact.keywords && fact.keywords.some(k => lower.includes(k.toLowerCase()))) {
           return fact.answer;
         }
       }
@@ -80,15 +90,14 @@ const Brain = (() => {
 
     // Search detection
     if (needsSearch(lower)) {
-      return '__SEARCH__:' + input.replace(/^(find a link to|find me|find a|find|look up|show me|get me|can you find|search for|search the web for)\s+/i, '');
+      return '__SEARCH__:' + input.replace(/^(find a link to|find me|find a|find|look up|show me|get me|can you find|s[ea]rch for|s[ea]rch the web for)\s+/i, '');
     }
 
-    return "I'm not sure about that yet. My brain is still growing! Try asking me to search the web for it.";
+    return "Hmm, I don't know that one yet 🐒 Try asking me to search the web for it, or ask Akiva to add it to my brain!";
   }
 
   function detectEmotion(lower, original) {
     if (!rules || !rules.emotions) return null;
-    // Score each emotion by how many signals match
     let best = null, bestScore = 0;
     for (const [emotion, data] of Object.entries(rules.emotions)) {
       const score = data.signals.filter(s => original.includes(s) || lower.includes(s.toLowerCase())).length;
@@ -99,22 +108,29 @@ const Brain = (() => {
 
   function needsSearch(input) {
     const questionTriggers = [
-      'what is', 'what are', 'who is', 'who are',
+      'what is', 'what are', 'what do', 'what does', 'what did', 'what can',
+      'who is', 'who are', 'who was',
       'when did', 'when was', 'when is',
-      'how do', 'how does', 'how did', 'how to',
-      'why does', 'why did', 'why is',
+      'how do', 'how does', 'how did', 'how to', 'how many', 'how much',
+      'why does', 'why did', 'why is', 'why can',
       'where is', 'where can', 'where do',
-      'news about', 'latest on', 'current status'
+      'news about', 'latest on', 'current status',
+      'tell me about', 'explain'
     ];
     if (questionTriggers.some(t => input.includes(t))) return true;
 
     const actionTriggers = [
-      'look up', 'search for', 'search the web for',
+      'look up', 'search for', 'search the web for', 'serch for',
       'link to', 'photo of', 'picture of', 'image of',
       'show me', 'can you find', 'find me', 'find a link',
-      'get me a link', 'find info'
+      'get me a link', 'find info', 'find monkeys', 'find a'
     ];
-    return actionTriggers.some(t => input.includes(t));
+    if (actionTriggers.some(t => input.includes(t))) return true;
+
+    // "find X" at start of input
+    if (/^find\s+\w/.test(input)) return true;
+
+    return false;
   }
 
   return { load, respond };
