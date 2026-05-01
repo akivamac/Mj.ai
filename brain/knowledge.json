@@ -9,6 +9,10 @@
       "answer": "I'm Monkey Joe — a rules-based assistant. My brain lives in this repo and grows over time."
     },
     {
+      "keywords": ["the user sent a drawing"],
+      "answer": "Nice drawing! I can see you sketched something. Want me to search the web for more info about it?"
+    },
+    {
       "keywords": ["javascript", "js"],
       "answer": "JavaScript is a scripting language that runs in browsers and on servers (via Node.js). It handles interactivity, logic, and DOM manipulation."
     },
@@ -19,6 +23,18 @@
     {
       "keywords": ["css"],
       "answer": "CSS (Cascading Style Sheets) controls the look of HTML — colors, fonts, layout, and animations."
+    },
+    {
+      "keywords": ["python"],
+      "answer": "Python is a versatile language used for scripting, data science, AI, and web backends. Known for readable syntax."
+    },
+    {
+      "keywords": ["android", "tablet"],
+      "answer": "Android is Google's mobile OS. Runs on phones and tablets. Apps are installed via Google Play or sideloaded as APKs."
+    },
+    {
+      "keywords": ["github", "git hub"],
+      "answer": "GitHub is a platform for hosting Git repositories. You can push code, collaborate, and host static sites via GitHub Pages."
     }
   ]
 }

@@ -47,7 +47,10 @@ const Draw = (() => {
     const dataUrl = canvas.toDataURL('image/png');
     document.getElementById('draw-modal').classList.add('hidden');
     if (onSubmit) onSubmit(dataUrl);
-    else Chat.addMessage('user', '<img src="' + dataUrl + '" style="max-width:200px;border-radius:6px;" />', true);
+    else {
+      Chat.addMessage('user', '<img src="' + dataUrl + '" style="max-width:200px;border-radius:6px;display:block;" />', true);
+      Chat.processResponse('the user sent a drawing');
+    }
   }
 
   return { init, open };

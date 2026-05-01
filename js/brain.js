@@ -4,34 +4,26 @@ const Brain = (() => {
   let terminal = null;
 
   async function load() {
-    // Load from localStorage first, fall back to repo JSON
     knowledge = Storage.getBrain('knowledge');
     rules     = Storage.getBrain('rules');
     terminal  = Storage.getBrain('terminal');
 
-    if (!knowledge) {
-      knowledge = await fetchJSON('brain/knowledge.json');
-      Storage.setBrain('knowledge', knowledge);
-    }
-    if (!rules) {
-      rules = await fetchJSON('brain/rules.json');
-      Storage.setBrain('rules', rules);
-    }
-    if (!terminal) {
-      terminal = await fetchJSON('brain/terminal.json');
-      Storage.setBrain('terminal', terminal);
-    }
+    if (!knowledge) { knowledge = await fetchJSON('brain/knowledge.json'); Storage.setBrain('knowledge', knowledge); }
+    if (!rules)     { rules     = await fetchJSON('brain/rules.json');     Storage.setBrain('rules', rules); }
+    if (!terminal)  { terminal  = await fetchJSON('brain/terminal.json');  Storage.setBrain('terminal', terminal); }
   }
 
   async function fetchJSON(path) {
-    try {
-      const r = await fetch(path);
-      return await r.json();
-    } catch(_) { return {}; }
+    try { const r = await fetch(path); return await r.json(); } catch(_) { return {}; }
   }
 
   function respond(input) {
     const lower = input.toLowerCase().trim();
+
+    // If it's just "search the web" with no query, ask what to search
+    if (/^search(\s+the\s+web)?!?$/.test(lower)) {
+      return "Sure! What do you want me to search for?";
+    }
 
     // Terminal/command check
     if (terminal && terminal.commands) {
@@ -60,17 +52,27 @@ const Brain = (() => {
       }
     }
 
-    // Search suggestion
+    // Search detection — broad set of triggers
     if (needsSearch(lower)) {
       return '__SEARCH__:' + input;
     }
 
-    return "I'm not sure about that yet. My brain is still growing! You could ask me to search the web.";
+    return "I'm not sure about that yet. My brain is still growing! Try asking me to search the web for it.";
   }
 
   function needsSearch(input) {
-    const searchWords = ['what is', 'who is', 'when did', 'how do', 'why does', 'where is', 'news', 'latest', 'current'];
-    return searchWords.some(w => input.includes(w));
+    const triggers = [
+      'what is', 'what are', 'who is', 'who are',
+      'when did', 'when was', 'when is',
+      'how do', 'how does', 'how did', 'how to',
+      'why does', 'why did', 'why is',
+      'where is', 'where can', 'where do',
+      'find', 'look up', 'search for', 'search the web for',
+      'link to', 'photo of', 'picture of', 'image of',
+      'show me', 'get me', 'can you find',
+      'news', 'latest', 'current', 'today'
+    ];
+    return triggers.some(t => input.includes(t));
   }
 
   return { load, respond };
