@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '6'; // bump when brain JSON files change
+  const BRAIN_VERSION = '7'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -29,8 +29,21 @@ const Brain = (() => {
 
   function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
-  function respond(input) {
+  function respond(input, history = []) {
     const lower = input.toLowerCase().trim();
+
+    // Edit intent — check if user is referring to a previously created file
+    const editTriggers = ['edit it','edit that','edit the file','change it','update it','update the file','modify it','modify the file','add to it','add to the file','rename it','rename the file','fix it','fix the file'];
+    const isEditIntent = editTriggers.some(t => lower.includes(t)) || /^(add|change|update|remove|delete|fix|rename|make it|make the)\s/.test(lower);
+    if (isEditIntent) {
+      // Find last file id from history
+      const lastFileMsg = [...history].reverse().find(m => m.role === 'joe' && m.isHTML && m.content.includes('Files.view'));
+      if (lastFileMsg) {
+        const match = lastFileMsg.content.match(/Files\.view\('([^']+)'\)/);
+        if (match) return '__EDIT__:' + match[1] + ':' + input;
+      }
+      return "I don't see a file to edit yet — make one first and then tell me what to change!";
+    }
 
     // File creation
     const fileTypes = ['html','css','js','javascript','ts','typescript','md','markdown','txt','text','json','py','python','sh','bash','shell','svg','csv'];

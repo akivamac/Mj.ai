@@ -295,8 +295,16 @@ const Chat = (() => {
     showTyping();
     await new Promise(r => setTimeout(r, 400));
     removeTyping();
-    const raw = Brain.respond(input);
-    if (raw && raw.startsWith('__FILE__:')) {
+    const history = (getActive()?.messages || []).slice(-20);
+    const raw = Brain.respond(input, history);
+    if (raw && raw.startsWith('__EDIT__:')) {
+      const parts = raw.slice(8).split(':');
+      const fileId = parts[0];
+      const instruction = parts.slice(1).join(':');
+      const result = Files.edit(fileId, instruction);
+      if (result.startsWith('__HTML__:')) addMessage('joe', result.slice(9), true);
+      else addMessage('joe', result);
+    } else if (raw && raw.startsWith('__FILE__:')) {
       const parsed = Files.parse(raw.slice(9));
       if (parsed) {
         const result = Files.create(parsed.type, parsed.name);

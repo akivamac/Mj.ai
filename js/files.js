@@ -49,16 +49,7 @@ const Files = (() => {
     const id       = 'f' + Date.now();
     store[id]      = { filename, content, mime, ext };
 
-    return `__HTML__:<div class="file-card">
-      <div class="file-card-icon">${extIcon(ext)}</div>
-      <div class="file-card-info">
-        <span class="file-card-name">${filename}</span>
-        <div class="file-card-actions">
-          <button class="file-btn" onclick="Files.view('${id}')">👁 View</button>
-          <button class="file-btn file-btn-dl" onclick="Files.download('${id}')">⬇ Download</button>
-        </div>
-      </div>
-    </div>`;
+    return '__HTML__:' + buildCard(id, store[id]);
   }
 
   function view(id) {
@@ -134,5 +125,87 @@ const Files = (() => {
     return icons[ext] || '📄';
   }
 
-  return { create, view, download, parse };
+  function edit(id, instruction) {
+    const f = store[id];
+    if (!f) return "I can't find that file — it may have been lost when the page reloaded. Make it again and I'll edit it!";
+    const lower = instruction.toLowerCase();
+
+    // Rename
+    const renameMatch = instruction.match(/rename\s+(?:it\s+)?to\s+["']?([a-zA-Z0-9_\-. ]+?)["']?$/i);
+    if (renameMatch) {
+      const newBase = renameMatch[1].trim().replace(/\s+/g, '-');
+      const ext = f.ext;
+      f.filename = newBase.endsWith('.' + ext) ? newBase : newBase + '.' + ext;
+      store[id] = f;
+      const card = buildCard(id, f);
+      return '__HTML__:' + card + '<br><small style="color:var(--text-muted)">✓ Renamed to ' + f.filename + '</small>';
+    }
+
+    // Append text/line
+    const appendMatch = instruction.match(/add\s+(?:the\s+(?:text|line|code)\s+)?["']?(.+?)["']?\s+to\s+(?:it|the file|the end)?$/i);
+    if (appendMatch) {
+      const toAdd = appendMatch[1].trim();
+      if (['txt','md','csv'].includes(f.ext)) {
+        f.content += '
+' + toAdd;
+      } else if (f.ext === 'html') {
+        f.content = f.content.replace('</body>', '  <p>' + toAdd + '</p>
+</body>');
+      } else if (['js','ts','py','sh'].includes(f.ext)) {
+        f.content += '
+// ' + toAdd;
+      } else {
+        f.content += '
+' + toAdd;
+      }
+      store[id] = f;
+      return '__HTML__:' + buildCard(id, f) + '<br><small style="color:var(--text-muted)">✓ Added content</small>';
+    }
+
+    // Change title (HTML)
+    const titleMatch = instruction.match(/(?:change|set|update)\s+(?:the\s+)?title\s+to\s+["']?(.+?)["']?$/i);
+    if (titleMatch && f.ext === 'html') {
+      const newTitle = titleMatch[1].trim();
+      f.content = f.content.replace(/<title>[^<]*<\/title>/, '<title>' + newTitle + '</title>');
+      f.content = f.content.replace(/<h1>[^<]*<\/h1>/, '<h1>' + newTitle + '</h1>');
+      store[id] = f;
+      return '__HTML__:' + buildCard(id, f) + '<br><small style="color:var(--text-muted)">✓ Title updated</small>';
+    }
+
+    // Make dark mode (HTML)
+    if (lower.includes('dark') && f.ext === 'html') {
+      f.content = f.content.replace('background: #f5f5f5;', 'background: #1a1a1a;').replace('color: #1a1a1a;', 'color: #ececec;');
+      if (!f.content.includes('background: #1a1a1a')) {
+        f.content = f.content.replace('</style>', '  body { background: #1a1a1a; color: #ececec; }
+</style>');
+      }
+      store[id] = f;
+      return '__HTML__:' + buildCard(id, f) + '<br><small style="color:var(--text-muted)">✓ Dark mode added</small>';
+    }
+
+    // Replace text
+    const replaceMatch = instruction.match(/(?:change|replace)\s+["'](.+?)["']\s+(?:to|with)\s+["'](.+?)["']/i);
+    if (replaceMatch) {
+      f.content = f.content.split(replaceMatch[1]).join(replaceMatch[2]);
+      store[id] = f;
+      return '__HTML__:' + buildCard(id, f) + '<br><small style="color:var(--text-muted)">✓ Text replaced</small>';
+    }
+
+    return "I understood you want to edit " + f.filename + " but I'm not sure how. Try: 'add [text] to it', 'change the title to [name]', 'rename it to [name]', 'make it dark', or 'replace \'old\' with \'new\''.";
+  }
+
+  function buildCard(id, f) {
+    return `<div class="file-card">
+      <div class="file-card-icon">${extIcon(f.ext)}</div>
+      <div class="file-card-info">
+        <span class="file-card-name">${f.filename}</span>
+        <div class="file-card-actions">
+          <button class="file-btn" onclick="Files.view('${id}')">👁 View</button>
+          <button class="file-btn file-btn-dl" onclick="Files.download('${id}')">⬇ Download</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  return { create, view, download, parse, edit };
 })();
