@@ -1,0 +1,72 @@
+{
+  "commands": [
+    {
+      "triggers": ["ls", "list files", "list directory"],
+      "response": "`ls` — lists files in the current directory. Use `ls -la` for details including hidden files."
+    },
+    {
+      "triggers": ["cd", "change directory"],
+      "response": "`cd <folder>` — changes directory. `cd ..` goes up one level. `cd ~` goes to home."
+    },
+    {
+      "triggers": ["mkdir", "make directory", "make folder"],
+      "response": "`mkdir <name>` — creates a new folder. Use `mkdir -p a/b/c` to create nested folders."
+    },
+    {
+      "triggers": ["rm", "remove file", "delete file"],
+      "response": "`rm <file>` — deletes a file. `rm -r <folder>` deletes a folder recursively. BE CAREFUL — no undo."
+    },
+    {
+      "triggers": ["git init", "start git", "initialize git"],
+      "response": "`git init` — initializes a new Git repo in the current directory."
+    },
+    {
+      "triggers": ["git add", "stage files"],
+      "response": "`git add .` — stages all changes. `git add <file>` stages a specific file."
+    },
+    {
+      "triggers": ["git commit"],
+      "response": "`git commit -m \"message\"` — commits staged changes with a message."
+    },
+    {
+      "triggers": ["git push"],
+      "response": "`git push origin main` — pushes commits to the remote repo."
+    },
+    {
+      "triggers": ["git clone"],
+      "response": "`git clone <url>` — clones a remote repo to your local machine."
+    },
+    {
+      "triggers": ["git status"],
+      "response": "`git status` — shows changed, staged, and untracked files."
+    },
+    {
+      "triggers": ["npm install", "node modules"],
+      "response": "`npm install` — installs all packages listed in package.json. Use `npm install <pkg>` for a specific package."
+    },
+    {
+      "triggers": ["permission denied"],
+      "response": "Permission denied usually means you need `sudo` before the command, or the file/folder ownership is wrong. Try `sudo <command>` or `chmod +x <file>` if it's an executable."
+    },
+    {
+      "triggers": ["command not found"],
+      "response": "'Command not found' means the program isn't installed or isn't in your PATH. Try installing it with `apt install <name>` (Debian/Ubuntu) or `pkg install <name>` (Termux)."
+    },
+    {
+      "triggers": ["no such file", "file not found"],
+      "response": "The file or directory doesn't exist at that path. Check spelling, use `ls` to see what's there, and confirm you're in the right directory with `pwd`."
+    },
+    {
+      "triggers": ["sed", "find and replace", "replace in file"],
+      "response": "`sed -i 's/old/new/g' file.txt` — replaces all occurrences of 'old' with 'new' in file.txt in-place."
+    },
+    {
+      "triggers": ["cat", "view file", "print file"],
+      "response": "`cat <file>` — prints file contents to the terminal."
+    },
+    {
+      "triggers": ["pwd", "current directory", "where am i"],
+      "response": "`pwd` — prints the full path of your current directory."
+    }
+  ]
+}

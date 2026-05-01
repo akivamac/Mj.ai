@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings – Monkey Joe</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { display: block; overflow: auto; padding: 20px; }
+    .back-btn {
+      background: none; border: 1px solid var(--border);
+      color: var(--text-muted); padding: 7px 14px;
+      border-radius: 6px; cursor: pointer; font-size: 0.85rem;
+      margin-bottom: 20px;
+    }
+    h1 { font-size: 1.2rem; margin-bottom: 20px; }
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .section h2 {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .brain-part {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .brain-part:last-child { border-bottom: none; }
+    .brain-part-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brain-part-name { font-size: 0.9rem; }
+    .brain-part-summary { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+    .edit-btn {
+      background: none; border: 1px solid var(--border);
+      color: var(--text-muted); padding: 4px 10px;
+      border-radius: 5px; cursor: pointer; font-size: 0.8rem;
+    }
+    .edit-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .edit-area {
+      display: none;
+      margin-top: 10px;
+    }
+    .edit-area textarea {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      padding: 10px;
+      font-family: monospace;
+      font-size: 0.82rem;
+      resize: vertical;
+      min-height: 160px;
+    }
+    .edit-area textarea:focus { outline: none; border-color: var(--accent); }
+    .save-btn {
+      margin-top: 8px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .mcp-input {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      padding: 8px 12px;
+      font-size: 0.88rem;
+      margin-top: 6px;
+    }
+    .mcp-input:focus { outline: none; border-color: var(--accent); }
+    label { font-size: 0.85rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <button class="back-btn" onclick="location.href='index.html'">← Back</button>
+  <h1>Settings</h1>
+
+  <!-- Brain sections -->
+  <div class="section">
+    <h2>Joe's Brain</h2>
+    <div id="brain-parts"></div>
+  </div>
+
+  <!-- MCP -->
+  <div class="section">
+    <h2>MCP Server</h2>
+    <label for="mcp-url">Server URL</label>
+    <input class="mcp-input" type="text" id="mcp-url" placeholder="https://your-mcp-server.com/mcp" />
+    <br/><br/>
+    <button class="save-btn" id="mcp-save">Save MCP URL</button>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/brain.js"></script>
+  <script>
+    // Render brain parts
+    const brainKeys = ['knowledge', 'rules', 'terminal'];
+    const summaries = {
+      knowledge: 'General facts and world knowledge Joe knows.',
+      rules: 'How Joe decides what to respond with.',
+      terminal: 'Terminal commands and troubleshooting Joe understands.'
+    };
+    const container = document.getElementById('brain-parts');
+    brainKeys.forEach(key => {
+      const data = Storage.getBrain(key);
+      const div = document.createElement('div');
+      div.className = 'brain-part';
+      div.innerHTML = `
+        <div class="brain-part-header">
+          <span class="brain-part-name">${key.charAt(0).toUpperCase() + key.slice(1)}</span>
+          <button class="edit-btn" data-key="${key}">Edit</button>
+        </div>
+        <div class="brain-part-summary">${summaries[key]}</div>
+        <div class="edit-area" id="edit-${key}">
+          <textarea id="ta-${key}">${JSON.stringify(data, null, 2)}</textarea>
+          <button class="save-btn" data-save="${key}">Save</button>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.key;
+        const area = document.getElementById('edit-' + key);
+        area.style.display = area.style.display === 'block' ? 'none' : 'block';
+        btn.textContent = area.style.display === 'block' ? 'Close' : 'Edit';
+      });
+    });
+
+    document.querySelectorAll('[data-save]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.save;
+        try {
+          const val = JSON.parse(document.getElementById('ta-' + key).value);
+          Storage.setBrain(key, val);
+          btn.textContent = 'Saved ✓';
+          setTimeout(() => btn.textContent = 'Save', 1500);
+        } catch(e) {
+          alert('Invalid JSON: ' + e.message);
+        }
+      });
+    });
+
+    // MCP
+    const mcpInput = document.getElementById('mcp-url');
+    mcpInput.value = localStorage.getItem('mj_mcp_url') || '';
+    document.getElementById('mcp-save').addEventListener('click', () => {
+      localStorage.setItem('mj_mcp_url', mcpInput.value.trim());
+      document.getElementById('mcp-save').textContent = 'Saved ✓';
+      setTimeout(() => document.getElementById('mcp-save').textContent = 'Save MCP URL', 1500);
+    });
+  </script>
+</body>
+</html>

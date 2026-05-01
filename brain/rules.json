@@ -1,0 +1,24 @@
+{
+  "rules": [
+    {
+      "if": "thank",
+      "then": "You're welcome! Anything else?"
+    },
+    {
+      "if": "bye",
+      "then": "See you later! 🐒"
+    },
+    {
+      "if": "help",
+      "then": "I can chat, search the web (with your permission), look at drawings, and run terminal commands. What do you need?"
+    },
+    {
+      "if": "draw",
+      "then": "Hit the ✏️ button to open the drawing pad!"
+    },
+    {
+      "if": "search",
+      "then": "Just ask me something and I'll offer to search the web for it."
+    }
+  ]
+}

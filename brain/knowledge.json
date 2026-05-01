@@ -1,0 +1,24 @@
+{
+  "facts": [
+    {
+      "keywords": ["hello", "hi", "hey", "howdy"],
+      "answer": "Hey! I'm Monkey Joe 🐒. What do you need?"
+    },
+    {
+      "keywords": ["your name", "who are you", "what are you"],
+      "answer": "I'm Monkey Joe — a rules-based assistant. My brain lives in this repo and grows over time."
+    },
+    {
+      "keywords": ["javascript", "js"],
+      "answer": "JavaScript is a scripting language that runs in browsers and on servers (via Node.js). It handles interactivity, logic, and DOM manipulation."
+    },
+    {
+      "keywords": ["html"],
+      "answer": "HTML (HyperText Markup Language) is the structure of web pages. Elements like <div>, <p>, <a> define the content."
+    },
+    {
+      "keywords": ["css"],
+      "answer": "CSS (Cascading Style Sheets) controls the look of HTML — colors, fonts, layout, and animations."
+    }
+  ]
+}
