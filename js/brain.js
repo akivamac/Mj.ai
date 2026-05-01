@@ -61,18 +61,27 @@ const Brain = (() => {
   }
 
   function needsSearch(input) {
-    const triggers = [
+    // Question-style triggers (anywhere in input)
+    const questionTriggers = [
       'what is', 'what are', 'who is', 'who are',
       'when did', 'when was', 'when is',
       'how do', 'how does', 'how did', 'how to',
       'why does', 'why did', 'why is',
       'where is', 'where can', 'where do',
-      'find', 'look up', 'search for', 'search the web for',
-      'link to', 'photo of', 'picture of', 'image of',
-      'show me', 'get me', 'can you find',
-      'news', 'latest', 'current', 'today'
+      'news about', 'latest on', 'current status'
     ];
-    return triggers.some(t => input.includes(t));
+    if (questionTriggers.some(t => input.includes(t))) return true;
+
+    // Action triggers — only valid if near start of sentence
+    const actionTriggers = [
+      'look up', 'search for', 'search the web for',
+      'link to', 'photo of', 'picture of', 'image of',
+      'show me', 'can you find', 'find me', 'find a link',
+      'get me a link', 'find info'
+    ];
+    if (actionTriggers.some(t => input.includes(t))) return true;
+
+    return false;
   }
 
   return { load, respond };
