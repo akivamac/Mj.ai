@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '5'; // bump when brain JSON files change
+  const BRAIN_VERSION = '6'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -66,20 +66,22 @@ const Brain = (() => {
       if (detected) return pick(rules.emotions[detected].responses);
     }
 
-    // Terminal/command check
-    if (terminal && terminal.commands) {
-      for (const entry of terminal.commands) {
-        if (entry.triggers && entry.triggers.some(t => lower.includes(t))) {
-          return entry.response;
-        }
-      }
-    }
-
-    // Rules check
+    // Rules check (before terminal so "what are cats" doesn't hit `cat` command)
     if (rules && rules.rules) {
       for (const rule of rules.rules) {
         if (rule.if && lower.includes(rule.if.toLowerCase())) {
           return rule.then;
+        }
+      }
+    }
+
+    // Terminal/command check — only if input looks like a command (starts with trigger or is short)
+    if (terminal && terminal.commands) {
+      for (const entry of terminal.commands) {
+        if (entry.triggers && entry.triggers.some(t => {
+          return lower === t || lower.startsWith(t + ' ') || lower.startsWith(t + ':') || /^(run|execute|use|type)\s/.test(lower) && lower.includes(t);
+        })) {
+          return entry.response;
         }
       }
     }
