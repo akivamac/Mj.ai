@@ -25,7 +25,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   sendBtn.addEventListener('click', send);
   input.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
-  });
+  
+  // Keyboard resize fix — shrinks layout to visible viewport when keyboard appears
+  if (window.visualViewport) {
+    const onVPResize = () => {
+      document.body.style.height = window.visualViewport.height + 'px';
+    };
+    window.visualViewport.addEventListener('resize', onVPResize);
+    window.visualViewport.addEventListener('scroll', onVPResize);
+    onVPResize();
+  }
+});
 
   // Auto-resize textarea
   input.addEventListener('input', () => {
