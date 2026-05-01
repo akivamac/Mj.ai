@@ -280,15 +280,24 @@ const Chat = (() => {
     const el = document.createElement('div');
     el.className = 'message joe';
     el.id = 'typing-indicator';
-    el.innerHTML = '<div class="avatar">🐒</div><div class="bubble typing"><span></span><span></span><span></span></div>';
+    el.innerHTML = '<div class="avatar">🐒</div><div class="bubble typing-joe"><span class="typing-emoji">🐒</span><span class="typing-label">joeing...</span></div>';
     document.getElementById('messages').appendChild(el);
+    const emojis = ['🐒','🦍','🦧'];
+    let i = 0;
+    el._interval = setInterval(() => {
+      i = (i + 1) % emojis.length;
+      const span = el.querySelector('.typing-emoji');
+      if (span) span.textContent = emojis[i];
+    }, 400);
     scrollBottom();
   }
 
   function removeTyping() {
     const el = document.getElementById('typing-indicator');
-    if (el) el.remove();
+    if (el) { clearInterval(el._interval); el.remove(); }
   }
+
+
 
   // ── Process response ──────────────────────────────────────
   async function processResponse(input) {

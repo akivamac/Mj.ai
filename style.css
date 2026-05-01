@@ -459,3 +459,20 @@ textarea#photo-desc:focus { outline: none; border-color: var(--accent); }
   padding: 16px;
   background: var(--bg);
 }
+
+/* Joeing indicator */
+.typing-joe {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+}
+.typing-emoji {
+  font-size: 1.3rem;
+  transition: opacity 0.15s;
+}
+.typing-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
