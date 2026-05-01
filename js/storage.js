@@ -33,5 +33,16 @@ const Storage = (() => {
     return localStorage.getItem(PREFIX + 'mcp_url') || '';
   }
 
-  return { getBrain, setBrain, getChats, saveChats, getActiveChat, setActiveChat, getMcpUrl };
+  function getProjects() {
+    const raw = localStorage.getItem(PREFIX + 'projects');
+    if (raw) { try { return JSON.parse(raw); } catch(_) {} }
+    return [];
+  }
+  function saveProjects(p) { localStorage.setItem(PREFIX + 'projects', JSON.stringify(p)); }
+  function getActiveProject() { return localStorage.getItem(PREFIX + 'active_project') || null; }
+  function setActiveProject(id) {
+    if (id) localStorage.setItem(PREFIX + 'active_project', id);
+    else localStorage.removeItem(PREFIX + 'active_project');
+  }
+  return { getBrain, setBrain, getChats, saveChats, getActiveChat, setActiveChat, getMcpUrl, getProjects, saveProjects, getActiveProject, setActiveProject };
 })();
