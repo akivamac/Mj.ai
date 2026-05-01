@@ -1,15 +1,15 @@
 :root {
-  --bg: #1a1a1a;
-  --sidebar-bg: #111111;
-  --surface: #242424;
-  --border: #333;
-  --text: #ececec;
-  --text-muted: #888;
+  --bg: #f5f5f0;
+  --sidebar-bg: #ebebе6;
+  --surface: #ffffff;
+  --border: #d8d8d0;
+  --text: #1a1a1a;
+  --text-muted: #666;
   --accent: #cc785c;
   --accent-light: #e8956d;
-  --user-bubble: #2c2c2c;
-  --joe-bubble: #1e1e1e;
-  --input-bg: #2a2a2a;
+  --user-bubble: #e8e8e2;
+  --joe-bubble: #ffffff;
+  --input-bg: #ffffff;
   --radius: 12px;
   --sidebar-w: 240px;
 }
@@ -263,7 +263,7 @@ body {
 canvas {
   border: 1px solid var(--border);
   border-radius: 6px;
-  background: #1a1a1a;
+  background: #f0f0f0;
   touch-action: none;
   cursor: crosshair;
   display: block;
