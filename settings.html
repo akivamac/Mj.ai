@@ -97,6 +97,12 @@
     <div id="brain-parts"></div>
   </div>
 
+  <!-- Hidden Chats -->
+  <div class="section">
+    <h2>Hidden Chats</h2>
+    <div id="hidden-chats-list"><em style="color:var(--text-muted);font-size:0.85rem">None</em></div>
+  </div>
+
   <!-- MCP -->
   <div class="section">
     <h2>MCP Server</h2>
@@ -157,6 +163,25 @@
         }
       });
     });
+
+    // Hidden chats
+    const hiddenList = document.getElementById("hidden-chats-list");
+    const hidden = Chat.getHiddenChats();
+    if (hidden.length) {
+      hiddenList.innerHTML = "";
+      hidden.forEach(c => {
+        const row = document.createElement("div");
+        row.style.cssText = "display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)";
+        row.innerHTML = `<span style="font-size:0.88rem">${c.title}</span><button class="edit-btn" data-id="${c.id}">Restore</button>`;
+        row.querySelector("button").addEventListener("click", () => {
+          Chat.restoreChat(c.id);
+          row.remove();
+          if (!document.querySelectorAll("#hidden-chats-list [data-id]").length)
+            hiddenList.innerHTML = "<em style=\"color:var(--text-muted);font-size:0.85rem\">None</em>";
+        });
+        hiddenList.appendChild(row);
+      });
+    }
 
     // MCP
     const mcpInput = document.getElementById('mcp-url');

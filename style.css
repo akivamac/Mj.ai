@@ -140,6 +140,8 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  height: 100%;
+  min-height: 0;
 }
 
 #topbar {
@@ -342,4 +344,60 @@ textarea#photo-desc:focus { outline: none; border-color: var(--accent); }
 @keyframes blink {
   0%, 80%, 100% { opacity: 0.2; }
   40% { opacity: 1; }
+}
+
+/* Projects */
+.new-project-btn {
+  width: calc(100% - 12px);
+  margin: 6px 6px 2px;
+  background: none;
+  border: 1px dashed var(--border);
+  color: var(--text-muted);
+  padding: 7px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-align: left;
+}
+.new-project-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.project-wrap { margin: 2px 0; }
+
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px 8px 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  margin: 0 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.project-header:hover { background: var(--surface); }
+.project-arrow { font-size: 0.65rem; color: var(--text-muted); flex-shrink: 0; }
+.project-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.project-new-chat-btn {
+  display: block;
+  margin: 1px 6px 1px 26px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+  width: calc(100% - 32px);
+}
+.project-new-chat-btn:hover { background: var(--surface); color: var(--accent); }
+
+.chat-item.in-project { margin-left: 20px; width: calc(100% - 26px); }
+
+.sidebar-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 6px 12px;
 }
