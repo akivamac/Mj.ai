@@ -100,11 +100,9 @@ const Files = (() => {
   function download(id) {
     const f = store[id];
     if (!f) return;
-    const blob = new Blob([f.content], { type: f.mime });
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
+    const url = 'data:' + f.mime + ';charset=utf-8,' + encodeURIComponent(f.content);
+    const a   = document.createElement('a');
     a.href = url; a.download = f.filename; a.click();
-    URL.revokeObjectURL(url);
   }
 
   function parse(input) {
@@ -146,17 +144,13 @@ const Files = (() => {
     if (appendMatch) {
       const toAdd = appendMatch[1].trim();
       if (['txt','md','csv'].includes(f.ext)) {
-        f.content += '
-' + toAdd;
+        f.content += '\n' + toAdd;
       } else if (f.ext === 'html') {
-        f.content = f.content.replace('</body>', '  <p>' + toAdd + '</p>
-</body>');
+        f.content = f.content.replace('</body>', '  <p>' + toAdd + '</p>\n</body>');
       } else if (['js','ts','py','sh'].includes(f.ext)) {
-        f.content += '
-// ' + toAdd;
+        f.content += '\n// ' + toAdd;
       } else {
-        f.content += '
-' + toAdd;
+        f.content += '\n' + toAdd;
       }
       store[id] = f;
       return '__HTML__:' + buildCard(id, f) + '<br><small style="color:var(--text-muted)">✓ Added content</small>';
@@ -176,8 +170,7 @@ const Files = (() => {
     if (lower.includes('dark') && f.ext === 'html') {
       f.content = f.content.replace('background: #f5f5f5;', 'background: #1a1a1a;').replace('color: #1a1a1a;', 'color: #ececec;');
       if (!f.content.includes('background: #1a1a1a')) {
-        f.content = f.content.replace('</style>', '  body { background: #1a1a1a; color: #ececec; }
-</style>');
+        f.content = f.content.replace('</style>', '  body { background: #1a1a1a; color: #ececec; }\n</style>');
       }
       store[id] = f;
       return '__HTML__:' + buildCard(id, f) + '<br><small style="color:var(--text-muted)">✓ Dark mode added</small>';
