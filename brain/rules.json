@@ -1,17 +1,89 @@
 {
+  "greetings": [
+    { "if": ["hello", "hi", "hey", "howdy", "sup", "what's up", "whats up", "yo", "hiya", "greetings"],
+      "responses": [
+        "Hey! What's on your mind? 🐒",
+        "Hi there! Need something?",
+        "Hello! What can I do for you?",
+        "Hey hey! What's up?",
+        "Yo! What do you need?",
+        "Hiya! What's going on?"
+      ]
+    }
+  ],
+  "emotions": {
+    "happy": {
+      "signals": ["😊","😄","😁","🥰","😍","❤️","yay","awesome","great","love it","so good","amazing","wonderful","fantastic","best day","happy","excited","woo","woohoo","🎉","🙌","💯","so happy","loving this"],
+      "responses": [
+        "That's great to hear! 😄 What's making you happy?",
+        "Love the energy! 🙌 What's going on?",
+        "Yay! 🎉 Tell me more!",
+        "That's awesome! What's got you feeling good?"
+      ]
+    },
+    "excited": {
+      "signals": ["!!","🤩","🔥","💥","omg","oh my","can't believe","so excited","hyped","pumped","let's go","lets go","woah","wow","whoa","incredible","unbelievable"],
+      "responses": [
+        "Okay okay I'm hyped too!! 🔥 What's happening?!",
+        "WAIT WHAT?! Tell me everything!! 🤩",
+        "OH WOW!! 🎉 I'm excited with you!!",
+        "No way!! That's incredible!! 🔥🔥"
+      ]
+    },
+    "angry": {
+      "signals": ["😠","😡","🤬","angry","mad","furious","so annoyed","hate this","hate it","ugh","frustrated","frustrating","stupid","this sucks","awful","terrible","worst","!!!", "so mad", "drives me crazy","can't stand"],
+      "responses": [
+        "Hey, I hear you — that sounds really frustrating. Want to talk about it or should I try to help fix something?",
+        "Ugh, that does sound rough 😞. I'm here — what's going on?",
+        "That sounds really annoying, I'm sorry. What happened? Maybe I can help.",
+        "I get it, that's frustrating. Tell me what's going on and let's see what we can do 🐒"
+      ]
+    },
+    "sad": {
+      "signals": ["😢","😭","😔","😞","💔","sad","upset","crying","cry","depressed","down","not okay","not good","hurts","hurt","lonely","miss","miss you","heartbroken","unhappy","feeling bad"],
+      "responses": [
+        "Aw, I'm sorry you're feeling that way 😞. I'm here if you want to talk.",
+        "That sounds really hard. Want to tell me what's going on?",
+        "I'm sorry 💙. What happened?",
+        "Hey, it's okay to feel that way. I'm here 🐒"
+      ]
+    }
+  },
+  "emojis": {
+    "😂": ["Ha! That's funny 😂", "Lol same 😂", "hahaha 🐒"],
+    "🤣": ["Ha! 🤣", "That's hilarious!", "lmaoo 🐒"],
+    "😎": ["Looking cool 😎", "Smooth 😎"],
+    "🤔": ["Hmm, good question... want me to search for it?", "That's a thinker 🤔"],
+    "👍": ["👍", "Nice!", "Cool!"],
+    "🙏": ["Of course! What do you need?", "Happy to help 🐒"],
+    "❤️": ["Aw 🐒❤️", "Thanks, I like you too!"],
+    "🔥": ["🔥🔥 Let's go!", "That's fire!"],
+    "💀": ["lol 💀", "lmaooo"],
+    "😴": ["Getting sleepy? 😴", "Rest up!"],
+    "🤯": ["I know right?! 🤯", "Wild!!"]
+  },
   "rules": [
     { "if": "thank", "then": "You're welcome! Anything else?" },
     { "if": "bye", "then": "See you later! 🐒" },
+    { "if": "good night", "then": "Good night! Rest well 😴" },
+    { "if": "good morning", "then": "Good morning! ☀️ What are we doing today?" },
+    { "if": "good afternoon", "then": "Good afternoon! What's up?" },
     { "if": "i like you", "then": "Aw, I like you too! 🐒" },
+    { "if": "i love you", "then": "Aw 🐒❤️ You're the best!" },
     { "if": "you're cute", "then": "Thanks, I try 🐒" },
     { "if": "you are cute", "then": "Thanks, I try 🐒" },
     { "if": "good job", "then": "Thanks! Doing my best 🐒" },
     { "if": "good boy", "then": "🐒 *monkey noises*" },
+    { "if": "you're funny", "then": "lol I try 😂🐒" },
+    { "if": "you are funny", "then": "lol I try 😂🐒" },
     { "if": "why didn't you answer", "then": "Sorry about that! My brain is still small. Try asking me to search the web for things I don't know yet." },
     { "if": "why did you not answer", "then": "Sorry! I didn't have that in my brain. Try asking me to search for it." },
     { "if": "help", "then": "I can chat, search the web (with your permission), look at drawings, and answer terminal questions. What do you need?" },
     { "if": "draw", "then": "Hit the ✏️ button to open the drawing pad!" },
     { "if": "search", "then": "Sure! What do you want me to search for?" },
-    { "if": "what can you do", "then": "I can chat, search the web, look at drawings, answer terminal/coding questions, and connect to MCP servers. I'm growing!" }
+    { "if": "what can you do", "then": "I can chat, search the web, look at drawings, answer terminal/coding questions, and connect to MCP servers. I'm growing!" },
+    { "if": "how are you", "then": "Doing great, just hanging in the repo 🐒 How about you?" },
+    { "if": "are you okay", "then": "Yep, all good! 🐒 What about you?" },
+    { "if": "what's new", "then": "My brain's been growing! What's new with you?" }
   ]
 }

@@ -17,12 +17,38 @@ const Brain = (() => {
     try { const r = await fetch(path); return await r.json(); } catch(_) { return {}; }
   }
 
+  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
   function respond(input) {
     const lower = input.toLowerCase().trim();
 
-    // If it's just "search the web" with no query, ask what to search
+    // Just "search the web" with no query
     if (/^search(\s+the\s+web)?!?$/.test(lower)) {
       return "Sure! What do you want me to search for?";
+    }
+
+    // Greeting check
+    if (rules && rules.greetings) {
+      for (const g of rules.greetings) {
+        if (g.if.some(w => lower === w || lower.startsWith(w + ' ') || lower.startsWith(w + '!'))) {
+          return pick(g.responses);
+        }
+      }
+    }
+
+    // Emoji-only or emoji-heavy check
+    if (rules && rules.emojis) {
+      for (const [emoji, responses] of Object.entries(rules.emojis)) {
+        if (input.includes(emoji) && lower.replace(/\s/g,'').length < 20) {
+          return pick(responses);
+        }
+      }
+    }
+
+    // Emotion detection
+    if (rules && rules.emotions) {
+      const detected = detectEmotion(lower, input);
+      if (detected) return pick(rules.emotions[detected].responses);
     }
 
     // Terminal/command check
@@ -52,7 +78,7 @@ const Brain = (() => {
       }
     }
 
-    // Search detection — broad set of triggers
+    // Search detection
     if (needsSearch(lower)) {
       return '__SEARCH__:' + input.replace(/^(find a link to|find me|find a|find|look up|show me|get me|can you find|search for|search the web for)\s+/i, '');
     }
@@ -60,8 +86,18 @@ const Brain = (() => {
     return "I'm not sure about that yet. My brain is still growing! Try asking me to search the web for it.";
   }
 
+  function detectEmotion(lower, original) {
+    if (!rules || !rules.emotions) return null;
+    // Score each emotion by how many signals match
+    let best = null, bestScore = 0;
+    for (const [emotion, data] of Object.entries(rules.emotions)) {
+      const score = data.signals.filter(s => original.includes(s) || lower.includes(s.toLowerCase())).length;
+      if (score > bestScore) { bestScore = score; best = emotion; }
+    }
+    return bestScore > 0 ? best : null;
+  }
+
   function needsSearch(input) {
-    // Question-style triggers (anywhere in input)
     const questionTriggers = [
       'what is', 'what are', 'who is', 'who are',
       'when did', 'when was', 'when is',
@@ -72,16 +108,13 @@ const Brain = (() => {
     ];
     if (questionTriggers.some(t => input.includes(t))) return true;
 
-    // Action triggers — only valid if near start of sentence
     const actionTriggers = [
       'look up', 'search for', 'search the web for',
       'link to', 'photo of', 'picture of', 'image of',
       'show me', 'can you find', 'find me', 'find a link',
       'get me a link', 'find info'
     ];
-    if (actionTriggers.some(t => input.includes(t))) return true;
-
-    return false;
+    return actionTriggers.some(t => input.includes(t));
   }
 
   return { load, respond };
