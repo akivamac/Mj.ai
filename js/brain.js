@@ -54,7 +54,7 @@ const Brain = (() => {
 
     // Search detection — broad set of triggers
     if (needsSearch(lower)) {
-      return '__SEARCH__:' + input;
+      return '__SEARCH__:' + input.replace(/^(find|look up|show me|get me|can you find|find me)s+/i, '');
     }
 
     return "I'm not sure about that yet. My brain is still growing! Try asking me to search the web for it.";
