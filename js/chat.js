@@ -296,7 +296,15 @@ const Chat = (() => {
     await new Promise(r => setTimeout(r, 400));
     removeTyping();
     const raw = Brain.respond(input);
-    if (raw && raw.startsWith('__SEARCH__:')) {
+    if (raw && raw.startsWith('__FILE__:')) {
+      const parsed = Files.parse(raw.slice(9));
+      if (parsed) {
+        const result = Files.create(parsed.type, parsed.name);
+        addMessage('joe', result);
+      } else {
+        addMessage('joe', "I can make: html, css, js, ts, md, txt, json, py, sh, svg, csv files. Which type do you want?");
+      }
+    } else if (raw && raw.startsWith('__SEARCH__:')) {
       const query = raw.slice(11);
       const result = await Search.ask(query);
       addMessage('joe', result === null ? "Okay, I won't search for that." : result);
