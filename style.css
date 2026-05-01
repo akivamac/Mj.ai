@@ -476,3 +476,16 @@ textarea#photo-desc:focus { outline: none; border-color: var(--accent); }
   color: var(--text-muted);
   font-style: italic;
 }
+
+#logout-btn {
+  width: 100%;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+#logout-btn:hover { color: #c0392b; border-color: #c0392b; }
