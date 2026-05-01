@@ -308,7 +308,7 @@ const Chat = (() => {
       const history = (getActive() ? getActive().messages : []).slice(-20);
       const raw = Brain.respond(input, history);
       if (raw && raw.startsWith('__EDIT__:')) {
-        const colonIdx = raw.indexOf(':', 8);
+        const colonIdx = raw.indexOf(':', 9);
         const fileId = raw.slice(8, colonIdx);
         const instruction = raw.slice(colonIdx + 1);
         const result = Files.edit(fileId, instruction);
