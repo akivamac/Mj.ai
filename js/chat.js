@@ -59,13 +59,67 @@ const Chat = (() => {
   function renderChatList() {
     const list = document.getElementById('chat-list');
     list.innerHTML = '';
-    chats.forEach(chat => {
+    chats.filter(c => !c.hidden).forEach(chat => {
       const item = document.createElement('div');
-      item.className = 'chat-item' + (chat.id === activeId ? ' active' : '');
-      item.textContent = chat.title;
-      item.addEventListener('click', () => switchChat(chat.id));
+      item.className = 'chat-item' + (chat.id === activeId ? ' active' : '') + (chat.starred ? ' starred' : '');
+      item.innerHTML = `
+        <span class="chat-item-title">${chat.starred ? '⭐ ' : ''}${chat.title}</span>
+        <button class="chat-menu-btn" data-id="${chat.id}">⋮</button>
+      `;
+      item.querySelector('.chat-item-title').addEventListener('click', () => switchChat(chat.id));
+      item.querySelector('.chat-menu-btn').addEventListener('click', e => {
+        e.stopPropagation();
+        openChatMenu(chat.id, e.target);
+      });
       list.appendChild(item);
     });
+  }
+
+  function openChatMenu(id, anchor) {
+    closeAllMenus();
+    const chat = chats.find(c => c.id === id);
+    const menu = document.createElement('div');
+    menu.className = 'chat-menu-dropdown';
+    menu.innerHTML = `
+      <div class="menu-item" data-action="rename">Rename</div>
+      <div class="menu-item" data-action="star">${chat.starred ? 'Unstar' : 'Star ⭐'}</div>
+      <div class="menu-item" data-action="hide">Hide</div>
+      <div class="menu-item" data-action="delete" style="color:#c0392b">Delete</div>
+    `;
+    menu.querySelectorAll('.menu-item').forEach(el => {
+      el.addEventListener('click', e => {
+        e.stopPropagation();
+        handleMenuAction(id, el.dataset.action);
+        closeAllMenus();
+      });
+    });
+    anchor.parentElement.appendChild(menu);
+    setTimeout(() => document.addEventListener('click', closeAllMenus, { once: true }), 0);
+  }
+
+  function closeAllMenus() {
+    document.querySelectorAll('.chat-menu-dropdown').forEach(m => m.remove());
+  }
+
+  function handleMenuAction(id, action) {
+    const chat = chats.find(c => c.id === id);
+    if (!chat) return;
+    if (action === 'rename') {
+      const name = prompt('Rename chat:', chat.title);
+      if (name && name.trim()) { chat.title = name.trim(); }
+    } else if (action === 'star') {
+      chat.starred = !chat.starred;
+    } else if (action === 'hide') {
+      chat.hidden = true;
+      if (chat.id === activeId) newChat();
+    } else if (action === 'delete') {
+      if (!confirm('Delete this chat?')) return;
+      chats = chats.filter(c => c.id !== id);
+      if (id === activeId) newChat();
+    }
+    Storage.saveChats(chats);
+    renderChatList();
+    if (action === 'rename') document.getElementById('chat-title').textContent = chat.title;
   }
 
   function switchChat(id) {

@@ -66,16 +66,54 @@ body {
   cursor: pointer;
   font-size: 0.85rem;
   color: var(--text-muted);
+  border-radius: 6px;
+  margin: 2px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.chat-item-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-radius: 6px;
-  margin: 2px 6px;
+  flex: 1;
 }
 .chat-item:hover, .chat-item.active {
   background: var(--surface);
   color: var(--text);
 }
+.chat-menu-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 2px;
+  opacity: 0;
+  flex-shrink: 0;
+}
+.chat-item:hover .chat-menu-btn { opacity: 1; }
+
+.chat-menu-dropdown {
+  position: absolute;
+  right: 8px;
+  top: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  z-index: 200;
+  min-width: 140px;
+  overflow: hidden;
+}
+.menu-item {
+  padding: 9px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--text);
+}
+.menu-item:hover { background: var(--bg); }
 
 #sidebar-footer {
   padding: 12px;
