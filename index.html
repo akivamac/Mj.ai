@@ -89,6 +89,7 @@
     </div>
   </div>
 
+  <script src="config.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/files.js"></script>
   <script src="js/brain.js"></script>
@@ -98,5 +99,49 @@
   <script src="js/mcp.js"></script>
   <script src="js/chat.js"></script>
   <script src="js/app.js"></script>
+
+  <!-- Password gate -->
+  <div id="password-gate" style="
+    position:fixed;inset:0;background:var(--bg);
+    display:flex;align-items:center;justify-content:center;
+    z-index:9999;flex-direction:column;gap:16px;">
+    <div style="font-size:2rem;">🐒</div>
+    <div style="font-size:1.1rem;font-weight:bold;">Monkey Joe</div>
+    <input id="password-input" type="password"
+      placeholder="Password"
+      style="padding:10px 16px;border-radius:8px;border:1px solid var(--border);
+             background:var(--input-bg);color:var(--text);font-size:1rem;
+             width:220px;text-align:center;"
+      autofocus />
+    <button id="password-submit"
+      style="background:var(--accent);color:white;border:none;
+             padding:10px 24px;border-radius:8px;font-size:1rem;cursor:pointer;">
+      Enter
+    </button>
+    <div id="password-error" style="color:#c0392b;font-size:0.85rem;display:none;">
+      Wrong password
+    </div>
+  </div>
+  <script>
+    (function() {
+      const gate = document.getElementById('password-gate');
+      if (sessionStorage.getItem('mj_auth') === '1') { gate.remove(); return; }
+      const input = document.getElementById('password-input');
+      const btn   = document.getElementById('password-submit');
+      const err   = document.getElementById('password-error');
+      function tryPass() {
+        if (typeof CONFIG !== 'undefined' && input.value === CONFIG.password) {
+          sessionStorage.setItem('mj_auth', '1');
+          gate.remove();
+        } else {
+          err.style.display = 'block';
+          input.value = '';
+          input.focus();
+        }
+      }
+      btn.addEventListener('click', tryPass);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') tryPass(); });
+    })();
+  </script>
 </body>
 </html>
