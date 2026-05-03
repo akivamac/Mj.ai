@@ -66,6 +66,19 @@ const Chat = (() => {
     const bubble = el.querySelector('.bubble');
     if (msg.isHTML) bubble.innerHTML = msg.content;
     else bubble.textContent = msg.content;
+    if (msg.role === 'joe') {
+      const btn = document.createElement('button');
+      btn.textContent = '🔊';
+      btn.title = 'Read aloud';
+      btn.className = 'speak-btn';
+      btn.onclick = () => {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(msg.content);
+        u.rate = 0.95;
+        window.speechSynthesis.speak(u);
+      };
+      bubble.appendChild(btn);
+    }
     document.getElementById('messages').appendChild(el);
   }
 
