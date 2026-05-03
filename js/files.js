@@ -617,6 +617,40 @@ const Files = (() => {
       return '__HTML__:' + buildCard(id, f) + `<br><small style="color:var(--text-muted)">✓ Text replaced</small>`;
     }
 
+    // Delete sections / elements
+    if (/delete|remove|clear|strip|get rid of/i.test(instruction)) {
+      if (f.ext === 'html') {
+        const targets = instruction.match(/(?:the|all(?: the)?)\s+(.+?)(?:\s+(?:at|from|in|on).+)?$/i);
+        const what = targets ? targets[2].toLowerCase() : '';
+        if (/section|div|block|card|grid/i.test(what)) {
+          // Remove all divs with 'section' or 'card' class, or <section> tags, below the header/hero
+          f.content = f.content
+            .replace(/<section[^>]*>[\s\S]*?<\/section>/gi, '')
+            .replace(/<div class="card[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '')
+            .replace(/<div class="grid[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
+        } else if (/nav|navigation|menu/i.test(what)) {
+          f.content = f.content.replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, '');
+        } else if (/footer/i.test(what)) {
+          f.content = f.content.replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, '');
+        } else if (/header/i.test(what)) {
+          f.content = f.content.replace(/<header[^>]*>[\s\S]*?<\/header>/gi, '');
+        } else if (/hero/i.test(what)) {
+          f.content = f.content.replace(/<div class="hero[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
+        } else {
+          // Generic: remove everything after </header> inside .container
+          f.content = f.content.replace(/(<div class="container[^"]*"[^>]*>)[\s\S]*?(<\/div>\s*<footer)/i, '$1
+  <p style="padding:24px;color:#888">Content removed.</p>
+$2');
+        }
+        store[id] = f;
+        return '__HTML__:' + buildCard(id, f) + '<br><small style="color:var(--text-muted)">✓ Removed</small>';
+      }
+      // Non-HTML: clear content
+      f.content = '';
+      store[id] = f;
+      return '__HTML__:' + buildCard(id, f) + '<br><small style="color:var(--text-muted)">✓ Content cleared</small>';
+    }
+
     // Add paragraph / content
     const addMatch = instruction.match(/add\s+(?:the\s+(?:text|line|paragraph|code)\s+)?["']?(.+?)["']?\s+(?:to\s+(?:it|the file|the end))?$/i);
     if (addMatch) {

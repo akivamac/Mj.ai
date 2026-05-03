@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '22'; // bump when brain JSON files change
+  const BRAIN_VERSION = '23'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -66,7 +66,7 @@ const Brain = (() => {
     const hasRecentFile = !!lastFileMsg;
 
     const explicitEditTriggers = ['edit it','edit that','edit the file','change it','update it','update the file','modify it','modify the file','add to it','add to the file','rename it','rename the file','fix it','fix the file'];
-    const contextEditTriggers = ['change the','add the','add a','remove the','rename to','make it','make the','set the','update the'];
+    const contextEditTriggers = ['change the','add the','add a','remove the','rename to','make it','make the','set the','update the','delete the','delete all','remove all','clear the','strip the','get rid of','hide the'];
     const isEditIntent = explicitEditTriggers.some(t => lower.includes(t)) ||
       (hasRecentFile && contextEditTriggers.some(t => lower.startsWith(t)));
     if (isEditIntent) {
