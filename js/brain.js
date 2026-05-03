@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '16'; // bump when brain JSON files change
+  const BRAIN_VERSION = '17'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -124,7 +124,7 @@ const Brain = (() => {
       let bestFact = null, bestScore = 0;
       for (const fact of knowledge.facts) {
         if (!fact.keywords) continue;
-        const score = fact.keywords.reduce((n, k) => { const kl = k.toLowerCase(); return n + (new RegExp('\\b' + kl.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&') + '\\b').test(lower) ? 1 : 0); }, 0);
+        const score = fact.keywords.reduce((n, k) => { const kl = k.toLowerCase(); const esc = kl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); const re = /^[a-z0-9 ]+$/.test(kl) ? new RegExp('\\b' + esc + '\\b') : new RegExp(esc); return n + (re.test(lower) ? 1 : 0); }, 0);
         if (score > bestScore) { bestScore = score; bestFact = fact; }
       }
       if (bestFact) return bestFact.answer;
