@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '15'; // bump when brain JSON files change
+  const BRAIN_VERSION = '16'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -151,7 +151,7 @@ const Brain = (() => {
   function needsSearch(input) {
     const questionTriggers = [
       'what is', 'what are', 'what do', 'what does', 'what did', 'what can',
-      'who is', 'who are', 'who was',
+      'who is', 'who are', 'who was', 'who am',
       'when did', 'when was', 'when is',
       'how do', 'how does', 'how did', 'how to', 'how many', 'how much',
       'why does', 'why did', 'why is', 'why can',
