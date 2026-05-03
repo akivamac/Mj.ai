@@ -638,9 +638,7 @@ const Files = (() => {
           f.content = f.content.replace(/<div class="hero[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
         } else {
           // Generic: remove everything after </header> inside .container
-          f.content = f.content.replace(/(<div class="container[^"]*"[^>]*>)[\s\S]*?(<\/div>\s*<footer)/i, '$1
-  <p style="padding:24px;color:#888">Content removed.</p>
-$2');
+          f.content = f.content.replace(/(<div class="container[^"]*"[^>]*>)[\s\S]*?(<\/div>\s*<footer)/i, '$1\n  <p style="padding:24px;color:#888">Content removed.<\/p>\n$2');
         }
         store[id] = f;
         return '__HTML__:' + buildCard(id, f) + '<br><small style="color:var(--text-muted)">✓ Removed</small>';
