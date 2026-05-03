@@ -330,7 +330,7 @@ const Chat = (() => {
       } else if (raw && raw.startsWith('__FILE__:')) {
         const parsed = Files.parse(raw.slice(9));
         if (parsed) {
-          const result = Files.create(parsed.type, parsed.name);
+          const result = Files.create(parsed.type, parsed.name, parsed.desc || '');
           if (result.startsWith('__HTML__:')) addMessage('joe', result.slice(9), true);
           else addMessage('joe', result);
         } else {
