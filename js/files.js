@@ -1,6 +1,8 @@
 const Files = (() => {
 
   const store = {};
+  // Restore files from localStorage on load
+  try { for (const k of Object.keys(localStorage)) { if (k.startsWith('mj_file_')) { const id = k.slice(8); try { store[id] = JSON.parse(localStorage.getItem(k)); } catch(e) {} } } } catch(e) {}
 
   // ── Helper: parse color theme from description ──────────
   function parseTheme(desc) {
@@ -505,6 +507,7 @@ const Files = (() => {
     const mime = mimeTypes[ext] || 'text/plain';
     const id = 'f' + Date.now();
     store[id] = { filename, content, mime, ext };
+    try { localStorage.setItem('mj_file_' + id, JSON.stringify(store[id])); } catch(e) {}
     return '__HTML__:' + buildCard(id, store[id]);
   }
 
@@ -562,6 +565,9 @@ const Files = (() => {
   }
 
   function edit(id, instruction) {
+    if (!store[id]) {
+      try { const s = localStorage.getItem('mj_file_' + id); if (s) store[id] = JSON.parse(s); } catch(e) {}
+    }
     const f = store[id];
     if (!f) return "I can't find that file — it may have been lost when the page reloaded. Make it again and I'll edit it!";
     const lower = instruction.toLowerCase();
