@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '19'; // bump when brain JSON files change
+  const BRAIN_VERSION = '20'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -119,6 +119,27 @@ const Brain = (() => {
       }
     }
 
+    // Question intent detection
+    const intentMap = {
+      diet:      ['eat', 'diet', 'food', 'feed', 'prey', 'herbivore', 'carnivore', 'omnivore', 'drink', 'nutrition', 'meal', 'consume', 'graze', 'hunt'],
+      size:      ['big', 'large', 'small', 'tall', 'heavy', 'weight', 'size', 'long', 'wide', 'huge', 'giant', 'tiny', 'height', 'diameter', 'measure'],
+      color:     ['color', 'colour', 'red', 'blue', 'green', 'black', 'white', 'pink', 'yellow', 'orange', 'purple', 'brown', 'hoof color', 'hoof colour'],
+      speed:     ['fast', 'speed', 'run', 'swim', 'fly', 'quick', 'slow', 'mph', 'km/h', 'velocity'],
+      habitat:   ['live', 'habitat', 'where', 'home', 'found', 'region', 'country', 'continent', 'environment', 'range'],
+      lifespan:  ['lifespan', 'how old', 'how long do', 'how long can', 'age', 'live to', 'years old'],
+      danger:    ['dangerous', 'attack', 'bite', 'sting', 'venom', 'poison', 'kill', 'hurt', 'safe', 'deadly'],
+      sound:     ['sound', 'noise', 'call', 'roar', 'bark', 'sing', 'communicate', 'talk', 'vocalize'],
+      baby:      ['baby', 'young', 'cub', 'pup', 'foal', 'calf', 'born', 'birth', 'newborn', 'offspring', 'child'],
+      sleep:     ['sleep', 'rest', 'nocturnal', 'awake', 'hibernate'],
+      smell:     ['smell', 'scent', 'nose', 'sniff'],
+    };
+    function getIntent(q) {
+      for (const [intent, words] of Object.entries(intentMap)) {
+        if (words.some(w => q.includes(w))) return { intent, words };
+      }
+      return null;
+    }
+
     // Knowledge check — prefer most-specific match (most keywords hit)
     if (knowledge && knowledge.facts) {
       let bestFact = null, bestScore = 0;
@@ -127,7 +148,18 @@ const Brain = (() => {
         const score = fact.keywords.reduce((n, k) => { const kl = k.toLowerCase(); const esc = kl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); const re = /^[a-z0-9 ]+$/.test(kl) ? new RegExp('\\b' + esc) : new RegExp(esc); return n + (re.test(lower) ? 1 : 0); }, 0);
         if (score > bestScore) { bestScore = score; bestFact = fact; }
       }
-      if (bestFact) return bestFact.answer;
+      if (bestFact && bestScore > 0) {
+        const intentResult = getIntent(lower);
+        if (intentResult) {
+          const answerLower = bestFact.answer.toLowerCase();
+          const covered = intentResult.words.some(w => answerLower.includes(w));
+          if (!covered) {
+            // We know the topic but not the specific answer — search
+            return '__SEARCH__:' + input;
+          }
+        }
+        return bestFact.answer;
+      }
     }
 
     // Search detection
