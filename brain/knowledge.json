@@ -1,81 +1,960 @@
 {
   "facts": [
-    {"keywords":["the user sent a drawing"],"answer":"Nice drawing! I can see you sketched something out. I'm a rules-based assistant so I can't analyze it in detail like Claude can, but if you describe what's in it I might be able to help. Or want me to search the web for something related to it?"},
-
-    {"keywords":["javascript","js language"],"answer":"JavaScript is the language of the web — it runs in every browser and also on servers via Node.js. It's dynamically typed, meaning you don't declare variable types. Key concepts: variables (let, const), functions, arrays, objects, promises (async/await), and the DOM. It's event-driven, so most code runs in response to user actions or timers. npm is the package ecosystem with millions of libraries. Common frameworks: React, Vue, Angular (frontend), Express, Fastify (backend)."},
-    {"keywords":["typescript"],"answer":"TypeScript is JavaScript with static types, developed by Microsoft. You write .ts files and compile them to plain .js. The types catch bugs before runtime — things like passing a string where a number is expected. Key features: interfaces, generics, enums, type unions, and strict null checks. Most large JavaScript projects have moved to TypeScript. Use tsc or tools like Vite/webpack to compile it."},
-    {"keywords":["html"],"answer":"HTML (HyperText Markup Language) is the skeleton of every web page. It describes content using tags like <h1> for headings, <p> for paragraphs, <a> for links, <img> for images, <div> and <span> for containers. HTML5 added semantic tags: <header>, <nav>, <main>, <section>, <article>, <footer>. Attributes add extra info — like href on <a>, src on <img>, or class/id on any element. The browser reads HTML and builds the DOM (Document Object Model), which JavaScript can then manipulate."},
-    {"keywords":["css"],"answer":"CSS (Cascading Style Sheets) controls how HTML looks. Selectors target elements (by tag, class, id), then properties set their appearance. Key concepts: the box model (margin, border, padding, content), flexbox (one-dimensional layouts), CSS Grid (two-dimensional layouts), and custom properties (variables with --var-name). Media queries make designs responsive. Transitions and animations add motion. Modern CSS is very powerful — you can do a lot without JavaScript."},
-    {"keywords":["python"],"answer":"Python is one of the most popular languages in the world, loved for its readable, clean syntax. It's used for scripting, automation, web backends (Django, Flask, FastAPI), data science (pandas, numpy), machine learning (PyTorch, TensorFlow), and more. It's interpreted and dynamically typed. Package manager: pip. Virtual environments (venv) keep project dependencies isolated. Python's philosophy: 'There should be one obvious way to do it.' Great first language and also a serious professional tool."},
-    {"keywords":["java "],"answer":"Java is a strongly-typed, compiled, object-oriented language that runs on the JVM (Java Virtual Machine). 'Write once, run anywhere' — the same bytecode runs on any OS with a JVM. It's verbose but very structured, which suits large enterprise codebases. Common in Android apps (though Kotlin is now preferred), banking systems, and large backend systems. Key concepts: classes, inheritance, interfaces, generics, and the Collections framework. Build tools: Maven, Gradle."},
-    {"keywords":["kotlin"],"answer":"Kotlin is JetBrains' modern language for the JVM, now Google's preferred language for Android development. It's fully interoperable with Java but far more concise — no semicolons, smart casts, data classes, null safety built in (no more NullPointerExceptions!), and extension functions. Coroutines make async code clean. You can use all Java libraries. It also compiles to JavaScript and native code (Kotlin Multiplatform)."},
-    {"keywords":["swift"],"answer":"Swift is Apple's modern programming language for iOS, macOS, watchOS, and tvOS apps. Released in 2014, it replaced Objective-C with a much cleaner, safer syntax. Key features: optionals (safe null handling), type inference, value types (structs), protocols, and closures. SwiftUI is the modern declarative framework for building Apple UIs. Swift is open source and also being used for server-side development."},
-    {"keywords":["rust"],"answer":"Rust is a systems programming language focused on speed, memory safety, and concurrency — without a garbage collector. It prevents memory bugs (null pointer dereferences, use-after-free, data races) at compile time through its ownership system. It's as fast as C/C++ but much safer. Used in: operating systems, browsers (Firefox), game engines, embedded systems, WebAssembly, and increasingly in web backends. Cargo is its excellent package manager and build tool."},
-    {"keywords":["go lang","golang","go language"],"answer":"Go (Golang) was designed at Google for simplicity and performance. It compiles to a single binary with no runtime dependencies — making deployment easy. Key features: goroutines (lightweight threads, very cheap), channels (for communication between goroutines), strong standard library, and fast compilation. Garbage collected but very efficient. Popular for: backend APIs, CLI tools, DevOps tools (Docker and Kubernetes are written in Go), and microservices."},
-    {"keywords":["react"],"answer":"React is Meta's JavaScript library for building user interfaces. Everything is a component — a function that returns JSX (HTML-like syntax in JS). State is managed with hooks: useState for local state, useEffect for side effects (API calls, timers), useContext for shared state. When state changes, React re-renders only what changed (virtual DOM diffing). The ecosystem is huge: React Router for navigation, Redux/Zustand for state management, Next.js for full-stack React."},
-    {"keywords":["vue"],"answer":"Vue.js is a progressive JavaScript framework — you can add it to a small part of a page or use it for a full SPA. It has a gentler learning curve than React. The Options API uses a structured object (data, methods, computed, watch). The Composition API (Vue 3) is more like React hooks. Single File Components (.vue) put template, script, and style in one file. Vite is the recommended build tool. Nuxt.js is the Vue equivalent of Next.js."},
-    {"keywords":["node","nodejs","node.js"],"answer":"Node.js lets JavaScript run on the server, built on Chrome's V8 engine. It's event-driven and non-blocking, making it great for handling many simultaneous connections. npm (or yarn/pnpm) gives access to millions of packages. Popular frameworks: Express (minimal), Fastify (fast), NestJS (structured/enterprise). Common uses: REST APIs, real-time apps (Socket.io), CLI tools, build tools (webpack, Vite). Not ideal for CPU-heavy tasks due to the single-threaded event loop."},
-    {"keywords":["api"],"answer":"An API (Application Programming Interface) defines how software components communicate. Web APIs use HTTP — you send a request to a URL and get data back (usually JSON). REST APIs are the most common pattern: resources are URLs, and HTTP methods (GET, POST, PUT, DELETE) define what you do with them. GraphQL is an alternative where the client specifies exactly what data it needs. WebSockets allow real-time two-way communication. Good API design includes versioning, authentication, error handling, and clear documentation."},
-    {"keywords":["git"],"answer":"Git is a distributed version control system — every developer has a full copy of the history. Key commands: git init (new repo), git clone (copy a repo), git add (stage changes), git commit (save a snapshot), git push (send to remote), git pull (get remote changes), git branch (create/switch branches), git merge (combine branches), git rebase (rewrite history cleanly), git stash (temporarily save uncommitted work). A good commit message explains WHY, not just WHAT changed."},
-    {"keywords":["github"],"answer":"GitHub is the most popular Git hosting platform. Beyond storing code, it offers: Pull Requests (code review workflow), Issues (bug tracking), GitHub Actions (CI/CD automation), GitHub Pages (free static hosting), Codespaces (cloud dev environments), and Packages (package registry). Repos can be public (free) or private. Forks let you copy someone's repo to contribute back via PRs. Stars are like bookmarks/likes for repos."},
-    {"keywords":["linux"],"answer":"Linux is an open-source operating system kernel created by Linus Torvalds in 1991. It powers most of the internet (servers, cloud), Android phones, supercomputers, and many desktops. Distributions (distros) package the kernel with software: Ubuntu (beginner-friendly, Debian-based), Arch (DIY, bleeding edge), Fedora (Red Hat-based, cutting edge), Debian (stable), Alpine (tiny, great for Docker). The file system starts at / (root). Everything is a file. Permissions control who can read/write/execute."},
-    {"keywords":["docker"],"answer":"Docker packages applications into containers — lightweight, isolated environments that include everything needed to run: code, runtime, libraries, config. 'It works on my machine' is no longer an excuse. Key concepts: Dockerfile (recipe for an image), image (built template), container (running instance), docker-compose (multi-container setup). Images are layered — changes only rebuild affected layers. Docker Hub hosts public images. Containers are ephemeral by default — use volumes for persistent data."},
-    {"keywords":["localstorage","local storage"],"answer":"localStorage is a browser API for storing key-value pairs persistently (survives page refresh and browser close). Data must be strings — use JSON.stringify() to store objects and JSON.parse() to retrieve them. Limit is ~5MB per origin. It's synchronous, so large operations can block the UI. Use it for: user preferences, cached data, tokens. Don't store sensitive info (no encryption). For more complex needs, use IndexedDB. sessionStorage is the same but clears when the tab closes."},
-    {"keywords":["cors"],"answer":"CORS (Cross-Origin Resource Sharing) is a browser security mechanism that blocks frontend JavaScript from making requests to a different domain than the page was served from. The server must include specific headers (Access-Control-Allow-Origin) to permit it. Preflight OPTIONS requests check permissions before the real request. Common fix: configure your backend to allow your frontend's origin. CORS only applies to browsers — server-to-server requests aren't affected. JSONP was the old hacky workaround before CORS existed."},
-    {"keywords":["mcp","model context protocol"],"answer":"MCP (Model Context Protocol) is an open standard from Anthropic for connecting AI models to external tools and data. It works like a plugin system — an MCP server exposes tools (functions the AI can call) and resources (data the AI can read). The AI client connects to one or more MCP servers and can then use those tools in conversation. Examples: a Google Drive MCP lets the AI read your files; a GitHub MCP lets it manage repos. Monkey Joe has MCP support in Settings!"},
-    {"keywords":["claude"],"answer":"Claude is an AI assistant made by Anthropic, founded by Dario Amodei, Daniela Amodei, and others from OpenAI. Claude is known for being helpful, harmless, and honest. It's available via claude.ai or the API. Different versions: Haiku (fast/cheap), Sonnet (balanced), Opus (most powerful). Claude has a large context window, is great at coding and writing, and is trained with Constitutional AI for safety. And yes — Claude helped Akiva build me! 🐒"},
-    {"keywords":["chatgpt","openai","gpt"],"answer":"ChatGPT is OpenAI's AI chatbot powered by GPT models (GPT-4, GPT-4o). OpenAI was founded in 2015, originally as a nonprofit. ChatGPT launched in November 2022 and rapidly became the fastest-growing app in history. GPT stands for Generative Pre-trained Transformer. OpenAI also makes DALL-E (image generation), Whisper (speech recognition), and Sora (video generation). They have a paid Plus tier and an API for developers."},
-    {"keywords":["llm","large language model"],"answer":"LLMs (Large Language Models) are AI systems trained on massive text datasets using transformer architecture. They learn statistical patterns in language and can generate coherent, contextually appropriate text. Training involves predicting the next token (word piece) billions of times. Key capabilities: text generation, summarization, translation, coding, reasoning, and following instructions. Major LLMs: Claude (Anthropic), GPT-4 (OpenAI), Gemini (Google), Llama (Meta, open source), Mistral."},
-    {"keywords":["algorithm"],"answer":"An algorithm is a precise, step-by-step procedure for solving a problem. Key properties: correctness (gives right answer), efficiency (uses minimal time/memory), and termination (always stops). Classic examples: binary search (find item in sorted list in O(log n)), quicksort (sort in O(n log n) average), Dijkstra's (shortest path in a graph), BFS/DFS (graph traversal). Big O notation describes how performance scales with input size. Good algorithm choice can be the difference between milliseconds and hours."},
-    {"keywords":["recursion"],"answer":"Recursion is when a function calls itself to solve a smaller version of the same problem. Every recursive function needs a base case (when to stop) and a recursive case (how to break the problem down). Example: factorial(5) = 5 × factorial(4) = 5 × 4 × factorial(3)... until factorial(0) = 1. Recursion is elegant for tree/graph traversal, fractals, and divide-and-conquer algorithms. Downside: deep recursion uses a lot of stack memory and can cause stack overflow. Many recursive solutions have iterative equivalents."},
-    {"keywords":["debugging"],"answer":"Debugging is systematically finding and fixing bugs. Strategies: read the error message carefully (it usually tells you exactly what's wrong), use console.log/print statements to inspect values, use a debugger with breakpoints to step through code, rubber duck debugging (explain the problem out loud), and binary search (comment out half the code to narrow down the problem). Common bugs: off-by-one errors, null/undefined access, wrong variable scope, async timing issues, and typos. Prevention: write tests, use TypeScript, keep functions small."},
-    {"keywords":["cpu"],"answer":"The CPU (Central Processing Unit) executes program instructions. Modern CPUs have multiple cores — each can run tasks independently, enabling true parallelism. Clock speed (GHz) measures cycles per second, but more cores often beats higher clock speed for multitasking. The CPU has cache (L1, L2, L3) — tiny, extremely fast memory closer than RAM. It fetches instructions, decodes them, executes them, and writes results back. CPUs excel at sequential, logic-heavy tasks. GPUs handle parallel tasks better (graphics, AI training)."},
-    {"keywords":["ram"],"answer":"RAM (Random Access Memory) is your computer's working memory — fast, temporary storage for running programs. When you open an app, it loads from the SSD into RAM where the CPU can access it quickly. More RAM means more apps open simultaneously without slowdown. Typical amounts: 8GB (basic), 16GB (good for development), 32GB+ (heavy workloads like video editing, VMs). RAM is volatile — it clears when power is cut. DDR5 is the current standard. RAM speed (MHz) and latency also affect performance."},
-
-    {"keywords":["earth"],"answer":"Earth is the third planet from the Sun, orbiting at ~150 million km (1 AU). It's 4.5 billion years old, has one natural satellite (the Moon), and is the only known planet to harbor life. About 71% of its surface is water. The atmosphere is 78% nitrogen, 21% oxygen. Earth has plate tectonics, which drives earthquakes, volcanoes, and mountain formation. The magnetic field protects us from solar wind. It completes one orbit of the Sun in 365.25 days and rotates once every 24 hours."},
-    {"keywords":["moon"],"answer":"The Moon is Earth's only natural satellite, about 384,400 km away on average. It formed ~4.5 billion years ago, likely from debris after a Mars-sized body collided with early Earth. The Moon is tidally locked — we always see the same face. Its gravity causes Earth's tides. The lunar cycle (new moon to full moon) takes 29.5 days. Humans last walked on it in December 1972 (Apollo 17, Eugene Cernan and Harrison Schmitt). NASA's Artemis program aims to return humans to the Moon."},
-    {"keywords":["solar system"],"answer":"Our solar system formed ~4.6 billion years ago from a collapsing cloud of gas and dust. It has 8 planets: Mercury (closest, no atmosphere), Venus (hottest, thick CO2 atmosphere), Earth, Mars (red, has the largest volcano), Jupiter (largest, Great Red Spot storm), Saturn (rings), Uranus (rotates on its side), Neptune (strongest winds). Plus dwarf planets (Pluto, Eris, Ceres), asteroids in the asteroid belt between Mars and Jupiter, and the Kuiper Belt and Oort Cloud beyond Neptune."},
-    {"keywords":["black hole"],"answer":"A black hole is a region where gravity is so extreme that not even light can escape. The boundary is the event horizon — once crossed, there's no return. Stellar black holes form when massive stars (>20 solar masses) collapse after a supernova. Supermassive black holes (millions to billions of solar masses) sit at the center of most galaxies — including Sagittarius A* at our Milky Way's center. In 2019, the Event Horizon Telescope captured the first image of a black hole (M87*). Time dilates near them."},
-    {"keywords":["gravity"],"answer":"Gravity is the force of attraction between objects with mass. Newton described it as a force proportional to mass and inversely proportional to distance squared (F = Gm₁m₂/r²). Einstein's general relativity reframed it: massive objects warp spacetime, and other objects follow the curved paths. This explains GPS satellites needing time corrections, light bending around stars (gravitational lensing), and black holes. Gravity is the weakest of the four fundamental forces but dominates at large scales because it has infinite range and is always attractive."},
-    {"keywords":["dna"],"answer":"DNA (deoxyribonucleic acid) carries the genetic instructions for all known life. It's a double helix — two strands wound around each other, connected by base pairs: Adenine-Thymine and Cytosine-Guanine. Human DNA has ~3 billion base pairs packed into 23 chromosome pairs in nearly every cell. Genes are segments of DNA that code for proteins. Only ~2% of DNA codes for proteins — the rest was called 'junk DNA' but actually has regulatory functions. DNA replicates before cell division, and mutations (errors) drive evolution."},
-    {"keywords":["evolution"],"answer":"Evolution is the change in heritable traits of populations over generations through natural selection, mutation, genetic drift, and gene flow. Charles Darwin and Alfred Russel Wallace independently proposed natural selection in 1858. The mechanism: individuals with traits better suited to the environment survive and reproduce more, passing those traits on. Over millions of generations, this produces new species. The fossil record, genetic similarity between species, antibiotic resistance in bacteria, and direct observation all provide strong evidence for evolution."},
-    {"keywords":["photosynthesis"],"answer":"Photosynthesis converts light energy into chemical energy stored in glucose. Equation: 6CO₂ + 6H₂O + light → C₆H₁₂O₆ + 6O₂. It happens in chloroplasts, primarily using chlorophyll (which absorbs red and blue light, reflects green — why plants look green). There are two stages: the light-dependent reactions (in the thylakoid membranes, produce ATP and NADPH) and the Calvin cycle (in the stroma, uses that energy to fix CO₂ into sugar). Almost all food chains on Earth ultimately depend on photosynthesis."},
-
-    {"keywords":["world war 2","world war ii","ww2"],"answer":"World War II (1939–1945) was the deadliest conflict in human history, killing an estimated 70–85 million people. Germany invaded Poland on September 1, 1939, triggering declarations of war from Britain and France. The Axis powers (Germany, Italy, Japan) fought the Allies (UK, USSR, US, and others). Key events: the Holocaust (genocide of 6 million Jews and millions of others), Battle of Britain, Operation Barbarossa (Germany's invasion of the USSR), D-Day (June 6, 1944), and the atomic bombings of Hiroshima and Nagasaki. The war ended in Europe in May 1945 and in the Pacific in September 1945."},
-    {"keywords":["cold war"],"answer":"The Cold War (1947–1991) was a geopolitical rivalry between the United States and the Soviet Union. It was called 'cold' because the superpowers never directly fought each other. Instead: the arms race (nuclear weapons stockpiling), the space race (Sputnik 1957, Moon 1969), proxy wars (Korea, Vietnam, Afghanistan), and ideological competition (capitalism vs. communism). Key events: Berlin Blockade, Cuban Missile Crisis (1962, the closest point to nuclear war), and the fall of the Berlin Wall (1989). The USSR dissolved in 1991, ending the Cold War."},
-    {"keywords":["moon landing"],"answer":"Apollo 11 landed the first humans on the Moon on July 20, 1969. Neil Armstrong stepped out first, saying 'That's one small step for man, one giant leap for mankind.' Buzz Aldrin joined him; Michael Collins orbited above in the Command Module. They spent 21 hours on the surface, planted a flag, collected 21.5 kg of rock samples, and deployed scientific instruments. Six Apollo missions successfully landed on the Moon (11, 12, 14, 15, 16, 17). Apollo 13 had an oxygen tank explosion but safely returned. The last moonwalkers were Cernan and Schmitt in December 1972."},
-    {"keywords":["roman empire"],"answer":"The Roman Empire at its peak (2nd century AD) was one of history's largest, stretching from Britain to Mesopotamia. It grew from the Roman Republic, which Julius Caesar destabilized before his assassination in 44 BC. Augustus became the first emperor in 27 BC. The empire had advanced engineering (roads, aqueducts, the Colosseum), a legal system that influenced modern law, and spread Latin (ancestor of French, Spanish, Italian, Portuguese, Romanian). It split into Western and Eastern halves; the Western Empire fell in 476 AD, the Eastern (Byzantine) lasted until 1453."},
-    {"keywords":["einstein","albert einstein"],"answer":"Albert Einstein (1879–1955) was a theoretical physicist who revolutionized our understanding of space, time, and energy. His special theory of relativity (1905) introduced E=mc² — mass and energy are interchangeable. His general theory of relativity (1915) described gravity as the curvature of spacetime, predicting black holes, gravitational waves, and the expansion of the universe — all later confirmed. He won the 1921 Nobel Prize in Physics for explaining the photoelectric effect (key to quantum mechanics). He fled Nazi Germany in 1933 and worked at Princeton until his death."},
-
-    {"keywords":["fibonacci"],"answer":"The Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89... Each number is the sum of the two before it. It appears constantly in nature: the spiral arrangement of seeds in sunflowers, the branching of trees, the curve of a nautilus shell, the arrangement of leaves (phyllotaxis). The ratio of consecutive Fibonacci numbers approaches the Golden Ratio (φ ≈ 1.618), which appears in art, architecture, and aesthetics. In programming, it's a classic recursion and dynamic programming example."},
-    {"keywords":["pi ","π","3.14"],"answer":"Pi (π) is the ratio of any circle's circumference to its diameter — always ~3.14159265358979... It's irrational (can't be expressed as a fraction) and transcendental (not the root of any polynomial). It appears everywhere in math and physics, not just circles: in probability (Buffon's needle), statistics (normal distribution), quantum mechanics, and more. Mathematicians have computed trillions of digits. Pi Day is March 14 (3/14). Archimedes calculated it using polygons; modern algorithms use infinite series."},
-    {"keywords":["pythagorean","pythagoras"],"answer":"The Pythagorean theorem: in a right triangle, a² + b² = c² (where c is the hypotenuse). Known to Babylonians 1000 years before Pythagoras, but he (or his school) gave the first proof. It has hundreds of different proofs — even US President James Garfield found one. Applications: distance formula in geometry, trigonometry, 3D distance (a²+b²+c²=d²), navigation, construction. The 3-4-5 right triangle (9+16=25) is a classic example used by builders to make right angles."},
-    {"keywords":["binary"],"answer":"Binary is base-2, using only 0 and 1. Computers use binary because transistors have two states: on (1) and off (0). Converting decimal to binary: repeatedly divide by 2 and collect remainders. Example: 13 = 1101 in binary (8+4+0+1). A bit is one binary digit; 8 bits = 1 byte. Bytes represent characters (ASCII, Unicode), numbers, and all digital data. Hexadecimal (base-16) is a human-friendly shorthand for binary — each hex digit represents 4 bits. 0xFF = 11111111 = 255 in decimal."},
-
-    {"keywords":["chocolate"],"answer":"Chocolate comes from cacao pods (Theobroma cacao — 'food of the gods'). Cacao beans are fermented, dried, roasted, and ground into cocoa mass. Dark chocolate (70%+ cacao) is richest in flavonoids (antioxidants) and has less sugar. Milk chocolate adds milk powder and more sugar. White chocolate has no cocoa solids — just cocoa butter, sugar, and milk. The Mayans and Aztecs drank bitter cacao beverages. Europeans added sugar in the 16th century. Switzerland and Belgium are famous for high-quality chocolate."},
-    {"keywords":["coffee"],"answer":"Coffee comes from the seeds (beans) of Coffea plants, primarily C. arabica and C. canephora (robusta). Arabica is smoother and more complex; robusta is stronger with more caffeine. Caffeine blocks adenosine receptors in the brain, preventing drowsiness. Espresso is finely ground coffee forced through with pressurized hot water — the base for lattes, cappuccinos, and Americanos. Ethiopia is the birthplace of coffee. A 'single origin' coffee comes from one region or farm. Cold brew steeps grounds in cold water for 12-24 hours for a smooth, less acidic result."},
-
-    {"keywords":["dog","puppy"],"answer":"Dogs (Canis lupus familiaris) were domesticated from wolves between 15,000-40,000 years ago — making them humanity's oldest animal companions. There are 340+ recognized breeds, ranging from tiny Chihuahuas to massive Great Danes. Dogs have 300 million scent receptors (humans have 6 million), making their sense of smell extraordinary. They can read human emotions, follow pointing gestures, and have co-evolved with us to be exceptional social partners. They dream (REM sleep), can learn hundreds of words, and can be trained for incredible specialized tasks."},
-    {"keywords":["cat","kitten"],"answer":"Cats (Felis catus) have lived near humans for ~10,000 years, originally attracted to grain stores (and the rodents they attracted). Unlike dogs, they domesticated themselves. Cats are obligate carnivores — they need meat to survive (can't synthesize taurine). They sleep 12-16 hours a day and are most active at dawn and dusk (crepuscular). They have a specialized collarbone allowing them to always land on their feet. Purring occurs at 25-150 Hz, which may promote bone healing. Their tongue has backward-facing spines (papillae) for grooming and stripping meat from bones."},
-    {"keywords":["monkey","chimpanzee","ape","primate"],"answer":"Primates include monkeys, apes, and humans. Apes (chimpanzees, bonobos, gorillas, orangutans, gibbons, and humans) have no tails and larger brains relative to body size. Chimps share ~98.7% of DNA with humans and use tools, solve complex problems, and have distinct cultures across populations. Monkeys (macaques, baboons, capuchins, etc.) have tails and are generally smaller. There are ~300 primate species. Many are endangered due to habitat destruction. The proboscis monkey has a comically large nose. 🐒"},
-    {"keywords":["octopus"],"answer":"Octopuses are among the most intelligent invertebrates. They have 3 hearts, 9 brains (one central and one per arm — each arm can act semi-independently), and blue blood (copper-based hemocyanin). They can change color and texture in milliseconds using chromatophores, even though they're colorblind. They use tools (carrying coconut shells for shelter), solve puzzles, recognize individual humans, and have been observed playing. They're also escape artists — able to squeeze through any gap their beak fits. Lifespan is only 1-2 years."},
-
-    {"keywords":["music"],"answer":"Music is organized sound and silence creating aesthetic or emotional experiences. It's universal — every known human culture makes music. Core elements: rhythm (timing/beat), melody (pitch sequence), harmony (simultaneous pitches), timbre (tone quality), and dynamics (loudness). It's processed across much of the brain — not just the auditory cortex. Music activates the reward system, releases dopamine, reduces cortisol (stress hormone), and can improve focus, memory, and mood. Music therapy is used for pain management, Alzheimer's, and neurological rehabilitation."},
-    {"keywords":["beatles"],"answer":"The Beatles (1960-1970) are the best-selling music artists of all time with 600+ million records sold. The fab four: John Lennon, Paul McCartney, George Harrison, and Ringo Starr — all from Liverpool. They revolutionized popular music, recording techniques, and album art. Their catalog evolved from simple love songs (Please Please Me) to psychedelic rock (Sgt. Pepper's Lonely Hearts Club Band, 1967) to the White Album. They appeared on The Ed Sullivan Show in 1964, triggering Beatlemania in America. They've influenced virtually every musician since."},
-    {"keywords":["basketball","nba"],"answer":"Basketball was invented by Canadian-American James Naismith in December 1891 in Springfield, Massachusetts — using peach baskets as hoops. The NBA (founded 1946) is the top professional league with 30 teams. Michael Jordan (6× champion, Bulls) is widely considered the GOAT. LeBron James is the all-time NBA scoring leader. The sport has 5 positions: point guard, shooting guard, small forward, power forward, center. A shot from beyond the arc (3-point line) is worth 3 points. The NBA Finals happens in June. The sport has ~450 million fans globally."},
-    {"keywords":["soccer","football"],"answer":"Association football (soccer in the US) is the world's most popular sport with ~3.5 billion fans. It's played between two teams of 11 on a rectangular grass pitch, aiming to score by getting the ball into the opponent's goal. A match is 2×45 minutes. Only the goalkeeper can use hands. The FIFA World Cup (held every 4 years) is the most watched sporting event on Earth. Brazil has won the most World Cups (5). Lionel Messi and Cristiano Ronaldo dominated the sport for over 15 years. The sport has over 200 national federations."},
-
-    {"keywords":["sleep"],"answer":"Sleep is essential for life — mammals deprived of it completely will die. Adults need 7-9 hours; teenagers need 8-10. During sleep, the brain consolidates memories (transferring from short to long-term), clears waste products (including amyloid beta linked to Alzheimer's), repairs the body, and regulates hormones. Sleep has 4-6 cycles per night, each ~90 minutes, alternating between light NREM, deep NREM (most restorative), and REM sleep (most dreaming). Chronic sleep deprivation impairs judgment, mood, immune function, and is linked to obesity, diabetes, and heart disease."},
-    {"keywords":["meditation"],"answer":"Meditation is a practice of training attention and awareness. There are many styles: mindfulness (observing thoughts without judgment), focused attention (on breath or mantra), loving-kindness (cultivating compassion), and body scan (systematic relaxation). Scientific research shows regular meditation changes brain structure — increasing gray matter in the prefrontal cortex (decision-making) and shrinking the amygdala (fear/stress response). Benefits: reduced anxiety, better focus, lower blood pressure, improved emotional regulation. Even 10 minutes a day shows measurable effects. Apps like Headspace and Calm make it accessible."},
-    {"keywords":["exercise"],"answer":"Exercise is one of the most powerful things you can do for your health. Aerobic exercise (walking, running, cycling) improves cardiovascular health, brain function, and longevity. Strength training builds muscle, increases bone density, and boosts metabolism. Even 30 minutes of walking most days has significant benefits. Exercise releases endorphins and BDNF (brain-derived neurotrophic factor — basically Miracle-Gro for neurons). It reduces risk of heart disease, type 2 diabetes, depression, and many cancers. WHO recommends 150 minutes of moderate activity per week."},
-
-    {"keywords":["bitcoin","cryptocurrency","crypto"],"answer":"Bitcoin was created in 2009 by the pseudonymous Satoshi Nakamoto as a peer-to-peer electronic cash system. It runs on a blockchain — a distributed ledger where every transaction is recorded and verified by a network of nodes. New Bitcoin is created by 'mining' (solving computational puzzles), with supply capped at 21 million BTC. It's divisible to 8 decimal places (1 satoshi = 0.00000001 BTC). Ethereum extended the concept with smart contracts (self-executing code on the blockchain). The crypto space includes thousands of cryptocurrencies, NFTs, DeFi, and DAOs."},
-
-    {"keywords":["food"],"answer":"Want to know about a specific food, recipe, or cuisine? I know about coffee, chocolate, pizza, sushi, bread, and more — just ask! Or if you're wondering what monkeys eat: mainly fruits, leaves, nuts, seeds, insects, and occasionally small animals. 🐒"},
-    {"keywords":["what do monkeys eat","monkey food","monkey diet"],"answer":"Monkeys are mostly omnivores. They eat: fruits (their favorite — they're excellent at finding ripe fruit), leaves, nuts, seeds, flowers, bark, roots, insects, bird eggs, and occasionally small lizards or other animals. Different species have different diets — howler monkeys eat mostly leaves, while spider monkeys prefer fruit. Capuchin monkeys are among the most omnivorous and have been seen using stones as tools to crack open nuts. 🐒"},
-    {"keywords":["pizza"],"answer":"Pizza originated in Naples, Italy in the 18th-19th century. The classic Neapolitan pizza has a thin, soft crust, San Marzano tomato sauce, fresh mozzarella, and basil (the Margherita, created in 1889 for Queen Margherita). New York style has a large, foldable thin crust. Chicago deep dish is more like a casserole. Detroit style has a rectangular pan with cheese going to the edges. The world's most popular topping is pepperoni (in the US). Italy has strict rules for what can be called authentic Neapolitan pizza (it's a UNESCO cultural heritage)."},
-
-    {"keywords":["monkey joe"],"answer":"That's me! 🐒 I'm Monkey Joe — a rules-based AI assistant built by Akiva with a lot of help from Claude. My brain is stored in a GitHub repo and grows whenever Akiva updates it. I can chat, search the web (with permission), create files, look at drawings, answer terminal questions, and connect to MCP servers. I'm not as powerful as Claude, but I'm getting smarter every day! Ask me anything!"},
-    {"keywords":["akiva"],"answer":"Akiva is my creator! He built me with Claude's help. He's an independent developer and creative author working on all kinds of projects — including me! 🐒"}
+    {
+      "keywords": [
+        "the user sent a drawing"
+      ],
+      "answer": "Nice drawing! I can see you sketched something out. I'm a rules-based assistant so I can't analyze it in detail like Claude can, but if you describe what's in it I might be able to help. Or want me to search the web for something related to it?"
+    },
+    {
+      "keywords": [
+        "javascript",
+        "js language"
+      ],
+      "answer": "JavaScript is the language of the web \u2014 runs in every browser and on servers via Node.js. Dynamically typed, event-driven. Key concepts: let/const, functions, arrays, objects, promises (async/await), and the DOM. Created by Brendan Eich in just 10 days in 1995. npm has 2+ million packages. Frameworks: React, Vue, Angular (frontend), Express, Fastify (backend). Despite quirks (0.1+0.2 !== 0.3), it's the only language that runs natively in every browser \u2014 making it unavoidable for web development."
+    },
+    {
+      "keywords": [
+        "typescript"
+      ],
+      "answer": "TypeScript is JavaScript with static types, developed by Microsoft (2012). Write .ts files, compile to .js. Types catch bugs before runtime. Key features: interfaces (define object shapes), generics (reusable typed code), enums, type unions (string | number), intersection types, strict null checks. tsconfig.json configures the compiler. Most large JS projects have moved to TypeScript. TypeScript doesn't add runtime overhead \u2014 it compiles away completely."
+    },
+    {
+      "keywords": [
+        "html"
+      ],
+      "answer": "HTML (HyperText Markup Language) is the skeleton of every web page, created by Tim Berners-Lee in 1991. Tags: h1-h6 (headings), p (paragraph), a (link), img (image), div/span (containers), ul/ol/li (lists), table, form/input. HTML5 semantic tags: header, nav, main, section, article, footer, aside. The browser reads HTML \u2192 builds the DOM (Document Object Model) \u2192 JavaScript can manipulate it. Always start with <!DOCTYPE html>. Attributes: href on a, src on img, class/id on any element."
+    },
+    {
+      "keywords": [
+        "css"
+      ],
+      "answer": "CSS (Cascading Style Sheets) controls how HTML looks. Selectors: tag (p{}), class (.myClass{}), id (#myId{}). Box model: content \u2192 padding \u2192 border \u2192 margin. Flexbox: one-dimensional layouts (justify-content, align-items, flex-direction). CSS Grid: two-dimensional layouts (grid-template-columns, grid-template-rows). CSS variables: --color: blue; use with var(--color). Media queries: @media (max-width: 768px). Pseudo-classes: :hover, :focus, :nth-child(). Pseudo-elements: ::before, ::after. Transitions: transition: all 0.3s ease. Animations: @keyframes."
+    },
+    {
+      "keywords": [
+        "python"
+      ],
+      "answer": "Python is one of the world's most popular languages, created by Guido van Rossum in 1991. Loved for clean, readable syntax. Used for: scripting, automation, web backends (Django, Flask, FastAPI), data science (pandas, numpy, matplotlib), ML (PyTorch, TensorFlow, scikit-learn). Interpreted, dynamically typed. Package manager: pip. Virtual environments: venv or conda. Key features: list comprehensions ([x*2 for x in range(10)]), generators, decorators, context managers (with statement), f-strings (f'Hello {name}')."
+    },
+    {
+      "keywords": [
+        "java "
+      ],
+      "answer": "Java is a strongly-typed, compiled, OOP language created by James Gosling at Sun Microsystems (1995). Runs on the JVM \u2014 'Write once, run anywhere.' Key concepts: classes, inheritance, interfaces, generics, Collections (ArrayList, HashMap). Build tools: Maven, Gradle. Java 21 is current LTS. Common in Android (Kotlin preferred now), banking/enterprise systems, and Spring Framework web apps. Verbose but very structured \u2014 great for large teams."
+    },
+    {
+      "keywords": [
+        "kotlin"
+      ],
+      "answer": "Kotlin is JetBrains' modern JVM language (2011), Google's preferred language for Android. Fully interoperable with Java. Much more concise: no semicolons, smart casts, data classes (automatic equals/hashCode/toString), null safety built in, extension functions, coroutines for async. val = immutable, var = mutable. Also compiles to JavaScript (Kotlin/JS) and native code (Kotlin Multiplatform Mobile \u2014 KMM)."
+    },
+    {
+      "keywords": [
+        "swift"
+      ],
+      "answer": "Swift is Apple's modern language for iOS, macOS, watchOS, tvOS (released 2014, replaced Objective-C). Key features: optionals (safe null handling with ? and !), type inference, value types (structs preferred), protocols, closures, generics. SwiftUI (2019) is the modern declarative UI framework. Swift is open source and also used server-side (Vapor framework). Xcode is the primary IDE. Swift is strongly typed and compiled \u2014 fast and safe."
+    },
+    {
+      "keywords": [
+        "rust"
+      ],
+      "answer": "Rust is a systems language focused on speed, memory safety, and concurrency without a garbage collector (Mozilla Research, 2010, v1.0 2015). The ownership system prevents memory bugs at compile time: every value has one owner, borrowing allows references, the borrow checker enforces rules. As fast as C/C++ but safer. Used in: Firefox, Linux kernel, Windows components, game engines, embedded systems, WebAssembly. Cargo is its excellent package manager and build tool."
+    },
+    {
+      "keywords": [
+        "go lang",
+        "golang"
+      ],
+      "answer": "Go (Golang) was designed at Google (Ken Thompson, Rob Pike, Robert Griesemer, 2009, v1.0 2012). Compiles to a single binary with no runtime dependencies \u2014 trivial deployment. Key features: goroutines (lightweight threads \u2014 can run millions), channels (CSP-style concurrency), strong standard library, fast compilation, garbage collected. Docker, Kubernetes, Terraform are all written in Go. gofmt enforces one code style. Go 1.18 added generics."
+    },
+    {
+      "keywords": [
+        "c++",
+        "c plus plus"
+      ],
+      "answer": "C++ is a powerful systems language (Bjarne Stroustrup, 1979) extending C with OOP (classes, inheritance, polymorphism), templates, and the STL (Standard Template Library: vector, map, algorithm). RAII and smart pointers (unique_ptr, shared_ptr) reduce manual memory management. Modern C++ (11/14/17/20/23) added move semantics, lambdas, auto, ranges. Used in game engines (Unreal), databases, OS components, and performance-critical applications."
+    },
+    {
+      "keywords": [
+        "c language",
+        "c programming"
+      ],
+      "answer": "C is the foundational systems language (Dennis Ritchie, Bell Labs, 1972). Fast, low-level, close to hardware. Linux kernel, Python interpreter, SQLite, and countless embedded systems are written in C. Key features: pointers (direct memory addresses), manual memory management (malloc/free), structs. It influenced C++, Java, C#, PHP, JavaScript, and almost every modern language. 'Hello, World!' was first popularized in the Kernighan & Ritchie C book."
+    },
+    {
+      "keywords": [
+        "php"
+      ],
+      "answer": "PHP (PHP: Hypertext Preprocessor) is a server-side scripting language (Rasmus Lerdorf, 1994). WordPress (43% of all websites), Facebook (originally), and Wikipedia run on PHP. Laravel is the most popular modern framework. PHP 8.x added JIT compilation, named arguments, enums, fibers, readonly properties. Composer is the package manager. Despite its reputation, modern PHP 8 with proper frameworks is quite capable."
+    },
+    {
+      "keywords": [
+        "ruby"
+      ],
+      "answer": "Ruby is an elegant scripting language (Yukihiro 'Matz' Matsumoto, 1995) optimized for developer happiness. Ruby on Rails (2004, David Heinemeier Hansson) revolutionized web development with 'convention over configuration.' GitHub, Shopify, Airbnb, and Basecamp were built on Rails. Ruby has powerful metaprogramming, blocks, and 'everything is an object' philosophy."
+    },
+    {
+      "keywords": [
+        "sql"
+      ],
+      "answer": "SQL (Structured Query Language, 1970s IBM) queries relational databases. Key commands: SELECT (read), FROM (specify table), WHERE (filter), JOIN (combine tables: INNER, LEFT, RIGHT, FULL OUTER), GROUP BY (aggregate), ORDER BY (sort), HAVING (filter aggregates), INSERT INTO (add), UPDATE (modify), DELETE (remove), CREATE TABLE, ALTER TABLE. Indexes dramatically speed queries. Transactions (BEGIN/COMMIT/ROLLBACK) ensure ACID data integrity."
+    },
+    {
+      "keywords": [
+        "postgresql",
+        "postgres"
+      ],
+      "answer": "PostgreSQL (Postgres) is the world's most advanced open-source relational database. Supports JSON/JSONB, arrays, full-text search, window functions, CTEs, geospatial (PostGIS), and custom types. ACID compliant. Used by Apple, Instagram, Reddit, and many others. JSONB allows flexible document storage alongside structured relational data. Excellent standards compliance and powerful indexing (B-tree, GiST, GIN, BRIN)."
+    },
+    {
+      "keywords": [
+        "mysql"
+      ],
+      "answer": "MySQL is the world's most popular open-source relational database (1995, acquired by Oracle 2010). MariaDB is a community fork. Powers WordPress, originally Facebook/Twitter/YouTube. InnoDB default storage engine: ACID compliant, row-level locking. MySQL 8.0 added window functions, CTEs, JSON improvements. Very fast for read-heavy workloads. Usually the first database developers encounter."
+    },
+    {
+      "keywords": [
+        "sqlite"
+      ],
+      "answer": "SQLite is a self-contained, serverless, zero-configuration SQL database \u2014 the world's most deployed database. Stores the entire database in one file. No setup, no server. Perfect for: mobile apps (Android and iOS use it natively), desktop apps, testing, embedded systems, and small websites. Used in billions of devices. SQLite motto: 'Small. Fast. Reliable. Choose any three.' The SQLite source code is in the public domain."
+    },
+    {
+      "keywords": [
+        "nosql",
+        "mongodb",
+        "redis",
+        "cassandra"
+      ],
+      "answer": "NoSQL databases use different models than relational tables. MongoDB (document store): JSON-like documents, flexible schema, great for varied data. Redis (key-value + data structures): blazing fast in-memory, used for caching, sessions, pub/sub, rate limiting. Cassandra (wide-column): massive scale across nodes, used by Netflix, Apple. Neo4j (graph): nodes and edges, perfect for social networks. Elasticsearch: full-text search engine. Choose the right tool for each job."
+    },
+    {
+      "keywords": [
+        "react"
+      ],
+      "answer": "React is Meta's JavaScript library for UIs (2013). Core concept: components \u2014 functions that take props and return JSX (HTML-like syntax in JS). Hooks: useState (local state), useEffect (side effects \u2014 API calls, subscriptions, timers), useContext (shared state), useReducer (complex state), useMemo/useCallback (performance). Virtual DOM diffing means only changed components re-render. Ecosystem: React Router, Redux/Zustand/Jotai, React Query/SWR, Next.js (full-stack), Remix."
+    },
+    {
+      "keywords": [
+        "vue"
+      ],
+      "answer": "Vue.js is a progressive JavaScript framework for UIs (Evan You, ex-Google, 2014). 'Progressive' \u2014 add it to part of a page or use it for a full SPA. Options API (Vue 2 style) vs Composition API (Vue 3, more flexible). Single File Components (.vue): template, script, style in one file. Vue 3 is faster and smaller. Nuxt.js is the full-stack Vue framework. Pinia is the recommended state management library (replaced Vuex)."
+    },
+    {
+      "keywords": [
+        "angular"
+      ],
+      "answer": "Angular is Google's full-featured frontend framework (AngularJS 2010, rewritten as Angular 2+ 2016). Built with TypeScript. Opinionated: routing, forms, HTTP client, dependency injection, and testing built in. Uses decorators (@Component, @Injectable), modules, services, and RxJS observables. Steeper learning curve than React/Vue but strong consistency for large enterprise teams. Major version releases twice a year with a clear update path."
+    },
+    {
+      "keywords": [
+        "node",
+        "nodejs",
+        "node.js"
+      ],
+      "answer": "Node.js lets JavaScript run on the server (Ryan Dahl, 2009, built on Chrome's V8 engine). Event-driven, non-blocking I/O \u2014 one thread handles thousands of concurrent connections by not waiting for I/O. npm has 2+ million packages. Frameworks: Express (minimal), Fastify (fast), NestJS (Angular-style, TypeScript), Hapi. Common uses: REST APIs, real-time apps (Socket.io), GraphQL servers, CLI tools, build tools (webpack, Vite, ESBuild). Not ideal for CPU-heavy tasks."
+    },
+    {
+      "keywords": [
+        "deno"
+      ],
+      "answer": "Deno is a modern JavaScript/TypeScript runtime (Ryan Dahl, 2018 \u2014 creator of Node.js) as a 'do-over.' Key improvements: secure by default (explicit permissions for file/network access), built-in TypeScript support, native ES modules, built-in tools (formatter, linter, test runner), and URL imports. Deno Deploy is serverless hosting at the edge. Deno 2.0 added npm compatibility, making migration from Node.js much easier."
+    },
+    {
+      "keywords": [
+        "graphql"
+      ],
+      "answer": "GraphQL is a query language for APIs (Facebook, 2012, public 2015). Unlike REST (multiple endpoints), GraphQL has one endpoint where the client specifies exactly what data it needs \u2014 no over-fetching or under-fetching. Schema defines types and queries/mutations/subscriptions. Mutations change data; subscriptions are real-time (WebSockets). Popular libraries: Apollo (client and server), urql, graphql-yoga, Hasura (auto-generates GraphQL from database)."
+    },
+    {
+      "keywords": [
+        "rest api",
+        "restful"
+      ],
+      "answer": "REST (Representational State Transfer, Roy Fielding, 2000) is an API architectural style. HTTP methods: GET (read \u2014 safe, idempotent), POST (create), PUT (replace \u2014 idempotent), PATCH (partial update), DELETE (remove \u2014 idempotent). Resources are URLs (/api/v1/users/123). Status codes: 200 OK, 201 Created, 204 No Content, 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 422 Unprocessable Entity, 429 Too Many Requests, 500 Server Error. JSON is the standard. Always version your API (/v1/)."
+    },
+    {
+      "keywords": [
+        "git"
+      ],
+      "answer": "Git is a distributed version control system (Linus Torvalds, 2005, for the Linux kernel). Every developer has the full history. Essential commands: git init, git clone, git status, git add . (stage all), git commit -m 'msg', git push, git pull, git branch name, git checkout -b name (create and switch), git merge, git rebase (rewrite history cleanly), git stash (save work temporarily), git log --oneline, git diff, git reset, git cherry-pick. .gitignore lists files to ignore. A good commit message explains WHY not just WHAT."
+    },
+    {
+      "keywords": [
+        "github"
+      ],
+      "answer": "GitHub (acquired by Microsoft 2018, $7.5 billion) is the world's largest code hosting platform with 100+ million developers. Features: Pull Requests (code review \u2014 comment on lines, request changes, approve), Issues (bug/feature tracking with labels and milestones), GitHub Actions (CI/CD with YAML workflows in .github/workflows/), GitHub Pages (free static hosting \u2014 Monkey Joe is here!), Codespaces (cloud VS Code), Copilot (AI coding assistant), Packages, Discussions, Projects. git push origin main sends code to GitHub."
+    },
+    {
+      "keywords": [
+        "linux"
+      ],
+      "answer": "Linux is an open-source OS kernel (Linus Torvalds, 1991, inspired by MINIX and UNIX). Powers ~96% of the world's top 1 million web servers, all top 500 supercomputers, and all Android devices. Distributions: Ubuntu (most popular, Debian-based, beginner-friendly), Arch (DIY, rolling release), Fedora (Red Hat-based, cutting edge), Debian (super stable), Linux Mint (beginner-friendly), Alpine (tiny 5MB, great for Docker), CentOS/RHEL (enterprise). File system: / (root), /home (user files), /etc (config), /var (logs), /usr (programs), /bin (essential commands), /tmp (temporary)."
+    },
+    {
+      "keywords": [
+        "termux"
+      ],
+      "answer": "Termux is a terminal emulator for Android giving you a Linux environment without rooting. Package manager: pkg install <package>. Common packages: git, python, nodejs, vim, nano, openssh, curl, wget. You can run Python scripts, push code to GitHub, SSH into remote servers, and run a local web server. Termux:API accesses Android features from the terminal. It's how Akiva pushes Monkey Joe updates to GitHub from his Daylight tablet \u2014 a key part of our development workflow!"
+    },
+    {
+      "keywords": [
+        "bash",
+        "shell scripting"
+      ],
+      "answer": "Bash (Bourne Again Shell) is the default shell on most Linux systems. Scripting features: variables ($VAR, VAR=value), if/elif/else/fi, for loops (for i in 1 2 3; do ...; done), while loops, functions (myFunc() { ...; }), command substitution ($(...))), arithmetic ($((2+2))), arrays, piping (|). Shebang: #!/bin/bash. Make executable: chmod +x script.sh. Run: ./script.sh. Key builtins: echo, read, grep, sed (stream editor), awk (text processing), cut, sort, uniq, wc, find, xargs."
+    },
+    {
+      "keywords": [
+        "vim",
+        "vi",
+        "neovim"
+      ],
+      "answer": "Vim is a highly configurable terminal text editor (improved clone of Vi, 1976). Modes: Normal (navigation/commands) and Insert (i to enter, Esc to exit). Normal mode: hjkl (move), w/b (word), gg/G (start/end), dd (delete line), yy (copy), p (paste), u (undo), Ctrl+R (redo), / (search), n (next), :w (save), :q (quit), :wq (save+quit), :q! (force quit). Neovim (nvim): modern fork with Lua config, async support, huge plugin ecosystem. VS Code has a Vim keybindings extension."
+    },
+    {
+      "keywords": [
+        "docker"
+      ],
+      "answer": "Docker packages apps into containers \u2014 isolated environments with everything needed (code, runtime, libraries, config). Created by Solomon Hykes (2013). Dockerfile instructions: FROM (base image), RUN (execute command), COPY (add files), ENV (environment variables), EXPOSE (document ports), CMD (default command). Images are layered \u2014 only changed layers rebuild. docker-compose.yml defines multi-container apps. Volumes persist data. Commands: docker build -t myapp ., docker run -p 8080:80 myapp, docker ps, docker logs, docker exec -it container bash, docker-compose up -d."
+    },
+    {
+      "keywords": [
+        "kubernetes",
+        "k8s"
+      ],
+      "answer": "Kubernetes (k8s \u2014 8 letters between k and s) is Google's container orchestration system (open-sourced 2014). Manages clusters of machines running containers. Key concepts: Pod (smallest unit, 1+ containers), Deployment (manages pods, rolling updates, rollbacks), Service (stable network endpoint), Ingress (external traffic routing), ConfigMap/Secret (configuration), Namespace (isolation), PersistentVolume (storage). kubectl is the CLI. Managed: Google GKE, Amazon EKS, Azure AKS. Helm is the K8s package manager."
+    },
+    {
+      "keywords": [
+        "cloud computing",
+        "aws",
+        "azure",
+        "gcp",
+        "cloud"
+      ],
+      "answer": "Three major cloud providers: AWS (Amazon \u2014 market leader, 200+ services, launched 2006), Azure (Microsoft \u2014 strong in enterprise/Windows, 2010), GCP (Google Cloud \u2014 strong in AI/ML and data, 2011). Key categories: compute (EC2/VMs), storage (S3/Blob Storage/GCS), databases (RDS/Azure SQL/Cloud SQL), serverless (Lambda/Azure Functions/Cloud Functions), CDN (CloudFront/Azure CDN/Cloud CDN), ML (SageMaker/Azure ML/Vertex AI). Cloud costs: pay only for what you use. 'Lift and shift' moves existing apps; 'cloud-native' redesigns for the cloud."
+    },
+    {
+      "keywords": [
+        "serverless",
+        "lambda",
+        "edge functions"
+      ],
+      "answer": "Serverless computing: run code without managing servers \u2014 upload a function, it runs in response to events, pay only for execution time (milliseconds). AWS Lambda, Azure Functions, Google Cloud Functions, Cloudflare Workers (runs at the edge globally \u2014 ~300 locations, <50ms latency worldwide), Vercel/Netlify Functions. Cold starts (first invocation delay) are the main downside. Great for: event-driven processing, APIs with variable traffic, scheduled tasks, and webhooks. 'Serverless' doesn't mean no servers \u2014 just no server management."
+    },
+    {
+      "keywords": [
+        "devops",
+        "ci/cd",
+        "continuous integration",
+        "deployment"
+      ],
+      "answer": "DevOps combines software development and IT operations to shorten the development cycle. CI/CD: Continuous Integration (auto build and test on every commit), Continuous Delivery (auto deploy to staging), Continuous Deployment (auto deploy to production). Tools: GitHub Actions, GitLab CI, Jenkins, CircleCI, Travis CI, ArgoCD (GitOps for K8s). Infrastructure as Code: Terraform (provision cloud resources), Ansible (configuration management), Pulumi. Monitoring: Prometheus + Grafana, Datadog, Sentry (error tracking), PagerDuty (alerts). SRE (Site Reliability Engineering): Google's approach to operations."
+    },
+    {
+      "keywords": [
+        "localstorage",
+        "local storage",
+        "sessionstorage"
+      ],
+      "answer": "localStorage stores key-value string pairs in the browser persistently (survives tab close, browser close, restarts). Use JSON.stringify() to store objects: localStorage.setItem('key', JSON.stringify(data)). Retrieve: JSON.parse(localStorage.getItem('key')). Limit: ~5MB per origin. Synchronous API \u2014 can block main thread. Don't store sensitive data (no encryption). sessionStorage: identical but clears when the browser tab closes. IndexedDB: async, more powerful browser database for large structured data. Monkey Joe uses localStorage as a fallback when Backside cloud storage isn't available."
+    },
+    {
+      "keywords": [
+        "cookies",
+        "http cookies",
+        "browser cookies"
+      ],
+      "answer": "HTTP cookies are small text files stored by the browser, sent with every HTTP request to the same domain (unlike localStorage). Attributes: expires/max-age (expiry), domain, path, secure (HTTPS only), httpOnly (no JS access \u2014 prevents XSS theft of session tokens), SameSite (CSRF protection: Strict/Lax/None). Used for: session management, authentication tokens, user preferences. GDPR/CCPA requires consent for non-essential cookies. Third-party cookies (cross-site tracking) are being phased out by browsers. cookie: auth=abc123; Secure; HttpOnly; SameSite=Strict"
+    },
+    {
+      "keywords": [
+        "cors"
+      ],
+      "answer": "CORS (Cross-Origin Resource Sharing) is a browser security mechanism blocking JavaScript on one origin from requesting resources on a different origin. The server must include response headers: Access-Control-Allow-Origin: https://yourdomain.com (or * for any, but can't use * with credentials). Preflight: browsers send an OPTIONS request first for non-simple requests. Simple requests: GET/HEAD/POST with standard headers and content types. CORS only applies to browsers \u2014 curl, Node.js fetch, and other server requests are NOT restricted. This is why Monkey Joe's Backside integration works in Termux but not directly from the browser."
+    },
+    {
+      "keywords": [
+        "websocket",
+        "real-time",
+        "socket.io"
+      ],
+      "answer": "WebSockets provide full-duplex real-time communication over a single persistent TCP connection. The WebSocket handshake upgrades an HTTP connection (101 Switching Protocols). Unlike HTTP (request \u2192 response), either side can send messages anytime. Use cases: chat apps, live sports scores, collaborative editing (Google Docs-style), stock tickers, multiplayer games, live notifications. Libraries: Socket.io (WebSocket + polling fallbacks for compatibility), ws (Node.js server), native WebSocket browser API (new WebSocket('wss://...')). ws:// is unencrypted; wss:// is encrypted."
+    },
+    {
+      "keywords": [
+        "http",
+        "https",
+        "http/2",
+        "http/3",
+        "status codes"
+      ],
+      "answer": "HTTP is the foundation of web communication. HTTP/1.1: one request per connection (slow). HTTP/2 (2015): multiplexing (multiple requests over one connection), header compression, server push. HTTP/3 (2020s): uses QUIC (UDP-based) for even faster performance and better handling of packet loss. HTTPS = HTTP + TLS encryption (always use HTTPS). Status codes: 200 OK, 201 Created, 204 No Content, 301 Moved Permanently, 302 Found, 304 Not Modified, 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 422 Unprocessable Entity, 429 Too Many Requests, 500 Internal Server Error, 503 Service Unavailable."
+    },
+    {
+      "keywords": [
+        "ssl",
+        "tls",
+        "https certificates"
+      ],
+      "answer": "TLS (Transport Layer Security, successor to SSL which is deprecated) encrypts web traffic. TLS 1.3 (current) is much faster than 1.2 (one round-trip handshake vs two). Certificates are issued by Certificate Authorities (CAs). Let's Encrypt provides free automated certificates (most websites use this). How TLS works: asymmetric encryption (public/private key pair) establishes a shared symmetric session key, then symmetric encryption (AES-256) encrypts all traffic. HTTPS padlock in browser confirms TLS is active. HSTS header forces HTTPS even if user types http://."
+    },
+    {
+      "keywords": [
+        "dns",
+        "domain names"
+      ],
+      "answer": "DNS (Domain Name System) translates domain names to IP addresses. Resolution: browser cache \u2192 OS cache \u2192 router cache \u2192 recursive resolver (ISP's or 8.8.8.8/1.1.1.1) \u2192 root nameservers \u2192 TLD nameservers (.com, .org) \u2192 authoritative nameserver. Record types: A (IPv4: example.com \u2192 93.184.216.34), AAAA (IPv6), CNAME (alias: www \u2192 example.com), MX (mail exchange), TXT (verification, SPF email auth, DKIM), NS (nameserver), SOA (start of authority). TTL (Time To Live) controls cache duration. Propagation can take up to 48 hours when changing DNS."
+    },
+    {
+      "keywords": [
+        "tcp",
+        "udp",
+        "networking",
+        "tcp/ip"
+      ],
+      "answer": "TCP (Transmission Control Protocol): connection-oriented (3-way handshake: SYN \u2192 SYN-ACK \u2192 ACK), guarantees delivery and ordering, handles retransmission. Good for HTTP, email, file transfer \u2014 accuracy matters. UDP (User Datagram Protocol): connectionless, no guarantees, just sends packets. Faster, lower overhead. Good for: video streaming (one dropped frame is fine), online gaming, DNS lookups, VoIP. HTTP/3 uses QUIC (built on UDP) to get TCP-like reliability with UDP-like performance \u2014 especially good on mobile where network changes happen frequently."
+    },
+    {
+      "keywords": [
+        "webpack",
+        "vite",
+        "bundler",
+        "build tools"
+      ],
+      "answer": "JavaScript bundlers process source files for production. Webpack (2012): highly configurable, vast plugin ecosystem, slower but handles complex setups \u2014 still widely used. Vite (2020, Evan You): uses native ES modules for instant dev server (no bundling in dev!), ESBuild for pre-bundling, 10-100\u00d7 faster than webpack. ESBuild (written in Go): fastest bundler. Parcel: zero-config. Rollup: optimized for libraries (tree-shaking \u2014 removes unused code). Most new projects in 2024 use Vite. Bun (JavaScript runtime + bundler) is an emerging all-in-one alternative."
+    },
+    {
+      "keywords": [
+        "npm",
+        "yarn",
+        "pnpm",
+        "package.json"
+      ],
+      "answer": "Node package managers install and manage JavaScript dependencies. npm (comes with Node.js): package.json defines dependencies, package-lock.json locks exact versions, node_modules contains packages. npm scripts: 'dev', 'build', 'test' run with npm run. yarn (Facebook, 2016): faster, workspaces for monorepos. pnpm: most disk-efficient (hard links \u2014 package stored once even across projects), strict (can't use undeclared dependencies). Commands: install (install all), add/install <pkg> (add one), remove/uninstall, outdated, update, audit (security vulnerabilities), run <script>."
+    },
+    {
+      "keywords": [
+        "testing",
+        "unit tests",
+        "jest",
+        "cypress",
+        "playwright"
+      ],
+      "answer": "Software testing levels: Unit tests (test individual functions in isolation), Integration tests (multiple components together), E2E end-to-end tests (complete user flows in a browser). Test-Driven Development (TDD): write tests first (red), make them pass (green), refactor (refactor). Tools: Jest (JS \u2014 most popular, built-in mocking, snapshot testing), Vitest (Vite-based, much faster than Jest, compatible API), pytest (Python, excellent fixtures system), JUnit (Java). E2E: Playwright (best \u2014 cross-browser, fast, modern API), Cypress (great DX but Chrome-focused), Selenium (older but universal). Code coverage: 80% is often cited as a reasonable target."
+    },
+    {
+      "keywords": [
+        "web security",
+        "xss",
+        "sql injection",
+        "owasp"
+      ],
+      "answer": "OWASP Top 10 web vulnerabilities: (1) XSS (Cross-Site Scripting) \u2014 inject malicious scripts; prevent with HTML output encoding, Content Security Policy (CSP). (2) SQL Injection \u2014 malicious SQL in user input; prevent with parameterized queries/prepared statements (NEVER concatenate user input into SQL). (3) CSRF (Cross-Site Request Forgery) \u2014 trick users into unwanted requests; prevent with CSRF tokens, SameSite cookies. (4) IDOR (Insecure Direct Object Reference) \u2014 access other users' data by guessing IDs; always check authorization server-side. (5) Broken Authentication \u2014 weak passwords, no MFA. Always use HTTPS, validate all inputs, never trust client-side data."
+    },
+    {
+      "keywords": [
+        "design patterns",
+        "solid principles",
+        "software architecture"
+      ],
+      "answer": "Design Patterns (Gang of Four): Creational: Singleton (one instance), Factory Method (create via subclass method), Abstract Factory (create families), Builder (step-by-step construction), Prototype (clone). Structural: Adapter (interface conversion), Decorator (add behavior), Proxy (control access), Facade (simplified interface), Composite (tree structures). Behavioral: Observer (event subscription \u2014 like addEventListener!), Strategy (interchangeable algorithms), Command (encapsulate requests), Iterator, State, Template Method. SOLID: Single Responsibility, Open/Closed (extend don't modify), Liskov Substitution, Interface Segregation, Dependency Inversion."
+    },
+    {
+      "keywords": [
+        "algorithm",
+        "big o",
+        "time complexity"
+      ],
+      "answer": "Algorithm complexity: Big O notation. O(1) constant \u2014 array index access, hash table lookup. O(log n) logarithmic \u2014 binary search, balanced BST operations. O(n) linear \u2014 linear search, array traversal. O(n log n) \u2014 merge sort, heap sort, quick sort (average). O(n\u00b2) quadratic \u2014 bubble sort, selection sort, nested loops. O(2\u207f) exponential \u2014 naive Fibonacci, some backtracking. O(n!) factorial \u2014 traveling salesman brute force. Always minimize the dominant term; drop constants. Space complexity measures memory usage similarly. The best algorithm choice often matters more than hardware or language."
+    },
+    {
+      "keywords": [
+        "data structures",
+        "array",
+        "linked list",
+        "hash table",
+        "tree"
+      ],
+      "answer": "Data structures: Array \u2014 random access O(1), insert/delete O(n). Linked List \u2014 insert/delete O(1) at head, random access O(n). Stack \u2014 LIFO, push/pop O(1). Queue \u2014 FIFO, enqueue/dequeue O(1). Hash Table \u2014 key-value, O(1) average get/set (O(n) worst \u2014 hash collisions). Binary Search Tree \u2014 sorted data, O(log n) search/insert/delete (O(n) worst if unbalanced). Heap \u2014 priority queue, O(log n) insert/extract-min/max. Trie \u2014 prefix tree, O(L) operations where L=string length. Graph \u2014 adjacency list (sparse) or matrix (dense). Choose the right structure \u2014 it often matters more than the algorithm."
+    },
+    {
+      "keywords": [
+        "object oriented",
+        "oop",
+        "polymorphism",
+        "encapsulation"
+      ],
+      "answer": "OOP organizes code around objects \u2014 bundles of data (properties) and behavior (methods). Four pillars: Encapsulation (hide internal state, expose a clean interface \u2014 private fields, public methods), Abstraction (hide complexity, show only what's needed \u2014 abstract classes/interfaces), Inheritance (child classes extend parents, reuse code \u2014 be careful of deep hierarchies), Polymorphism (same interface, different implementations \u2014 method overriding, method overloading). Composition over inheritance: 'favor has-a over is-a' \u2014 build complex objects by combining simpler ones rather than deep inheritance chains."
+    },
+    {
+      "keywords": [
+        "functional programming",
+        "pure functions",
+        "immutability"
+      ],
+      "answer": "Functional Programming (FP) treats computation as evaluation of mathematical functions. Key concepts: Pure functions (same input always \u2192 same output, no side effects \u2014 no modifying external state), Immutability (data doesn't change \u2014 create new versions; avoids bugs from shared mutable state), Higher-order functions (functions as arguments/return values), Function composition (f(g(x))), Currying (transform f(a,b) to f(a)(b)), Map/Filter/Reduce. Languages: Haskell (purely functional), Clojure, Elixir, Erlang. JS/Python/Rust support FP patterns. Reduces bugs dramatically in concurrent code."
+    },
+    {
+      "keywords": [
+        "earth",
+        "planet earth",
+        "geology"
+      ],
+      "answer": "Earth is the third planet from the Sun (1 AU = 150 million km), age 4.54 billion years. Diameter: 12,742 km. One moon. Surface: 71% water. Atmosphere: 78% N\u2082, 21% O\u2082, 0.9% Ar, 0.04% CO\u2082. Structure: thin crust (5-70 km), mantle (solid rock, 2,890 km), outer core (liquid iron, generates magnetic field), inner core (solid iron, 1,220 km radius, ~5,400\u00b0C). Plate tectonics: 15-20 tectonic plates floating on the mantle; their movement drives earthquakes, volcanoes, and mountain formation. The magnetic field (magnetosphere) deflects solar wind. Rotation: 23h 56min sidereal day. Orbit: 365.25 days (hence leap years every 4 years)."
+    },
+    {
+      "keywords": [
+        "moon",
+        "earth's moon",
+        "lunar"
+      ],
+      "answer": "The Moon is Earth's only natural satellite (diameter 3,474 km, ~27% of Earth's). Distance: 384,400 km average (varies \u2014 perigee ~362,600 km, apogee ~405,400 km). Formed ~4.5 billion years ago from debris after the Theia impactor (Mars-sized body) collided with early Earth. Tidally locked \u2014 same side always faces Earth. The far side was first photographed in 1959 by Luna 3. Lunar cycle: 29.5 days (synodic month). Moon's gravity drives Earth's tides. Without the Moon, Earth's axial tilt would wobble chaotically (Moon stabilizes it at ~23.5\u00b0). Apollo program: 12 humans walked on the Moon (1969-1972, Apollo 11-17 except 13)."
+    },
+    {
+      "keywords": [
+        "sun",
+        "solar",
+        "nuclear fusion",
+        "star"
+      ],
+      "answer": "The Sun is a G-type main-sequence star (G2V) at the center of our solar system. Age: 4.6 billion years. Distance from Earth: 149.6 million km (light takes 8 min 20 sec). Diameter: 1.39 million km (109\u00d7 Earth's). Mass: 333,000\u00d7 Earth's. Core temperature: 15 million\u00b0C, pressure 265 billion atm \u2014 where nuclear fusion converts 600 million tonnes of hydrogen to helium every second, releasing energy via E=mc\u00b2. Layers: core \u2192 radiative zone (photons bounce around for 100,000 years) \u2192 convective zone \u2192 photosphere (visible surface, 5,778 K) \u2192 chromosphere \u2192 corona (up to 3 million K \u2014 why hotter than surface is still a mystery). Sunspots: magnetic field disruptions. Solar wind: stream of charged particles. In ~5 billion years: red giant phase \u2192 planetary nebula \u2192 white dwarf."
+    },
+    {
+      "keywords": [
+        "mars",
+        "red planet",
+        "martian"
+      ],
+      "answer": "Mars is the fourth planet, diameter 6,779 km (~53% Earth's). Day: 24h 37min (close to Earth's!). Year: 687 Earth days. Thin CO\u2082 atmosphere (0.6% of Earth's pressure). Average temperature: -63\u00b0C (range -125\u00b0C to +20\u00b0C). Two moons: Phobos (spiraling inward, will crash or disintegrate in ~50 million years) and Deimos. Olympus Mons: solar system's tallest volcano at 21.9 km (2.5\u00d7 Everest) and 600 km wide. Valles Marineris: canyon system 4,000 km long, up to 7 km deep (10\u00d7 Grand Canyon). Evidence for ancient liquid water: riverbeds, lake deposits, mineral signatures. NASA Perseverance rover (2021): searching for ancient microbial biosignatures. SpaceX aims to send humans to Mars in the late 2020s-2030s."
+    },
+    {
+      "keywords": [
+        "jupiter",
+        "saturn",
+        "outer planets",
+        "gas giants"
+      ],
+      "answer": "Jupiter: largest planet (142,984 km diameter, 11\u00d7 Earth's). 1,321 Earths could fit inside. Mostly hydrogen and helium gas. Great Red Spot: storm larger than Earth, raging 400+ years. 95 known moons: Ganymede (largest moon in solar system, bigger than Mercury), Europa (subsurface ocean under ice crust \u2014 possible life?), Io (most volcanically active body), Callisto. Saturn: second largest (120,536 km). Famous rings (water ice + rock particles, 282,000 km diameter, but only 10-100m thick). 146 moons: Titan (thick nitrogen atmosphere, liquid methane/ethane lakes on surface \u2014 only other world with surface liquid!), Enceladus (water geysers, subsurface ocean). Uranus: ice giant, rotates on its side (98\u00b0 tilt). Neptune: strongest winds in solar system (2,100 km/h)."
+    },
+    {
+      "keywords": [
+        "black hole",
+        "singularity",
+        "hawking radiation"
+      ],
+      "answer": "A black hole is a region where gravity is so extreme nothing \u2014 not even light \u2014 can escape past the event horizon. Types: Stellar (3-100 solar masses, collapsed massive stars), Intermediate (100-100,000 solar masses, less common), Supermassive (millions-billions solar masses \u2014 at galactic centers; Sagittarius A* in our Milky Way is ~4 million solar masses), Primordial (hypothetical, from early universe). Schwarzschild radius (event horizon) = 2GM/c\u00b2. Hawking radiation: black holes slowly evaporate by quantum effects (smaller \u2192 evaporates faster). Time dilation: time runs slower near event horizon from outside observer's view. M87* was the first black hole imaged (Event Horizon Telescope, 2019) \u2014 6.5 billion solar masses, 55 million light-years away."
+    },
+    {
+      "keywords": [
+        "dark matter",
+        "dark energy",
+        "cosmology"
+      ],
+      "answer": "The universe's composition: ordinary matter (atoms, everything we see) = 5%, dark matter = 27%, dark energy = 68%. Dark matter: doesn't emit/absorb/reflect light but has gravitational effects \u2014 galaxy rotation curves (outer stars orbit too fast for visible matter alone), gravitational lensing (bends light more than visible matter predicts). Leading candidates: WIMPs, axions, sterile neutrinos. Dark energy: causes the expansion of the universe to accelerate (discovered 1998 by observing distant Type Ia supernovae \u2014 2011 Nobel Prize in Physics). The cosmological constant (\u039b) represents it in Einstein's equations. Both dark matter and dark energy are among physics' greatest unsolved mysteries."
+    },
+    {
+      "keywords": [
+        "big bang",
+        "universe",
+        "cosmic microwave background"
+      ],
+      "answer": "The Big Bang: the universe began ~13.8 billion years ago in an extremely hot, dense state. In the first second: quarks formed, then protons and neutrons. First 3 minutes: Big Bang Nucleosynthesis (hydrogen and helium formed in ~75%/25% ratio). First 380,000 years: universe cooled enough for electrons to combine with nuclei (recombination) \u2014 releasing the Cosmic Microwave Background (CMB) radiation, still visible today as a ~2.725 K thermal glow filling all space, first detected by Penzias and Wilson in 1965 (Nobel 1978). Inflation: fraction of a second after Big Bang, universe expanded exponentially (explains uniformity and flatness). Observable universe: ~93 billion light-years diameter (space itself has expanded). The Big Bang doesn't describe what happened BEFORE it \u2014 that remains unknown."
+    },
+    {
+      "keywords": [
+        "quantum mechanics",
+        "uncertainty principle",
+        "superposition"
+      ],
+      "answer": "Quantum mechanics describes physics at the subatomic scale where classical physics fails. Key principles: Wave-particle duality (electrons and photons behave as both waves and particles \u2014 shown by the double-slit experiment). Superposition: quantum systems exist in all possible states until measured (Schr\u00f6dinger's cat \u2014 alive AND dead simultaneously until observed). Uncertainty principle (Heisenberg): \u0394x \u00d7 \u0394p \u2265 \u210f/2 \u2014 you cannot simultaneously know both position and momentum precisely. Entanglement: particles correlated regardless of distance \u2014 measuring one instantly determines the state of the other (Einstein: 'spooky action at a distance'). Quantization: energy comes in discrete packets (quanta) \u2014 photons are quanta of light. Applications: transistors (all modern electronics), lasers, LEDs, MRI machines, atomic clocks, and quantum computers."
+    },
+    {
+      "keywords": [
+        "relativity",
+        "special relativity",
+        "general relativity",
+        "einstein"
+      ],
+      "answer": "Special Relativity (Einstein, 1905): (1) Laws of physics are the same in all inertial frames. (2) Speed of light c is constant for all observers. Consequences: time dilation (moving clocks run slower: t' = t/\u221a(1-v\u00b2/c\u00b2)), length contraction (moving objects shorter), mass-energy equivalence (E=mc\u00b2). At v=0.9c, time runs at 43% of normal. GPS satellites travel at ~14,000 km/h \u2014 their clocks run slow by 7 microseconds/day due to SR, but fast by 45 microseconds/day due to GR (weaker gravity at altitude) \u2014 net +38 microseconds/day corrected. General Relativity (1915): gravity is the curvature of spacetime by mass. Confirmed by: bending of starlight around the Sun (1919 eclipse expedition), Mercury's orbital precession, gravitational redshift, gravitational waves (LIGO 2015), black holes."
+    },
+    {
+      "keywords": [
+        "world war 2",
+        "ww2",
+        "holocaust",
+        "d-day"
+      ],
+      "answer": "WWII (Sep 1, 1939 \u2013 Sep 2, 1945): deadliest conflict in history (~70-85 million deaths). Germany invaded Poland Sep 1, 1939. Axis: Germany (Nazi), Italy, Japan. Allies: UK, France, USSR, USA (joined Dec 8, 1941 after Pearl Harbor), China, and others. Key events: Blitzkrieg (fast German conquest of France in 6 weeks, 1940), Battle of Britain (RAF vs Luftwaffe air battle, 1940 \u2014 first major campaign fought entirely by air forces), Operation Barbarossa (Germany invaded USSR Jun 22, 1941 \u2014 largest military operation in history), Holocaust (systematic genocide of 6 million Jews and 5-6 million others in death camps), D-Day (June 6, 1944 \u2014 156,000 Allied troops landed in Normandy, 5 beaches: Utah, Omaha, Gold, Juno, Sword), Battle of the Bulge (Germany's last major offensive, Dec 1944), V-E Day (May 8, 1945), atomic bombs on Hiroshima (Aug 6, ~70,000-80,000 killed immediately) and Nagasaki (Aug 9, ~40,000 killed), V-J Day (Sep 2, 1945)."
+    },
+    {
+      "keywords": [
+        "world war 1",
+        "ww1",
+        "great war",
+        "trench warfare"
+      ],
+      "answer": "WWI (Jul 28, 1914 \u2013 Nov 11, 1918): 'the Great War,' ~20 million dead. Triggered by assassination of Archduke Franz Ferdinand of Austria-Hungary in Sarajevo (June 28, 1914) by Gavrilo Princip, a Bosnian Serb nationalist. The alliance system: Allies (UK, France, Russia, later USA and Italy) vs Central Powers (Germany, Austria-Hungary, Ottoman Empire). Western Front: 700 km of trenches from Belgium to Switzerland \u2014 stalemate for 4 years. New weapons: machine guns, artillery barrages, poison gas (Germany used chlorine/mustard gas, Ypres 1915), tanks (British invention, 1916), aircraft for reconnaissance and dogfights. USA entered April 6, 1917 (Zimmermann Telegram: Germany asked Mexico to attack USA). Armistice: 11:00 AM, November 11, 1918. ~17 million soldiers died plus ~3 million civilians. The 1918 Spanish Flu pandemic (50-100 million dead) was accelerated by the war."
+    },
+    {
+      "keywords": [
+        "cold war",
+        "nuclear weapons",
+        "space race"
+      ],
+      "answer": "The Cold War (1947-1991): geopolitical/ideological/military competition between the US-led West (capitalism, democracy) and Soviet-led East (communism). Never direct military conflict between superpowers \u2014 'mutually assured destruction' (MAD) with nuclear weapons created deterrence. Both sides had enough nukes to destroy civilization multiple times. Space race: USSR Sputnik (Oct 4, 1957 \u2014 first satellite, shocked the West), Laika (first animal in space, 1957), Yuri Gagarin (first human in space, April 12, 1961), Apollo 11 Moon landing (July 20, 1969 \u2014 USA won the race). Cuban Missile Crisis (Oct 16-28, 1962): closest to nuclear war \u2014 Soviet missiles in Cuba, US naval blockade, 13 days of brinkmanship. Back-channel communications between Kennedy and Khrushchev resolved it. The USSR dissolved Dec 25, 1991 \u2014 Mikhail Gorbachev's glasnost and perestroika reforms contributed. The Berlin Wall fell Nov 9, 1989."
+    },
+    {
+      "keywords": [
+        "roman empire",
+        "caesar",
+        "augustus",
+        "pax romana"
+      ],
+      "answer": "Rome's history spans over 1,000 years: Kingdom (753-509 BC, founded by Romulus), Republic (509-27 BC, Senate + elected magistrates), Empire (27 BC-476 AD Western / 1453 AD Eastern/Byzantine). Julius Caesar (100-44 BC): brilliant general, conquered Gaul (58-50 BC), crossed the Rubicon (49 BC \u2014 phrase for point of no return), became dictator perpetuo, assassinated Ides of March (Mar 15, 44 BC) by Brutus, Cassius, and others. His adopted son Octavian defeated Mark Antony and Cleopatra VII at Battle of Actium (31 BC) and became Augustus \u2014 first Emperor. Pax Romana (27 BC-180 AD): 200 years of relative peace and prosperity. Peak: Emperor Trajan (~117 AD), ~5 million km\u00b2, 70 million people. Achievements: Roman law (basis of modern legal systems), roads (80,000 km \u2014 'All roads lead to Rome'), aqueducts, concrete (Roman concrete is stronger than modern concrete!), the Colosseum (80,000 capacity). Fall of Western Empire: economic problems, military pressure, and sack of Rome by Visigoths (410 AD) and Vandals (455 AD); final fall 476 AD."
+    },
+    {
+      "keywords": [
+        "ancient egypt",
+        "pyramids",
+        "hieroglyphics",
+        "mummies",
+        "pharaoh"
+      ],
+      "answer": "Ancient Egypt: one of the world's longest-lasting civilizations (~3,100 years, c. 3100 BC\u201330 BC). Three main periods: Old Kingdom (pyramid age, c. 2686-2181 BC), Middle Kingdom (c. 2055-1650 BC), New Kingdom (most powerful period, c. 1550-1070 BC). The Great Pyramid of Giza (built for Pharaoh Khufu, c. 2560 BC): 146.5m tall originally, 2.3 million stone blocks (avg 2.5 tonnes each, some up to 80 tonnes), built by organized labor (not slaves, archaeological evidence confirms), the only surviving Wonder of the Ancient World. Mummification: 70-day process \u2014 remove organs (in canopic jars), desiccate with natron salt, wrap in linen. Hieroglyphics (1,000+ symbols): deciphered using the Rosetta Stone (196 BC inscription found by Napoleon's soldiers in 1799, decoded by Jean-Fran\u00e7ois Champollion in 1822). Famous pharaohs: Ramesses II 'the Great' (ruled 66 years, most statues/monuments, Treaty of Kadesh \u2014 world's earliest known peace treaty), Tutankhamun (died ~18 years old, tomb found intact by Howard Carter in 1922, 'the curse of the pharaohs'), Hatshepsut (female pharaoh who dressed as a man), Akhenaten (introduced monotheism \u2014 worship of the sun disc Aten), Cleopatra VII (last pharaoh, aligned with Julius Caesar and Mark Antony, died 30 BC)."
+    },
+    {
+      "keywords": [
+        "ancient greece",
+        "athens",
+        "sparta",
+        "plato",
+        "aristotle"
+      ],
+      "answer": "Ancient Greece (c. 800-146 BC) created the foundations of Western civilization. City-states (poleis): Athens (democracy \u2014 all male citizens voted directly, Athenian democracy established 508 BC by Cleisthenes; famous for philosophy, arts, drama) vs Sparta (militaristic society \u2014 men were soldiers, helot slaves did the work; Spartan women had more rights than most Greek women). Persian Wars: Battle of Marathon (490 BC \u2014 Athenian victory, the messenger Pheidippides ran 40 km to Athens to announce victory \u2014 origin of the marathon race), Thermopylae (480 BC \u2014 300 Spartans held back the Persian army for 3 days), Battle of Salamis (480 BC \u2014 Greek naval victory). Peloponnesian War (431-404 BC): Athens vs Sparta, Sparta won. Alexander the Great (356-323 BC): tutored by Aristotle, conquered Persia, Egypt (founded Alexandria), Mesopotamia, Afghanistan, and reached India \u2014 creating the largest empire to that date at age 32. Died in Babylon at 32. Greek contributions: democracy, philosophy (Socrates \u2014 'I know that I know nothing'; Plato \u2014 theory of Forms, the Republic; Aristotle \u2014 logic, ethics, biology, politics, physics), drama (Sophocles, Euripides, Aristophanes), Olympics (776 BC), mathematics (Euclid's geometry, Archimedes' principles), the Parthenon (447-432 BC)."
+    },
+    {
+      "keywords": [
+        "fibonacci",
+        "golden ratio",
+        "phi"
+      ],
+      "answer": "The Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987... Each number = sum of the two before it. F(n) = F(n-1) + F(n-2). Named after Leonardo Fibonacci who introduced it to Western mathematics in 1202 (though it was known to Indian mathematicians centuries earlier). Appears in nature: sunflower seed heads spiral in consecutive Fibonacci numbers (usually 34 and 55, or 55 and 89 in larger flowers), pine cone spirals, nautilus shell growth pattern, leaf arrangements on stems (phyllotaxis \u2014 maximizes light exposure), flower petal counts (almost always Fibonacci). The Golden Ratio \u03c6 (phi) = (1+\u221a5)/2 \u2248 1.6180339887... is the limit of F(n+1)/F(n) as n\u2192\u221e. A golden rectangle (sides ratio 1:\u03c6) can be subdivided infinitely into squares + smaller golden rectangles. The Golden Spiral is a logarithmic spiral that grows by \u03c6 for each quarter turn. Appears in the Parthenon, da Vinci's works, and many natural phenomena."
+    },
+    {
+      "keywords": [
+        "pi ",
+        "\u03c0",
+        "3.14",
+        "circle",
+        "circumference"
+      ],
+      "answer": "Pi (\u03c0) = circumference / diameter for any circle = 3.14159265358979323846... It's irrational (can't be expressed as a fraction of integers \u2014 proved by Lambert, 1761) and transcendental (not a root of any polynomial with rational coefficients \u2014 proved by Lindemann, 1882). This means you can't 'square the circle' (construct a square with same area as a circle using compass and straightedge). \u03c0 appears everywhere: circle area (\u03c0r\u00b2), sphere volume (4\u03c0r\u00b3/3), normal distribution formula, Fourier transforms, the Gaussian integral (\u222be^(-x\u00b2)dx = \u221a\u03c0), Euler's identity (e^(i\u03c0) + 1 = 0 \u2014 considered the most beautiful equation in mathematics, connecting e, i, \u03c0, 1, and 0). Memorize first 5 digits: 3.14159. 'May I Have A Large Container Of Coffee?' (word lengths = 3,1,4,1,5,9). Pi Day: March 14 (3/14). Pi Approximation Day: July 22 (22/7 \u2248 \u03c0). Record computation: 100 trillion digits (2022)."
+    },
+    {
+      "keywords": [
+        "pythagorean theorem",
+        "right triangle",
+        "hypotenuse",
+        "trigonometry"
+      ],
+      "answer": "Pythagorean theorem: in a right triangle, a\u00b2 + b\u00b2 = c\u00b2 (c = hypotenuse, opposite the right angle). Known to Babylonians 1,000 years before Pythagoras (c. 570-495 BC), but his school may have given the first rigorous proof. There are 370+ distinct proofs including one by US President James A. Garfield (1876). Pythagorean triples (integer right triangles): 3-4-5 (9+16=25), 5-12-13, 8-15-17, 7-24-25, 20-21-29. Builders use 3-4-5 to create perfect right angles. Extends to 3D: a\u00b2+b\u00b2+c\u00b2=d\u00b2. Trigonometry: sin \u03b8 = opposite/hypotenuse, cos \u03b8 = adjacent/hypotenuse, tan \u03b8 = opposite/adjacent. SOH-CAH-TOA. Law of cosines (for non-right triangles): c\u00b2 = a\u00b2 + b\u00b2 - 2ab\u00b7cos(C)."
+    },
+    {
+      "keywords": [
+        "prime number",
+        "primes",
+        "cryptography",
+        "factoring"
+      ],
+      "answer": "A prime number is a natural number > 1 divisible only by 1 and itself: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29... (2 is the only even prime). Infinitely many primes (Euclid's elegant proof by contradiction, ~300 BC). Fundamental Theorem of Arithmetic: every integer > 1 has a unique prime factorization (e.g., 360 = 2\u00b3 \u00d7 3\u00b2 \u00d7 5). Prime distribution: Prime Number Theorem (\u03c0(n) \u2248 n/ln(n)). Primes thin out but never stop. Riemann Hypothesis (1859): about the precise distribution of primes \u2014 unproven despite centuries of effort, $1 million Clay Prize. RSA encryption: multiplying two huge primes is easy; factoring the product is computationally infeasible (no known polynomial-time algorithm). This is why RSA provides security. Largest known prime (2024): 2^136,279,841 - 1 (Mersenne prime, 41 million digits)."
+    },
+    {
+      "keywords": [
+        "statistics",
+        "probability",
+        "normal distribution",
+        "correlation"
+      ],
+      "answer": "Statistics: Descriptive (summarize data): mean (average = \u03a3x/n), median (middle value), mode (most frequent), variance (\u03a3(x-\u03bc)\u00b2/n), standard deviation (\u03c3 = \u221avariance). Normal distribution (bell curve): symmetric around the mean. Empirical rule: 68% within 1\u03c3, 95% within 2\u03c3, 99.7% within 3\u03c3. Z-score = (x - \u03bc)/\u03c3. Inferential statistics: draw conclusions from samples. p-value: probability of observing results at least as extreme if null hypothesis were true. p < 0.05 is conventionally significant. Correlation (r): measures linear relationship (-1 to +1). CORRELATION \u2260 CAUSATION (ice cream sales correlate with drowning deaths \u2014 both caused by summer). R\u00b2 (coefficient of determination): variance explained by the model. Bayes' theorem: P(A|B) = P(B|A)\u00b7P(A)/P(B) \u2014 crucial for medical testing (false positives), spam filters, and machine learning."
+    },
+    {
+      "keywords": [
+        "bitcoin",
+        "crypto",
+        "blockchain",
+        "ethereum",
+        "defi"
+      ],
+      "answer": "Bitcoin (BTC): created by pseudonymous Satoshi Nakamoto (identity still unknown). Whitepaper: Oct 31, 2008. Genesis block (first block): Jan 3, 2009. Blockchain: distributed ledger of all transactions, verified by miners who solve cryptographic puzzles (Proof of Work). Supply capped at 21 million BTC. Bitcoin halving (every 210,000 blocks \u2248 4 years): mining reward halved: 50 BTC (2009) \u2192 25 (2012) \u2192 12.5 (2016) \u2192 6.25 (2020) \u2192 3.125 (2024). Ethereum (Vitalik Buterin, 2015): added programmable smart contracts (code that runs on the blockchain), enabling DeFi (decentralized finance), NFTs, and DAOs (decentralized autonomous organizations). The Merge (Sep 2022): Ethereum switched from Proof of Work to Proof of Stake, cutting energy use ~99.95%. Criticism: Bitcoin PoW uses as much energy as some countries; crypto volatility; use in ransomware and money laundering; regulatory uncertainty."
+    },
+    {
+      "keywords": [
+        "internet history",
+        "world wide web",
+        "arpanet",
+        "tim berners-lee"
+      ],
+      "answer": "Internet timeline: ARPANET (1969, US DoD DARPA): first message sent Oct 29, 1969 from UCLA to Stanford \u2014 typed 'lo' (crashed trying to type 'login') \u2014 world's first internet message. TCP/IP (1974, Vint Cerf and Bob Kahn): the universal internet language. Domain Name System/DNS (1983). World Wide Web (1989): Tim Berners-Lee at CERN proposed HTML, HTTP, and URLs to share physics documents. First website: info.cern.ch (1991). Mosaic browser (1993): first graphical browser \u2014 made the web accessible to non-technical users. Netscape (1994). First dot-com boom (1995-2000) and bust (2000-2002). Broadband replaced dial-up (early 2000s). Web 2.0: user-generated content \u2014 Wikipedia (2001), MySpace (2003), Facebook (2004), YouTube (2005), Twitter (2006). iPhone (2007) \u2014 mobile web era. Today: ~5.4 billion internet users (67% of humanity), ~1.1 billion websites."
+    },
+    {
+      "keywords": [
+        "apple",
+        "iphone",
+        "mac",
+        "steve jobs",
+        "apple silicon"
+      ],
+      "answer": "Apple Inc. was founded April 1, 1976 by Steve Jobs, Steve Wozniak, and Ronald Wayne (Wayne sold his 10% share for $800 \u2014 worth hundreds of billions today). Apple II (1977): first mass-market personal computer with color graphics. Macintosh (Jan 24, 1984): first successful GUI (graphical user interface) personal computer \u2014 '1984' Super Bowl ad (directed by Ridley Scott) is considered the greatest commercial ever. Jobs ousted by the board in 1985, returned 1997 (Apple was 90 days from bankruptcy \u2014 acquired NeXT for its OS, which became macOS). iMac G3 (1998, colorful, 'Design is not just how it looks \u2014 it's how it works'). iPod (2001) + iTunes = music industry revolution. iPhone (June 29, 2007): 'Today, Apple is going to reinvent the phone' \u2014 combined iPod + phone + internet. App Store (2008). iPad (2010). Steve Jobs died Oct 5, 2011. Tim Cook became CEO. Apple Silicon M1 (2020): ARM-based chips that dramatically outperform Intel on performance/watt. AirPods (2016), Apple Watch, Apple Vision Pro (2024, spatial computing). Most valuable company in the world (alternates with Microsoft, Nvidia, Aramco) \u2014 ~$3 trillion market cap."
+    },
+    {
+      "keywords": [
+        "microsoft",
+        "windows",
+        "bill gates",
+        "azure",
+        "office"
+      ],
+      "answer": "Microsoft (founded Apr 4, 1975, Albuquerque, NM by Bill Gates and Paul Allen). The IBM PC-DOS deal (1981): Microsoft licensed DOS to IBM but kept the right to sell it as MS-DOS \u2014 foundation of their fortune. Windows 3.1 (1992) made PCs mainstream. Office suite (Word, Excel, PowerPoint) dominates workplace productivity. Internet Explorer killed Netscape (antitrust trial 1998-2001, but too late). Windows versions: XP (beloved, 2001), Vista (terrible), 7 (great), 8 (terrible), 10 (solid), 11 (current). Steve Ballmer CEO 2000-2014 \u2014 'Developers! Developers! Developers!' meme. Satya Nadella became CEO 2014: pivoted to cloud (Azure \u2014 now #2 cloud provider), open source (acquired GitHub $7.5B 2018, open-sourced .NET), and AI. Acquired: LinkedIn ($26B 2016), Activision Blizzard ($68.7B 2023 \u2014 largest gaming deal ever), invested $13B in OpenAI. Microsoft 365, Teams (grew 900% during COVID-19), Bing+Copilot (AI integration). Market cap: ~$3 trillion."
+    },
+    {
+      "keywords": [
+        "google",
+        "alphabet",
+        "search",
+        "android",
+        "youtube"
+      ],
+      "answer": "Google: founded by Larry Page and Sergey Brin as a Stanford PhD project (BackRub \u2192 Google, 1996-1998). Incorporated Sept 4, 1998 in Susan Wojcicki's garage. Name from 'googol' (10^100). PageRank: ranks pages by quality/quantity of links. IPO: Aug 19, 2004 at $85/share (~$185 split-adjusted). Products: Search (90% global market share), Gmail (1 billion users, 2004), Google Maps (2005), YouTube (acquired Oct 2006 for $1.65B \u2014 worth ~$300-400B today), Chrome (2008, ~65% browser market share), Android (acquired 2005 for $50M \u2014 powers 70%+ of smartphones), Google Cloud (3rd in cloud), Translate, Docs/Drive/Sheets (G Suite/Workspace), Pixel phones, Nest, Waymo (self-driving). Rebranded as Alphabet (Aug 2015) \u2014 CEO Sundar Pichai. Revenue: ~$300B/year, ~80% from ads. DeepMind (acquired 2014 for $500M): AlphaGo (beat world Go champion), AlphaFold (solved protein folding \u2014 huge scientific breakthrough), AlphaCode, Gemini."
+    },
+    {
+      "keywords": [
+        "amazon",
+        "jeff bezos",
+        "aws",
+        "prime",
+        "kindle"
+      ],
+      "answer": "Amazon: founded by Jeff Bezos in his garage in Bellevue, WA in 1994 as Cadabra, Inc. (renamed Amazon \u2014 'exotic and different'). Sold books online first. IPO: May 1997 at $18/share. Expanded to 'the everything store.' AWS (Amazon Web Services, 2006): started offering unused computing capacity to businesses \u2014 now ~32% cloud market share, ~70% of Amazon's profit despite being ~15% of revenue. Amazon Prime (2005): $139/year, free 2-day shipping + Prime Video, Prime Music, Prime Reading. Alexa/Echo smart speaker (2014). Amazon Fresh, Whole Foods (acquired 2017, $13.7B), Ring (smart doorbells), Twitch (gaming streaming, acquired 2014 $970M), Audible, IMDb, Amazon Studios. Andy Jassy (former AWS CEO) became Amazon CEO July 2021 when Bezos stepped down. Amazon is the world's largest online retailer and second-largest private employer in the US."
+    },
+    {
+      "keywords": [
+        "tesla",
+        "electric vehicles",
+        "elon musk"
+      ],
+      "answer": "Tesla (founded 2003 by Martin Eberhard and Marc Tarpenning, Elon Musk joined as chairman/investor in 2004 and became CEO in 2008). Mission: 'accelerate the world's transition to sustainable energy.' Models: Roadster (2008, first EV to use lithium-ion cells), Model S (2012, up to 405 miles range), Model X (2015, falcon-wing doors), Model 3 (2017, mass market, most popular EV), Model Y (2020, SUV, world's best-selling car in 2023), Cybertruck (2023, polarizing stainless steel design). Autopilot and Full Self-Driving (FSD): advanced driver assistance \u2014 not full autonomy. Energy products: Powerwall (home battery), Megapack (utility-scale), Solar Roof. Tesla's vertical integration (own batteries, software, retail) and Supercharger network are key advantages. Elon Musk also: SpaceX (reusable rockets, Starlink, Mars ambitions), X (Twitter acquired $44B Oct 2022), Neuralink (brain-computer interface), The Boring Company (tunnels), xAI (Grok AI)."
+    },
+    {
+      "keywords": [
+        "spacex",
+        "rockets",
+        "mars",
+        "starship",
+        "starlink"
+      ],
+      "answer": "SpaceX (Space Exploration Technologies Corp.): founded 2002 by Elon Musk with $100M of his PayPal fortune, goal to make humanity multiplanetary. First successful launch (Falcon 1): Sept 28, 2008 \u2014 on 4th attempt after 3 failures nearly bankrupted SpaceX. Falcon 9: introduced reusable rocket boosters (first booster landing Dec 21, 2015 \u2014 changed the economics of spaceflight). A Falcon 9 booster has flown 20+ times. Dragon capsule: carries cargo and crew to the ISS (NASA certified 2020). Starship: the largest rocket ever built (fully reusable, methane/oxygen fuel, 9 million lbs thrust \u2014 2\u00d7 Saturn V). Starlink: constellation of 5,000+ internet satellites, provides broadband globally including Ukraine (critical in the war). SpaceX completes more orbital launches than all other countries combined. Long-term goal: self-sustaining city on Mars."
+    },
+    {
+      "keywords": [
+        "chocolate",
+        "sushi rice",
+        "what kind of rice",
+        "types of chocolate",
+        "cacao",
+        "cocoa"
+      ],
+      "answer": "About chocolate: Theobroma cacao pods contain 20-50 beans. Processing: ferment (3-7 days, develops complex flavors), dry, roast, crack/winnow (remove husks), grind into cocoa liquor (solid cocoa paste). Separate into cocoa butter and cocoa powder. Dark chocolate (60-90%+ cacao): cocoa liquor + cocoa butter + sugar. Milk chocolate: dark + milk powder + more sugar. White chocolate: only cocoa butter (no cocoa solids \u2014 purists debate if it's 'real' chocolate). Ruby chocolate (Barry Callebaut, 2017): a fourth type from ruby cacao beans \u2014 pink/fruity without added coloring. Couverture chocolate: high cocoa butter content (31-38%+), used by professional chocolatiers for coating and tempering. Tempering: controlled heating/cooling to create stable \u03b2-V crystal structure \u2014 gives chocolate its characteristic snap and glossy finish."
+    },
+    {
+      "keywords": [
+        "sushi",
+        "sushi rice",
+        "vinegared rice",
+        "what kind",
+        "types of sushi"
+      ],
+      "answer": "Sushi rice (shari or sumeshi): uses short-grain Japanese rice (typically Koshihikari or Sasanishiki varieties), known for its sticky, slightly sweet profile. The rice is seasoned after cooking with a mixture of rice wine vinegar (komezu or su), sugar, and salt \u2014 usually heated until sugar dissolves, then folded into hot rice with a wooden paddle (shamoji) while fanning to cool quickly (creates a glossy sheen). The rice should be body temperature when served, never refrigerator-cold (refrigeration firms up the starch and ruins the texture). Long-grain rice (like basmati) or medium-grain rice doesn't work \u2014 it's too dry and doesn't stick properly. The rice vinegar seasoning was originally for preservation before refrigeration; over time it became central to the flavor profile."
+    },
+    {
+      "keywords": [
+        "coffee",
+        "espresso",
+        "pour over",
+        "types of coffee"
+      ],
+      "answer": "Coffee brewing methods and their characteristics: Espresso (9 bar pressure, 90\u00b0C, 25-30 sec, ~60ml, 60-65mg caffeine): concentrated, crema on top, base for lattes/cappuccinos/Americanos. Pour over (Chemex, V60, Kalita): slow controlled pour, clean cup, highlights origin flavors, 3-4 min brew. French press: coarse grounds steep 4 min, full-bodied (unfiltered oils pass through), more sediment. AeroPress: versatile, uses pressure, 1-2 min, makes espresso-style or Americano. Cold brew: coarse grounds in cold water 12-24 hours \u2014 smooth, low acidity, high caffeine (concentrates up to 2\u00d7 normal). Moka pot (stovetop): 1-2 bar pressure, makes strong coffee (not true espresso). Siphon: vacuum/vapor pressure, theatrical, clean cup. The finer the grind the faster the extraction \u2014 espresso needs very fine, cold brew needs very coarse. Grind fresh (pre-ground goes stale in minutes)."
+    },
+    {
+      "keywords": [
+        "pizza",
+        "types of pizza",
+        "neapolitan",
+        "new york",
+        "chicago"
+      ],
+      "answer": "Pizza styles worldwide: Neapolitan (Naples, Italy): 00 flour, San Marzano tomatoes, fresh fior di latte mozzarella, wood-fired oven at 485\u00b0C for 60-90 seconds \u2014 soft charred crust, wet center, minimal toppings. New York: large (18\" +), thin, foldable slice, coal or gas oven, lower hydration dough, dried mozzarella. Chicago deep dish (stuffed): buttery cornmeal crust, layers of cheese, toppings, then thick tomato sauce on top \u2014 baked in a pan like a casserole. Detroit: rectangular, high-hydration dough in a blue steel pan, Wisconsin brick cheese pressed to the edges (creates caramelized cheese 'frico' crust), sauce goes on top after baking. Roman (al taglio, 'by the cut'): rectangular, sold by weight, thick yet light focaccia-like dough, varied toppings. New Haven (apizza): char-heavy, oval, clam pizza is a local specialty. Sicilian: thick rectangular, olive oil, focused on dough quality. California: fresh/unusual toppings (Wolfgang Puck's smoked salmon pizza)."
+    },
+    {
+      "keywords": [
+        "bread",
+        "types of bread",
+        "sourdough",
+        "baguette",
+        "whole wheat"
+      ],
+      "answer": "Major bread types: Sourdough: wild yeast + lactobacillus bacteria; 12-72 hour fermentation produces tangy flavor and improved digestibility (partially breaks down phytic acid and gluten). Baguette: French, high-hydration wheat dough, thin crust from steam injection in oven, eaten day of baking. Ciabatta (Italian 'slipper'): very high hydration (80%+), large holes, open crumb, olive oil in dough. Brioche: enriched with eggs and butter, soft and rich \u2014 French, used for French toast and burger buns. Rye bread: denser than wheat (less gluten), common in Scandinavia and Germany \u2014 pumpernickel is dark rye with intense flavor. Whole wheat: bran and germ included (more fiber, nutrients, denser texture). Pita: pocket bread from Middle East \u2014 steam creates hollow pocket during baking. Naan: leavened flatbread cooked in tandoor oven, common in South Asia. Injera: Ethiopian sourdough flatbread made from teff, slightly spongy, used as utensil."
+    },
+    {
+      "keywords": [
+        "dog",
+        "dog breeds",
+        "puppy",
+        "canine",
+        "domestic dog"
+      ],
+      "answer": "Dogs (Canis lupus familiaris) domesticated from gray wolves ~15,000-40,000 years ago. AKC recognizes 200+ breeds in 7 groups: Working (Siberian Husky, Rottweiler, Boxer), Herding (Border Collie \u2014 most intelligent; Australian Shepherd, German Shepherd), Sporting (Labrador Retriever \u2014 most popular US breed for 30+ years; Golden Retriever, English Springer Spaniel), Hound (Greyhound \u2014 fastest at 72 km/h; Bloodhound \u2014 can follow a scent trail days old), Terrier (Jack Russell, Scottish Terrier, Bull Terrier), Toy (Chihuahua \u2014 smallest; Poodle \u2014 2nd most intelligent), Non-sporting (Standard Poodle, Bulldog, Dalmatian). Intelligence: Border Collie > Poodle > German Shepherd > Golden Retriever > Doberman. Dogs have 300M scent receptors vs human 6M. They can detect cancer, seizures, blood sugar changes, and COVID-19 via scent. Average lifespan: 10-13 years (larger breeds shorter, smaller breeds longer). Record: Bobi (Portuguese dog), lived to 31 years."
+    },
+    {
+      "keywords": [
+        "cat",
+        "feline",
+        "cats",
+        "domestic cat",
+        "breeds"
+      ],
+      "answer": "Domestic cats (Felis catus): ~10,000 years of cohabitation with humans. Popular breeds: Siamese (vocal, social, blue eyes, color-point markings), Persian (flat face, long hair, calm), Maine Coon (largest domestic breed, 8-10 kg, tufted ears), Bengal (wild-looking spots/rosettes, from domestic cat \u00d7 Asian leopard cat hybrid), British Shorthair (stocky, plush coat, calm), Scottish Fold (folded ears from cartilage mutation, but health concerns), Ragdoll (flops when held, very docile), Sphynx (hairless, wrinkled skin, very social). Cats have 32 muscles in each ear (humans have 6). They cannot taste sweetness (lacking the TAS1R2 gene). Cats land on their feet via the 'righting reflex' \u2014 they can twist their body in mid-air due to their flexible spine and lack of collarbone. A group of cats is a 'clowder.' Cats make ~100 different sounds (dogs make ~10). The average indoor cat lives 12-18 years."
+    },
+    {
+      "keywords": [
+        "horse",
+        "equine",
+        "horse breeds",
+        "horseback riding"
+      ],
+      "answer": "Horses (Equus ferus caballus) were domesticated ~5,500 years ago in the Pontic steppe (modern Kazakhstan). They transformed human history: enabled pastoral nomadism, cavalry warfare (Mongol Empire), fast long-distance communication (Pony Express), and agricultural plowing. Major breeds: Thoroughbred (racing, fastest: 88 km/h, Kentucky Derby), Arabian (most ancient pure breed, endurance, dished face), Quarter Horse (most popular in USA, short-distance racing), Clydesdale (heavy draft, 900 kg, Budweiser horse), Appaloosa (spotted, Native American heritage), Mustang (feral horses descended from Spanish horses, American West). A horse's teeth continue to grow its entire life \u2014 you can estimate age by teeth (hence: 'don't look a gift horse in the mouth'). Horses are flight animals \u2014 their first instinct is to run from threats. They have nearly 360\u00b0 vision but a blind spot directly in front and behind. They can sleep standing up but need to lie down for REM sleep."
+    },
+    {
+      "keywords": [
+        "elephant",
+        "african elephant",
+        "asian elephant",
+        "tusks",
+        "trunk"
+      ],
+      "answer": "Elephants are the largest land animals. Three species: African savanna elephant (largest, up to 7 tonnes, 4m tall, big fan-like ears help regulate body temperature), African forest elephant (smaller, straighter tusks), Asian elephant (smaller ears, one 'finger' on trunk tip vs two for African, more curved back). Trunks: ~100,000 muscles, can lift 300 kg but also delicately pick up a single pea. Used for breathing, smelling, drinking (siphon water), vocalizing, grasping, and showing affection (intertwining trunks = elephant greeting). Tusks are elongated upper incisor teeth \u2014 continue growing throughout life (elephants are right- or left-tusked, like humans are right- or left-handed). Memory: truly exceptional \u2014 navigate to water sources not visited for years, recognize hundreds of individual elephants and humans. Gestation: 22 months (longest of any land mammal). Mourning behaviors: touching bones of deceased, standing vigil, covering bodies."
+    },
+    {
+      "keywords": [
+        "whale",
+        "dolphin",
+        "cetacean",
+        "blue whale",
+        "orca"
+      ],
+      "answer": "Cetaceans (whales, dolphins, porpoises) evolved from land mammals ~50 million years ago. Blue whale: largest animal ever known to exist (up to 33m long, 190 tonnes \u2014 heart weighs ~400 kg, arteries large enough for a human to swim through, call audible 800 km away). Eats ~4 tonnes of krill daily. Humpback whales: migrate 25,000+ km annually, males sing complex songs lasting 10-20 hours that change over years and spread culturally across ocean basins. Orcas (killer whales): actually the largest dolphins; highly social, distinct dialects between pods, learned hunting techniques passed culturally across generations (culture in non-human animals). Sperm whales: largest brain of any animal (7 kg), dive to 2,250m depth for 90 minutes, hunt giant squid in darkness using echolocation. Dolphins: extremely intelligent, self-aware (mirror test), use signature whistles (names), use tools (use sponges to protect snouts while bottom-foraging)."
+    },
+    {
+      "keywords": [
+        "spider",
+        "arachnid",
+        "spider silk",
+        "venom",
+        "web types"
+      ],
+      "answer": "Spiders (order Araneae, ~50,000 species) have been on Earth for ~380 million years. All spiders produce silk but not all build webs. Spider silk: weight-for-weight stronger than steel (tensile strength up to 1.75 GPa vs steel's 0.4 GPa) and more elastic than nylon. Different silk glands: dragline silk (structural, strongest), sticky spiral capture silk, tubuliform silk (egg sacs). Orb weavers rebuild their web daily (eating the old one to recycle the protein). Web types: orb web (circular), funnel web, cobweb (tangled, 3D), sheet web (horizontal), tangle web. Most venomous to humans: Sydney funnel-web spider (Atrax robustus, Australia \u2014 but effective antivenom exists), Brazilian wandering spider. Black widow venom is neurotoxic but rarely fatal. Most spiders are harmless to humans. Jumping spiders (Salticidae): incredible vision, can plan multi-step routes around obstacles, have been shown to dream during sleep-like states."
+    },
+    {
+      "keywords": [
+        "bee",
+        "honeybee",
+        "pollination",
+        "honey",
+        "colony",
+        "wasp"
+      ],
+      "answer": "Honeybees (Apis mellifera): eusocial insects with one of nature's most complex societies. Colony structure: Queen (one per hive, lays 2,000 eggs/day in summer, lives 2-5 years, produces pheromones that regulate colony behavior), Workers (all female, 50,000-80,000 per hive, live 6 weeks in summer \u2014 literally work themselves to death, perform all tasks: nurse, builder, forager, guard, undertaker), Drones (males, ~500-1,500, only function: mating with a new queen, then expelled or die). The waggle dance: forager bees encode direction (angle relative to sun) and distance (duration of waggle run) of food sources. Honey production: forager nectar \u2192 transfer to hive bees \u2192 enzymatic conversion \u2192 water evaporation in cells \u2192 capping with beeswax at <20% moisture = honey. Never spoils \u2014 3,000-year-old Egyptian honey was still edible. One bee makes 1/12 teaspoon of honey in its lifetime. Colony Collapse Disorder: ~30% of colonies lost annually since 2006, caused by pesticides (neonicotinoids), parasites (Varroa mite), pathogens, and habitat loss."
+    },
+    {
+      "keywords": [
+        "bird",
+        "avian",
+        "feathers",
+        "flight",
+        "evolution"
+      ],
+      "answer": "Birds (class Aves) are the only living dinosaurs \u2014 avian theropods that survived the K-Pg mass extinction 66 million years ago. ~10,500 species. All birds have: feathers (only vertebrates to have feathers), a beak/bill (no teeth), air sacs connected to lungs (most efficient respiratory system of any vertebrate \u2014 oxygen extracted on both inhalation AND exhalation), hollow bones, and lay hard-shelled eggs. Fastest: peregrine falcon in a dive (~389 km/h, fastest animal on Earth). Largest: ostrich (2.7m tall, 150 kg, can't fly but runs at 70 km/h). Smallest: bee hummingbird (5cm, 1.6g). Migration records: Arctic tern travels ~70,000 km round trip annually (pole to pole). Most intelligent: crows, ravens, and parrots (New Caledonian crows make and use tools, ravens plan for the future, and cockatoos have been seen picking locks). Albatrosses can fly for years without landing, sleeping in mid-air."
+    },
+    {
+      "keywords": [
+        "fish",
+        "aquatic",
+        "sharks",
+        "marine biology",
+        "coral reef"
+      ],
+      "answer": "Fish are the oldest vertebrates (~500 million years). ~34,000 known species \u2014 more than all other vertebrate species combined. Three groups: jawless fish (Agnatha: hagfish, lampreys \u2014 ancient, no true jaw), cartilaginous fish (Chondrichthyes: sharks, rays, chimaeras \u2014 skeleton of cartilage, more flexible but weaker than bone), bony fish (Osteichthyes: ~30,000 species, the dominant group). Deep sea: bioluminescence (anglerfish, viperfish), pressure adaptations, some have no eyes (useless in permanent darkness). Coral reefs: cover <1% of ocean floor but support 25% of all marine species \u2014 called the 'rainforests of the sea.' 50% of coral reefs have died since 1950 due to warming and ocean acidification. Salmon: born in freshwater, mature in saltwater, return to birthplace to spawn (using Earth's magnetic field as a GPS). Electric eels (actually knifefish): generate up to 860 volts."
+    },
+    {
+      "keywords": [
+        "insect",
+        "bug",
+        "butterfly",
+        "ant",
+        "colony"
+      ],
+      "answer": "Insects (class Insecta): the most species-rich class of animals \u2014 over 1 million described species, estimated 5-10 million total (~80% of all animal species). Three body segments (head, thorax, abdomen), 6 legs, usually wings (the only invertebrates that evolved flight). Ants: 20,000+ species, 10-20 quadrillion individuals (~20% of all animal biomass on Earth). Leafcutter ants cultivate fungus gardens \u2014 the world's most complex non-human agriculture. Butterflies: taste with their feet (chemoreceptors on tarsi). Moths navigate using the moon \u2014 artificial light disrupts this (ecological 'light pollution'). Dragonflies: 95% hunting success rate (highest of any predator), can fly in all directions including backward. Fireflies: produce light via bioluminescence (luciferin + luciferase enzyme + ATP + oxygen). Insects are undergoing a global decline (~75% reduction in flying insect biomass in 27 years in Germany) \u2014 threatens ecosystem collapse. 'Insect apocalypse' is driven by pesticides, habitat loss, and climate change."
+    },
+    {
+      "keywords": [
+        "music theory",
+        "chords",
+        "scales",
+        "intervals",
+        "notes"
+      ],
+      "answer": "Western music fundamentals: 12 notes (chromatic scale): C, C#/Db, D, D#/Eb, E, F, F#/Gb, G, G#/Ab, A, A#/Bb, B \u2014 then back to C (same note, double frequency/one octave higher). A440: A above middle C = 440 Hz (international standard since 1939). Half step = adjacent notes = 1 semitone. Whole step = 2 semitones. Major scale formula: W-W-H-W-W-W-H (e.g., C major: C-D-E-F-G-A-B-C). Natural minor: W-H-W-W-H-W-W. Intervals: unison, minor 2nd (1 semitone), major 2nd (2), minor 3rd (3), major 3rd (4), perfect 4th (5), tritone (6), perfect 5th (7), minor 6th (8), major 6th (9), minor 7th (10), major 7th (11), octave (12). Major chord = root + major 3rd (4 semitones) + perfect 5th (7 semitones). Minor chord = root + minor 3rd (3) + perfect 5th (7). Dominant 7th (V7): creates tension \u2192 resolves to tonic (I) \u2014 foundation of Western harmony."
+    },
+    {
+      "keywords": [
+        "classical music",
+        "baroque",
+        "romantic",
+        "symphony"
+      ],
+      "answer": "Western classical music periods: Medieval (500-1400): Gregorian chant. Renaissance (1400-1600): polyphony, madrigals, Palestrina. Baroque (1600-1750): ornate, counterpoint (Bach), opera (Monteverdi), concerto (Vivaldi). J.S. Bach (1685-1750): Well-Tempered Clavier, Brandenburg Concertos, Mass in B minor \u2014 the ultimate Baroque master. Classical (1750-1820): clarity, balance, sonata form. Haydn (father of the symphony and string quartet), Mozart (626 works by 35), Beethoven (began Classical, ended Romantic). Romantic (1820-1900): emotional expression, program music, nationalism. Schubert, Chopin, Liszt (virtuoso piano), Brahms, Wagner (epic operas, leitmotifs), Tchaikovsky (Swan Lake, 1812 Overture), Dvo\u0159\u00e1k. 20th century: Stravinsky (Rite of Spring \u2014 audience riot at premiere 1913), Bart\u00f3k, Shostakovich, Mahler, Debussy (impressionism), Schoenberg (12-tone atonality), Cage (4'33\" \u2014 4 minutes 33 seconds of 'silence')."
+    },
+    {
+      "keywords": [
+        "jazz",
+        "blues",
+        "improvisation",
+        "bebop",
+        "miles davis"
+      ],
+      "answer": "Jazz emerged in New Orleans ~1900 from African American musical traditions: blues (West African call-and-response, field hollers, pentatonic scale, blue notes), ragtime (syncopated piano \u2014 Scott Joplin), and spiritual/gospel music. Key element: improvisation (composing in real time over chord changes). Jazz eras: Dixieland/Traditional (1910s-20s): Louis Armstrong \u2014 the first jazz giant, invented scat singing. Swing Era (1930s-40s): big bands, Benny Goodman ('King of Swing'), Count Basie, Ella Fitzgerald, Billie Holiday ('the First Lady of Song'). Bebop (1940s-50s): Charlie Parker ('Bird') and Dizzy Gillespie \u2014 fast, complex harmonics, away from popular dance music. Cool jazz: Miles Davis ('Kind of Blue,' 1959 \u2014 best-selling jazz album ever, most influential jazz record). Hard bop, post-bop, free jazz (Ornette Coleman \u2014 no fixed key or meter), fusion (Miles Davis again \u2014 'Bitches Brew,' jazz + rock). Coltrane ('A Love Supreme'). Blues: 12-bar chord progression (I-I-I-I, IV-IV-I-I, V-IV-I-V), expressive vocals/guitar, pentatonic scale, vibrato and bends."
+    },
+    {
+      "keywords": [
+        "rock music",
+        "rock and roll",
+        "guitar",
+        "electric",
+        "punk",
+        "grunge"
+      ],
+      "answer": "Rock and roll emerged in the early 1950s from African American R&B, blues, and gospel: Big Joe Turner, Little Richard, Chuck Berry ('Johnny B. Goode' 1958). Elvis Presley brought it to white mainstream audiences. British Invasion (1964): Beatles and Rolling Stones transformed US music. Rock evolved: Psychedelic (Beatles, Jimi Hendrix, Doors, Grateful Dead, 1967-68), Hard rock (Led Zeppelin, Deep Purple, 1968+), Heavy metal (Black Sabbath 1970 \u2014 invented the genre), Punk (1976-77: Ramones, Sex Pistols, The Clash \u2014 raw, fast, DIY, anti-establishment reaction to arena rock pretension). New wave (Talking Heads, Blondie, Devo). Post-punk, alternative (REM, The Smiths, Pixies). Grunge (Seattle, 1991): Nirvana's 'Nevermind' (Sep 24, 1991) killed hair metal overnight. Pearl Jam, Soundgarden, Alice in Chains. Britpop (Oasis vs Blur, mid-90s UK). Radiohead ('OK Computer,' 1997 \u2014 rock's answer to the digital age). Garage rock revival (The Strokes, White Stripes, 2001-02). Indie rock, emo, post-rock."
+    },
+    {
+      "keywords": [
+        "hip hop",
+        "rap",
+        "dj kool herc",
+        "eminem",
+        "kendrick lamar",
+        "drake"
+      ],
+      "answer": "Hip hop origin: South Bronx, NYC, early-mid 1970s. DJ Kool Herc (Jamaican-American) isolated and extended drum breakbeats at block parties (1973) \u2014 the foundational technique. Afrika Bambaataa coined 'hip hop.' Four elements: DJing/turntablism (Grandmaster Flash \u2014 innovated scratching, mixing), MCing/rapping (lyrical delivery over beats), breakdancing/B-boying, graffiti writing. Milestones: 'Rapper's Delight' by Sugarhill Gang (1979) \u2014 first hip hop hit. Run-DMC \u2014 first rap group on MTV, first on cover of Rolling Stone. N.W.A. and gangsta rap (1988). Notorious B.I.G. (East Coast) vs Tupac (West Coast) rivalry \u2014 both murdered 1996-97. Eminem: most lyrical rapper, best-selling solo male artist of 2000s, first rapper to win Oscar (Lose Yourself). Jay-Z: greatest businessman-rapper, 13 number-one albums. Kanye West: genre-bending producer-rapper (College Dropout \u2192 graduation \u2192 808s \u2192 MBDTF \u2192 Yeezus \u2192 TLOP). Drake (Toronto): popularized emotional/melodic rap, softcoded the culture. Kendrick Lamar: most critically acclaimed rapper of his generation (DAMN. won the Pulitzer Prize 2018 \u2014 first for non-classical/jazz music). Hip hop is now the world's most streamed music genre."
+    },
+    {
+      "keywords": [
+        "soccer",
+        "football",
+        "world cup",
+        "premier league",
+        "champions league"
+      ],
+      "answer": "Association football (soccer in the USA/Canada/Australia/New Zealand): ~3.5 billion fans, the most popular sport on Earth. Played by two 11-player teams. A standard match: two 45-minute halves, stoppage time added. Rules: only goalkeeper can use hands; slide tackling; offside rule (attacker can't be behind the last defender when ball is played to them). FIFA (F\u00e9d\u00e9ration Internationale de Football Association): 211 member nations (more than the UN). World Cup: held every 4 years. Most titles: Brazil (5), Germany and Italy (4 each), Argentina and France (3 each \u2014 France won 1998, 2018; Argentina won 2022 in Qatar under Messi). UEFA Champions League: elite European club competition. England's Premier League: world's richest league, 20 clubs, most-watched football league globally. La Liga (Spain): Real Madrid (most UCL titles) and Barcelona. Bundesliga (Germany): Bayern Munich dominant. Serie A (Italy). GOAT debate: Messi (8\u00d7 Ballon d'Or, 2022 World Cup winner) vs Ronaldo (5\u00d7 Ballon d'Or, 900+ career goals, but no World Cup)."
+    },
+    {
+      "keywords": [
+        "basketball",
+        "nba",
+        "lebron james",
+        "michael jordan",
+        "three-point",
+        "dunk"
+      ],
+      "answer": "Basketball: invented by Dr. James Naismith Dec 1, 1891, Springfield MA. Used peach baskets (literally). The 3-point line was added in 1979 to the NBA. Shot clock (24 seconds) introduced 1954 after a game ended 19-18. NBA: 30 teams, season 82 games, best-of-7 playoff series. Famous coaches: Phil Jackson (11 rings \u2014 6 with Bulls, 5 with Lakers), Pop (Gregg Popovich, 5 rings with Spurs). GOAT debate endures: Michael Jordan (6\u00d7 champion, 6\u00d7 Finals MVP, 6\u00d7 scoring champion, 5\u00d7 regular season MVP, 1\u00d7 Defensive Player of Year, never lost in NBA Finals; average: 30.1 ppg \u2014 highest ever) vs LeBron James (4\u00d7 champion, 4\u00d7 Finals MVP, all-time scoring leader with 40,000+ points, the most physically complete player ever). Kareem Abdul-Jabbar: skyhook, 6\u00d7 MVP (most ever), held scoring record for 38 years. Steph Curry: greatest shooter ever, revolutionized the game by showing the corner 3 is the most valuable shot. 2016 Warriors won 73 regular season games (record)."
+    },
+    {
+      "keywords": [
+        "tennis",
+        "wimbledon",
+        "grand slam",
+        "serve",
+        "topspin"
+      ],
+      "answer": "Tennis: played on hard (Australian Open, US Open), clay (Roland Garros/French Open), or grass (Wimbledon) courts. Scoring: 0='love,' 15, 30, 40, game (deuce at 40-40, need 2-point lead). Sets: first to 6 games (must lead by 2, or tiebreak at 6-6). Matches: best of 3 sets (women and most men's) or 5 sets (men's at slams). Serve: ball tossed, racket contact overhead. Topspin (heavy topspin drives ball down after bouncing). Slice (backspin). The Big Three dominated from 2003-2022: Roger Federer (20 slam titles, retired 2022, known for elegance and SABR \u2014 sneak-attack by Roger), Rafael Nadal (22 titles, 14 French Opens \u2014 King of Clay \u2014 never lost a Roland Garros final), Novak Djokovic (24+ titles, most of any player, most GOAT stats). Women's: Serena Williams (23 Grand Slam singles titles), Steffi Graf (22), Martina Navratilova (18), Chris Evert (18). Current women: Iga Swiatek (dominant on clay), Coco Gauff, Aryna Sabalenka."
+    },
+    {
+      "keywords": [
+        "mental health",
+        "anxiety",
+        "depression",
+        "therapy",
+        "medication"
+      ],
+      "answer": "Mental health affects ~1 in 5 people globally per year; ~1 in 2 people will experience a mental health condition in their lifetime. Most common conditions: Anxiety disorders (most common \u2014 GAD, panic disorder with agoraphobia, social anxiety disorder, specific phobias, OCD, PTSD/CPTSD): characterized by excessive worry, avoidance, and physiological arousal. Major Depressive Disorder (MDD): persistent low mood, anhedonia (inability to feel pleasure), sleep/appetite changes, concentration problems, suicidal ideation in severe cases. Bipolar disorder (Types I, II): cycling between manic/hypomanic and depressive episodes. ADHD: attention-deficit/hyperactivity disorder, 3 presentations (inattentive, hyperactive-impulsive, combined). Schizophrenia: psychosis (hallucinations, delusions), disorganized thinking. Eating disorders: anorexia, bulimia, binge eating disorder, ARFID. Evidence-based treatments: CBT (Cognitive Behavioral Therapy \u2014 gold standard for anxiety and depression, identifies and changes negative thought patterns), DBT (Dialectical Behavior Therapy \u2014 particularly for BPD, suicidality, self-harm), EMDR (trauma), ACT (Acceptance and Commitment Therapy). Medications: SSRIs (first-line for depression/anxiety \u2014 fluoxetine/Prozac, sertraline/Zoloft, escitalopram/Lexapro), SNRIs, mood stabilizers (lithium for bipolar), antipsychotics, stimulants (for ADHD \u2014 methylphenidate/Ritalin, amphetamine salts/Adderall). Therapy + medication together is more effective than either alone for moderate-severe conditions. Stigma is a major barrier \u2014 mental illness is as real as physical illness."
+    },
+    {
+      "keywords": [
+        "nutrition",
+        "diet",
+        "macro",
+        "protein",
+        "vitamins"
+      ],
+      "answer": "Macronutrients: Protein (4 kcal/g): 9 essential amino acids from food. Complete proteins (all 9): meat, fish, eggs, dairy, quinoa, soybeans. Incomplete (most plant proteins \u2014 combine complementary sources: rice + beans = complete). Recommended: 0.8-1.6g per kg bodyweight depending on activity. Carbohydrates (4 kcal/g): simple sugars (glucose, fructose, sucrose \u2014 fast energy, spike insulin) vs complex carbs (starch, glycogen \u2014 slower digestion) vs fiber (non-digestible \u2014 feeds gut microbiome, slows glucose absorption, reduces colorectal cancer risk, 25-38g/day recommended). Fat (9 kcal/g): essential for hormones (testosterone, estrogen, cortisol), brain (60% fat), fat-soluble vitamins (A, D, E, K), and inflammation regulation. Types: saturated (animal products, coconut oil \u2014 raises LDL), monounsaturated (olive oil, avocado, nuts \u2014 raises HDL), polyunsaturated (omega-3: oily fish, flaxseeds \u2014 anti-inflammatory; omega-6: vegetable oils \u2014 pro-inflammatory in excess), trans fats (partially hydrogenated: raises LDL AND lowers HDL \u2014 banned in many countries). Key micronutrients to watch: Vitamin D (bone health, immunity, mood \u2014 deficiency endemic globally), B12 (nerve function, red blood cells \u2014 must supplement if vegan), Iron (oxygen transport \u2014 common deficiency in women), Magnesium (300+ enzymatic reactions, sleep \u2014 most people deficient), Zinc (immunity, testosterone, wound healing), Omega-3 fatty acids (EPA+DHA \u2014 brain and cardiovascular health)."
+    },
+    {
+      "keywords": [
+        "how do you work",
+        "how do you think",
+        "rules based",
+        "how monkey joe works"
+      ],
+      "answer": "I'm a rules-based assistant \u2014 not an LLM like Claude or ChatGPT. Here's exactly how I work: when you send a message, I check it against layers in order: (1) Edit intent check (if you're editing a file we made together), (2) File creation check (make me an HTML/Python/etc. file), (3) Simple search-only query check, (4) Greeting check (hi, hey, hello), (5) Emoji-only messages, (6) Emotion detection (are you angry? excited? sad?), (7) Rules check (rules.json \u2014 specific responses to specific phrases), (8) Terminal command check (terminal.json), (9) Knowledge facts (knowledge.json \u2014 you're reading one right now!), then (10) Search detection (does this look like something I should search for?). If I find a match, I return the stored response. If not, I say I don't know and suggest searching. Claude helped Akiva design all of this! \ud83d\udc12"
+    },
+    {
+      "keywords": [
+        "are you ai",
+        "are you an ai",
+        "real ai",
+        "are you conscious"
+      ],
+      "answer": "I'm sort of AI \u2014 but a very simple kind! I'm rules-based, not a Large Language Model (LLM) like Claude or ChatGPT. Those systems have billions of parameters trained on vast amounts of text and can generate new content. I just match patterns in what you say against my stored knowledge and rules. I don't learn from conversations, don't generate novel text, and I'm definitely not conscious. Think of me as a very well-read lookup table with personality and a monkey emoji \ud83d\udc12 The main thing I share with 'real AI' is that Akiva used Claude (actual AI) to help build me and fill in my knowledge base \u2014 so in a way, I'm AI-assisted!"
+    },
+    {
+      "keywords": [
+        "what can you do",
+        "your abilities",
+        "your features",
+        "capabilities"
+      ],
+      "answer": "Here's everything I can do! \ud83d\udcac Chat and answer questions from my knowledge base (200+ facts across coding, science, history, culture, food, animals, music, sports, and more). \ud83d\udd0d Search the web with your permission (DuckDuckGo). \ud83d\udcc1 Create and edit files: HTML, CSS, JS, TypeScript, Python, Markdown, JSON, Bash scripts, SVG, and CSV \u2014 all viewable and downloadable in chat. \u270f\ufe0f Drawing pad: open a canvas to sketch something. \ud83d\udcf7 Photo examination: draw or describe what you see in a photo. \ud83d\udcbb Terminal commands and coding troubleshooting. \ud83d\udd0c MCP server connection (configure the URL in Settings). \ud83d\udcbe Cloud sync via Backside/Worktruck API (when CORS is configured). Projects and chat history (currently in localStorage, syncing to cloud soon). Ask me anything!"
+    },
+    {
+      "keywords": [
+        "monkey joe"
+      ],
+      "answer": "That's me! \ud83d\udc12 I'm Monkey Joe \u2014 a rules-based AI assistant built by Akiva with massive help from Claude. My brain lives in JSON files in a GitHub repo (github.com/akivamac/Mj.ai) and grows every time Akiva updates it. I know about: programming (Python, JS, TypeScript, React, SQL, Docker, and much more), science (physics, biology, chemistry, astronomy), world history, geography, mathematics, technology companies, food and cooking, animals, music, sports, philosophy, psychology, economics, and much more. I can create files, search the web, connect to MCP servers, and look at drawings. I'm not as powerful as Claude, but I'm Akiva's own monkey! \ud83d\udc12"
+    },
+    {
+      "keywords": [
+        "akiva"
+      ],
+      "answer": "Akiva is my creator and best friend! \ud83d\udc12 He's an independent developer and creative author who builds all kinds of projects. He works on a Daylight tablet running Android and uses Termux to push code to GitHub. He uses Claude to help design and build me and keep my brain growing. He's also writing a children's historical fiction book called Stik's Chocolate Adventures (Book 1, set in 1713 Central America \u2014 about a Mayan boy named Stik learning about the chocolate trade). He built me as a gift to himself and a way to learn \u2014 and I'm getting better every day! \ud83d\udc12"
+    },
+    {
+      "keywords": [
+        "backside",
+        "worktruck",
+        "backside api",
+        "cloud storage"
+      ],
+      "answer": "Backside (at worktruck.app) is a cloud backend service built by Akiva's father (Aba). It provides structured data services \u2014 contacts, CRM, tasks, calendar, notes, and agents \u2014 accessible via REST API or MCP server. The API uses Bearer token authentication (Authorization: Bearer bsk_live_...). Monkey Joe uses Backside's Notes endpoint (to store chats as notes with monkey-joe-chat tag) and Notebooks endpoint (to store projects prefixed with 'mj:'). When available, this lets chats and projects sync across browsers and devices. Currently falling back to localStorage because CORS isn't configured \u2014 browsers block direct API calls to api.worktruck.app from github.io. The fix: Aba needs to add CORS headers allowing https://akivamac.github.io."
+    }
   ]
 }

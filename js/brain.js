@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '9'; // bump when brain JSON files change
+  const BRAIN_VERSION = '14'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -34,6 +34,16 @@ const Brain = (() => {
 
     // Edit intent — check if user is referring to a previously created file
     const editTriggers = ['edit it','edit that','edit the file','change it','update it','update the file','modify it','modify the file','add to it','add to the file','rename it','rename the file','fix it','fix the file'];
+    // "Yes" context — if Joe just offered to search, treat as search confirmation
+    if (/^(yes|yeah|sure|ok|okay|yep|yup|do it|go ahead)[\s!.]*$/.test(lower)) {
+      const lastJoe = [...history].reverse().find(m => m.role === 'joe');
+      if (lastJoe && lastJoe.content && lastJoe.content.includes('search the web for it')) {
+        // Find the topic from earlier in conversation
+        const lastUser = [...history].reverse().find(m => m.role === 'user' && m.content !== input);
+        if (lastUser) return '__SEARCH__:' + lastUser.content;
+      }
+    }
+
     // Find last file in history (used for edit intent)
     const lastFileMsg = [...history].reverse().find(m => m.role === 'joe' && m.isHTML && m.content && m.content.includes('Files.view'));
     const hasRecentFile = !!lastFileMsg;
@@ -60,8 +70,8 @@ const Brain = (() => {
       return "Sure! What do you want me to search for?";
     }
 
-    // Greeting check
-    if (rules && rules.greetings) {
+    // Greeting check — only if short message (not combined with a question)
+    if (rules && rules.greetings && lower.length < 30 && !lower.includes('?') && !lower.includes('who') && !lower.includes('what') && !lower.includes('how')) {
       for (const g of rules.greetings) {
         if (g.if.some(w => lower === w || lower.startsWith(w + ' ') || lower.startsWith(w + '!') || lower.startsWith(w + ','))) {
           return pick(g.responses);
@@ -93,6 +103,11 @@ const Brain = (() => {
       }
     }
 
+    // Identity shortcut — catch before search triggers
+    if (lower.includes('who are you') || lower.includes('what are you') || lower === 'who r u') {
+      return "I'm Monkey Joe 🐒 — a rules-based assistant built by Akiva with Claude's help. My brain lives in a GitHub repo and grows over time!";
+    }
+
     // Terminal/command check — only if input looks like a command (starts with trigger or is short)
     if (terminal && terminal.commands) {
       for (const entry of terminal.commands) {
@@ -104,13 +119,15 @@ const Brain = (() => {
       }
     }
 
-    // Knowledge check
+    // Knowledge check — prefer most-specific match (most keywords hit)
     if (knowledge && knowledge.facts) {
+      let bestFact = null, bestScore = 0;
       for (const fact of knowledge.facts) {
-        if (fact.keywords && fact.keywords.some(k => lower.includes(k.toLowerCase()))) {
-          return fact.answer;
-        }
+        if (!fact.keywords) continue;
+        const score = fact.keywords.reduce((n, k) => n + (lower.includes(k.toLowerCase()) ? 1 : 0), 0);
+        if (score > bestScore) { bestScore = score; bestFact = fact; }
       }
+      if (bestFact) return bestFact.answer;
     }
 
     // Search detection
