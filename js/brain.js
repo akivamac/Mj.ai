@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '20'; // bump when brain JSON files change
+  const BRAIN_VERSION = '21'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;

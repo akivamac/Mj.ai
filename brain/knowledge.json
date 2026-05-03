@@ -958,6 +958,1085 @@
         "cloud storage"
       ],
       "answer": "Backside (at worktruck.app) is a cloud backend service built by Akiva's father (Aba). It provides structured data services \u2014 contacts, CRM, tasks, calendar, notes, and agents \u2014 accessible via REST API or MCP server. The API uses Bearer token authentication (Authorization: Bearer bsk_live_...). Monkey Joe uses Backside's Notes endpoint (to store chats as notes with monkey-joe-chat tag) and Notebooks endpoint (to store projects prefixed with 'mj:'). When available, this lets chats and projects sync across browsers and devices. Currently falling back to localStorage because CORS isn't configured \u2014 browsers block direct API calls to api.worktruck.app from github.io. The fix: Aba needs to add CORS headers allowing https://akivamac.github.io."
+    },
+    {
+      "keywords": [
+        "lion",
+        "big cat",
+        "pride",
+        "mane"
+      ],
+      "answer": "Lions (Panthera leo) are the only truly social big cats \u2014 they live in groups called prides (typically 10-15 females, their cubs, and 1-4 males). Diet: lions are carnivores \u2014 females do 90% of the hunting (zebra, wildebeest, buffalo, antelope). Males defend territory. A lion can eat 30 kg in one sitting then go days without food. Speed: up to 80 km/h in short bursts. A lion's roar can be heard 8 km away. Lifespan: 10-14 years in the wild. Habitat: sub-Saharan Africa (and a small population in India's Gir Forest \u2014 Asiatic lion). Males have manes that signal health and genetic quality \u2014 darker manes are preferred by females. Lions sleep 16-20 hours per day."
+    },
+    {
+      "keywords": [
+        "tiger",
+        "bengal tiger",
+        "siberian tiger"
+      ],
+      "answer": "Tigers (Panthera tigris) are the largest wild cats \u2014 Siberian/Amur tigers reach 3.3m length and 300 kg. Unlike lions, tigers are solitary. Their stripes are unique like fingerprints \u2014 and the skin under the fur is also striped. Diet: tigers are carnivores \u2014 they eat deer, wild boar, gaur, and water buffalo. They are ambush predators, using stealth rather than speed (though they can reach 65 km/h). Tigers are strong swimmers and love water \u2014 unlike most cats. Habitat: scattered across Asia from India to Russian Far East. Bengal tiger (India): most numerous. Siberian/Amur tiger (Russia): largest. Only ~4,500 tigers remain in the wild (down from 100,000 in 1900). All subspecies are endangered."
+    },
+    {
+      "keywords": [
+        "cheetah",
+        "fastest animal",
+        "speed",
+        "sprint"
+      ],
+      "answer": "The cheetah (Acinonyx jubatus) is the fastest land animal \u2014 top speed ~112-120 km/h achieved in 3 seconds (0-96 km/h faster than most sports cars). Built for speed: lightweight body (40-65 kg), long legs, flexible spine (acts like a spring), semi-retractable claws for grip (unlike other cats whose claws fully retract), and a large heart and lungs. Diet: carnivore \u2014 hunts gazelle, impala, hares. Unlike other big cats, cheetahs cannot roar \u2014 they purr, chirp, and make a unique high-pitched yelp. After a chase, cheetahs need 15-30 minutes to recover before eating. They lose ~50% of kills to larger predators (lions, leopards, hyenas) who steal their food. Lifespan: 10-12 years in wild. Only ~7,000 remain."
+    },
+    {
+      "keywords": [
+        "leopard",
+        "panther",
+        "spots",
+        "rosettes"
+      ],
+      "answer": "Leopards (Panthera pardus) are the most widespread big cats \u2014 found across sub-Saharan Africa, parts of North Africa, Central Asia, India, and China. They are the most adaptable big cat, living in rainforests, grasslands, mountains, and deserts. Spots are called rosettes (circular clusters). Black panthers are melanistic leopards \u2014 the spots are still visible in different lighting. Diet: carnivores \u2014 they eat almost anything: deer, antelope, monkeys, rodents, reptiles, even dung beetles. They hoist kills up into trees (sometimes carrying prey heavier than themselves) to keep them away from lions and hyenas. Leopards are excellent swimmers and climbers. Lifespan: 12-17 years in wild."
+    },
+    {
+      "keywords": [
+        "wolf",
+        "pack",
+        "howl",
+        "gray wolf"
+      ],
+      "answer": "Gray wolves (Canis lupus) are the ancestors of all domestic dogs. They live in packs of 5-10, led by an alpha pair (usually the only pair that breeds). The 'alpha' concept is often misunderstood \u2014 in wild packs, the alpha is simply the breeding pair, not a dominant bully. Wolves howl to communicate with pack members, establish territory, and coordinate hunts. Each wolf has a unique howl. Diet: carnivores \u2014 wolves are apex predators eating deer, elk, moose, bison. They are crucial to ecosystems: wolf reintroduction to Yellowstone (1995) triggered a 'trophic cascade' \u2014 wolves changed elk behavior which allowed vegetation to recover which changed river courses. Lifespan: 6-8 years in wild. Habitat: North America, Europe, Asia."
+    },
+    {
+      "keywords": [
+        "bear",
+        "grizzly bear",
+        "polar bear",
+        "black bear",
+        "hibernate"
+      ],
+      "answer": "Bears (family Ursidae) are large omnivores. Species: Polar bear (largest carnivorous land animal \u2014 up to 800 kg, pure white, Arctic, Diet: primarily seals), Grizzly/Brown bear (up to 700 kg, North America and Eurasia, Diet: salmon, berries, roots, insects, mammals \u2014 20,000 calories/day before hibernation), American black bear (smaller, most common in North America, Diet: omnivore \u2014 mostly plants and berries), Giant panda (technically a bear, Diet: 99% bamboo \u2014 12-38 kg per day, China), Sun bear (smallest, Southeast Asia, loves honey). Hibernation: bears enter a state of torpor (not true hibernation) \u2014 heart rate drops from 50 to 8 beats/min, they don't eat/drink/urinate for months, but can wake quickly. Female bears give birth during torpor and nurse cubs while sleeping. Lifespan: 20-25 years."
+    },
+    {
+      "keywords": [
+        "snake",
+        "reptile",
+        "venom",
+        "boa",
+        "python",
+        "cobra"
+      ],
+      "answer": "Snakes (suborder Serpentes) are legless reptiles that evolved from lizard ancestors ~100 million years ago. There are ~3,700 species. They sense heat via pit organs (pit vipers) and detect vibrations through their jaw bones. Their forked tongue collects scent molecules and delivers them to the Jacobson's organ in the roof of the mouth. Venomous vs non-venomous: ~600 species are venomous, only ~200 are dangerous to humans. Venom types: hemotoxic (destroys blood/tissue \u2014 rattlesnakes, vipers), neurotoxic (attacks nervous system \u2014 cobras, mambas, sea snakes, kraits). The black mamba is the fastest snake (~20 km/h) and has extremely potent neurotoxic venom. Pythons and boas are constrictors \u2014 they squeeze prey until it cannot breathe. The reticulated python is the longest snake (up to 8m). Diet: all snakes are carnivores."
+    },
+    {
+      "keywords": [
+        "crocodile",
+        "alligator",
+        "reptile",
+        "prehistoric"
+      ],
+      "answer": "Crocodilians (crocodiles, alligators, gharials, caimans) are ancient reptiles unchanged for ~200 million years \u2014 they survived the extinction that killed the dinosaurs. Crocodile vs alligator: crocodiles have a pointed V-shaped snout and both upper and lower teeth visible when mouth is closed; alligators have a rounded U-shaped snout and only upper teeth visible. Crocodiles are found in Africa, Asia, Americas, and Australia; alligators mainly in the southern USA and China. Diet: carnivores \u2014 they eat fish, birds, mammals, and reptiles. The Nile and saltwater crocodile are the largest (up to 6m, 1,000 kg). Saltwater crocodiles have the strongest bite of any animal (16,000 N \u2014 10\u00d7 a great white shark). They cannot chew \u2014 they use the 'death roll' to tear prey apart."
+    },
+    {
+      "keywords": [
+        "frog",
+        "amphibian",
+        "tadpole",
+        "toad",
+        "poison dart frog"
+      ],
+      "answer": "Frogs (order Anura) are amphibians \u2014 they live both in water and on land. Their life cycle: egg \u2192 tadpole (aquatic, breathes through gills) \u2192 froglet \u2192 adult frog (breathes through lungs and skin). Frogs absorb water and oxygen through their permeable skin \u2014 they never need to drink water. Most frogs return to the same pond where they were born to breed. Poison dart frogs (Dendrobatidae, Central/South America): among the most toxic animals on Earth. The golden poison frog has enough toxin to kill 10 adult humans. Their bright colors warn predators (aposematism). In captivity, they lose their toxicity \u2014 it comes from their diet of specific ants, mites, and beetles. There are ~7,000 species of amphibians; 40% are threatened with extinction \u2014 the most threatened class of vertebrates."
+    },
+    {
+      "keywords": [
+        "turtle",
+        "tortoise",
+        "shell",
+        "sea turtle"
+      ],
+      "answer": "Turtles (order Testudines) have an evolutionary history of 220+ million years \u2014 their shell is unique, formed from fused backbone and ribs covered by a modified skin (not a separate structure they can leave!). Turtle vs tortoise: turtles are aquatic or semi-aquatic; tortoises are purely terrestrial with dome-shaped shells and elephant-like feet. Sea turtles: 7 species, all threatened/endangered. They navigate using Earth's magnetic field to return to their birth beach to nest \u2014 sometimes crossing thousands of kilometers. Leatherback sea turtle: largest (up to 2m, 900 kg), can dive to 1,280m, eats primarily jellyfish. Aldabra tortoise and Gal\u00e1pagos tortoise: longest-lived animals \u2014 regularly exceed 150 years. Jonathan, a Seychelles giant tortoise born ~1832, is the oldest known living land animal (190+ years)."
+    },
+    {
+      "keywords": [
+        "lizard",
+        "gecko",
+        "chameleon",
+        "komodo dragon"
+      ],
+      "answer": "Lizards (suborder Lacertilia) form the largest group of reptiles \u2014 ~6,500 species. Geckos: can walk on walls and ceilings via millions of tiny hairs (setae) on their feet that exploit van der Waals forces \u2014 not sticky, but instantly attachable/detachable. They can detach their tails (autotomy) to escape predators; the tail regrows. Chameleons: change color not primarily for camouflage but for communication and temperature regulation. They see ultraviolet light. Eyes move independently \u2014 can look in two directions at once. Tongue 1.5-2\u00d7 body length launched in 0.07 seconds. Komodo dragon: largest lizard (up to 3m, 70 kg), found only on Indonesian islands. Venomous (anticoagulant venom in saliva). Can run at 20 km/h. Can reproduce via parthenogenesis (females can reproduce without males)."
+    },
+    {
+      "keywords": [
+        "chimpanzee",
+        "chimp",
+        "primate",
+        "ape"
+      ],
+      "answer": "Chimpanzees (Pan troglodytes) are humans' closest living relatives \u2014 we share 98.7% of DNA. They live in communities of 20-150, led by an alpha male. Diet: omnivores \u2014 primarily fruit, but also nuts, seeds, insects (using sticks to 'fish' termites \u2014 tool use!), and meat (they hunt colobus monkeys cooperatively). Chimps use a variety of tools: sticks, stones, leaves (as cups or sponges). They have complex social lives: politics, alliances, warfare between groups, and cultural traditions that vary between communities (different groups use different tools). They can learn sign language and communicate with symbols. Lifespan: 40-60 years. Habitat: equatorial Africa. Endangered \u2014 only ~170,000-300,000 remain due to habitat loss and hunting."
+    },
+    {
+      "keywords": [
+        "gorilla",
+        "silverback",
+        "great ape",
+        "mountain gorilla"
+      ],
+      "answer": "Gorillas (genus Gorilla) are the largest living primates \u2014 silverback males can reach 1.8m standing and 200 kg. Eastern and Western gorillas are the two species. Mountain gorillas: fewer than 1,100 individuals remain, found in the Virunga volcanoes (Rwanda, DRC, Uganda). Diet: almost entirely herbivorous \u2014 leaves, stems, bark, fruit, and some insects. They eat 18-20 kg of vegetation per day and rarely drink water (get it from food). Silverbacks: dominant males who protect the group. They beat their chests not to show aggression but to communicate their presence. Gorillas are highly intelligent \u2014 Koko the gorilla learned over 1,000 signs in American Sign Language. Lifespan: 35-40 years in wild. Despite fearsome appearance, gorillas are gentle and peaceful unless threatened."
+    },
+    {
+      "keywords": [
+        "human body",
+        "anatomy",
+        "organs",
+        "biology"
+      ],
+      "answer": "The human body contains ~37 trillion cells, 206 bones (babies have ~300, some fuse over time), 600+ muscles, and 11 organ systems. The brain has ~86 billion neurons with ~100 trillion synaptic connections. The heart beats ~100,000 times per day, pumping blood through ~100,000 km of blood vessels. The liver performs 500+ functions. The skin is the body's largest organ (~2 m\u00b2, 3.6 kg). Humans shed and replace the outer layer of skin every 2-3 weeks (~30,000-40,000 dead skin cells per hour). The small intestine is ~6-7m long. Red blood cells live ~120 days; platelets ~10 days; white blood cells vary (neutrophils: days, memory T-cells: decades). The human body contains ~0.2 mg of gold. You have more bacterial cells in your gut than human cells in your entire body."
+    },
+    {
+      "keywords": [
+        "brain",
+        "neuroscience",
+        "neurons",
+        "memory",
+        "cognitive"
+      ],
+      "answer": "The human brain weighs ~1.4 kg and is ~60% fat. It has ~86 billion neurons, each connecting to thousands of others via synapses \u2014 an estimated 100 trillion connections. The brain consumes 20% of the body's energy despite being only 2% of body weight. Regions: prefrontal cortex (decision-making, personality, impulse control \u2014 fully developed at ~25 years), hippocampus (memory consolidation \u2014 damaged in Alzheimer's), amygdala (fear and emotion processing), cerebellum (balance and coordination), Broca's/Wernicke's areas (language). Neuroplasticity: the brain physically rewires itself in response to learning and experience throughout life. London taxi drivers have larger hippocampi from memorizing the city's streets. Sleep is crucial \u2014 during sleep the glymphatic system washes out metabolic waste products including amyloid-beta (linked to Alzheimer's)."
+    },
+    {
+      "keywords": [
+        "heart",
+        "cardiovascular",
+        "blood",
+        "circulation"
+      ],
+      "answer": "The heart is a muscular pump about the size of your fist, weighing 250-350g. It has 4 chambers: right atrium and ventricle (pulmonary circulation \u2014 pumps deoxygenated blood to lungs), left atrium and ventricle (systemic circulation \u2014 pumps oxygenated blood to the body). The left ventricle has thicker walls (higher pressure). Heart rate: 60-100 bpm at rest; trained athletes can have rates of 40 bpm. The SA node (sinoatrial node) generates the electrical impulse that triggers each heartbeat \u2014 the heart can beat independently of the brain. Blood pressure: systolic (contraction)/diastolic (relaxation) measured in mmHg; normal ~120/80. Red blood cells carry oxygen via hemoglobin. Plasma is ~55% of blood volume. The heart starts beating at ~4 weeks of embryonic development."
+    },
+    {
+      "keywords": [
+        "immune system",
+        "antibodies",
+        "vaccine",
+        "immunity",
+        "infection"
+      ],
+      "answer": "The immune system defends against pathogens. Innate immunity (first line): physical barriers (skin, mucus membranes), fever, inflammation, neutrophils and macrophages (engulf pathogens). Adaptive immunity (second line): lymphocytes. B cells produce antibodies (proteins that neutralize specific pathogens). T cells: cytotoxic T cells kill infected cells; helper T cells coordinate the immune response; memory T and B cells remember specific pathogens for faster future response. Vaccines train adaptive immunity without full infection by presenting antigens. Types: live-attenuated (measles, MMR \u2014 strong long immunity), inactivated (flu, polio \u2014 safer for immunocompromised), mRNA (COVID-19 vaccines \u2014 instructs cells to produce a protein that trains immunity), subunit/toxoid (hepatitis B, tetanus). Herd immunity: when enough people are immune, disease can't spread \u2014 threshold varies (~95% for measles)."
+    },
+    {
+      "keywords": [
+        "dna",
+        "genome",
+        "crispr",
+        "gene editing",
+        "genetics"
+      ],
+      "answer": "DNA (deoxyribonucleic acid) encodes genetic information in sequences of four bases: A (adenine), T (thymine), G (guanine), C (cytosine) \u2014 A pairs with T, G pairs with C. The human genome: ~3 billion base pairs, ~20,000-25,000 protein-coding genes, organized in 46 chromosomes (23 pairs). Only ~1.5% of DNA codes for proteins \u2014 the rest includes regulatory regions, introns, and repetitive sequences (once called 'junk DNA' but many have regulatory roles). Epigenetics: gene expression can be modified by methyl groups attached to DNA \u2014 affected by environment, diet, stress \u2014 and can be inherited. CRISPR-Cas9 (Jennifer Doudna and Emmanuelle Charpentier, 2012 \u2014 2020 Nobel Prize): molecular scissors that can cut DNA at specific sequences, enabling precise editing. Used to treat sickle cell disease (first CRISPR therapy FDA approved 2023), study gene function, and develop new treatments."
+    },
+    {
+      "keywords": [
+        "electricity",
+        "magnetism",
+        "electromagnetism",
+        "maxwell"
+      ],
+      "answer": "Electricity and magnetism are two aspects of a single electromagnetic force \u2014 unified by James Clerk Maxwell's equations (1865). Electric current: flow of electrons through a conductor. Voltage (V): electrical potential difference. Current (I, in amperes): flow rate of charge. Resistance (\u03a9, ohms): opposition to current. Ohm's law: V = IR. Power (watts) = V \u00d7 I = I\u00b2R. AC (alternating current): direction alternates 50-60 Hz \u2014 used for power grids (easier to transmit at high voltage, lower power loss). DC (direct current): one direction \u2014 used by batteries, electronics. Magnetism: moving charges create magnetic fields; changing magnetic fields induce electric currents (electromagnetic induction \u2014 basis of generators and transformers). Faraday's law. Electromagnetic spectrum (by frequency): radio \u2192 microwave \u2192 infrared \u2192 visible light \u2192 ultraviolet \u2192 X-ray \u2192 gamma ray. All travel at the speed of light in vacuum."
+    },
+    {
+      "keywords": [
+        "thermodynamics",
+        "entropy",
+        "heat",
+        "energy",
+        "laws of thermodynamics"
+      ],
+      "answer": "Thermodynamics studies heat, work, and energy. Four Laws: Zeroth Law: if A is in thermal equilibrium with B, and B with C, then A is in equilibrium with C (defines temperature). First Law: energy is conserved \u2014 it cannot be created or destroyed, only transformed (\u0394U = Q - W). Second Law: entropy (disorder) of an isolated system always increases \u2014 heat flows from hot to cold spontaneously, never the reverse; no engine is 100% efficient. Third Law: as temperature approaches absolute zero (0 K = -273.15\u00b0C), entropy approaches a minimum. Absolute zero is the lowest possible temperature \u2014 atoms have minimum vibrational energy. Applications: heat engines (Carnot efficiency = 1 - Tcold/Thot), refrigerators, and the reason time has a direction (entropy always increases \u2014 the 'arrow of time')."
+    },
+    {
+      "keywords": [
+        "nuclear",
+        "fission",
+        "fusion",
+        "radioactivity",
+        "atomic bomb"
+      ],
+      "answer": "Nuclear fission: splitting a heavy nucleus (uranium-235, plutonium-239) releases enormous energy (E=mc\u00b2). A chain reaction: each fission releases 2-3 neutrons which trigger more fissions. Uncontrolled: atomic bomb (Little Boy, 1945, ~15 kiloton TNT equivalent). Controlled: nuclear power plants (fission heats water \u2192 steam \u2192 turbine \u2192 electricity). France gets ~70% of its electricity from nuclear power. Nuclear fusion: combining light nuclei (deuterium + tritium \u2192 helium + neutron + energy) \u2014 the reaction that powers the Sun. Much more energy per reaction than fission, with minimal waste. ITER (France): $22 billion international fusion reactor project. National Ignition Facility (2022): first fusion experiment to produce more energy than it consumed \u2014 a milestone. Commercial fusion remains ~decades away. Radioactivity: unstable nuclei emit alpha (helium nuclei), beta (electrons/positrons), or gamma (high-energy photons) radiation during decay."
+    },
+    {
+      "keywords": [
+        "gravity",
+        "gravitational waves",
+        "newton",
+        "general relativity"
+      ],
+      "answer": "Gravity is the weakest of the four fundamental forces but has infinite range and is always attractive (unlike electromagnetism which can repel). Newton's law: F = Gm\u2081m\u2082/r\u00b2 (inverse square law). G = 6.674\u00d710\u207b\u00b9\u00b9 N\u00b7m\u00b2/kg\u00b2. Einstein's General Relativity (1915): gravity is not a force but the curvature of spacetime caused by mass/energy. Objects follow geodesics (shortest paths through curved spacetime). GR predictions confirmed: gravitational lensing (light bends around massive objects), frame-dragging (Earth drags spacetime as it rotates, confirmed by Gravity Probe B 2011), and gravitational waves \u2014 ripples in spacetime from accelerating masses. LIGO detected the first gravitational waves Sept 14, 2015 from two merging black holes (1.3 billion light-years away) \u2014 the 2017 Nobel Prize in Physics. The signal stretched and compressed LIGO's 4km arms by less than 1/1000th the diameter of a proton."
+    },
+    {
+      "keywords": [
+        "particle physics",
+        "standard model",
+        "higgs boson",
+        "quarks"
+      ],
+      "answer": "The Standard Model of particle physics describes all known fundamental particles and three of the four fundamental forces (all except gravity). Fundamental particles: quarks (6 flavors: up, down, charm, strange, top, bottom \u2014 quarks combine in threes to form protons and neutrons, or pairs for mesons), leptons (electron, muon, tau, and their neutrinos), and force-carrier bosons (photon for electromagnetism, W and Z bosons for weak force, gluons for strong force). The Higgs boson: gives mass to other particles via the Higgs field \u2014 discovered at CERN's Large Hadron Collider on July 4, 2012 (the 'God particle'). The LHC is a 27km ring beneath France and Switzerland where protons collide at 99.9999991% the speed of light. Antimatter: every particle has an antiparticle \u2014 when matter and antimatter meet, they annihilate releasing pure energy. Why there's more matter than antimatter in the universe is one of physics' biggest unsolved problems."
+    },
+    {
+      "keywords": [
+        "ocean",
+        "sea",
+        "pacific",
+        "atlantic",
+        "marine",
+        "deep sea"
+      ],
+      "answer": "The ocean covers 71% of Earth's surface and contains 97% of Earth's water. Five oceans: Pacific (largest \u2014 30% of Earth's surface, bigger than all land combined), Atlantic (second largest, S-shaped), Indian (warmest), Southern (around Antarctica), Arctic (smallest, mostly frozen). Average depth: 3,688m. Deepest: Challenger Deep in Mariana Trench, 10,935m (western Pacific). The ocean has only been ~20% explored. Zones: sunlight zone (0-200m \u2014 most life), twilight zone (200-1,000m), midnight zone (1,000-4,000m, no light), abyssal zone (4,000-6,000m), hadal zone (6,000m+ in trenches). Deep-sea hydrothermal vents: support entire ecosystems without sunlight using chemosynthesis. The ocean absorbs ~25% of CO\u2082 emissions and ~90% of excess heat from climate change."
+    },
+    {
+      "keywords": [
+        "volcano",
+        "earthquake",
+        "plate tectonics",
+        "seismic",
+        "eruption"
+      ],
+      "answer": "Plate tectonics: Earth's lithosphere is divided into ~15 major tectonic plates moving 1-15 cm/year. Boundaries: convergent (plates collide \u2014 one subducts, creating trenches and volcanoes, or they crumple into mountains like the Himalayas), divergent (plates separate \u2014 magma wells up, creating mid-ocean ridges or rift valleys), transform (plates slide past each other \u2014 San Andreas Fault). Earthquakes: most occur at plate boundaries. Measured by moment magnitude scale (logarithmic \u2014 each step = 31.6\u00d7 more energy). Magnitude 9+ events include the 2011 T\u014dhoku earthquake (Japan, triggered devastating tsunami). Volcanoes: ~1,500 potentially active. Types: shield (broad, gentle slopes, basaltic lava \u2014 Hawaiian), stratovolcano/composite (steep, explosive \u2014 Mt. Fuji, Mt. St. Helens). The Ring of Fire encircles the Pacific with 75% of Earth's volcanoes. Supervolcanoes: Yellowstone (USA), Toba (Indonesia)."
+    },
+    {
+      "keywords": [
+        "weather",
+        "storm",
+        "hurricane",
+        "tornado",
+        "climate"
+      ],
+      "answer": "Weather is the short-term state of the atmosphere; climate is the long-term pattern. The atmosphere is powered by solar energy \u2014 differential heating between equator and poles drives global circulation (Hadley, Ferrel, and Polar cells). Clouds form when warm moist air rises and cools below the dew point. Hurricanes/cyclones/typhoons (same phenomenon, different names by region): tropical cyclones with sustained winds >119 km/h, powered by warm ocean water (>26\u00b0C). They spin counterclockwise in Northern Hemisphere (Coriolis effect). Eye: calm center ~30-65 km across. Katrina (2005): deadliest recent US hurricane, $108 billion damage. Tornadoes: violently rotating columns of air 65-400+ km/h, formed when cold dry air meets warm moist air (US 'Tornado Alley'). Lightning: ~100 strikes per second globally, 5\u00d7 hotter than the Sun's surface (~30,000 K). Thunder: sound wave from rapid air expansion around lightning."
+    },
+    {
+      "keywords": [
+        "rainforest",
+        "jungle",
+        "amazon",
+        "biodiversity",
+        "deforestation"
+      ],
+      "answer": "Tropical rainforests cover ~6% of Earth's surface but contain 50-80% of all species. The Amazon rainforest: ~5.5 million km\u00b2 (largest on Earth), spanning 9 countries (mostly Brazil), contains 10% of all species on Earth, produces 20% of Earth's oxygen (also absorbs similar amounts \u2014 often called the 'lungs of the Earth' though this is debated). The Amazon river discharges 20% of all freshwater entering the world's oceans. Layers: emergent layer (tallest trees, 50-70m), canopy (main layer, most life, 30-45m), understory (low light), forest floor (1% of sunlight). Deforestation: 20% of the Amazon has been cleared since 1970, primarily for cattle ranching and soy farming. Scientists warn of a 'tipping point' at ~20-25% deforestation where the forest may no longer generate its own rainfall and irreversibly savannify."
+    },
+    {
+      "keywords": [
+        "medieval",
+        "middle ages",
+        "feudalism",
+        "black death",
+        "crusades"
+      ],
+      "answer": "The Middle Ages (c. 500-1500 AD) span the fall of the Western Roman Empire to the Renaissance. Feudalism: hierarchical land-tenure system \u2014 King grants land to lords, lords grant to vassals and knights in exchange for military service, peasants/serfs farm the land. The Catholic Church was enormously powerful \u2014 controlled education, law, and politics across Europe. The Crusades (1095-1291): series of religious wars called by the Pope to recapture Jerusalem from Muslim control. First Crusade (1096-1099): the only 'successful' one \u2014 Crusaders captured Jerusalem. The Black Death (1347-1351): bubonic plague killed 30-60% of Europe's population (~25 million people) in 5 years \u2014 carried by fleas on black rats. Flagellants beat themselves as penance; Jews were blamed and massacred. The plague paradoxically improved conditions for surviving peasants \u2014 labor shortages increased their bargaining power."
+    },
+    {
+      "keywords": [
+        "christopher columbus",
+        "exploration",
+        "new world",
+        "age of discovery"
+      ],
+      "answer": "The Age of Discovery (15th-17th centuries) saw European explorers map and colonize the world. Christopher Columbus (1451-1506, Genoese sailing for Spain): sailed west believing he'd reach Asia \u2014 landed in the Bahamas October 12, 1492. He made 4 voyages, reached Cuba, Hispaniola, South and Central America, but never recognized he'd found continents unknown to Europeans. Amerigo Vespucci (Florentine) realized these were new continents \u2014 hence 'America.' Ferdinand Magellan (1519-1522): led the first circumnavigation of the globe (though he died in the Philippines, Juan Sebasti\u00e1n Elcano completed it). Vasco da Gama (1497-1498): first to sail from Europe to India around Africa. Zheng He (Chinese admiral, early 1400s): led 7 massive voyages across Southeast Asia, India, Arabia, and East Africa \u2014 with fleets of 300 ships \u2014 decades before Columbus."
+    },
+    {
+      "keywords": [
+        "viking",
+        "norse",
+        "scandinavia",
+        "leif erikson",
+        "longship"
+      ],
+      "answer": "The Vikings (late 8th to early 11th century, from Scandinavia \u2014 modern Norway, Sweden, Denmark) were Norse seafarers known as raiders, traders, and explorers. Their longships were technologically advanced \u2014 shallow draft allowing river travel, symmetric design for landing on beaches, and capable of open-ocean voyages. Vikings raided monasteries and coastal towns across Europe (first major raid: Lindisfarne, 793 AD). They also traded extensively with Byzantium and the Islamic world (Varangian routes). Leif Erikson reached North America (Vinland, likely Newfoundland, Canada) ~1000 AD \u2014 500 years before Columbus. Norse settlements at L'Anse aux Meadows (Newfoundland) confirmed archaeologically in 1960. They settled Iceland (874 AD), Greenland (986 AD), and founded Dublin and Kyiv. 'Viking' meant 'pirate/raider' \u2014 most Norsemen were farmers."
+    },
+    {
+      "keywords": [
+        "ottoman empire",
+        "byzantine",
+        "constantinople",
+        "istanbul",
+        "suleiman"
+      ],
+      "answer": "The Ottoman Empire (1299-1922) was one of history's largest and longest-lasting empires, spanning three continents at its peak. Founded by Osman I in Anatolia (modern Turkey). Key events: fall of Constantinople (May 29, 1453) \u2014 Sultan Mehmed II conquered the Byzantine capital, ending the Eastern Roman Empire after 1,123 years (renamed Istanbul). Suleiman the Magnificent (r. 1520-1566): peak of the empire \u2014 expanded into Hungary, besieged Vienna, dominated the Mediterranean. The empire was organized around the millet system (religious communities governed their own affairs). The Ottoman Caliphate led Sunni Islam. Declined through military defeats and reform failures. Abolished after WWI; the Republic of Turkey was proclaimed by Mustafa Kemal Atat\u00fcrk in 1923."
+    },
+    {
+      "keywords": [
+        "mongol",
+        "genghis khan",
+        "mongol empire",
+        "silk road"
+      ],
+      "answer": "The Mongol Empire (1206-1368) was the largest contiguous land empire in history \u2014 at its peak covering ~24 million km\u00b2 (about 16% of Earth's land area). Founded by Genghis Khan (born Tem\u00fcjin, c. 1162-1227) who united the Mongol tribes in 1206. The Mongols were superb cavalry warriors \u2014 highly mobile, expert archers on horseback using composite bows. Conquered: China (Kublai Khan founded the Yuan dynasty), Persia, Central Asia, Russia, Poland, and Hungary. The sack of Baghdad (1258) destroyed the Abbasid Caliphate and the 'House of Wisdom' \u2014 burning irreplaceable books. The Black Death may have been spread westward along Mongol trade routes. The Pax Mongolica allowed safe trade across the Silk Road, connecting Europe and China. The Mongols had no permanent army \u2014 every man was a warrior. Genghis Khan is thought to be the ancestor of ~0.5% of the world's male population."
+    },
+    {
+      "keywords": [
+        "brazil",
+        "south america",
+        "amazon",
+        "portuguese",
+        "carnival"
+      ],
+      "answer": "Brazil is South America's largest country (8.51 million km\u00b2, 5th largest in the world) and most populous (215 million). The only Portuguese-speaking country in the Americas (colonized by Portugal 1500-1822). Largest city: S\u00e3o Paulo (~22 million metro \u2014 largest in South America). Capital: Bras\u00edlia (purpose-built capital, moved from Rio de Janeiro in 1960, designed by Oscar Niemeyer). The Amazon rainforest covers ~60% of Brazil. Brazil is the world's largest producer of coffee, sugarcane, and orange juice; 2nd largest exporter of soybeans and beef. GDP: ~$2.1 trillion (8th largest). Known for: Carnival (Rio de Janeiro), football (soccer \u2014 won 5 World Cups), the Amazon, Iguaz\u00fa Falls, and the Pantanal (world's largest tropical wetland). Brazil is home to ~60% of the Amazon rainforest."
+    },
+    {
+      "keywords": [
+        "russia",
+        "siberia",
+        "ussr",
+        "putin",
+        "largest country"
+      ],
+      "answer": "Russia is the world's largest country by area \u2014 17.1 million km\u00b2 (11% of Earth's land surface, spanning 11 time zones). Population: ~145 million (9th largest). Capital: Moscow (~12 million). St. Petersburg is the cultural capital. GDP: ~$2.2 trillion (11th). Russia borders 14 countries (most of any country). Siberia (75% of Russia's territory, 25% of its population): contains the world's deepest lake (Baikal \u2014 20% of world's unfrozen fresh water), vast oil/gas reserves (Russia is one of the world's top energy producers). History: Romanov dynasty (1613-1917), Russian Revolution (1917), Soviet Union (1922-1991). The USSR launched the first satellite (Sputnik, 1957), first human in space (Gagarin, 1961), and was a nuclear superpower. Russia invaded Ukraine February 24, 2022."
+    },
+    {
+      "keywords": [
+        "australia",
+        "outback",
+        "kangaroo",
+        "aboriginal",
+        "great barrier reef"
+      ],
+      "answer": "Australia is the world's 6th largest country (7.69 million km\u00b2) and the largest country in Oceania. Population: ~26 million (mostly in coastal cities). Capital: Canberra (not Sydney or Melbourne \u2014 a compromise capital). Unique wildlife: ~80% of species found nowhere else \u2014 kangaroos, koalas, wombats, platypus, echidna (monotremes \u2014 egg-laying mammals), and deadly venomous creatures (box jellyfish, funnel-web spider, eastern brown snake, blue-ringed octopus, stonefish, saltwater crocodile). Great Barrier Reef: world's largest coral reef system (2,300 km \u2014 visible from space), home to 9,000 species, 50% bleached due to warming. Aboriginal Australians: one of Earth's oldest continuous cultures (~65,000 years). Australia was a British penal colony from 1788. Outback: vast arid interior. Uluru (Ayers Rock): sacred sandstone monolith, spiritual heart of Aboriginal Australia."
+    },
+    {
+      "keywords": [
+        "canada",
+        "hockey",
+        "maple",
+        "provinces",
+        "french english"
+      ],
+      "answer": "Canada is the world's second largest country by area (9.98 million km\u00b2) but relatively sparsely populated (~38 million, most within 200 km of the US border). Two official languages: English and French. Quebec is predominantly French-speaking. Capital: Ottawa. Largest city: Toronto. GDP: ~$2.1 trillion (10th). Known for: natural beauty (Rocky Mountains, Niagara Falls, northern lights), ice hockey (the national sport \u2014 invented in Canada), maple syrup (Canada produces ~71% of the world's supply), universal healthcare, and multiculturalism. The Trans-Canada Highway is ~8,000 km \u2014 one of the world's longest national highways. Canada has the longest coastline of any country (202,080 km). Indigenous peoples make up ~5% of the population \u2014 634 First Nations communities."
+    },
+    {
+      "keywords": [
+        "france",
+        "paris",
+        "eiffel tower",
+        "french culture",
+        "wine",
+        "cheese"
+      ],
+      "answer": "France is Western Europe's largest country (643,000 km\u00b2) with a population of ~68 million. Capital: Paris ('City of Light') \u2014 one of the world's most visited cities. France is the world's most visited country (~90 million tourists/year). Language: French \u2014 spoken by 275+ million people worldwide as a legacy of French colonialism. World's top wine producer (alongside Italy and Spain). 1,200+ types of cheese. French cuisine is on UNESCO's Intangible Cultural Heritage list. Major contributions: Enlightenment philosophy (Voltaire, Rousseau, Descartes), literature (Hugo, Flaubert, Proust, Camus), impressionism (Monet, Renoir), Pasteur (germ theory), Curie (radioactivity \u2014 double Nobel Prize winner). The Eiffel Tower (1889, built for the World's Fair, designed by Gustave Eiffel): 330m tall, initially criticized but became the world's most visited monument. France is a permanent member of the UN Security Council with nuclear weapons."
+    },
+    {
+      "keywords": [
+        "egypt",
+        "cairo",
+        "nile",
+        "pyramids",
+        "arabic",
+        "modern egypt"
+      ],
+      "answer": "Modern Egypt (officially the Arab Republic of Egypt) has ~105 million people \u2014 the most populous Arab country and most populous in Africa. Capital: Cairo (~21 million metro \u2014 largest city in Africa and the Arab world). Official language: Arabic. Egypt sits at the crossroads of Africa, the Middle East, and the Mediterranean \u2014 the Suez Canal (opened 1869), connecting the Mediterranean and Red Sea, carries ~12% of world trade. GDP: ~$476 billion. The Nile River (world's longest, ~6,650 km) flows north through Egypt \u2014 virtually all of Egypt's population lives within a few kilometers of the Nile. Egypt has 7 UNESCO World Heritage Sites including the Pyramids of Giza (the only surviving ancient wonder). Modern Egypt became a republic in 1952. The Arab Spring (2011) triggered the Egyptian Revolution, ousting President Mubarak after 30 years. The Aswan High Dam (1970) controls flooding and generates hydroelectric power."
+    },
+    {
+      "keywords": [
+        "infinity",
+        "infinite",
+        "set theory",
+        "cantor"
+      ],
+      "answer": "Infinity (\u221e) is not a number but a concept. Georg Cantor (1845-1918) proved that some infinities are larger than others \u2014 one of the most surprising results in mathematics. Countable infinity (\u2135\u2080, 'aleph-null'): the infinity of counting numbers (1, 2, 3...) and also of rational numbers (fractions) \u2014 these are the same 'size' of infinity. Uncountable infinity: the infinity of real numbers (decimals) \u2014 provably larger than countable infinity via Cantor's diagonal argument. The Continuum Hypothesis (can there be an infinity between these two?) was proven to be undecidable using standard axioms (G\u00f6del 1940, Cohen 1963). Limits: 1/0 is undefined (not infinity \u2014 the limit of 1/x as x\u21920\u207a is +\u221e, as x\u21920\u207b is -\u221e). In calculus, limits handle infinity rigorously. Hilbert's Hotel: a hotel with infinitely many rooms, all full, can still accommodate more guests \u2014 counterintuitive properties of infinite sets."
+    },
+    {
+      "keywords": [
+        "logic",
+        "proof",
+        "godel",
+        "mathematical proof"
+      ],
+      "answer": "Mathematical proof is a deductive argument showing a statement must be true given axioms. Types of proof: Direct proof (assume premises, derive conclusion), Proof by contradiction/reductio ad absurdum (assume the opposite is true, derive a contradiction \u2014 e.g., Euclid's proof of infinite primes), Proof by induction (show true for base case n=1, show if true for n then true for n+1 \u2192 true for all n), Constructive proof (exhibit the object), Proof by contrapositive (prove 'not Q \u2192 not P' instead of 'P \u2192 Q'). G\u00f6del's Incompleteness Theorems (1931): (1) In any consistent formal system powerful enough to express basic arithmetic, there are true statements that cannot be proved within the system. (2) No such system can prove its own consistency. These theorems fundamentally limit mathematics \u2014 there are mathematical truths that are unreachable by formal proof. This shattered the dream of a complete, consistent mathematical foundation."
+    },
+    {
+      "keywords": [
+        "geometry",
+        "shapes",
+        "euclid",
+        "non-euclidean",
+        "topology"
+      ],
+      "answer": "Euclidean geometry (Euclid, ~300 BC, 'Elements'): the geometry of flat surfaces. Five postulates including the parallel postulate (through a point not on a line, exactly one parallel line exists). Non-Euclidean geometries (19th century): spherical geometry (Earth's surface \u2014 parallel lines meet, triangle angles sum to MORE than 180\u00b0, used in navigation) and hyperbolic geometry (saddle-shaped space \u2014 parallel lines diverge, triangle angles sum to LESS than 180\u00b0, used in General Relativity). Topology: the study of properties preserved under continuous deformations. Famous results: a coffee mug and a donut are topologically equivalent (both have one hole). The M\u00f6bius strip has one side and one edge. The Four Color Theorem: any map can be colored with 4 colors so no adjacent regions share a color \u2014 proved in 1976 by computer (first major computer-assisted proof)."
+    },
+    {
+      "keywords": [
+        "number theory",
+        "euler",
+        "fermat",
+        "famous problems"
+      ],
+      "answer": "Number theory studies integers and their properties. Famous results and problems: Fermat's Last Theorem: a\u207f + b\u207f = c\u207f has no integer solutions for n>2. Stated by Fermat in 1637 ('I have a remarkable proof which this margin is too narrow to contain'). Proved by Andrew Wiles in 1995 after 7 years of secret work \u2014 the proof is 129 pages. Goldbach's Conjecture (1742, unproven): every even integer >2 is the sum of two primes (verified up to 4\u00d710\u00b9\u2078). Twin Prime Conjecture (unproven): there are infinitely many pairs of primes differing by 2 (3&5, 11&13, 17&19...). Euler's identity e^(i\u03c0)+1=0 connects five fundamental constants. The Collatz conjecture: take any positive integer; if even divide by 2, if odd multiply by 3 and add 1; repeat \u2014 conjecture: always reaches 1. Verified up to 2\u2076\u2078 but unproven. Paul Erd\u0151s offered cash prizes for unsolved problems \u2014 'Erd\u0151s numbers' measure mathematical collaboration distance from him."
+    },
+    {
+      "keywords": [
+        "machine learning",
+        "neural network",
+        "deep learning",
+        "training",
+        "ai"
+      ],
+      "answer": "Machine learning (ML): algorithms that improve through experience without explicit programming. Supervised learning: trained on labeled examples (input\u2192output pairs) \u2014 classification (spam/not spam) and regression (predict house price). Unsupervised learning: find patterns in unlabeled data \u2014 clustering (customer segments), dimensionality reduction (PCA). Reinforcement learning: agent learns by trial and error, receiving rewards/penalties \u2014 used in AlphaGo, robotics, game AI. Deep learning: neural networks with many layers. Each neuron computes a weighted sum of inputs, applies an activation function (ReLU: max(0,x), sigmoid, tanh). Backpropagation: gradient descent adjusts weights to minimize prediction error. CNNs (convolutional neural networks): image recognition. RNNs/LSTMs: sequence data (text, speech). Transformers (2017, 'Attention Is All You Need'): attention mechanism \u2014 the architecture behind GPT, BERT, Claude, and all modern LLMs."
+    },
+    {
+      "keywords": [
+        "openai",
+        "gpt-4",
+        "chatgpt",
+        "sam altman",
+        "artificial intelligence"
+      ],
+      "answer": "OpenAI was founded in 2015 as a nonprofit by Elon Musk, Sam Altman, Greg Brockman, Ilya Sutskever, and others with $1B in pledges. Became a 'capped-profit' company in 2019. Microsoft invested $1B (2019), then $13B (2023). Products: GPT-4 (Mar 2023): multimodal, massive capability leap. GPT-4o (May 2024): faster, cheaper, omnimodal (text/image/audio). ChatGPT: launched Nov 30, 2022, reached 100 million users in 2 months \u2014 fastest app in history. DALL-E: image generation from text. Whisper: speech recognition. Sora (2024): video generation. Codex: code generation, powers GitHub Copilot. o1/o3 reasoning models (2024-25): designed to 'think step by step' before answering. Sam Altman was briefly fired by the board (Nov 2023) then reinstated after massive employee backlash."
+    },
+    {
+      "keywords": [
+        "anthropic",
+        "constitutional ai",
+        "claude",
+        "alignment",
+        "safety"
+      ],
+      "answer": "Anthropic was founded in 2021 by Dario Amodei (CEO), Daniela Amodei (President), and others who left OpenAI. Mission: AI safety research and building safe, beneficial AI systems. Constitutional AI: a training approach where Claude learns from AI feedback guided by a 'constitution' \u2014 a set of principles \u2014 rather than relying solely on human feedback. This makes the process more scalable and consistent. Claude's model families: Haiku (fast, efficient), Sonnet (balanced), Opus (most capable). Context window: up to 200K tokens. Anthropic is known for publishing safety research (scaling laws, interpretability, red-teaming). Key investors: Google, Spark Capital, and others \u2014 valued at $18B+ as of 2024. Anthropic's 'responsible scaling policy' commits to safety evaluations before deploying more powerful models. Anthropic built me \u2014 through Claude, who helped Akiva design Monkey Joe! \ud83d\udc12"
+    },
+    {
+      "keywords": [
+        "smartphone",
+        "iphone",
+        "android",
+        "mobile",
+        "app store"
+      ],
+      "answer": "Smartphones transformed society after the iPhone (June 29, 2007) and the App Store (July 2008). Key milestones: BlackBerry (enterprise email, peaked 2009), Nokia dominance (feature phones, late 1990s-2000s), iPhone launch (capacitive touchscreen, no physical keyboard, full internet browser), Android (Google, Sept 2008 \u2014 first Android phone HTC Dream, now powers ~72% of smartphones), Samsung Galaxy S series, App economy: 5 million+ apps on iOS and Android App Stores. Smartphone penetration: ~6.8 billion users (~85% of the world population). Cameras: modern flagship phone cameras rival DSLRs for many purposes. 5G: 10-100\u00d7 faster than 4G, enables IoT, autonomous vehicles, and real-time AR/VR. Average person checks their phone 96 times per day."
+    },
+    {
+      "keywords": [
+        "video games",
+        "gaming",
+        "nintendo",
+        "playstation",
+        "xbox",
+        "game history"
+      ],
+      "answer": "Video game history: Pong (Atari, 1972 \u2014 first commercially successful arcade game), Space Invaders (1978), Pac-Man (1980, first gaming 'character'), Donkey Kong (1981, introduced Mario), Nintendo NES (1983/85 \u2014 saved the industry after the 1983 crash), Super Mario Bros (1985 \u2014 40 million copies), The Legend of Zelda (1986), Game Boy (1989), SNES vs Sega Genesis (16-bit era), PlayStation (Sony, 1994), N64 vs PS1 3D era, PS2 (2000 \u2014 best-selling console ever, 155 million), Halo + Xbox (2001), Wii (2006 \u2014 motion controls, casual gaming revolution), smartphones (Angry Birds 2009, Mobile gaming surpassed consoles in revenue), Minecraft (2011 \u2014 238 million copies, best-selling game ever), Fortnite (2017, Battle Royale genre), Switch (2017, hybrid). Global gaming market: ~$184 billion/year. Esports: $1+ billion industry with stadium tournaments."
+    },
+    {
+      "keywords": [
+        "internet of things",
+        "iot",
+        "smart home",
+        "wearables",
+        "sensors"
+      ],
+      "answer": "The Internet of Things (IoT): physical devices embedded with sensors, software, and network connectivity \u2014 they collect and exchange data. Examples: smart thermostats (Nest), smart speakers (Amazon Echo/Alexa, Google Home), smartwatches (Apple Watch), fitness trackers, smart lights (Philips Hue), security cameras, connected appliances, industrial sensors, agricultural sensors, smart city infrastructure. ~15 billion IoT devices currently connected; projected 30+ billion by 2030. Security concerns: IoT devices often have weak security \u2014 botnets of compromised IoT devices have launched major DDoS attacks (Mirai botnet 2016 took down major websites). Privacy concerns: always-on microphones, location tracking. 5G enables massive IoT expansion with lower latency and more simultaneous connections per cell."
+    },
+    {
+      "keywords": [
+        "pasta",
+        "italian",
+        "noodles",
+        "types of pasta"
+      ],
+      "answer": "Pasta is made from durum wheat semolina and water (fresh pasta also uses eggs). Italy has 300+ recognized pasta shapes. Long pasta: spaghetti (thin, round), linguine (flat, narrow), fettuccine (flat, wider), pappardelle (very wide flat, for hearty meat sauces), capellini/angel hair (very thin). Short pasta: penne (tubes, ridged or smooth), rigatoni (large ridged tubes), fusilli (spirals, hold sauce in crevices), farfalle (bow-tie), conchiglie (shells), orecchiette (ear-shaped, traditional with broccoli rabe). Stuffed: ravioli, tortellini, cannelloni. Soup pasta: orzo, pastina. Rule: pair pasta shape to sauce \u2014 long thin pasta with light oil/cream sauces; thick short pasta with chunky meat sauces; ridged pasta holds more sauce. Bronze-die extruded pasta has a rougher surface that holds sauce better than Teflon-die."
+    },
+    {
+      "keywords": [
+        "cheese",
+        "types of cheese",
+        "dairy",
+        "fermentation",
+        "aging"
+      ],
+      "answer": "Cheese is made from milk (cow, goat, sheep, buffalo) via acidification and rennet (enzyme that coagulates milk protein). Over 1,800 named varieties worldwide. Categories: Fresh (no aging \u2014 ricotta, mozzarella, burrata, cream cheese, cottage cheese), Soft-ripened (mold-ripened rind \u2014 Brie, Camembert \u2014 creamy interior develops from outside in), Washed-rind (washed in brine/beer/wine/spirits during aging \u2014 pungent, orange rind: Limburger, Taleggio, \u00c9poisses), Semi-soft (Havarti, Fontina, Gouda young), Hard (aged 6+ months \u2014 Cheddar, Gruy\u00e8re, Parmesan/Parmigiano-Reggiano \u2014 must be aged 12+ months in Parma region, named via regulation), Blue (Penicillium mold creates blue/green veins \u2014 Roquefort, Gorgonzola, Stilton, Danish Blue). Parmigiano-Reggiano has the strongest umami of any food \u2014 highest natural glutamate content."
+    },
+    {
+      "keywords": [
+        "spice",
+        "herbs",
+        "cooking",
+        "turmeric",
+        "cumin",
+        "pepper"
+      ],
+      "answer": "Spices come from seeds, bark, roots, or dried fruits; herbs come from leaves. Most valuable historically \u2014 the spice trade drove European exploration of the world. Black pepper: once so valuable it was used as currency (peppercorns). Saffron: the world's most expensive spice by weight (~$5,000/kg) \u2014 from Crocus sativus stigmas, hand-harvested. Curcumin (in turmeric): anti-inflammatory compound \u2014 used in Ayurvedic medicine for thousands of years, active area of modern research. Capsaicin (chili): activates pain receptors (TRPV1) \u2014 your body releases endorphins in response (the 'chili high'). Scoville scale measures heat: bell pepper (0), jalape\u00f1o (2,500-8,000), habanero (100,000-350,000), Carolina Reaper (1,400,000-2,200,000 \u2014 world's hottest). Cinnamon: two types \u2014 Ceylon (true cinnamon, mild, Sri Lanka) and Cassia (stronger, more common, China/Vietnam \u2014 contains more coumarin which is toxic in large amounts)."
+    },
+    {
+      "keywords": [
+        "japanese cuisine",
+        "ramen",
+        "sushi",
+        "tempura",
+        "wagyu",
+        "matcha"
+      ],
+      "answer": "Japanese cuisine (washoku) is on UNESCO's Intangible Cultural Heritage list. Core principles: seasonal ingredients (shun), balance of flavors, visual presentation (food as art). Key dishes: Ramen (Chinese-origin noodle soup adapted by Japan \u2014 four regional styles: shoyu/soy Tokyo, miso Hokkaido, tonkotsu pork bone Fukuoka, shio/salt Hakodate), Tempura (battered fried vegetables/seafood \u2014 brought by Portuguese missionaries in the 16th century), Teriyaki (grilled with sweet soy glaze), Yakitori (skewered grilled chicken), Tonkatsu (breaded fried pork cutlet), Kaiseki (multi-course haute cuisine). Wagyu beef: extremely marbled (Kobe, Matsusaka, Omi brands) \u2014 cows receive special care, their fat melts at lower temperature giving extraordinary tenderness. A5 wagyu is the highest grade. Matcha: powdered green tea, shade-grown and stone-ground \u2014 used in tea ceremony, desserts, ice cream."
+    },
+    {
+      "keywords": [
+        "indian cuisine",
+        "curry",
+        "spices",
+        "biryani",
+        "tandoor",
+        "vegetarian"
+      ],
+      "answer": "Indian cuisine varies enormously by region \u2014 it's not one cuisine but dozens. North India: Mughal influence \u2014 rich curries, naan bread (tandoor-baked), biryani (fragrant layered rice and meat dish), paneer (fresh cheese), butter chicken (murgh makhani, invented at Moti Mahal restaurant Delhi ~1950). South India: rice-based, spicier, coconut milk \u2014 dosa (fermented rice and lentil crepe), idli (steamed rice cakes), sambar (lentil soup), rasam (spiced tamarind broth), chettinad cuisine (most complex spice profiles). Gujarat: predominantly vegetarian \u2014 dal, thepla, dhokla. Bengal: fish-focused, mustard oil. Goa: Portuguese influence \u2014 vindaloo, sorpotel. Key spices: cardamom, cumin, coriander, turmeric, fenugreek, asafoetida, mustard seeds. India has the highest percentage of vegetarians of any country (~38%)."
+    },
+    {
+      "keywords": [
+        "baking",
+        "maillard reaction",
+        "caramelization",
+        "yeast",
+        "gluten"
+      ],
+      "answer": "The science of baking: Maillard reaction (named after Louis-Camille Maillard, 1912): chemical reaction between amino acids and reducing sugars at ~140-165\u00b0C producing hundreds of flavor and aroma compounds \u2014 responsible for the browning and complex flavor of bread crusts, roasted coffee, seared meat, cookies, and toast. It's NOT the same as caramelization (which is the browning of sugars alone). Caramelization (160-180\u00b0C): sugars break down into hundreds of compounds with nutty, buttery, and slightly bitter flavors \u2014 cr\u00e8me br\u00fbl\u00e9e crust, toffee, caramel sauce. Gluten: network formed from glutenin and gliadin proteins in wheat when hydrated and kneaded \u2014 provides elasticity and traps CO\u2082 from yeast. More kneading = stronger gluten network = chewier bread. Fat (butter, oil) shortens gluten strands = tender, crumbly texture (hence 'shortening'). Eggs: add structure (proteins coagulate when heated), moisture, emulsification (lecithin in yolk), and richness."
+    },
+    {
+      "keywords": [
+        "painting",
+        "art history",
+        "impressionism",
+        "renaissance art",
+        "modern art"
+      ],
+      "answer": "Western art history: Ancient (cave paintings ~40,000 BC, Egyptian/Greek/Roman), Medieval (religious iconography, flat perspective), Renaissance (15th-17th century: perspective, humanism, naturalism \u2014 Botticelli, da Vinci, Michelangelo, Raphael), Baroque (dramatic light/shadow, emotion \u2014 Caravaggio, Rembrandt, Rubens, Vermeer), Rococo (lighter, playful \u2014 Fragonard, Watteau), Neoclassicism vs Romanticism (18th-19th century \u2014 Ingres vs Delacroix), Impressionism (late 19th century: capture light and moment \u2014 Monet, Renoir, Degas, Pissarro), Post-Impressionism (van Gogh, Gauguin, C\u00e9zanne), Expressionism, Cubism (Picasso, Braque \u2014 multiple perspectives simultaneously), Surrealism (Dal\u00ed, Magritte \u2014 dreams and the unconscious), Abstract Expressionism (Pollock \u2014 action painting), Pop Art (Warhol, Lichtenstein \u2014 mass media imagery). Most expensive paintings: Salvator Mundi (Leonardo, $450.3M, 2017), Les Femmes d'Alger (Picasso, $179.4M)."
+    },
+    {
+      "keywords": [
+        "literature",
+        "novels",
+        "shakespeare",
+        "dickens",
+        "hemingway",
+        "classic books"
+      ],
+      "answer": "Western literature's greatest works: Ancient: Homer's Iliad and Odyssey (~8th century BC), Virgil's Aeneid. Medieval: Dante's Divine Comedy (1320), Chaucer's Canterbury Tales. Renaissance: Shakespeare's plays (Hamlet, Macbeth, King Lear, Othello, Romeo and Juliet \u2014 37 plays, 154 sonnets). 18th century: Cervantes' Don Quixote (often called the first modern novel), Swift's Gulliver's Travels, Voltaire's Candide. 19th century: Jane Austen (Pride and Prejudice), Dickens (A Tale of Two Cities \u2014 best-selling novel ever at 200M+), Dostoyevsky (Crime and Punishment, The Brothers Karamazov), Tolstoy (War and Peace, Anna Karenina), Melville (Moby-Dick), Mark Twain (Huckleberry Finn). 20th century: Kafka (The Trial), Joyce (Ulysses), Woolf (Mrs. Dalloway), Hemingway (The Old Man and the Sea), Orwell (1984, Animal Farm), Camus (The Stranger), Garc\u00eda M\u00e1rquez (One Hundred Years of Solitude \u2014 magic realism masterpiece)."
+    },
+    {
+      "keywords": [
+        "film",
+        "cinema",
+        "movies",
+        "hollywood",
+        "directors",
+        "oscar"
+      ],
+      "answer": "Cinema history: Lumi\u00e8re brothers (first public film screening, Dec 28, 1895, Paris). Silent era: Chaplin, Buster Keaton, DW Griffith. Sound ('talkies'): The Jazz Singer (1927). Golden Age of Hollywood (1930s-60s): studio system, Casablanca, Citizen Kane (Orson Welles, 1941 \u2014 often called the greatest film ever), Gone With the Wind. New Hollywood (1970s): auteur directors \u2014 Kubrick (2001: A Space Odyssey), Coppola (The Godfather), Spielberg (Jaws, Raiders of the Lost Ark, Schindler's List), Scorsese (Taxi Driver, Goodfellas), Lucas (Star Wars). Best Picture Oscar winners: 12 Years a Slave, Moonlight, Parasite (first non-English language film to win, 2019). Highest-grossing: Avatar ($2.92B, 2009, re-release $2.32B), Avengers: Endgame ($2.80B), Titanic ($2.26B). Netflix (streaming) vs theatrical exhibition remains an ongoing disruption. Bollywood (Mumbai): produces more films than Hollywood annually."
+    },
+    {
+      "keywords": [
+        "mythology",
+        "greek mythology",
+        "roman mythology",
+        "norse mythology",
+        "zeus",
+        "odin"
+      ],
+      "answer": "Greek mythology: Olympian gods \u2014 Zeus/Jupiter (king, thunder), Hera/Juno (marriage), Poseidon/Neptune (sea), Demeter/Ceres (harvest), Ares/Mars (war), Athena/Minerva (wisdom, strategy), Apollo (sun, arts, prophecy), Artemis/Diana (moon, hunting), Aphrodite/Venus (love, beauty), Hephaestus/Vulcan (fire, forge), Hermes/Mercury (messenger, travel), Dionysus/Bacchus (wine). Heroes: Heracles/Hercules (12 Labors), Achilles (Trojan War, vulnerable heel), Odysseus/Ulysses (10-year voyage home), Perseus (slew Medusa), Theseus (killed the Minotaur in the Labyrinth). Norse mythology: Asgard (realm of gods), Odin (Allfather, wisdom, war, death \u2014 sacrificed an eye for knowledge), Thor (thunder, Mj\u00f6lnir), Loki (trickster), Freya (love, war), Valkyries, Ragnar\u00f6k (the twilight of the gods \u2014 apocalyptic final battle). Egyptian: Ra (sun), Osiris (afterlife), Isis (magic), Horus (sky), Anubis (death)."
+    },
+    {
+      "keywords": [
+        "vitamins",
+        "minerals",
+        "deficiency",
+        "supplements"
+      ],
+      "answer": "Key vitamins and minerals: Vitamin A (vision, immune function \u2014 carrots, sweet potato, liver; deficiency causes night blindness). B vitamins (8 total): B1/thiamine (energy metabolism), B3/niacin (DNA repair), B9/folate (cell division, crucial in pregnancy \u2014 prevents neural tube defects), B12/cobalamin (nerve function, red blood cells \u2014 ONLY in animal products, vegans must supplement; deficiency \u2192 irreversible nerve damage). Vitamin C (immune function, collagen synthesis, antioxidant \u2014 scurvy from deficiency historically killed sailors; found in citrus, berries, peppers). Vitamin D (bone health via calcium absorption, immune regulation, mood \u2014 synthesized by skin in sunlight; widespread deficiency especially in northern latitudes in winter; supplement 1000-2000 IU/day widely recommended). Vitamin E (antioxidant). Vitamin K2 (bone and cardiovascular health \u2014 not to be confused with K1). Iron (oxygen transport \u2014 deficiency: anemia, most common nutritional deficiency globally, especially in women). Magnesium (300+ enzymatic reactions, sleep, mood \u2014 most people don't get enough from diet alone)."
+    },
+    {
+      "keywords": [
+        "cancer",
+        "tumor",
+        "oncology",
+        "chemotherapy",
+        "immunotherapy"
+      ],
+      "answer": "Cancer: diseases where cells grow uncontrollably and can invade other tissues. Caused by mutations in DNA that affect cell division regulation (oncogenes: mutated \u2192 accelerate division; tumor suppressor genes like p53: mutated \u2192 fail to stop division). All cancers arise from normal cells. Types: carcinoma (epithelial cells \u2014 most common: breast, lung, colon, prostate), sarcoma (connective tissue \u2014 bone, muscle), lymphoma (lymphatic system \u2014 Hodgkin's, non-Hodgkin's), leukemia (blood), melanoma (melanocytes \u2014 skin). Most common worldwide: lung (most deaths), breast, colorectal, prostate, stomach. Risk factors: tobacco (30% of cancer deaths), obesity, alcohol, radiation (UV, ionizing), infections (HPV \u2192 cervical/throat cancer, H. pylori \u2192 stomach cancer, hepatitis B/C \u2192 liver cancer). Treatments: surgery, radiation, chemotherapy (kills rapidly dividing cells \u2014 side effects because hair/gut cells also divide rapidly), targeted therapy (block specific proteins), immunotherapy (checkpoint inhibitors unleash immune system against cancer \u2014 revolutionized melanoma and lung cancer treatment), CAR-T cell therapy. 5-year survival rates have dramatically improved for many cancers."
+    },
+    {
+      "keywords": [
+        "diabetes",
+        "blood sugar",
+        "insulin",
+        "type 1",
+        "type 2"
+      ],
+      "answer": "Diabetes mellitus: a group of metabolic diseases characterized by high blood sugar. Type 1 (~10% of cases): autoimmune destruction of pancreatic beta cells \u2192 no insulin production. Typically begins in childhood/young adulthood. Requires insulin injections/pump. Not caused by diet. Type 2 (~90% of cases): cells become resistant to insulin; pancreas can't compensate. Strongly linked to obesity, physical inactivity, and genetics. Progressive: often managed initially with lifestyle changes (diet, exercise), then oral medications (metformin), then insulin. Gestational diabetes: during pregnancy. Long-term complications: neuropathy (nerve damage \u2014 especially feet), nephropathy (kidney damage), retinopathy (eye damage \u2192 blindness), cardiovascular disease. Worldwide: ~537 million adults have diabetes (2021), projected 783 million by 2045. CGMs (continuous glucose monitors) and insulin pumps have dramatically improved management. First insulin injection: 1922 (Leonard Thompson, age 14) \u2014 transformed a fatal disease into a manageable one."
+    },
+    {
+      "keywords": [
+        "antibiotic",
+        "bacteria",
+        "virus",
+        "infection",
+        "resistance"
+      ],
+      "answer": "Antibiotics kill or inhibit bacteria \u2014 they have NO effect on viruses (colds, flu, COVID-19 are viral \u2014 antibiotics will NOT help and contribute to resistance). Discovered by Alexander Fleming in 1928 (penicillin from Penicillium mold \u2014 found accidentally when mold contaminated a bacterial culture). Classes: beta-lactams (penicillin, amoxicillin, cephalosporins \u2014 disrupt bacterial cell wall), macrolides (azithromycin/Z-pack \u2014 protein synthesis), tetracyclines (broad spectrum), fluoroquinolones (DNA replication), aminoglycosides (protein synthesis). Antibiotic resistance: bacteria evolve resistance through mutation and horizontal gene transfer. Methicillin-resistant Staphylococcus aureus (MRSA), carbapenem-resistant Enterobacteriaceae (CRE) are major threats. WHO calls antimicrobial resistance one of the greatest threats to global health \u2014 by 2050, resistant infections could kill 10 million people/year (more than cancer). Key: always complete prescribed antibiotic courses; never share or self-prescribe."
+    },
+    {
+      "keywords": [
+        "buddhism",
+        "meditation",
+        "enlightenment",
+        "nirvana",
+        "dharma",
+        "karma"
+      ],
+      "answer": "Buddhism was founded by Siddhartha Gautama (the Buddha \u2014 'awakened one') in the 5th-4th century BC in northern India (modern Nepal). Born a prince, he abandoned wealth to seek liberation from suffering after encountering old age, sickness, and death. After years of asceticism and meditation under a Bodhi tree at Bodh Gaya, he achieved enlightenment (nirvana). Core teachings: Four Noble Truths \u2014 (1) life involves suffering (dukkha), (2) suffering arises from craving/attachment, (3) suffering can end (nirvana), (4) the Eightfold Path leads to liberation (right understanding, intention, speech, action, livelihood, effort, mindfulness, concentration). Three marks of existence: impermanence (anicca), suffering (dukkha), no-self (anatta \u2014 no permanent fixed self). Three main schools: Theravada (Southeast Asia, 'original' teachings), Mahayana (East Asia, bodhisattva ideal \u2014 delay enlightenment to help others), Vajrayana/Tibetan (mantra, visualization, Dalai Lama)."
+    },
+    {
+      "keywords": [
+        "stoicism",
+        "marcus aurelius",
+        "epictetus",
+        "philosophy of life"
+      ],
+      "answer": "Stoicism is an ancient Greek philosophy (founded by Zeno of Citium ~300 BC, flourished in Rome) that has seen a major modern revival. Core idea: we cannot control external events but we can always control our response to them. The Stoic dichotomy of control: distinguish what is 'up to us' (our thoughts, judgments, desires, actions) from what is not (health, reputation, wealth, others' actions). Focus only on what's up to you. Key Stoics: Epictetus (former slave \u2014 'We cannot choose our external circumstances but we can always choose how we respond'), Marcus Aurelius (Roman Emperor, Meditations \u2014 personal journal of Stoic practice), Seneca (letters on Stoic living). 'Memento mori' (remember you will die): Stoic practice of contemplating mortality to appreciate life and prioritize what matters. Negative visualization: imagine losing what you have to appreciate it. Modern applications: CBT therapy is largely built on Stoic principles."
+    },
+    {
+      "keywords": [
+        "economics",
+        "adam smith",
+        "capitalism",
+        "keynesian",
+        "free market"
+      ],
+      "answer": "Economic schools of thought: Classical economics (Adam Smith \u2014 'The Wealth of Nations' 1776: free markets, division of labor, the 'invisible hand' whereby individual self-interest leads to collective benefit; David Ricardo \u2014 comparative advantage). Marxism (Karl Marx \u2014 'Das Kapital' 1867: capitalism contains inherent contradictions, surplus value extracted from workers, historical materialism). Keynesian economics (John Maynard Keynes \u2014 'The General Theory' 1936: markets are not always self-correcting; government should use fiscal policy \u2014 spending and taxation \u2014 to stabilize the economy during recessions; 'In the long run we are all dead'). Monetarism (Milton Friedman \u2014 money supply determines inflation; central banks should grow money supply steadily; free markets work better than government intervention). Behavioral economics (Thaler, Kahneman \u2014 humans are not 'rational actors'; cognitive biases systematically affect economic decisions). Modern Monetary Theory (MMT \u2014 governments that issue their own currency cannot go bankrupt; inflation, not debt, is the constraint)."
+    },
+    {
+      "keywords": [
+        "periodic table",
+        "elements",
+        "chemistry",
+        "atomic number",
+        "molecule"
+      ],
+      "answer": "The periodic table organizes 118 confirmed elements by atomic number (proton count). Periods (rows): electron shells being filled. Groups (columns): similar chemical properties. Group 1 alkali metals (Li, Na, K, Rb, Cs, Fr): extremely reactive, soft, low melting points \u2014 explode in water. Group 2 alkaline earth metals (Be, Mg, Ca, Sr, Ba, Ra): less reactive. Groups 3-12 transition metals: include iron (Fe), copper (Cu), gold (Au), silver (Ag), zinc (Zn), platinum (Pt) \u2014 complex electron configurations, good conductors. Group 17 halogens (F, Cl, Br, I, At): highly reactive nonmetals \u2014 F is the most reactive element. Group 18 noble gases (He, Ne, Ar, Kr, Xe, Rn): completely stable (full outer electron shells), almost never react. Most abundant in Earth's crust: oxygen (46%), silicon (28%), aluminum (8%), iron (5%). Most abundant in universe: hydrogen (75%), helium (23%). Heaviest stable element: lead (Pb, 82). Elements 93-118 are all synthetic (man-made)."
+    },
+    {
+      "keywords": [
+        "ecology",
+        "food web",
+        "ecosystem",
+        "predator",
+        "prey",
+        "habitat"
+      ],
+      "answer": "Ecology studies how organisms interact with each other and their environment. Food chains: producers (plants using photosynthesis) \u2192 primary consumers (herbivores) \u2192 secondary consumers (carnivores) \u2192 tertiary consumers (apex predators). Food webs are interconnected food chains. Trophic levels: energy is lost (~90%) at each level \u2014 this is why there are far more herbivores than carnivores, and why it's more energy-efficient to eat plants than meat. Keystone species: a species with disproportionate impact on its ecosystem relative to its abundance \u2014 remove it and the ecosystem collapses (sea otters eat sea urchins which eat kelp; without otters, urchins overpopulate and destroy kelp forests). Biodiversity: the variety of life \u2014 important for ecosystem resilience. The '6th mass extinction': Earth is currently experiencing the worst mass extinction since the asteroid that killed the dinosaurs, driven entirely by human activity (habitat loss, climate change, pollution, hunting). ~1 million species currently threatened with extinction."
+    },
+    {
+      "keywords": [
+        "astronomy",
+        "telescope",
+        "hubble",
+        "james webb",
+        "stars"
+      ],
+      "answer": "Telescopes: optical (visible light), radio (Arecibo Observatory \u2014 collapsed 2020; now Green Bank Observatory), X-ray (Chandra), infrared, gamma-ray. Hubble Space Telescope (1990, above atmosphere \u2014 no atmospheric distortion): transformed astronomy, discovered the universe's expansion is accelerating, confirmed supermassive black holes, determined the universe's age, imaged distant galaxies (Hubble Deep Field \u2014 3,000 galaxies in a patch of 'empty' sky). James Webb Space Telescope (JWST, launched Dec 25, 2021): 6.5m primary mirror (vs Hubble's 2.4m), observes in infrared (seeing through dust clouds and further back in time), at L2 point 1.5 million km from Earth. First images released July 2022. Can see galaxies from 13.1 billion years ago (just 700 million years after the Big Bang). Has found unexpected structures in the early universe that challenge models."
+    },
+    {
+      "keywords": [
+        "biology",
+        "cell",
+        "mitosis",
+        "meiosis",
+        "cell division"
+      ],
+      "answer": "Cells are the basic units of life. Prokaryotic cells (bacteria, archaea): no nucleus, no membrane-bound organelles, usually 1-10 micrometers. Eukaryotic cells (animals, plants, fungi, protists): have a membrane-bound nucleus and organelles. Key organelles: nucleus (stores DNA, controls cell), mitochondria ('powerhouse of the cell' \u2014 produces ATP via cellular respiration; has its own DNA, evidence of ancient bacterial endosymbiosis), ribosomes (make proteins), endoplasmic reticulum (protein/lipid synthesis), Golgi apparatus (packages and ships proteins), lysosomes (cellular recycling \u2014 digest waste), cell membrane (phospholipid bilayer with embedded proteins). Cell division: Mitosis (body cells) \u2014 produces two identical daughter cells (for growth and repair). Meiosis (sex cells/gametes) \u2014 produces four genetically unique cells with half the chromosomes (enables sexual reproduction and genetic diversity)."
+    },
+    {
+      "keywords": [
+        "vaccine history",
+        "polio",
+        "smallpox",
+        "edward jenner",
+        "louis pasteur"
+      ],
+      "answer": "Vaccine history: Edward Jenner (1796) noticed milkmaids exposed to cowpox didn't get smallpox \u2014 inoculated 8-year-old James Phipps with cowpox then exposed him to smallpox (he didn't get it) \u2014 first vaccine. 'Vaccine' from Latin 'vacca' (cow). Louis Pasteur extended the principle \u2014 developed vaccines for chicken cholera (1880), anthrax (1881), and rabies (1885 \u2014 first human use, saved 9-year-old Joseph Meister). Smallpox: the only human disease successfully eradicated \u2014 vaccination campaign completed eradication in 1980 (WHO certified). Polio: nearly eradicated \u2014 Jonas Salk (inactivated vaccine, 1955) and Albert Sabin (oral live vaccine, 1961). Endemic polio now only in Afghanistan and Pakistan. mRNA vaccines (COVID-19): Pfizer-BioNTech and Moderna were 90%+ effective in trials \u2014 faster development than any vaccine in history (10-15 years normally \u2192 less than 1 year using platform technology developed over decades)."
+    },
+    {
+      "keywords": [
+        "cybersecurity",
+        "hacking",
+        "encryption",
+        "password",
+        "vpn"
+      ],
+      "answer": "Cybersecurity protects systems and data from attacks. Common attacks: phishing (deceptive emails/sites to steal credentials \u2014 responsible for 90% of breaches), malware (viruses, trojans, ransomware, spyware, keyloggers), SQL injection, XSS, DDoS (Distributed Denial of Service \u2014 overwhelm servers with traffic), man-in-the-middle, social engineering. Encryption: symmetric (same key to encrypt and decrypt \u2014 AES-256 for data at rest) vs asymmetric (public key to encrypt, private key to decrypt \u2014 RSA, used in HTTPS). End-to-end encryption (E2EE): only sender and recipient can read messages (Signal, WhatsApp \u2014 even the company can't access). Passwords: use a password manager (1Password, Bitwarden, LastPass \u2014 generate and store unique complex passwords per site). Enable 2FA (two-factor authentication) everywhere \u2014 even if password is stolen, attacker needs the second factor. VPN (Virtual Private Network): encrypts internet traffic and masks IP address \u2014 useful on public WiFi, but doesn't make you anonymous."
+    },
+    {
+      "keywords": [
+        "programming concepts",
+        "recursion",
+        "debugging",
+        "api",
+        "library",
+        "framework"
+      ],
+      "answer": "Core programming concepts: Recursion: a function calling itself \u2014 must have a base case (stopping condition) or you get infinite recursion/stack overflow. Classic examples: factorial(n) = n \u00d7 factorial(n-1), Fibonacci, tree traversal. Debugging: the process of finding and fixing bugs. Approaches: print debugging (add print/console.log statements), using a debugger (set breakpoints, inspect variables step by step), rubber duck debugging (explain code to an inanimate object \u2014 often reveals the bug), reading error messages carefully, binary search (comment out half the code to find which half has the bug). API (Application Programming Interface): a defined way for software to communicate \u2014 defines what requests can be made, how to make them, and what responses look like. Library: pre-written code you import to use (e.g., lodash, numpy). Framework: a structure that dictates how you build your application (you fill in the blanks \u2014 React, Django, Rails). 'Don't reinvent the wheel' \u2014 use existing libraries."
+    },
+    {
+      "keywords": [
+        "open source",
+        "linux kernel",
+        "gnu",
+        "free software",
+        "github",
+        "mit license"
+      ],
+      "answer": "Open source software: source code is publicly available \u2014 anyone can read, modify, and distribute it. The Free Software Foundation (Richard Stallman, 1983): GNU project to create a free Unix-like OS. GNU General Public License (GPL): 'copyleft' \u2014 any derivative must also be open source. Linus Torvalds released the Linux kernel under GPL in 1991. Linux + GNU tools = GNU/Linux. MIT License: permissive \u2014 can use in proprietary software (used by React, jQuery). Apache License: similar permissive. BSD licenses: variants, permissive. Major open source projects: Linux kernel, Android, Chromium (base for Chrome and Edge), Firefox, VS Code, Python, Node.js, React, Vue, Kubernetes, Docker, PostgreSQL, MySQL, WordPress, WordPress, TensorFlow, PyTorch. GitHub has 100 million developers and hosts most open source projects. Open source underpins essentially all of the internet. The Open Source Initiative certifies licenses."
+    },
+    {
+      "keywords": [
+        "web3",
+        "nft",
+        "decentralized",
+        "dao",
+        "solidity",
+        "smart contract"
+      ],
+      "answer": "Web3: the vision of a decentralized internet built on blockchain technology \u2014 where users own their data and digital assets (contrasted with Web2 where platforms like Facebook and Google own your data). Smart contracts: self-executing code on a blockchain \u2014 automatically enforces terms without intermediaries. Written in Solidity (Ethereum). NFTs (Non-Fungible Tokens): unique blockchain tokens representing ownership of a digital asset \u2014 art, music, game items. Peak hype in 2021 (Beeple's NFT sold for $69 million). Market has since crashed dramatically. DAOs (Decentralized Autonomous Organizations): organizations governed by token holders via smart contracts \u2014 no traditional management hierarchy. DeFi (Decentralized Finance): financial services without banks or intermediaries (lending, borrowing, trading via protocols like Uniswap, Aave, Compound). Critics: environmental impact (PoW blockchains), speculation, scams, and whether true decentralization is achieved in practice. The SEC has taken regulatory action against many crypto projects."
+    },
+    {
+      "keywords": [
+        "augmented reality",
+        "virtual reality",
+        "ar",
+        "vr",
+        "metaverse",
+        "mixed reality"
+      ],
+      "answer": "Virtual Reality (VR): fully immersive digital environment replacing physical reality. Headsets: Meta Quest (standalone, no PC required), PlayStation VR2, Valve Index, Apple Vision Pro (2024, $3,499, mixed reality). Applications: gaming (Beat Saber, Half-Life: Alyx), training (surgical simulation, military, pilot training), therapy (PTSD, phobias, chronic pain), virtual meetings, and architecture visualization. Motion sickness affects many users \u2014 caused by latency between head movement and display update (less than 20ms is key). Augmented Reality (AR): overlays digital content on the real world. Consumer: smartphone AR (Pok\u00e9mon GO, IKEA Place), Apple/Google AR frameworks (ARKit/ARCore). Enterprise: Microsoft HoloLens (industrial/medical training). 'Metaverse': persistent, shared virtual spaces \u2014 Meta (Facebook) invested $36 billion in the concept with mixed results. The term comes from Neal Stephenson's 1992 novel 'Snow Crash.'"
+    },
+    {
+      "keywords": [
+        "new york city",
+        "nyc",
+        "manhattan",
+        "statue of liberty",
+        "times square"
+      ],
+      "answer": "New York City is the most populous US city (~8.3 million city, ~20 million metro) and one of the world's great cities \u2014 a global financial, cultural, and media capital. Five boroughs: Manhattan (financial and cultural core), Brooklyn (most populous), Queens (most ethnically diverse urban area on Earth \u2014 160+ languages spoken), The Bronx (only mainland borough, birthplace of hip hop), Staten Island. Wall Street: global financial hub, home to the NYSE and NASDAQ. Famous landmarks: Statue of Liberty (gift from France, 1886, 93m with pedestal), Central Park (341 hectares in the middle of Manhattan), Empire State Building (443m, 1931, was world's tallest for 40 years), One World Trade Center (541m \u2014 tallest in the Western Hemisphere), Times Square, Brooklyn Bridge (1883, 1,825m span). NYC has ~800 languages spoken \u2014 the most linguistically diverse city on Earth."
+    },
+    {
+      "keywords": [
+        "london",
+        "uk",
+        "united kingdom",
+        "england",
+        "british",
+        "thames"
+      ],
+      "answer": "London is the capital of the United Kingdom and England \u2014 one of the world's most visited cities. Population: ~9.5 million city, ~14 million metro. The Thames (pronounced 'Temz') runs through the city. Key landmarks: Buckingham Palace (official royal residence), Houses of Parliament and Big Ben (the Elizabeth Tower's bell), Tower of London (1066, Crown Jewels), Tower Bridge (1894, often called 'London Bridge'), the London Eye (135m Ferris wheel), Tate Modern (art museum in former power station). The London Underground ('the Tube') is the world's oldest metro system (1863). UK GDP: ~$3.1 trillion (6th largest). The UK left the EU (Brexit) January 31, 2020. The monarchy: King Charles III became king September 2022 following Queen Elizabeth II's death after 70 years \u2014 the longest-reigning British monarch. The BBC (British Broadcasting Corporation) is the world's oldest national broadcaster (1927)."
+    },
+    {
+      "keywords": [
+        "tokyo",
+        "japan city",
+        "shibuya",
+        "mount fuji",
+        "shinkansen"
+      ],
+      "answer": "Tokyo is Japan's capital and the world's most populous metropolitan area (~37.4 million people in the greater metro area). It became Japan's capital in 1869 (before that, Kyoto was the imperial capital). Districts: Shibuya (fashion, youth culture, the famous Scramble Crossing \u2014 3,000 people cross per green light), Shinjuku (entertainment, Golden Gai bars, Tokyo's main station \u2014 the world's busiest with 3.6 million daily passengers), Akihabara (electronics and anime), Ginza (luxury shopping), Asakusa (traditional, Senso-ji temple). Tokyo has the most Michelin-starred restaurants of any city on Earth (~300 starred restaurants). Japan's Shinkansen ('bullet train') network: up to 320 km/h, operates since 1964, carries 450,000 passengers daily, and in its history has never had a fatal accident due to derailment or collision. Mount Fuji: 3,776m, last erupted 1707, about 200,000 people climb it per year."
+    },
+    {
+      "keywords": [
+        "italy",
+        "rome",
+        "pizza",
+        "pasta",
+        "renaissance art",
+        "colosseum"
+      ],
+      "answer": "Italy (official: Italian Republic) has ~60 million people in 301,340 km\u00b2. Capital: Rome. GDP: ~$2.2 trillion (8th largest). Italy has more UNESCO World Heritage Sites than any other country (58 \u2014 Colosseum, Pompeii, Venice and its Lagoon, Florence, Cinque Terre, Amalfi Coast, etc.). Rome: the 'Eternal City,' built on 7 hills, once capital of the Roman Empire. Major sights: Colosseum (80 AD, 50,000-80,000 spectators), Pantheon (125 AD, concrete dome with oculus), Vatican City (smallest sovereign state: 0.44 km\u00b2, home to the Pope and St. Peter's Basilica). Italian contributions: the Renaissance (Florence), opera (invented in Florence ~1600), pizza, pasta, espresso, fashion (Milan \u2014 Versace, Prada, Gucci, Armani), Alfa Romeo, Ferrari, Lamborghini, Ducati. Italy is one of the world's top wine producers. The Italian language directly descended from Latin."
+    },
+    {
+      "keywords": [
+        "spain",
+        "madrid",
+        "barcelona",
+        "flamenco",
+        "spanish",
+        "iberian"
+      ],
+      "answer": "Spain has ~47 million people in 505,990 km\u00b2. Capital: Madrid. Barcelona is the second city (capital of Catalonia \u2014 strong independence movement). GDP: ~$1.6 trillion (13th). Known for: flamenco (music, singing, and dance from Andalusia), bullfighting (divisive \u2014 support is declining), La Tomatina (tomato-throwing festival), the Running of the Bulls (Pamplona), paella (Valencian rice dish), tapas, sangria. Architecture: Antoni Gaud\u00ed's Sagrada Fam\u00edlia in Barcelona (under construction since 1882, still not finished), Park G\u00fcell, Casa Batll\u00f3. The Spanish language: spoken by 500 million people (2nd most spoken native language globally, behind Mandarin) \u2014 21 sovereign nations use Spanish as official language. Spain had the world's largest empire in the 16th century (stretching from the Americas to the Philippines). Spain is a constitutional monarchy (King Felipe VI)."
+    },
+    {
+      "keywords": [
+        "penguin",
+        "arctic",
+        "antarctic",
+        "flightless bird",
+        "emperor penguin"
+      ],
+      "answer": "Penguins are flightless seabirds found exclusively in the Southern Hemisphere (mostly Antarctica, but also in South America, South Africa, New Zealand, and the Gal\u00e1pagos Islands \u2014 they never live in the Arctic). 18 species. Their wings evolved into flippers \u2014 they 'fly' underwater at up to 36 km/h. Emperor penguin: the largest (up to 1.2m, 45 kg). Males incubate the single egg on their feet through the Antarctic winter (-40\u00b0C, 200 km/h winds) for 65-75 days without eating \u2014 they huddle together (up to 5,000 in a group) and rotate through the center. During this time they lose 40% of their body weight. Penguins are monogamous within a season and recognize their mate by voice among thousands. They have a specialized supraorbital gland to filter salt from seawater. Penguin droppings (guano) create islands of vegetation and nitrogen-rich soil in the Antarctic."
+    },
+    {
+      "keywords": [
+        "eagle",
+        "hawk",
+        "falcon",
+        "raptor",
+        "bird of prey"
+      ],
+      "answer": "Raptors (birds of prey) have sharp talons (for gripping prey), hooked beaks (for tearing flesh), and exceptional eyesight (4-8\u00d7 sharper than humans \u2014 they can spot a rabbit from 3 km away, seeing UV light that makes rodent urine trails glow). Bald eagle (USA national symbol): 2m wingspan, feeds primarily on fish (steals from other birds \u2014 they're kleptoparasites); recovered from near extinction after DDT was banned 1972. Golden eagle: fastest in level flight of large raptors. Peregrine falcon: fastest animal on Earth in a stoop (dive) at ~389 km/h \u2014 strikes prey mid-air. Harpy eagle (South America): most powerful raptor \u2014 talons the size of a grizzly bear's claws, takes sloths and monkeys. Andean condor: largest wingspan of any raptor (3.3m), soars on thermals for hours without flapping, scavenges carcasses. Owls: primarily nocturnal, rotate head 270\u00b0, asymmetric ears for triangulating prey location in total darkness."
+    },
+    {
+      "keywords": [
+        "fish",
+        "salmon",
+        "tuna",
+        "clownfish",
+        "goldfish",
+        "aquarium"
+      ],
+      "answer": "Fish basics: Salmon are anadromous \u2014 born in freshwater streams, migrate to the ocean (where they grow for 2-7 years), then return to their exact birth stream to spawn using Earth's magnetic field and the stream's unique chemical 'smell.' Pacific salmon die after spawning (their decomposing bodies fertilize the forest). Tuna: highly migratory, warm-blooded (unlike most fish \u2014 maintain body temperature above surrounding water for better muscle performance), bluefin tuna can swim at 70 km/h and dive to 1,000m. They can be worth $1M+ at Japanese auctions. Clownfish (like Nemo): live symbiotically with sea anemones (immune to their sting). All clownfish are born male \u2014 the dominant fish in a group becomes female; if the female dies, the dominant male changes sex. Goldfish: can live 20+ years (world record 43 years) but their '3-second memory' is a myth \u2014 they can remember things for months. Fish have been on Earth for 530 million years."
+    },
+    {
+      "keywords": [
+        "parrot",
+        "parakeet",
+        "cockatoo",
+        "bird intelligence",
+        "talking bird"
+      ],
+      "answer": "Parrots (order Psittaciformes, ~398 species) are among the most intelligent birds \u2014 some have demonstrated language comprehension beyond simple mimicry. Alex the African grey parrot (Dr. Irene Pepperberg's research, 30 years): could identify ~100 objects, request items, answer questions about shape/color/material, and understood concepts like 'same,' 'different,' 'bigger,' 'smaller,' and 'zero.' He said 'You be good, I love you' on his last night alive (2007). African grey parrots are considered the most intelligent parrots. Cockatoos can solve multi-step lock puzzles \u2014 demonstrating causal reasoning. Kea (New Zealand alpine parrot): the only alpine parrot, extremely curious and tool-using. Parrots can live 50-90 years \u2014 some outlive their owners. They need mental stimulation; boredom leads to feather-plucking. ~1/3 of parrot species are threatened due to habitat loss and the pet trade."
+    },
+    {
+      "keywords": [
+        "swimming",
+        "michael phelps",
+        "olympic swimming",
+        "freestyle",
+        "butterfly"
+      ],
+      "answer": "Michael Phelps is the most decorated Olympian in history: 28 Olympic medals (23 gold, 3 silver, 2 bronze) across 4 Olympics (2000-2016). He has a 193cm wingspan (taller than his 193cm height \u2014 unusual), double-jointed ankles that flex 15\u00b0 further than average (giving flipper-like propulsion), and produces less lactic acid than average swimmers. Swimming strokes (in order of speed): butterfly (fastest, most demanding), backstroke, breaststroke (slowest), freestyle/front crawl. Competition pool: 50m (long course) or 25m (short course). World record 100m freestyle: ~46.8 seconds (~7.7 km/h). Open water swimming: 10km Olympic event, plus marathon swims across channels. The English Channel (34 km): Matthew Webb first swam it in 1875 (21 hours 45 minutes). Modern record: ~6.5 hours."
+    },
+    {
+      "keywords": [
+        "formula 1",
+        "f1",
+        "ferrari",
+        "lewis hamilton",
+        "grand prix",
+        "racing"
+      ],
+      "answer": "Formula 1 is the highest class of single-seater auto racing, governed by the FIA. A season: 20-24 Grands Prix at circuits worldwide. F1 cars reach 350+ km/h, generate 3.5G in cornering (more than an astronaut at launch), brake from 300 to 100 km/h in 2.7 seconds. The car is largely aerodynamic \u2014 about 70% of performance is the car, 30% the driver. Constructors: Ferrari (most successful historically), Mercedes (dominant 2014-2021 \u2014 won 8 consecutive constructors' championships), Red Bull (dominant 2022-2023 \u2014 Max Verstappen won consecutive world championships). Drivers' world champions: Michael Schumacher (7 titles, 2001-2004 dominance), Lewis Hamilton (7 titles \u2014 tied with Schumacher, first Black Formula 1 champion), Ayrton Senna (3, died Imola 1994 \u2014 still considered by many the greatest ever), Max Verstappen (3+, currently dominant). Pit stop record: ~1.82 seconds (Red Bull, 2023)."
+    },
+    {
+      "keywords": [
+        "martial arts",
+        "karate",
+        "judo",
+        "bjj",
+        "taekwondo",
+        "mma",
+        "boxing"
+      ],
+      "answer": "Martial arts span thousands of years. Japanese: Judo (Jigoro Kano, 1882 \u2014 throws and grappling, Olympic since 1964), Karate (Okinawan, strikes and blocks), Aikido (circular throws using attacker's momentum), Jujutsu (parent art of judo and BJJ). Korean: Taekwondo (high kicks, Olympic since 2000), Hapkido. Chinese: Kung Fu/Wushu (umbrella term for many styles \u2014 Wing Chun, Shaolin, Tai Chi), Tai Chi (meditative, slow movements, internal energy). Brazilian Jiu-Jitsu (BJJ): developed by the Gracie family from Japanese judo/jujutsu \u2014 focuses on ground fighting and submissions. Demonstrated that a smaller person can defeat a larger one using leverage and technique. Boxing: 'the sweet science' \u2014 8 weight classes from strawweight (47.6 kg) to heavyweight (90+ kg). Muhammad Ali (1942-2016): widely considered the greatest \u2014 56-5 record, 'float like a butterfly, sting like a bee.' MMA (Mixed Martial Arts): UFC (founded 1993) combines striking and grappling disciplines."
+    },
+    {
+      "keywords": [
+        "electronic music",
+        "techno",
+        "house",
+        "edm",
+        "dj",
+        "synthesizer"
+      ],
+      "answer": "Electronic music evolved from early synthesizers and tape manipulation. Key developments: Moog synthesizer (Robert Moog, 1964 \u2014 enabled affordable electronic music), Kraftwerk (German pioneers of electronic music, 1970s \u2014 influenced virtually all electronic music since), Roland TR-808 drum machine (1980, its bass drum sound is in thousands of songs \u2014 distinctive boom), Roland TB-303 bassline synthesizer (1981 \u2014 accidental discovery of the acid house sound). Genres: Disco (1970s New York \u2014 4/4 kick drum, orchestral, gay club scene), House (Chicago, early 1980s \u2014 Frankie Knuckles at The Warehouse), Techno (Detroit, mid-1980s \u2014 Juan Atkins, Derrick May, Kevin Saunderson \u2014 'The Belleville Three'), Trance (Germany, early 1990s \u2014 emotional, melodic), Drum and Bass/Jungle (UK, 1990s \u2014 fast breakbeats ~174 BPM), Dubstep (South London, early 2000s \u2014 Skream, Benga, Digital Mystikz \u2014 evolved into EDM 'brostep' via Skrillex). Deadmau5, Daft Punk, Avicii, Calvin Harris, David Guetta defined mainstream EDM."
+    },
+    {
+      "keywords": [
+        "beatles",
+        "rolling stones",
+        "60s music",
+        "british invasion",
+        "lennon",
+        "mccartney"
+      ],
+      "answer": "The Beatles (John Lennon, Paul McCartney, George Harrison, Ringo Starr) are the best-selling music artists in history \u2014 600 million+ records sold. From Liverpool, formed 1960. Manager Brian Epstein, producer George Martin ('Fifth Beatle'). US arrival Feb 9, 1964 (Ed Sullivan Show \u2014 73 million viewers, 45% of US population) launched Beatlemania and the British Invasion. Evolution: early Merseybeat pop ('Please Please Me,' 'She Loves You') \u2192 sophisticated rock ('Rubber Soul,' 1965) \u2192 psychedelia ('Revolver,' 1966; 'Sgt. Pepper's Lonely Hearts Club Band,' 1967 \u2014 first concept album?) \u2192 'White Album' (1968) \u2192 'Abbey Road' (1969) \u2192 Let It Be (1970, breakup). Lennon-McCartney: greatest songwriting partnership in pop history. Lennon assassinated Dec 8, 1980 in New York. McCartney still tours at 80+. The Rolling Stones: formed 1962, 'World's Greatest Rock and Roll Band,' still touring \u2014 Mick Jagger, Keith Richards."
+    },
+    {
+      "keywords": [
+        "globalization",
+        "trade",
+        "wto",
+        "supply chain",
+        "exports imports"
+      ],
+      "answer": "Globalization: the increasing interconnection of the world's economies, cultures, and populations through trade, communication, and migration. The WTO (World Trade Organization, founded 1995, 164 members): sets global trade rules and resolves disputes. Free trade agreements (FTAs): reduce tariffs and barriers between member countries \u2014 NAFTA/USMCA (USA/Canada/Mexico), EU single market, TPP/CPTPP. Comparative advantage (Ricardo, 1817): countries benefit from specializing in what they produce most efficiently and trading \u2014 even if one country is better at everything. Global supply chains: Apple designs in California, sources components from 43 countries, manufactures in China, sells globally. COVID-19 revealed supply chain vulnerabilities \u2014 computer chip shortage shut down car production. Deglobalization trends: geopolitical tensions, reshoring ('friend-shoring'), and supply chain diversification. China's Belt and Road Initiative: infrastructure lending and development across 150+ countries \u2014 criticized as 'debt trap diplomacy.'"
+    },
+    {
+      "keywords": [
+        "population",
+        "demographics",
+        "birth rate",
+        "aging",
+        "migration"
+      ],
+      "answer": "World population: 8 billion reached November 15, 2022. Growth: from 1 billion (1804) \u2192 2B (1927) \u2192 3B (1960) \u2192 4B (1974) \u2192 5B (1987) \u2192 6B (1999) \u2192 7B (2011) \u2192 8B (2022). Projected ~10 billion by 2050-2100 then stabilization/decline. Demographic transition: as countries develop, birth rates fall after death rates \u2014 high birth/death \u2192 high birth/low death (population boom) \u2192 low birth/low death (stable). Fertility rate of 2.1 children per woman maintains stable population. Most of Europe, East Asia, and Latin America are below replacement fertility. Japan, South Korea, Italy, Germany are shrinking. Africa and parts of South Asia still growing. Aging: by 2050, 2 billion people will be over 65 (vs 700 million today). Migration: ~281 million international migrants worldwide (3.6% of world population). Climate change projected to drive 200 million+ climate refugees by 2050."
+    },
+    {
+      "keywords": [
+        "social justice",
+        "inequality",
+        "gini coefficient",
+        "poverty",
+        "human rights"
+      ],
+      "answer": "Global inequality: the world's 2,668 billionaires have as much wealth as the bottom 60% of humanity combined (Oxfam). Gini coefficient: measures income inequality (0 = perfect equality, 1 = one person has everything). Most equal: Nordic countries (Denmark, Norway, Sweden, Finland \u2014 Gini ~0.25-0.28). Most unequal: South Africa (0.63), Brazil, Colombia, Namibia, Zambia. US Gini: ~0.41 (high for a wealthy nation). Extreme poverty: World Bank defines as living under $2.15/day (2022 dollars) \u2014 dropped from 36% of world population (1990) to ~9% (2022) \u2014 massive progress. About 700 million people still live in extreme poverty. Human Rights: the Universal Declaration of Human Rights (UN, 1948, Eleanor Roosevelt was instrumental): 30 articles establishing civil, political, economic, social, and cultural rights. The UN Human Rights Council monitors violations. NGOs: Amnesty International, Human Rights Watch document violations globally."
+    },
+    {
+      "keywords": [
+        "media",
+        "journalism",
+        "fake news",
+        "social media",
+        "misinformation"
+      ],
+      "answer": "Mass media evolution: printing press (Gutenberg, ~1440) \u2192 newspapers (17th century) \u2192 radio (1920s) \u2192 television (1950s) \u2192 internet (1990s) \u2192 social media (2000s) \u2192 algorithms (2010s+). News media: broadsheets (NYT, Washington Post, Guardian, Le Monde), tabloids, broadcast news (BBC, CNN, Fox News), public radio (NPR, BBC Radio). Misinformation/disinformation: false information spreading faster than corrections on social media \u2014 MIT study (2018): false news spread 6\u00d7 faster than true news on Twitter. Algorithms: optimize for engagement (outrage, fear, and tribalism drive more clicks) \u2014 reinforcing filter bubbles and polarization. 'Deep fakes': AI-generated fake videos of real people \u2014 increasingly convincing and dangerous. Media literacy: critical skills to evaluate source credibility, identify bias, and check information across multiple sources. Journalistic ethics: independence, accuracy, fairness, accountability, minimizing harm. Newspapers' business model is in crisis (ad revenue \u2192 Google/Facebook); many local papers have closed."
+    },
+    {
+      "keywords": [
+        "language",
+        "linguistics",
+        "grammar",
+        "mandarin",
+        "most spoken languages"
+      ],
+      "answer": "There are ~7,100 languages spoken worldwide \u2014 half may be extinct by 2100. Most spoken by native speakers: Mandarin Chinese (~920 million), Spanish (~475 million), English (~370 million), Hindi (~340 million), Arabic (~315 million), Bengali, Portuguese, Russian, Japanese, Yue Chinese (Cantonese). Most spoken including second-language speakers: English (1.5 billion total). Languages die at ~2 per week. The Linguistic Society of America (1924) and UNESCO work on language documentation. Language families: Indo-European (English, Spanish, Hindi, Russian, Persian \u2014 descended from a common ancestor ~6,000 years ago), Sino-Tibetan (Mandarin, Tibetan, Burmese), Afro-Asiatic (Arabic, Hebrew, Amharic), Niger-Congo (Swahili, Yoruba, Zulu \u2014 1,500+ languages), Austronesian (Malay, Tagalog, Hawaiian, M\u0101ori). Sign languages are full natural languages \u2014 ASL (American Sign Language) has its own grammar different from English."
+    },
+    {
+      "keywords": [
+        "latin",
+        "greek roots",
+        "etymology",
+        "word origins"
+      ],
+      "answer": "English has borrowed extensively from Latin and Ancient Greek \u2014 understanding roots unlocks thousands of words. Latin roots: aqua (water: aquatic, aquarium), bene (good: benefit, benevolent), bio (life: biology, biography), cent (hundred: century, percent), dict (say: dictate, dictionary, predict), duc/duce (lead: conduct, deduce, education), fac/fact (make/do: factory, manufacture, artifact), juris (law: jury, justice, jurisdiction), locus (place: location, local), mal (bad: malfunction, malevolent), man/manu (hand: manual, manufacture), mort (death: mortal, immortal), port (carry: transport, portable, export), scrib/script (write: describe, manuscript, inscription), spec/spect (look: spectacle, inspect), terra (earth: territory, terrain), vid/vis (see: video, visible, vision), vit/viv (live: vital, vivid). Greek roots: chrono (time), demos (people), geo (earth), logos (word/study), micro/macro, mono/poly, ology (study of), phone (sound), photo (light), tele (far), thermo (heat)."
+    },
+    {
+      "keywords": [
+        "money",
+        "currency",
+        "central bank",
+        "federal reserve",
+        "inflation",
+        "interest rates"
+      ],
+      "answer": "Money's three functions: medium of exchange (avoids barter), store of value (save purchasing power), and unit of account (measure value). Types: commodity money (gold, silver \u2014 intrinsic value), representative money (backed by a commodity), fiat money (value by government decree \u2014 all modern currencies). The US dollar: world's reserve currency since Bretton Woods Agreement (1944) \u2014 most global trade is priced in dollars. Central banks: set interest rates (higher rates \u2192 more expensive to borrow \u2192 less spending/investment \u2192 reduces inflation; lower rates \u2192 opposite). The Federal Reserve (US): 'dual mandate' \u2014 stable prices AND maximum employment. ECB (Europe). Inflation: too much money chasing too few goods. Hyperinflation: Zimbabwe (2008 \u2014 79.6 billion percent monthly inflation rate, prices doubling every 24 hours), Weimar Germany (1923), Venezuela (2018+). Deflation: falling prices sound good but cause economic death spirals (consumers wait to buy, businesses can't invest). Central banks target ~2% inflation as ideal."
+    },
+    {
+      "keywords": [
+        "startup",
+        "venture capital",
+        "silicon valley",
+        "unicorn",
+        "ipo",
+        "entrepreneur"
+      ],
+      "answer": "Silicon Valley (San Francisco Bay Area) has been the world's innovation hub since the semiconductor industry emerged in the 1950s-60s (Fairchild Semiconductor, Intel). Why there: Stanford and Berkeley universities, venture capital ecosystem, risk-accepting culture, dense network of founders and talent. Venture capital (VC): investors provide capital to early-stage companies in exchange for equity \u2014 accepting high risk for potential outsized returns. Stages: pre-seed/angel \u2192 seed \u2192 Series A \u2192 B \u2192 C \u2192 D... IPO (Initial Public Offering): first sale of shares to the public on a stock exchange. Unicorn: private startup valued at $1 billion+ (coined by Aileen Lee, 2013). Decacorn: $10B+. Hectocorn: $100B+. Key VC firms: Sequoia Capital, Andreessen Horowitz (a16z), Benchmark, Accel, Kleiner Perkins. The Lean Startup (Eric Ries): build-measure-learn feedback loop, minimum viable product (MVP). Most startups fail: ~90% within 10 years. 'Fail fast' philosophy."
+    },
+    {
+      "keywords": [
+        "space exploration",
+        "nasa",
+        "spacex",
+        "moon landing",
+        "iss",
+        "mars missions"
+      ],
+      "answer": "Space exploration milestones: Sputnik (USSR, Oct 4, 1957 \u2014 first satellite), Laika (first animal in space, 1957), Yuri Gagarin (first human in space, April 12, 1961, 108 minutes), John Glenn (first American to orbit Earth, 1962), Apollo 11 Moon landing (July 20, 1969, Neil Armstrong and Buzz Aldrin \u2014 'one small step for man, one giant leap for mankind'), Apollo 13 (1970, 'Houston we have a problem,' remarkable rescue mission). Space Shuttle program (1981-2011): 135 missions, 2 disasters (Challenger 1986, Columbia 2003). ISS (International Space Station): continuously inhabited since November 2000, 16-nation collaboration. New space race: SpaceX (reusable rockets, Starship), Blue Origin (Jeff Bezos, New Shepard and New Glenn), NASA Artemis program (return humans to Moon, aim for 2025-2026), Chinese space program (Tiangong space station, lunar ambitions), commercial lunar economy. Voyager 1 (launched 1977): now 24+ billion km from Earth \u2014 the farthest human-made object."
+    },
+    {
+      "keywords": [
+        "photography",
+        "camera",
+        "shutter speed",
+        "aperture",
+        "iso",
+        "composition"
+      ],
+      "answer": "Photography fundamentals \u2014 the 'exposure triangle': Aperture (f-stop): the opening in the lens. Wider aperture (smaller f-number: f/1.4, f/2) = more light, shallower depth of field (blurry background \u2014 'bokeh'). Narrower aperture (f/11, f/16) = less light, more of the scene in focus. Shutter speed: duration the sensor is exposed. Faster (1/1000s): freezes motion. Slower (1/30s, 1s+): blurs motion, requires tripod. ISO: sensor sensitivity. Lower ISO (100, 200): less light absorbed, cleaner image. Higher ISO (3200, 6400+): more sensitive but adds 'noise' (grain). Composition rules (guidelines, not laws): Rule of thirds (divide frame into 3\u00d73 grid, place subjects at intersections), leading lines (guide viewer's eye), framing (use foreground elements), symmetry, negative space, and 'if in doubt, zoom out.' RAW vs JPEG: RAW files contain all sensor data (much larger, requires editing software but far more flexibility) vs JPEG (compressed, ready to share)."
+    },
+    {
+      "keywords": [
+        "architecture",
+        "building",
+        "skyscraper",
+        "gothic",
+        "modernism",
+        "frank lloyd wright"
+      ],
+      "answer": "Architecture history: Ancient: Pyramids of Giza (~2560 BC), Parthenon (Athens, 447 BC), Roman Colosseum (80 AD), Pantheon (125 AD \u2014 unreinforced concrete dome still standing). Medieval: Gothic cathedrals \u2014 flying buttresses transferred weight outward enabling tall thin walls with huge stained glass windows (Notre-Dame de Paris, Chartres, Cologne Cathedral). Renaissance: symmetry, proportion, classical references (Brunelleschi's Florence Cathedral dome \u2014 the first large dome since Antiquity). Baroque: dramatic, ornate, theatrical (St. Peter's Basilica, Versailles). Modernism (20th century): 'form follows function' (Louis Sullivan), glass and steel, rejection of ornamentation \u2014 Bauhaus school (Gropius), Le Corbusier (brutalism), Mies van der Rohe (minimalism). Frank Lloyd Wright: organic architecture, Fallingwater (cantilevered over a waterfall), Guggenheim Museum. Tallest buildings: Burj Khalifa, Dubai (828m, 2010); Merdeka 118, Malaysia (679m, 2023); Shanghai Tower (632m)."
+    },
+    {
+      "keywords": [
+        "ocean plastic",
+        "pollution",
+        "microplastics",
+        "recycling",
+        "waste",
+        "environment"
+      ],
+      "answer": "Plastic pollution: ~400 million tonnes of plastic produced annually; ~14 million tonnes enter the ocean per year. The Great Pacific Garbage Patch: a gyre of marine debris twice the size of Texas (~1.6 million km\u00b2), mostly microplastics (not a solid island \u2014 dispersed particles). Microplastics (<5mm): breakdown of larger plastics; also from synthetic clothing washing (microfibers), tire wear, and industrial processes. Found in: Arctic snow, deep ocean trenches (Mariana Trench), Arctic sea ice, human blood (2022 study), breast milk, placentas, and the air. Health effects: under active research. Only ~9% of all plastic ever produced has been recycled; 12% was incinerated; 79% is in landfills or the environment. Solutions: reduce single-use plastics, improve waste management in developing countries (most ocean plastic comes from Asia \u2014 especially rivers), extended producer responsibility, chemical recycling. Plastic takes 450+ years to decompose."
+    },
+    {
+      "keywords": [
+        "evolution of humans",
+        "homo sapiens",
+        "neanderthal",
+        "ape",
+        "fossil",
+        "prehistoric"
+      ],
+      "answer": "Human evolution: Hominins (bipedal apes) diverged from chimpanzees ~6-7 million years ago. Key ancestors: Australopithecus (3.9-2.9 Ma, Africa \u2014 Lucy skeleton discovered 1974, 3.2 million years old), Homo habilis ('handy man,' ~2.4-1.4 Ma \u2014 first stone tools), Homo erectus (1.9 Ma-140,000 years ago \u2014 first hominin to leave Africa, mastered fire), Homo heidelbergensis, Homo neanderthalensis (Neanderthals, 400,000-40,000 years ago \u2014 Europe and Asia, large brains, used tools, buried dead, made art; Homo sapiens interbred with them \u2014 non-Africans are ~2% Neanderthal). Homo sapiens: anatomically modern humans evolved in Africa ~300,000 years ago. Out of Africa migration: ~60,000-70,000 years ago \u2014 expanded across the world, reaching Australia ~65,000 years ago, Americas ~15,000+ years ago. The 'Great Leap Forward' ~50,000 years ago: sudden behavioral modernity \u2014 complex art, music, ritual, and symbolic thinking (cave art in Chauvet Cave, 36,000 years old)."
+    },
+    {
+      "keywords": [
+        "artificial intelligence history",
+        "turing",
+        "alan turing",
+        "ai winter",
+        "deep blue"
+      ],
+      "answer": "AI history: Alan Turing (1912-1954): broke the Enigma code in WWII, proposed the 'Turing Test' (1950 \u2014 if a machine's conversation is indistinguishable from a human's, it can be considered 'intelligent'), invented theoretical foundations of computing. 'The Imitation Game' (2014 film). Dartmouth Conference (1956): John McCarthy coined 'artificial intelligence.' Early AI: symbolic AI ('good old-fashioned AI') \u2014 explicit rules and logic. AI winters (1974-80, 1987-93): hype exceeded progress, funding dried up. Expert systems (1980s): knowledge bases. Machine learning (1980s-90s): algorithms learned from data. Deep Blue (IBM, 1997): defeated world chess champion Garry Kasparov \u2014 milestone in narrow AI. ImageNet and deep learning breakthrough (2012, AlexNet): convolutional neural networks dramatically outperformed other methods in image recognition \u2014 sparked the modern deep learning era. AlphaGo (DeepMind, 2016): defeated Lee Sedol 4-1 at Go (far harder than chess \u2014 10^170 possible positions). GPT-3 (OpenAI, 2020) and ChatGPT (2022): large language models surprised the world with general conversational ability."
+    },
+    {
+      "keywords": [
+        "law",
+        "legal system",
+        "constitution",
+        "supreme court",
+        "rights",
+        "trial"
+      ],
+      "answer": "Legal systems worldwide: Common law (UK, USA, Canada, Australia): judge-made case law ('precedent') shapes the law \u2014 courts are bound by past decisions (stare decisis). Civil law (France, Germany, Japan, most of Europe and Latin America): comprehensive legal codes, less emphasis on precedent. Sharia law: Islamic law from Quran and Hadith \u2014 used in varying degrees in Muslim-majority countries (Saudi Arabia, Iran: strictly; others: partially or in family law only). Constitutional law: a constitution is the supreme law \u2014 all other laws must comply. US Bill of Rights (First 10 Amendments): freedom of speech/religion/press, right to bear arms, protection from unreasonable searches, right to jury trial, protection against self-incrimination, due process, right to an attorney. International law: treaties (binding agreements between states), customary international law, ICC (International Criminal Court \u2014 prosecutes war crimes, crimes against humanity, genocide). Habeas corpus: the right not to be imprisoned without legal justification \u2014 a cornerstone of civil liberty."
+    },
+    {
+      "keywords": [
+        "olympics history",
+        "ancient olympics",
+        "modern olympics",
+        "pierre de coubertin",
+        "records"
+      ],
+      "answer": "The ancient Olympics began in 776 BC at Olympia, Greece \u2014 held every 4 years (Olympiad) in honor of Zeus. Athletes competed nude, only Greek men allowed (though Spartan women competed in a separate festival). Events: foot races (stadion = ~192m \u2014 origin of 'stadium'), wrestling, discus, javelin, chariot racing. Theodosius I abolished them in 393 AD as pagan. Pierre de Coubertin (French educator) revived the Olympics \u2014 first modern games in Athens, 1896: 14 nations, 241 athletes, 43 events. Now: 200+ nations, 10,000+ athletes, 300+ events, alternating Summer (every 4 years) and Winter Games (also every 4 years, offset by 2). 2024 Summer: Paris. The Paralympic Games (for athletes with physical disabilities) was formalized in 1960, now held alongside every Olympics. World Anti-Doping Agency (WADA) tests athletes. Most decorated Olympian: Michael Phelps (28 medals). Most gold: Michael Phelps (23). Most Olympic team medals: USA (Summer), Norway (Winter)."
+    },
+    {
+      "keywords": [
+        "renewable energy",
+        "solar power",
+        "wind energy",
+        "battery",
+        "green energy"
+      ],
+      "answer": "Renewable energy sources: Solar photovoltaic (PV): silicon cells convert sunlight directly to electricity. Cost has fallen 90% since 2010 \u2014 now the cheapest electricity in history in most places. Global solar capacity: 1+ terawatt. Wind turbines: convert kinetic energy of wind. Offshore wind is more expensive to build but wind is stronger and more consistent. Denmark gets 55%+ of its electricity from wind. Hydroelectric: dams use falling water to generate electricity \u2014 largest source of renewable electricity (16% of global total). Three Gorges Dam (China): world's largest power station (22.5 GW). Geothermal: heat from Earth's interior \u2014 Iceland gets 66% of its energy from geothermal. Batteries/storage: key challenge \u2014 renewables are intermittent (sun doesn't always shine, wind doesn't always blow). Lithium-ion batteries (Tesla Megapack, utility-scale), pumped hydro, and green hydrogen are key storage solutions. Global clean energy investment exceeded $1 trillion for the first time in 2022. Coal use is declining; natural gas is the transition fuel. Nuclear debate continues \u2014 low carbon but expensive and slow to build."
+    },
+    {
+      "keywords": [
+        "famous scientists",
+        "marie curie",
+        "isaac newton",
+        "charles darwin",
+        "nikola tesla"
+      ],
+      "answer": "Greatest scientists in history: Isaac Newton (1643-1727): laws of motion and universal gravitation, calculus (simultaneously with Leibniz), optics. 'If I have seen further it is by standing on the shoulders of giants.' Charles Darwin (1809-1882): theory of evolution by natural selection ('On the Origin of Species,' 1859) \u2014 the most important idea in biology. Marie Curie (1867-1934): discovered polonium and radium, first woman to win a Nobel Prize, only person to win Nobel Prizes in two different sciences (Physics 1903, Chemistry 1911). She died from aplastic anemia caused by radiation exposure. Nikola Tesla (1856-1943): AC electrical system (vs Edison's DC), induction motor, Tesla coil. Albert Einstein (1879-1955): Special and General Relativity, photoelectric effect (Nobel 1921), E=mc\u00b2. Richard Feynman (1918-1988): quantum electrodynamics (Nobel 1965), Feynman diagrams, brilliant teacher. Rosalind Franklin: X-ray crystallography crucial to discovering DNA structure (her contribution was underacknowledged \u2014 Watson, Crick, and Wilkins got the Nobel)."
     }
   ]
 }
