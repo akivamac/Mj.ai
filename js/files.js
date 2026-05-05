@@ -683,5 +683,6 @@ const Files = (() => {
     </div>`;
   }
 
-  return { create, view, download, parse, edit };
+  function getFile(id) { return store[id] || null; }
+  return { create, view, download, parse, edit, getFile };
 })();
