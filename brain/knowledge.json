@@ -2037,6 +2037,844 @@
         "nikola tesla"
       ],
       "answer": "Greatest scientists in history: Isaac Newton (1643-1727): laws of motion and universal gravitation, calculus (simultaneously with Leibniz), optics. 'If I have seen further it is by standing on the shoulders of giants.' Charles Darwin (1809-1882): theory of evolution by natural selection ('On the Origin of Species,' 1859) \u2014 the most important idea in biology. Marie Curie (1867-1934): discovered polonium and radium, first woman to win a Nobel Prize, only person to win Nobel Prizes in two different sciences (Physics 1903, Chemistry 1911). She died from aplastic anemia caused by radiation exposure. Nikola Tesla (1856-1943): AC electrical system (vs Edison's DC), induction motor, Tesla coil. Albert Einstein (1879-1955): Special and General Relativity, photoelectric effect (Nobel 1921), E=mc\u00b2. Richard Feynman (1918-1988): quantum electrodynamics (Nobel 1965), Feynman diagrams, brilliant teacher. Rosalind Franklin: X-ray crystallography crucial to discovering DNA structure (her contribution was underacknowledged \u2014 Watson, Crick, and Wilkins got the Nobel)."
+    },
+    {
+      "keywords": [
+        "skeleton",
+        "bones",
+        "joints",
+        "cartilage",
+        "osteoporosis"
+      ],
+      "answer": "The human skeleton has 206 bones in adults (babies have ~270-300, many fuse). Functions: support, protection, movement, mineral storage (99% of body's calcium and phosphorus), and blood cell production (in bone marrow). Bone types: long (femur, humerus), short (wrist/ankle), flat (skull, ribs, sternum \u2014 protect organs), irregular (vertebrae), sesamoid (patella/kneecap). Bone tissue: compact (dense outer layer) and spongy/trabecular (porous inner network). Bones are living tissue \u2014 constantly remodeled by osteoblasts (build) and osteoclasts (break down). Peak bone density: age 25-30. Osteoporosis: bones become porous and brittle, especially post-menopausal women (estrogen protects bones). Most commonly broken bone: clavicle (collarbone). Strongest bone: femur (thighbone \u2014 can withstand force of 1,700-2,500 lbs before breaking)."
+    },
+    {
+      "keywords": [
+        "muscle",
+        "muscular system",
+        "tendons",
+        "exercise physiology"
+      ],
+      "answer": "The human body has ~600 named muscles making up ~40% of body weight. Three types: skeletal (voluntary, striated \u2014 moves bones), smooth (involuntary \u2014 lines organs, blood vessels, digestive tract), cardiac (heart \u2014 involuntary, striated, never fatigues). Skeletal muscle anatomy: muscle \u2192 fascicles \u2192 muscle fibers \u2192 myofibrils \u2192 sarcomeres (functional unit). Contraction: sliding filament theory \u2014 actin and myosin filaments slide past each other using ATP energy. Muscle fiber types: Type I (slow-twitch, fatigue-resistant, aerobic \u2014 endurance), Type IIa (fast-twitch, moderate endurance), Type IIx (fast-twitch, high force, fatigues quickly \u2014 sprinting, lifting). DOMS (delayed onset muscle soreness): occurs 24-72 hours after exercise \u2014 caused by micro-tears and inflammation, not lactic acid. Largest muscle: gluteus maximus. Strongest: masseter (jaw). Smallest: stapedius (in ear, 1mm)."
+    },
+    {
+      "keywords": [
+        "digestion",
+        "digestive system",
+        "stomach",
+        "intestine",
+        "gut",
+        "microbiome"
+      ],
+      "answer": "Digestion: mechanical (chewing, churning) and chemical (enzymes, acids) breakdown of food into absorbable nutrients. Journey: mouth (amylase begins starch digestion) \u2192 esophagus (peristalsis \u2014 4-8 sec) \u2192 stomach (hydrochloric acid pH 1.5-3.5, pepsin digests protein, 2-4 hour transit) \u2192 small intestine (~6-7m, 3-5 hour transit \u2014 90% of nutrient absorption via villi and microvilli that increase surface area to ~250 m\u00b2 \u2014 the size of a tennis court) \u2192 large intestine (~1.5m, water absorption, fermentation by gut bacteria, 10-59 hour transit) \u2192 rectum \u2192 anus. Gut microbiome: ~38 trillion bacteria (more than human cells), 1,000+ species, 1-2 kg total weight. Functions: ferment fiber, produce vitamins (K2, B12, biotin), train immune system, influence mood (90% of serotonin produced in gut \u2014 the 'gut-brain axis'). Liver produces bile (stored in gallbladder) to emulsify fats."
+    },
+    {
+      "keywords": [
+        "lungs",
+        "respiratory system",
+        "breathing",
+        "oxygen",
+        "asthma",
+        "copd"
+      ],
+      "answer": "The respiratory system exchanges O\u2082 and CO\u2082. Anatomy: nose/mouth \u2192 pharynx \u2192 larynx (voice box) \u2192 trachea (windpipe, 10-12cm) \u2192 bronchi (2, one per lung) \u2192 bronchioles \u2192 alveoli (~480 million tiny air sacs, surface area ~70 m\u00b2). Breathing: diaphragm contracts (flattens down) \u2192 thoracic cavity expands \u2192 pressure drops \u2192 air rushes in (inspiration). Diaphragm relaxes \u2192 pressure increases \u2192 air pushed out (expiration). At rest: ~12-20 breaths/min, ~0.5L per breath. Lung capacity: total ~6L. Oxygen transport: 98.5% bound to hemoglobin (in red blood cells), 1.5% dissolved in plasma. CO\u2082 primarily transported as bicarbonate ions. Asthma: airway inflammation and bronchoconstriction. COPD (Chronic Obstructive Pulmonary Disease): emphysema + chronic bronchitis, primarily from smoking \u2014 irreversible damage. Pneumonia: lung infection causing alveoli to fill with fluid."
+    },
+    {
+      "keywords": [
+        "kidney",
+        "renal",
+        "urine",
+        "blood pressure",
+        "dialysis"
+      ],
+      "answer": "The kidneys (two bean-shaped organs, each ~11cm) filter ~180 liters of blood per day, producing ~1.5L of urine. Each kidney has ~1 million nephrons (filtering units). Functions: filter waste (urea, creatinine, excess salts), regulate blood pressure (renin-angiotensin system), maintain fluid/electrolyte balance, produce erythropoietin (stimulates red blood cell production), and activate vitamin D. Urine composition: water (95%), urea, creatinine, uric acid, ions. Kidney stones: crystallized minerals (calcium oxalate most common) \u2014 extremely painful passing through ureter. Chronic Kidney Disease (CKD): affects ~10% of adults globally \u2014 diabetes and hypertension are leading causes. Dialysis: artificial kidney filtering \u2014 hemodialysis (3\u00d7/week, 4 hours/session) or peritoneal dialysis (daily). Kidney transplant is preferred treatment for end-stage renal disease."
+    },
+    {
+      "keywords": [
+        "skin",
+        "dermis",
+        "epidermis",
+        "wound healing",
+        "melanin",
+        "sunscreen"
+      ],
+      "answer": "Skin is the body's largest organ (~2 m\u00b2, ~3.6 kg), with three layers: epidermis (outer \u2014 dead keratinocytes form waterproof barrier; melanocytes produce melanin pigment; Langerhans cells are immune sentinels), dermis (collagen and elastin fibers for strength/elasticity; hair follicles, sweat glands, sebaceous/oil glands, nerve endings, blood vessels), hypodermis/subcutaneous (fat layer \u2014 insulation, cushioning, energy storage). Skin regenerates every ~2-4 weeks. Wound healing stages: hemostasis (clotting, minutes) \u2192 inflammation (days 1-4) \u2192 proliferation (new tissue, days 4-21) \u2192 remodeling (months-years \u2014 scar formation). Melanin: produced by melanocytes, absorbs UV radiation. Darker skin has more melanin \u2014 better UV protection. Sunscreen: SPF (Sun Protection Factor) measures UVB blocking \u2014 SPF 30 blocks 97%, SPF 50 blocks 98%. UVA rays cause aging; UVB cause burning and melanoma risk."
+    },
+    {
+      "keywords": [
+        "hormones",
+        "endocrine system",
+        "thyroid",
+        "insulin",
+        "cortisol",
+        "testosterone",
+        "estrogen"
+      ],
+      "answer": "The endocrine system uses hormones (chemical messengers) to regulate metabolism, growth, reproduction, mood, and homeostasis. Key glands and hormones: Pituitary (master gland \u2014 controls others): GH (growth hormone), TSH (thyroid stimulating), FSH/LH (sex hormones), ADH (water retention), oxytocin (bonding, labor). Thyroid: T3/T4 (metabolism rate) \u2014 hypothyroidism (too slow, fatigue, weight gain), hyperthyroidism (too fast, weight loss, anxiety). Adrenal glands: cortisol (stress response, inflammation), adrenaline/epinephrine (fight-or-flight), aldosterone (blood pressure). Pancreas: insulin (lowers blood glucose \u2014 moves glucose into cells), glucagon (raises blood glucose). Gonads: testosterone (male sex characteristics, muscle, libido \u2014 also present in females at lower levels), estrogen and progesterone (female sex characteristics, menstrual cycle, pregnancy). Melatonin (pineal gland): regulates sleep-wake cycle."
+    },
+    {
+      "keywords": [
+        "eye",
+        "vision",
+        "color blindness",
+        "myopia",
+        "lens",
+        "retina"
+      ],
+      "answer": "The human eye detects light and converts it to neural signals. Anatomy: cornea (transparent outer layer, 65-75% of focusing power) \u2192 aqueous humor \u2192 iris (controls pupil size/light intake) \u2192 lens (adjusts focus \u2014 accommodation) \u2192 vitreous humor \u2192 retina (inner lining with photoreceptors) \u2192 optic nerve \u2192 visual cortex. Photoreceptors: rods (~120 million, low light/scotopic vision, peripheral) and cones (~6 million, color/photopic vision, concentrated in fovea). Three cone types: L (red, ~564nm), M (green, ~534nm), S (blue, ~420nm). Color blindness: X-linked recessive \u2014 affects ~8% of males, ~0.5% of females. Most common: red-green color blindness. Myopia (nearsightedness): eyeball too long, light focuses in front of retina \u2014 corrected with concave lenses. Hyperopia (farsightedness): eyeball too short. Astigmatism: irregular cornea curvature. 20/20 vision means seeing at 20 feet what a normal eye sees at 20 feet."
+    },
+    {
+      "keywords": [
+        "ear",
+        "hearing",
+        "balance",
+        "decibels",
+        "tinnitus",
+        "cochlea"
+      ],
+      "answer": "The ear handles hearing and balance. Three parts: outer ear (pinna collects sound \u2192 ear canal \u2192 eardrum/tympanic membrane vibrates), middle ear (three ossicles \u2014 malleus, incus, stapes \u2014 amplify vibrations ~20\u00d7; Eustachian tube equalizes pressure), inner ear (cochlea \u2014 fluid-filled spiral converts vibrations to neural signals via hair cells; vestibular system \u2014 semicircular canals detect rotation, otolith organs detect linear acceleration and gravity). Hearing range: 20 Hz to 20,000 Hz (Hz decreases with age \u2014 adults often lose high frequencies). Decibel scale (logarithmic): 0 dB (threshold of hearing), 30 dB (whisper), 60 dB (conversation), 85 dB (threshold of damage with prolonged exposure), 120 dB (jet engine, pain threshold), 194 dB (loudest possible sound in atmosphere). Hair cells do NOT regenerate in mammals \u2014 hearing loss from noise or age is permanent. Tinnitus (ringing in ears) affects ~15% of adults."
+    },
+    {
+      "keywords": [
+        "cognitive biases",
+        "heuristics",
+        "thinking",
+        "behavioral economics",
+        "decision making"
+      ],
+      "answer": "Cognitive biases are systematic patterns of deviation from rational judgment. Key ones: Confirmation bias: seek/interpret information confirming existing beliefs \u2014 the most pervasive bias. Availability heuristic: judge probability by how easily examples come to mind (plane crashes feel more common than car crashes because they're more memorable). Anchoring: over-rely on first piece of information (first salary offer anchors negotiations). Dunning-Kruger effect: incompetent people overestimate their ability; experts underestimate theirs relative to novices. Sunk cost fallacy: continue bad decisions because of past investment ('I've spent too much on this to quit'). Loss aversion: losses feel ~2\u00d7 more painful than equivalent gains feel good (Kahneman & Tversky). Framing effect: same information presented differently changes decisions ('90% survival rate' vs '10% mortality rate'). Hindsight bias: after knowing the outcome, believing you 'knew it all along.' Bandwagon effect: adopt beliefs because others hold them. Status quo bias: prefer things as they are even when change would be better."
+    },
+    {
+      "keywords": [
+        "personality",
+        "myers briggs",
+        "big five",
+        "introvert",
+        "extrovert",
+        "personality types"
+      ],
+      "answer": "Personality psychology attempts to measure stable individual differences. Big Five (OCEAN) \u2014 most scientifically validated model: Openness (curiosity, creativity, preference for novelty vs. consistency), Conscientiousness (organization, dependability, self-discipline), Extraversion (sociability, positive emotion, assertiveness \u2014 introversion is the opposite end), Agreeableness (cooperation, empathy, trust), Neuroticism (emotional instability, anxiety, moodiness). Each is a spectrum, not a type. Big Five traits are ~40-60% heritable and relatively stable after age 30. Myers-Briggs (MBTI): popular but scientifically weak \u2014 low test-retest reliability (~50% of people get a different type 5 weeks later), dichotomies are artificial cuts on continuous dimensions. It remains widely used in business despite academic criticism. Introversion/extraversion: fundamentally about where you get energy (alone vs social settings) not shyness. About 30-50% of people are ambiverts (in the middle)."
+    },
+    {
+      "keywords": [
+        "trauma",
+        "ptsd",
+        "adverse childhood experiences",
+        "resilience",
+        "therapy"
+      ],
+      "answer": "Trauma is an emotional response to a deeply distressing event that overwhelms the ability to cope. Types: acute (single incident), chronic (repeated \u2014 domestic violence, childhood abuse), complex (C-PTSD, prolonged interpersonal trauma), vicarious (from witnessing others' trauma \u2014 first responders, therapists). PTSD (Post-Traumatic Stress Disorder): develops in ~20% of trauma survivors. Symptoms: intrusive memories/flashbacks, nightmares, hypervigilance, avoidance, negative cognitions, emotional numbing. Affects ~3.5% of US adults/year. Adverse Childhood Experiences (ACEs) Study (CDC, 1995-1997): 10 types of childhood trauma (abuse, neglect, household dysfunction). Each ACE increases risk of depression, heart disease, cancer, early death \u2014 profound dose-response relationship. 64% of adults had at least 1 ACE; 12.5% had 4+. Resilience: ability to adapt to adversity. Key factors: social support, sense of control/agency, meaning-making, previous coping experience. Effective PTSD treatments: Prolonged Exposure, EMDR, Cognitive Processing Therapy (CPT)."
+    },
+    {
+      "keywords": [
+        "addiction",
+        "substance abuse",
+        "dopamine",
+        "withdrawal",
+        "recovery"
+      ],
+      "answer": "Addiction: compulsive substance use or behavior despite harmful consequences, characterized by loss of control, craving, and continued use despite negative effects. The brain's reward system: dopamine released in nucleus accumbens creates pleasurable feelings. Addictive substances hijack this system \u2014 cocaine blocks dopamine reuptake (immediate massive surge), opioids bind to opioid receptors, alcohol enhances GABA (inhibitory) and blocks NMDA (excitatory). Tolerance: brain downregulates receptors \u2014 need more to get the same effect. Dependence: brain adapts and requires substance to function normally. Withdrawal: rebound when substance is removed \u2014 can be fatal for alcohol and benzodiazepines (seizures). Classes: alcohol, opioids (heroin, fentanyl \u2014 fentanyl 100\u00d7 more potent than morphine, responsible for overdose epidemic), stimulants (cocaine, meth, amphetamines), cannabis, sedatives, hallucinogens, nicotine. Behavioral addictions: gambling, gaming, pornography (controversial). Treatment: MAT (Medication-Assisted Treatment) \u2014 methadone, buprenorphine for opioids \u2014 most effective for opioid use disorder. AA/12-step programs, CBT, inpatient/outpatient rehab."
+    },
+    {
+      "keywords": [
+        "child development",
+        "piaget",
+        "attachment",
+        "milestones",
+        "vygotsky"
+      ],
+      "answer": "Child development covers physical, cognitive, social, and emotional growth. Jean Piaget's cognitive development stages: Sensorimotor (0-2 years \u2014 object permanence develops; understanding things exist when out of sight), Preoperational (2-7 years \u2014 symbolic thinking, egocentrism, animism; lack of conservation \u2014 same amount of water looks different in differently shaped glasses), Concrete Operational (7-11 years \u2014 logical thinking about concrete objects, conservation mastered), Formal Operational (12+ years \u2014 abstract reasoning, hypothetical thinking). Lev Vygotsky: Zone of Proximal Development (ZPD) \u2014 the gap between what a child can do alone vs. with guidance. Scaffolding bridges this gap. John Bowlby's attachment theory: early caregiver bonds shape emotional development. Mary Ainsworth's Strange Situation: Secure (66%), Anxious-Ambivalent, Avoidant, Disorganized attachment styles. Secure attachment predicts better outcomes. Language development: babbling (6-8 months), first words (10-14 months), two-word combinations (18-24 months), complex sentences (3-4 years). Critical period for language acquisition: before puberty."
+    },
+    {
+      "keywords": [
+        "civil rights movement",
+        "martin luther king",
+        "rosa parks",
+        "segregation",
+        "jim crow"
+      ],
+      "answer": "The American Civil Rights Movement (1954-1968) fought to end racial segregation and discrimination against Black Americans. Jim Crow laws: state/local laws enforcing racial segregation in the South after Reconstruction (1877-1950s). Key events: Brown v. Board of Education (1954, Supreme Court \u2014 'separate but equal' schools unconstitutional), Montgomery Bus Boycott (1955, Rosa Parks refused to give up her seat, 381-day boycott led by Rev. Martin Luther King Jr.), Little Rock Nine (1957, nine Black students integrated Central High School with federal troops), Greensboro sit-ins (1960, four Black college students at Woolworth's lunch counter), Freedom Riders (1961), March on Washington (August 28, 1963, MLK's 'I Have a Dream' speech, 250,000 people), Civil Rights Act of 1964 (banned discrimination based on race, color, religion, sex, national origin), Voting Rights Act of 1965, MLK assassinated April 4, 1968. The movement used nonviolent civil disobedience inspired by Gandhi."
+    },
+    {
+      "keywords": [
+        "holocaust",
+        "auschwitz",
+        "nazi germany",
+        "world war 2 genocide",
+        "antisemitism"
+      ],
+      "answer": "The Holocaust (Hebrew: Shoah \u2014 'catastrophe') was the systematic, state-sponsored persecution and murder of 6 million Jews (two-thirds of European Jewry) and 5-6 million others (Roma, disabled people, Soviet POWs, political opponents, LGBTQ+ people) by the Nazi regime under Adolf Hitler (1933-1945). The 'Final Solution': decision to exterminate all Jews (Wannsee Conference, January 1942). Death camps (Operation Reinhard): Auschwitz-Birkenau (largest \u2014 1.1 million Jews killed), Treblinka (700,000-900,000), Belzec, Sobibor, Chelmno, Majdanek \u2014 all in occupied Poland. Methods: gas chambers (Zyklon B at Auschwitz), shooting (Einsatzgruppen mobile killing units \u2014 1.5+ million Jews), starvation, overwork. Elie Wiesel (Night), Anne Frank (The Diary of a Young Girl) \u2014 key survivor testimonies. Nuremberg Trials (1945-46) established the legal framework for crimes against humanity. 'Never Again' \u2014 the imperative of Holocaust remembrance."
+    },
+    {
+      "keywords": [
+        "apartheid",
+        "nelson mandela",
+        "south africa",
+        "racial segregation",
+        "african national congress"
+      ],
+      "answer": "Apartheid (Afrikaans: 'separateness') was South Africa's system of institutionalized racial segregation and white supremacy (1948-1994). Laws classified people as White, Coloured, Indian, or Black. Black South Africans (80% of population) could not vote, were forced into 'homelands' (Bantustans), required to carry passbooks, and were excluded from skilled jobs, quality schools, and public facilities. The African National Congress (ANC, founded 1912) led resistance. Key events: Sharpeville Massacre (1960 \u2014 police killed 69 protesters, ANC banned), Soweto Uprising (June 16, 1976 \u2014 students shot protesting Afrikaans-only teaching). Nelson Mandela: ANC leader imprisoned for 27 years (1964-1990) on Robben Island for sabotage. Became South Africa's first Black president after the first democratic elections (1994). F.W. de Klerk unbanned the ANC and released Mandela \u2014 both won the 1993 Nobel Peace Prize. Truth and Reconciliation Commission (TRC): restorative justice process hearing testimonies of human rights violations."
+    },
+    {
+      "keywords": [
+        "vietnam war",
+        "cold war conflict",
+        "ho chi minh",
+        "tet offensive",
+        "draft"
+      ],
+      "answer": "The Vietnam War (1955-1975, US involvement 1964-1975) was a Cold War conflict between communist North Vietnam (Viet Cong, supported by USSR and China) and South Vietnam (supported by the USA). US justification: Domino Theory \u2014 if one country fell to communism, neighboring countries would follow. Gulf of Tonkin incident (August 1964): alleged attacks on US destroyers led Congress to authorize military action (later found to be exaggerated/fabricated). US troop peak: 543,000 (1969). Draft: conscription of ~2.2 million Americans \u2014 protests led to lottery system. Tet Offensive (January 1968): surprise coordinated attacks on 100+ cities \u2014 military failure for North Vietnam but psychological turning point, showing the war was far from won. My Lai Massacre (1968): US troops killed 347-504 unarmed South Vietnamese civilians. Anti-war movement grew. Nixon's 'Vietnamization' \u2014 withdrawing US troops. Fall of Saigon (April 30, 1975). Deaths: ~58,000 Americans, ~1.1-1.5 million North/South Vietnamese military, ~2 million+ civilians. Agent Orange (herbicide/defoliant): caused birth defects in Vietnamese and health problems in US veterans."
+    },
+    {
+      "keywords": [
+        "israel",
+        "palestine",
+        "middle east conflict",
+        "zionism",
+        "1948",
+        "jerusalem"
+      ],
+      "answer": "The Israeli-Palestinian conflict is one of the world's most complex and enduring. Zionism: late 19th-century movement for Jewish homeland in historic Palestine, driven by European antisemitism (Theodor Herzl). British Mandate Palestine (1920-1948) saw competing Jewish and Arab nationalisms. UN Partition Plan (1947): proposed dividing Palestine into Jewish and Arab states, with Jerusalem under international control. Israel declared independence May 14, 1948 \u2014 Arabs call this al-Nakba ('the Catastrophe') as ~700,000 Palestinians fled or were expelled. Israel-Arab Wars: 1948-49 (Israeli War of Independence), 1956 (Suez Crisis), 1967 Six-Day War (Israel captured West Bank, Gaza, Sinai, Golan Heights), 1973 Yom Kippur War. Oslo Accords (1993): Palestinian Authority established, framework for peace \u2014 stalled. Gaza: Hamas (designated terrorist organization by US/EU) took control 2007 \u2014 blockaded by Israel and Egypt. West Bank: Israeli settlements (illegal under international law per most interpretations) continue to expand. Two-state solution remains the international consensus but has not been achieved."
+    },
+    {
+      "keywords": [
+        "colonialism",
+        "independence",
+        "decolonization",
+        "partition of africa",
+        "imperialism impact"
+      ],
+      "answer": "Decolonization: the process by which colonies gained independence from European powers, primarily after WWII. Asia: India and Pakistan independence August 14-15, 1947 (Partition \u2014 one of history's largest forced migrations, ~14 million displaced, ~1 million killed in communal violence). Indonesia (1945/1949 from Netherlands), Vietnam (1954 from France after First Indochina War). Africa: 'Year of Africa' 1960 \u2014 17 countries gained independence. Most sub-Saharan African nations became independent 1957-1980. The 'Scramble for Africa' (Berlin Conference 1884-85): European powers divided Africa drawing straight lines on maps ignoring ethnic, linguistic, and religious boundaries \u2014 creating artificial nations that have caused conflicts ever since. The Congo: Belgian Congo became DRC (1960) \u2014 immediate chaos (Patrice Lumumba assassination, CIA involvement, Mobutu dictatorship). Zimbabwe: white minority rule ended 1980. South Africa: apartheid ended 1994. Colonial legacy: economic underdevelopment, resource extraction without reinvestment, educational deprivation, ethnic tensions from arbitrary borders, and psychological impact of cultural suppression."
+    },
+    {
+      "keywords": [
+        "coral reef",
+        "ocean acidification",
+        "bleaching",
+        "marine ecosystem"
+      ],
+      "answer": "Coral reefs cover less than 1% of the ocean floor but support ~25% of all marine species \u2014 called 'the rainforests of the sea.' Corals are animals (polyps) with a mutualistic relationship with photosynthetic algae (zooxanthellae) that live in their tissue and provide up to 90% of their energy. Coral bleaching: when ocean temperatures rise even 1-2\u00b0C above summer maximums, corals expel their zooxanthellae \u2014 turning white. Prolonged bleaching kills corals. Great Barrier Reef: experienced mass bleaching events in 2016, 2017, 2020, 2022 \u2014 50%+ of shallow water corals died. Ocean acidification: oceans absorb ~25% of CO\u2082 emissions \u2192 forms carbonic acid \u2192 lowers pH (now 8.1 vs. pre-industrial 8.2 \u2014 30% more acidic). This weakens coral skeletons and shellfish. At current trends, most coral reefs will be functionally extinct by 2050. Reef restoration: coral gardening, assisted gene flow (breeding heat-resistant corals), and solar radiation management are being explored. Reefs provide ~$375 billion/year in goods and services to 1 billion people."
+    },
+    {
+      "keywords": [
+        "extinction",
+        "endangered species",
+        "conservation",
+        "biodiversity loss",
+        "wwf",
+        "iucn"
+      ],
+      "answer": "The IUCN Red List classifies species by extinction risk: Extinct (EX), Extinct in the Wild (EW), Critically Endangered (CR), Endangered (EN), Vulnerable (VU), Near Threatened (NT), Least Concern (LC). As of 2024: ~44,000+ species threatened with extinction out of ~150,000 assessed. The 6th mass extinction: current extinction rate is 100-1,000\u00d7 higher than background rates \u2014 comparable to the 5 previous mass extinctions. Driven by: habitat destruction (primary driver \u2014 deforestation, agriculture, urbanization), overexploitation (hunting, fishing), invasive species, pollution, climate change, and disease. Most endangered: Amur leopard (~100 left), Javan rhino (~70), Sumatran orangutan (~14,000), mountain gorilla (~1,100). Conservation success stories: bald eagle (removed from endangered list 2007), humpback whale (populations recovering), Arabian oryx (returned from extinct in the wild). Edward O. Wilson estimated ~8 million species exist on Earth; only ~2 million have been named."
+    },
+    {
+      "keywords": [
+        "wildfire",
+        "forest fire",
+        "australia fires",
+        "amazon fire",
+        "climate change"
+      ],
+      "answer": "Wildfires are uncontrolled fires burning through vegetation. They are natural and essential in many ecosystems \u2014 fire-adapted plants (sequoias, lodgepole pines) need fire to reproduce. Fire triangle: fuel (dry vegetation), heat (lightning, human ignition), oxygen. Climate change is making wildfires worse: higher temperatures \u2192 drier vegetation \u2192 longer fire seasons. Notable events: 2019-20 Australian bushfires ('Black Summer') \u2014 18.6 million hectares burned, 3 billion animals affected, 34 people killed, smoke encircled the globe. 2020 California fires \u2014 worst in state history, 4 million acres burned. Amazon fires (annual peak Aug-Sep) \u2014 set deliberately for agriculture, destroying irreplaceable rainforest. Canada 2023: worst fire season ever \u2014 18 million hectares, smoke blanketed eastern US. Prescribed/controlled burning: intentional burning under controlled conditions to reduce fuel loads \u2014 practiced by Indigenous peoples for thousands of years, increasingly adopted by land managers."
+    },
+    {
+      "keywords": [
+        "plastic pollution",
+        "great pacific garbage patch",
+        "microplastics",
+        "single use plastic",
+        "recycling crisis"
+      ],
+      "answer": "Plastic production: 400+ million tonnes/year (2022), up from 2 million tonnes in 1950. Cumulative production: 9.2 billion tonnes. Only 9% has ever been recycled; 12% incinerated; 79% in landfills or environment. Single-use plastics account for ~50% of all plastic produced. Ocean plastic: 8-12 million tonnes enter oceans annually. Great Pacific Garbage Patch: ~1.6 million km\u00b2, mostly microplastics \u2014 not a solid island, more like a plastic soup. Rivers transport plastic to ocean \u2014 10 rivers (8 in Asia, 2 in Africa) carry ~90% of river-borne ocean plastic. Microplastics (<5mm): found everywhere on Earth \u2014 Mariana Trench, Arctic snow, cloud water, human lungs, blood, placentas, breast milk. Health effects: under active research \u2014 some chemicals (phthalates, BPA) are endocrine disruptors. Plastic takes 20-500 years to break down \u2014 it photodegrades into smaller pieces but doesn't disappear. Solutions: ban single-use plastics (EU, many countries), extended producer responsibility, better waste management in developing countries, improved recycling technology."
+    },
+    {
+      "keywords": [
+        "agriculture",
+        "farming",
+        "food security",
+        "gmo",
+        "organic farming",
+        "green revolution"
+      ],
+      "answer": "Agriculture: ~10,000 years old, began in the Fertile Crescent (wheat, barley), Yangtze Valley (rice), and Mesoamerica (corn/maize). Today covers ~50% of Earth's habitable land \u2014 the single largest land use. Green Revolution (1960s-70s): Norman Borlaug developed high-yield wheat varieties, saving an estimated 1 billion lives from famine \u2014 Nobel Peace Prize 1970. GMOs (Genetically Modified Organisms): organisms with DNA altered using genetic engineering. ~90% of US corn and soybeans are GMO. Scientific consensus: safe for consumption (WHO, National Academies of Sciences). Benefits: pest resistance, drought tolerance, enhanced nutrition (Golden Rice: vitamin A). Concerns: corporate control (Monsanto/Bayer), ecological effects, farmer dependence. Organic farming: no synthetic pesticides/fertilizers, typically 20-25% lower yields. Yields: conventional agriculture produces ~3\u00d7 more food per hectare than organic. Food waste: ~1/3 of all food produced (~1.3 billion tonnes) is wasted annually \u2014 if food waste were a country, it would be the 3rd largest greenhouse gas emitter. Factory farming: ~70 billion land animals raised for food annually \u2014 serious animal welfare and antibiotic resistance concerns."
+    },
+    {
+      "keywords": [
+        "poverty",
+        "development",
+        "aid",
+        "world bank",
+        "imf",
+        "developing world"
+      ],
+      "answer": "Global development: World Bank classifies countries as low-income (<$1,135 GNI/capita), lower-middle, upper-middle, and high-income (>$13,845). Extreme poverty: <$2.15/day \u2014 declined from 36% (1990) to 9% (2022), but COVID-19 reversed progress for first time in 20 years. About 700 million still in extreme poverty, mostly in sub-Saharan Africa and South Asia. The IMF (International Monetary Fund, 190 members): lends to countries in financial crises, conditional on economic reforms ('structural adjustment programs' \u2014 controversial for imposing austerity). World Bank: provides loans and grants for development projects. Aid effectiveness debate: Jeffrey Sachs (Big Push \u2014 massive aid can end poverty), William Easterly (aid creates dependency, local solutions better), Dambisa Moyo (Dead Aid \u2014 aid has harmed Africa). Effective altruism: use evidence to maximize good \u2014 GiveWell recommends highest-impact charities. Human Development Index (HDI): composite of life expectancy, education, and income per capita. Top countries: Norway, Switzerland, Iceland. Bottom: South Sudan, Chad, Niger."
+    },
+    {
+      "keywords": [
+        "taxation",
+        "tax",
+        "irs",
+        "income tax",
+        "vat",
+        "wealth tax"
+      ],
+      "answer": "Taxation funds government services. Types: Income tax (progressive in most countries \u2014 higher rates on higher income). Corporate tax (on company profits). VAT/sales tax (on goods and services \u2014 regressive, hits lower incomes harder as % of spending). Property tax (on real estate value). Capital gains tax (on investment profits). Inheritance/estate tax (on wealth transferred at death). Payroll tax (Social Security, Medicare in USA). Tax avoidance (legal \u2014 using deductions, offshore structures) vs. tax evasion (illegal \u2014 hiding income). Top US marginal tax rates historically: 94% (1944), 91% (1950s), 50% (Reagan, then cut to 28% 1988), ~37% currently. The Laffer Curve: there's an optimal tax rate \u2014 too high reduces economic activity; revenue doesn't always increase with higher rates. Tax havens: countries with low/zero taxes \u2014 Cayman Islands, Luxembourg, Ireland, Netherlands \u2014 used by corporations and wealthy individuals. The global minimum corporate tax (15%, OECD, 2021): attempt to end this race to the bottom."
+    },
+    {
+      "keywords": [
+        "feminism",
+        "gender equality",
+        "me too",
+        "suffrage",
+        "wage gap"
+      ],
+      "answer": "Feminism: movement for equal political, economic, social, and personal rights for women. Waves: First wave (late 19th-early 20th century): women's suffrage \u2014 Seneca Falls Convention (1848, 'all men and women are created equal'), UK women's vote (1918, over 30), US 19th Amendment (1920). Second wave (1960s-80s): beyond voting rights \u2014 reproductive rights (Roe v. Wade 1973, overturned 2022), workplace equality, domestic violence laws. Second Shift: women work full time AND do majority of domestic labor. The Feminine Mystique (Betty Friedan, 1963). Third wave (1990s-2000s): intersectionality (Kimberl\u00e9 Crenshaw \u2014 race, class, gender intertwine), reclaiming femininity, challenging binaries. MeToo movement (2017, Tarana Burke coined the phrase; viral after Harvey Weinstein expos\u00e9): sexual harassment and assault. Gender pay gap: US women earn ~82 cents per dollar men earn \u2014 partly explained by occupation and hours, partly by discrimination. Global gender parity: World Economic Forum estimates ~130 years to close the global gender gap at current rates. Women's suffrage worldwide: Saudi Arabia (2015), Switzerland (1971), France (1944)."
+    },
+    {
+      "keywords": [
+        "immigration",
+        "refugees",
+        "asylum",
+        "border",
+        "citizenship"
+      ],
+      "answer": "Immigration: people moving permanently or semi-permanently to another country. Types: economic migrants (seeking better opportunities), refugees (fleeing persecution \u2014 protected by 1951 UN Refugee Convention), asylum seekers (applied for but haven't received refugee status), internally displaced people (IDPs \u2014 fled violence within own country). UNHCR: 110 million+ people forcibly displaced worldwide as of 2023 \u2014 highest ever. Top refugee-hosting countries: Iran, Turkey, Pakistan, Uganda (not wealthy Western nations). US immigration: ~1 million legal immigrants/year, ~10.5-11 million undocumented immigrants (declined from 12.2 million in 2007). DACA (Deferred Action for Childhood Arrivals, 2012): protected ~800,000 'Dreamers' brought to US as children. Ellis Island (1892-1954): processed ~12 million immigrants. Push/pull factors: push (war, poverty, climate change), pull (jobs, family, stability). Economic research consensus: immigration broadly benefits receiving economies \u2014 immigrants pay taxes, start businesses, and fill labor shortages."
+    },
+    {
+      "keywords": [
+        "virus",
+        "bacteria",
+        "infection",
+        "covid",
+        "influenza",
+        "pathogen"
+      ],
+      "answer": "Viruses vs. bacteria: Viruses (~20-300nm) are not technically alive \u2014 they're genetic material (DNA or RNA) in a protein coat, requiring a host cell to replicate. They hijack cell machinery to copy themselves, often destroying the cell. Antibiotics have NO effect on viruses. Antiviral drugs target viral processes \u2014 fewer available than antibiotics. Bacteria (~1-10 micrometers) are living single-celled organisms \u2014 most are harmless or beneficial (gut microbiome). Antibiotics kill/inhibit bacteria by targeting cell walls, protein synthesis, or DNA replication. COVID-19: caused by SARS-CoV-2 (a coronavirus \u2014 named for crown-like spike proteins). Identified December 2019 in Wuhan, China. WHO declared pandemic March 11, 2020. Global deaths: officially ~7 million, estimated excess deaths 15-20 million. Influenza: RNA virus, mutates rapidly (why annual flu shots needed). 1918 Spanish Flu: killed 50-100 million (3-5% of world population) \u2014 most lethal pandemic in recorded history. HIV: attacks CD4+ T cells (helper T cells) \u2014 destroys immune system. No cure but antiretroviral therapy (ART) allows normal lifespan. ~38 million people living with HIV."
+    },
+    {
+      "keywords": [
+        "plant biology",
+        "photosynthesis",
+        "flowering plants",
+        "trees",
+        "fungi",
+        "symbiosis"
+      ],
+      "answer": "Plants (kingdom Plantae): ~390,000 species. Divided into: non-vascular (mosses, liverworts \u2014 no water transport system), vascular seedless (ferns), seed plants (gymnosperms \u2014 conifers, cycads; angiosperms \u2014 flowering plants, 90%+ of plant species). The oldest living organism: Pando, a quaking aspen colony in Utah, ~80,000 years old, 6 million kg. Tallest tree: Hyperion (coast redwood, 115.7m). Oldest individual tree: Great Basin bristlecone pine 'Methuselah,' ~4,800 years old. Fungi (kingdom Fungi): not plants \u2014 no photosynthesis, digest food externally, cell walls made of chitin. 3 million+ species estimated. Mycorrhizal networks: ~90% of land plants form symbiotic relationships with fungi \u2014 fungi extend roots' reach for water and nutrients, plants provide sugars. The 'Wood Wide Web': forest trees connected by fungal networks, sharing nutrients and chemical signals. The largest organism on Earth: Armillaria honey fungus in Oregon \u2014 ~9.6 km\u00b2, ~2,400 years old."
+    },
+    {
+      "keywords": [
+        "space weather",
+        "solar flare",
+        "aurora",
+        "geomagnetic storm",
+        "carrington event"
+      ],
+      "answer": "Space weather describes conditions in space that affect Earth's technology and environment. Solar flares: sudden intense bursts of radiation from the Sun's surface \u2014 travel at the speed of light (reach Earth in 8 minutes). Coronal Mass Ejections (CMEs): massive clouds of magnetized plasma ejected from the Sun \u2014 take 1-3 days to reach Earth. Effects: disrupt satellite communications, GPS, radio, and power grids. Auroras (Northern/Southern Lights): CMEs interact with Earth's magnetic field \u2192 energize atmospheric particles \u2192 glow at polar regions (oxygen: green/red, nitrogen: blue/purple). Visible further from poles during intense solar activity. The Carrington Event (September 1-2, 1859): the most powerful geomagnetic storm in recorded history \u2014 telegraph systems failed, operators received electric shocks, northern lights seen as far south as Cuba. If a Carrington-level event hit today: could destroy transformers globally, causing power outages lasting months-years and trillions of dollars in damage. Solar cycle: ~11-year cycle of solar activity (sunspot minimum to maximum). Solar Cycle 25 peaked 2024-2025."
+    },
+    {
+      "keywords": [
+        "nanotechnology",
+        "nanomaterials",
+        "graphene",
+        "carbon nanotubes",
+        "nanomedic"
+      ],
+      "answer": "Nanotechnology: manipulation of matter at the nanoscale (1-100 nanometers \u2014 a human hair is ~80,000nm wide). At this scale, materials have different properties than their bulk forms. Carbon nanotubes: cylinders of carbon atoms, 100\u00d7 stronger than steel at 1/6 the weight, excellent electrical conductors \u2014 potential applications in composites, electronics, medicine. Graphene: single layer of carbon atoms in a hexagonal lattice \u2014 strongest material ever tested (200\u00d7 stronger than steel), excellent conductor of heat and electricity, one atom thick. Discovered 2004 by Geim and Novoselov (2010 Nobel Prize) using Scotch tape on graphite. Nanomedicine applications: targeted drug delivery (nanoparticles deliver drugs directly to cancer cells, reducing side effects), diagnostic imaging, antibacterial coatings, wound healing. Sunscreens already use zinc oxide and titanium dioxide nanoparticles. Environmental concerns: nanoparticles may be toxic \u2014 size makes them able to cross biological barriers (blood-brain barrier). The global nanotechnology market: ~$100 billion/year."
+    },
+    {
+      "keywords": [
+        "emoji",
+        "internet culture",
+        "memes",
+        "social media language",
+        "gen z",
+        "slang"
+      ],
+      "answer": "Emoji: pictograms used in digital communication. Originally created by Shigetaka Kurita for NTT DoCoMo in Japan in 1999 (176 emoji). Unicode Consortium standardizes emoji globally. Over 3,600 emoji in Unicode 15.1 (2023). The most used emoji: \ud83d\ude02 (Face with Tears of Joy) \u2014 consistently #1 globally. 'Emoji' is both singular and plural (Japanese word). Internet memes: ideas/behaviors/styles spreading virally online. Term from Richard Dawkins' 'The Selfish Gene' (1976) \u2014 cultural information units spreading like genes. First internet memes: Dancing Baby (1996), All Your Base Are Belong To Us (2001), LOLcats/I Can Has Cheezburger? (2007). Know Your Meme documents meme history. Gen Z slang (born ~1997-2012): 'no cap' (no lie), 'bussin' (really good), 'slay' (doing great), 'vibe check,' 'rent free' (occupying your thoughts), 'understood the assignment,' 'it's giving,' 'lowkey/highkey,' 'based' (holding unpopular opinion unapologetically), 'mid' (mediocre), 'sus' (suspicious, from Among Us)."
+    },
+    {
+      "keywords": [
+        "fashion",
+        "clothing",
+        "luxury brands",
+        "fast fashion",
+        "sustainable fashion"
+      ],
+      "answer": "Fashion industry: ~$1.7 trillion global market. Luxury fashion houses: LVMH (Louis Vuitton Mo\u00ebt Hennessy \u2014 world's largest luxury conglomerate, owns LV, Dior, Givenchy, Fendi, Bulgari, Sephora, Dom P\u00e9rignon, Veuve Clicquot), Kering (Gucci, Saint Laurent, Bottega Veneta, Balenciaga), Richemont (Cartier, IWC, Jaeger-LeCoultre). Fast fashion: Zara (Inditex \u2014 designs to stores in 2 weeks, 20 collections/year), H&M, SHEIN (Chinese, ultra-fast, $3-10 items, accused of copying independent designers). Environmental impact: fashion is the 2nd most polluting industry (after oil). Produces 10% of global carbon emissions, uses 93 billion cubic meters of water/year, generates 21 billion tons of textile waste annually. Polyester (plastic \u2014 60% of clothing): doesn't biodegrade, sheds microplastics. Fast fashion workers: predominantly women in Bangladesh, Cambodia, Vietnam earning $3-5/day. Rana Plaza collapse (2013, Bangladesh): 1,134 garment workers killed \u2014 watershed moment for ethical fashion. Sustainable fashion: secondhand (ThredUp, Depop, Vinted), rental (Rent the Runway), brands using recycled materials."
+    },
+    {
+      "keywords": [
+        "food culture",
+        "street food",
+        "michelin stars",
+        "chef",
+        "culinary arts",
+        "gastronomy"
+      ],
+      "answer": "Gastronomy: the art and science of good eating. Street food: $180 billion global market, integral to culture in Asia (Bangkok hawker stalls, Japanese ramen shops, Mexican tacos), Middle East (shawarma, falafel), and Latin America. Michelin Guide: published by tire company Michelin since 1900 (originally to encourage driving and tire wear). Stars: 1 star (very good), 2 stars (worth a detour), 3 stars (worth a special journey). 3-star restaurants worldwide: ~150. Jo\u00ebl Robuchon had 32 Michelin stars \u2014 most ever. Famous chefs: Julia Child (brought French cuisine to America), Escoffier (codified classical French cuisine), Ferran Adri\u00e0 (elBulli \u2014 molecular gastronomy/avant-garde), Ren\u00e9 Redzepi (Noma, Copenhagen \u2014 New Nordic cuisine, world's best restaurant multiple times), Gordon Ramsay (17 Michelin stars), Heston Blumenthal (The Fat Duck \u2014 science-inspired). Fermentation: one of humanity's oldest preservation techniques \u2014 kimchi (Korean, UNESCO intangible heritage), miso, sourdough, cheese, wine, beer, sauerkraut, tempeh, natto. Umami: fifth basic taste (alongside sweet, sour, salty, bitter), discovered by Kikunae Ikeda (1908) \u2014 glutamate triggers it."
+    },
+    {
+      "keywords": [
+        "sports science",
+        "doping",
+        "sports psychology",
+        "training",
+        "performance"
+      ],
+      "answer": "Sports science applies scientific principles to athletic performance. Key areas: Exercise physiology (VO\u2082 max \u2014 maximum oxygen uptake, best predictor of aerobic performance; lactate threshold \u2014 intensity at which lactic acid accumulates faster than cleared), Biomechanics (efficient movement mechanics), Nutrition (carbohydrate loading before endurance events, protein timing for muscle synthesis), Psychology (visualization, flow state \u2014 Mihaly Csikszentmihalyi's concept of optimal performance), Recovery (sleep is the most important, ice baths debated, foam rolling helps). Altitude training: lower O\u2082 at altitude \u2192 body produces more red blood cells \u2192 better O\u2082 transport at sea level. Elite athletes train at 2,000-3,000m. Doping in sport: WADA (World Anti-Doping Agency, 1999) oversees testing. Banned substances: EPO (erythropoietin \u2014 blood doping), human growth hormone, anabolic steroids, stimulants, blood transfusions. Lance Armstrong stripped of 7 Tour de France titles (2012) for systematic doping. Russia state-sponsored doping program (Sochi 2014) \u2014 banned from competing under Russian flag. The 'pharmacological arms race' continues."
+    },
+    {
+      "keywords": [
+        "accessibility",
+        "a11y",
+        "wcag",
+        "screen reader",
+        "aria",
+        "disability"
+      ],
+      "answer": "Web accessibility (a11y \u2014 11 letters between 'a' and 'y') ensures websites are usable by people with disabilities. ~1 billion people (15% of world population) have some form of disability. WCAG (Web Content Accessibility Guidelines) 2.1 \u2014 four principles (POUR): Perceivable (text alternatives for images, captions for video, sufficient color contrast \u22654.5:1 for normal text), Operable (keyboard accessible, no seizure-inducing content, enough time to read), Understandable (readable text, predictable behavior, error assistance), Robust (compatible with assistive technologies). Levels: A (minimum), AA (standard \u2014 most legal requirements), AAA (enhanced). Screen readers: NVDA (free, Windows), JAWS (Windows), VoiceOver (macOS/iOS built-in), TalkBack (Android built-in). ARIA (Accessible Rich Internet Applications): HTML attributes that provide semantic information to assistive technologies \u2014 aria-label, aria-describedby, role, aria-live. Legal requirements: ADA (USA), EN 301 549 (EU), Equality Act (UK). Inaccessible websites are subject to lawsuits \u2014 4,000+ ADA web lawsuits in 2023 (USA)."
+    },
+    {
+      "keywords": [
+        "performance",
+        "web performance",
+        "core web vitals",
+        "lighthouse",
+        "cdn",
+        "caching"
+      ],
+      "answer": "Web performance directly impacts user experience and revenue \u2014 Amazon found every 100ms of latency costs 1% in sales. Core Web Vitals (Google, used in search ranking): LCP (Largest Contentful Paint, <2.5s \u2014 loading), FID (First Input Delay, <100ms \u2014 interactivity, replaced by INP in 2024), CLS (Cumulative Layout Shift, <0.1 \u2014 visual stability). Tools: Lighthouse (Chrome DevTools \u2014 audit tool), WebPageTest, PageSpeed Insights, GTmetrix. Optimization techniques: Image optimization (WebP/AVIF format, lazy loading, proper sizing), Code splitting (only load JS needed for current page), Minification (remove whitespace/comments), GZIP/Brotli compression, Critical CSS (inline above-fold CSS), Preloading/prefetching, Caching (browser cache, service workers), CDN (Content Delivery Network \u2014 Cloudflare, Fastly, Akamai \u2014 serve content from servers near the user). The performance budget: set maximum sizes for page assets and test against it in CI/CD."
+    },
+    {
+      "keywords": [
+        "progressive web apps",
+        "pwa",
+        "service worker",
+        "offline",
+        "mobile web",
+        "push notifications"
+      ],
+      "answer": "Progressive Web Apps (PWAs) are web apps that use modern browser APIs to provide app-like experiences. Key features: Installable (Add to Home Screen \u2014 appears like a native app, no app store needed), Offline capability (Service Worker: a JavaScript proxy that intercepts network requests, caches responses, and serves cached content when offline), Push notifications (browser push API, works even when app isn't open), Fast (pre-cached assets load instantly), Responsive (works on all screen sizes), Secure (HTTPS required). Service Worker lifecycle: install \u2192 activate \u2192 fetch events. Cache strategies: Cache First (serve cached, update background), Network First (try network, fallback to cache), Stale While Revalidate (serve cache, update in background simultaneously). PWA examples: Twitter Lite (data usage reduced 70%), Pinterest (40% more time spent), Starbucks (99.84% smaller than native app). Web App Manifest (manifest.json): defines app name, icons, colors, start URL, display mode. Limitations vs native: no access to some device APIs, push notifications less reliable on iOS (improved in iOS 16.4+)."
+    },
+    {
+      "keywords": [
+        "regex",
+        "regular expressions",
+        "pattern matching",
+        "grep",
+        "string"
+      ],
+      "answer": "Regular expressions (regex/regexp) are patterns for matching, searching, and manipulating text. Core syntax: . (any character except newline), * (0+ repetitions), + (1+ repetitions), ? (0 or 1), ^ (start of string), $ (end of string), [] (character class), [^] (negated class), | (alternation/or), () (group), {} (specific count: {3} exactly 3, {2,5} between 2-5). Common character classes: \\d (digit [0-9]), \\w (word character [a-zA-Z0-9_]), \\s (whitespace), \\D \\W \\S (negated). Greedy vs. lazy: .* matches as much as possible (greedy); .*? matches as little as possible (lazy). Lookahead: (?=...) positive, (?!...) negative. Lookbehind: (?<=...) positive, (?<!...) negative. Useful patterns: Email: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, URL: /https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}/, Phone (US): /^(\\+1)?[2-9]\\d{2}[2-9]\\d{6}$/. Test regex interactively at regex101.com."
+    },
+    {
+      "keywords": [
+        "api design",
+        "rest best practices",
+        "pagination",
+        "rate limiting",
+        "versioning",
+        "swagger"
+      ],
+      "answer": "API design best practices: Use nouns for resources (/users, /products), not verbs (/getUsers). Plural resource names (/users not /user). HTTP methods semantically (GET=read, POST=create, PUT=replace, PATCH=partial update, DELETE=remove). Consistent error responses: always return error object with code, message, and possibly details. Versioning strategies: URL path (/api/v1/users \u2014 most common, clear), query param (?version=1), header (Accept: application/vnd.api.v1+json \u2014 cleanest but harder to test). Pagination: offset/limit (?offset=20&limit=10), cursor-based (for large/real-time data \u2014 more reliable). Rate limiting: return 429 Too Many Requests with Retry-After header. Include limit/remaining/reset in response headers. Documentation: OpenAPI/Swagger spec \u2014 generate interactive docs automatically. Idempotency: PUT/DELETE/GET should produce same result regardless of how many times called. Authentication: JWT (JSON Web Tokens) for stateless auth, OAuth 2.0 for third-party authorization. HATEOAS (Hypermedia as the Engine of Application State): responses include links to related actions \u2014 makes APIs self-documenting."
+    },
+    {
+      "keywords": [
+        "periodic trends",
+        "electronegativity",
+        "atomic radius",
+        "ionization energy"
+      ],
+      "answer": "Periodic table trends across periods (left to right): atomic radius decreases (more protons pull electrons closer), ionization energy increases (harder to remove electrons \u2014 more protons hold them tighter), electronegativity increases (Pauling scale \u2014 F=3.98, most electronegative element), electron affinity generally increases. Down a group: atomic radius increases (more electron shells), ionization energy decreases, electronegativity decreases. Electronegativity drives bond type: >1.7 difference = ionic bond (NaCl), <1.7 = covalent bond. When two atoms of same element bond = nonpolar covalent. Metallic character decreases across a period, increases down a group. Metalloids (Si, Ge, As, Sb, Te) sit on the 'staircase' boundary between metals and nonmetals \u2014 semiconductor behavior."
+    },
+    {
+      "keywords": [
+        "chemical reactions",
+        "oxidation",
+        "reduction",
+        "redox",
+        "ph scale",
+        "acid base"
+      ],
+      "answer": "Chemical reaction types: Synthesis (A+B\u2192AB), Decomposition (AB\u2192A+B), Single displacement (A+BC\u2192AC+B), Double displacement (AB+CD\u2192AD+CB), Combustion (fuel+O\u2082\u2192CO\u2082+H\u2082O+energy), Acid-Base neutralization. Redox reactions: electron transfer. Oxidation = loss of electrons (OIL: Oxidation Is Loss). Reduction = gain of electrons (RIG: Reduction Is Gain). Oxidizing agent takes electrons; reducing agent gives them. pH scale (0-14): measures H\u207a ion concentration. pH = -log[H\u207a]. pH 7 = neutral (pure water). Below 7 = acidic (higher H\u207a). Above 7 = alkaline/basic (lower H\u207a, higher OH\u207b). Each pH unit = 10\u00d7 difference in acidity. Stomach acid: pH 1.5-3.5 (extremely acidic). Blood: pH 7.35-7.45 (maintained tightly \u2014 acidosis or alkalosis are medical emergencies). Strong acids fully dissociate (HCl, H\u2082SO\u2084, HNO\u2083). Buffers resist pH changes \u2014 bicarbonate buffer system maintains blood pH."
+    },
+    {
+      "keywords": [
+        "materials science",
+        "metals",
+        "semiconductors",
+        "polymers",
+        "ceramics",
+        "superconductors"
+      ],
+      "answer": "Materials science bridges physics, chemistry, and engineering. Metals: metallic bonding (electrons delocalized \u2014 'sea of electrons' explains conductivity, malleability, luster). Alloys: mixtures of metals \u2014 steel (iron+carbon, 10\u00d7 stronger than iron), bronze (copper+tin, Bronze Age), brass (copper+zinc), aluminum alloys (aerospace). Semiconductors: conductivity between metals and insulators, tunable by doping (adding impurities \u2014 n-type: extra electrons; p-type: electron holes). Silicon is the dominant semiconductor. Polymers: long chains of repeating monomers. Natural (rubber, cellulose, proteins, DNA) vs synthetic (polyethylene, PVC, nylon, Kevlar, carbon fiber). Ceramics: inorganic, non-metallic, crystalline \u2014 extremely hard and heat-resistant but brittle (alumina, silicon carbide, zirconia, porcelain). Superconductors: zero electrical resistance below critical temperature. BCS theory (1957 Nobel). Room-temperature superconductivity: holy grail of materials science \u2014 would revolutionize energy transmission, computing, and transportation. LK-99 (2023): claimed room-temperature superconductor, NOT replicated."
+    },
+    {
+      "keywords": [
+        "neurology",
+        "nervous system",
+        "spinal cord",
+        "reflex",
+        "parkinsons",
+        "alzheimers"
+      ],
+      "answer": "The nervous system: Central (brain + spinal cord) and Peripheral (somatic \u2014 voluntary movement; autonomic \u2014 involuntary: sympathetic 'fight-or-flight' and parasympathetic 'rest-and-digest'). Neurons: cell body (soma) \u2192 dendrites (receive signals) \u2192 axon (transmit signal) \u2192 synaptic terminals. Action potential: ~70mV resting potential \u2192 depolarization (Na\u207a rushes in) \u2192 repolarization (K\u207a rushes out) \u2192 propagates down axon at 70-120 m/s (myelinated). Synapse: signal crosses gap via neurotransmitters (acetylcholine, dopamine, serotonin, norepinephrine, GABA, glutamate). Neurological disorders: Alzheimer's disease (~60-70% of dementia cases \u2014 plaques of amyloid-beta and tau tangles destroy neurons, starting in hippocampus; no cure; drugs slow progression slightly). Parkinson's disease: loss of dopaminergic neurons in substantia nigra \u2192 motor symptoms (tremor, rigidity, bradykinesia). L-DOPA treatment. Multiple sclerosis (MS): immune system attacks myelin sheaths. ALS (Lou Gehrig's disease): progressive motor neuron destruction. Stroke: interrupted blood supply to brain (ischemic: clot; hemorrhagic: bleed) \u2014 'FAST' (Face drooping, Arm weakness, Speech difficulty, Time to call 911)."
+    },
+    {
+      "keywords": [
+        "astronomy",
+        "solar system",
+        "planets",
+        "moons",
+        "comets",
+        "asteroid",
+        "kuiper belt"
+      ],
+      "answer": "Our solar system: 8 planets, 5 dwarf planets (Pluto, Eris, Haumea, Makemake, Ceres), 290+ moons, millions of asteroids, billions of comets. Inner rocky planets: Mercury (no atmosphere, extreme temperature swings \u2212180\u00b0C to 430\u00b0C, 88-day year), Venus (hottest planet 462\u00b0C average \u2014 greenhouse effect from CO\u2082 atmosphere, rotates backward, day longer than year). Asteroid Belt: between Mars and Jupiter \u2014 mainly rocky/metallic debris. Jupiter and Saturn's gravity prevented a planet forming. The Kuiper Belt: beyond Neptune (~30-50 AU) \u2014 icy bodies including Pluto, Eris, comets. The Oort Cloud: ~2,000-100,000 AU \u2014 theoretical shell of icy objects, source of long-period comets. Voyager 1 (launched 1977): entered interstellar space 2012 \u2014 ~160 AU from Sun. New Horizons: flew past Pluto 2015 (discovered heart-shaped nitrogen ice plain Tombaugh Regio), now heading into Kuiper Belt. Comets: dirty snowballs of ice and rock. Halley's Comet: 75-76 year period, last visible 1986, returns 2061."
+    },
+    {
+      "keywords": [
+        "optics",
+        "light",
+        "lasers",
+        "fiber optics",
+        "refraction",
+        "spectrum"
+      ],
+      "answer": "Optics: the study of light behavior. Light is an electromagnetic wave AND a stream of photons (wave-particle duality). Speed of light in vacuum: 299,792,458 m/s (exactly, by definition). Refraction: light bends when passing between media of different refractive indices (Snell's law: n\u2081sin\u03b8\u2081 = n\u2082sin\u03b8\u2082). Rainbows: water droplets refract AND reflect sunlight, separating wavelengths \u2014 red (longest, ~700nm) on outside, violet (shortest, ~400nm) on inside. Total internal reflection: when light hits interface at angle greater than critical angle, it reflects back \u2014 basis of fiber optics. Fiber optics: light pulses travel through glass/plastic fibers via total internal reflection \u2014 low signal loss, immune to electromagnetic interference, foundation of internet infrastructure. Lasers (Light Amplification by Stimulated Emission of Radiation): coherent, monochromatic, collimated light. Types: CO\u2082 (cutting), Nd:YAG (medical), semiconductor diode (consumer electronics). Applications: surgery, communications (fiber optic), barcode scanners, printers, LIDAR (self-driving cars), weapons, scientific research."
+    },
+    {
+      "keywords": [
+        "cryptography",
+        "encryption",
+        "rsa",
+        "aes",
+        "public key",
+        "hash function"
+      ],
+      "answer": "Cryptography secures communications. Symmetric encryption (same key to encrypt/decrypt): AES-256 (Advanced Encryption Standard) \u2014 the global standard for data at rest. Key must be securely shared. Fast. Asymmetric/Public key encryption: mathematically related key pair \u2014 anything encrypted with public key can only be decrypted with private key. RSA: security based on difficulty of factoring large numbers (product of two large primes). ECC (Elliptic Curve Cryptography): smaller keys, same security as RSA. Diffie-Hellman key exchange: securely establish shared secret over public channel. TLS uses this. Hash functions: one-way \u2014 any input \u2192 fixed-length output; impossible to reverse; any change in input completely changes output ('avalanche effect'). MD5 (broken), SHA-1 (broken), SHA-256 (secure). Used for: password storage (bcrypt, Argon2 are better \u2014 slow by design), file integrity, digital signatures, blockchain. Digital signatures: sign with private key, verify with public key \u2014 proves authorship without revealing private key. PGP (Pretty Good Privacy) encrypts email. Quantum computers threaten RSA/ECC \u2014 NIST is standardizing post-quantum cryptography (2022-2024)."
+    },
+    {
+      "keywords": [
+        "graph theory",
+        "network",
+        "nodes",
+        "edges",
+        "algorithm",
+        "shortest path"
+      ],
+      "answer": "Graph theory studies networks of nodes (vertices) connected by edges. Types: directed (edges have direction \u2014 Twitter follow), undirected (Facebook friendship), weighted (edges have values \u2014 road distances), unweighted. Trees: connected acyclic graphs (no cycles). Spanning tree: connects all nodes with minimum edges. Minimum spanning tree algorithms: Kruskal's, Prim's. Shortest path algorithms: Dijkstra's (non-negative weights, O((V+E)logV)), Bellman-Ford (handles negative weights), A* (informed search with heuristic \u2014 faster than Dijkstra's in practice). Graph traversal: BFS (Breadth-First Search \u2014 level by level, finds shortest path in unweighted graphs), DFS (Depth-First Search \u2014 goes deep first, finds connected components, detects cycles, topological sort). Real applications: Google Maps (shortest path, traffic weights), social networks (friend recommendations via mutual connections), internet routing (OSPF protocol uses Dijkstra's), compiler optimization (dependency resolution). Six degrees of separation: any two people on Earth are connected by \u22646 social links (small-world property of social networks)."
+    },
+    {
+      "keywords": [
+        "artificial neural network",
+        "backpropagation",
+        "gradient descent",
+        "overfitting",
+        "cnn",
+        "rnn"
+      ],
+      "answer": "Neural network fundamentals: Input layer \u2192 hidden layers \u2192 output layer. Each neuron: weighted sum of inputs \u2192 activation function \u2192 output. Training: Forward pass (predict) \u2192 calculate loss (MSE for regression, cross-entropy for classification) \u2192 Backward pass (backpropagation \u2014 chain rule calculates gradient of loss with respect to each weight) \u2192 Gradient descent updates weights (w = w - learning_rate \u00d7 gradient). Challenges: Vanishing gradients (deep networks \u2014 ReLU activation helps), Exploding gradients (gradient clipping), Overfitting (model memorizes training data, poor generalization \u2014 regularization: L1/L2 weight penalty; Dropout: randomly zero out neurons during training; early stopping; data augmentation). CNN (Convolutional Neural Network): for grid data (images) \u2014 convolutional layers learn spatial features (edges, textures, objects), pooling layers reduce dimensionality. ResNet (2015): residual connections ('skip connections') enabled training of very deep networks (152 layers). RNN (Recurrent Neural Network): for sequential data \u2014 hidden state carries context. LSTM (Long Short-Term Memory): gates solve the vanishing gradient problem in RNNs."
+    },
+    {
+      "keywords": [
+        "transformer architecture",
+        "attention mechanism",
+        "bert",
+        "gpt",
+        "llm training"
+      ],
+      "answer": "The Transformer ('Attention Is All You Need,' Vaswani et al., Google, 2017): the architecture behind all modern LLMs. Key innovation: self-attention mechanism \u2014 each token attends to all other tokens in the input, weighted by relevance. Multi-head attention: multiple attention heads learn different types of relationships. Positional encoding: since transformers process all tokens in parallel (unlike RNNs), positional information is explicitly added. Pre-training \u2192 fine-tuning paradigm: pre-train on massive unlabeled text corpus (predict next token \u2014 autoregressive, or masked tokens \u2014 BERT), then fine-tune on specific tasks. BERT (Google, 2018): bidirectional, masked language model \u2014 sees context on both sides. GPT series (OpenAI): autoregressive (predicts next token), causal (only attends to previous tokens). Scaling laws (Chinchilla, DeepMind): model performance scales predictably with data and compute \u2014 optimal training: scale data and parameters proportionally. RLHF (Reinforcement Learning from Human Feedback): fine-tune with human preference data to make models helpful and harmless. Constitutional AI (Anthropic): uses AI feedback guided by principles instead of human feedback for each example."
+    },
+    {
+      "keywords": [
+        "amazon river",
+        "nile river",
+        "rivers",
+        "watersheds",
+        "flooding"
+      ],
+      "answer": "Major rivers of the world: Amazon (South America): world's largest by volume \u2014 discharges ~20% of all freshwater entering the world's oceans, 6,400 km long (shorter than Nile but vastly larger watershed of 7 million km\u00b2), drains the Amazon rainforest, flows through Brazil and Peru. Nile (Africa): historically considered the world's longest at 6,650 km (though Amazon may actually be longer \u2014 disputed), flows north through Egypt to Mediterranean. Source: White Nile (Lake Victoria, Uganda) and Blue Nile (Ethiopia \u2014 brings 85% of water and silt). Annual flooding created the fertile black land (kemet) that enabled ancient Egyptian civilization. Yangtze (China, 6,300 km): longest in Asia. Three Gorges Dam. Congo (Africa): world's deepest river (~220m), second largest by volume, runs through one of Earth's few remaining large tropical rainforests. Mississippi-Missouri (USA, 6,275 km): drains 41% of the continental US. Rhine, Danube (Europe). Ganges (India): sacred to Hinduism. Mekong (Southeast Asia): vital to food security of 60+ million people."
+    },
+    {
+      "keywords": [
+        "mountains",
+        "himalaya",
+        "andes",
+        "alps",
+        "continental divide",
+        "tectonic"
+      ],
+      "answer": "Mountain ranges: Himalayas (Asia): formed by collision of Indian and Eurasian plates (~50 million years ago, still rising ~5mm/year). Contains 9 of the world's 10 highest peaks. Everest (8,848.86m), K2 (8,611m, second highest, more dangerous), Kangchenjunga (8,586m). Andes (South America): world's longest continental mountain range (~7,000 km), highest peak: Aconcagua (6,961m \u2014 highest outside Asia). Rich in copper, silver, gold. Rocky Mountains (North America): spine of the continent, Continental Divide \u2014 rivers flow either to Pacific or Atlantic. Alps (Europe): formed by African and Eurasian plate collision. Highest: Mont Blanc (4,808m). Atlas Mountains (Africa, Morocco/Algeria/Tunisia). Appalachians (eastern USA): ancient range, once as tall as Himalayas \u2014 480 million years old, heavily eroded. Sierra Nevada (California): granite batholith. Volcanism: Cascades (Mt. Rainier, Mt. Hood, Mt. St. Helens). Mountain ecosystems: altitudinal zonation \u2014 different ecosystems at different elevations (foothills \u2192 montane forest \u2192 subalpine \u2192 alpine tundra \u2192 permanent snow/ice)."
+    },
+    {
+      "keywords": [
+        "deserts",
+        "sahara",
+        "gobi",
+        "atacama",
+        "types of desert",
+        "desert ecology"
+      ],
+      "answer": "Deserts receive <250mm precipitation per year. Cover ~33% of Earth's land surface. Types: Hot desert (Sahara \u2014 9.2 million km\u00b2, world's largest hot desert; Sonoran; Arabian), Cold desert (Gobi, 1.3 million km\u00b2, Asia; Patagonian; Taklamakan), Coastal desert (Atacama \u2014 driest non-polar desert on Earth, parts haven't had measurable rain in 500 years, despite being on the coast \u2014 cold Humboldt Current blocks moisture; also Namib), Polar desert (Antarctica \u2014 actually the world's largest desert at 14.2 million km\u00b2, receives <200mm precipitation). Desert ecology: animals adapt via nocturnal behavior, burrowing, concentrated urine, water extraction from food. Camels: humps store fat (not water), can lose 25% body weight in water without harm, oval red blood cells continue flowing in dehydrated blood. Cacti (Americas): store water in succulent stems, CAM photosynthesis (open stomata only at night). Desert soils (aridisols): calcium carbonate hardpan, low organic matter, high pH. Desertification: degradation of drylands \u2014 ~12 million hectares/year affected."
+    },
+    {
+      "keywords": [
+        "arctic",
+        "antarctic",
+        "polar",
+        "ice caps",
+        "permafrost",
+        "polar bear",
+        "penguin arctic"
+      ],
+      "answer": "Arctic vs Antarctic: Arctic (north): ocean surrounded by land (no continent) \u2014 Arctic Ocean covered by sea ice. Land around it: Alaska, Canada, Greenland, Scandinavia, Russia. Average winter temperature: \u221240\u00b0C, summer: 0\u00b0C. Antarctica (south): continent surrounded by ocean \u2014 covered by ice sheet up to 4.8km thick, contains 70% of Earth's fresh water. Average temperature: \u221257\u00b0C (lowest recorded: \u221289.2\u00b0C at Vostok Station). Ice loss: Arctic sea ice extent declining ~13%/decade (since 1979 satellite record). Greenland ice sheet losing ~280 billion tonnes/year. Antarctic ice sheet: East Antarctica mostly stable; West Antarctic Ice Sheet and Antarctic Peninsula destabilizing. If all Antarctic ice melted: sea levels would rise ~58m. Permafrost: permanently frozen ground covering ~24% of Northern Hemisphere land \u2014 stores ~1.7 trillion tonnes of organic carbon. Thawing permafrost releases methane (CH\u2084, 80\u00d7 more potent greenhouse gas than CO\u2082 over 20 years) \u2014 a dangerous feedback loop. Arctic animals: polar bear, Arctic fox, narwhal, walrus, musk ox. Antarctic: penguins (NO polar bears \u2014 they exist only in the Arctic), seals, albatross, leopard seal."
+    },
+    {
+      "keywords": [
+        "blockchain",
+        "consensus",
+        "proof of work",
+        "proof of stake",
+        "distributed ledger"
+      ],
+      "answer": "Blockchain: a distributed ledger \u2014 a chain of blocks, each containing transactions and a cryptographic hash of the previous block (making tampering computationally infeasible). Decentralized: no central authority \u2014 thousands of nodes hold complete copies. Consensus mechanisms: Proof of Work (PoW): miners compete to solve cryptographic puzzles (SHA-256 for Bitcoin). Winner adds next block, earns reward. Energy intensive \u2014 Bitcoin uses ~127 TWh/year (~0.6% of global electricity). 51% attack: attacker controlling >51% of hash power could manipulate the chain. Proof of Stake (PoS): validators stake cryptocurrency as collateral. Randomly selected to validate blocks proportional to stake. Much less energy (Ethereum's merge reduced energy use 99.95%). Slashing: dishonest validators lose their stake. Delegated PoS (DPoS): token holders vote for delegates who validate. Immutability: once recorded, transactions are practically irreversible \u2014 good for tamper-proof records, but bad if errors occur (no 'undo'). Smart contracts (Ethereum): self-executing code \u2014 if X happens, automatically do Y. Gas: fee paid for computation on Ethereum (ETH)."
+    },
+    {
+      "keywords": [
+        "autonomous vehicles",
+        "self driving",
+        "tesla autopilot",
+        "waymo",
+        "lidar",
+        "computer vision"
+      ],
+      "answer": "Autonomous vehicle (AV) levels (SAE): Level 0 (no automation), Level 1 (driver assistance \u2014 adaptive cruise control), Level 2 (partial automation \u2014 Tesla Autopilot, GM Super Cruise \u2014 driver must monitor), Level 3 (conditional automation \u2014 driver can disengage, car handles most situations), Level 4 (high automation \u2014 no driver needed in defined area/conditions), Level 5 (full automation \u2014 no driver needed anywhere). Sensing: LiDAR (Light Detection and Ranging \u2014 laser pulses create 3D point cloud map, Waymo uses it, Tesla doesn't), cameras (primary for Tesla's 'vision only' approach), radar (all-weather, detects speed), ultrasonic (close-range). Waymo (Google/Alphabet): launched first commercial robotaxi service in Phoenix 2019, expanding to San Francisco and Austin \u2014 fully driverless, no safety driver. Tesla FSD (Full Self-Driving): Level 2 despite the name \u2014 driver must be attentive. End-to-end neural networks trained on millions of miles of data. Challenges: edge cases (unusual scenarios), adverse weather, adversarial attacks, ethical decisions (trolley problem), regulatory framework, cybersecurity."
+    },
+    {
+      "keywords": [
+        "3d printing",
+        "additive manufacturing",
+        "types",
+        "applications",
+        "materials"
+      ],
+      "answer": "3D printing (additive manufacturing): builds objects layer by layer from digital designs. Types: FDM (Fused Deposition Modeling): most common/affordable \u2014 melts plastic filament (PLA, ABS, PETG, TPU). Home printers from ~$200 (Bambu Lab, Prusa, Creality). SLA (Stereolithography): UV laser cures liquid resin \u2014 high detail, smoother surface. MSLA (Masked SLA): LCD screen masks UV light \u2014 faster. SLS (Selective Laser Sintering): laser sinters powder (nylon, TPU) \u2014 no support structures needed, industrial. DMLS/SLM: metal sintering \u2014 titanium, steel, aluminum. Binder Jetting: print head deposits binder on powder bed \u2014 full color possible. Materials: plastics (PLA biodegradable, ABS durable), resins, metals, concrete, food (chocolate, pasta), biological (bioprinting \u2014 3D printed tissue, organs in development). Applications: prototyping (dramatically faster/cheaper than traditional manufacturing), aerospace (GE jet engine fuel nozzles \u2014 5\u00d7 stronger, 25% lighter than machined), medical (prosthetics, surgical models, custom implants, dental crowns), architecture, fashion, consumer goods. Market: ~$20 billion, projected $100 billion by 2030."
+    },
+    {
+      "keywords": [
+        "drones",
+        "uav",
+        "quadcopter",
+        "drone delivery",
+        "military drones",
+        "fpv"
+      ],
+      "answer": "Drones (UAV \u2014 Unmanned Aerial Vehicle): remotely piloted or autonomous aircraft. Types: Multirotor (quadcopters, hexacopters \u2014 most common for photography/recreation), Fixed-wing (airplane-style \u2014 longer range, higher efficiency, used for surveying, military), Hybrid VTOL (vertical takeoff, transitions to fixed-wing for cruise). Key components: flight controller (autopilot computer), ESCs (Electronic Speed Controllers), brushless motors, propellers, LiPo batteries, GPS, IMU (Inertial Measurement Unit). DJI (Chinese company): dominates consumer/prosumer market (~70-80% market share) \u2014 Phantom, Mavic, Air, Mini series. FPV (First Person View) racing: pilots wear goggles showing live video, race through gates at 160+ km/h. Military applications: Predator, Reaper (armed UAVs), Bayraktar TB2 (Ukrainian use in 2022 war), kamikaze/loitering munitions (Shahed-136). Commercial: Amazon Prime Air, Wing (Alphabet/Google), Zipline (medical supplies in Rwanda). FAA regulations (USA): Part 107 license for commercial use, registration required >250g, no-fly zones near airports."
+    },
+    {
+      "keywords": [
+        "animation",
+        "pixar",
+        "studio ghibli",
+        "anime",
+        "disney",
+        "cartoon"
+      ],
+      "answer": "Animation history: Eadweard Muybridge (1878) \u2014 zoopraxiscope. \u00c9mile Reynaud \u2014 Praxinoscope (1877), first animated films. Disney (Walt Disney Company, 1923): Snow White (1937, first feature-length cel animation), Fantasia (1940), Bambi (1942). The 'Nine Old Men' \u2014 Disney's core animators. Disney Renaissance (1989-1999): The Little Mermaid, Beauty and the Beast, The Lion King, Mulan. Pixar: acquired by Disney 2006 for $7.4B. Toy Story (1995): first feature-length CGI film. Inside Out, WALL-E, Up (critical darlings). Studio Ghibli (Hayao Miyazaki, Japan, 1985): My Neighbor Totoro (1988), Princess Mononoke (1997), Spirited Away (2001, only anime to win Best Animated Feature Oscar). Anime: Japanese animation \u2014 enormously diverse genre. Originating from manga (comics). Key studios: Madhouse, MAPPA, Ufotable, Kyoto Animation. Landmark anime: Akira (1988), Ghost in the Shell (1995), Neon Genesis Evangelion (1995-96, TV), Fullmetal Alchemist: Brotherhood, Attack on Titan, Demon Slayer, Dragon Ball Z, One Piece, Naruto. Global anime market: $25+ billion/year."
+    },
+    {
+      "keywords": [
+        "architecture modern",
+        "brutalism",
+        "bauhaus",
+        "zaha hadid",
+        "frank gehry",
+        "sustainable architecture"
+      ],
+      "answer": "Modern architecture movements: Bauhaus (1919-1933, Germany, Walter Gropius): 'form follows function' \u2014 stripped ornamentation, industrial materials, unified fine arts and crafts. Closed by Nazis. International Style (1920s-60s): glass curtain walls, flat roofs, open plans, Le Corbusier ('a house is a machine for living in'), Mies van der Rohe ('less is more'). Brutalism (1950s-70s): raw concrete (b\u00e9ton brut), massive geometric forms \u2014 Boston City Hall, Barbican (London), many Soviet buildings. Postmodernism (1970s-90s): reaction against modernism's austerity \u2014 historical references, ornamentation, color, humor. Deconstructivism: fragmented, non-rectilinear forms. Frank Gehry: Guggenheim Bilbao (1997, titanium panels), Walt Disney Concert Hall. Zaha Hadid (first woman to win Pritzker Prize, 2004): fluid, futuristic forms \u2014 MAXXI Rome, Guangzhou Opera House. Sustainable architecture: LEED certification, passive house standard (Passivhaus), green roofs, solar integration, net-zero buildings, biophilic design (bringing nature indoors). The Passive House standard achieves 75-90% energy reduction compared to conventional buildings."
+    },
+    {
+      "keywords": [
+        "sports records",
+        "world records",
+        "guinness",
+        "olympics records",
+        "athletic feats"
+      ],
+      "answer": "Remarkable athletic records: Usain Bolt (Jamaica): 100m world record 9.58s (Berlin 2009, 44.72 km/h average, peak speed ~44.72 km/h) and 200m record 19.19s \u2014 both set at the same championships. Michael Phelps: 23 Olympic gold medals, 28 total. Eliud Kipchoge (Kenya): marathon world record 2:00:35 (Berlin 2023). In 2019 (Breaking2, Vienna), ran 1:59:40.2 \u2014 but under non-competition conditions (pacers, measured course). World's heaviest bench press: ~503 kg (Julius Maddox, 2023). World's heaviest deadlift: 501 kg (Eddie Hall, 2016) then 501 kg matched and 502.5 kg (Haf\u00fe\u00f3r Bj\u00f6rnsson, 2020). High jump world record: 2.45m (Javier Sotomayor, 1993). Long jump: 8.95m (Mike Powell, 1991). Pole vault: 6.22m (Armand Duplantis, 2024, holds multiple WRs). Shot put: 23.37m (Ryan Crouser). Most Grand Slam tennis titles: Novak Djokovic (24+). Most Tour de France wins: 7 (Lance Armstrong \u2014 stripped; Jacques Anquetil, Eddy Merckx, Bernard Hinault, Miguel Indur\u00e1in each won 5)."
+    },
+    {
+      "keywords": [
+        "money history",
+        "barter",
+        "currency",
+        "gold standard",
+        "fiat currency",
+        "bitcoin vs gold"
+      ],
+      "answer": "Money's evolution: Barter (direct exchange \u2014 inefficient, requires 'double coincidence of wants') \u2192 Commodity money (shells, grain, cattle \u2014 intrinsic value) \u2192 Metal coins (Lydian electrum coins, ~600 BC \u2014 first standardized coins) \u2192 Paper money (China, Tang Dynasty ~7th century AD, called 'flying money'; Europe via goldsmiths' receipts, 17th century) \u2192 Central banking (Bank of England 1694 \u2014 first modern central bank) \u2192 Gold Standard (currency backed by gold \u2014 US formally on gold standard 1879-1933 domestically, international gold exchange standard until 1971) \u2192 Bretton Woods (1944: currencies pegged to USD, USD pegged to gold at $35/oz \u2014 US had 2/3 of world's gold) \u2192 Nixon Shock (1971): President Nixon ended USD-gold convertibility \u2192 Pure fiat currency (all major currencies today). Interesting fact: the US dollar bill says 'Federal Reserve Note' \u2014 it's technically a debt instrument. The Fed can create money by crediting bank accounts. This is how QE (Quantitative Easing) works \u2014 central banks create money to buy assets."
+    },
+    {
+      "keywords": [
+        "journalism",
+        "investigative journalism",
+        "freedom of press",
+        "wikileaks",
+        "edward snowden"
+      ],
+      "answer": "Investigative journalism exposes wrongdoing through deep research. Landmark investigations: Watergate (Washington Post, Woodward & Bernstein, 1972-74 \u2014 led to Nixon's resignation). Pentagon Papers (NYT/WaPo, 1971 \u2014 Daniel Ellsberg leaked secret Vietnam War history, Supreme Court upheld right to publish). Spotlight (Boston Globe, 2001-02 \u2014 Catholic Church clergy abuse scandal, ~90 priests in Boston, inspired global investigations, 2015 film). Panama Papers (ICIJ, 2016 \u2014 11.5 million documents from law firm Mossack Fonseca exposing offshore tax havens of world leaders, ~150 media organizations collaborated). WikiLeaks (Julian Assange, 2006): published classified US military and diplomatic documents \u2014 Iraq War Logs, Afghan War Diary, diplomatic cables. Controversial: praised as transparency, condemned as endangering lives. Assange arrested in UK, extradition battle with USA. Edward Snowden (NSA contractor, 2013): leaked NSA global surveillance programs (PRISM) to journalists Glenn Greenwald and Laura Poitras. Flew to Russia, lives in exile. Freedom of press: ranked by Reporters Without Borders \u2014 Norway #1. USA: #45 (2024). China, North Korea, Eritrea: bottom three consistently."
+    },
+    {
+      "keywords": [
+        "cognitive science",
+        "consciousness",
+        "free will",
+        "philosophy of mind",
+        "qualia"
+      ],
+      "answer": "Consciousness: arguably the hardest problem in science and philosophy. The 'Hard Problem' (David Chalmers, 1995): explaining why there is subjective experience at all \u2014 why is there 'something it is like' to be you? (qualia: the redness of red, the painfulness of pain). The 'Easy Problems': explaining cognitive functions (attention, memory, reporting mental states) \u2014 not actually easy, but theoretically solvable through neuroscience. Major theories: Global Workspace Theory (Baars, Dehaene): consciousness arises when information is 'broadcast' widely to many brain areas. Integrated Information Theory (Tononi): consciousness is identical to integrated information (\u03a6). Controversial \u2014 implies even simple systems may be conscious. Higher-Order Theories: consciousness requires a representation of one's own mental states. Predictive Processing (Friston, Clark): brain is a prediction machine, consciousness arises from error signals. Free will: compatibilists (free will is compatible with determinism), hard determinists (no free will \u2014 all choices are products of prior causes), libertarians (genuine indeterminism enables free will). Libet experiments (1983): brain activity (readiness potential) precedes conscious intention to move by ~350ms \u2014 still controversial."
+    },
+    {
+      "keywords": [
+        "nuclear energy",
+        "reactor",
+        "chernobyl",
+        "fukushima",
+        "uranium",
+        "half life"
+      ],
+      "answer": "Nuclear fission reactors: uranium-235 or plutonium-239 fuel rods, moderated by water or graphite (slows neutrons to sustain chain reaction), controlled by control rods (absorb neutrons \u2014 inserting them slows/stops reaction). Heat generates steam \u2192 turbines \u2192 electricity. Types: PWR (Pressurized Water Reactor, most common), BWR, CANDU (heavy water), RBMK (Soviet design, used at Chernobyl). Chernobyl disaster (April 26, 1986): RBMK reactor #4 in Ukraine exploded during safety test \u2014 design flaw + operator errors. 31 immediate deaths, 4,000-60,000 estimated radiation-related deaths. 30km exclusion zone still exists. Fukushima Daiichi (March 11, 2011): earthquake + tsunami disabled cooling systems \u2192 3 reactor meltdowns. No direct radiation deaths but 2,000+ stress-related deaths from evacuation. Radiation: half-life = time for half of radioactive material to decay. Cesium-137 (30 years), Strontium-90 (29 years), Iodine-131 (8 days), Carbon-14 (5,730 years), Uranium-238 (4.5 billion years). Low-carbon electricity: nuclear produces ~70g CO\u2082/kWh (lifecycle) vs coal ~820g, gas ~490g, wind ~11g, solar ~40g."
+    },
+    {
+      "keywords": [
+        "mental arithmetic",
+        "mathematics tricks",
+        "estimation",
+        "vedic math",
+        "shortcuts"
+      ],
+      "answer": "Mental math shortcuts: Multiply by 11: take the number, add its digits, insert the sum between them \u2014 e.g., 35\u00d711: 3_5, 3+5=8, answer: 385. Multiply by 9: multiply by 10, subtract the original (9\u00d77 = 70-7 = 63). Square numbers ending in 5: multiply tens digit by (tens digit +1), append 25 \u2014 e.g., 35\u00b2 = 3\u00d74=12, append 25 = 1225. Percentage trick: x% of y = y% of x (e.g., 8% of 25 = 25% of 8 = 2). Estimate square roots: find nearest perfect squares and interpolate. Cast out nines: quick check for arithmetic errors \u2014 digits sum to same remainder when divided by 9 for correct calculations. Dividing by 5: multiply by 2, divide by 10. Multiplying by 25: divide by 4, multiply by 100. To check if divisible by 3: sum of digits must be divisible by 3. By 9: sum of digits divisible by 9. By 11: alternating digit sum must be divisible by 11. By 7: complex \u2014 double the last digit, subtract from rest, if result divisible by 7, original is too."
+    },
+    {
+      "keywords": [
+        "cooking techniques",
+        "maillard",
+        "knife skills",
+        "stocks",
+        "sauce",
+        "emulsification"
+      ],
+      "answer": "Fundamental cooking techniques: Knife cuts: julienne (thin matchsticks 3mm), brunoise (tiny dice from julienne 3mm), dice (small 6mm, medium 12mm, large 20mm), chiffonade (thin ribbon cuts for leaves), mirepoix (rough chop for stocks). Stocks: cold water + bones (roasted for brown stock, unroasted for white/fond blanc) + aromatic vegetables + bouquet garni. Long slow simmer (4-8 hours). Never boil \u2014 produces cloudy stock. Sauces \u2014 the five mother sauces (Escoffier): B\u00e9chamel (butter+flour roux + milk), Velout\u00e9 (roux + stock), Espagnole/Brown sauce (brown roux + brown stock), Hollandaise (butter emulsified in egg yolks + acid), Tomato. Emulsification: fat dispersed in water (or vice versa) with an emulsifier (lecithin in egg yolks, mustard). Mayonnaise: oil emulsified in egg yolk. Vinaigrette: temporary emulsion. Blanching: briefly boil, then ice bath \u2014 preserves color and texture, partially cooks, allows peeling (tomatoes). Deglazing: add liquid to hot pan to lift browned bits (fond) \u2014 basis of pan sauces."
+    },
+    {
+      "keywords": [
+        "music production",
+        "daw",
+        "mixing",
+        "mastering",
+        "audio engineering",
+        "spotify"
+      ],
+      "answer": "Music production: Modern workflow \u2014 record/program sounds in a DAW (Digital Audio Workstation) \u2192 arrange \u2192 mix \u2192 master \u2192 distribute. DAWs: Ableton Live (electronic music, loop-based), Logic Pro (macOS, popular with pop/hip-hop producers), Pro Tools (industry standard for recording studios), FL Studio (popular with hip-hop producers), GarageBand (free on Mac/iOS), Cubase, Reaper ($60, professional features). Mixing: balancing levels, panning (stereo placement), EQ (equalization \u2014 boost/cut frequencies), compression (reduce dynamic range \u2014 makes things punchier), reverb (simulate space), delay/echo, stereo widening. The loudness war: over-compression for maximum loudness at expense of dynamics \u2014 streaming platforms (Spotify, Apple Music) now use loudness normalization (LUFS standard: \u221214 LUFS for Spotify, \u221216 LUFS for Apple Music) \u2014 making the loudness war pointless. Mastering: final polish \u2014 slight EQ, compression, limiting, ensure consistent playback across systems. Streaming economics: ~$0.003-0.005 per stream on Spotify \u2014 need ~250,000 streams to earn minimum wage."
+    },
+    {
+      "keywords": [
+        "cognitive load",
+        "learning",
+        "memory techniques",
+        "spaced repetition",
+        "anki",
+        "pomodoro"
+      ],
+      "answer": "Learning science: Cognitive Load Theory (John Sweller): working memory is limited (~4 items, ~20 seconds without rehearsal). Effective learning manages cognitive load. Spaced repetition: review material at increasing intervals as it becomes stronger in memory \u2014 dramatically more effective than massed practice ('cramming'). Anki: flashcard app implementing spaced repetition algorithm. SuperMemo: pioneered the algorithm. The Forgetting Curve (Ebbinghaus, 1885): without review, we forget ~50% in 1 hour, ~70% in 1 day, ~90% in 1 week. Spaced repetition nearly eliminates this. Retrieval practice: testing yourself is more effective than rereading ('the testing effect'). Interleaving: mixing different topics/problem types during practice \u2014 feels harder but produces better long-term retention. Elaborative interrogation: ask 'why?' \u2014 connecting new info to existing knowledge. The Pomodoro Technique: 25-minute focused work sessions, 5-minute breaks, longer break after 4 sessions. Deliberate practice (Anders Ericsson): focused practice on weaknesses with immediate feedback \u2014 basis of expertise development. '10,000 hours' rule is an oversimplification of Ericsson's work."
+    },
+    {
+      "keywords": [
+        "startup culture",
+        "silicon valley culture",
+        "agile",
+        "scrum",
+        "product management",
+        "lean startup"
+      ],
+      "answer": "Silicon Valley culture and startup methodology: Agile software development (2001 Agile Manifesto): iterative development, collaboration, responding to change over following a plan. Scrum: agile framework \u2014 2-week sprints, daily standups, sprint reviews, retrospectives. Roles: Product Owner (defines what to build), Scrum Master (facilitates process), Development Team. Kanban: visualize work on board (To Do \u2192 In Progress \u2192 Done), limit work in progress (WIP). The Lean Startup (Eric Ries, 2011): Build-Measure-Learn feedback loop. MVP (Minimum Viable Product): simplest version to test hypothesis. Pivot: change direction based on learning. Key SV culture concepts: 'Move fast and break things' (Facebook's old motto \u2014 Facebook changed to 'Move fast with stable infrastructure'), 'Fail fast,' 'Default alive vs default dead' (can the startup survive without new fundraising?), 'Product-market fit' (Sean Ellis: would 40%+ of users be 'very disappointed' if product disappeared?). OKRs (Objectives and Key Results): goal-setting framework from Andy Grove at Intel, popularized by John Doerr, used at Google, LinkedIn. '10\u00d7 thinking': aim 10\u00d7 better than existing solution, not 10% better. PayPal Mafia: Peter Thiel, Elon Musk, Reid Hoffman, Keith Rabois, Max Levchin \u2014 PayPal alumni who went on to found/fund major companies."
+    },
+    {
+      "keywords": [
+        "philosophy of science",
+        "scientific method",
+        "falsification",
+        "popper",
+        "paradigm shift",
+        "kuhn"
+      ],
+      "answer": "Philosophy of science examines the foundations, methods, and implications of science. Scientific method: observation \u2192 hypothesis \u2192 prediction \u2192 experiment \u2192 analysis \u2192 conclusion. Key concepts: Empiricism: knowledge comes from sensory experience (Bacon, Locke, Hume). Falsifiability (Karl Popper): a theory must be capable of being proven wrong \u2014 a hypothesis that can't be falsified is not scientific. Astrology, creationism fail this test. Induction problem (Hume): we can't logically justify inferring general laws from finite observations \u2014 the sun has risen every day, but we can't be certain it will tomorrow. Paradigm shifts (Thomas Kuhn, 'The Structure of Scientific Revolutions,' 1962): science doesn't progress smoothly \u2014 it builds consensus around a paradigm (dominant model), anomalies accumulate, eventually a 'revolutionary' shift replaces the old paradigm (Copernican revolution, quantum mechanics). Normal science vs. revolutionary science. Demarcation problem: what distinguishes science from pseudoscience? No perfect answer. Replication crisis: ~50% of psychology studies fail to replicate in independent tests \u2014 questioned the robustness of much published research."
+    },
+    {
+      "keywords": [
+        "quantum computing",
+        "qubits",
+        "superposition",
+        "entanglement",
+        "quantum advantage",
+        "ibm quantum"
+      ],
+      "answer": "Quantum computing leverages quantum mechanical phenomena for computation. Classical bits: 0 or 1. Qubits: can exist in superposition of 0 AND 1 simultaneously (|0\u27e9 and |1\u27e9). Entangled qubits: measuring one instantly determines the state of another regardless of distance. Quantum parallelism: a quantum computer with n qubits can process 2\u207f states simultaneously. Operations: quantum gates (like logic gates but for qubits). Decoherence: qubits are extremely fragile \u2014 any interaction with the environment causes 'decoherence,' destroying quantum state. This is why quantum computers must operate near absolute zero (~15 millikelvin) and why error correction is so critical. Quantum algorithms: Shor's algorithm (1994): factors large integers exponentially faster than classical \u2014 would break RSA encryption. Grover's algorithm: searches unsorted database in \u221aN steps vs N. Quantum advantage/'supremacy': Google (2019) claimed a quantum processor performed a task in 200 seconds that would take the best classical supercomputer 10,000 years \u2014 disputed by IBM. Major players: IBM (127+ qubit processors, free cloud access), Google (Sycamore, Willow), IonQ, Quantinuum, D-Wave (quantum annealing). Commercial quantum computing: maybe 10-20 years away for practical applications."
+    },
+    {
+      "keywords": [
+        "genetics history",
+        "gregor mendel",
+        "charles darwin",
+        "inheritance",
+        "chromosomes",
+        "sequencing"
+      ],
+      "answer": "Genetics history: Gregor Mendel (Austrian monk, 1856-1863): pea plant experiments revealed inheritance patterns (dominant/recessive alleles, law of segregation, law of independent assortment). Published 1866 \u2014 ignored for 35 years. Rediscovered 1900 simultaneously by three scientists. Francis Galton: introduced statistics to biology, coined 'eugenics' (profoundly misused). Thomas Hunt Morgan (1910): established chromosomal theory of heredity using fruit flies \u2014 genes on chromosomes. DNA double helix structure: James Watson, Francis Crick, Rosalind Franklin (X-ray crystallography crucial \u2014 photo 51), Maurice Wilkins (1953). Watson and Crick used Franklin's data without her knowledge. Nobel Prize 1962 to Watson, Crick, Wilkins \u2014 Franklin died in 1958 (Nobels not awarded posthumously). Human Genome Project (1990-2003): mapped all 3 billion base pairs, ~$3 billion cost. Now a genome can be sequenced for ~$200 in days. Whole genome sequencing: identifying every letter of an individual's DNA \u2014 transforming medicine (personalized medicine, cancer genomics, rare disease diagnosis, newborn screening). CRISPR-Cas9 (2012 \u2014 Jennifer Doudna and Emmanuelle Charpentier \u2014 2020 Nobel Prize): precise gene editing."
+    },
+    {
+      "keywords": [
+        "podcasts",
+        "radio",
+        "audio",
+        "journalism",
+        "storytelling",
+        "serial",
+        "true crime"
+      ],
+      "answer": "Podcasting: on-demand audio content, distributed via RSS feeds. Term coined ~2004 (Ben Hammersley suggested 'podcasting' from iPod + broadcasting). iTunes added podcast support 2005 \u2014 mainstream arrival. 'Serial' (Sarah Koenig, This American Life spinoff, 2014): first podcast to reach 5 million downloads per episode \u2014 sparked true crime podcast boom. Now: 4+ million podcasts, 460+ million listeners worldwide. Major networks: iHeart Media, Spotify (acquired Gimlet, Anchor, Ringer, exclusive deals with Joe Rogan $100M+, Barack Obama, Michelle Obama), NPR, Wondery (Amazon). True crime dominates: Serial, My Favorite Murder, Crime Junkie, Casefile, Dateline. Other huge genres: comedy (My Brother My Brother and Me, How Did This Get Made), news (The Daily, Up First, NPR Politics), interview (Armchair Expert, Smartless, Conan O'Brien Needs a Friend), education (Freakonomics, Radiolab, 99% Invisible), technology (Hard Fork, Acquired, Darknet Diaries). Monetization: ads (~$18-50 CPM), premium subscriptions (Patreon), merchandise. RadioLab, This American Life, Radiolab defined quality long-form audio storytelling."
+    },
+    {
+      "keywords": [
+        "literary devices",
+        "metaphor",
+        "simile",
+        "alliteration",
+        "foreshadowing",
+        "irony",
+        "symbolism"
+      ],
+      "answer": "Literary devices and techniques: Metaphor: direct comparison (life is a journey). Simile: comparison using 'like' or 'as' (fast as lightning). Extended metaphor: sustained metaphor throughout a work. Personification: giving human qualities to non-human things (the wind whispered). Alliteration: repeated initial consonant sounds (Peter Piper picked). Assonance: repeated vowel sounds within words. Onomatopoeia: words that sound like what they describe (buzz, crack, hiss). Irony: three types \u2014 verbal (saying the opposite of what you mean, often sarcastic), situational (opposite of what's expected happens \u2014 a fire station burning down), dramatic (audience knows something characters don't). Foreshadowing: hints at future events. Flashback (analepsis): narrative jumps to the past. Flashforward (prolepsis): narrative jumps to the future. Symbolism: object/action/character represents something beyond its literal meaning. Motif: recurring element that has symbolic significance. Theme: central idea or insight of a work. Allegory: extended narrative where characters and events represent abstract ideas (Animal Farm = Soviet communism). Juxtaposition: placing contrasting elements side by side for effect. Stream of consciousness: writing technique depicting continuous flow of thoughts (James Joyce, Virginia Woolf)."
+    },
+    {
+      "keywords": [
+        "famous quotes",
+        "inspirational quotes",
+        "philosophy quotes",
+        "quotes"
+      ],
+      "answer": "Some of history's most memorable and thought-provoking quotes: 'The only thing we have to fear is fear itself.' \u2014 FDR. 'To be or not to be, that is the question.' \u2014 Shakespeare (Hamlet). 'In the middle of difficulty lies opportunity.' \u2014 Albert Einstein. 'The unexamined life is not worth living.' \u2014 Socrates. 'I think, therefore I am.' \u2014 Descartes. 'The more I learn, the more I realize how much I don't know.' \u2014 attributed to Einstein. 'Ask not what your country can do for you \u2014 ask what you can do for your country.' \u2014 JFK. 'I have a dream.' \u2014 Martin Luther King Jr. 'That's one small step for man, one giant leap for mankind.' \u2014 Neil Armstrong (1969). 'Be the change you wish to see in the world.' \u2014 widely attributed to Gandhi (approximate). 'It always seems impossible until it's done.' \u2014 Nelson Mandela. 'In three words I can sum up everything I've learned about life: it goes on.' \u2014 Robert Frost. 'Stay hungry, stay foolish.' \u2014 Stewart Brand (The Whole Earth Catalog), popularized by Steve Jobs. 'We are all made of star stuff.' \u2014 Carl Sagan. 'Simplicity is the ultimate sophistication.' \u2014 attributed to Leonardo da Vinci."
+    },
+    {
+      "keywords": [
+        "travel",
+        "backpacking",
+        "budget travel",
+        "hostels",
+        "visa",
+        "passport"
+      ],
+      "answer": "Travel basics: Passports: most powerful (most countries you can visit visa-free) \u2014 Japan, Singapore, Germany (190+ countries). US: 186 countries. Weakest: Afghanistan, Iraq, Pakistan (~30 countries). Visas: some require advance application (India e-Visa, Australian ETA), some issue on arrival, others visa-free based on your passport. Travel insurance: essential \u2014 covers medical emergencies (can cost $100,000+ for hospitalization abroad), trip cancellation, lost luggage. Budget travel: hostels ($15-50/night in dorms), house-sitting/Couchsurfing, Airbnb (often cheaper than hotels), overnight trains/buses save hotel costs. Budget airlines: Ryanair (Europe), easyJet, AirAsia (Asia), Southwest (USA). Avoid booking far out for budget airlines (prices fluctuate unpredictably). Travel hacking: credit card points, miles, status \u2014 Chase Sapphire, Amex Platinum popular. The cheapest times to fly: Tuesday/Wednesday, 5-6 weeks ahead for domestic, 4-6 months ahead for international. Best destinations for budget travelers: Southeast Asia (Vietnam, Thailand, Cambodia, Indonesia), Eastern Europe (Romania, Bulgaria, Georgia), Central America. Colombia and Morocco offer good value."
     }
   ]
 }

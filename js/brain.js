@@ -82,10 +82,8 @@ const Brain = (() => {
     const isFileReq = /^(make|create|write|generate|build)\s/.test(lower) && fileTypes.some(t => lower.includes(t));
     if (isFileReq) return '__FILE__:' + input;
 
-    const isPushReq = /^(push|deploy|publish|push to github|commit)/.test(lower);
-    if (isPushReq) return '__PUSH__:' + input;
-
-    const isPushReq = /^(push|deploy|publish|push to github|commit)/.test(lower);
+    // GitHub push
+    const isPushReq = /^(push|deploy|publish|send to github|push to github|update github|commit)/.test(lower);
     if (isPushReq) return '__PUSH__:' + input;
 
         // Just "search the web" with no query
