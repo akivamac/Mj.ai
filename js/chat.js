@@ -378,11 +378,48 @@ const Chat = (() => {
         const query = raw.slice(11);
         const result = await Search.ask(query);
         addMessage('joe', result === null ? "Okay, I won't search for that." : result);
+      } else if (raw && raw.startsWith('__PUSH__:')) {
+        await handlePush(input);
       } else {
         addMessage('joe', raw);
       }
     } catch(err) {
       addMessage('joe', 'Error: ' + err.message);
+    }
+  }
+
+  // ── GitHub push ──────────────────────────────────────────
+  async function handlePush(input) {
+    const lower = input.toLowerCase();
+
+    // Find the most recent file card in active chat
+    const active = getActive();
+    const fileMsg = active && [...active.messages].reverse().find(m => m.isHTML && m.content && m.content.includes('Files.view'));
+
+    if (!fileMsg) {
+      addMessage('joe', "I don't see a file to push! Make a file first, then ask me to push it. 🐒");
+      return;
+    }
+
+    const idMatch = fileMsg.content.match(/Files\.view\('([^']+)'\)/);
+    if (!idMatch) { addMessage('joe', "Couldn't find the file ID. Try making the file again."); return; }
+
+    const file = Files.getFile(idMatch[1]);
+    if (!file) { addMessage('joe', "I lost the file content (page may have reloaded). Make it again and I'll push it!"); return; }
+
+    // Parse custom commit message if given
+    let commitMsg = null;
+    const msgMatch = input.match(/(?:with message|commit message|message)[:\s]+["']?(.+?)["']?$/i);
+    if (msgMatch) commitMsg = msgMatch[1].trim();
+
+    addMessage('joe', `Pushing **${file.filename}** to GitHub… 🚀`);
+
+    const result = await GitHub.pushFile(file.filename, file.content, commitMsg || `Add ${file.filename} via Monkey Joe`);
+
+    if (result.ok) {
+      addMessage('joe', `✅ **${file.filename}** pushed to GitHub! Changes will be live on GitHub Pages in ~1 minute. 🎉`);
+    } else {
+      addMessage('joe', `❌ Push failed: ${result.error}`);
     }
   }
 
