@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
   await Brain.load();
-  Storage.getChats(); // prime
+  Storage.getChats();
   MCP.init();
   Search.init();
   Draw.init();
@@ -25,10 +25,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   sendBtn.addEventListener('click', send);
   input.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
-  
-});
+  });
 
-  // Auto-resize textarea
   input.addEventListener('input', () => {
     input.style.height = 'auto';
     input.style.height = Math.min(input.scrollHeight, 120) + 'px';
@@ -36,12 +34,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   newChatBtn.addEventListener('click', () => { Chat.newChat(); Chat.showPanel('chat'); });
 
-  // Projects nav
   document.getElementById('nav-projects-btn').addEventListener('click', () => Chat.renderProjectsPanel());
   document.getElementById('new-project-panel-btn').addEventListener('click', () => Chat.createProject());
   document.getElementById('project-back-btn').addEventListener('click', () => Chat.renderProjectsPanel());
 
-  // Sidebar toggle — wire all three topbars
   function toggleSidebar() { sidebar.classList.toggle('hidden'); }
   sidebarToggle.addEventListener('click', toggleSidebar);
   document.getElementById('projects-sidebar-toggle').addEventListener('click', toggleSidebar);
