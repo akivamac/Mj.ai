@@ -31,7 +31,12 @@ const Chat = (() => {
     let title = chat?.title || 'New Chat';
     if (chat?.projectId) {
       const proj = projects.find(p => p.id === chat.projectId);
-      if (proj) title = proj.name + ' › ' + title;
+      if (proj) {
+        const el = document.getElementById('chat-title');
+        el.innerHTML = `<span class="breadcrumb-project" data-pid="${proj.id}">${proj.name}</span><span class="breadcrumb-sep">›</span>${title}`;
+        el.querySelector('.breadcrumb-project').addEventListener('click', () => openProjectPage(proj.id));
+        return;
+      }
     }
     document.getElementById('chat-title').textContent = title;
   }
@@ -53,7 +58,7 @@ const Chat = (() => {
       document.getElementById('chat-title').textContent = chat.title;
       renderSidebar();
     }
-    Storage.saveChat(chat);
+    chat.updatedAt = Date.now(); Storage.saveChat(chat);
     renderMessage(msg);
     scrollBottom();
   }
@@ -82,74 +87,37 @@ const Chat = (() => {
     document.getElementById('messages').appendChild(el);
   }
 
+  // ── Panel visibility ─────────────────────────────────────
+  function showPanel(name) { // 'chat' | 'projects' | 'project'
+    document.getElementById('main').classList.toggle('hidden', name !== 'chat');
+    document.getElementById('projects-panel').classList.toggle('hidden', name !== 'projects');
+    document.getElementById('project-page').classList.toggle('hidden', name !== 'project');
+    document.getElementById('nav-projects-btn').classList.toggle('active', name === 'projects' || name === 'project');
+  }
+
   // ── Sidebar ───────────────────────────────────────────────
   function renderSidebar() {
     const list = document.getElementById('chat-list');
     list.innerHTML = '';
 
-    // New Project button
-    const newProjBtn = document.createElement('button');
-    newProjBtn.className = 'new-project-btn';
-    newProjBtn.textContent = '+ New Project';
-    newProjBtn.addEventListener('click', createProject);
-    list.appendChild(newProjBtn);
-
-    // Projects
-    projects.forEach(proj => renderProject(proj, list));
-
-    // Divider if there are both projects and loose chats
+    // Loose chats only in sidebar
     const looseChats = chats.filter(c => !c.hidden && !c.projectId);
-    if (projects.length && looseChats.length) {
-      const div = document.createElement('div');
-      div.className = 'sidebar-divider';
-      list.appendChild(div);
-    }
-
-    // Starred chats (no project) first
     const starred   = looseChats.filter(c => c.starred);
     const unstarred = looseChats.filter(c => !c.starred);
-    [...starred, ...unstarred].forEach(c => list.appendChild(makeChatItem(c)));
-  }
-
-  function renderProject(proj, container) {
-    const wrap = document.createElement('div');
-    wrap.className = 'project-wrap';
-
-    const header = document.createElement('div');
-    header.className = 'project-header' + (proj.collapsed ? ' collapsed' : '');
-    header.innerHTML = `
-      <span class="project-arrow">${proj.collapsed ? '▶' : '▼'}</span>
-      <span class="project-name">${proj.name}</span>
-      <button class="chat-menu-btn proj-menu-btn" data-pid="${proj.id}">⋮</button>
-    `;
-    header.querySelector('.project-name').addEventListener('click', () => toggleProject(proj.id));
-    header.querySelector('.project-arrow').addEventListener('click', () => toggleProject(proj.id));
-    header.querySelector('.proj-menu-btn').addEventListener('click', e => {
-      e.stopPropagation();
-      openProjectMenu(proj.id, e.target);
-    });
-
-    wrap.appendChild(header);
-
-    if (!proj.collapsed) {
-      const projChats = chats.filter(c => !c.hidden && c.projectId === proj.id);
-      projChats.forEach(c => wrap.appendChild(makeChatItem(c, true)));
-
-      const addBtn = document.createElement('button');
-      addBtn.className = 'project-new-chat-btn';
-      addBtn.textContent = '+ New chat';
-      addBtn.addEventListener('click', () => { activeProjectId = proj.id; newChat(proj.id); });
-      wrap.appendChild(addBtn);
+    if (looseChats.length) {
+      const div = document.createElement('div');
+      div.className = 'sidebar-divider';
+      div.style.margin = '4px 12px';
+      list.appendChild(div);
     }
-
-    container.appendChild(wrap);
+    [...starred, ...unstarred].forEach(c => list.appendChild(makeChatItem(c)));
   }
 
   function makeChatItem(chat, inProject = false) {
     const item = document.createElement('div');
-    item.className = 'chat-item' + (chat.id === activeId ? ' active' : '') + (inProject ? ' in-project' : '');
+    item.className = 'chat-item' + (chat.id === activeId ? ' active' : '');
     item.innerHTML = `
-      <span class="chat-item-title">${chat.starred && !inProject ? '⭐ ' : ''}${chat.title}</span>
+      <span class="chat-item-title">${chat.starred ? '⭐ ' : ''}${chat.title}</span>
       <button class="chat-menu-btn" data-id="${chat.id}">⋮</button>
     `;
     item.querySelector('.chat-item-title').addEventListener('click', () => switchChat(chat.id));
@@ -160,25 +128,95 @@ const Chat = (() => {
     return item;
   }
 
+  // ── Projects panel ────────────────────────────────────────
+  function renderProjectsPanel() {
+    const grid = document.getElementById('projects-grid');
+    grid.innerHTML = '';
+    projects.forEach(proj => {
+      const projChats = chats.filter(c => !c.hidden && c.projectId === proj.id);
+      const lastUpdated = projChats.length
+        ? (() => {
+            const t = Math.max(...projChats.map(c => c.updatedAt || 0));
+            if (!t) return 'No chats yet';
+            const ago = Date.now() - t;
+            if (ago < 60000) return 'Just now';
+            if (ago < 3600000) return Math.floor(ago/60000) + ' min ago';
+            if (ago < 86400000) return Math.floor(ago/3600000) + ' hr ago';
+            return Math.floor(ago/86400000) + ' days ago';
+          })()
+        : 'No chats yet';
+      const card = document.createElement('div');
+      card.className = 'project-card';
+      card.innerHTML = `
+        <button class="project-card-menu" data-pid="${proj.id}">⋯</button>
+        <div class="project-card-name">${proj.name}</div>
+        <div class="project-card-meta">Updated ${lastUpdated}</div>
+      `;
+      card.addEventListener('click', e => {
+        if (e.target.classList.contains('project-card-menu')) return;
+        openProjectPage(proj.id);
+      });
+      card.querySelector('.project-card-menu').addEventListener('click', e => {
+        e.stopPropagation();
+        openProjectMenu(proj.id, e.target);
+      });
+      grid.appendChild(card);
+    });
+    if (!projects.length) {
+      grid.innerHTML = '<div style="color:var(--text-muted);font-size:0.88rem;padding:8px 0;">No projects yet. Create one to get started!</div>';
+    }
+    showPanel('projects');
+  }
+
+  // ── Project page ──────────────────────────────────────────
+  function openProjectPage(projId) {
+    const proj = projects.find(p => p.id === projId);
+    if (!proj) return;
+    activeProjectId = projId;
+    document.getElementById('project-page-name').textContent = proj.name;
+    const list = document.getElementById('project-chat-list');
+    list.innerHTML = '';
+
+    // New chat button at top
+    const newBtn = document.createElement('button');
+    newBtn.className = 'project-new-chat-card';
+    newBtn.textContent = '+ New chat';
+    newBtn.addEventListener('click', () => { newChat(projId); showPanel('chat'); });
+    list.appendChild(newBtn);
+
+    const projChats = chats.filter(c => !c.hidden && c.projectId === projId);
+    projChats.forEach(c => {
+      const item = document.createElement('div');
+      item.className = 'project-chat-item';
+      const ago = c.updatedAt ? (() => {
+        const d = Date.now() - c.updatedAt;
+        if (d < 60000) return 'Just now';
+        if (d < 3600000) return Math.floor(d/60000) + ' min ago';
+        if (d < 86400000) return Math.floor(d/3600000) + ' hr ago';
+        return Math.floor(d/86400000) + ' days ago';
+      })() : '';
+      item.innerHTML = `<div class="project-chat-item-title">${c.title}</div>${ago ? `<div class="project-chat-item-meta">Last message ${ago}</div>` : ''}`;
+      item.addEventListener('click', () => { switchChat(c.id); showPanel('chat'); });
+      list.appendChild(item);
+    });
+    showPanel('project');
+  }
+
   // ── Project actions ───────────────────────────────────────
   function createProject() {
     const name = prompt('Project name:');
     if (!name || !name.trim()) return;
-    const proj = { id: 'p' + Date.now(), name: name.trim(), collapsed: false };
+    const proj = { id: 'p' + Date.now(), name: name.trim() };
     projects.push(proj);
     Storage.saveProjects(projects);
-    renderSidebar();
-  }
-
-  function toggleProject(id) {
-    const proj = projects.find(p => p.id === id);
-    if (proj) { proj.collapsed = !proj.collapsed; Storage.saveProjects(projects); renderSidebar(); }
+    renderProjectsPanel();
   }
 
   function openProjectMenu(id, anchor) {
     closeAllMenus();
     const menu = document.createElement('div');
     menu.className = 'chat-menu-dropdown';
+    menu.style.cssText = 'position:absolute;right:0;top:100%;z-index:300;';
     menu.innerHTML = `
       <div class="menu-item" data-action="rename-proj">Rename</div>
       <div class="menu-item" data-action="delete-proj" style="color:#c0392b">Delete project</div>
@@ -190,6 +228,7 @@ const Chat = (() => {
         closeAllMenus();
       });
     });
+    anchor.parentElement.style.position = 'relative';
     anchor.parentElement.appendChild(menu);
     setTimeout(() => document.addEventListener('click', closeAllMenus, { once: true }), 0);
   }
@@ -199,16 +238,15 @@ const Chat = (() => {
     if (!proj) return;
     if (action === 'rename-proj') {
       const name = prompt('Rename project:', proj.name);
-      if (name && name.trim()) proj.name = name.trim();
-      Storage.saveProjects(projects);
+      if (name && name.trim()) { proj.name = name.trim(); Storage.saveProjects(projects); }
     } else if (action === 'delete-proj') {
       if (!confirm('Delete project "' + proj.name + '"? Chats will move to main list.')) return;
-      chats.forEach(c => { if (c.projectId === id) c.projectId = null; });
+      chats.forEach(c => { if (c.projectId === id) { c.projectId = null; Storage.saveChat(c); } });
       projects = projects.filter(p => p.id !== id);
       Storage.deleteProject(id);
-      chats.forEach(c => { if (c.projectId === id) { c.projectId = null; Storage.saveChat(c); } });
     }
     renderSidebar();
+    renderProjectsPanel();
   }
 
   // ── Chat menu ─────────────────────────────────────────────
@@ -355,5 +393,5 @@ const Chat = (() => {
     if (chat) { chat.hidden = false; Storage.saveChats(chats); }
   }
 
-  return { init, newChat, addMessage, processResponse, getHiddenChats, restoreChat };
+  return { init, newChat, addMessage, processResponse, getHiddenChats, restoreChat, renderProjectsPanel, createProject, showPanel };
 })();

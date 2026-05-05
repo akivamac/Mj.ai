@@ -16,6 +16,9 @@
       <span class="logo">🐒 Monkey Joe</span>
       <button id="new-chat-btn" title="New Chat">+</button>
     </div>
+    <div id="sidebar-nav">
+      <button id="nav-projects-btn" class="sidebar-nav-btn">📁 Projects</button>
+    </div>
     <div id="chat-list"></div>
     <div id="sidebar-footer">
       <button id="settings-btn" onclick="location.href='settings.html'">⚙ Settings</button>
@@ -23,7 +26,29 @@
     </div>
   </aside>
 
-  <!-- Main -->
+  <!-- Projects panel (full panel, shown instead of main) -->
+  <div id="projects-panel" class="hidden">
+    <div id="projects-topbar">
+      <button id="projects-sidebar-toggle">☰</button>
+      <span class="projects-panel-title">Projects</span>
+      <button id="new-project-panel-btn">+ New project</button>
+    </div>
+    <div id="projects-grid"></div>
+  </div>
+
+  <!-- Project page (single project view) -->
+  <div id="project-page" class="hidden">
+    <div id="project-page-topbar">
+      <button id="project-page-sidebar-toggle">☰</button>
+      <button id="project-back-btn" class="project-back-btn">← All projects</button>
+      <span id="project-page-name"></span>
+    </div>
+    <div id="project-page-body">
+      <div id="project-chat-list"></div>
+    </div>
+  </div>
+
+  <!-- Main chat area -->
   <main id="main">
     <div id="topbar">
       <button id="sidebar-toggle">☰</button>

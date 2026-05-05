@@ -34,9 +34,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     input.style.height = Math.min(input.scrollHeight, 120) + 'px';
   });
 
-  newChatBtn.addEventListener('click', () => Chat.newChat());
+  newChatBtn.addEventListener('click', () => { Chat.newChat(); Chat.showPanel('chat'); });
 
-  sidebarToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('hidden');
-  });
+  // Projects nav
+  document.getElementById('nav-projects-btn').addEventListener('click', () => Chat.renderProjectsPanel());
+  document.getElementById('new-project-panel-btn').addEventListener('click', () => Chat.createProject());
+  document.getElementById('project-back-btn').addEventListener('click', () => Chat.renderProjectsPanel());
+
+  // Sidebar toggle — wire all three topbars
+  function toggleSidebar() { sidebar.classList.toggle('hidden'); }
+  sidebarToggle.addEventListener('click', toggleSidebar);
+  document.getElementById('projects-sidebar-toggle').addEventListener('click', toggleSidebar);
+  document.getElementById('project-page-sidebar-toggle').addEventListener('click', toggleSidebar);
 });
