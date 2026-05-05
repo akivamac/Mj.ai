@@ -4,7 +4,7 @@ const GitHub = (() => {
   const BASE  = 'https://api.github.com';
 
   function token() {
-    return (typeof CONFIG !== 'undefined' && CONFIG.githubToken) ? CONFIG.githubToken : null;
+    return (typeof CONFIG !== 'undefined' && CONFIG.githubToken) ? CONFIG.githubToken : localStorage.getItem('mj_github_token');
   }
 
   function headers() {
