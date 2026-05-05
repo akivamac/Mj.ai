@@ -6,124 +6,312 @@
   <title>Settings – Monkey Joe</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    body { display: block; overflow: auto; padding: 20px; }
-    .back-btn {
-      background: none; border: 1px solid var(--border);
-      color: var(--text-muted); padding: 7px 14px;
-      border-radius: 6px; cursor: pointer; font-size: 0.85rem;
-      margin-bottom: 20px;
+    body {
+      display: block;
+      overflow-y: auto;
+      padding: 0;
+      background: var(--bg);
+      font-family: var(--font-body);
     }
-    h1 { font-size: 1.2rem; margin-bottom: 20px; }
+
+    /* ── Page shell ── */
+    .settings-page {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    /* ── Top bar ── */
+    .settings-topbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .back-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.84rem;
+      font-family: var(--font-body);
+      transition: all 0.13s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .back-btn:hover { color: var(--text); border-color: var(--accent); background: var(--accent-dim); }
+
+    .settings-title {
+      font-family: var(--font-ui);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    /* ── Section cards ── */
     .section {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
       margin-bottom: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
-    .section h2 {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
+
+    .section-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .section-header h2 {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-dim);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.07em;
     }
+
+    .section-body { padding: 6px 0; }
+
+    /* ── Brain parts ── */
     .brain-part {
-      padding: 10px 0;
+      padding: 12px 18px;
       border-bottom: 1px solid var(--border);
     }
     .brain-part:last-child { border-bottom: none; }
+
     .brain-part-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
     }
-    .brain-part-name { font-size: 0.9rem; }
-    .brain-part-summary { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+    .brain-part-name {
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .brain-part-summary {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+
     .edit-btn {
-      background: none; border: 1px solid var(--border);
-      color: var(--text-muted); padding: 4px 10px;
-      border-radius: 5px; cursor: pointer; font-size: 0.8rem;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 5px 12px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-family: var(--font-body);
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.13s;
     }
-    .edit-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .edit-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
     .edit-area {
       display: none;
-      margin-top: 10px;
+      margin-top: 12px;
     }
     .edit-area textarea {
       width: 100%;
-      background: var(--input-bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
       color: var(--text);
-      padding: 10px;
-      font-family: monospace;
-      font-size: 0.82rem;
+      padding: 10px 12px;
+      font-family: 'Menlo', 'Consolas', monospace;
+      font-size: 0.8rem;
       resize: vertical;
       min-height: 160px;
+      transition: border-color 0.15s;
     }
     .edit-area textarea:focus { outline: none; border-color: var(--accent); }
+
     .save-btn {
       margin-top: 8px;
       background: var(--accent);
-      color: white;
-      border: none;
-      padding: 7px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.85rem;
+      color: white; border: none;
+      padding: 8px 16px;
+      border-radius: 8px; cursor: pointer;
+      font-size: 0.85rem; font-family: var(--font-body);
+      font-weight: 500;
+      transition: background 0.13s;
     }
+    .save-btn:hover { background: var(--accent-light); }
+
+    /* ── Settings rows (MCP etc) ── */
+    .settings-row {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .settings-row:last-child { border-bottom: none; }
+
+    .settings-row label {
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+    }
+
     .mcp-input {
       width: 100%;
-      background: var(--input-bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
       color: var(--text);
-      padding: 8px 12px;
+      padding: 10px 13px;
       font-size: 0.88rem;
-      margin-top: 6px;
+      font-family: var(--font-body);
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
-    .mcp-input:focus { outline: none; border-color: var(--accent); }
-    label { font-size: 0.85rem; color: var(--text-muted); }
+    .mcp-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+    .mcp-input::placeholder { color: var(--text-dim); }
+
+    /* ── Hidden chats ── */
+    .hidden-chat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11px 18px;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+    .hidden-chat-row:last-child { border-bottom: none; }
+    .hidden-chat-name {
+      font-size: 0.87rem;
+      color: var(--text);
+      flex: 1;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .empty-state {
+      padding: 20px 18px;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    /* ── Danger zone ── */
+    .danger-row {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .danger-label { font-size: 0.87rem; color: var(--text-muted); }
+    .danger-btn {
+      background: none;
+      border: 1px solid rgba(176,48,48,0.3);
+      color: #b03030;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-family: var(--font-body);
+      transition: all 0.13s;
+      white-space: nowrap;
+    }
+    .danger-btn:hover { background: rgba(176,48,48,0.06); border-color: #b03030; }
   </style>
 </head>
 <body>
-  <button class="back-btn" onclick="location.href='index.html'">← Back</button>
-  <h1>Settings</h1>
+  <div class="settings-page">
 
-  <!-- Brain sections -->
-  <div class="section">
-    <h2>Joe's Brain</h2>
-    <div id="brain-parts"></div>
-  </div>
+    <!-- Top bar -->
+    <div class="settings-topbar">
+      <button class="back-btn" onclick="location.href='index.html'">← Back</button>
+      <span class="settings-title">Settings</span>
+    </div>
 
-  <!-- Hidden Chats -->
-  <div class="section">
-    <h2>Hidden Chats</h2>
-    <div id="hidden-chats-list"><em style="color:var(--text-muted);font-size:0.85rem">None</em></div>
-  </div>
+    <!-- Joe's Brain -->
+    <div class="section">
+      <div class="section-header"><h2>Joe's Brain</h2></div>
+      <div class="section-body">
+        <div id="brain-parts"></div>
+      </div>
+    </div>
 
-  <!-- MCP -->
-  <div class="section">
-    <h2>MCP Server</h2>
-    <label for="mcp-url">Server URL</label>
-    <input class="mcp-input" type="text" id="mcp-url" placeholder="https://your-mcp-server.com/mcp" />
-    <br/><br/>
-    <button class="save-btn" id="mcp-save">Save MCP URL</button>
-  </div>
+    <!-- Hidden Chats -->
+    <div class="section">
+      <div class="section-header"><h2>Hidden Chats</h2></div>
+      <div class="section-body">
+        <div id="hidden-chats-list">
+          <div class="empty-state">No hidden chats.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MCP Server -->
+    <div class="section">
+      <div class="section-header"><h2>MCP Server</h2></div>
+      <div class="section-body">
+        <div class="settings-row">
+          <label for="mcp-url">Server URL</label>
+          <input class="mcp-input" type="text" id="mcp-url" placeholder="https://your-mcp-server.com/mcp" />
+          <div>
+            <button class="save-btn" id="mcp-save">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GitHub -->
+    <div class="section">
+      <div class="section-header"><h2>GitHub Push</h2></div>
+      <div class="section-body">
+        <div class="settings-row">
+          <label for="github-token">Personal Access Token</label>
+          <input class="mcp-input" type="password" id="github-token" placeholder="github_pat_..." />
+          <div>
+            <button class="save-btn" id="github-token-save">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account -->
+    <div class="section">
+      <div class="section-header"><h2>Account</h2></div>
+      <div class="section-body">
+        <div class="danger-row">
+          <span class="danger-label">Sign out of Monkey Joe on this device</span>
+          <button class="danger-btn" onclick="sessionStorage.removeItem('mj_auth'); location.href='index.html';">Log out</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.settings-page -->
 
   <script src="../config.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/backside.js"></script>
   <script src="js/brain.js"></script>
   <script>
-    // Render brain parts
+    // ── Brain parts ──
     const brainKeys = ['knowledge', 'rules', 'terminal'];
     const summaries = {
       knowledge: 'General facts and world knowledge Joe knows.',
-      rules: 'How Joe decides what to respond with.',
-      terminal: 'Terminal commands and troubleshooting Joe understands.'
+      rules:     'How Joe decides what to respond with.',
+      terminal:  'Terminal commands and troubleshooting Joe understands.',
     };
+
     const container = document.getElementById('brain-parts');
     brainKeys.forEach(key => {
       const data = Storage.getBrain(key);
@@ -131,10 +319,12 @@
       div.className = 'brain-part';
       div.innerHTML = `
         <div class="brain-part-header">
-          <span class="brain-part-name">${key.charAt(0).toUpperCase() + key.slice(1)}</span>
+          <div>
+            <div class="brain-part-name">${key.charAt(0).toUpperCase() + key.slice(1)}</div>
+            <div class="brain-part-summary">${summaries[key]}</div>
+          </div>
           <button class="edit-btn" data-key="${key}">Edit</button>
         </div>
-        <div class="brain-part-summary">${summaries[key]}</div>
         <div class="edit-area" id="edit-${key}">
           <textarea id="ta-${key}">${JSON.stringify(data, null, 2)}</textarea>
           <button class="save-btn" data-save="${key}">Save</button>
@@ -147,8 +337,9 @@
       btn.addEventListener('click', () => {
         const key = btn.dataset.key;
         const area = document.getElementById('edit-' + key);
-        area.style.display = area.style.display === 'block' ? 'none' : 'block';
-        btn.textContent = area.style.display === 'block' ? 'Close' : 'Edit';
+        const open = area.style.display === 'block';
+        area.style.display = open ? 'none' : 'block';
+        btn.textContent = open ? 'Edit' : 'Close';
       });
     });
 
@@ -159,39 +350,53 @@
           const val = JSON.parse(document.getElementById('ta-' + key).value);
           Storage.setBrain(key, val);
           btn.textContent = 'Saved ✓';
-          setTimeout(() => btn.textContent = 'Save', 1500);
+          setTimeout(() => btn.textContent = 'Save', 1800);
         } catch(e) {
           alert('Invalid JSON: ' + e.message);
         }
       });
     });
 
-    // Hidden chats
-    const hiddenList = document.getElementById("hidden-chats-list");
+    // ── Hidden chats ──
+    const hiddenList = document.getElementById('hidden-chats-list');
     const hidden = Chat.getHiddenChats();
     if (hidden.length) {
-      hiddenList.innerHTML = "";
+      hiddenList.innerHTML = '';
       hidden.forEach(c => {
-        const row = document.createElement("div");
-        row.style.cssText = "display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)";
-        row.innerHTML = `<span style="font-size:0.88rem">${c.title}</span><button class="edit-btn" data-id="${c.id}">Restore</button>`;
-        row.querySelector("button").addEventListener("click", () => {
+        const row = document.createElement('div');
+        row.className = 'hidden-chat-row';
+        row.innerHTML = `
+          <span class="hidden-chat-name">${c.title}</span>
+          <button class="edit-btn" data-id="${c.id}">Restore</button>
+        `;
+        row.querySelector('button').addEventListener('click', () => {
           Chat.restoreChat(c.id);
           row.remove();
-          if (!document.querySelectorAll("#hidden-chats-list [data-id]").length)
-            hiddenList.innerHTML = "<em style=\"color:var(--text-muted);font-size:0.85rem\">None</em>";
+          if (!hiddenList.querySelectorAll('[data-id]').length)
+            hiddenList.innerHTML = '<div class="empty-state">No hidden chats.</div>';
         });
         hiddenList.appendChild(row);
       });
     }
 
-    // MCP
+    // ── MCP ──
     const mcpInput = document.getElementById('mcp-url');
     mcpInput.value = Storage.getMcpUrl();
     document.getElementById('mcp-save').addEventListener('click', () => {
       Storage.setMcpUrl(mcpInput.value.trim());
-      document.getElementById('mcp-save').textContent = 'Saved ✓';
-      setTimeout(() => document.getElementById('mcp-save').textContent = 'Save MCP URL', 1500);
+      const btn = document.getElementById('mcp-save');
+      btn.textContent = 'Saved ✓';
+      setTimeout(() => btn.textContent = 'Save', 1800);
+    });
+
+    // ── GitHub token ──
+    const ghInput = document.getElementById('github-token');
+    ghInput.value = localStorage.getItem('mj_github_token') || '';
+    document.getElementById('github-token-save').addEventListener('click', () => {
+      localStorage.setItem('mj_github_token', ghInput.value.trim());
+      const btn = document.getElementById('github-token-save');
+      btn.textContent = 'Saved ✓';
+      setTimeout(() => btn.textContent = 'Save', 1800);
     });
   </script>
 </body>
