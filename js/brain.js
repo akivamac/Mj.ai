@@ -85,6 +85,9 @@ const Brain = (() => {
     const isPushReq = /^(push|deploy|publish|push to github|commit)/.test(lower);
     if (isPushReq) return '__PUSH__:' + input;
 
+    const isPushReq = /^(push|deploy|publish|push to github|commit)/.test(lower);
+    if (isPushReq) return '__PUSH__:' + input;
+
         // Just "search the web" with no query
     if (/^s[ea]rch(\s+the\s+web)?!?$/.test(lower)) {
       return "Sure! What do you want me to search for?";
