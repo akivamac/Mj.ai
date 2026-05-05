@@ -262,7 +262,7 @@
   <script>
     (function() {
       const gate = document.getElementById('password-gate');
-      const INVITE_CODE = 'ema_gets_early_accsess';
+      const INVITE_CODES = ['ema_gets_early_accsess', 'aba_gets_early_accsess'];
 
       function show(id) {
         document.querySelectorAll('.mj-screen').forEach(s => s.classList.remove('active'));
@@ -312,7 +312,7 @@
       inviteInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkInvite(); });
 
       function checkInvite() {
-        if (inviteInput.value.trim().toLowerCase() === INVITE_CODE) {
+        if (INVITE_CODES.includes(inviteInput.value.trim().toLowerCase())) {
           inviteErr.style.display = 'none';
           show('mj-s-signup');
           document.getElementById('mj-su-name').focus();
