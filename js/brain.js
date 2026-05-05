@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '25'; // bump when brain JSON files change
+  const BRAIN_VERSION = '26'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -81,6 +81,9 @@ const Brain = (() => {
     const fileTypes = ['html','css','js','javascript','ts','typescript','md','markdown','txt','text','json','py','python','sh','bash','shell','svg','csv'];
     const isFileReq = /^(make|create|write|generate|build)\s/.test(lower) && fileTypes.some(t => lower.includes(t));
     if (isFileReq) return '__FILE__:' + input;
+
+    const isPushReq = /^(push|deploy|publish|push to github|commit)/.test(lower);
+    if (isPushReq) return '__PUSH__:' + input;
 
         // Just "search the web" with no query
     if (/^s[ea]rch(\s+the\s+web)?!?$/.test(lower)) {
