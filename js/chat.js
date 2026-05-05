@@ -117,7 +117,7 @@ const Chat = (() => {
     const item = document.createElement('div');
     item.className = 'chat-item' + (chat.id === activeId ? ' active' : '');
     item.innerHTML = `
-      <span class="chat-item-title">${chat.starred ? '⭐ ' : ''}${chat.title}</span>
+      <span class="chat-item-title">${chat.starred ? "⭐ " : ""}${chat.title || "New Chat"}</span>
       <button class="chat-menu-btn" data-id="${chat.id}">⋮</button>
     `;
     item.querySelector('.chat-item-title').addEventListener('click', () => switchChat(chat.id));

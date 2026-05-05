@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '24'; // bump when brain JSON files change
+  const BRAIN_VERSION = '25'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -328,9 +328,13 @@ const Brain = (() => {
         for (const k of fact.keywords) {
           const kl = k.toLowerCase();
           // exact substring match (word-boundary aware)
-          const esc = kl.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&');
-          const re = /^[a-z0-9 ]+$/.test(kl) ? new RegExp('\b' + esc) : new RegExp(esc);
-          if (re.test(q)) { score += 2; continue; } // exact match worth 2
+          let exactMatch = false;
+          try {
+            const esc = kl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const re = /^[a-z0-9 ]+$/.test(kl) ? new RegExp('\b' + esc) : new RegExp(esc);
+            exactMatch = re.test(q);
+          } catch(e) { exactMatch = q.includes(kl); }
+          if (exactMatch) { score += 2; continue; } // exact match worth 2
           // stem match
           if (kl.length > 4 && stemScore(kl, q)) { score += 1; continue; }
           // partial: does the query contain any word that starts with the keyword (or vice versa)?
