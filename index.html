@@ -105,159 +105,327 @@
   <script src="js/chat.js"></script>
   <script src="js/app.js"></script>
 
-  <!-- Password gate -->
+  <!-- Auth gate styles -->
   <style>
+    /* ── Reset inside gate ── */
+    #password-gate *, #password-gate *::before, #password-gate *::after { box-sizing: border-box; }
+
+    /* ── Overlay ── */
     #password-gate {
       position: fixed; inset: 0; z-index: 9999;
       background: #faf7f2;
       display: flex; align-items: center; justify-content: center;
       padding: 32px 16px;
       font-family: 'DM Sans', sans-serif;
+      overflow-y: auto;
     }
+
+    /* ── Ambient glow ── */
     #password-gate .mj-glow {
-      position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 400px; pointer-events: none;
-      background: radial-gradient(ellipse, rgba(200,134,26,0.07) 0%, transparent 65%);
+      position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 500px; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 0%, rgba(204,120,92,0.09) 0%, transparent 60%);
     }
+
+    /* ── Animated wrapper ── */
+    #password-gate .mj-inner {
+      width: 100%; max-width: 400px;
+      position: relative; z-index: 1;
+    }
+    @keyframes mjFadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    #password-gate .mj-inner { animation: mjFadeUp 0.4s cubic-bezier(0.2,0.8,0.3,1) both; }
+
+    /* ── Card ── */
     .mj-card {
       background: #ffffff;
-      border: 1px solid rgba(0,0,0,0.09);
-      border-radius: 16px;
-      padding: 28px 24px;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-      width: 100%;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
     }
-    .mj-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
-    .mj-logo-text { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 24px; color: #1e1a14; letter-spacing: -0.02em; line-height: 1; }
-    .mj-logo-text span { color: #c8861a; }
+
+    /* ── Logo ── */
+    .mj-logo {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 32px;
+    }
+    .mj-logo-text {
+      font-family: 'Sora', sans-serif; font-weight: 700;
+      font-size: 22px; color: #1e1a14;
+      letter-spacing: -0.02em; line-height: 1;
+    }
+    .mj-logo-text span { color: #cc785c; }
+
+    /* ── Screens ── */
     .mj-screen { display: none; }
     .mj-screen.active { display: block; }
-    .mj-h2 { font-family: 'Sora', sans-serif; font-weight: 700; font-size: clamp(20px,4vw,26px); color: #1e1a14; letter-spacing: -0.025em; margin-bottom: 6px; }
-    .mj-sub { font-size: 14px; color: #6b5f4a; margin-bottom: 22px; line-height: 1.55; }
-    .mj-label { display: block; font-size: 13px; font-weight: 500; color: #6b5f4a; letter-spacing: 0.02em; margin-bottom: 6px; }
-    .mj-input {
-      background: #f4f0e8; border: 1.5px solid rgba(0,0,0,0.09);
-      border-radius: 10px; padding: 13px 14px; color: #1e1a14;
-      font-family: 'DM Sans', sans-serif; font-size: 15px;
-      outline: none; transition: border-color 0.15s; width: 100%; margin-bottom: 6px;
+
+    /* ── Typography ── */
+    .mj-eyebrow {
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      color: #cc785c; margin-bottom: 8px;
     }
-    .mj-input:focus { border-color: #c8861a; }
+    .mj-h2 {
+      font-family: 'Sora', sans-serif; font-weight: 700;
+      font-size: clamp(20px, 4vw, 26px); color: #1e1a14;
+      letter-spacing: -0.025em; line-height: 1.2; margin-bottom: 8px;
+    }
+    .mj-sub {
+      font-size: 14px; color: #6b5f4a; margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    /* ── Form fields ── */
+    .mj-field { margin-bottom: 16px; }
+    .mj-label {
+      display: block; font-size: 13px; font-weight: 500;
+      color: #6b5f4a; letter-spacing: 0.02em; margin-bottom: 6px;
+    }
+    .mj-input {
+      background: #f4f0e8;
+      border: 1.5px solid rgba(0,0,0,0.08);
+      border-radius: 10px; padding: 13px 14px;
+      color: #1e1a14; font-family: 'DM Sans', sans-serif;
+      font-size: 15px; outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      width: 100%; display: block;
+    }
+    .mj-input:focus {
+      border-color: #cc785c;
+      box-shadow: 0 0 0 3px rgba(204,120,92,0.1);
+    }
     .mj-input::placeholder { color: #b0a090; }
-    .mj-error { font-size: 12px; color: #c94040; display: none; margin-bottom: 10px; }
+
+    /* ── Error ── */
+    .mj-error {
+      font-size: 12px; color: #c94040;
+      display: none; margin-top: 6px;
+      padding: 8px 12px;
+      background: rgba(201,64,64,0.06);
+      border-radius: 7px;
+      border: 1px solid rgba(201,64,64,0.15);
+    }
+
+    /* ── Primary button ── */
     .mj-btn {
       width: 100%; font-family: 'Sora', sans-serif; font-weight: 600;
-      font-size: 15px; border-radius: 10px; padding: 13px 24px;
+      font-size: 15px; border-radius: 10px; padding: 14px 24px;
       cursor: pointer; border: none; letter-spacing: -0.01em;
-      background: #c8861a; color: #fff;
-      transition: all 0.15s; margin-top: 10px;
+      background: #cc785c; color: #fff;
+      transition: all 0.15s; margin-top: 20px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
-    .mj-btn:hover { background: #b5750f; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(200,134,26,0.35); }
+    .mj-btn:hover {
+      background: #e09070; transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(204,120,92,0.35);
+    }
+    .mj-btn:active { transform: translateY(0); }
+
+    /* ── Ghost button ── */
     .mj-btn-ghost {
       width: 100%; font-family: 'DM Sans', sans-serif; font-weight: 500;
-      font-size: 14px; border-radius: 10px; padding: 12px 24px;
+      font-size: 14px; border-radius: 10px; padding: 13px 24px;
       cursor: pointer; background: transparent; color: #6b5f4a;
-      border: 1.5px solid rgba(0,0,0,0.09); transition: all 0.15s; margin-top: 8px;
+      border: 1.5px solid rgba(0,0,0,0.09);
+      transition: all 0.15s; margin-top: 10px;
     }
-    .mj-btn-ghost:hover { background: rgba(200,134,26,0.06); color: #c8861a; border-color: rgba(200,134,26,0.3); }
-    .mj-divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
-    .mj-divider hr { flex: 1; border: none; border-top: 1px solid rgba(0,0,0,0.09); }
-    .mj-divider span { font-size: 12px; color: #a89880; }
-    .mj-back { background: none; border: none; color: #6b5f4a; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 0; margin-bottom: 20px; }
-    .mj-back:hover { color: #c8861a; }
+    .mj-btn-ghost:hover {
+      background: rgba(204,120,92,0.06);
+      color: #cc785c; border-color: rgba(204,120,92,0.25);
+    }
+
+    /* ── Divider ── */
+    .mj-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 20px 0 4px;
+    }
+    .mj-divider hr { flex: 1; border: none; border-top: 1px solid rgba(0,0,0,0.08); }
+    .mj-divider span { font-size: 12px; color: #a89880; white-space: nowrap; }
+
+    /* ── Back button ── */
+    .mj-back {
+      background: none; border: none; color: #a89880; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 0;
+      margin-bottom: 24px; display: flex; align-items: center; gap: 4px;
+      transition: color 0.12s;
+    }
+    .mj-back:hover { color: #cc785c; }
+
+    /* ── Notice banner ── */
     .mj-notice {
-      background: rgba(200,134,26,0.08); border: 1px solid rgba(200,134,26,0.2);
-      border-radius: 10px; padding: 12px 14px; margin-bottom: 20px;
-      font-size: 13px; color: #6b5f4a; line-height: 1.5;
+      background: rgba(42,156,82,0.07);
+      border: 1px solid rgba(42,156,82,0.18);
+      border-radius: 10px; padding: 11px 14px;
+      margin-bottom: 24px; font-size: 13px;
+      color: #1e6b3a; line-height: 1.5;
+      display: flex; align-items: center; gap: 8px;
     }
-    .mj-notice strong { color: #c8861a; }
+
+    /* ── Storage warning (subtle, at bottom) ── */
     .mj-warning {
-      background: rgba(201,64,64,0.07); border: 1px solid rgba(201,64,64,0.18);
-      border-radius: 10px; padding: 12px 14px; margin-top: 16px;
-      font-size: 12px; color: #7a3030; line-height: 1.6;
+      margin-top: 20px; padding-top: 16px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      font-size: 12px; color: #a89880; line-height: 1.6;
     }
-    @keyframes mjFadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    #password-gate .mj-inner { animation: mjFadeUp 0.35s ease both; }
+
+    /* ── Bottom link ── */
+    .mj-bottom-link {
+      text-align: center; margin-top: 16px;
+      font-size: 13px; color: #a89880;
+    }
+    .mj-bottom-link a {
+      color: #cc785c; cursor: pointer; text-decoration: none; font-weight: 500;
+    }
+    .mj-bottom-link a:hover { text-decoration: underline; }
+
+    /* ── Landing hero (above card) ── */
+    .mj-hero {
+      text-align: center; margin-bottom: 28px;
+    }
+    .mj-hero .mj-logo { justify-content: center; margin-bottom: 20px; }
+    .mj-hero h1 {
+      font-family: 'Sora', sans-serif; font-weight: 800;
+      font-size: clamp(26px, 5vw, 36px); color: #1e1a14;
+      letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 10px;
+    }
+    .mj-hero h1 em { color: #cc785c; font-style: normal; }
+    .mj-hero p {
+      font-size: 15px; color: #6b5f4a; line-height: 1.65; max-width: 320px; margin: 0 auto;
+    }
   </style>
 
+  <!-- Auth gate markup -->
   <div id="password-gate">
     <div class="mj-glow"></div>
-    <div class="mj-inner" style="width:100%;max-width:380px;position:relative;z-index:1;">
+    <div class="mj-inner">
 
-      <!-- SCREEN: Login -->
-      <div id="mj-s-login" class="mj-screen active">
-        <div class="mj-card">
+      <!-- ── SCREEN: Landing ── -->
+      <div id="mj-s-landing" class="mj-screen active">
+        <div class="mj-hero">
           <div class="mj-logo">
-            <svg width="38" height="38" viewBox="0 0 40 40" fill="none">
-              <circle cx="7" cy="20" r="5.5" fill="#c9a87a" stroke="#c8861a" stroke-width="1.5"/>
-              <circle cx="7" cy="20" r="2.5" fill="#c8861a" opacity="0.6"/>
-              <circle cx="33" cy="20" r="5.5" fill="#c9a87a" stroke="#c8861a" stroke-width="1.5"/>
-              <circle cx="33" cy="20" r="2.5" fill="#c8861a" opacity="0.6"/>
+            <svg width="44" height="44" viewBox="0 0 40 40" fill="none">
+              <circle cx="7"  cy="20" r="5.5" fill="#c9a87a" stroke="#cc785c" stroke-width="1.5"/>
+              <circle cx="7"  cy="20" r="2.5" fill="#cc785c" opacity="0.6"/>
+              <circle cx="33" cy="20" r="5.5" fill="#c9a87a" stroke="#cc785c" stroke-width="1.5"/>
+              <circle cx="33" cy="20" r="2.5" fill="#cc785c" opacity="0.6"/>
               <ellipse cx="20" cy="19" rx="13" ry="13" fill="#c9a87a"/>
-              <ellipse cx="20" cy="22" rx="8" ry="7" fill="#e8cfa0"/>
+              <ellipse cx="20" cy="22" rx="8"  ry="7"  fill="#e8cfa0"/>
               <circle cx="16" cy="17" r="2.5" fill="white"/><circle cx="24" cy="17" r="2.5" fill="white"/>
               <circle cx="16.8" cy="17" r="1.2" fill="#3a2a10"/><circle cx="24.8" cy="17" r="1.2" fill="#3a2a10"/>
               <circle cx="17.2" cy="16.4" r="0.5" fill="white" opacity="0.8"/><circle cx="25.2" cy="16.4" r="0.5" fill="white" opacity="0.8"/>
               <ellipse cx="20" cy="21" rx="2" ry="1.2" fill="#a07840"/>
               <circle cx="19" cy="20.8" r="0.5" fill="#7a5020"/><circle cx="21" cy="20.8" r="0.5" fill="#7a5020"/>
-              <path d="M17 24 Q20 27 23 24" stroke="#c8861a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-              <path d="M17 7 Q20 4 23 7" stroke="#c8861a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M17 24 Q20 27 23 24" stroke="#cc785c" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M17 7 Q20 4 23 7" stroke="#cc785c" stroke-width="2" stroke-linecap="round" fill="none"/>
             </svg>
             <span class="mj-logo-text">monkey<span>joe</span></span>
           </div>
-          <div class="mj-h2">Welcome back 👋</div>
-          <p class="mj-sub">Enter your password to continue.</p>
-          <label class="mj-label" for="mj-pass">Password</label>
-          <input id="mj-pass" class="mj-input" type="password" placeholder="Your password" autofocus />
-          <div id="mj-pass-err" class="mj-error">Wrong password — try again.</div>
-          <button class="mj-btn" id="mj-pass-btn">Log in →</button>
-          <div class="mj-divider"><hr><span>new here?</span><hr></div>
-          <button class="mj-btn-ghost" id="mj-to-invite-btn">🎟️ Monkey Joe isn't live yet — but I have an invite</button>
+          <h1>We're not open<br/><em>just yet.</em></h1>
+          <p>Monkey Joe is still getting ready for the world. Check back soon!</p>
+        </div>
+        <div class="mj-card">
+          <div class="mj-eyebrow">🎟️ Got an invite?</div>
+          <div class="mj-h2" style="margin-bottom:6px;">You can still get in.</div>
+          <p class="mj-sub">If someone sent you an invite code, use it to create your account right now.</p>
+          <button class="mj-btn" id="mj-landing-invite-btn">Use my invite code →</button>
+          <div class="mj-divider"><hr><span>already have an account?</span><hr></div>
+          <button class="mj-btn-ghost" id="mj-landing-login-btn">Log in</button>
         </div>
       </div>
 
-      <!-- SCREEN: Invite code -->
+      <!-- ── SCREEN: Login ── -->
+      <div id="mj-s-login" class="mj-screen">
+        <div class="mj-card">
+          <div class="mj-logo">
+            <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+              <circle cx="7"  cy="20" r="5.5" fill="#c9a87a" stroke="#cc785c" stroke-width="1.5"/>
+              <circle cx="7"  cy="20" r="2.5" fill="#cc785c" opacity="0.6"/>
+              <circle cx="33" cy="20" r="5.5" fill="#c9a87a" stroke="#cc785c" stroke-width="1.5"/>
+              <circle cx="33" cy="20" r="2.5" fill="#cc785c" opacity="0.6"/>
+              <ellipse cx="20" cy="19" rx="13" ry="13" fill="#c9a87a"/>
+              <ellipse cx="20" cy="22" rx="8"  ry="7"  fill="#e8cfa0"/>
+              <circle cx="16" cy="17" r="2.5" fill="white"/><circle cx="24" cy="17" r="2.5" fill="white"/>
+              <circle cx="16.8" cy="17" r="1.2" fill="#3a2a10"/><circle cx="24.8" cy="17" r="1.2" fill="#3a2a10"/>
+              <path d="M17 24 Q20 27 23 24" stroke="#cc785c" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="mj-logo-text">monkey<span>joe</span></span>
+          </div>
+          <button class="mj-back" id="mj-login-back">← Back</button>
+          <div class="mj-h2">Welcome back 👋</div>
+          <p class="mj-sub" id="mj-login-sub">Enter your password to continue.</p>
+          <div class="mj-field">
+            <label class="mj-label" for="mj-pass">Password</label>
+            <input id="mj-pass" class="mj-input" type="password" placeholder="Your password" autofocus />
+            <div id="mj-pass-err" class="mj-error">Wrong password — try again.</div>
+          </div>
+          <button class="mj-btn" id="mj-pass-btn">Log in →</button>
+        </div>
+        <div class="mj-bottom-link">
+          Don't have an account? <a id="mj-login-to-invite">Use an invite code</a>
+        </div>
+      </div>
+
+      <!-- ── SCREEN: Invite code ── -->
       <div id="mj-s-invite" class="mj-screen">
         <div class="mj-card">
           <div class="mj-logo">
-            <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+            <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+              <circle cx="7"  cy="20" r="5.5" fill="#c9a87a" stroke="#cc785c" stroke-width="1.5"/>
+              <circle cx="7"  cy="20" r="2.5" fill="#cc785c" opacity="0.6"/>
+              <circle cx="33" cy="20" r="5.5" fill="#c9a87a" stroke="#cc785c" stroke-width="1.5"/>
+              <circle cx="33" cy="20" r="2.5" fill="#cc785c" opacity="0.6"/>
               <ellipse cx="20" cy="19" rx="13" ry="13" fill="#c9a87a"/>
-              <ellipse cx="20" cy="22" rx="8" ry="7" fill="#e8cfa0"/>
+              <ellipse cx="20" cy="22" rx="8"  ry="7"  fill="#e8cfa0"/>
               <circle cx="16" cy="17" r="2.5" fill="white"/><circle cx="24" cy="17" r="2.5" fill="white"/>
               <circle cx="16.8" cy="17" r="1.2" fill="#3a2a10"/><circle cx="24.8" cy="17" r="1.2" fill="#3a2a10"/>
-              <path d="M17 24 Q20 27 23 24" stroke="#c8861a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M17 24 Q20 27 23 24" stroke="#cc785c" stroke-width="1.5" stroke-linecap="round" fill="none"/>
             </svg>
             <span class="mj-logo-text">monkey<span>joe</span></span>
           </div>
-          <button class="mj-back" id="mj-invite-back">← Back to login</button>
+          <button class="mj-back" id="mj-invite-back">← Back</button>
           <div class="mj-h2">Enter your invite code</div>
           <p class="mj-sub">Paste the code you received. It's case-insensitive.</p>
-          <label class="mj-label" for="mj-invite">Invite code</label>
-          <input id="mj-invite" class="mj-input" type="text" placeholder="Enter your invite code" />
-          <div id="mj-invite-err" class="mj-error">That code doesn't look right — check it and try again.</div>
+          <div class="mj-field">
+            <label class="mj-label" for="mj-invite">Invite code</label>
+            <input id="mj-invite" class="mj-input" type="text" placeholder="Paste your code here" autocomplete="off" />
+            <div id="mj-invite-err" class="mj-error">That code doesn't look right — check it and try again.</div>
+          </div>
           <button class="mj-btn" id="mj-invite-btn">Check code →</button>
+        </div>
+        <div class="mj-bottom-link">
+          Already have an account? <a id="mj-invite-to-login">Log in</a>
         </div>
       </div>
 
-      <!-- SCREEN: Create account -->
+      <!-- ── SCREEN: Create account ── -->
       <div id="mj-s-signup" class="mj-screen">
         <div class="mj-card">
           <button class="mj-back" id="mj-signup-back">← Back</button>
-          <div class="mj-notice">✅ <strong>Invite accepted!</strong> Create your account below to get in.</div>
+          <div class="mj-notice">✅ Invite accepted — create your account to get in.</div>
           <div class="mj-h2">Create your account</div>
-          <p class="mj-sub">Almost there — just a few details.</p>
-          <label class="mj-label" for="mj-su-name">Your name</label>
-          <input id="mj-su-name" class="mj-input" type="text" placeholder="Your name" style="margin-bottom:14px;" />
-          <label class="mj-label" for="mj-su-pass">Choose a password</label>
-          <input id="mj-su-pass" class="mj-input" type="password" placeholder="At least 6 characters" />
-          <div id="mj-signup-err" class="mj-error">Please fill in both fields.</div>
+          <p class="mj-sub">Almost there — just a couple of details.</p>
+          <div class="mj-field">
+            <label class="mj-label" for="mj-su-name">Your name</label>
+            <input id="mj-su-name" class="mj-input" type="text" placeholder="What should Joe call you?" autocomplete="name" />
+          </div>
+          <div class="mj-field">
+            <label class="mj-label" for="mj-su-pass">Choose a password</label>
+            <input id="mj-su-pass" class="mj-input" type="password" placeholder="At least 6 characters" autocomplete="new-password" />
+            <div id="mj-signup-err" class="mj-error">Please fill in both fields.</div>
+          </div>
           <button class="mj-btn" id="mj-signup-btn">Create account →</button>
-          <div class="mj-warning">⚠️ <strong>Heads up:</strong> Your chats are saved in <strong>this browser only</strong>. If you clear your browser cache, switch browsers, or use a different device, your chats will be gone. There's no cloud backup yet.</div>
+          <div class="mj-warning">
+            💾 Your chats are saved in this browser only. Clearing your cache or switching devices will erase them — there's no cloud backup yet.
+          </div>
         </div>
       </div>
 
-    </div>
-  </div>
+    </div><!-- /.mj-inner -->
+  </div><!-- /#password-gate -->
 
   <script>
     (function() {
@@ -269,29 +437,36 @@
         document.getElementById(id).classList.add('active');
       }
 
-      // Check if already authed
+      // Already authenticated?
       if (sessionStorage.getItem('mj_auth') === '1') { gate.remove(); return; }
 
-      // Check if user account exists in localStorage
+      // Check for saved account
       const savedAccount = JSON.parse(localStorage.getItem('mj_account') || 'null');
+
+      // If account exists, skip landing and go straight to login
       if (savedAccount) {
-        // Show login but pre-fill name hint
-        document.querySelector('#mj-s-login .mj-sub').textContent = 'Welcome back, ' + savedAccount.name + '! Enter your password.';
+        show('mj-s-login');
+        document.getElementById('mj-login-sub').textContent =
+          'Welcome back, ' + savedAccount.name + '! Enter your password.';
       }
 
-      // ── Login screen ──
+      // ── Landing ──
+      document.getElementById('mj-landing-invite-btn').addEventListener('click', () => show('mj-s-invite'));
+      document.getElementById('mj-landing-login-btn').addEventListener('click', () => show('mj-s-login'));
+
+      // ── Login ──
       const passInput = document.getElementById('mj-pass');
       const passErr   = document.getElementById('mj-pass-err');
 
+      document.getElementById('mj-login-back').addEventListener('click', () => show('mj-s-landing'));
+      document.getElementById('mj-login-to-invite').addEventListener('click', () => show('mj-s-invite'));
       document.getElementById('mj-pass-btn').addEventListener('click', tryLogin);
       passInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
 
       function tryLogin() {
         const val = passInput.value;
-        // Check admin password
         const isAdmin = typeof CONFIG !== 'undefined' && val === CONFIG.password;
-        // Check user account password
-        const isUser = savedAccount && val === savedAccount.password;
+        const isUser  = savedAccount && val === savedAccount.password;
         if (isAdmin || isUser) {
           sessionStorage.setItem('mj_auth', '1');
           gate.remove();
@@ -301,13 +476,12 @@
         }
       }
 
-      document.getElementById('mj-to-invite-btn').addEventListener('click', () => show('mj-s-invite'));
-
-      // ── Invite screen ──
+      // ── Invite ──
       const inviteInput = document.getElementById('mj-invite');
       const inviteErr   = document.getElementById('mj-invite-err');
 
-      document.getElementById('mj-invite-back').addEventListener('click', () => show('mj-s-login'));
+      document.getElementById('mj-invite-back').addEventListener('click', () => show('mj-s-landing'));
+      document.getElementById('mj-invite-to-login').addEventListener('click', () => show('mj-s-login'));
       document.getElementById('mj-invite-btn').addEventListener('click', checkInvite);
       inviteInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkInvite(); });
 
@@ -322,7 +496,7 @@
         }
       }
 
-      // ── Signup screen ──
+      // ── Signup ──
       const signupErr = document.getElementById('mj-signup-err');
 
       document.getElementById('mj-signup-back').addEventListener('click', () => show('mj-s-invite'));
