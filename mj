@@ -23,8 +23,20 @@ GREEN = '\033[92m'
 YELLOW = '\033[93m'
 
 # Cross-platform paths
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-BRAIN_DIR = os.path.join(SCRIPT_DIR, 'brain')
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+REPO_BRAIN = os.path.expanduser('~/github-projects/Mj.ai/brain')
+LOCAL_BRAIN = os.path.join(SCRIPT_DIR, 'brain')
+
+# Smart brain path: prefer repo location, fall back to local, create if needed
+if os.path.exists(REPO_BRAIN):
+    BRAIN_DIR = REPO_BRAIN
+elif os.path.exists(LOCAL_BRAIN):
+    BRAIN_DIR = LOCAL_BRAIN
+else:
+    # Create local brain dir (for binary installs, downloads from GitHub on startup)
+    BRAIN_DIR = LOCAL_BRAIN
+    os.makedirs(BRAIN_DIR, exist_ok=True)
+
 TOKEN_FILE = os.path.expanduser('~/.mj_token')
 
 def update_brain(brain_dir):
