@@ -52,6 +52,66 @@ def update_brain(brain_dir):
         except Exception:
             pass  # silently fail — use cached version
 
+FILE_TEMPLATES = {
+    'html': '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Title</title>
+    <style>
+        body { font-family: system-ui, sans-serif; margin: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Hello World</h1>
+    <p>Start editing here.</p>
+</body>
+</html>''',
+    'py': '''#!/usr/bin/env python3
+"""Script description."""
+
+def main():
+    print("Hello, World!")
+
+if __name__ == '__main__':
+    main()
+''',
+    'sh': '''#!/bin/bash
+# Script description
+
+echo "Hello, World!"
+''',
+    'md': '''# Title
+
+## Introduction
+
+Start writing here.
+
+## Section
+
+- Point 1
+- Point 2
+''',
+    'js': '''// Script description
+
+function main() {
+    console.log("Hello, World!");
+}
+
+main();
+''',
+    'json': '{}',
+    'css': '''/* Styles */
+body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+''',
+    'txt': '',
+}
+
 class MonkeyJoe:
     def __init__(self):
         self.brain_dir = BRAIN_DIR
@@ -218,6 +278,11 @@ class MonkeyJoe:
             score = 0.0
             for keyword in fact.get('keywords', []):
                 kl = keyword.lower()
+                # Short keywords (2 chars or less) must be whole words, not substrings
+                if len(kl) <= 2:
+                    if re.search(r'\b' + re.escape(kl) + r'\b', q):
+                        score += 2.0
+                    continue
                 # Exact substring match
                 if kl in q or q in kl:
                     score += 2.0
@@ -287,6 +352,22 @@ class MonkeyJoe:
                                'coding ability', 'programming ability']
         if any(t in lower for t in capability_triggers) and len(lower.split()) < 8:
             return "I can answer questions from my knowledge base, help with coding and terminal commands, push files to GitHub, and chat. Ask me anything!"
+
+        # Check for file creation requests
+        file_match = re.search(r'(?:make|create|write|generate)\s+(?:me\s+)?(?:a\s+)?(?:file\s+)?(?:called\s+)?([a-zA-Z0-9_\-]+\.[a-zA-Z]+)', lower)
+        if file_match:
+            filename = file_match.group(1)
+            ext = filename.split('.')[-1].lower()
+            filepath = os.path.join(os.getcwd(), filename)
+            # Get template or create empty file
+            template = FILE_TEMPLATES.get(ext, '')
+            try:
+                with open(filepath, 'w') as f:
+                    f.write(template)
+                cwd = os.getcwd()
+                return f"Created {filename} in {cwd}/ ✓\nPush it to GitHub with: push {filename}"
+            except Exception as e:
+                return f"Error creating file: {e}"
 
         # Check for casual statements (not questions)
         if self.is_casual_statement(lower):
