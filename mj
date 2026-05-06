@@ -530,14 +530,17 @@ class MonkeyJoe:
                 print(dash_line)
                 user_input = input("❯ ").strip()
 
+                # Move cursor up one line and clear it, then print styled version
+                print('\033[1A\033[2K', end='')
+
+                # Display sent message in black text on white background
+                print(f'\033[30;47m{user_input:<{term_width}}\033[0m')
+
                 # Print bottom line
                 print(dash_line)
 
                 if not user_input:
                     continue
-
-                # Display sent message in black text on white background
-                print(f'\033[30;47m{user_input:<{term_width}}\033[0m')
 
                 # Check for commands
                 if user_input.lower() == 'exit' or user_input.lower() == 'quit':
