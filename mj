@@ -522,17 +522,16 @@ class MonkeyJoe:
 
         while True:
             try:
-                # Get terminal width for input box
+                # Get terminal width for input lines
                 term_width = os.get_terminal_size().columns
-                border = "|" + "‾" * (term_width - 2) + "|"
-                underline = "‾" * term_width
+                dash_line = "─" * term_width
 
-                # Print top border of input box
-                print(border)
-                user_input = input("| ").strip()
+                # Print top line and prompt
+                print(dash_line)
+                user_input = input("❯ ").strip()
 
-                # Print bottom border of input box
-                print(underline)
+                # Print bottom line
+                print(dash_line)
 
                 if not user_input:
                     continue
