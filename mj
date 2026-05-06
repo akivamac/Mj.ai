@@ -509,6 +509,8 @@ class MonkeyJoe:
 
     def run(self):
         """Main REPL loop."""
+        print("\033[33m------------------------\033[0m")
+        print()
         print("\033[33m     / ^^_^^^^_^^\\\033[0m")
         print("\033[33m    |     ^      |\033[0m")
         print("\033[33m|-------        -------|\033[0m")
