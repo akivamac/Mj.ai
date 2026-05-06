@@ -23,7 +23,7 @@ const GitHub = (() => {
   }
 
   async function pushFile(path, content, message) {
-    if (!token()) return { ok: false, error: 'No GitHub token in config.js' };
+    if (!token()) return { ok: false, error: 'No GitHub token saved — go to Settings to add one' };
     try {
       const sha  = await getSHA(path);
       const body = {
