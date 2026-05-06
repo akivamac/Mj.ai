@@ -43,6 +43,16 @@ const Brain = (() => {
   function respond(input, history = []) {
     let lower = input.toLowerCase().trim();
 
+    // Get user account name for personalization
+    const account = JSON.parse(localStorage.getItem('mj_account') || 'null');
+    const userName = account ? account.name : null;
+
+    // Identity check — personalize before other logic
+    if (/who am i|what is my name|do you know me/i.test(lower)) {
+      if (userName) return `You're ${userName}! 👋`;
+      return "I don't know your name yet — you might not be logged in with an account.";
+    }
+
     // ── Follow-up context injection ──────────────────────────
     if (_lastTopicLabel && detectFollowUp(lower)) {
       // inject last topic so "what do they eat?" becomes "what do they eat elephant"
@@ -95,7 +105,12 @@ const Brain = (() => {
     if (rules && rules.greetings && lower.length < 30 && !lower.includes('?') && !lower.includes('who') && !lower.includes('what') && !lower.includes('how')) {
       for (const g of rules.greetings) {
         if (g.if.some(w => lower === w || lower.startsWith(w + ' ') || lower.startsWith(w + '!') || lower.startsWith(w + ','))) {
-          return pick(g.responses);
+          const greeting = pick(g.responses);
+          // Personalize greeting with user's name if available
+          if (userName && greeting.includes('Hi') && !greeting.includes(userName)) {
+            return greeting.replace(/^Hi/, `Hi ${userName},`);
+          }
+          return greeting;
         }
       }
     }
