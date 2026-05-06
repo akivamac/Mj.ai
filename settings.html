@@ -299,7 +299,11 @@
 
   </div><!-- /.settings-page -->
 
-  <script src="config.js"></script>
+  <script>
+    // config.js may not exist on GitHub Pages — define a safe fallback
+    window.CONFIG = window.CONFIG || {};
+  </script>
+  <script src="config.js" onerror="/* config.js not found, using fallback */"></script>
   <script src="js/storage.js"></script>
   <script src="js/backside.js"></script>
   <script src="js/brain.js"></script>
