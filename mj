@@ -526,8 +526,7 @@ class MonkeyJoe:
                 term_width = os.get_terminal_size().columns
                 dash_line = "─" * term_width
 
-                # Print top line and prompt
-                print(dash_line)
+                # Get input with prompt
                 user_input = input("❯ ").strip()
 
                 # Move cursor up one line and clear it, then print styled version
@@ -596,6 +595,9 @@ class MonkeyJoe:
                 # Get response
                 response = self.respond(user_input)
                 print(f"Joe: {response}\n")
+
+                # Print line above next prompt
+                print(dash_line)
 
                 # Store exchange
                 self.history.append({'you': user_input, 'joe': response})
