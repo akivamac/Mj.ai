@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '26'; // bump when brain JSON files change
+  const BRAIN_VERSION = '27'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -160,15 +160,16 @@ const Brain = (() => {
     // 1. QUESTION STRIPPING — remove filler to expose the real topic
     function stripQuestion(q) {
       return q
-        .replace(/^(please |can you |could you |do you know |tell me |i want to know |i was wondering |i wonder |help me understand |explain to me |)/i, '')
-        .replace(/^(what is|what are|what was|what were|what's|whats|what does|what do|what did|what can|what makes|what causes|what happens|what kind of|what type of|what sort of)/i, '')
+        .replace(/^(please |can you |could you |can you tell me|could you tell me|do you know |do you happen to know|do you know anything about|tell me |i want to know |i was wondering |i wonder |i was just wondering|i'm curious about|help me understand |explain to me |)/i, '')
+        .replace(/^(what is|what are|what was|what were|what's|whats|what does|what do|what did|what can|what makes|what causes|what happens|what kind of|what type of|what sort of|what's the deal with|what's up with)/i, '')
         .replace(/^(who is|who are|who was|who were|who's|whos|who invented|who created|who discovered|who made|who built|who founded)/i, '')
         .replace(/^(how does|how do|how did|how is|how are|how was|how were|how to|how many|how much|how long|how big|how large|how small|how fast|how old|how far)/i, '')
         .replace(/^(why does|why do|why did|why is|why are|why was|why were|why can't|why cant|why would)/i, '')
         .replace(/^(where is|where are|where was|where were|where do|where does|where did|where can)/i, '')
         .replace(/^(when is|when was|when were|when did|when does|when do)/i, '')
-        .replace(/^(is it|is there|is a|is an|are there|are they|does it|do they|did it|can it|can they|will it)/i, '')
-        .replace(/^(tell me about|talk to me about|give me info on|give me information about|info on|information on|information about|facts about|fact about|about)/i, '')
+        .replace(/^(is it|is there|is a|is an|are there|are they|does it|do they|did it|can it|can they|will it|is it true that|is it true|have you heard of|do you know what)/i, '')
+        .replace(/^(tell me about|talk to me about|give me info on|give me information about|info on|information on|information about|facts about|fact about|about|give me some info on|give me facts about)/i, '')
+        .replace(/^(i want to learn about|explain|describe|define|what does.*mean)/i, '')
         .replace(/\?+$/, '')
         .replace(/^(the |a |an )/, '')
         .trim();
@@ -228,6 +229,7 @@ const Brain = (() => {
       'statistics': 'statistics',
       'probability': 'statistics',
       'greenhouse effect': 'climate change', 'global warming': 'climate change',
+      'greenhouse gases': 'climate change',
       'co2': 'climate change', 'carbon dioxide': 'climate change',
       'fission': 'nuclear', 'fusion': 'nuclear',
       'radioactive': 'nuclear',
@@ -248,12 +250,24 @@ const Brain = (() => {
       'gut bacteria': 'digestion',
       'microbiome': 'digestion',
       'tectonic': 'volcano',
+      'tectonic plates': 'volcano',
       'earthquake': 'volcano',
       'seismic': 'volcano',
+      'seismograph': 'earthquake',
       'tsunami': 'ocean',
       'aurora': 'space weather',
       'northern lights': 'space weather',
       'southern lights': 'space weather',
+      'fawn': 'deer', 'colt': 'horse', 'piglet': 'pig', 'lamb': 'sheep', 'cub': 'bear', 'joey': 'kangaroo', 'hatchling': 'bird',
+      'h2o': 'water', 'nacl': 'salt', 'periodic table': 'elements',
+      'artificial neural network': 'neural network', 'deep learning': 'machine learning', 'chatbot': 'ai', 'self driving': 'autonomous vehicles', 'self-driving': 'autonomous vehicles',
+      'ev': 'electric vehicles', 'cryptocurrency exchange': 'bitcoin', 'nft': 'web3', 'ar': 'augmented reality', 'vr': 'virtual reality',
+      'ww2': 'world war 2', 'ww1': 'world war 1', 'the great war': 'world war 1', 'the holocaust': 'holocaust',
+      'bp': 'blood pressure', 'bmi': 'nutrition', 'calories': 'nutrition', 'carbs': 'nutrition', 'gut health': 'digestion', 'immune': 'immune system',
+      'mental illness': 'mental health', 'anxiety': 'mental health', 'depression': 'mental health',
+      'quadratic': 'algebra', 'differentiation': 'calculus', 'integration': 'calculus', 'matrices': 'linear algebra', 'vectors': 'linear algebra', 'probability theory': 'statistics',
+      'north pole': 'arctic', 'south pole': 'antarctic', 'rainforest': 'amazon', 'sahel': 'deserts', 'tundra': 'arctic',
+      'espresso': 'coffee', 'latte': 'coffee', 'cappuccino': 'coffee', 'mozzarella': 'cheese', 'parmesan': 'cheese', 'sourdough': 'bread', 'baguette': 'bread', 'spaghetti': 'pasta', 'penne': 'pasta',
     };
 
     function expandSynonyms(q) {
@@ -308,6 +322,14 @@ const Brain = (() => {
         /(?:where (?:do|does|did|is|are))\s+(?:a\s+|an\s+|the\s+)?(.+?)\s+(?:live|come from|originate|grow|found)/i,
         /(?:how (?:big|large|small|tall|heavy|fast|old|long|far|much|many))\s+(?:is|are|was|were|can)\s+(?:a\s+|an\s+|the\s+)?(.+?)(?:\s+\?|$)/i,
         /(?:can|do|does|is|are)\s+(?:a\s+|an\s+|the\s+)?(.+?)\s+(?:fly|swim|talk|think|feel|dream|sleep|breathe|lay eggs|have|see|hear)/i,
+        /(?:is it true that|is it true)\s+(.+?)(?:\?|$)/i,
+        /(?:have you heard of|do you know what|do you know about)\s+(.+?)(?:\?|$)/i,
+        /(?:what's the deal with|what's up with)\s+(.+?)(?:\?|$)/i,
+        /(?:define|meaning of|what does)\s+(.+?)\s+(?:mean|stand for|refer to)?(?:\?|$)/i,
+        /(?:difference between|compare)\s+(.+?)\s+and\s+(.+?)(?:\?|$)/i,
+        /(?:examples? of|types? of|kinds? of)\s+(.+?)(?:\?|$)/i,
+        /(?:history of|origin of|story of|who invented|who discovered|who created|who founded)\s+(.+?)(?:\?|$)/i,
+        /(?:how (?:do|does|did|can|could|would|should|to))\s+(?:i|you|we|one)?\s*(.+?)\s+(?:work|function|happen|start|begin|end|stop|improve|learn|get|make|use|fix|build|create|find)/i,
       ];
       for (const pat of patterns) {
         const m = q.match(pat);
@@ -329,6 +351,12 @@ const Brain = (() => {
       baby:      ['baby', 'young', 'cub', 'pup', 'foal', 'calf', 'born', 'birth', 'newborn', 'offspring', 'reproduce', 'pregnancy', 'gestation'],
       sleep:     ['sleep', 'rest', 'nocturnal', 'awake', 'hibernate', 'nap', 'dormant'],
       smell:     ['smell', 'scent', 'nose', 'sniff', 'sense of smell', 'olfactory'],
+      reproduction: ['reproduce', 'mate', 'breeding', 'pregnant', 'eggs', 'gestation', 'spawn', 'litter', 'offspring'],
+      intelligence: ['smart', 'intelligent', 'clever', 'brain', 'learn', 'think', 'memory', 'problem solving', 'iq', 'cognitive'],
+      history_of: ['history', 'origin', 'invented', 'discovered', 'created', 'founded', 'first', 'ancient', 'old', 'began', 'started'],
+      how_works: ['how does', 'how do', 'mechanism', 'process', 'function', 'work', 'operate'],
+      comparison: ['vs', 'versus', 'difference', 'compare', 'better', 'worse', 'similar', 'different'],
+      examples: ['example', 'examples', 'types', 'kinds', 'varieties', 'list', 'name some', 'give me'],
     };
 
     function getIntent(q) {
@@ -366,13 +394,26 @@ const Brain = (() => {
       return best;
     }
 
+    // ── Context-aware follow-up handling ──────────────────────────
+    // If this is a very short follow-up (under 4 words, no question words), append last topic
+    function applyContextualFollowUp(q) {
+      const wordCount = q.split(/\s+/).length;
+      const hasQuestionWords = /^(what|who|how|why|where|when|is|are|do|does|can|could|would|should|will|did|was|were)/.test(q);
+      if (wordCount <= 3 && !hasQuestionWords && _lastTopicLabel) {
+        // Append last topic to boost relevance (e.g., "and size?" becomes "and size elephant")
+        return q + ' ' + _lastTopicLabel;
+      }
+      return q;
+    }
+
     if (knowledge && knowledge.facts) {
       // Build query variants: original, stripped, synonym-expanded, topic-extracted
-      const stripped   = stripQuestion(lower);
-      const expanded   = expandSynonyms(lower);
+      const contextualQ = applyContextualFollowUp(lower);
+      const stripped   = stripQuestion(contextualQ);
+      const expanded   = expandSynonyms(contextualQ);
       const strExpanded = expandSynonyms(stripped);
-      const topic      = extractTopic(lower);
-      const variants   = [lower, stripped, expanded, strExpanded];
+      const topic      = extractTopic(contextualQ);
+      const variants   = [contextualQ, stripped, expanded, strExpanded];
       if (topic) variants.push(topic, expandSynonyms(topic));
 
       let bestFact = null, bestScore = 0;
@@ -381,7 +422,8 @@ const Brain = (() => {
         if (score > bestScore) { bestScore = score; bestFact = fact; }
       }
 
-      if (bestFact && bestScore > 0) {
+      // Improved threshold: require >= 1.5 for knowledge match, fall back to search for weak matches (0.5-1.5)
+      if (bestFact && bestScore >= 1.5) {
         const intentResult = getIntent(lower);
         if (intentResult) {
           const answerLower = bestFact.answer.toLowerCase();
@@ -392,6 +434,11 @@ const Brain = (() => {
         _lastTopicLabel    = bestFact.keywords[0];
         _lastFactAnswer    = bestFact.answer;
         return bestFact.answer;
+      }
+
+      // Weak match (0.5-1.5 score): fall back to search instead of returning unreliable answer
+      if (bestFact && bestScore > 0.5 && bestScore < 1.5) {
+        return '__SEARCH__:' + input.replace(/^(find a link to|find me|find a|find|look up|show me|get me|can you find|s[ea]rch for|s[ea]rch the web for)\s+/i, '');
       }
     }
 
