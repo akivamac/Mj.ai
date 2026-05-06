@@ -522,25 +522,26 @@ class MonkeyJoe:
 
         while True:
             try:
-                # Get terminal width for input lines
-                term_width = os.get_terminal_size().columns
-                dash_line = "─" * term_width
+                cols = os.get_terminal_size().columns
+                line = '─' * cols
 
-                # Print top line of prompt area
-                print(dash_line)
-                # Get input with prompt
-                user_input = input("❯ ").strip()
+                # Show framed unsent prompt
+                print(line)
+                user_input = input('❯ ')
+                print(line)
 
-                # Move cursor up one line and clear it, then print styled version
-                print('\033[1A\033[2K', end='')
-
-                # Display sent message in black text on white background
-                print(f'\033[30;47m{user_input:<{term_width}}\033[0m')
-                # Print bottom line below sent message
-                print(dash_line)
-
-                if not user_input:
+                if not user_input.strip():
                     continue
+
+                # Replace the 3 lines (top line + input line + bottom line)
+                # with just the black-on-white sent message
+                print('\033[3A', end='')   # move cursor up 3 lines
+                print('\033[2K', end='')   # clear top line
+                print('\033[1B', end='')   # move down 1
+                print('\033[2K', end='')   # clear input line
+                print(f'\033[30;47m{user_input:<{cols}}\033[0m')  # black on white sent message
+                print('\033[2K', end='')   # clear bottom line (cursor is already there)
+                print()                    # blank line after sent message
 
                 # Check for commands
                 if user_input.lower() == 'exit' or user_input.lower() == 'quit':
@@ -599,6 +600,9 @@ class MonkeyJoe:
                 # Get response
                 response = self.respond(user_input)
                 print(f"Joe: {response}\n")
+
+                # Blank line before next prompt
+                print()
 
                 # Store exchange
                 self.history.append({'you': user_input, 'joe': response})
