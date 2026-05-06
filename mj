@@ -525,10 +525,15 @@ class MonkeyJoe:
                 cols = os.get_terminal_size().columns
                 line = '─' * cols
 
+                # Breathing room before prompt
+                print()
+                print()
+
                 # Show framed unsent prompt
                 print(line)
                 user_input = input('❯ ')
                 print(line)
+                print()  # keep bottom line visible above keyboard
 
                 if not user_input.strip():
                     continue
