@@ -533,7 +533,6 @@ class MonkeyJoe:
                 print(line)
                 user_input = input('❯ ')
                 print(line)
-                print('\n' * 8)  # push content above on-screen keyboard
 
                 if not user_input.strip():
                     continue
@@ -605,9 +604,6 @@ class MonkeyJoe:
                 # Get response
                 response = self.respond(user_input)
                 print(f"Joe: {response}\n")
-
-                # Blank line before next prompt
-                print()
 
                 # Store exchange
                 self.history.append({'you': user_input, 'joe': response})
