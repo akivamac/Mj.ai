@@ -536,9 +536,6 @@ class MonkeyJoe:
                 # Display sent message in black text on white background
                 print(f'\033[30;47m{user_input:<{term_width}}\033[0m')
 
-                # Print bottom line
-                print(dash_line)
-
                 if not user_input:
                     continue
 
