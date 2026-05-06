@@ -444,7 +444,8 @@ class MonkeyJoe:
                 print(f"{RED}Error: File must be in Mj.ai repo{RESET}")
                 return False
 
-            content = file_to_push.read_text()
+            with open(file_to_push, 'r', encoding='utf-8') as f:
+                content = f.read()
             import base64
             content_b64 = base64.b64encode(content.encode()).decode()
 
@@ -486,7 +487,7 @@ class MonkeyJoe:
 
     def run(self):
         """Main REPL loop."""
-        print(f"\n🐒 {DIM}Monkey Joe Terminal Interface v27{RESET}")
+        print(f"\n🐒 {DIM}Monkey Joe Terminal Interface v28{RESET}")
         print(f"{DIM}Type 'exit' to quit, 'brain' for stats, 'help' for commands\n{RESET}")
 
         while True:
