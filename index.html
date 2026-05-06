@@ -493,7 +493,7 @@
       function tryLogin() {
         const val = passInput.value;
         const isAdmin = typeof CONFIG !== 'undefined' && val === CONFIG.password;
-        const isUser  = savedAccount && val === savedAccount.password;
+        const freshAccount = JSON.parse(localStorage.getItem("mj_account") || "null"); const isUser = freshAccount && val === freshAccount.password;
         if (isAdmin || isUser) {
           sessionStorage.setItem('mj_auth', '1');
           gate.remove();
