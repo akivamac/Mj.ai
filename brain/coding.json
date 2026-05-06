@@ -1,0 +1,232 @@
+{
+  "facts": [
+    {
+      "keywords": ["can you code", "do you code", "coding ability", "programming ability"],
+      "answer": "I can help with coding questions, explain concepts, debug errors, and answer questions about languages, tools, and frameworks. Just ask me anything coding-related!"
+    },
+    {
+      "keywords": ["new repo", "create repo", "initialize repo", "new repository", "start repo", "create repository"],
+      "answer": "To create a new local repo: `git init` in your project folder. To also create it on GitHub: `gh repo create` (GitHub CLI) or create it on github.com first, then `git remote add origin <url>` and `git push -u origin main`. If starting fresh: `mkdir myproject && cd myproject && git init && git remote add origin https://github.com/yourusername/myproject.git`"
+    },
+    {
+      "keywords": ["git commands", "git basics", "common git", "git cheatsheet", "git help"],
+      "answer": "Essential git commands: `git init` (new repo), `git clone <url>` (copy repo), `git status` (see changes), `git add .` (stage all), `git add <file>` (stage one), `git commit -m 'msg'` (save snapshot), `git push` (send to remote), `git pull` (get remote changes), `git branch` (list branches), `git checkout -b name` (create+switch branch), `git merge name` (merge branch), `git log --oneline` (compact history), `git diff` (see unstaged changes), `git stash` (save work temporarily), `git stash pop` (restore stashed work)"
+    },
+    {
+      "keywords": ["git remote", "add remote", "remote origin", "connect github"],
+      "answer": "Connect a local repo to GitHub: `git remote add origin https://github.com/username/repo.git` then `git push -u origin main`. Check remotes: `git remote -v`. Change remote URL: `git remote set-url origin <new-url>`. Remove remote: `git remote remove origin`."
+    },
+    {
+      "keywords": ["git push first time", "first push", "upstream", "-u origin main"],
+      "answer": "First push to a new remote: `git push -u origin main`. The `-u` sets the upstream so future pushes just need `git push`. If you get 'rejected' because the remote has commits you don't have: `git pull --rebase origin main` then `git push`."
+    },
+    {
+      "keywords": ["git clone", "clone repo", "download repo"],
+      "answer": "Clone a repo: `git clone https://github.com/username/repo.git`. This creates a folder with the repo name. Clone into current folder: `git clone <url> .`. Clone a specific branch: `git clone -b branchname <url>`. In Termux: clone into `~/github-projects/` to keep things organized."
+    },
+    {
+      "keywords": ["git commit", "how to commit", "save changes git"],
+      "answer": "Save changes: `git add .` to stage everything, then `git commit -m 'your message'`. Good commit messages: describe WHAT changed and WHY. Conventional format: `feat: add login page`, `fix: broken button`, `refactor: clean up auth`, `docs: update README`. Amend last commit message: `git commit --amend -m 'new message'`. Amend and add forgotten files: `git add forgotten.js && git commit --amend --no-edit`."
+    },
+    {
+      "keywords": ["git branch", "create branch", "switch branch", "branches"],
+      "answer": "Branches let you work on features without affecting main. Create and switch: `git checkout -b feature-name` (old way) or `git switch -c feature-name` (new way). Switch to existing: `git checkout main` or `git switch main`. List all branches: `git branch -a`. Delete branch: `git branch -d feature-name`. Merge branch into current: `git merge feature-name`. See what branch you're on: `git status` (shows it at the top)."
+    },
+    {
+      "keywords": ["git pull", "update repo", "get latest", "sync repo"],
+      "answer": "`git pull` fetches and merges remote changes into your current branch. If you get merge conflicts: resolve them manually, then `git add .` and `git commit`. Safer alternative: `git pull --rebase` (replays your commits on top of the fetched commits — cleaner history). To just fetch without merging: `git fetch`."
+    },
+    {
+      "keywords": ["merge conflict", "git conflict", "conflict resolution"],
+      "answer": "Merge conflicts happen when two branches changed the same lines. Git marks them like this: `<<<<<<< HEAD` (your changes) `=======` (divider) `>>>>>>> branch-name` (their changes). To fix: edit the file to keep what you want, remove the markers, then `git add .` and `git commit`. VS Code and most editors have visual merge conflict tools. Abort a merge: `git merge --abort`."
+    },
+    {
+      "keywords": ["gitignore", ".gitignore", "ignore files git"],
+      "answer": "`.gitignore` tells git which files to never track. Common patterns: `node_modules/` (npm packages), `.env` (secrets), `*.log` (log files), `dist/` (build output), `.DS_Store` (Mac metadata), `config.js` (sensitive config). Create it: `touch .gitignore` then edit. Files already tracked won't be ignored — untrack them first: `git rm --cached filename`. Global gitignore for all repos: `git config --global core.excludesfile ~/.gitignore_global`."
+    },
+    {
+      "keywords": ["git init", "git"],
+      "answer": "git init: Initialize a new Git repository in the current directory. Creates a .git folder with all necessary Git metadata. Usage: git init. After this, you can git add, git commit, and manage your project's version history."
+    },
+    {
+      "keywords": ["git clone", "git"],
+      "answer": "git clone <url>: Copy a remote repository to your local machine. Downloads the entire project history. Usage: git clone https://github.com/user/repo.git. Creates a folder named after the repo and sets up the origin remote automatically."
+    },
+    {
+      "keywords": ["git add", "git"],
+      "answer": "git add: Stage files for commit. git add . stages all changes. git add <file> stages a specific file. git add -p stages changes interactively, line by line. Staging tells Git which changes you want to include in the next commit."
+    },
+    {
+      "keywords": ["git commit", "git"],
+      "answer": "git commit -m 'message': Save staged changes to the repository with a descriptive message. The message explains the 'why' not just the 'what'. Good commit messages are crucial for collaboration. Use git commit --amend to modify the last commit."
+    },
+    {
+      "keywords": ["git push", "git"],
+      "answer": "git push: Upload your local commits to the remote repository (usually origin/main). First time: git push -u origin branch-name sets up tracking. git push origin <branch> pushes a specific branch. git push --all pushes all branches. Always pull before pushing to avoid conflicts."
+    },
+    {
+      "keywords": ["git pull", "git"],
+      "answer": "git pull: Fetch and merge changes from the remote repository. Equivalent to git fetch followed by git merge. Always pull before starting work or before pushing. If there are conflicts, resolve them manually, then git add and git commit."
+    },
+    {
+      "keywords": ["git merge", "git"],
+      "answer": "git merge <branch>: Combine changes from another branch into the current branch. First switch to the target branch (git checkout main), then git merge feature-branch. Conflicts may occur if changes overlap—resolve manually and commit the merge."
+    },
+    {
+      "keywords": ["git rebase", "git"],
+      "answer": "git rebase <branch>: Reapply commits on top of another branch. Cleaner history than merge, but rewrites commit history—never rebase public/shared branches. Usage: git rebase main rebases current branch onto main. Use git rebase -i for interactive rebasing (squashing, reordering commits)."
+    },
+    {
+      "keywords": ["git stash", "git"],
+      "answer": "git stash: Save uncommitted changes temporarily without committing. Useful when you need to switch branches but aren't ready to commit. git stash list shows saved stashes. git stash pop retrieves the most recent stash. git stash drop deletes a stash."
+    },
+    {
+      "keywords": ["git log", "git"],
+      "answer": "git log: View commit history. git log --oneline shows compact log. git log --graph --all --decorate shows a visual branch graph. git log -p shows diffs for each commit. git log --author=name filters by author. Ctrl+Q exits the log viewer."
+    },
+    {
+      "keywords": ["git diff", "git"],
+      "answer": "git diff: Show changes between commits/branches. git diff shows unstaged changes. git diff --staged shows staged changes. git diff HEAD shows all changes since last commit. git diff branch1 branch2 compares two branches. git diff commit1 commit2 shows changes between commits."
+    },
+    {
+      "keywords": ["git reset", "git"],
+      "answer": "git reset: Undo changes. git reset --soft HEAD~1 undoes last commit, keeps changes staged. git reset --mixed HEAD~1 undoes commit, unstages changes. git reset --hard HEAD~1 undoes commit AND discards changes (dangerous!). git reset <file> unstages a file."
+    },
+    {
+      "keywords": ["git cherry-pick", "git"],
+      "answer": "git cherry-pick <commit>: Apply a specific commit from another branch to the current branch. Useful for backporting fixes. git cherry-pick <commit1> <commit2> applies multiple commits. If conflicts occur, resolve them and git cherry-pick --continue."
+    },
+    {
+      "keywords": ["merge conflict", "git"],
+      "answer": "Merge conflict: Occurs when two branches modify the same lines differently. Git marks conflicts with <<<<<<< HEAD, =======, >>>>>>>. Manually edit files to resolve (keep changes you want, delete markers), then git add and git commit. Use git mergetool for visual merge tools."
+    },
+    {
+      "keywords": ["pull request", "git"],
+      "answer": "Pull request (PR): Proposed changes on GitHub/GitLab. Fork the repo, create a branch, commit changes, push, then open a PR. Allows code review before merging. Merge conflicts must be resolved before merging. Squash commits before merging keeps history clean."
+    },
+    {
+      "keywords": ["bash variables", "bash"],
+      "answer": "Bash variables: Store data. Set with VAR=value (no spaces). Access with $VAR or ${VAR}. Quotes: single quotes preserve literal strings; double quotes allow variable expansion. Example: name='John'; echo \"Hello $name\" outputs 'Hello John'. Use readonly VAR=value to prevent changes."
+    },
+    {
+      "keywords": ["bash loops", "bash"],
+      "answer": "Bash loops: for loop: for i in 1 2 3; do echo $i; done. for file in *.txt; do cat $file; done processes all .txt files. while loop: while condition; do commands; done. until loop: until condition; do commands; done. Loop control: break exits loop, continue skips iteration."
+    },
+    {
+      "keywords": ["bash conditionals", "bash"],
+      "answer": "Bash conditionals: if [ condition ]; then commands; fi. elif and else for multiple branches. Common tests: [ -f file ] (file exists), [ -d dir ] (directory exists), [ $x -eq $y ] (equal), [ $x -gt $y ] (greater than), [ -z $var ] (empty), [ -n $var ] (not empty). Use [[ ]] for advanced patterns."
+    },
+    {
+      "keywords": ["bash functions", "bash"],
+      "answer": "Bash functions: Define with fname() { commands; }. Call with fname [args]. Access arguments: $1, $2, $#, $@, $*. Return values: use return N (exit code 0-255). Capture output: result=$(fname). Local variables: local var=value. Functions are powerful for code reuse and modularity."
+    },
+    {
+      "keywords": ["bash pipes", "bash"],
+      "answer": "Bash pipes (|): Chain commands—output of one feeds into input of next. Example: cat file.txt | grep 'pattern' | wc -l counts matching lines. ls -la | head -20 shows first 20 files. Combine with common tools: grep (filter), sed (transform), awk (parse), sort, uniq, wc, cut."
+    },
+    {
+      "keywords": ["bash redirects", "bash"],
+      "answer": "Bash redirects: > overwrites output to file. >> appends to file. < reads input from file. 2> redirects errors to file. 2>&1 merges errors into stdout. Example: command > out.txt 2>&1 saves both output and errors. /dev/null discards output: command > /dev/null 2>&1."
+    },
+    {
+      "keywords": ["chmod", "bash"],
+      "answer": "chmod: Change file permissions. chmod +x file makes executable. chmod 755 rwxr-xr-x (owner read/write/execute, others read/execute). chmod 644 rw-r--r-- (owner read/write, others read). chmod -R applies recursively to directories. u=user, g=group, o=others, a=all; r=read, w=write, x=execute."
+    },
+    {
+      "keywords": ["cron job", "bash"],
+      "answer": "Cron: Schedule recurring tasks. crontab -e edits your crontab. Format: minute hour day month weekday command. Example: 0 12 * * * script.sh runs daily at noon. 0 */6 * * * runs every 6 hours. */5 * * * * runs every 5 minutes. Check logs with grep CRON /var/log/syslog."
+    },
+    {
+      "keywords": ["python venv", "python"],
+      "answer": "Virtual environment (venv): Isolates Python projects. Create: python3 -m venv myenv. Activate: source myenv/bin/activate (Linux/Mac) or myenv\\Scripts\\activate (Windows). Install packages in venv: pip install package. Deactivate: deactivate. Benefits: no dependency conflicts, reproducible environments, clean pip list."
+    },
+    {
+      "keywords": ["pip install", "python"],
+      "answer": "pip: Python package manager. pip install package installs from PyPI. pip install package==1.2.3 specifies version. pip install -r requirements.txt installs from file (format: package==version, one per line). pip freeze > requirements.txt exports installed packages. pip uninstall package removes packages."
+    },
+    {
+      "keywords": ["python f-strings", "python"],
+      "answer": "F-strings (Python 3.6+): f'text {variable}' embeds expressions. Example: f'Hello {name}!' or f'{x * 2}'. Inline expressions: f'{value:>10}' right-align to 10 chars, f'{price:.2f}' format to 2 decimals. f'{name!r}' adds quotes (repr). Much more readable than % formatting or .format()."
+    },
+    {
+      "keywords": ["python list comprehensions", "python"],
+      "answer": "List comprehensions: [expr for item in list if condition]. Example: [x*2 for x in range(10)] generates [0, 2, 4, ..., 18]. [x for x in nums if x > 5] filters. Nested: [[x+y for x in range(3)] for y in range(3)]. Dict comprehensions: {k: v for k, v in items}. Much faster than for loops."
+    },
+    {
+      "keywords": ["python argparse", "python"],
+      "answer": "argparse: Parse command-line arguments. import argparse; parser = argparse.ArgumentParser(); parser.add_argument('--name', required=True); args = parser.parse_args(). Access with args.name. Supports positional args, options, defaults, help text, type conversion. Makes CLI tools professional and user-friendly."
+    },
+    {
+      "keywords": ["python json module", "python"],
+      "answer": "JSON in Python: import json. json.dumps(obj) converts Python object to JSON string. json.loads(string) parses JSON string to Python object. json.dump(obj, file) writes to file. json.load(file) reads from file. Handles: dict, list, str, int, float, bool, None. Common in APIs and data storage."
+    },
+    {
+      "keywords": ["python requests", "python"],
+      "answer": "requests library: HTTP requests in Python. import requests. response = requests.get(url) fetches. response.status_code, response.text, response.json(). requests.post(url, json=data) sends data. requests.headers = {'Authorization': 'Bearer token'} sets headers. Essential for APIs and web scraping."
+    },
+    {
+      "keywords": ["termux pkg", "termux"],
+      "answer": "Termux pkg commands: pkg update updates package list. pkg upgrade upgrades all packages. pkg install package installs package. pkg search query searches packages. pkg show package shows package info. apt (Debian) also works: apt-get install. Common packages: python3, nodejs, git, curl, wget, vim, openssh, ffmpeg."
+    },
+    {
+      "keywords": ["termux storage", "termux"],
+      "answer": "Termux storage access: /storage/emulated/0 (internal storage, symlink to $HOME/storage). $HOME/storage/downloads, .../pictures, .../documents. Grant permissions: termux-setup-storage. Termux:API app required for advanced access. /data/data/com.termux/files/home is Termux home (~). Slower than native filesystem but necessary for Android integration."
+    },
+    {
+      "keywords": ["termux api", "termux"],
+      "answer": "Termux:API (requires app): termux-notification, termux-vibrate, termux-sensor-list. termux-battery-status shows battery info. termux-wifi-connectioninfo shows WiFi. termux-contact-list lists contacts. termux-sms-send sends SMS. termux-call-log shows call history. Install with: pkg install termux-api. Powerful for automation and scripting."
+    },
+    {
+      "keywords": ["ssh keygen", "ssh"],
+      "answer": "SSH key generation: ssh-keygen -t rsa -b 4096 creates RSA key pair. -t ed25519 creates Ed25519 (modern, faster). Keys saved to ~/.ssh/id_rsa (private, keep secret!) and ~/.ssh/id_rsa.pub (public, share). chmod 600 ~/.ssh/id_rsa sets correct permissions. Add public key to server's ~/.ssh/authorized_keys for passwordless login."
+    },
+    {
+      "keywords": ["ssh config", "ssh"],
+      "answer": "SSH config file (~/.ssh/config): Define hosts for easy access. Example: Host github.com / HostName github.com / User git / IdentityFile ~/.ssh/id_rsa. Then ssh github.com works seamlessly. Port forwarding: Host=github.com / LocalForward 3306 remote.db.server:3306 tunnels remote MySQL locally."
+    },
+    {
+      "keywords": ["environment variables", "bash"],
+      "answer": "Environment variables: export VAR=value sets variable for subprocess. $PATH is colon-separated list of directories to search for commands. export PATH=\"$PATH:$HOME/.local/bin\" adds to PATH. Use ~/.bashrc or ~/.bash_profile to make permanent. env shows all variables. unset VAR removes. $HOME, $USER, $PWD, $?, $! are special variables."
+    },
+    {
+      "keywords": ["dotenv", "bash"],
+      "answer": ".env files: Store sensitive config (API keys, passwords, database URLs) without committing to Git. Format: KEY=value. In Python: from dotenv import load_dotenv; load_dotenv() then os.getenv('KEY'). In bash: source .env then use $KEY. Add .env to .gitignore. Never commit secrets!"
+    },
+    {
+      "keywords": ["debugging stack trace", "debugging"],
+      "answer": "Reading stack traces: Error message at bottom, shows what went wrong. Traceback above shows call sequence—topmost frame is where error originated, bottom is where exception was thrown. Look for YOUR code in the trace (skip library internals). Line numbers tell you exactly where to look. For segfaults: use gdb or valgrind."
+    },
+    {
+      "keywords": ["syntax error", "debugging"],
+      "answer": "Syntax errors: Code structure is invalid (missing colon, bracket, quote, etc.). Compiler/interpreter stops immediately and points to error location. Common Python mistakes: missing colon after if/for/def, indentation errors, unclosed parentheses. Use linters (flake8, pylint) to catch before running."
+    },
+    {
+      "keywords": ["null pointer", "debugging"],
+      "answer": "Null pointer error (C/C++): Dereferencing a null pointer (address 0) crashes. Use debuggers: gdb program, then run, then print variable. valgrind program detects memory issues. In Python: AttributeError or TypeError for similar null-safety issues. Always check for None before using objects."
+    },
+    {
+      "keywords": ["regex", "debugging"],
+      "answer": "Regular expressions (regex): Pattern matching syntax. In Python: import re; re.match(pattern, string) matches at start, re.search finds anywhere, re.findall finds all. Pattern syntax: . (any char), * (0+ times), + (1+ times), ? (optional), [abc] (char class), ^ (start), $ (end), \\d (digit), \\w (word char), \\s (whitespace)."
+    },
+    {
+      "keywords": ["json", "debugging"],
+      "answer": "JSON errors: Common: unclosed quotes, trailing commas (not allowed), single quotes (must be double), unescaped newlines. Use online JSON validators. Python: json.loads() fails on invalid JSON, shows line/char number. json.dumps() is safe if you start with valid Python objects. When working with APIs, always validate response is JSON before parsing."
+    },
+    {
+      "keywords": ["curl", "networking"],
+      "answer": "curl: Command-line HTTP client. curl https://api.example.com fetches. curl -X POST -d 'data' sends POST. curl -H 'Header: value' sets headers. curl -o file.txt saves to file. curl -L follows redirects. curl -i shows headers. curl -w '%{http_code}' shows status code. Essential for API testing."
+    },
+    {
+      "keywords": ["networking ports", "networking"],
+      "answer": "Ports: 0-1023 system ports (80=HTTP, 443=HTTPS, 22=SSH, 3306=MySQL, 5432=PostgreSQL, 6379=Redis). 1024-49151 registered (8080, 8000, 3000 common for development). 49152-65535 dynamic/private. netstat -tlnp shows listening ports. ss -tlnp modern replacement. lsof -i :port shows process on port."
+    },
+    {
+      "keywords": ["localhost", "networking"],
+      "answer": "localhost: 127.0.0.1 (loopback), only accessible from your machine. 0.0.0.0 binds to all network interfaces. Use localhost:8000 for development. To access from other machines: use your machine's IP (hostname -I in Linux). Firewalls may block external access. Port forwarding or reverse proxy (nginx) for production access."
+    },
+    {
+      "keywords": ["termux path", "termux files", "termux directory", "data data com termux", "home directory termux", "where is termux", "termux home"],
+      "answer": "In Termux, your home directory is /data/data/com.termux/files/home/ — this is what ~ expands to. So ~/github-projects/ is actually /data/data/com.termux/files/home/github-projects/. You can access Android storage at ~/storage/ after running 'termux-setup-storage'."
+    }
+  ]
+}

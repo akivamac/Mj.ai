@@ -38,6 +38,19 @@ else:
     os.makedirs(BRAIN_DIR, exist_ok=True)
 
 TOKEN_FILE = os.path.expanduser('~/.mj_token')
+FILES_LOG = os.path.expanduser('~/.mj_files.json')
+
+def log_file(filepath):
+    """Track created files in ~/.mj_files.json"""
+    try:
+        files = json.loads(open(FILES_LOG).read()) if os.path.exists(FILES_LOG) else []
+    except:
+        files = []
+    abs_path = os.path.abspath(filepath)
+    if abs_path not in files:
+        files.append(abs_path)
+    with open(FILES_LOG, 'w') as f:
+        json.dump(files, f)
 
 def update_brain(brain_dir):
     """Silently pull latest brain files from GitHub on startup."""
@@ -353,6 +366,14 @@ class MonkeyJoe:
         if any(t in lower for t in capability_triggers) and len(lower.split()) < 8:
             return "I can answer questions from my knowledge base, help with coding and terminal commands, push files to GitHub, and chat. Ask me anything!"
 
+        # Check for path existence questions
+        if any(w in lower for w in ['does', 'exist', 'path exist', 'is there']):
+            path_match = re.search(r'(/[^\s?]+)', user_input)
+            if path_match:
+                path = path_match.group(1)
+                exists = os.path.exists(path)
+                return f"{'✅ Yes, that path exists.' if exists else '❌ No, that path does not exist.'}"
+
         # Check for file creation requests
         file_match = re.search(r'(?:make|create|write|generate)\s+(?:me\s+)?(?:a\s+)?(?:file\s+)?(?:called\s+)?([a-zA-Z0-9_\-]+\.[a-zA-Z]+)', lower)
         if file_match:
@@ -364,6 +385,7 @@ class MonkeyJoe:
             try:
                 with open(filepath, 'w') as f:
                     f.write(template)
+                log_file(filepath)
                 cwd = os.getcwd()
                 return f"Created {filename} in {cwd}/ ✓\nPush it to GitHub with: push {filename}"
             except Exception as e:
@@ -487,7 +509,7 @@ class MonkeyJoe:
 
     def run(self):
         """Main REPL loop."""
-        print(f"\n🐒 {DIM}Monkey Joe Terminal Interface v28{RESET}")
+        print(f"\n🐒 {DIM}Monkey Joe Terminal Interface v29{RESET}")
         print(f"{DIM}Type 'exit' to quit, 'brain' for stats, 'help' for commands\n{RESET}")
 
         while True:
@@ -514,11 +536,31 @@ class MonkeyJoe:
                     print("  exit/quit      - Exit mj")
                     print("  brain          - Show brain stats")
                     print("  clear          - Clear history")
+                    print("  files          - List all files mj created")
                     print("  push <path>    - Push file to GitHub")
                     print('  """            - Enter multi-line mode\n')
                     continue
+                elif user_input.lower() == 'files':
+                    if not os.path.exists(FILES_LOG):
+                        print("Joe: No files created yet.")
+                    else:
+                        files = json.loads(open(FILES_LOG).read())
+                        if not files:
+                            print("Joe: No files created yet.")
+                        else:
+                            print("Joe: Files I've created:")
+                            for f in files:
+                                exists = '✅' if os.path.exists(f) else '❌ (deleted)'
+                                print(f"  {exists} {f}")
+                    continue
                 elif user_input.startswith('push '):
                     path = user_input[5:].strip()
+                    # Check if file exists, otherwise check ~/.mj_files.json
+                    if not os.path.exists(path) and os.path.exists(FILES_LOG):
+                        files = json.loads(open(FILES_LOG).read())
+                        matching = [f for f in files if os.path.basename(f) == path or f.endswith(path)]
+                        if matching:
+                            path = matching[0]
                     self.github_push(path)
                     continue
                 elif user_input == '"""':
