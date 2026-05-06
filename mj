@@ -536,6 +536,9 @@ class MonkeyJoe:
                 if not user_input:
                     continue
 
+                # Display sent message in black text on white background
+                print(f'\033[30;47m{user_input:<{term_width}}\033[0m')
+
                 # Check for commands
                 if user_input.lower() == 'exit' or user_input.lower() == 'quit':
                     print("🐒 Bye!")
