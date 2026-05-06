@@ -502,20 +502,37 @@ class MonkeyJoe:
 
     def brain_stats(self):
         """Show brain statistics."""
-        print(f"\n{DIM}Monkey Joe Brain v27{RESET}")
+        print(f"\n{DIM}Monkey Joe Brain v29{RESET}")
         print(f"  Knowledge facts: {len(self.knowledge)}")
         print(f"  Coding facts: {len(self.coding)}")
         print(f"  Conversation history: {len(self.history)} exchanges\n")
 
     def run(self):
         """Main REPL loop."""
-        print(f"\n🐒 {DIM}Monkey Joe Terminal Interface v29{RESET}")
-        print(f"{DIM}Type 'exit' to quit, 'brain' for stats, 'help' for commands\n{RESET}")
+        print("\n🐒 Monkey Joe Terminal Interface v29")
+        print("                     ◤‾●‾‾‾‾○‾◥")
+        print("  ========|                     |==========")
+        print("  []                |                     |                    []")
+        print("  ∥                 ∣        ︹         ∣                     ∥")
+        print("‾∥∣‾              |     |          |    |                   ‾∥∣‾")
+        print("                    |‾∥∣             ∥∣‾|")
+        print()
+        print("Type 'exit' to quit, 'brain' for stats, 'help' for commands, 'files' to see files from this/previous sessions")
+        print()
 
         while True:
             try:
-                prompt = f"{DIM}You:{RESET} "
-                user_input = input(prompt).strip()
+                # Get terminal width for input box
+                term_width = os.get_terminal_size().columns
+                border = "|" + "‾" * (term_width - 2) + "|"
+                underline = "‾" * term_width
+
+                # Print top border of input box
+                print(border)
+                user_input = input("| ").strip()
+
+                # Print bottom border of input box
+                print(underline)
 
                 if not user_input:
                     continue
