@@ -33,6 +33,10 @@
       "response": "`git push origin main` — pushes commits to the remote repo."
     },
     {
+      "triggers": ["deploy", "copy to bin", "install mj"],
+      "response": "After pushing, copy the mj script to your bin: `cp ~/github-projects/Mj.ai/mj ~/bin/mj`"
+    },
+    {
       "triggers": ["git clone"],
       "response": "`git clone <url>` — clones a remote repo to your local machine."
     },
@@ -55,6 +59,10 @@
     {
       "triggers": ["no such file", "file not found"],
       "response": "The file or directory doesn't exist at that path. Check spelling, use `ls` to see what's there, and confirm you're in the right directory with `pwd`."
+    },
+    {
+      "triggers": ["cp", "copy file", "copy files"],
+      "response": "`cp <source> <destination>` — copies a file. `cp -r <folder> <destination>` copies a folder recursively. Example: `cp file.txt backup/file.txt`."
     },
     {
       "triggers": ["sed", "find and replace", "replace in file"],
