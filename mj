@@ -67,7 +67,7 @@ class MonkeyJoe:
         self.load_brains()
 
     def load_brains(self):
-        """Load all brain JSON files."""
+        """Load all brain JSON files. Silently use empty defaults if missing."""
         for name in ['knowledge', 'rules', 'terminal', 'coding']:
             path = os.path.join(self.brain_dir, f'{name}.json')
             try:
@@ -77,8 +77,9 @@ class MonkeyJoe:
                         setattr(self, name, data)
                     else:
                         setattr(self, name, data.get('facts', []) if isinstance(data, dict) else data)
-            except Exception as e:
-                print(f"{RED}Error loading {name}.json: {e}{RESET}")
+            except Exception:
+                # Silently use empty defaults — auto-update will fix on next startup
+                setattr(self, name, {} if name == 'rules' else [])
 
     def strip_question(self, q: str) -> str:
         """Remove filler phrases from question."""
@@ -465,10 +466,11 @@ class MonkeyJoe:
                 print(f"{RED}Error: {e}{RESET}\n")
 
 if __name__ == '__main__':
-    # Auto-update brain files from GitHub (use --no-update to skip)
+    # Auto-update brain files from GitHub BEFORE loading (use --no-update to skip)
     skip_update = '--no-update' in sys.argv
     if not skip_update:
         update_brain(BRAIN_DIR)
 
+    # Now load brain files (auto-update ensured they exist)
     mj = MonkeyJoe()
     mj.run()
