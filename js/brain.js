@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '28'; // bump when brain JSON files change
+  const BRAIN_VERSION = '29'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -145,8 +145,8 @@ const Brain = (() => {
     }
 
     // Name recognition — user addresses or asks about Joe by name
-    if (/\bmonkey\s*joe\b/.test(lower)) {
-      if (rules && rules.greetings && /^(hi|hey|hello|howdy|hiya|yo|sup)\b/.test(lower)) {
+    if (lower.includes('monkey joe')) {
+      if (rules && rules.greetings && /^(hi|hey|hello|howdy|hiya|yo|sup)/.test(lower)) {
         return pick(rules.greetings[0].responses);
       }
       return "That's me! 🐒 I'm Monkey Joe — a rules-based AI assistant made by Akiva. Ask me anything!";
