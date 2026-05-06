@@ -1,0 +1,429 @@
+#!/usr/bin/env python3
+"""
+Monkey Joe CLI - Terminal interface powered by Monkey Joe's brain.
+Runs in Termux on Android, with full GitHub integration.
+"""
+
+import json
+import os
+import sys
+import re
+import random
+import requests
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple
+
+# ANSI color codes
+RESET = '\033[0m'
+DIM = '\033[2m'
+RED = '\033[91m'
+GREEN = '\033[92m'
+YELLOW = '\033[93m'
+
+class MonkeyJoe:
+    def __init__(self):
+        self.base_path = Path(__file__).parent
+        self.knowledge = {}
+        self.rules = {}
+        self.terminal = {}
+        self.coding = {}
+
+        self.history = []  # Last 10 exchanges
+        self.last_topic_label = None
+        self.last_fact_answer = None
+
+        self.load_brains()
+
+    def load_brains(self):
+        """Load all brain JSON files."""
+        for name in ['knowledge', 'rules', 'terminal', 'coding']:
+            path = self.base_path / 'brain' / f'{name}.json'
+            try:
+                with open(path) as f:
+                    data = json.load(f)
+                    if name == 'rules':
+                        setattr(self, name, data)
+                    else:
+                        setattr(self, name, data.get('facts', []) if isinstance(data, dict) else data)
+            except Exception as e:
+                print(f"{RED}Error loading {name}.json: {e}{RESET}")
+
+    def strip_question(self, q: str) -> str:
+        """Remove filler phrases from question."""
+        patterns = [
+            (r'^(please |can you |could you |can you tell me|could you tell me|do you (?:know |happen to know|know anything about)|tell me |i (?:want to know|was wondering|wonder|was just wondering|\'m curious about)|help me understand |explain to me )', ''),
+            (r'^(what (?:is|are|was|were|\'s|does|do|did|can|makes|causes|happens|kind of|type of|sort of|\'s the deal with|\'s up with))', ''),
+            (r'^(who (?:is|are|was|were|\'s|invented|created|discovered|made|built|founded))', ''),
+            (r'^(how (?:does|do|did|is|are|was|were|to|many|much|long|big|large|small|fast|old|far))', ''),
+            (r'^(why (?:does|do|did|is|are|was|were|can\'t|cant|would))', ''),
+            (r'^(where (?:is|are|was|were|do|does|did|can))', ''),
+            (r'^(when (?:is|was|were|did|does|do))', ''),
+            (r'^(is (?:it|there|a|an)|are (?:there|they)|does it|do they|did it|can (?:it|they)|will it|have you heard of|do you know (?:what|about))', ''),
+            (r'^(tell me about|talk to me about|give me (?:info on|information about|some info on|facts about)|info (?:on|about)|information (?:on|about)|facts about|fact about|about)', ''),
+            (r'^(i want to learn about|explain|describe|define|what does.*mean)', ''),
+            (r'\?+$', ''),
+            (r'^(the |a |an )', ''),
+        ]
+        result = q
+        for pattern, replacement in patterns:
+            result = re.sub(pattern, replacement, result, flags=re.IGNORECASE)
+        return result.strip()
+
+    def expand_synonyms(self, q: str) -> str:
+        """Add synonyms to query."""
+        synonyms = {
+            'feline': 'cat', 'kitty': 'cat', 'canine': 'dog', 'puppy': 'dog', 'pup': 'dog',
+            'equine': 'horse', 'pony': 'horse', 'foal': 'horse', 'pachyderm': 'elephant',
+            'primate': 'chimpanzee', 'chimp': 'chimpanzee', 'cetacean': 'whale', 'avian': 'bird',
+            'arachnid': 'spider', 'bovine': 'cow', 'velocity': 'speed', 'mph': 'speed',
+            'km/h': 'speed', 'hue': 'color', 'colour': 'color', 'huge': 'large', 'enormous': 'large',
+            'giant': 'large', 'massive': 'large', 'tiny': 'small', 'minuscule': 'small',
+            'dangerous': 'venom', 'deadly': 'venom', 'venomous': 'venom', 'nutrition': 'diet',
+            'consume': 'eat', 'feeds on': 'eat', 'graze': 'eat', 'offspring': 'baby', 'young': 'baby',
+            'juvenile': 'baby', 'habitat': 'live', 'reside': 'live', 'dwell': 'live', 'found in': 'live',
+            'nocturnal': 'sleep', 'hibernate': 'sleep', 'vocalize': 'sound', 'roar': 'sound',
+            'bark': 'sound', 'call': 'sound', 'cryptocurrency': 'bitcoin', 'crypto': 'bitcoin',
+            'artificial intelligence': 'ai', 'machine intelligence': 'ai', 'large language model': 'llm',
+            'language model': 'llm', 'photovoltaic': 'solar', 'pv panel': 'solar',
+            'deoxyribonucleic acid': 'dna', 'ribonucleic acid': 'rna', 'cardiovascular': 'heart',
+            'pulmonary': 'lungs', 'cerebral': 'brain', 'neural': 'brain', 'neurological': 'brain',
+            'gastrointestinal': 'digestion', 'gut': 'digestion', 'renal': 'kidney', 'dermal': 'skin',
+            'skeletal': 'skeleton', 'muscular': 'muscle', 'ocular': 'eye', 'auditory': 'ear',
+            'thyroid': 'hormones', 'insulin': 'hormones', 'cortisol': 'hormones',
+            'programming language': 'coding', 'coding language': 'coding', 'web development': 'javascript',
+            'server side': 'nodejs', 'server-side': 'nodejs', 'version control': 'git',
+            'source control': 'git', 'container': 'docker', 'containerization': 'docker',
+            'orchestration': 'kubernetes', 'relational database': 'sql', 'object oriented': 'oop',
+            'object-oriented': 'oop', 'functional': 'functional programming', 'algebra': 'linear algebra',
+            'greenhouse effect': 'climate change', 'global warming': 'climate change',
+            'greenhouse gases': 'climate change', 'co2': 'climate change', 'carbon dioxide': 'climate change',
+            'fission': 'nuclear', 'fusion': 'nuclear', 'radioactive': 'nuclear',
+            'supermassive black hole': 'black hole', 'milky way': 'galaxy', 'andromeda': 'galaxy',
+            'photosynthesizing': 'photosynthesis', 'photosynthesise': 'photosynthesis',
+            'evolve': 'evolution', 'evolved': 'evolution', 'evolving': 'evolution',
+            'natural selection': 'evolution', 'survival of the fittest': 'evolution',
+            'heredity': 'genetics', 'hereditary': 'genetics', 'inherited': 'genetics',
+            'genome': 'dna', 'chromosomes': 'dna', 'genes': 'dna', 'pathogen': 'virus',
+            'germ': 'virus', 'flu': 'virus', 'influenza': 'virus', 'pandemic': 'virus',
+            'gut bacteria': 'digestion', 'microbiome': 'digestion', 'tectonic': 'volcano',
+            'tectonic plates': 'volcano', 'earthquake': 'volcano', 'seismic': 'volcano',
+            'seismograph': 'earthquake', 'tsunami': 'ocean', 'aurora': 'space weather',
+            'northern lights': 'space weather', 'southern lights': 'space weather',
+            'fawn': 'deer', 'colt': 'horse', 'piglet': 'pig', 'lamb': 'sheep', 'cub': 'bear',
+            'joey': 'kangaroo', 'hatchling': 'bird', 'h2o': 'water', 'nacl': 'salt',
+            'periodic table': 'elements', 'artificial neural network': 'neural network',
+            'deep learning': 'machine learning', 'chatbot': 'ai', 'self driving': 'autonomous vehicles',
+            'self-driving': 'autonomous vehicles', 'ev': 'electric vehicles',
+            'cryptocurrency exchange': 'bitcoin', 'nft': 'web3', 'ar': 'augmented reality',
+            'vr': 'virtual reality', 'ww2': 'world war 2', 'ww1': 'world war 1',
+            'the great war': 'world war 1', 'the holocaust': 'holocaust', 'bp': 'blood pressure',
+            'bmi': 'nutrition', 'calories': 'nutrition', 'carbs': 'nutrition', 'gut health': 'digestion',
+            'immune': 'immune system', 'mental illness': 'mental health', 'anxiety': 'mental health',
+            'depression': 'mental health', 'quadratic': 'algebra', 'differentiation': 'calculus',
+            'integration': 'calculus', 'matrices': 'linear algebra', 'vectors': 'linear algebra',
+            'probability theory': 'statistics', 'north pole': 'arctic', 'south pole': 'antarctic',
+            'rainforest': 'amazon', 'sahel': 'deserts', 'tundra': 'arctic',
+            'npm install': 'npm', 'yarn add': 'yarn', 'pip install': 'pip',
+            'pull request': 'git', 'merge conflict': 'git', 'git clone': 'git',
+            'permission denied': 'chmod', 'no such file': 'file system', 'command not found': 'terminal',
+            'syntax error': 'debugging', 'segfault': 'debugging', 'stack overflow': 'debugging',
+            'null pointer': 'debugging', 'env variable': 'environment variables',
+            'dotenv': 'environment variables', 'cron job': 'cron', 'scheduled task': 'cron',
+            'ssh key': 'ssh', 'known hosts': 'ssh', 'port forwarding': 'networking',
+            'localhost': 'networking', 'espresso': 'coffee', 'latte': 'coffee', 'cappuccino': 'coffee',
+            'mozzarella': 'cheese', 'parmesan': 'cheese', 'sourdough': 'bread', 'baguette': 'bread',
+            'spaghetti': 'pasta', 'penne': 'pasta',
+        }
+        result = q
+        for syn, canonical in synonyms.items():
+            if syn in result.lower():
+                result += ' ' + canonical
+        return result
+
+    def stem_word(self, w: str) -> str:
+        """Strip common suffixes."""
+        w = w.lower()
+        for suffix in ['izing', 'ising', 'ization', 'isation', 'ational', 'tional',
+                      'nesses', 'ness', 'ments', 'ment', 'ities', 'ity',
+                      'ically', 'ical', 'ations', 'ation', 'ators', 'ator',
+                      'ings', 'ing', 'edly', 'ed', 'ers', 'er', 'ies', 'es', 's']:
+            if w.endswith(suffix):
+                return w[:-len(suffix)]
+        return w
+
+    def extract_topic(self, q: str) -> Optional[str]:
+        """Pull subject from question patterns."""
+        patterns = [
+            r'(?:what (?:is|are|\'s|whats))\s+(?:a\s+|an\s+|the\s+)?(.+?)(?:\s+and|\s+or|\s+\?|$)',
+            r'(?:how (?:does|do|did))\s+(?:a\s+|an\s+|the\s+)?(.+?)\s+(?:work|function|happen|form|develop|grow|reproduce|move|fly|swim|run|eat|live)',
+            r'(?:why\s+(?:is|are|do|does|did|can|can\'t))\s+(?:a\s+|an\s+|the\s+)?(.+?)(?:\s+so|\s+\?|$)',
+            r'(?:tell me about|info on|facts about|about)\s+(?:a\s+|an\s+|the\s+)?(.+?)(?:\s+\?|$)',
+            r'(?:what do|what does)\s+(.+?)\s+(?:eat|drink|need|live|do|mean|say|look like|sound like)',
+            r'(?:where\s+(?:do|does|did|is|are))\s+(?:a\s+|an\s+|the\s+)?(.+?)\s+(?:live|come from|originate|grow|found)',
+            r'(?:is it true that|is it true)\s+(.+?)(?:\?|$)',
+            r'(?:have you heard of|do you know (?:what|about))\s+(.+?)(?:\?|$)',
+        ]
+        for pattern in patterns:
+            m = re.search(pattern, q, re.IGNORECASE)
+            if m and m.group(1) and len(m.group(1).strip()) > 1:
+                return m.group(1).strip().lower()
+        return None
+
+    def score_fact(self, fact: Dict, variants: List[str]) -> float:
+        """Score fact against query variants."""
+        if 'keywords' not in fact:
+            return 0
+        best = 0.0
+        for q in variants:
+            score = 0.0
+            for keyword in fact.get('keywords', []):
+                kl = keyword.lower()
+                # Exact substring match
+                if kl in q or q in kl:
+                    score += 2.0
+                    continue
+                # Stem match
+                if len(kl) > 4:
+                    for qword in q.split():
+                        if self.stem_word(kl) == self.stem_word(qword):
+                            score += 1.0
+                            break
+                # Partial match
+                kwords = kl.split()
+                qwords = q.split()
+                for kw in kwords:
+                    if len(kw) > 4:
+                        for qw in qwords:
+                            if qw.startswith(kw) or kw.startswith(qw):
+                                score += 0.5
+                                break
+            best = max(best, score)
+        return best
+
+    def apply_contextual_followup(self, q: str) -> str:
+        """If short follow-up, append last topic."""
+        words = q.split()
+        if len(words) <= 3 and self.last_topic_label:
+            has_question_words = re.match(r'^(what|who|how|why|where|when|is|are|do|does|can|could|would|should|will|did|was|were)', q)
+            if not has_question_words:
+                return q + ' ' + self.last_topic_label
+        return q
+
+    def is_casual_statement(self, text: str) -> bool:
+        """Check if input is a casual statement, not a question."""
+        lower = text.lower().strip()
+        # Must have no question words and not end with question mark
+        question_starters = ['what', 'why', 'how', 'where', 'when', 'who', 'which',
+                            'can ', 'do ', 'does ', 'is ', 'are ', 'was ', 'were ',
+                            'will ', 'would ', 'could ', 'should ', 'tell me', 'explain', 'define']
+        has_question = any(lower.startswith(q) for q in question_starters) or lower.endswith('?')
+        if has_question:
+            return False
+        # Check for casual/opinion words
+        casual_words = ['cool', 'awesome', 'nice', 'great', 'love', 'hate', 'think', 'feel',
+                       'like', 'wow', 'lol', 'haha', 'interesting', 'yeah', 'yep', 'nope',
+                       'okay', 'ok', 'sure', 'thanks', 'thank you', 'no way', 'really', 'seriously']
+        return any(w in lower for w in casual_words)
+
+    def respond(self, user_input: str) -> str:
+        """Generate response using brain knowledge."""
+        lower = user_input.lower().strip()
+        if not lower:
+            return ""
+
+        # Check greetings first (from rules.json)
+        if self.rules and 'greetings' in self.rules:
+            for greeting in self.rules.get('greetings', []):
+                if_words = greeting.get('if', [])
+                for word in if_words:
+                    if lower == word or lower.startswith(word + ' ') or lower.startswith(word + '!'):
+                        responses = greeting.get('responses', [])
+                        if responses:
+                            return random.choice(responses)
+
+        # Check capability questions (before knowledge lookup)
+        capability_triggers = ['can you', 'are you able', 'what can you do', 'what do you know',
+                               'do you know how to', 'are you capable', 'do you code', 'can you code',
+                               'coding ability', 'programming ability']
+        if any(t in lower for t in capability_triggers) and len(lower.split()) < 8:
+            return "I can answer questions from my knowledge base, help with coding and terminal commands, push files to GitHub, and chat. Ask me anything!"
+
+        # Check for casual statements (not questions)
+        if self.is_casual_statement(lower):
+            casual_responses = [
+                "Ha, agreed! 🐒 What do you want to know?",
+                "Nice! Anything I can help with?",
+                "Cool! Ask me something.",
+                "Interesting take! What's on your mind?",
+                "🐒 What can I do for you?"
+            ]
+            return random.choice(casual_responses)
+
+        # Apply contextual follow-up
+        lower = self.apply_contextual_followup(lower)
+
+        # Build query variants
+        stripped = self.strip_question(lower)
+        expanded = self.expand_synonyms(lower)
+        str_expanded = self.expand_synonyms(stripped)
+        topic = self.extract_topic(lower)
+        variants = [lower, stripped, expanded, str_expanded]
+        if topic:
+            variants.extend([topic, self.expand_synonyms(topic)])
+
+        # Score all facts
+        best_fact = None
+        best_score = 0.0
+        all_sources = self.knowledge + self.coding
+
+        for fact in all_sources:
+            score = self.score_fact(fact, variants)
+            if score > best_score:
+                best_score = score
+                best_fact = fact
+
+        # Return answer if score >= 2.5 (higher threshold prevents weak matches)
+        if best_fact and best_score >= 2.5:
+            self.last_topic_label = best_fact['keywords'][0] if best_fact.get('keywords') else None
+            self.last_fact_answer = best_fact.get('answer', '')
+            answer = best_fact.get('answer', '')
+            # Summarize very long answers
+            if len(answer) > 500:
+                sentences = answer.split('. ')
+                answer = '. '.join(sentences[:3]) + '.'
+            return answer
+
+        # Weak match: suggest search
+        if best_fact and 0.5 < best_score < 1.5:
+            return f"I'm not sure, but I can try to search for that. Ask me to search the web for '{user_input}'."
+
+        return f"Hmm, I don't know that one yet 🐒 Try asking me to search the web, or ask Akiva to add it to my brain!"
+
+    def github_push(self, file_path: str) -> bool:
+        """Push file to GitHub using API."""
+        token_file = Path.home() / '.mj_token'
+        if not token_file.exists():
+            print(f"{RED}Error: ~/.mj_token not found. Create it with: echo 'YOUR_TOKEN' > ~/.mj_token && chmod 600 ~/.mj_token{RESET}")
+            return False
+
+        try:
+            token = token_file.read_text().strip()
+            file_to_push = Path(file_path).resolve()
+
+            if not file_to_push.exists():
+                print(f"{RED}Error: File not found: {file_path}{RESET}")
+                return False
+
+            # Calculate path relative to repo
+            repo_path = self.base_path
+            try:
+                rel_path = file_to_push.relative_to(repo_path)
+            except ValueError:
+                print(f"{RED}Error: File must be in Mj.ai repo{RESET}")
+                return False
+
+            content = file_to_push.read_text()
+            import base64
+            content_b64 = base64.b64encode(content.encode()).decode()
+
+            url = f"https://api.github.com/repos/akivamac/Mj.ai/contents/{rel_path}"
+            headers = {
+                'Authorization': f'Bearer {token}',
+                'Accept': 'application/vnd.github+json',
+            }
+
+            # Get current file SHA
+            resp = requests.get(url, headers=headers)
+            sha = resp.json().get('sha') if resp.status_code == 200 else None
+
+            data = {
+                'message': f'chore: update {rel_path} via mj CLI',
+                'content': content_b64,
+                'branch': 'main',
+            }
+            if sha:
+                data['sha'] = sha
+
+            resp = requests.put(url, json=data, headers=headers)
+            if resp.status_code in [201, 200]:
+                print(f"{GREEN}✓ Pushed {rel_path} to GitHub{RESET}")
+                return True
+            else:
+                print(f"{RED}Error: {resp.json().get('message', 'Push failed')}{RESET}")
+                return False
+        except Exception as e:
+            print(f"{RED}Error: {e}{RESET}")
+            return False
+
+    def brain_stats(self):
+        """Show brain statistics."""
+        print(f"\n{DIM}Monkey Joe Brain v27{RESET}")
+        print(f"  Knowledge facts: {len(self.knowledge)}")
+        print(f"  Coding facts: {len(self.coding)}")
+        print(f"  Conversation history: {len(self.history)} exchanges\n")
+
+    def run(self):
+        """Main REPL loop."""
+        print(f"\n🐒 {DIM}Monkey Joe Terminal Interface v27{RESET}")
+        print(f"{DIM}Type 'exit' to quit, 'brain' for stats, 'help' for commands\n{RESET}")
+
+        while True:
+            try:
+                prompt = f"{DIM}You:{RESET} "
+                user_input = input(prompt).strip()
+
+                if not user_input:
+                    continue
+
+                # Check for commands
+                if user_input.lower() == 'exit' or user_input.lower() == 'quit':
+                    print("🐒 Bye!")
+                    break
+                elif user_input.lower() == 'brain':
+                    self.brain_stats()
+                    continue
+                elif user_input.lower() == 'clear':
+                    self.history = []
+                    print("History cleared.")
+                    continue
+                elif user_input.lower() == 'help':
+                    print("\nCommands:")
+                    print("  exit/quit      - Exit mj")
+                    print("  brain          - Show brain stats")
+                    print("  clear          - Clear history")
+                    print("  push <path>    - Push file to GitHub")
+                    print('  """            - Enter multi-line mode\n')
+                    continue
+                elif user_input.startswith('push '):
+                    path = user_input[5:].strip()
+                    self.github_push(path)
+                    continue
+                elif user_input == '"""':
+                    # Multi-line mode
+                    lines = []
+                    print('(Enter lines, end with """ on its own line)')
+                    while True:
+                        line = input()
+                        if line == '"""':
+                            break
+                        lines.append(line)
+                    user_input = '\n'.join(lines)
+
+                # Get response
+                response = self.respond(user_input)
+                print(f"Joe: {response}\n")
+
+                # Store exchange
+                self.history.append({'you': user_input, 'joe': response})
+                if len(self.history) > 10:
+                    self.history.pop(0)
+
+            except KeyboardInterrupt:
+                print("\n🐒 Bye!")
+                break
+            except Exception as e:
+                print(f"{RED}Error: {e}{RESET}\n")
+
+if __name__ == '__main__':
+    mj = MonkeyJoe()
+    mj.run()
