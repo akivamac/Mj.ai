@@ -526,6 +526,8 @@ class MonkeyJoe:
                 term_width = os.get_terminal_size().columns
                 dash_line = "─" * term_width
 
+                # Print top line of prompt area
+                print(dash_line)
                 # Get input with prompt
                 user_input = input("❯ ").strip()
 
@@ -534,6 +536,8 @@ class MonkeyJoe:
 
                 # Display sent message in black text on white background
                 print(f'\033[30;47m{user_input:<{term_width}}\033[0m')
+                # Print bottom line below sent message
+                print(dash_line)
 
                 if not user_input:
                     continue
@@ -595,9 +599,6 @@ class MonkeyJoe:
                 # Get response
                 response = self.respond(user_input)
                 print(f"Joe: {response}\n")
-
-                # Print line above next prompt
-                print(dash_line)
 
                 # Store exchange
                 self.history.append({'you': user_input, 'joe': response})
