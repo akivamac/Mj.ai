@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '27'; // bump when brain JSON files change
+  const BRAIN_VERSION = '28'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -142,6 +142,14 @@ const Brain = (() => {
     // Identity shortcut — catch before search triggers
     if (lower.includes('who are you') || lower.includes('what are you') || lower === 'who r u') {
       return "I'm Monkey Joe 🐒 — a rules-based assistant built by Akiva with Claude's help. My brain lives in a GitHub repo and grows over time!";
+    }
+
+    // Name recognition — user addresses or asks about Joe by name
+    if (/\bmonkey\s*joe\b/.test(lower)) {
+      if (rules && rules.greetings && /^(hi|hey|hello|howdy|hiya|yo|sup)\b/.test(lower)) {
+        return pick(rules.greetings[0].responses);
+      }
+      return "That's me! 🐒 I'm Monkey Joe — a rules-based AI assistant made by Akiva. Ask me anything!";
     }
 
     // Terminal/command check — only if input looks like a command (starts with trigger or is short)
