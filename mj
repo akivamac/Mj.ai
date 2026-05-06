@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Monkey Joe CLI - Terminal interface powered by Monkey Joe's brain.
-Runs in Termux on Android, with full GitHub integration.
+Runs in Termux on Android, macOS, and Linux, with full GitHub integration.
 """
 
 import json
@@ -10,6 +10,8 @@ import sys
 import re
 import random
 import requests
+import urllib.request
+import ssl
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -20,9 +22,27 @@ RED = '\033[91m'
 GREEN = '\033[92m'
 YELLOW = '\033[93m'
 
+# Cross-platform paths
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+BRAIN_DIR = os.path.join(SCRIPT_DIR, 'brain')
+TOKEN_FILE = os.path.expanduser('~/.mj_token')
+
+def update_brain(brain_dir):
+    """Silently pull latest brain files from GitHub on startup."""
+    base_url = 'https://raw.githubusercontent.com/akivamac/Mj.ai/main/brain/'
+    files = ['knowledge.json', 'rules.json', 'terminal.json', 'coding.json']
+    ctx = ssl.create_default_context()
+    for f in files:
+        try:
+            url = base_url + f
+            dest = os.path.join(brain_dir, f)
+            urllib.request.urlretrieve(url, dest, context=ctx)
+        except Exception:
+            pass  # silently fail — use cached version
+
 class MonkeyJoe:
     def __init__(self):
-        self.base_path = Path(__file__).parent
+        self.brain_dir = BRAIN_DIR
         self.knowledge = {}
         self.rules = {}
         self.terminal = {}
@@ -37,7 +57,7 @@ class MonkeyJoe:
     def load_brains(self):
         """Load all brain JSON files."""
         for name in ['knowledge', 'rules', 'terminal', 'coding']:
-            path = self.base_path / 'brain' / f'{name}.json'
+            path = os.path.join(self.brain_dir, f'{name}.json')
             try:
                 with open(path) as f:
                     data = json.load(f)
@@ -50,6 +70,13 @@ class MonkeyJoe:
 
     def strip_question(self, q: str) -> str:
         """Remove filler phrases from question."""
+        # Preserve important phrases
+        preserve_phrases = ['new repo', 'new repository']
+        if any(phrase in q.lower() for phrase in preserve_phrases):
+            # Only strip leading question words, not the content
+            result = re.sub(r'^(what is |what are |how do i |can you |could you |do you )', '', q, flags=re.IGNORECASE)
+            return result.strip()
+
         patterns = [
             (r'^(please |can you |could you |can you tell me|could you tell me|do you (?:know |happen to know|know anything about)|tell me |i (?:want to know|was wondering|wonder|was just wondering|\'m curious about)|help me understand |explain to me )', ''),
             (r'^(what (?:is|are|was|were|\'s|does|do|did|can|makes|causes|happens|kind of|type of|sort of|\'s the deal with|\'s up with))', ''),
@@ -301,23 +328,24 @@ class MonkeyJoe:
 
     def github_push(self, file_path: str) -> bool:
         """Push file to GitHub using API."""
-        token_file = Path.home() / '.mj_token'
-        if not token_file.exists():
+        if not os.path.exists(TOKEN_FILE):
             print(f"{RED}Error: ~/.mj_token not found. Create it with: echo 'YOUR_TOKEN' > ~/.mj_token && chmod 600 ~/.mj_token{RESET}")
             return False
 
         try:
-            token = token_file.read_text().strip()
-            file_to_push = Path(file_path).resolve()
+            with open(TOKEN_FILE) as f:
+                token = f.read().strip()
 
-            if not file_to_push.exists():
+            file_to_push = os.path.abspath(file_path)
+
+            if not os.path.exists(file_to_push):
                 print(f"{RED}Error: File not found: {file_path}{RESET}")
                 return False
 
             # Calculate path relative to repo
-            repo_path = self.base_path
+            repo_path = SCRIPT_DIR
             try:
-                rel_path = file_to_push.relative_to(repo_path)
+                rel_path = os.path.relpath(file_to_push, repo_path)
             except ValueError:
                 print(f"{RED}Error: File must be in Mj.ai repo{RESET}")
                 return False
@@ -425,5 +453,10 @@ class MonkeyJoe:
                 print(f"{RED}Error: {e}{RESET}\n")
 
 if __name__ == '__main__':
+    # Auto-update brain files from GitHub (use --no-update to skip)
+    skip_update = '--no-update' in sys.argv
+    if not skip_update:
+        update_brain(BRAIN_DIR)
+
     mj = MonkeyJoe()
     mj.run()
