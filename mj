@@ -62,6 +62,54 @@ def fix_typos(text: str) -> str:
         'didnt': "didn't", 'doesnt': "doesn't", 'im': "i'm", 'ive': "i've",
         'youre': "you're", 'theyre': "they're", 'thats': "that's",
         'whats': "what's", 'hows': "how's", 'whos': "who's",
+        # Animals
+        'elefant': 'elephant', 'elefants': 'elephants',
+        'girrafe': 'giraffe', 'girafe': 'giraffe',
+        'lioin': 'lion', 'loin': 'lion',
+        'monky': 'monkey', 'munkee': 'monkey',
+        'dinasaur': 'dinosaur', 'dinosar': 'dinosaur', 'dino': 'dinosaur',
+        'crocodille': 'crocodile', 'crocadile': 'crocodile',
+        'butterfy': 'butterfly', 'buttefly': 'butterfly',
+        # Coding
+        'pyton': 'python', 'pytohn': 'python', 'pyhton': 'python',
+        'javascrip': 'javascript', 'javascipt': 'javascript',
+        'databse': 'database', 'dtabase': 'database',
+        'algorythm': 'algorithm', 'algorithim': 'algorithm',
+        'recusion': 'recursion', 'recurssion': 'recursion',
+        # Science
+        'photosinthesis': 'photosynthesis', 'photosynhesis': 'photosynthesis',
+        'evoloution': 'evolution', 'evolutoin': 'evolution',
+        'atmoshere': 'atmosphere', 'atmosphre': 'atmosphere',
+        'temprature': 'temperature', 'temparature': 'temperature',
+        'occean': 'ocean', 'ocaen': 'ocean',
+        'mountian': 'mountain', 'mountan': 'mountain',
+        'astromony': 'astronomy', 'astronmy': 'astronomy',
+        'chemestry': 'chemistry', 'chemisty': 'chemistry',
+        'mathamatics': 'mathematics', 'mathimatics': 'mathematics',
+        'philosphy': 'philosophy', 'philosofy': 'philosophy',
+        'psycholgy': 'psychology', 'psycology': 'psychology',
+        # Society/general
+        'govermant': 'government', 'goverment': 'government',
+        'presedent': 'president', 'presidant': 'president',
+        'parliment': 'parliament',
+        'libary': 'library', 'libraray': 'library',
+        'calender': 'calendar', 'calandar': 'calendar',
+        'restarant': 'restaurant', 'resturant': 'restaurant',
+        # Health
+        'vacciene': 'vaccine', 'vacine': 'vaccine',
+        'medecine': 'medicine', 'medicne': 'medicine',
+        'excercise': 'exercise', 'exercize': 'exercise',
+        'nutrician': 'nutrition', 'nutricion': 'nutrition',
+        # Common spelling mistakes
+        'relavant': 'relevant', 'relevent': 'relevant',
+        'definately': 'definitely', 'definitly': 'definitely',
+        'seperately': 'separately', 'seperate': 'separate',
+        'recieve': 'receive', 'recieved': 'received',
+        'beleive': 'believe', 'beleif': 'belief',
+        'occured': 'occurred', 'ocurred': 'occurred',
+        'wierd': 'weird', 'wieird': 'weird',
+        'freind': 'friend', 'frend': 'friend',
+        'foriegn': 'foreign', 'forign': 'foreign',
     }
     words = text.split()
     return ' '.join(fixes.get(w.lower(), w) for w in words)
@@ -316,11 +364,12 @@ class MonkeyJoe:
         best = 0.0
         for q in variants:
             score = 0.0
+            q_padded = ' ' + q + ' '
             for keyword in fact.get('keywords', []):
                 kl = keyword.lower()
-                # Short keywords (2 chars or less) must be standalone words, not substrings
+                # Short keywords (2 chars or less) — only match as whole words using padding
                 if len(kl) <= 2:
-                    if re.search(r'(?<![a-z])' + re.escape(kl) + r'(?![a-z])', q):
+                    if ' ' + kl + ' ' in q_padded:
                         score += 2.0
                     continue
                 # Exact substring match
@@ -483,11 +532,12 @@ class MonkeyJoe:
                 answer = '. '.join(sentences[:3]) + '.'
             return answer
 
-        # Weak match: suggest search
-        if best_fact and 0.5 < best_score < 1.5:
-            return f"I'm not sure, but I can try to search for that. Ask me to search the web for '{user_input}'."
+        # Partial match — suggest the topic Joe does know about
+        if best_fact and best_score >= 0.5:
+            topic = best_fact['keywords'][0]
+            return f"I'm not sure about that specific question, but I know about {topic}! Ask me something more specific about it. 🐒"
 
-        return f"Hmm, I don't know that one yet 🐒 Try asking me to search the web, or ask Akiva to add it to my brain!"
+        return "Hmm, I don't know that one yet 🐒 Try asking me to search the web, or ask Akiva to add it to my brain!"
 
     def github_push(self, file_path: str) -> bool:
         """Push file to GitHub using API."""
@@ -549,7 +599,7 @@ class MonkeyJoe:
 
     def brain_stats(self):
         """Show brain statistics."""
-        print(f"\n{DIM}Monkey Joe Brain v31{RESET}")
+        print(f"\n{DIM}Monkey Joe Brain v32{RESET}")
         print(f"  Knowledge facts: {len(self.knowledge)}")
         print(f"  Coding facts: {len(self.coding)}")
         print(f"  Conversation history: {len(self.history)} exchanges\n")
@@ -566,7 +616,7 @@ class MonkeyJoe:
         print("\033[33m|:::   |  |  |  |   :::|\033[0m")
         print("\033[33m       | ##   ##|\033[0m")
         print()
-        print("\033[1m🐒 Monkey Joe Terminal Interface v31\033[0m")
+        print("\033[1m🐒 Monkey Joe Terminal Interface v32\033[0m")
         print()
         print("Type 'exit' to quit, 'brain' for stats, 'help' for commands, 'files' to see files from this/previous sessions")
         print()
