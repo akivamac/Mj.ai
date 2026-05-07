@@ -227,6 +227,126 @@
     {
       "keywords": ["termux path", "termux files", "termux directory", "data data com termux", "home directory termux", "where is termux", "termux home"],
       "answer": "In Termux, your home directory is /data/data/com.termux/files/home/ — this is what ~ expands to. So ~/github-projects/ is actually /data/data/com.termux/files/home/github-projects/. You can access Android storage at ~/storage/ after running 'termux-setup-storage'."
+    },
+    {
+      "keywords": ["tmux", "tmux basics", "tmux commands", "tmux sessions", "tmux windows", "tmux panes"],
+      "answer": "tmux basics: Start session: `tmux` or `tmux new -s name`. Detach: Ctrl+b then d. List sessions: `tmux ls`. Attach: `tmux attach -t name` or `tmux a`. Kill session: `tmux kill-session -t name`. Windows: Ctrl+b c (new), Ctrl+b n/p (next/prev), Ctrl+b w (list), Ctrl+b , (rename). Panes: Ctrl+b % (split vertical), Ctrl+b \" (split horizontal), Ctrl+b arrow (switch), Ctrl+b z (zoom/unzoom), Ctrl+b x (kill pane). Scroll: Ctrl+b [ then arrows/PageUp (q to exit). In Termux: tmux is essential since /tmp doesn't exist — use sessions instead of background jobs."
+    },
+    {
+      "keywords": ["tmux config", "tmux customise", "tmux prefix", "tmux mouse", ".tmux.conf"],
+      "answer": "tmux configuration (~/.tmux.conf): Change prefix: `set -g prefix C-a` (many prefer Ctrl+a over Ctrl+b). Enable mouse: `set -g mouse on`. Start windows at 1: `set -g base-index 1`. Reload config: `tmux source-file ~/.tmux.conf` or Ctrl+b then `:source-file ~/.tmux.conf`. Status bar: `set -g status-bg black` and `set -g status-fg white`. Vi keys in copy mode: `setw -g mode-keys vi`. Copy text: Ctrl+b [ to enter copy mode, v to select, y to yank, Ctrl+b ] to paste."
+    },
+    {
+      "keywords": ["vim", "vim basics", "vim commands", "vi editor", "vim cheatsheet"],
+      "answer": "vim basics: Open file: `vim filename`. Modes: Normal (default, press Esc), Insert (press i to type), Visual (press v to select), Command (press : for commands). Essential: i=insert before cursor, a=insert after, o=new line below, Esc=return to normal. Navigation: h/j/k/l (left/down/up/right), w/b (word forward/back), gg=top, G=bottom, :n=line n. Save: :w. Quit: :q. Save and quit: :wq or ZZ. Quit without saving: :q!. Search: /pattern (n=next, N=prev). Replace all: :%s/old/new/g. Delete line: dd. Undo: u. Redo: Ctrl+r."
+    },
+    {
+      "keywords": ["vim intermediate", "vim visual", "vim yank", "vim registers", "vim splits"],
+      "answer": "vim intermediate: Visual mode: v (char), V (line), Ctrl+v (block). Yank (copy): y (selected), yy (line), y3j (3 lines). Paste: p (after cursor), P (before). Delete: d (selected), dd (line), dw (word). Change: c (delete + insert mode), cw (change word), C (change to end of line). Indent: >> (in), << (out), = (auto-indent). Splits: :sp (horizontal), :vsp (vertical), Ctrl+w+arrow (switch). Buffers: :e file (open), :bn/:bp (next/prev), :ls (list). Marks: ma (set mark a), 'a (jump to mark a). Macros: qa (record to register a), q (stop), @a (replay), @@ (repeat last)."
+    },
+    {
+      "keywords": ["python debugging", "pdb", "python debugger", "debug python", "python breakpoint"],
+      "answer": "Python debugging: Built-in debugger: `import pdb; pdb.set_trace()` or (Python 3.7+) `breakpoint()`. pdb commands: n=next line, s=step into, c=continue, l=list code, p var=print variable, pp=pretty print, b line=set breakpoint, w=where (stack trace), q=quit. VS Code: add `\"debugpy\"` and set breakpoints in editor. Print debugging: f-strings are great — `print(f'{var=}')` prints name and value. logging module: better than print for production — `import logging; logging.basicConfig(level=logging.DEBUG); logging.debug('msg')`. Traceback: read bottom-up — the last line is the actual error. Common: AttributeError=wrong attribute name, TypeError=wrong type, KeyError=missing dict key, IndexError=list out of bounds."
+    },
+    {
+      "keywords": ["python logging", "python print debug", "python error handling", "try except python"],
+      "answer": "Python error handling: try/except: `try: risky() except ValueError as e: print(e) except (TypeError, KeyError): pass else: print('no error') finally: cleanup()`. Raise: `raise ValueError('message')`. Custom exceptions: `class MyError(Exception): pass`. Logging: `import logging; logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')`. Levels: DEBUG < INFO < WARNING < ERROR < CRITICAL. Log to file: `logging.basicConfig(filename='app.log', ...)`. Context managers: `with open('file') as f:` — auto-closes even on exception. Assert: `assert condition, 'message'` — raises AssertionError if false (use for development, not production)."
+    },
+    {
+      "keywords": ["bash advanced", "bash arrays", "bash loops", "bash functions", "shell scripting advanced"],
+      "answer": "Bash advanced: Arrays: `arr=(a b c)`, `${arr[0]}`, `${arr[@]}` (all), `${#arr[@]}` (length). Loops: `for i in {1..5}; do echo $i; done`. `while read line; do echo $line; done < file.txt`. Functions: `myfunc() { echo $1; }; myfunc arg`. String ops: `${var,,}` (lowercase), `${var^^}` (uppercase), `${var:0:5}` (substring), `${var/old/new}` (replace), `${var:-default}` (default if unset). Conditionals: `[[ $a == $b ]]`, `[[ -f file ]]` (exists), `[[ -d dir ]]` (is dir), `[[ $a =~ regex ]]`. Process substitution: `diff <(cmd1) <(cmd2)`. Heredoc: `cat <<EOF ... EOF`. Trap: `trap 'cleanup' EXIT INT`."
+    },
+    {
+      "keywords": ["bash pipes", "bash redirect", "bash process", "xargs", "subshell"],
+      "answer": "Bash piping and redirection: `cmd > file` (overwrite), `cmd >> file` (append), `cmd 2> err.txt` (stderr), `cmd &> all.txt` (stdout+stderr), `cmd < input.txt` (stdin). Pipe: `cmd1 | cmd2`. xargs: `find . -name '*.log' | xargs rm`. `echo 'a b c' | xargs -n1 echo`. Subshell: `(cd /tmp && ls)` — runs in subshell, doesn't affect current dir. Command substitution: `result=$(cmd)` or backticks. Background: `cmd &`, `jobs`, `fg`, `bg`. Process: `ps aux | grep name`, `kill PID`, `kill -9 PID` (force). `&&` (run if prev succeeded), `||` (run if prev failed), `;` (always run next)."
+    },
+    {
+      "keywords": ["git advanced", "git rebase", "git cherry pick", "git bisect", "git reflog"],
+      "answer": "Git advanced: Rebase: `git rebase main` (replay commits on top of main — cleaner history than merge). Interactive rebase: `git rebase -i HEAD~3` (edit/squash/reorder last 3 commits). Cherry-pick: `git cherry-pick abc1234` (apply specific commit to current branch). Bisect: `git bisect start; git bisect bad; git bisect good v1.0` — binary search for bug-introducing commit. Reflog: `git reflog` — shows all HEAD movements, recover 'lost' commits. Reset: `git reset --soft HEAD~1` (undo commit, keep staged), `--mixed` (unstage too), `--hard` (discard all changes). Worktree: `git worktree add ../feature-branch feature` — check out branch in separate folder without switching."
+    },
+    {
+      "keywords": ["git stash", "git worktree", "git tags", "git hooks", "git submodules"],
+      "answer": "Git extra features: Stash: `git stash` (save dirty state), `git stash pop` (restore), `git stash list`, `git stash apply stash@{1}`, `git stash drop`. Tags: `git tag v1.0` (lightweight), `git tag -a v1.0 -m 'release'` (annotated), `git push origin v1.0`, `git push --tags`. Hooks: scripts in .git/hooks/ — pre-commit, commit-msg, pre-push etc. (chmod +x to enable). Aliases: `git config --global alias.st status`. Submodules: `git submodule add <url>`, `git submodule update --init --recursive`. Sparse checkout (large repos): `git sparse-checkout set path/to/folder`."
+    },
+    {
+      "keywords": ["nodejs", "node basics", "npm scripts", "node modules", "require vs import"],
+      "answer": "Node.js basics: Run file: `node file.js`. REPL: `node` (interactive). npm: `npm init -y` (new project), `npm install package`, `npm install -D package` (dev dep), `npm run script`. package.json scripts: `\"start\": \"node index.js\"`, `\"dev\": \"nodemon index.js\"`. CommonJS: `const x = require('./module')`, `module.exports = x`. ES Modules: `import x from './module.js'`, `export default x`, `export { x }` — requires `\"type\": \"module\"` in package.json or .mjs extension. `__dirname` and `__filename` (CommonJS only). `process.env.VAR` for env variables. `process.argv` for CLI args. Built-in modules: fs, path, http, os, events, crypto."
+    },
+    {
+      "keywords": ["nodejs async", "node streams", "node events", "node http", "express basics"],
+      "answer": "Node.js async patterns: EventEmitter: `const ee = new EventEmitter(); ee.on('event', cb); ee.emit('event', data)`. Streams: `fs.createReadStream('file').pipe(process.stdout)` — memory efficient for large files. HTTP server: `http.createServer((req, res) => { res.end('Hello') }).listen(3000)`. Express: `const app = express(); app.get('/path', (req, res) => res.json({ok: true})); app.listen(3000)`. Middleware: `app.use((req, res, next) => { next() })`. Error middleware: `app.use((err, req, res, next) => res.status(500).json({error: err.message}))`. Worker threads for CPU-intensive tasks. cluster module for multi-core utilization."
+    },
+    {
+      "keywords": ["sql advanced", "sql joins", "inner join", "left join", "sql subquery"],
+      "answer": "SQL advanced joins and queries: INNER JOIN: only matching rows. LEFT JOIN: all left rows + matching right (nulls if no match). RIGHT JOIN: reverse. FULL OUTER JOIN: all rows from both. `SELECT a.*, b.name FROM orders a LEFT JOIN users b ON a.user_id = b.id`. Subqueries: `SELECT * FROM products WHERE price > (SELECT AVG(price) FROM products)`. CTEs: `WITH cte AS (SELECT ...) SELECT * FROM cte`. Window functions: `SELECT name, salary, RANK() OVER (PARTITION BY dept ORDER BY salary DESC) FROM employees`. GROUP BY with HAVING: `SELECT dept, COUNT(*) FROM emp GROUP BY dept HAVING COUNT(*) > 5`. CASE: `SELECT name, CASE WHEN score >= 90 THEN 'A' ELSE 'B' END grade FROM students`."
+    },
+    {
+      "keywords": ["sql indexes", "sql explain", "sql performance", "sql optimization", "database performance"],
+      "answer": "SQL performance: EXPLAIN (MySQL) / EXPLAIN ANALYZE (PostgreSQL): shows query execution plan — look for full table scans (bad). Indexes: `CREATE INDEX idx_name ON table(column)` — speeds up WHERE/JOIN on that column, slows down writes. Composite index: `CREATE INDEX idx ON table(col1, col2)` — only used if col1 is in query. Avoid SELECT *: fetch only needed columns. N+1 problem: loading related records in a loop — fix with JOIN or eager loading. Transactions: `BEGIN; UPDATE ...; UPDATE ...; COMMIT;` — all-or-nothing. Connection pooling: reuse DB connections (pg-pool, HikariCP). Slow query log: enable in MySQL/PostgreSQL to catch problem queries. Normalize to reduce duplication, denormalize for read performance."
+    },
+    {
+      "keywords": ["github actions", "ci cd", "github workflow", "yml workflow", "github pipeline"],
+      "answer": "GitHub Actions basics: Create .github/workflows/ci.yml. Triggers: `on: [push, pull_request]` or `on: push: branches: [main]`. Basic workflow: `jobs: test: runs-on: ubuntu-latest steps: - uses: actions/checkout@v4 - uses: actions/setup-node@v4 with: node-version: '20' - run: npm ci - run: npm test`. Secrets: store in repo Settings → Secrets → use as `${{ secrets.MY_SECRET }}`. Matrix: `strategy: matrix: node: [18, 20, 22]`. Artifacts: `uses: actions/upload-artifact@v4 with: name: build path: dist/`. Cache: `uses: actions/cache@v4 with: path: ~/.npm key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}`."
+    },
+    {
+      "keywords": ["github actions advanced", "github deploy", "github release", "workflow dispatch"],
+      "answer": "GitHub Actions advanced: Manual trigger: `on: workflow_dispatch: inputs: env: description: 'Target env' required: true`. Deploy to GitHub Pages: `uses: actions/deploy-pages@v4`. Reusable workflows: `uses: ./.github/workflows/reusable.yml with: param: value`. Environment protection rules: Settings → Environments → add reviewers for production deploys. `GITHUB_TOKEN`: auto-provided, can push/create releases. Create release: `uses: actions/create-release@v1`. Conditional steps: `if: github.ref == 'refs/heads/main'`. Self-hosted runners: run on your own hardware. Composite actions: package multiple steps into a reusable action in action.yml."
+    },
+    {
+      "keywords": ["pytest", "python testing", "unit testing python", "test python", "pytest basics"],
+      "answer": "pytest basics: Install: `pip install pytest`. Run: `pytest` (finds test_*.py files). Test function: `def test_add(): assert add(1, 2) == 3`. Run specific: `pytest test_file.py::test_function -v`. Fixtures: `@pytest.fixture def client(): return app.test_client()`. Use in test: `def test_route(client): r = client.get('/'); assert r.status_code == 200`. Parametrize: `@pytest.mark.parametrize('a,b,expected', [(1,2,3),(4,5,9)]) def test_add(a,b,expected): assert add(a,b)==expected`. Skip: `@pytest.mark.skip(reason='not ready')`. Expected exception: `with pytest.raises(ValueError): func()`. Coverage: `pip install pytest-cov; pytest --cov=myapp --cov-report=html`."
+    },
+    {
+      "keywords": ["pytest mocking", "mock python", "unittest mock", "patch python", "monkeypatch"],
+      "answer": "Python mocking: `from unittest.mock import Mock, patch, MagicMock`. Patch decorator: `@patch('mymodule.requests.get') def test_api(mock_get): mock_get.return_value.json.return_value = {'ok': True}`. Context manager: `with patch('module.func') as mock: mock.return_value = 42`. MagicMock: auto-creates attributes/methods on access. Assert calls: `mock.assert_called_once_with(arg)`, `mock.call_count`, `mock.call_args_list`. pytest monkeypatch: `def test_env(monkeypatch): monkeypatch.setenv('KEY', 'val')`. Mock side effects: `mock.side_effect = [1, 2, ValueError('fail')]`. Spy: `mocker.spy(obj, 'method')` (pytest-mock) — calls real function but records calls."
+    },
+    {
+      "keywords": ["regex advanced", "regex groups", "regex lookahead", "regex python", "regular expressions advanced"],
+      "answer": "Regex advanced: Named groups: `(?P<name>pattern)` — access with `m.group('name')`. Non-capturing group: `(?:pattern)`. Lookahead: `foo(?=bar)` (foo followed by bar, bar not captured). Negative lookahead: `foo(?!bar)`. Lookbehind: `(?<=foo)bar`. Non-greedy: `.*?` (match as little as possible). Backreference: `(\\w+) \\1` matches repeated word. In Python: `re.compile(pattern, re.IGNORECASE | re.MULTILINE | re.DOTALL)`. `re.search` (first match anywhere), `re.match` (start of string), `re.findall` (all matches), `re.sub('pat', 'repl', text)`, `re.split`. Verbose mode: `re.VERBOSE` — allows whitespace and comments in pattern. Word boundary: `\\b`, digit: `\\d`, whitespace: `\\s`, any: `.` (except newline without DOTALL)."
+    },
+    {
+      "keywords": ["curl advanced", "curl post", "curl headers", "curl auth", "curl json"],
+      "answer": "curl advanced: POST JSON: `curl -X POST https://api.example.com/data -H 'Content-Type: application/json' -d '{\"key\":\"value\"}'`. Auth: `curl -u user:pass URL` (basic), `curl -H 'Authorization: Bearer TOKEN' URL`. Save to file: `curl -o output.html URL`. Silent: `curl -s URL`. Follow redirects: `curl -L URL`. Show headers: `curl -I URL` (HEAD only), `curl -v URL` (verbose). Upload file: `curl -F 'file=@path/to/file' URL`. Cookies: `curl -b cookies.txt -c cookies.txt URL`. Rate info: `curl -w '%{time_total}\\n' -o /dev/null -s URL`. Multiple URLs: `curl URL1 URL2`. Retry: `curl --retry 3 --retry-delay 2 URL`."
+    },
+    {
+      "keywords": ["find command", "find files", "locate files", "find grep", "find exec"],
+      "answer": "find command: `find /path -name '*.js'` (by name), `-iname` (case-insensitive). By type: `-type f` (file), `-type d` (dir), `-type l` (symlink). By size: `-size +1M` (over 1MB), `-size -100k`. By time: `-mtime -7` (modified in last 7 days), `-newer file.txt`. By permission: `-perm 644`. Execute: `find . -name '*.log' -exec rm {} \\;` or `-exec rm {} +` (batched, faster). Print: `-print0` (null-separated, safe for spaces). Exclude dir: `-not -path '*/node_modules/*'`. Combine: `find . -name '*.py' -not -name '__init__.py'`. Depth: `-maxdepth 2`. In Termux: find works normally but some system paths are restricted."
+    },
+    {
+      "keywords": ["grep advanced", "grep regex", "grep recursive", "ripgrep", "grep context"],
+      "answer": "grep advanced: Recursive: `grep -r 'pattern' .` or `-R` (follow symlinks). Case insensitive: `-i`. Show line numbers: `-n`. Count matches: `-c`. Only filenames: `-l`. Invert match: `-v`. Extended regex: `-E` (enables +, ?, |, ()). Perl regex: `-P` (enables \\d, \\w, lookaheads). Context: `-A 3` (3 lines after), `-B 3` (before), `-C 3` (both). Color: `--color=always`. Fixed string (no regex): `-F`. Word boundary: `-w`. Multiple patterns: `-e 'pat1' -e 'pat2'`. Exclude: `--exclude='*.log'`, `--exclude-dir=node_modules`. ripgrep (rg): faster alternative — `rg 'pattern'` — respects .gitignore by default, faster than grep. `rg -t js 'pattern'` (only .js files)."
+    },
+    {
+      "keywords": ["sed awk", "sed command", "awk command", "text processing", "stream editor"],
+      "answer": "sed and awk: sed (stream editor): `sed 's/old/new/g' file` (replace all in file), `sed -i 's/old/new/g' file` (in-place). `sed -n '5,10p' file` (print lines 5-10). `sed '/pattern/d' file` (delete matching lines). `sed 's/^/prefix/' file` (add prefix to each line). awk: `awk '{print $1}' file` (first field). `awk -F',' '{print $2}' file` (comma-separated). `awk 'NR>1' file` (skip header). `awk '{sum+=$1} END{print sum}' file` (sum column). `awk '/pattern/{print $0}' file` (filter). `awk '{print $NF}' file` (last field). Combine: `cat file | awk '{print $1}' | sort | uniq -c | sort -rn` (frequency count of first column)."
+    },
+    {
+      "keywords": ["environment variables", "env vars", ".env file", "dotenv", "export bash"],
+      "answer": "Environment variables: Set in shell: `export MY_VAR=value` (current session). Persistent: add to ~/.bashrc or ~/.bash_profile. Check: `echo $MY_VAR`, `env | grep MY`, `printenv MY_VAR`. Unset: `unset MY_VAR`. .env files: create `.env` with `KEY=value` lines — never commit to git (add to .gitignore!). In Node.js: `require('dotenv').config()` then `process.env.KEY`. In Python: `from dotenv import load_dotenv; load_dotenv(); os.getenv('KEY')`. In bash: `set -a; source .env; set +a`. System-wide: /etc/environment (Ubuntu). Default value: `${MY_VAR:-default}`. Required check in bash: `${MY_VAR:?'MY_VAR is required'}` — exits with error if unset."
+    },
+    {
+      "keywords": ["proot distro", "proot-distro", "linux on termux", "ubuntu termux", "debian termux"],
+      "answer": "proot-distro: Run full Linux distros inside Termux without root. Install: `pkg install proot-distro`. List available: `proot-distro list`. Install Ubuntu: `proot-distro install ubuntu`. Login: `proot-distro login ubuntu`. Login as root: `proot-distro login ubuntu --user root`. Inside the distro: full apt, systemd-style packages, /tmp works, standard Linux paths. Exit: `exit`. Remove: `proot-distro remove ubuntu`. Backup: `proot-distro backup ubuntu > ubuntu.tar.gz`. Restore: `proot-distro restore < ubuntu.tar.gz`. Useful for: running tools that need /tmp, glibc binaries, Python packages with compiled C extensions, development environments that expect standard Linux paths. Note: no real root — kernel calls go through proot."
+    },
+    {
+      "keywords": ["javascript async await", "async await", "promises js", "fetch api", "async javascript"],
+      "answer": "JavaScript async/await: async function always returns a Promise. await pauses execution until Promise resolves — can only use inside async function. `async function fetchUser(id) { const res = await fetch('/api/users/' + id); const data = await res.json(); return data; }`. Error handling: `try { const data = await fetchUser(1) } catch (err) { console.error(err) }`. Parallel: `const [a, b] = await Promise.all([fetch(url1), fetch(url2)])` — runs concurrently. Promise.allSettled: waits for all, doesn't reject on failure. Promise.race: resolves/rejects with first to settle. Promise.any: resolves with first success. Chaining: `fetch(url).then(r => r.json()).then(data => ...).catch(err => ...)`. Convert callback to promise: `new Promise((resolve, reject) => { cb(err => err ? reject(err) : resolve()) })`."
+    },
+    {
+      "keywords": ["typescript basics", "typescript types", "typescript interfaces", "ts types", "typescript generics"],
+      "answer": "TypeScript basics: Superset of JavaScript — adds static types. Install: `npm install -D typescript tsx`. Run: `npx tsx file.ts` or compile with `tsc`. Basic types: `string`, `number`, `boolean`, `null`, `undefined`, `any` (avoid), `unknown` (safer than any), `never` (never returns). Interfaces: `interface User { id: number; name: string; email?: string }` (? = optional). Type aliases: `type ID = string | number`. Generics: `function identity<T>(arg: T): T { return arg }`. Arrays: `string[]` or `Array<string>`. Union: `string | number`. Intersection: `TypeA & TypeB`. Type narrowing: `if (typeof x === 'string') { ... }`. Readonly: `readonly id: number`. tsconfig.json: `\"strict\": true` catches most bugs."
+    },
+    {
+      "keywords": ["good commit messages", "commit message format", "conventional commits", "how to write commits", "git commit style"],
+      "answer": "Writing good commit messages: Conventional Commits format: `type(scope): description`. Types: feat (new feature), fix (bug fix), refactor (code change, no behavior change), docs (documentation), test (adding tests), style (formatting), chore (maintenance), perf (performance). Examples: `feat(auth): add JWT token refresh`, `fix(login): prevent double-submit on slow networks`, `refactor: extract payment logic into service`. Rules: subject line ≤ 72 chars, imperative mood ('add' not 'added'), no period at end. Body: explain WHY not WHAT (the diff shows what). Footer: `BREAKING CHANGE: ...` or `Closes #123`. Avoid: 'fixed stuff', 'wip', 'asdf'. Atomic commits: one logical change per commit — easier to review, bisect, and revert."
+    },
+    {
+      "keywords": ["debugging tips", "how to debug", "debugging strategies", "find bugs", "rubber duck debugging"],
+      "answer": "Debugging strategies: Read the error message fully — the last line is the actual error, the stack trace shows where. Reproduce reliably before trying to fix. Rubber duck debugging: explain your code line-by-line out loud (or to a duck) — you often find the bug before finishing. Bisect: comment out half the code to find which half has the bug. Print/log strategically: log inputs and outputs at function boundaries. Check assumptions: `assert len(data) > 0, 'data is empty'`. Minimal reproduction: strip down to the smallest code that still shows the bug. Read docs: most bugs are misunderstandings of how a function behaves. Google the exact error message in quotes. Take breaks: fresh eyes catch things tired eyes miss. Version control: `git diff` shows exactly what changed since it last worked."
+    },
+    {
+      "keywords": ["javascript modules", "es modules", "import export", "module bundler", "webpack vite"],
+      "answer": "JavaScript modules: ES Modules (modern): `export const x = 1`, `export default function() {}`, `import { x } from './module.js'`, `import fn from './module.js'`. Dynamic import: `const mod = await import('./module.js')` — lazy loading. CommonJS (Node.js legacy): `module.exports = { x }`, `const { x } = require('./module')`. Bundlers: Vite (fast, uses native ES modules in dev), Webpack (mature, very configurable), esbuild (extremely fast, used by Vite under the hood), Rollup (great for libraries). Tree shaking: bundlers remove unused exports — only works with ES modules. Import maps (browser native): `<script type='importmap'>` to map bare imports without a bundler. Barrel files: `index.js` that re-exports from multiple files — can hurt tree shaking if not careful."
     }
   ]
 }

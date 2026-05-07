@@ -236,6 +236,19 @@ class MonkeyJoe:
             'integration': 'calculus', 'matrices': 'linear algebra', 'vectors': 'linear algebra',
             'probability theory': 'statistics', 'north pole': 'arctic', 'south pole': 'antarctic',
             'rainforest': 'amazon', 'sahel': 'deserts', 'tundra': 'arctic',
+            'capital city of': 'capital', 'what is the capital': 'capital',
+            'how many people live in': 'population', 'population of': 'population',
+            'how to be happy': 'happiness', 'what makes people happy': 'happiness',
+            'get in shape': 'exercise', 'lose weight': 'exercise', 'build muscle': 'exercise',
+            'learn a language': 'language learning', 'become fluent': 'language learning',
+            'save money': 'money', 'personal finance': 'money',
+            'why do we dream': 'dream', 'what are dreams': 'dream',
+            'why is the sky blue': 'color', 'how do colors work': 'color',
+            'how does gravity work': 'gravity', 'what is gravity': 'gravity',
+            'why are we here': 'meaning of life',
+            'how to cook': 'cooking', 'beginner cooking': 'cooking',
+            'what should i read': 'books', 'best books': 'books',
+            'how to learn': 'learning techniques', 'study tips': 'learning techniques',
             'npm install': 'npm', 'yarn add': 'yarn', 'pip install': 'pip',
             'pull request': 'git', 'merge conflict': 'git', 'git clone': 'git',
             'permission denied': 'chmod', 'no such file': 'file system', 'command not found': 'terminal',
@@ -354,10 +367,18 @@ class MonkeyJoe:
             for greeting in self.rules.get('greetings', []):
                 if_words = greeting.get('if', [])
                 for word in if_words:
-                    if lower == word or lower.startswith(word + ' ') or lower.startswith(word + '!'):
+                    if lower == word or lower.startswith(word + ' ') or lower.startswith(word + '!') or lower.startswith(word + ','):
                         responses = greeting.get('responses', [])
                         if responses:
                             return random.choice(responses)
+
+        # Name recognition — user addresses or asks about Joe by name
+        if 'monkey joe' in lower:
+            if any(lower.startswith(w) for w in ['hi', 'hey', 'hello', 'howdy', 'hiya', 'yo', 'sup']):
+                greetings = self.rules.get('greetings', [{}])
+                responses = greetings[0].get('responses', []) if greetings else []
+                return random.choice(responses) if responses else "Hey! 🐒"
+            return "That's me! 🐒 I'm Monkey Joe — a rules-based AI assistant made by Akiva. Ask me anything!"
 
         # Check capability questions (before knowledge lookup)
         capability_triggers = ['can you', 'are you able', 'what can you do', 'what do you know',
