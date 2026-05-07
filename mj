@@ -654,8 +654,35 @@ class MonkeyJoe:
                     print(f"Joe: {random.choice(['What else can I help with? 🐒', 'Ask me anything!', "What's next?", 'What do you want to know?'])}\n")
                     continue
 
+                # User talking about what they're doing to Joe
+                doing_to_joe = ['i am fixing you', 'i am updating you', 'i am improving you',
+                                'i am building you', 'i made you', 'i created you', 'i built you',
+                                'akiva made you', 'you were made by']
+                if any(p in lower_input for p in doing_to_joe):
+                    print("Joe: I know! Akiva built me and keeps making me smarter. 🐒 Thanks!\n")
+                    continue
+
+                # Personal preference questions to Joe
+                joe_preferences = ['do you like', 'do you enjoy', 'do you love', 'do you hate',
+                                   'do you play', 'do you watch', 'do you eat', 'do you drink',
+                                   'do you sleep', 'do you dream', 'do you have a favorite',
+                                   'whats your favorite', "what's your favorite", 'do you prefer']
+                if any(p in lower_input for p in joe_preferences):
+                    print(f"Joe: {random.choice(['I\'m a rules-based assistant — I don\'t have preferences or feelings! But I can tell you facts about almost anything. 🐒', 'Ha! I wish. I don\'t experience things — but ask me about it and I\'ll tell you everything I know!', 'No feelings here, just facts! Ask me anything though. 🐒'])}\n")
+                    continue
+
                 # Get response
                 response = self.respond(user_input)
+
+                # Short statements that got no match — conversational catch-all
+                question_words = ['what', 'who', 'how', 'why', 'where', 'when', 'which', 'is', 'are',
+                                  'do', 'does', 'did', 'can', 'could', 'would', 'should', 'will', '?']
+                if (response.startswith("Hmm, I don't know") and len(lower_input.split()) <= 4
+                        and not any(lower_input.startswith(w) for w in question_words)
+                        and '?' not in lower_input):
+                    print("Joe: Tell me more, or ask me a question! 🐒\n")
+                    continue
+
                 print(f"Joe: {response}\n")
 
                 # Store exchange
