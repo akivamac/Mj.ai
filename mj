@@ -622,6 +622,19 @@ class MonkeyJoe:
                         lines.append(line)
                     user_input = '\n'.join(lines)
 
+                # How are you check — before knowledge lookup
+                how_are_you = ['how are you', 'how are u', 'how do you feel', 'you okay', 'you good', 'hows it going', "how's it going", 'how you doing', 'how you doin', "how're you"]
+                if any(p in user_input.lower() for p in how_are_you):
+                    responses = [
+                        "Doing great, thanks for asking! What can I help you with? 🐒",
+                        "Pretty good! Ready to answer your questions. What's up?",
+                        "Living my best rules-based life! What do you need?",
+                        "Can't complain — no feelings to complain with! 😄 What's on your mind?",
+                        "Fully operational and caffeinated on data. You?",
+                    ]
+                    print(f"Joe: {random.choice(responses)}\n")
+                    continue
+
                 # Get response
                 response = self.respond(user_input)
                 print(f"Joe: {response}\n")
