@@ -357,40 +357,37 @@ class MonkeyJoe:
                 return m.group(1).strip().lower()
         return None
 
+    @staticmethod
+    def keyword_matches(keyword: str, query: str) -> bool:
+        """Check if keyword appears in query as a whole word."""
+        kl = keyword.lower().strip()
+        ql = query.lower()
+        if len(kl) <= 2:
+            # Short keywords: must be surrounded by non-letter characters
+            padded = ' ' + ql + ' '
+            return ' ' + kl + ' ' in padded
+        # Longer keywords: word-boundary match on the left side
+        try:
+            return bool(re.search(r'\b' + re.escape(kl), ql))
+        except Exception:
+            return kl in ql
+
     def score_fact(self, fact: Dict, variants: List[str]) -> float:
         """Score fact against query variants."""
-        if 'keywords' not in fact:
+        if not fact.get('keywords'):
             return 0
         best = 0.0
         for q in variants:
             score = 0.0
-            q_padded = ' ' + q + ' '
-            for keyword in fact.get('keywords', []):
-                kl = keyword.lower()
-                # Short keywords (2 chars or less) — only match as whole words using padding
-                if len(kl) <= 2:
-                    if ' ' + kl + ' ' in q_padded:
-                        score += 2.0
-                    continue
-                # Exact substring match
-                if kl in q or q in kl:
-                    score += 2.0
-                    continue
-                # Stem match
-                if len(kl) > 4:
+            for kw in fact['keywords']:
+                if self.keyword_matches(kw, q):
+                    score += 2.0 if len(kw) > 2 else 1.0
+                elif len(kw) > 4:
+                    # Stem match fallback
                     for qword in q.split():
-                        if self.stem_word(kl) == self.stem_word(qword):
+                        if self.stem_word(kw.lower()) == self.stem_word(qword):
                             score += 1.0
                             break
-                # Partial match
-                kwords = kl.split()
-                qwords = q.split()
-                for kw in kwords:
-                    if len(kw) > 4:
-                        for qw in qwords:
-                            if qw.startswith(kw) or kw.startswith(qw):
-                                score += 0.5
-                                break
             best = max(best, score)
         return best
 
@@ -599,7 +596,7 @@ class MonkeyJoe:
 
     def brain_stats(self):
         """Show brain statistics."""
-        print(f"\n{DIM}Monkey Joe Brain v32{RESET}")
+        print(f"\n{DIM}Monkey Joe Brain v33{RESET}")
         print(f"  Knowledge facts: {len(self.knowledge)}")
         print(f"  Coding facts: {len(self.coding)}")
         print(f"  Conversation history: {len(self.history)} exchanges\n")
@@ -616,7 +613,7 @@ class MonkeyJoe:
         print("\033[33m|:::   |  |  |  |   :::|\033[0m")
         print("\033[33m       | ##   ##|\033[0m")
         print()
-        print("\033[1m🐒 Monkey Joe Terminal Interface v32\033[0m")
+        print("\033[1m🐒 Monkey Joe Terminal Interface v33\033[0m")
         print()
         print("Type 'exit' to quit, 'brain' for stats, 'help' for commands, 'files' to see files from this/previous sessions")
         print()
