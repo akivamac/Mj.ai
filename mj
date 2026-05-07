@@ -614,7 +614,7 @@ class MonkeyJoe:
 
     def brain_stats(self):
         """Show brain statistics."""
-        print(f"\n{DIM}Monkey Joe Brain v34{RESET}")
+        print(f"\n{DIM}Monkey Joe Brain v35{RESET}")
         print(f"  Knowledge facts: {len(self.knowledge)}")
         print(f"  Coding facts: {len(self.coding)}")
         print(f"  Conversation history: {len(self.history)} exchanges\n")
@@ -631,7 +631,7 @@ class MonkeyJoe:
         print("\033[33m|:::   |  |  |  |   :::|\033[0m")
         print("\033[33m       | ##   ##|\033[0m")
         print()
-        print("\033[1m🐒 Monkey Joe Terminal Interface v34\033[0m")
+        print("\033[1m🐒 Monkey Joe Terminal Interface v35\033[0m")
         print()
         print("Type 'exit' to quit, 'brain' for stats, 'help' for commands, 'files' to see files from this/previous sessions")
         print()
@@ -729,6 +729,21 @@ class MonkeyJoe:
                     else:
                         print("Joe: No worries! What did you mean to ask? 🐒\n")
                         continue
+
+                # Rephrase detection — "i asked if you could X", "i said X", etc.
+                rephrase_patterns = [
+                    r'i asked (?:if |whether )?(?:you )?(?:could |can |would )?(.+)',
+                    r'i said (.+)',
+                    r'my question was (.+)',
+                    r'i meant (.+)',
+                    r'i was asking (?:about |if |whether )?(.+)',
+                ]
+                for pat in rephrase_patterns:
+                    m = re.search(pat, lower_input)
+                    if m:
+                        user_input = m.group(1).strip()
+                        lower_input = user_input.lower()
+                        break
 
                 # Greeting check
                 greetings_list = ['hi', 'hey', 'hello', 'howdy', 'sup', "what's up", 'whats up',

@@ -347,6 +347,10 @@
     {
       "keywords": ["javascript modules", "es modules", "import export", "module bundler", "webpack vite"],
       "answer": "JavaScript modules: ES Modules (modern): `export const x = 1`, `export default function() {}`, `import { x } from './module.js'`, `import fn from './module.js'`. Dynamic import: `const mod = await import('./module.js')` — lazy loading. CommonJS (Node.js legacy): `module.exports = { x }`, `const { x } = require('./module')`. Bundlers: Vite (fast, uses native ES modules in dev), Webpack (mature, very configurable), esbuild (extremely fast, used by Vite under the hood), Rollup (great for libraries). Tree shaking: bundlers remove unused exports — only works with ES modules. Import maps (browser native): `<script type='importmap'>` to map bare imports without a bundler. Barrel files: `index.js` that re-exports from multiple files — can hurt tree shaking if not careful."
+    },
+    {
+      "keywords": ["make spreadsheet", "create spreadsheet", "excel", "csv file", "make a table", "create a table", "spreadsheet"],
+      "answer": "In mj CLI, I can create CSV files for you — just say 'make me a file called data.csv'. For full spreadsheet features like Excel formulas and formatting, you'd use LibreOffice Calc, Google Sheets, or Microsoft Excel. I can also help you write Python scripts using pandas or openpyxl to create/manipulate spreadsheets programmatically."
     }
   ]
 }
