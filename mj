@@ -304,9 +304,9 @@ class MonkeyJoe:
             score = 0.0
             for keyword in fact.get('keywords', []):
                 kl = keyword.lower()
-                # Short keywords (2 chars or less) must be whole words, not substrings
+                # Short keywords (2 chars or less) must be standalone words, not substrings
                 if len(kl) <= 2:
-                    if re.search(r'\b' + re.escape(kl) + r'\b', q):
+                    if re.search(r'(?<![a-z])' + re.escape(kl) + r'(?![a-z])', q):
                         score += 2.0
                     continue
                 # Exact substring match
@@ -361,6 +361,18 @@ class MonkeyJoe:
         lower = user_input.lower().strip()
         if not lower:
             return ""
+
+        # How are you — must be first, before ANY knowledge lookup
+        how_are_you = ['how are you', 'how are u', 'how do you feel', 'you okay', 'you good',
+                       'hows it going', "how's it going", 'how you doing', 'how you doin', "how're you"]
+        if any(p in lower for p in how_are_you):
+            return random.choice([
+                "Doing great, thanks for asking! What can I help you with? 🐒",
+                "Pretty good! Ready to answer your questions. What's up?",
+                "Living my best rules-based life! What do you need?",
+                "Can't complain — no feelings to complain with! 😄 What's on your mind?",
+                "Fully operational and caffeinated on data. You?",
+            ])
 
         # Check greetings first (from rules.json)
         if self.rules and 'greetings' in self.rules:
@@ -621,19 +633,6 @@ class MonkeyJoe:
                             break
                         lines.append(line)
                     user_input = '\n'.join(lines)
-
-                # How are you check — before knowledge lookup
-                how_are_you = ['how are you', 'how are u', 'how do you feel', 'you okay', 'you good', 'hows it going', "how's it going", 'how you doing', 'how you doin', "how're you"]
-                if any(p in user_input.lower() for p in how_are_you):
-                    responses = [
-                        "Doing great, thanks for asking! What can I help you with? 🐒",
-                        "Pretty good! Ready to answer your questions. What's up?",
-                        "Living my best rules-based life! What do you need?",
-                        "Can't complain — no feelings to complain with! 😄 What's on your mind?",
-                        "Fully operational and caffeinated on data. You?",
-                    ]
-                    print(f"Joe: {random.choice(responses)}\n")
-                    continue
 
                 # Get response
                 response = self.respond(user_input)
