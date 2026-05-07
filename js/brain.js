@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '29'; // bump when brain JSON files change
+  const BRAIN_VERSION = '30'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -140,7 +140,7 @@ const Brain = (() => {
     }
 
     // Identity shortcut — catch before search triggers
-    if (lower.includes('who are you') || lower.includes('what are you') || lower === 'who r u') {
+    if (lower.includes('who are you') || lower.includes('what are you') || lower === 'who r u' || lower.includes('your name') || lower === 'what are you called') {
       return "I'm Monkey Joe 🐒 — a rules-based assistant built by Akiva with Claude's help. My brain lives in a GitHub repo and grows over time!";
     }
 
