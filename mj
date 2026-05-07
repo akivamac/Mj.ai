@@ -52,6 +52,20 @@ def log_file(filepath):
     with open(FILES_LOG, 'w') as f:
         json.dump(files, f)
 
+def fix_typos(text: str) -> str:
+    """Fix common typos before processing."""
+    fixes = {
+        'myou': 'you', 'yuo': 'you', 'teh': 'the', 'hwo': 'how',
+        'waht': 'what', 'whta': 'what', 'adn': 'and', 'nad': 'and',
+        'thn': 'then', 'fo': 'for', 'ot': 'to',
+        'dont': "don't", 'cant': "can't", 'wont': "won't", 'isnt': "isn't",
+        'didnt': "didn't", 'doesnt': "doesn't", 'im': "i'm", 'ive': "i've",
+        'youre': "you're", 'theyre': "they're", 'thats': "that's",
+        'whats': "what's", 'hows': "how's", 'whos': "who's",
+    }
+    words = text.split()
+    return ' '.join(fixes.get(w.lower(), w) for w in words)
+
 def update_brain(brain_dir):
     """Silently pull latest brain files from GitHub on startup."""
     base_url = 'https://raw.githubusercontent.com/akivamac/Mj.ai/main/brain/'
@@ -535,7 +549,7 @@ class MonkeyJoe:
 
     def brain_stats(self):
         """Show brain statistics."""
-        print(f"\n{DIM}Monkey Joe Brain v29{RESET}")
+        print(f"\n{DIM}Monkey Joe Brain v31{RESET}")
         print(f"  Knowledge facts: {len(self.knowledge)}")
         print(f"  Coding facts: {len(self.coding)}")
         print(f"  Conversation history: {len(self.history)} exchanges\n")
@@ -552,7 +566,7 @@ class MonkeyJoe:
         print("\033[33m|:::   |  |  |  |   :::|\033[0m")
         print("\033[33m       | ##   ##|\033[0m")
         print()
-        print("\033[1m🐒 Monkey Joe Terminal Interface v30\033[0m")
+        print("\033[1m🐒 Monkey Joe Terminal Interface v31\033[0m")
         print()
         print("Type 'exit' to quit, 'brain' for stats, 'help' for commands, 'files' to see files from this/previous sessions")
         print()
@@ -634,24 +648,92 @@ class MonkeyJoe:
                         lines.append(line)
                     user_input = '\n'.join(lines)
 
-                # Self-referential questions about Joe — before knowledge lookup
-                lower_input = user_input.lower().strip()
-                joe_self = [
-                    'do you have', 'do you know', 'can you', 'are you able',
-                    'what do you have', 'have you got', 'do you need',
-                    'do you remember', 'did you', 'are you',
-                    'what are you', 'who are you', 'what can you',
-                ]
-                if any(lower_input.startswith(p) for p in joe_self) and len(lower_input.split()) < 10:
-                    print("Joe: I'm a rules-based assistant — I don't have accounts, tokens, memory between sessions, or personal state. I just answer questions from my brain! 🐒\n")
+                # Apply typo correction early
+                lower_input = fix_typos(user_input).lower().strip()
+
+                # Apology/correction handling
+                apology_triggers = ['sorry', 'oops', 'i meant', 'i mean', 'correction',
+                                    'i made a typo', 'typo', 'i mistyped', 'ignore that',
+                                    'never mind', 'nevermind', 'scratch that']
+                if any(p in lower_input for p in apology_triggers):
+                    meant_match = re.search(r'(?:i meant|i mean|correction[:\s])\s+(.+)', lower_input)
+                    if meant_match:
+                        corrected = meant_match.group(1).strip()
+                        lower_input = corrected
+                        user_input = corrected
+                    else:
+                        print("Joe: No worries! What did you mean to ask? 🐒\n")
+                        continue
+
+                # Greeting check
+                greetings_list = ['hi', 'hey', 'hello', 'howdy', 'sup', "what's up", 'whats up',
+                                  'yo', 'hiya', 'greetings', 'good morning', 'good afternoon',
+                                  'good evening', 'good night', 'morning', 'evening', 'afternoon',
+                                  'heya', 'hi there', 'hey there', 'hello there']
+                if lower_input in greetings_list:
+                    print(f"Joe: {random.choice(['Hey! What do you need? 🐒', 'Hi! Ask me anything.', chr(72) + 'ello! What' + chr(39) + 's on your mind?', 'Hey hey! What' + chr(39) + 's up?', 'Hi there! What can I do for you?'])}\n")
                     continue
 
-                # Casual acknowledgements — short standalone messages
-                casual_ack = ['good', 'nice', 'cool', 'great', 'ok', 'okay', 'perfect', 'awesome',
-                              'thanks', 'thank you', 'got it', 'sounds good', 'makes sense',
-                              'interesting', 'wow', 'really', 'sure', 'alright']
-                if lower_input in casual_ack or (len(lower_input.split()) <= 2 and any(lower_input.startswith(w) for w in casual_ack)):
-                    print(f"Joe: {random.choice(['What else can I help with? 🐒', 'Ask me anything!', "What's next?", 'What do you want to know?'])}\n")
+                # Identity questions about Joe
+                joe_identity = ['what is your name', 'what are you called', 'who are you',
+                                'what are you', 'tell me about yourself', 'introduce yourself',
+                                'what do you do']
+                if any(p in lower_input for p in joe_identity):
+                    print("Joe: I'm Monkey Joe — a rules-based AI assistant built by Akiva! I answer questions from my knowledge base covering coding, science, history, animals, food, and much more. I'm not an LLM like Claude — I match patterns against stored facts. 🐒\n")
+                    continue
+
+                # Compliments
+                compliments = ['you are smart', "you're smart", 'you are great', "you're great",
+                               'you are amazing', "you're amazing", 'you are awesome', "you're awesome",
+                               'good job', 'well done', 'nice job', 'impressive', 'not bad',
+                               'i like you', 'you are cool', "you're cool", 'love you', 'i love you']
+                if any(p in lower_input for p in compliments):
+                    print(f"Joe: {random.choice(['Aw thanks! 🐒 Just doing my best.', 'You' + chr(39) + 're too kind! Ask me anything.', 'Thanks! Getting smarter every day. 🐒'])}\n")
+                    continue
+
+                # Gratitude
+                gratitude = ['thank you', 'thanks', 'thx', 'ty', 'cheers', 'appreciate it',
+                             'appreciate that', 'helpful', 'that helped', 'that was helpful',
+                             'great answer', 'good answer', 'perfect answer']
+                if any(p in lower_input for p in gratitude) and len(lower_input.split()) <= 5:
+                    print(f"Joe: {random.choice(['Happy to help! 🐒', 'Anytime!', 'Glad that helped! Ask me anything else.', 'You' + chr(39) + 're welcome! What else do you need?'])}\n")
+                    continue
+
+                # Affirmations
+                affirmations = ['yes', 'yeah', 'yep', 'yup', 'sure', 'absolutely', 'definitely',
+                                'of course', 'correct', 'right', 'exactly', 'indeed', 'true',
+                                'agreed', 'i agree', 'you are right', "you're right", 'makes sense',
+                                'i see', 'got it', 'understood', 'i know', 'i knew that',
+                                'ok', 'okay', 'good', 'nice', 'cool', 'great', 'perfect',
+                                'awesome', 'alright', 'sounds good', 'interesting', 'wow', 'really']
+                if lower_input in affirmations or (len(lower_input.split()) <= 3 and any(lower_input.startswith(a) for a in affirmations)):
+                    print(f"Joe: {random.choice(['Great! What else can I help with? 🐒', 'What' + chr(39) + 's next?', 'Ask me anything!', 'What do you want to know?'])}\n")
+                    continue
+
+                # Confusion handling
+                confusion = ["i don't understand", "i dont understand", "that doesn't make sense",
+                             "that makes no sense", "what do you mean", "huh", "what?",
+                             "excuse me", "come again", "say that again",
+                             "can you explain that", "elaborate", "clarify"]
+                if any(p in lower_input for p in confusion):
+                    print("Joe: Sorry about that! Try asking me in a different way, or ask something more specific. 🐒\n")
+                    continue
+
+                # Frustration handling
+                frustration = ["this is stupid", "you're useless", "you are useless", "you're dumb",
+                               "you are dumb", "terrible", "worst", "garbage", "trash", "you suck",
+                               "this sucks", "hate you", "hate this", "annoying", "frustrating",
+                               "broken", "fix yourself"]
+                if any(p in lower_input for p in frustration):
+                    print("Joe: I know I'm not perfect yet — Akiva is working on making me smarter! 🐒 Try asking something else?\n")
+                    continue
+
+                # Disagreement handling
+                disagreements = ['no', 'nope', 'nah', 'wrong', 'incorrect', 'that is wrong',
+                                 "that's wrong", 'not right', 'not correct', 'false',
+                                 'that is false', 'i disagree', 'not true', 'actually']
+                if lower_input in ['no', 'nope', 'nah', 'wrong', 'incorrect', 'false'] or (len(lower_input.split()) <= 4 and any(lower_input.startswith(d) for d in disagreements)):
+                    print("Joe: I might be wrong! I'm rules-based so I can make mistakes. What's the correct answer? 🐒\n")
                     continue
 
                 # User talking about what they're doing to Joe
@@ -668,19 +750,32 @@ class MonkeyJoe:
                                    'do you sleep', 'do you dream', 'do you have a favorite',
                                    'whats your favorite', "what's your favorite", 'do you prefer']
                 if any(p in lower_input for p in joe_preferences):
-                    print(f"Joe: {random.choice(['I\'m a rules-based assistant — I don\'t have preferences or feelings! But I can tell you facts about almost anything. 🐒', 'Ha! I wish. I don\'t experience things — but ask me about it and I\'ll tell you everything I know!', 'No feelings here, just facts! Ask me anything though. 🐒'])}\n")
+                    print(f"Joe: {random.choice(['I' + chr(39) + 'm a rules-based assistant — I don' + chr(39) + 't have preferences or feelings! But I can tell you facts about almost anything. 🐒', 'Ha! I wish. I don' + chr(39) + 't experience things — but ask me about it and I' + chr(39) + 'll tell you everything I know!', 'No feelings here, just facts! Ask me anything though. 🐒'])}\n")
+                    continue
+
+                # Self-referential questions about Joe
+                joe_self = [
+                    'do you have', 'do you know', 'can you', 'are you able',
+                    'what do you have', 'have you got', 'do you need',
+                    'do you remember', 'did you', 'are you', 'what can you',
+                ]
+                if any(lower_input.startswith(p) for p in joe_self) and len(lower_input.split()) < 10:
+                    print("Joe: I'm a rules-based assistant — I don't have accounts, tokens, memory between sessions, or personal state. I just answer questions from my brain! 🐒\n")
                     continue
 
                 # Get response
                 response = self.respond(user_input)
 
-                # Short statements that got no match — conversational catch-all
-                question_words = ['what', 'who', 'how', 'why', 'where', 'when', 'which', 'is', 'are',
-                                  'do', 'does', 'did', 'can', 'could', 'would', 'should', 'will', '?']
-                if (response.startswith("Hmm, I don't know") and len(lower_input.split()) <= 4
-                        and not any(lower_input.startswith(w) for w in question_words)
-                        and '?' not in lower_input):
-                    print("Joe: Tell me more, or ask me a question! 🐒\n")
+                # Short catch-alls for no-match responses
+                question_words = ['what', 'who', 'how', 'why', 'where', 'when', 'which', 'is',
+                                  'are', 'do', 'does', 'did', 'can', 'could', 'would', 'should', 'will']
+                if response.startswith("Hmm, I don't know"):
+                    if len(lower_input.split()) <= 2 and not any(lower_input.startswith(w) for w in question_words) and '?' not in lower_input:
+                        print("Joe: Can you ask me a full question? I'll do my best to answer! 🐒\n")
+                    elif len(lower_input.split()) <= 4 and not any(lower_input.startswith(w) for w in question_words) and '?' not in lower_input:
+                        print("Joe: Tell me more, or ask me a question! 🐒\n")
+                    else:
+                        print(f"Joe: {response}\n")
                     continue
 
                 print(f"Joe: {response}\n")
