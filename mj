@@ -634,6 +634,26 @@ class MonkeyJoe:
                         lines.append(line)
                     user_input = '\n'.join(lines)
 
+                # Self-referential questions about Joe — before knowledge lookup
+                lower_input = user_input.lower().strip()
+                joe_self = [
+                    'do you have', 'do you know', 'can you', 'are you able',
+                    'what do you have', 'have you got', 'do you need',
+                    'do you remember', 'did you', 'are you',
+                    'what are you', 'who are you', 'what can you',
+                ]
+                if any(lower_input.startswith(p) for p in joe_self) and len(lower_input.split()) < 10:
+                    print("Joe: I'm a rules-based assistant — I don't have accounts, tokens, memory between sessions, or personal state. I just answer questions from my brain! 🐒\n")
+                    continue
+
+                # Casual acknowledgements — short standalone messages
+                casual_ack = ['good', 'nice', 'cool', 'great', 'ok', 'okay', 'perfect', 'awesome',
+                              'thanks', 'thank you', 'got it', 'sounds good', 'makes sense',
+                              'interesting', 'wow', 'really', 'sure', 'alright']
+                if lower_input in casual_ack or (len(lower_input.split()) <= 2 and any(lower_input.startswith(w) for w in casual_ack)):
+                    print(f"Joe: {random.choice(['What else can I help with? 🐒', 'Ask me anything!', "What's next?", 'What do you want to know?'])}\n")
+                    continue
+
                 # Get response
                 response = self.respond(user_input)
                 print(f"Joe: {response}\n")
