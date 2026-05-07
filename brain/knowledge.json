@@ -2968,6 +2968,30 @@
     {
       "keywords": ["what is time", "how does time work", "time dilation", "arrow of time", "physics of time"],
       "answer": "Time is one of physics' deepest mysteries. In classical physics: time is absolute and universal. Einstein's relativity changed this: time is relative. Time dilation: moving clocks run slower — the faster you move, the slower time passes for you. Gravitational time dilation: clocks run slower in stronger gravitational fields (GPS satellites must correct for this). The 'arrow of time': why does time flow forward? The laws of physics work equally in both directions EXCEPT the Second Law of Thermodynamics (entropy always increases) — this gives time its direction. The block universe theory: some physicists believe past, present, and future all exist simultaneously — 'now' is just where you are on the timeline. Time's ultimate nature remains one of physics' greatest unsolved problems."
+    },
+    {
+      "keywords": ["you are wrong", "that is wrong", "wrong answer", "incorrect answer", "you made a mistake"],
+      "answer": "I might be! I'm a rules-based system pulling answers from a static knowledge base — I can be outdated, imprecise, or just plain wrong. If you know the correct answer, let me know — Akiva can update my brain. 🐒"
+    },
+    {
+      "keywords": ["getting better", "getting smarter", "updating me", "add to brain", "teach you"],
+      "answer": "Yes! My brain is regularly updated by Akiva with new facts, improved matching, and better conversation handling. Each version adds more knowledge. If I don't know something, ask Akiva to add it. 🐒"
+    },
+    {
+      "keywords": ["what year is it", "current year", "what's the date", "today's date", "what day is it"],
+      "answer": "I don't have live access to the current date — I'm a rules-based assistant without real-time data. Check your device for today's date!"
+    },
+    {
+      "keywords": ["who built you", "who made you", "who created you", "who is akiva", "your creator", "who wrote you"],
+      "answer": "I was built by Akiva — a developer who created me as a rules-based AI assistant called Monkey Joe. I run on a knowledge base of facts stored in JSON files, not a language model. Akiva keeps updating my brain to make me smarter. 🐒"
+    },
+    {
+      "keywords": ["are you alive", "are you sentient", "do you have feelings", "are you conscious", "are you real"],
+      "answer": "Nope! I'm a rules-based program — I pattern-match your questions against a stored knowledge base. No feelings, no consciousness, no inner experience. I'm more like a very organized encyclopedia than a thinking being. 🐒"
+    },
+    {
+      "keywords": ["what can you not do", "your limitations", "what don't you know", "what are your limits", "what can't you do"],
+      "answer": "I can't: access the internet in real-time, remember previous sessions, learn from conversation, understand images or voice, do math calculations, or guarantee accuracy. I'm a static knowledge base — I know what Akiva has written into my brain, nothing more. 🐒"
     }
   ]
 }

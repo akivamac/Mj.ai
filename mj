@@ -52,6 +52,24 @@ def log_file(filepath):
     with open(FILES_LOG, 'w') as f:
         json.dump(files, f)
 
+def is_statement_about_joe(text: str) -> bool:
+    """Return True if the input is a statement directed at Joe, not a question."""
+    lower = text.lower().strip()
+    statement_patterns = [
+        'you are', 'you were', 'you will', 'you have', 'you look',
+        'you seem', 'you sound', 'you feel', 'you act', 'you work',
+        'it is', "it isn't", 'it is not', 'this is', 'that is',
+        'i think', 'i believe', 'i feel', 'i know', 'i see',
+        'i notice', 'i found', 'i found out', 'i realized',
+    ]
+    question_starters = ['what', 'why', 'how', 'where', 'when', 'who', 'which',
+                         'can ', 'do ', 'does ', 'is ', 'are ', 'was ', 'will ',
+                         'would ', 'could ', 'should ']
+    has_question = any(lower.startswith(q) for q in question_starters) or lower.endswith('?')
+    if has_question:
+        return False
+    return any(lower.startswith(p) for p in statement_patterns)
+
 def fix_typos(text: str) -> str:
     """Fix common typos before processing."""
     fixes = {
@@ -596,7 +614,7 @@ class MonkeyJoe:
 
     def brain_stats(self):
         """Show brain statistics."""
-        print(f"\n{DIM}Monkey Joe Brain v33{RESET}")
+        print(f"\n{DIM}Monkey Joe Brain v34{RESET}")
         print(f"  Knowledge facts: {len(self.knowledge)}")
         print(f"  Coding facts: {len(self.coding)}")
         print(f"  Conversation history: {len(self.history)} exchanges\n")
@@ -613,7 +631,7 @@ class MonkeyJoe:
         print("\033[33m|:::   |  |  |  |   :::|\033[0m")
         print("\033[33m       | ##   ##|\033[0m")
         print()
-        print("\033[1m🐒 Monkey Joe Terminal Interface v33\033[0m")
+        print("\033[1m🐒 Monkey Joe Terminal Interface v34\033[0m")
         print()
         print("Type 'exit' to quit, 'brain' for stats, 'help' for commands, 'files' to see files from this/previous sessions")
         print()
@@ -810,6 +828,18 @@ class MonkeyJoe:
                     print("Joe: I'm a rules-based assistant — I don't have accounts, tokens, memory between sessions, or personal state. I just answer questions from my brain! 🐒\n")
                     continue
 
+                # Statement directed at Joe — not a question
+                if is_statement_about_joe(user_input):
+                    stmt_responses = [
+                        "Ha, noted! What do you want to know? 🐒",
+                        "Interesting observation! What can I help you with?",
+                        "I'll take your word for it! What do you need?",
+                        "Fair enough! What's your question?",
+                        "You might be right about that! Ask me anything. 🐒",
+                    ]
+                    print(f"Joe: {random.choice(stmt_responses)}\n")
+                    continue
+
                 # Get response
                 response = self.respond(user_input)
 
@@ -817,9 +847,17 @@ class MonkeyJoe:
                 question_words = ['what', 'who', 'how', 'why', 'where', 'when', 'which', 'is',
                                   'are', 'do', 'does', 'did', 'can', 'could', 'would', 'should', 'will']
                 if response.startswith("Hmm, I don't know"):
-                    if len(lower_input.split()) <= 2 and not any(lower_input.startswith(w) for w in question_words) and '?' not in lower_input:
+                    emotional_words = ['feel', 'love', 'hate', 'miss', 'wish', 'hope', 'scared',
+                                       'excited', 'happy', 'sad', 'angry', 'tired', 'nervous', 'worried']
+                    is_emotional = any(w in lower_input for w in emotional_words)
+                    is_question = any(lower_input.startswith(w) for w in question_words) or '?' in lower_input
+                    if is_emotional and not is_question:
+                        print(f"Joe: {random.choice(['That sounds meaningful! I can answer questions on lots of topics — what do you want to know? 🐒', 'I hear you! Not much of an emotional support monkey, but I can answer questions. 🐒', 'Thanks for sharing! Ask me a question and I' + chr(39) + 'll do my best.'])}\n")
+                    elif self.last_topic_label and len(lower_input.split()) <= 3 and not is_question:
+                        print(f"Joe: Not sure about that — did you want to know more about {self.last_topic_label}? 🐒\n")
+                    elif len(lower_input.split()) <= 2 and not is_question:
                         print("Joe: Can you ask me a full question? I'll do my best to answer! 🐒\n")
-                    elif len(lower_input.split()) <= 4 and not any(lower_input.startswith(w) for w in question_words) and '?' not in lower_input:
+                    elif len(lower_input.split()) <= 4 and not is_question:
                         print("Joe: Tell me more, or ask me a question! 🐒\n")
                     else:
                         print(f"Joe: {response}\n")
