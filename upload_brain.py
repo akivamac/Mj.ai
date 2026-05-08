@@ -3,6 +3,7 @@
 
 Usage:
   python3 upload_brain.py          # upload all facts
+  python3 upload_brain.py --retry  # skip already-uploaded, only upload missing
   python3 upload_brain.py --test   # test one fact, print full response
 """
 
@@ -136,7 +137,18 @@ def run_test(api_key):
         print(f"\n✗ Test POST failed ({status}). See response above.")
 
 
-def run_upload(api_key):
+def post_with_retry(api_key, body, max_retries=3, retry_delay=2.0):
+    """POST a note, retrying up to max_retries times on any error."""
+    for attempt in range(max_retries):
+        status, resp = api_call('POST', '/notes', api_key, body)
+        if status in (200, 201):
+            return status, resp
+        if attempt < max_retries - 1:
+            time.sleep(retry_delay)
+    return status, resp
+
+
+def run_upload(api_key, retry_mode=False):
     print("Reading brain files...")
     knowledge = load_facts('knowledge.json')
     coding = load_facts('coding.json')
@@ -156,38 +168,48 @@ def run_upload(api_key):
         existing_titles = {n['title'] for n in notes if isinstance(n, dict) and 'title' in n}
         print(f"  Found {len(existing_titles)} existing facts")
 
+    if retry_mode:
+        pending = [f for f in all_facts if ', '.join(f['keywords']) not in existing_titles]
+        print(f"  Retry mode: {len(pending)} facts to upload, {len(all_facts) - len(pending)} already done")
+    else:
+        pending = all_facts
+
     print("\nUploading...")
     uploaded = 0
     skipped = 0
     failed = 0
     total = len(all_facts)
     width = len(str(total))
+    # Counter tracks position in the full list for display
+    pos = 0
 
-    for i, fact in enumerate(all_facts, 1):
+    for fact in all_facts:
+        pos += 1
         title = ', '.join(fact['keywords'])
         first_kw = fact['keywords'][0]
         label = first_kw[:45] + '…' if len(first_kw) > 45 else first_kw
 
         if title in existing_titles:
-            print(f"  [{i:{width}}/{total}] {label} (skipped)")
+            if not retry_mode:
+                print(f"  [{pos:{width}}/{total}] {label} (skipped)")
             skipped += 1
             continue
 
-        status, resp = api_call('POST', '/notes', api_key, {
+        status, resp = post_with_retry(api_key, {
             'title': title,
             'body': fact['answer'],
             'tags': [TAG],
         })
 
         if status in (200, 201):
-            print(f"  [{i:{width}}/{total}] {label} ✓")
+            print(f"  [{pos:{width}}/{total}] {label} ✓")
             uploaded += 1
         else:
             err = resp if isinstance(resp, str) else json.dumps(resp)
-            print(f"  [{i:{width}}/{total}] {label} ✗ HTTP {status}: {err[:80]}")
+            print(f"  [{pos:{width}}/{total}] {label} ✗ HTTP {status}: {err[:80]}")
             failed += 1
 
-        time.sleep(0.1)
+        time.sleep(0.5)
 
     print(f"\nDone! {uploaded} uploaded, {skipped} skipped, {failed} failed 🐒")
 
@@ -203,6 +225,8 @@ def main():
 
     if '--test' in sys.argv:
         run_test(api_key)
+    elif '--retry' in sys.argv:
+        run_upload(api_key, retry_mode=True)
     else:
         run_upload(api_key)
 
