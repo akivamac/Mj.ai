@@ -70,13 +70,15 @@ def get_backside_key():
     return None
 
 def fetch_backside_facts(api_key):
-    print(f"Joe: Backside key preview: {api_key[:20] if api_key else 'None'}")
     ctx = ssl.create_default_context()
     req = urllib.request.Request(
         'https://api.worktruck.app/api/v1/notes?tag=monkey-joe-brain&limit=1000',
         headers={
             'Authorization': f'Bearer {api_key}',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+            'Accept': 'application/json, text/plain, */*',
+            'Accept-Language': 'en-US,en;q=0.9',
         }
     )
     try:
@@ -87,8 +89,7 @@ def fetch_backside_facts(api_key):
                 keywords = [k.strip() for k in note['title'].split(',')]
                 facts.append({'keywords': keywords, 'answer': note['body']})
             return facts
-    except Exception as e:
-        print(f"Joe: Backside error: {type(e).__name__}: {e}")
+    except Exception:
         return []
 
 def ask_haiku(question, api_key):
