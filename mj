@@ -71,24 +71,37 @@ def get_backside_key():
 
 def fetch_backside_facts(api_key):
     import subprocess
-    cmd = [
-        'curl', '-s',
-        '-H', f'Authorization: Bearer {api_key}',
-        '-H', 'Content-Type: application/json',
-        '-H', 'User-Agent: Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-        '-H', 'Accept: application/json, text/plain, */*',
-        'https://api.worktruck.app/api/v1/notes?tag=monkey-joe-brain&limit=1000'
-    ]
-    try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
-        data = json.loads(result.stdout)
-        facts = []
-        for note in (data.get('data') or data.get('notes') or []):
-            keywords = [k.strip() for k in note['title'].split(',')]
-            facts.append({'keywords': keywords, 'answer': note['body']})
-        return facts
-    except Exception:
-        return []
+    facts = []
+    cursor = None
+
+    while True:
+        url = 'https://api.worktruck.app/api/v1/notes?tag=monkey-joe-brain&limit=100'
+        if cursor:
+            url += f'&cursor={cursor}'
+
+        cmd = [
+            'curl', '-s',
+            '-H', f'Authorization: Bearer {api_key}',
+            '-H', 'Content-Type: application/json',
+            '-H', 'User-Agent: Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+            '-H', 'Accept: application/json, text/plain, */*',
+            url
+        ]
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+            data = json.loads(result.stdout)
+            for note in (data.get('data') or []):
+                keywords = [k.strip() for k in note['title'].split(',')]
+                facts.append({'keywords': keywords, 'answer': note['body']})
+            if not data.get('has_more'):
+                break
+            cursor = data.get('next_cursor')
+            if not cursor:
+                break
+        except Exception:
+            break
+
+    return facts
 
 def ask_haiku(question, api_key):
     """Ask Haiku and get both an answer and a brain fact to save."""
