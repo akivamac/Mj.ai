@@ -10,6 +10,7 @@ import sys
 import re
 import random
 import requests
+import urllib.parse
 import urllib.request
 import ssl
 from pathlib import Path
@@ -77,7 +78,7 @@ def fetch_backside_facts(api_key):
     while True:
         url = 'https://api.worktruck.app/api/v1/notes?tag=monkey-joe-brain&limit=100'
         if cursor:
-            url += f'&cursor={cursor}'
+            url += f'&cursor={urllib.parse.quote(cursor, safe="")}'
 
         cmd = [
             'curl', '-s',
@@ -93,6 +94,7 @@ def fetch_backside_facts(api_key):
             for note in (data.get('data') or []):
                 keywords = [k.strip() for k in note['title'].split(',')]
                 facts.append({'keywords': keywords, 'answer': note['body']})
+            print(f"Joe: Syncing from Backside... {len(facts)} facts loaded", end='\r')
             if not data.get('has_more'):
                 break
             cursor = data.get('next_cursor')
