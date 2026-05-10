@@ -70,25 +70,23 @@ def get_backside_key():
     return None
 
 def fetch_backside_facts(api_key):
-    ctx = ssl.create_default_context()
-    req = urllib.request.Request(
-        'https://api.worktruck.app/api/v1/notes?tag=monkey-joe-brain&limit=1000',
-        headers={
-            'Authorization': f'Bearer {api_key}',
-            'Content-Type': 'application/json',
-            'User-Agent': 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-            'Accept': 'application/json, text/plain, */*',
-            'Accept-Language': 'en-US,en;q=0.9',
-        }
-    )
+    import subprocess
+    cmd = [
+        'curl', '-s',
+        '-H', f'Authorization: Bearer {api_key}',
+        '-H', 'Content-Type: application/json',
+        '-H', 'User-Agent: Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+        '-H', 'Accept: application/json, text/plain, */*',
+        'https://api.worktruck.app/api/v1/notes?tag=monkey-joe-brain&limit=1000'
+    ]
     try:
-        with urllib.request.urlopen(req, context=ctx, timeout=10) as resp:
-            data = json.loads(resp.read())
-            facts = []
-            for note in data.get('notes', []):
-                keywords = [k.strip() for k in note['title'].split(',')]
-                facts.append({'keywords': keywords, 'answer': note['body']})
-            return facts
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+        data = json.loads(result.stdout)
+        facts = []
+        for note in (data.get('data') or data.get('notes') or []):
+            keywords = [k.strip() for k in note['title'].split(',')]
+            facts.append({'keywords': keywords, 'answer': note['body']})
+        return facts
     except Exception:
         return []
 
