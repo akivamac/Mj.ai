@@ -670,7 +670,7 @@ class MonkeyJoe:
 
     def brain_stats(self):
         """Show brain statistics."""
-        print(f"\n{DIM}Monkey Joe Brain v39{RESET}")
+        print(f"\n{DIM}Monkey Joe Brain v40{RESET}")
         print(f"  Knowledge facts: {len(self.knowledge)}")
         print(f"  Coding facts: {len(self.coding)}")
         print(f"  Conversation history: {len(self.history)} exchanges\n")
@@ -687,7 +687,7 @@ class MonkeyJoe:
         print("\033[33m|:::   |  |  |  |   :::|\033[0m")
         print("\033[33m       | ##   ##|\033[0m")
         print()
-        print("\033[1m🐒 Monkey Joe Terminal Interface v39\033[0m")
+        print("\033[1m🐒 Monkey Joe Terminal Interface v40\033[0m")
         print()
         print("Type 'exit' to quit, 'brain' for stats, 'help' for commands, 'files' to see files from this/previous sessions")
         if not get_backside_key():
