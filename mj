@@ -53,12 +53,6 @@ def log_file(filepath):
     with open(FILES_LOG, 'w') as f:
         json.dump(files, f)
 
-def get_anthropic_key():
-    key_path = os.path.expanduser('~/.anthropic_key')
-    if os.path.exists(key_path):
-        return open(key_path).read().strip()
-    return None
-
 def get_github_token():
     if os.path.exists(TOKEN_FILE):
         return open(TOKEN_FILE).read().strip()
@@ -105,124 +99,6 @@ def fetch_backside_facts(api_key):
             break
 
     return facts
-
-def ask_haiku(question, api_key):
-    """Ask Haiku and get both an answer and a brain fact to save."""
-    prompt = f"""You are helping Monkey Joe — a rules-based AI assistant — learn new facts.
-
-A user asked: "{question}"
-
-Respond with ONLY a JSON object (no markdown, no explanation) in this exact format:
-{{
-  "answer": "A clear, helpful answer in 2-4 sentences. Be friendly and informative. End with nothing extra.",
-  "keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"]
-}}
-
-Rules for keywords:
-- 3-8 keywords that someone would use to ask this question
-- Use lowercase, specific phrases (2-4 words each preferred)
-- Include the main topic, synonyms, and related phrasings
-- Never use single letters or 2-letter abbreviations as standalone keywords
-- Example for "what is photosynthesis": ["photosynthesis", "how plants make food", "chlorophyll process", "plant energy", "how do plants grow"]
-
-Rules for the answer:
-- 2-5 sentences maximum
-- Friendly, informative tone
-- No markdown formatting
-- End with a period"""
-
-    payload = json.dumps({
-        "model": "claude-haiku-4-5-20251001",
-        "max_tokens": 400,
-        "messages": [{"role": "user", "content": prompt}]
-    }).encode()
-
-    req = urllib.request.Request(
-        'https://api.anthropic.com/v1/messages',
-        data=payload,
-        headers={
-            'x-api-key': api_key,
-            'anthropic-version': '2023-06-01',
-            'content-type': 'application/json'
-        }
-    )
-
-    ctx = ssl.create_default_context()
-    try:
-        with urllib.request.urlopen(req, context=ctx, timeout=10) as resp:
-            data = json.loads(resp.read())
-            text = data['content'][0]['text'].strip()
-            text = text.replace('```json', '').replace('```', '').strip()
-            return json.loads(text)
-    except Exception:
-        return None
-
-def push_file_to_github(path, content, message, token):
-    """Push a single file to GitHub."""
-    import base64
-    REPO = 'akivamac/Mj.ai'
-    BRANCH = 'main'
-    BASE = 'https://api.github.com'
-    headers = {
-        'Authorization': f'token {token}',
-        'Content-Type': 'application/json',
-        'Accept': 'application/vnd.github+json',
-    }
-    ctx = ssl.create_default_context()
-    try:
-        req = urllib.request.Request(
-            f'{BASE}/repos/{REPO}/contents/{path}?ref={BRANCH}',
-            headers=headers
-        )
-        with urllib.request.urlopen(req, context=ctx, timeout=10) as resp:
-            sha = json.loads(resp.read())['sha']
-    except Exception:
-        sha = None
-    body = {
-        'message': message,
-        'content': base64.b64encode(content.encode()).decode(),
-        'branch': BRANCH,
-    }
-    if sha:
-        body['sha'] = sha
-    try:
-        req = urllib.request.Request(
-            f'{BASE}/repos/{REPO}/contents/{path}',
-            data=json.dumps(body).encode(),
-            headers=headers,
-            method='PUT'
-        )
-        with urllib.request.urlopen(req, context=ctx, timeout=15) as resp:
-            return resp.status in (200, 201)
-    except Exception:
-        return False
-
-def learn_and_save(fact, brain_dir, github_token):
-    """Save new fact to knowledge.json and push to GitHub."""
-    knowledge_path = os.path.join(brain_dir, 'knowledge.json')
-    try:
-        with open(knowledge_path, 'r') as f:
-            data = json.load(f)
-    except Exception:
-        data = {"facts": []}
-    existing_keywords = set()
-    for existing in data['facts']:
-        for kw in existing.get('keywords', []):
-            existing_keywords.add(kw.lower())
-    new_keywords = [k for k in fact['keywords'] if k.lower() not in existing_keywords]
-    if not new_keywords:
-        return False
-    data['facts'].append({"keywords": new_keywords, "answer": fact['answer']})
-    with open(knowledge_path, 'w') as f:
-        json.dump(data, f, indent=2)
-    if github_token:
-        push_file_to_github(
-            'brain/knowledge.json',
-            open(knowledge_path).read(),
-            f'brain: Joe learned "{fact["keywords"][0]}" from Haiku',
-            github_token
-        )
-    return True
 
 def is_statement_about_joe(text: str) -> bool:
     """Return True if the input is a statement directed at Joe, not a question."""
@@ -814,9 +690,6 @@ class MonkeyJoe:
         print("\033[1m🐒 Monkey Joe Terminal Interface v39\033[0m")
         print()
         print("Type 'exit' to quit, 'brain' for stats, 'help' for commands, 'files' to see files from this/previous sessions")
-        if not get_anthropic_key():
-            print(f"\n{DIM}💡 Tip: Add an Anthropic API key to let Joe learn from unknown questions:")
-            print(f"   echo 'your-api-key' > ~/.anthropic_key && chmod 600 ~/.anthropic_key{RESET}")
         if not get_backside_key():
             print(f"\n{DIM}💡 Tip: Add your Backside key to ~/.mj_backside to sync brain from cloud:")
             print(f"   echo 'bsk_live_...' > ~/.mj_backside && chmod 600 ~/.mj_backside{RESET}")
@@ -1084,29 +957,7 @@ class MonkeyJoe:
                     elif len(lower_input.split()) <= 4 and not is_question:
                         print("Joe: Tell me more, or ask me a question! 🐒\n")
                     else:
-                        anthropic_key = get_anthropic_key()
-                        if anthropic_key:
-                            print("Joe: One sec, learning this now... 🐒")
-                            result = ask_haiku(user_input, anthropic_key)
-                            if result and 'answer' in result and 'keywords' in result:
-                                print(f"Joe: {result['answer']}\n")
-                                github_token = get_github_token()
-                                joe_ref = self
-                                def save_async(r=result):
-                                    learned = learn_and_save(r, BRAIN_DIR, github_token)
-                                    if learned:
-                                        try:
-                                            with open(os.path.join(BRAIN_DIR, 'knowledge.json')) as f:
-                                                joe_ref.knowledge = json.load(f).get('facts', [])
-                                        except Exception:
-                                            pass
-                                        print(f"[Joe learned: {r['keywords'][0]} ✓]")
-                                import threading
-                                threading.Thread(target=save_async, daemon=True).start()
-                            else:
-                                print(f"Joe: {response}\n")
-                        else:
-                            print(f"Joe: Hmm, I don't know that one yet 🐒 Add your Anthropic API key to ~/.anthropic_key to let me learn!\n")
+                        print(f"Joe: {response}\n")
                     continue
 
                 print(f"Joe: {response}\n")
