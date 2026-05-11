@@ -39,7 +39,7 @@
     },
     {
       "keywords": [
-        "java "
+        "java"
       ],
       "answer": "Java is a strongly-typed, compiled, OOP language created by James Gosling at Sun Microsystems (1995). Runs on the JVM \u2014 'Write once, run anywhere.' Key concepts: classes, inheritance, interfaces, generics, Collections (ArrayList, HashMap). Build tools: Maven, Gradle. Java 21 is current LTS. Common in Android (Kotlin preferred now), banking/enterprise systems, and Spring Framework web apps. Verbose but very structured \u2014 great for large teams."
     },
@@ -544,8 +544,7 @@
     },
     {
       "keywords": [
-        "pi ",
-        "\u03c0",
+        "pi",
         "3.14",
         "circle",
         "circumference"
@@ -613,7 +612,6 @@
         "microsoft",
         "windows",
         "bill gates",
-        "azure",
         "office"
       ],
       "answer": "Microsoft (founded Apr 4, 1975, Albuquerque, NM by Bill Gates and Paul Allen). The IBM PC-DOS deal (1981): Microsoft licensed DOS to IBM but kept the right to sell it as MS-DOS \u2014 foundation of their fortune. Windows 3.1 (1992) made PCs mainstream. Office suite (Word, Excel, PowerPoint) dominates workplace productivity. Internet Explorer killed Netscape (antitrust trial 1998-2001, but too late). Windows versions: XP (beloved, 2001), Vista (terrible), 7 (great), 8 (terrible), 10 (solid), 11 (current). Steve Ballmer CEO 2000-2014 \u2014 'Developers! Developers! Developers!' meme. Satya Nadella became CEO 2014: pivoted to cloud (Azure \u2014 now #2 cloud provider), open source (acquired GitHub $7.5B 2018, open-sourced .NET), and AI. Acquired: LinkedIn ($26B 2016), Activision Blizzard ($68.7B 2023 \u2014 largest gaming deal ever), invested $13B in OpenAI. Microsoft 365, Teams (grew 900% during COVID-19), Bing+Copilot (AI integration). Market cap: ~$3 trillion."
@@ -632,7 +630,6 @@
       "keywords": [
         "amazon",
         "jeff bezos",
-        "aws",
         "prime",
         "kindle"
       ],
@@ -650,7 +647,6 @@
       "keywords": [
         "spacex",
         "rockets",
-        "mars",
         "starship",
         "starlink"
       ],
@@ -670,7 +666,6 @@
     {
       "keywords": [
         "sushi",
-        "sushi rice",
         "vinegared rice",
         "what kind",
         "types of sushi"
@@ -804,8 +799,7 @@
         "insect",
         "bug",
         "butterfly",
-        "ant",
-        "colony"
+        "ant"
       ],
       "answer": "Insects (class Insecta): the most species-rich class of animals \u2014 over 1 million described species, estimated 5-10 million total (~80% of all animal species). Three body segments (head, thorax, abdomen), 6 legs, usually wings (the only invertebrates that evolved flight). Ants: 20,000+ species, 10-20 quadrillion individuals (~20% of all animal biomass on Earth). Leafcutter ants cultivate fungus gardens \u2014 the world's most complex non-human agriculture. Butterflies: taste with their feet (chemoreceptors on tarsi). Moths navigate using the moon \u2014 artificial light disrupts this (ecological 'light pollution'). Dragonflies: 95% hunting success rate (highest of any predator), can fly in all directions including backward. Fireflies: produce light via bioluminescence (luciferin + luciferase enzyme + ATP + oxygen). Insects are undergoing a global decline (~75% reduction in flying insect biomass in 27 years in Germany) \u2014 threatens ecosystem collapse. 'Insect apocalypse' is driven by pesticides, habitat loss, and climate change."
     },
@@ -1018,9 +1012,7 @@
       "keywords": [
         "snake",
         "reptile",
-        "venom",
         "boa",
-        "python",
         "cobra"
       ],
       "answer": "Snakes (suborder Serpentes) are legless reptiles that evolved from lizard ancestors ~100 million years ago. There are ~3,700 species. They sense heat via pit organs (pit vipers) and detect vibrations through their jaw bones. Their forked tongue collects scent molecules and delivers them to the Jacobson's organ in the roof of the mouth. Venomous vs non-venomous: ~600 species are venomous, only ~200 are dangerous to humans. Venom types: hemotoxic (destroys blood/tissue \u2014 rattlesnakes, vipers), neurotoxic (attacks nervous system \u2014 cobras, mambas, sea snakes, kraits). The black mamba is the fastest snake (~20 km/h) and has extremely potent neurotoxic venom. Pythons and boas are constrictors \u2014 they squeeze prey until it cannot breathe. The reticulated python is the longest snake (up to 8m). Diet: all snakes are carnivores."
@@ -1029,7 +1021,6 @@
       "keywords": [
         "crocodile",
         "alligator",
-        "reptile",
         "prehistoric"
       ],
       "answer": "Crocodilians (crocodiles, alligators, gharials, caimans) are ancient reptiles unchanged for ~200 million years \u2014 they survived the extinction that killed the dinosaurs. Crocodile vs alligator: crocodiles have a pointed V-shaped snout and both upper and lower teeth visible when mouth is closed; alligators have a rounded U-shaped snout and only upper teeth visible. Crocodiles are found in Africa, Asia, Americas, and Australia; alligators mainly in the southern USA and China. Diet: carnivores \u2014 they eat fish, birds, mammals, and reptiles. The Nile and saltwater crocodile are the largest (up to 6m, 1,000 kg). Saltwater crocodiles have the strongest bite of any animal (16,000 N \u2014 10\u00d7 a great white shark). They cannot chew \u2014 they use the 'death roll' to tear prey apart."
@@ -1161,8 +1152,7 @@
       "keywords": [
         "gravity",
         "gravitational waves",
-        "newton",
-        "general relativity"
+        "newton"
       ],
       "answer": "Gravity is the weakest of the four fundamental forces but has infinite range and is always attractive (unlike electromagnetism which can repel). Newton's law: F = Gm\u2081m\u2082/r\u00b2 (inverse square law). G = 6.674\u00d710\u207b\u00b9\u00b9 N\u00b7m\u00b2/kg\u00b2. Einstein's General Relativity (1915): gravity is not a force but the curvature of spacetime caused by mass/energy. Objects follow geodesics (shortest paths through curved spacetime). GR predictions confirmed: gravitational lensing (light bends around massive objects), frame-dragging (Earth drags spacetime as it rotates, confirmed by Gravity Probe B 2011), and gravitational waves \u2014 ripples in spacetime from accelerating masses. LIGO detected the first gravitational waves Sept 14, 2015 from two merging black holes (1.3 billion light-years away) \u2014 the 2017 Nobel Prize in Physics. The signal stretched and compressed LIGO's 4km arms by less than 1/1000th the diameter of a proton."
     },
@@ -1210,7 +1200,6 @@
       "keywords": [
         "rainforest",
         "jungle",
-        "amazon",
         "biodiversity",
         "deforestation"
       ],
@@ -1268,7 +1257,6 @@
       "keywords": [
         "brazil",
         "south america",
-        "amazon",
         "portuguese",
         "carnival"
       ],
@@ -1320,7 +1308,6 @@
         "egypt",
         "cairo",
         "nile",
-        "pyramids",
         "arabic",
         "modern egypt"
       ],
@@ -1396,8 +1383,6 @@
     {
       "keywords": [
         "smartphone",
-        "iphone",
-        "android",
         "mobile",
         "app store"
       ],
@@ -1435,7 +1420,6 @@
     },
     {
       "keywords": [
-        "cheese",
         "types of cheese",
         "dairy",
         "fermentation",
@@ -1458,7 +1442,6 @@
       "keywords": [
         "japanese cuisine",
         "ramen",
-        "sushi",
         "tempura",
         "wagyu",
         "matcha"
@@ -1531,7 +1514,6 @@
     },
     {
       "keywords": [
-        "vitamins",
         "minerals",
         "deficiency",
         "supplements"
@@ -1563,7 +1545,6 @@
         "antibiotic",
         "bacteria",
         "virus",
-        "infection",
         "resistance"
       ],
       "answer": "Antibiotics kill or inhibit bacteria \u2014 they have NO effect on viruses (colds, flu, COVID-19 are viral \u2014 antibiotics will NOT help and contribute to resistance). Discovered by Alexander Fleming in 1928 (penicillin from Penicillium mold \u2014 found accidentally when mold contaminated a bacterial culture). Classes: beta-lactams (penicillin, amoxicillin, cephalosporins \u2014 disrupt bacterial cell wall), macrolides (azithromycin/Z-pack \u2014 protein synthesis), tetracyclines (broad spectrum), fluoroquinolones (DNA replication), aminoglycosides (protein synthesis). Antibiotic resistance: bacteria evolve resistance through mutation and horizontal gene transfer. Methicillin-resistant Staphylococcus aureus (MRSA), carbapenem-resistant Enterobacteriaceae (CRE) are major threats. WHO calls antimicrobial resistance one of the greatest threats to global health \u2014 by 2050, resistant infections could kill 10 million people/year (more than cancer). Key: always complete prescribed antibiotic courses; never share or self-prescribe."
@@ -1631,7 +1612,6 @@
     },
     {
       "keywords": [
-        "biology",
         "cell",
         "mitosis",
         "meiosis",
@@ -1676,7 +1656,6 @@
         "linux kernel",
         "gnu",
         "free software",
-        "github",
         "mit license"
       ],
       "answer": "Open source software: source code is publicly available \u2014 anyone can read, modify, and distribute it. The Free Software Foundation (Richard Stallman, 1983): GNU project to create a free Unix-like OS. GNU General Public License (GPL): 'copyleft' \u2014 any derivative must also be open source. Linus Torvalds released the Linux kernel under GPL in 1991. Linux + GNU tools = GNU/Linux. MIT License: permissive \u2014 can use in proprietary software (used by React, jQuery). Apache License: similar permissive. BSD licenses: variants, permissive. Major open source projects: Linux kernel, Android, Chromium (base for Chrome and Edge), Firefox, VS Code, Python, Node.js, React, Vue, Kubernetes, Docker, PostgreSQL, MySQL, WordPress, WordPress, TensorFlow, PyTorch. GitHub has 100 million developers and hosts most open source projects. Open source underpins essentially all of the internet. The Open Source Initiative certifies licenses."
@@ -1738,9 +1717,6 @@
       "keywords": [
         "italy",
         "rome",
-        "pizza",
-        "pasta",
-        "renaissance art",
         "colosseum"
       ],
       "answer": "Italy (official: Italian Republic) has ~60 million people in 301,340 km\u00b2. Capital: Rome. GDP: ~$2.2 trillion (8th largest). Italy has more UNESCO World Heritage Sites than any other country (58 \u2014 Colosseum, Pompeii, Venice and its Lagoon, Florence, Cinque Terre, Amalfi Coast, etc.). Rome: the 'Eternal City,' built on 7 hills, once capital of the Roman Empire. Major sights: Colosseum (80 AD, 50,000-80,000 spectators), Pantheon (125 AD, concrete dome with oculus), Vatican City (smallest sovereign state: 0.44 km\u00b2, home to the Pope and St. Peter's Basilica). Italian contributions: the Renaissance (Florence), opera (invented in Florence ~1600), pizza, pasta, espresso, fashion (Milan \u2014 Versace, Prada, Gucci, Armani), Alfa Romeo, Ferrari, Lamborghini, Ducati. Italy is one of the world's top wine producers. The Italian language directly descended from Latin."
@@ -1778,7 +1754,6 @@
     },
     {
       "keywords": [
-        "fish",
         "salmon",
         "tuna",
         "clownfish",
@@ -1802,8 +1777,7 @@
         "swimming",
         "michael phelps",
         "olympic swimming",
-        "freestyle",
-        "butterfly"
+        "freestyle"
       ],
       "answer": "Michael Phelps is the most decorated Olympian in history: 28 Olympic medals (23 gold, 3 silver, 2 bronze) across 4 Olympics (2000-2016). He has a 193cm wingspan (taller than his 193cm height \u2014 unusual), double-jointed ankles that flex 15\u00b0 further than average (giving flipper-like propulsion), and produces less lactic acid than average swimmers. Swimming strokes (in order of speed): butterfly (fastest, most demanding), backstroke, breaststroke (slowest), freestyle/front crawl. Competition pool: 50m (long course) or 25m (short course). World record 100m freestyle: ~46.8 seconds (~7.7 km/h). Open water swimming: 10km Olympic event, plus marathon swims across channels. The English Channel (34 km): Matthew Webb first swam it in 1875 (21 hours 45 minutes). Modern record: ~6.5 hours."
     },
@@ -1867,7 +1841,6 @@
         "population",
         "demographics",
         "birth rate",
-        "aging",
         "migration"
       ],
       "answer": "World population: 8 billion reached November 15, 2022. Growth: from 1 billion (1804) \u2192 2B (1927) \u2192 3B (1960) \u2192 4B (1974) \u2192 5B (1987) \u2192 6B (1999) \u2192 7B (2011) \u2192 8B (2022). Projected ~10 billion by 2050-2100 then stabilization/decline. Demographic transition: as countries develop, birth rates fall after death rates \u2014 high birth/death \u2192 high birth/low death (population boom) \u2192 low birth/low death (stable). Fertility rate of 2.1 children per woman maintains stable population. Most of Europe, East Asia, and Latin America are below replacement fertility. Japan, South Korea, Italy, Germany are shrinking. Africa and parts of South Asia still growing. Aging: by 2050, 2 billion people will be over 65 (vs 700 million today). Migration: ~281 million international migrants worldwide (3.6% of world population). Climate change projected to drive 200 million+ climate refugees by 2050."
@@ -1937,7 +1910,6 @@
       "keywords": [
         "space exploration",
         "nasa",
-        "spacex",
         "moon landing",
         "iss",
         "mars missions"
@@ -1982,9 +1954,7 @@
         "evolution of humans",
         "homo sapiens",
         "neanderthal",
-        "ape",
-        "fossil",
-        "prehistoric"
+        "fossil"
       ],
       "answer": "Human evolution: Hominins (bipedal apes) diverged from chimpanzees ~6-7 million years ago. Key ancestors: Australopithecus (3.9-2.9 Ma, Africa \u2014 Lucy skeleton discovered 1974, 3.2 million years old), Homo habilis ('handy man,' ~2.4-1.4 Ma \u2014 first stone tools), Homo erectus (1.9 Ma-140,000 years ago \u2014 first hominin to leave Africa, mastered fire), Homo heidelbergensis, Homo neanderthalensis (Neanderthals, 400,000-40,000 years ago \u2014 Europe and Asia, large brains, used tools, buried dead, made art; Homo sapiens interbred with them \u2014 non-Africans are ~2% Neanderthal). Homo sapiens: anatomically modern humans evolved in Africa ~300,000 years ago. Out of Africa migration: ~60,000-70,000 years ago \u2014 expanded across the world, reaching Australia ~65,000 years ago, Americas ~15,000+ years ago. The 'Great Leap Forward' ~50,000 years ago: sudden behavioral modernity \u2014 complex art, music, ritual, and symbolic thinking (cave art in Chauvet Cave, 36,000 years old)."
     },
@@ -2106,7 +2076,6 @@
         "hormones",
         "endocrine system",
         "thyroid",
-        "insulin",
         "cortisol",
         "testosterone",
         "estrogen"
@@ -2161,8 +2130,7 @@
         "trauma",
         "ptsd",
         "adverse childhood experiences",
-        "resilience",
-        "therapy"
+        "resilience"
       ],
       "answer": "Trauma is an emotional response to a deeply distressing event that overwhelms the ability to cope. Types: acute (single incident), chronic (repeated \u2014 domestic violence, childhood abuse), complex (C-PTSD, prolonged interpersonal trauma), vicarious (from witnessing others' trauma \u2014 first responders, therapists). PTSD (Post-Traumatic Stress Disorder): develops in ~20% of trauma survivors. Symptoms: intrusive memories/flashbacks, nightmares, hypervigilance, avoidance, negative cognitions, emotional numbing. Affects ~3.5% of US adults/year. Adverse Childhood Experiences (ACEs) Study (CDC, 1995-1997): 10 types of childhood trauma (abuse, neglect, household dysfunction). Each ACE increases risk of depression, heart disease, cancer, early death \u2014 profound dose-response relationship. 64% of adults had at least 1 ACE; 12.5% had 4+. Resilience: ability to adapt to adversity. Key factors: social support, sense of control/agency, meaning-making, previous coping experience. Effective PTSD treatments: Prolonged Exposure, EMDR, Cognitive Processing Therapy (CPT)."
     },
@@ -2198,7 +2166,6 @@
     },
     {
       "keywords": [
-        "holocaust",
         "auschwitz",
         "nazi germany",
         "world war 2 genocide",
@@ -2249,7 +2216,6 @@
     },
     {
       "keywords": [
-        "coral reef",
         "ocean acidification",
         "bleaching",
         "marine ecosystem"
@@ -2281,7 +2247,6 @@
       "keywords": [
         "plastic pollution",
         "great pacific garbage patch",
-        "microplastics",
         "single use plastic",
         "recycling crisis"
       ],
@@ -2300,7 +2265,6 @@
     },
     {
       "keywords": [
-        "poverty",
         "development",
         "aid",
         "world bank",
@@ -2342,9 +2306,6 @@
     },
     {
       "keywords": [
-        "virus",
-        "bacteria",
-        "infection",
         "covid",
         "influenza",
         "pathogen"
@@ -2419,7 +2380,6 @@
         "sports science",
         "doping",
         "sports psychology",
-        "training",
         "performance"
       ],
       "answer": "Sports science applies scientific principles to athletic performance. Key areas: Exercise physiology (VO\u2082 max \u2014 maximum oxygen uptake, best predictor of aerobic performance; lactate threshold \u2014 intensity at which lactic acid accumulates faster than cleared), Biomechanics (efficient movement mechanics), Nutrition (carbohydrate loading before endurance events, protein timing for muscle synthesis), Psychology (visualization, flow state \u2014 Mihaly Csikszentmihalyi's concept of optimal performance), Recovery (sleep is the most important, ice baths debated, foam rolling helps). Altitude training: lower O\u2082 at altitude \u2192 body produces more red blood cells \u2192 better O\u2082 transport at sea level. Elite athletes train at 2,000-3,000m. Doping in sport: WADA (World Anti-Doping Agency, 1999) oversees testing. Banned substances: EPO (erythropoietin \u2014 blood doping), human growth hormone, anabolic steroids, stimulants, blood transfusions. Lance Armstrong stripped of 7 Tour de France titles (2012) for systematic doping. Russia state-sponsored doping program (Sochi 2014) \u2014 banned from competing under Russian flag. The 'pharmacological arms race' continues."
@@ -2437,7 +2397,6 @@
     },
     {
       "keywords": [
-        "performance",
         "web performance",
         "core web vitals",
         "lighthouse",
@@ -2522,7 +2481,6 @@
     },
     {
       "keywords": [
-        "astronomy",
         "solar system",
         "planets",
         "moons",
@@ -2545,8 +2503,6 @@
     },
     {
       "keywords": [
-        "cryptography",
-        "encryption",
         "rsa",
         "aes",
         "public key",
@@ -2560,7 +2516,6 @@
         "network",
         "nodes",
         "edges",
-        "algorithm",
         "shortest path"
       ],
       "answer": "Graph theory studies networks of nodes (vertices) connected by edges. Types: directed (edges have direction \u2014 Twitter follow), undirected (Facebook friendship), weighted (edges have values \u2014 road distances), unweighted. Trees: connected acyclic graphs (no cycles). Spanning tree: connects all nodes with minimum edges. Minimum spanning tree algorithms: Kruskal's, Prim's. Shortest path algorithms: Dijkstra's (non-negative weights, O((V+E)logV)), Bellman-Ford (handles negative weights), A* (informed search with heuristic \u2014 faster than Dijkstra's in practice). Graph traversal: BFS (Breadth-First Search \u2014 level by level, finds shortest path in unweighted graphs), DFS (Depth-First Search \u2014 goes deep first, finds connected components, detects cycles, topological sort). Real applications: Google Maps (shortest path, traffic weights), social networks (friend recommendations via mutual connections), internet routing (OSPF protocol uses Dijkstra's), compiler optimization (dependency resolution). Six degrees of separation: any two people on Earth are connected by \u22646 social links (small-world property of social networks)."
@@ -2620,19 +2575,15 @@
     },
     {
       "keywords": [
-        "arctic",
-        "antarctic",
         "polar",
         "ice caps",
         "permafrost",
-        "polar bear",
         "penguin arctic"
       ],
       "answer": "Arctic vs Antarctic: Arctic (north): ocean surrounded by land (no continent) \u2014 Arctic Ocean covered by sea ice. Land around it: Alaska, Canada, Greenland, Scandinavia, Russia. Average winter temperature: \u221240\u00b0C, summer: 0\u00b0C. Antarctica (south): continent surrounded by ocean \u2014 covered by ice sheet up to 4.8km thick, contains 70% of Earth's fresh water. Average temperature: \u221257\u00b0C (lowest recorded: \u221289.2\u00b0C at Vostok Station). Ice loss: Arctic sea ice extent declining ~13%/decade (since 1979 satellite record). Greenland ice sheet losing ~280 billion tonnes/year. Antarctic ice sheet: East Antarctica mostly stable; West Antarctic Ice Sheet and Antarctic Peninsula destabilizing. If all Antarctic ice melted: sea levels would rise ~58m. Permafrost: permanently frozen ground covering ~24% of Northern Hemisphere land \u2014 stores ~1.7 trillion tonnes of organic carbon. Thawing permafrost releases methane (CH\u2084, 80\u00d7 more potent greenhouse gas than CO\u2082 over 20 years) \u2014 a dangerous feedback loop. Arctic animals: polar bear, Arctic fox, narwhal, walrus, musk ox. Antarctic: penguins (NO polar bears \u2014 they exist only in the Arctic), seals, albatross, leopard seal."
     },
     {
       "keywords": [
-        "blockchain",
         "consensus",
         "proof of work",
         "proof of stake",
@@ -2708,7 +2659,6 @@
       "keywords": [
         "money history",
         "barter",
-        "currency",
         "gold standard",
         "fiat currency",
         "bitcoin vs gold"
@@ -2717,7 +2667,6 @@
     },
     {
       "keywords": [
-        "journalism",
         "investigative journalism",
         "freedom of press",
         "wikileaks",
@@ -2815,7 +2764,6 @@
       "keywords": [
         "quantum computing",
         "qubits",
-        "superposition",
         "entanglement",
         "quantum advantage",
         "ibm quantum"
@@ -2826,7 +2774,6 @@
       "keywords": [
         "genetics history",
         "gregor mendel",
-        "charles darwin",
         "inheritance",
         "chromosomes",
         "sequencing"
@@ -2838,7 +2785,6 @@
         "podcasts",
         "radio",
         "audio",
-        "journalism",
         "storytelling",
         "serial",
         "true crime"
@@ -2878,120 +2824,310 @@
       "answer": "Travel basics: Passports: most powerful (most countries you can visit visa-free) \u2014 Japan, Singapore, Germany (190+ countries). US: 186 countries. Weakest: Afghanistan, Iraq, Pakistan (~30 countries). Visas: some require advance application (India e-Visa, Australian ETA), some issue on arrival, others visa-free based on your passport. Travel insurance: essential \u2014 covers medical emergencies (can cost $100,000+ for hospitalization abroad), trip cancellation, lost luggage. Budget travel: hostels ($15-50/night in dorms), house-sitting/Couchsurfing, Airbnb (often cheaper than hotels), overnight trains/buses save hotel costs. Budget airlines: Ryanair (Europe), easyJet, AirAsia (Asia), Southwest (USA). Avoid booking far out for budget airlines (prices fluctuate unpredictably). Travel hacking: credit card points, miles, status \u2014 Chase Sapphire, Amex Platinum popular. The cheapest times to fly: Tuesday/Wednesday, 5-6 weeks ahead for domestic, 4-6 months ahead for international. Best destinations for budget travelers: Southeast Asia (Vietnam, Thailand, Cambodia, Indonesia), Eastern Europe (Romania, Bulgaria, Georgia), Central America. Colombia and Morocco offer good value."
     },
     {
-      "keywords": ["capital", "capital city", "capital of"],
-      "answer": "World capitals: France→Paris, Germany→Berlin, Japan→Tokyo, China→Beijing, India→New Delhi, USA→Washington D.C., UK→London, Australia→Canberra, Canada→Ottawa, Brazil→Brasília, Russia→Moscow, Italy→Rome, Spain→Madrid, Mexico→Mexico City, South Korea→Seoul, Egypt→Cairo, South Africa→Pretoria (executive)/Cape Town (legislative), Argentina→Buenos Aires, Nigeria→Abuja, Saudi Arabia→Riyadh, Turkey→Ankara, Poland→Warsaw, Netherlands→Amsterdam, Sweden→Stockholm, Norway→Oslo, Switzerland→Bern, Greece→Athens, Portugal→Lisbon, Israel→Jerusalem, Iran→Tehran, Pakistan→Islamabad, Bangladesh→Dhaka, Indonesia→Jakarta, Philippines→Manila, Thailand→Bangkok, Vietnam→Hanoi, Ukraine→Kyiv, Romania→Bucharest, Czech Republic→Prague, Hungary→Budapest, Austria→Vienna, Belgium→Brussels, Denmark→Copenhagen, Finland→Helsinki, New Zealand→Wellington, Ireland→Dublin, Singapore→Singapore City, Malaysia→Kuala Lumpur, Kenya→Nairobi, Ethiopia→Addis Ababa, Morocco→Rabat, Iraq→Baghdad, UAE→Abu Dhabi, Qatar→Doha, Afghanistan→Kabul, North Korea→Pyongyang, Cuba→Havana, Colombia→Bogotá, Chile→Santiago, Peru→Lima."
+      "keywords": [
+        "capital",
+        "capital city",
+        "capital of"
+      ],
+      "answer": "World capitals: France\u2192Paris, Germany\u2192Berlin, Japan\u2192Tokyo, China\u2192Beijing, India\u2192New Delhi, USA\u2192Washington D.C., UK\u2192London, Australia\u2192Canberra, Canada\u2192Ottawa, Brazil\u2192Bras\u00edlia, Russia\u2192Moscow, Italy\u2192Rome, Spain\u2192Madrid, Mexico\u2192Mexico City, South Korea\u2192Seoul, Egypt\u2192Cairo, South Africa\u2192Pretoria (executive)/Cape Town (legislative), Argentina\u2192Buenos Aires, Nigeria\u2192Abuja, Saudi Arabia\u2192Riyadh, Turkey\u2192Ankara, Poland\u2192Warsaw, Netherlands\u2192Amsterdam, Sweden\u2192Stockholm, Norway\u2192Oslo, Switzerland\u2192Bern, Greece\u2192Athens, Portugal\u2192Lisbon, Israel\u2192Jerusalem, Iran\u2192Tehran, Pakistan\u2192Islamabad, Bangladesh\u2192Dhaka, Indonesia\u2192Jakarta, Philippines\u2192Manila, Thailand\u2192Bangkok, Vietnam\u2192Hanoi, Ukraine\u2192Kyiv, Romania\u2192Bucharest, Czech Republic\u2192Prague, Hungary\u2192Budapest, Austria\u2192Vienna, Belgium\u2192Brussels, Denmark\u2192Copenhagen, Finland\u2192Helsinki, New Zealand\u2192Wellington, Ireland\u2192Dublin, Singapore\u2192Singapore City, Malaysia\u2192Kuala Lumpur, Kenya\u2192Nairobi, Ethiopia\u2192Addis Ababa, Morocco\u2192Rabat, Iraq\u2192Baghdad, UAE\u2192Abu Dhabi, Qatar\u2192Doha, Afghanistan\u2192Kabul, North Korea\u2192Pyongyang, Cuba\u2192Havana, Colombia\u2192Bogot\u00e1, Chile\u2192Santiago, Peru\u2192Lima."
     },
     {
-      "keywords": ["population", "how many people", "how populated", "most populated", "largest population"],
-      "answer": "World population: ~8.1 billion (2024). Most populous countries: 1. India (~1.45B, surpassed China in 2023), 2. China (~1.41B), 3. USA (~335M), 4. Indonesia (~278M), 5. Pakistan (~240M), 6. Brazil (~215M), 7. Nigeria (~220M), 8. Bangladesh (~170M), 9. Russia (~145M), 10. Ethiopia (~125M). Most populous cities (metro): Tokyo (~37M), Delhi (~33M), Shanghai (~29M), Dhaka (~23M), São Paulo (~22M), Mexico City (~22M), Cairo (~21M), Beijing (~21M), Mumbai (~21M). World population hit 8 billion on November 15, 2022. Projected to reach ~10 billion by 2050-2100 then stabilize or decline."
+      "keywords": [
+        "how many people",
+        "how populated",
+        "most populated",
+        "largest population"
+      ],
+      "answer": "World population: ~8.1 billion (2024). Most populous countries: 1. India (~1.45B, surpassed China in 2023), 2. China (~1.41B), 3. USA (~335M), 4. Indonesia (~278M), 5. Pakistan (~240M), 6. Brazil (~215M), 7. Nigeria (~220M), 8. Bangladesh (~170M), 9. Russia (~145M), 10. Ethiopia (~125M). Most populous cities (metro): Tokyo (~37M), Delhi (~33M), Shanghai (~29M), Dhaka (~23M), S\u00e3o Paulo (~22M), Mexico City (~22M), Cairo (~21M), Beijing (~21M), Mumbai (~21M). World population hit 8 billion on November 15, 2022. Projected to reach ~10 billion by 2050-2100 then stabilize or decline."
     },
     {
-      "keywords": ["meaning of life", "purpose", "why are we here", "point of life", "philosophy of life"],
-      "answer": "The meaning of life is one of philosophy's oldest questions. Major perspectives: Aristotle: eudaimonia — flourishing through virtue and reason. Existentialism (Sartre, Camus): there is no inherent meaning — we create our own through choices. Absurdism (Camus): life is inherently meaningless but we must imagine Sisyphus happy — embrace the absurd. Stoicism: live according to nature and virtue, focus on what you control. Buddhism: end suffering through the Eightfold Path and release from attachment. Positive psychology (Seligman): PERMA model — Positive emotions, Engagement, Relationships, Meaning, Achievement. Most philosophers and psychologists agree: meaning is found in relationships, meaningful work, personal growth, and contributing to something larger than yourself."
+      "keywords": [
+        "meaning of life",
+        "purpose",
+        "why are we here",
+        "point of life"
+      ],
+      "answer": "The meaning of life is one of philosophy's oldest questions. Major perspectives: Aristotle: eudaimonia \u2014 flourishing through virtue and reason. Existentialism (Sartre, Camus): there is no inherent meaning \u2014 we create our own through choices. Absurdism (Camus): life is inherently meaningless but we must imagine Sisyphus happy \u2014 embrace the absurd. Stoicism: live according to nature and virtue, focus on what you control. Buddhism: end suffering through the Eightfold Path and release from attachment. Positive psychology (Seligman): PERMA model \u2014 Positive emotions, Engagement, Relationships, Meaning, Achievement. Most philosophers and psychologists agree: meaning is found in relationships, meaningful work, personal growth, and contributing to something larger than yourself."
     },
     {
-      "keywords": ["how to learn", "learn faster", "study tips", "best way to learn", "learning techniques"],
-      "answer": "Science-backed learning techniques: Spaced repetition: review material at increasing intervals (Anki app). Retrieval practice: test yourself instead of rereading — the 'testing effect' is one of the most robust findings in educational psychology. Interleaving: mix different topics during study sessions rather than blocking. The Feynman Technique: explain the concept as if teaching a child — gaps in your explanation reveal gaps in understanding. Sleep consolidates memories — study before sleep, review after waking. Avoid: passive rereading, highlighting, cramming. Best: active recall, spaced practice, teaching others."
+      "keywords": [
+        "how to learn",
+        "learn faster",
+        "study tips",
+        "best way to learn",
+        "learning techniques"
+      ],
+      "answer": "Science-backed learning techniques: Spaced repetition: review material at increasing intervals (Anki app). Retrieval practice: test yourself instead of rereading \u2014 the 'testing effect' is one of the most robust findings in educational psychology. Interleaving: mix different topics during study sessions rather than blocking. The Feynman Technique: explain the concept as if teaching a child \u2014 gaps in your explanation reveal gaps in understanding. Sleep consolidates memories \u2014 study before sleep, review after waking. Avoid: passive rereading, highlighting, cramming. Best: active recall, spaced practice, teaching others."
     },
     {
-      "keywords": ["money", "save money", "personal finance", "budget", "financial tips", "how to save"],
-      "answer": "Personal finance fundamentals: 50/30/20 rule: 50% needs (rent, food, utilities), 30% wants (entertainment, dining out), 20% savings/debt repayment. Emergency fund: 3-6 months of expenses in a liquid savings account — first financial priority. Compound interest: $1,000 invested at 7% annually becomes ~$7,600 in 30 years — start as early as possible. High-interest debt (credit cards, 15-25% APR) should be paid off before investing. Index funds: low-cost, diversified, outperform most actively managed funds over 10+ years. Dollar-cost averaging: invest a fixed amount regularly regardless of market conditions. Avoid: lifestyle inflation, timing the market, high fees."
+      "keywords": [
+        "save money",
+        "personal finance",
+        "budget",
+        "financial tips",
+        "how to save"
+      ],
+      "answer": "Personal finance fundamentals: 50/30/20 rule: 50% needs (rent, food, utilities), 30% wants (entertainment, dining out), 20% savings/debt repayment. Emergency fund: 3-6 months of expenses in a liquid savings account \u2014 first financial priority. Compound interest: $1,000 invested at 7% annually becomes ~$7,600 in 30 years \u2014 start as early as possible. High-interest debt (credit cards, 15-25% APR) should be paid off before investing. Index funds: low-cost, diversified, outperform most actively managed funds over 10+ years. Dollar-cost averaging: invest a fixed amount regularly regardless of market conditions. Avoid: lifestyle inflation, timing the market, high fees."
     },
     {
-      "keywords": ["exercise", "workout", "how to get fit", "fitness", "lose weight", "build muscle", "get in shape"],
-      "answer": "Exercise fundamentals: For general health: 150 min/week moderate cardio OR 75 min vigorous + 2 strength sessions/week (WHO guidelines). For fat loss: caloric deficit is primary — diet drives results, exercise helps. For muscle building: progressive overload, sufficient protein (1.6-2.2g/kg bodyweight), adequate sleep and recovery. Zone 2 cardio (conversational pace, 60-70% max HR) builds aerobic base and improves longevity. Compound lifts (squat, deadlift, bench press, row, overhead press) give most bang for buck. Recovery: muscles grow during rest, not during exercise. Sleep is the most important recovery tool."
+      "keywords": [
+        "exercise",
+        "workout",
+        "how to get fit",
+        "fitness",
+        "lose weight",
+        "build muscle",
+        "get in shape"
+      ],
+      "answer": "Exercise fundamentals: For general health: 150 min/week moderate cardio OR 75 min vigorous + 2 strength sessions/week (WHO guidelines). For fat loss: caloric deficit is primary \u2014 diet drives results, exercise helps. For muscle building: progressive overload, sufficient protein (1.6-2.2g/kg bodyweight), adequate sleep and recovery. Zone 2 cardio (conversational pace, 60-70% max HR) builds aerobic base and improves longevity. Compound lifts (squat, deadlift, bench press, row, overhead press) give most bang for buck. Recovery: muscles grow during rest, not during exercise. Sleep is the most important recovery tool."
     },
     {
-      "keywords": ["language learning", "learn a language", "fluent", "second language", "how long to learn"],
-      "answer": "Language learning time to fluency (Foreign Service Institute estimates for English speakers): Easy (600-750 hours): Spanish, French, Italian, Portuguese, Dutch, Norwegian, Swedish. Medium (900 hours): German, Indonesian, Swahili. Hard (1,100+ hours): Russian, Hindi, Thai, Vietnamese. Very hard (2,200+ hours): Arabic, Chinese, Japanese, Korean. Key principles: Comprehensible input — understand messages slightly above your level. Spaced repetition for vocabulary (Anki). Immersion accelerates acquisition dramatically. Consistent daily practice beats occasional marathon sessions. Adults can absolutely become fluent — motivation and method matter more than age."
+      "keywords": [
+        "language learning",
+        "learn a language",
+        "fluent",
+        "second language",
+        "how long to learn"
+      ],
+      "answer": "Language learning time to fluency (Foreign Service Institute estimates for English speakers): Easy (600-750 hours): Spanish, French, Italian, Portuguese, Dutch, Norwegian, Swedish. Medium (900 hours): German, Indonesian, Swahili. Hard (1,100+ hours): Russian, Hindi, Thai, Vietnamese. Very hard (2,200+ hours): Arabic, Chinese, Japanese, Korean. Key principles: Comprehensible input \u2014 understand messages slightly above your level. Spaced repetition for vocabulary (Anki). Immersion accelerates acquisition dramatically. Consistent daily practice beats occasional marathon sessions. Adults can absolutely become fluent \u2014 motivation and method matter more than age."
     },
     {
-      "keywords": ["cooking", "how to cook", "beginner cooking", "kitchen tips", "knife skills", "basic cooking"],
-      "answer": "Cooking fundamentals for beginners: Master these first: how to dice an onion, cook rice, roast vegetables, cook pasta, make a simple sauce. The Maillard reaction (browning) is your best friend — pat meat dry before searing, don't overcrowd the pan, use high heat. Salt is the most important seasoning — season in layers, not just at the end. Fat carries flavor. Mise en place: prep all ingredients before cooking starts. Essential equipment: chef's knife, cutting board, cast iron or stainless pan. Safe internal temperatures: chicken 74°C/165°F, beef medium 63°C/145°F. Most recipes need lower heat and more time than beginners think."
+      "keywords": [
+        "how to cook",
+        "beginner cooking",
+        "kitchen tips",
+        "basic cooking"
+      ],
+      "answer": "Cooking fundamentals for beginners: Master these first: how to dice an onion, cook rice, roast vegetables, cook pasta, make a simple sauce. The Maillard reaction (browning) is your best friend \u2014 pat meat dry before searing, don't overcrowd the pan, use high heat. Salt is the most important seasoning \u2014 season in layers, not just at the end. Fat carries flavor. Mise en place: prep all ingredients before cooking starts. Essential equipment: chef's knife, cutting board, cast iron or stainless pan. Safe internal temperatures: chicken 74\u00b0C/165\u00b0F, beef medium 63\u00b0C/145\u00b0F. Most recipes need lower heat and more time than beginners think."
     },
     {
-      "keywords": ["books", "best books", "what to read", "reading list", "classic books", "recommended books"],
+      "keywords": [
+        "books",
+        "best books",
+        "what to read",
+        "reading list",
+        "recommended books"
+      ],
       "answer": "Essential reading by category: Philosophy: Marcus Aurelius - Meditations, Epictetus - Enchiridion, Plato - The Republic, Camus - The Myth of Sisyphus. Science: Carl Sagan - Cosmos, Richard Feynman - Surely You're Joking, Stephen Hawking - A Brief History of Time. Psychology: Daniel Kahneman - Thinking Fast and Slow, Viktor Frankl - Man's Search for Meaning. Self-improvement: James Clear - Atomic Habits, Cal Newport - Deep Work, Carol Dweck - Mindset. Fiction classics: Dostoevsky - The Brothers Karamazov, Tolstoy - War and Peace, Orwell - 1984, Kafka - The Trial. Modern: Cormac McCarthy - The Road, Kazuo Ishiguro - Never Let Me Go."
     },
     {
-      "keywords": ["dream", "dreaming", "why do we dream", "nightmares", "lucid dreaming", "rem"],
-      "answer": "Dreams occur primarily during REM (Rapid Eye Movement) sleep — the brain is nearly as active as when awake. We have 4-6 REM periods per night, each longer than the last. Why we dream: no consensus. Leading theories: Memory consolidation (replaying and processing experiences), Emotional processing (working through fears safely), Threat simulation (evolutionary — rehearse responses to dangers). Nightmares are more frequent during stress, trauma, or illness. Lucid dreaming: awareness that you're dreaming while dreaming — can be trained using reality checks and MILD technique. We forget 95% of dreams within minutes of waking. Blind people dream using their other senses."
+      "keywords": [
+        "dream",
+        "dreaming",
+        "why do we dream",
+        "nightmares",
+        "lucid dreaming",
+        "rem"
+      ],
+      "answer": "Dreams occur primarily during REM (Rapid Eye Movement) sleep \u2014 the brain is nearly as active as when awake. We have 4-6 REM periods per night, each longer than the last. Why we dream: no consensus. Leading theories: Memory consolidation (replaying and processing experiences), Emotional processing (working through fears safely), Threat simulation (evolutionary \u2014 rehearse responses to dangers). Nightmares are more frequent during stress, trauma, or illness. Lucid dreaming: awareness that you're dreaming while dreaming \u2014 can be trained using reality checks and MILD technique. We forget 95% of dreams within minutes of waking. Blind people dream using their other senses."
     },
     {
-      "keywords": ["happiness", "how to be happy", "what makes people happy", "wellbeing", "positive psychology"],
-      "answer": "The science of happiness: Harvard Study of Adult Development (80+ years): the #1 predictor of wellbeing is the quality of relationships — not wealth, fame, or achievement. Key findings: Hedonic adaptation — we return to a baseline happiness level after positive and negative events. Experiences > things: spending on experiences provides more lasting happiness than material goods. Gratitude: regularly noting what you're grateful for measurably increases wellbeing. Flow states (Csikszentmihalyi): deep engagement in challenging meaningful activity is among the most positive experiences possible. Social connection: loneliness is as harmful to health as smoking 15 cigarettes/day. Sleep is the biggest single modifiable factor affecting daily mood."
+      "keywords": [
+        "happiness",
+        "how to be happy",
+        "what makes people happy",
+        "wellbeing",
+        "positive psychology"
+      ],
+      "answer": "The science of happiness: Harvard Study of Adult Development (80+ years): the #1 predictor of wellbeing is the quality of relationships \u2014 not wealth, fame, or achievement. Key findings: Hedonic adaptation \u2014 we return to a baseline happiness level after positive and negative events. Experiences > things: spending on experiences provides more lasting happiness than material goods. Gratitude: regularly noting what you're grateful for measurably increases wellbeing. Flow states (Csikszentmihalyi): deep engagement in challenging meaningful activity is among the most positive experiences possible. Social connection: loneliness is as harmful to health as smoking 15 cigarettes/day. Sleep is the biggest single modifiable factor affecting daily mood."
     },
     {
-      "keywords": ["color", "colors", "how colors work", "light spectrum", "why sky is blue", "why sunset red"],
-      "answer": "Colors are how our brains interpret different wavelengths of electromagnetic radiation. Visible light: 380-700 nanometers — Violet (~380-450nm), Blue (~450-495nm), Green (~495-570nm), Yellow (~570-590nm), Orange (~590-620nm), Red (~620-700nm). Why the sky is blue: Rayleigh scattering — air molecules scatter shorter wavelengths (blue) more than longer ones, so blue light reaches our eyes from all directions. Why sunsets are red/orange: at low angles, light travels through more atmosphere — blue scatters away, only red/orange reaches us. Why grass is green: chlorophyll absorbs red and blue light for photosynthesis, reflects green. Black absorbs all wavelengths, white reflects all. 8% of males have red-green colorblindness. Mantis shrimp have 16 types of photoreceptors."
+      "keywords": [
+        "color",
+        "colors",
+        "how colors work",
+        "light spectrum",
+        "why sky is blue",
+        "why sunset red"
+      ],
+      "answer": "Colors are how our brains interpret different wavelengths of electromagnetic radiation. Visible light: 380-700 nanometers \u2014 Violet (~380-450nm), Blue (~450-495nm), Green (~495-570nm), Yellow (~570-590nm), Orange (~590-620nm), Red (~620-700nm). Why the sky is blue: Rayleigh scattering \u2014 air molecules scatter shorter wavelengths (blue) more than longer ones, so blue light reaches our eyes from all directions. Why sunsets are red/orange: at low angles, light travels through more atmosphere \u2014 blue scatters away, only red/orange reaches us. Why grass is green: chlorophyll absorbs red and blue light for photosynthesis, reflects green. Black absorbs all wavelengths, white reflects all. 8% of males have red-green colorblindness. Mantis shrimp have 16 types of photoreceptors."
     },
     {
-      "keywords": ["gravity", "how gravity works", "weight", "mass", "gravitational pull", "free fall"],
-      "answer": "Gravity is one of the four fundamental forces — the weakest but with infinite range, always attractive. Newton's law: F = Gm₁m₂/r² — force proportional to both masses, inversely proportional to distance squared. Einstein's General Relativity: gravity isn't a force but the curvature of spacetime caused by mass. Weight vs mass: mass is the amount of matter (kg), weight is the gravitational force on that mass (Newtons). You'd weigh 1/6 on the Moon, ~2.4× on Jupiter. Free fall: all objects fall at the same rate regardless of mass (Galileo's insight, confirmed on the Moon in 1971 with a hammer and feather). Terminal velocity for a skydiver: ~200 km/h. Escape velocity from Earth: 11.2 km/s."
+      "keywords": [
+        "how gravity works",
+        "weight",
+        "mass",
+        "gravitational pull",
+        "free fall"
+      ],
+      "answer": "Gravity is one of the four fundamental forces \u2014 the weakest but with infinite range, always attractive. Newton's law: F = Gm\u2081m\u2082/r\u00b2 \u2014 force proportional to both masses, inversely proportional to distance squared. Einstein's General Relativity: gravity isn't a force but the curvature of spacetime caused by mass. Weight vs mass: mass is the amount of matter (kg), weight is the gravitational force on that mass (Newtons). You'd weigh 1/6 on the Moon, ~2.4\u00d7 on Jupiter. Free fall: all objects fall at the same rate regardless of mass (Galileo's insight, confirmed on the Moon in 1971 with a hammer and feather). Terminal velocity for a skydiver: ~200 km/h. Escape velocity from Earth: 11.2 km/s."
     },
     {
-      "keywords": ["music", "how music works", "why music", "music theory basics", "why do we like music"],
-      "answer": "Why music affects us: Music activates the brain's reward system — dopamine is released during pleasurable music, especially at 'chills' (frisson) moments. It's one of the few activities engaging nearly every area of the brain simultaneously. The 'reminiscence bump' means music from ages 12-25 is most memorable. Tempo affects heart rate and movement — 120-140 BPM naturally makes people want to dance. Music theory basics: Western music uses 12 notes (chromatic scale). A major scale follows W-W-H-W-W-W-H. Chords are built by stacking thirds. The V→I (dominant to tonic) resolution feels satisfying to virtually all humans regardless of musical background — possibly innate."
+      "keywords": [
+        "music",
+        "how music works",
+        "why music",
+        "music theory basics",
+        "why do we like music"
+      ],
+      "answer": "Why music affects us: Music activates the brain's reward system \u2014 dopamine is released during pleasurable music, especially at 'chills' (frisson) moments. It's one of the few activities engaging nearly every area of the brain simultaneously. The 'reminiscence bump' means music from ages 12-25 is most memorable. Tempo affects heart rate and movement \u2014 120-140 BPM naturally makes people want to dance. Music theory basics: Western music uses 12 notes (chromatic scale). A major scale follows W-W-H-W-W-W-H. Chords are built by stacking thirds. The V\u2192I (dominant to tonic) resolution feels satisfying to virtually all humans regardless of musical background \u2014 possibly innate."
     },
     {
-      "keywords": ["how old", "age", "how long ago", "when was", "century", "decade"],
+      "keywords": [
+        "how old",
+        "age",
+        "how long ago",
+        "when was",
+        "century",
+        "decade"
+      ],
       "answer": "Time reference points: The universe is ~13.8 billion years old. Earth is ~4.54 billion years old. Life on Earth began ~3.8 billion years ago. Dinosaurs went extinct ~66 million years ago. Modern humans (Homo sapiens) appeared ~300,000 years ago. Agriculture began ~10,000 years ago. Writing was invented ~5,000 years ago. The current century is the 21st century (2001-2100). A decade is 10 years, a century is 100 years, a millennium is 1,000 years. The current year is 2026."
     },
     {
-      "keywords": ["dinosaur", "dinosaurs", "extinct", "prehistoric", "jurassic", "t-rex", "tyrannosaurus", "velociraptor", "triceratops", "stegosaurus", "brachiosaurus"],
-      "answer": "Dinosaurs ruled Earth for ~165 million years (230-66 million years ago). They went extinct ~66 million years ago when a ~10km asteroid hit Chicxulub (Mexico), causing fires, tsunamis, and a 'nuclear winter' that killed ~75% of all species. T-rex: one of the largest land predators ever (~12m long, 8 tonnes), had the strongest bite force of any land animal, had feathers (like all theropods), lived 68-66 million years ago. Velociraptors: actually turkey-sized (Jurassic Park ones were based on Deinonychus), had feathers, possibly hunted in packs. Largest dinosaurs: sauropods like Argentinosaurus (up to 30-40m, 70+ tonnes). Birds ARE dinosaurs — avian dinosaurs that survived the extinction. Most dinosaurs were herbivores. Fossils found on every continent including Antarctica."
+      "keywords": [
+        "dinosaur",
+        "dinosaurs",
+        "extinct",
+        "jurassic",
+        "t-rex",
+        "tyrannosaurus",
+        "velociraptor",
+        "triceratops",
+        "stegosaurus",
+        "brachiosaurus"
+      ],
+      "answer": "Dinosaurs ruled Earth for ~165 million years (230-66 million years ago). They went extinct ~66 million years ago when a ~10km asteroid hit Chicxulub (Mexico), causing fires, tsunamis, and a 'nuclear winter' that killed ~75% of all species. T-rex: one of the largest land predators ever (~12m long, 8 tonnes), had the strongest bite force of any land animal, had feathers (like all theropods), lived 68-66 million years ago. Velociraptors: actually turkey-sized (Jurassic Park ones were based on Deinonychus), had feathers, possibly hunted in packs. Largest dinosaurs: sauropods like Argentinosaurus (up to 30-40m, 70+ tonnes). Birds ARE dinosaurs \u2014 avian dinosaurs that survived the extinction. Most dinosaurs were herbivores. Fossils found on every continent including Antarctica."
     },
     {
-      "keywords": ["cat breeds", "siamese", "persian", "maine coon", "bengal", "ragdoll", "scottish fold", "british shorthair", "sphynx"],
-      "answer": "Popular cat breeds: Siamese: one of the oldest breeds, vocal, social, blue eyes, color-point markings. Persian: flat face, long silky coat, calm, requires daily grooming. Maine Coon: largest domestic breed (up to 9kg), tufted ears, bushy tail, dog-like personality, loves water. Bengal: wild-looking spots from domestic cat × Asian leopard cat hybrid, very active. Ragdoll: goes limp when held, very docile, blue eyes. Scottish Fold: folded ears from cartilage mutation — ethical breeders only breed fold × straight to avoid painful joint disease. British Shorthair: stocky, plush dense coat, calm and independent. Sphynx: hairless (covered in fine down), wrinkled, very social and warm to touch. Abyssinian: slender, ticked coat, extremely active — often called the 'clown of the cat world.'"
+      "keywords": [
+        "cat breeds",
+        "siamese",
+        "persian",
+        "maine coon",
+        "bengal",
+        "ragdoll",
+        "scottish fold",
+        "british shorthair",
+        "sphynx"
+      ],
+      "answer": "Popular cat breeds: Siamese: one of the oldest breeds, vocal, social, blue eyes, color-point markings. Persian: flat face, long silky coat, calm, requires daily grooming. Maine Coon: largest domestic breed (up to 9kg), tufted ears, bushy tail, dog-like personality, loves water. Bengal: wild-looking spots from domestic cat \u00d7 Asian leopard cat hybrid, very active. Ragdoll: goes limp when held, very docile, blue eyes. Scottish Fold: folded ears from cartilage mutation \u2014 ethical breeders only breed fold \u00d7 straight to avoid painful joint disease. British Shorthair: stocky, plush dense coat, calm and independent. Sphynx: hairless (covered in fine down), wrinkled, very social and warm to touch. Abyssinian: slender, ticked coat, extremely active \u2014 often called the 'clown of the cat world.'"
     },
     {
-      "keywords": ["dog breeds", "labrador", "golden retriever", "german shepherd", "bulldog", "poodle", "beagle", "husky", "chihuahua", "dachshund", "rottweiler"],
-      "answer": "Popular dog breeds: Labrador Retriever: most popular breed in USA and UK for decades — friendly, trainable, loves water, 3 colors (black, yellow, chocolate). Golden Retriever: gentle, patient, great with children, common as therapy/guide dogs. German Shepherd: highly intelligent, loyal, protective, most common police/military dog. French Bulldog: currently #1 in USA — compact, low-energy, great apartment dog, prone to breathing issues. Siberian Husky: high energy, needs lots of exercise, howls rather than barks. Beagle: scent hound, curious, friendly. Dachshund: 'sausage dog' — long body, bred for hunting badgers, prone to back problems. Chihuahua: smallest breed, big personality, long-lived (15-20 years). Rottweiler: powerful, loyal, good guard dog, needs proper socialization."
+      "keywords": [
+        "labrador",
+        "golden retriever",
+        "german shepherd",
+        "bulldog",
+        "poodle",
+        "beagle",
+        "husky",
+        "chihuahua",
+        "dachshund",
+        "rottweiler"
+      ],
+      "answer": "Popular dog breeds: Labrador Retriever: most popular breed in USA and UK for decades \u2014 friendly, trainable, loves water, 3 colors (black, yellow, chocolate). Golden Retriever: gentle, patient, great with children, common as therapy/guide dogs. German Shepherd: highly intelligent, loyal, protective, most common police/military dog. French Bulldog: currently #1 in USA \u2014 compact, low-energy, great apartment dog, prone to breathing issues. Siberian Husky: high energy, needs lots of exercise, howls rather than barks. Beagle: scent hound, curious, friendly. Dachshund: 'sausage dog' \u2014 long body, bred for hunting badgers, prone to back problems. Chihuahua: smallest breed, big personality, long-lived (15-20 years). Rottweiler: powerful, loyal, good guard dog, needs proper socialization."
     },
     {
-      "keywords": ["solar system", "planets order", "mercury venus earth mars jupiter saturn uranus neptune", "inner planets", "outer planets"],
-      "answer": "The 8 planets in order from the Sun: Mercury (closest, no atmosphere, extreme temperatures), Venus (hottest planet 462°C, rotates backward), Earth (only known life, 1 moon), Mars (red planet, Olympus Mons tallest volcano in solar system, 2 moons), Jupiter (largest, Great Red Spot storm, 95 moons including Europa with subsurface ocean), Saturn (spectacular rings of ice and rock, 146 moons, least dense planet), Uranus (ice giant, rotates on its side at 98°), Neptune (farthest, strongest winds up to 2,100 km/h). Mnemonic: 'My Very Educated Mother Just Served Us Nachos.' Pluto was reclassified as a dwarf planet in 2006 — it's in the Kuiper Belt."
+      "keywords": [
+        "planets order",
+        "mercury venus earth mars jupiter saturn uranus neptune",
+        "inner planets"
+      ],
+      "answer": "The 8 planets in order from the Sun: Mercury (closest, no atmosphere, extreme temperatures), Venus (hottest planet 462\u00b0C, rotates backward), Earth (only known life, 1 moon), Mars (red planet, Olympus Mons tallest volcano in solar system, 2 moons), Jupiter (largest, Great Red Spot storm, 95 moons including Europa with subsurface ocean), Saturn (spectacular rings of ice and rock, 146 moons, least dense planet), Uranus (ice giant, rotates on its side at 98\u00b0), Neptune (farthest, strongest winds up to 2,100 km/h). Mnemonic: 'My Very Educated Mother Just Served Us Nachos.' Pluto was reclassified as a dwarf planet in 2006 \u2014 it's in the Kuiper Belt."
     },
     {
-      "keywords": ["how internet works", "internet explained", "packets", "routers", "ip address", "dns", "tcp ip", "protocol"],
-      "answer": "How the internet works: Data is broken into packets (~1,500 bytes each) — each travels independently through the network and gets reassembled at the destination. IP (Internet Protocol): every device has a unique IP address. IPv4: 32-bit (like 192.168.1.1), IPv6: 128-bit. Routers direct packets toward their destination by finding the best path. DNS (Domain Name System): translates domain names (google.com) to IP addresses — like a phone book for the internet. TCP ensures reliable delivery — checks packets arrived correctly, requests retransmission if not. HTTP/HTTPS: the protocol your browser uses to request web pages. When you visit a website: 1) DNS lookup, 2) TCP connection, 3) Browser sends HTTP request, 4) Server responds with HTML/CSS/JS, 5) Browser renders the page. The internet backbone uses undersea fiber optic cables carrying light pulses between continents."
+      "keywords": [
+        "how internet works",
+        "internet explained",
+        "packets",
+        "routers",
+        "ip address",
+        "tcp ip",
+        "protocol"
+      ],
+      "answer": "How the internet works: Data is broken into packets (~1,500 bytes each) \u2014 each travels independently through the network and gets reassembled at the destination. IP (Internet Protocol): every device has a unique IP address. IPv4: 32-bit (like 192.168.1.1), IPv6: 128-bit. Routers direct packets toward their destination by finding the best path. DNS (Domain Name System): translates domain names (google.com) to IP addresses \u2014 like a phone book for the internet. TCP ensures reliable delivery \u2014 checks packets arrived correctly, requests retransmission if not. HTTP/HTTPS: the protocol your browser uses to request web pages. When you visit a website: 1) DNS lookup, 2) TCP connection, 3) Browser sends HTTP request, 4) Server responds with HTML/CSS/JS, 5) Browser renders the page. The internet backbone uses undersea fiber optic cables carrying light pulses between continents."
     },
     {
-      "keywords": ["how does a computer work", "cpu", "ram", "hard drive", "processor", "computer basics", "motherboard", "gpu"],
-      "answer": "How computers work: CPU (Central Processing Unit): the 'brain' — executes instructions, performs calculations. Modern CPUs have multiple cores running at 3-5+ GHz (billions of cycles per second). RAM (Random Access Memory): short-term memory — stores data the CPU is actively using. Fast but volatile (lost when power off). More RAM = can run more programs simultaneously. Storage (SSD/HDD): long-term memory. SSD: much faster, no moving parts. HDD: slower, spinning magnetic platters, cheaper per GB. GPU: originally for graphics, now also used for AI/ML — thousands of simpler cores vs CPU's few powerful ones. The fetch-decode-execute cycle: CPU fetches instruction from RAM → decodes it → executes it → stores result. This happens billions of times per second. Everything is processed as 0s and 1s (off/on electrical signals)."
+      "keywords": [
+        "how does a computer work",
+        "cpu",
+        "ram",
+        "hard drive",
+        "processor",
+        "computer basics",
+        "motherboard",
+        "gpu"
+      ],
+      "answer": "How computers work: CPU (Central Processing Unit): the 'brain' \u2014 executes instructions, performs calculations. Modern CPUs have multiple cores running at 3-5+ GHz (billions of cycles per second). RAM (Random Access Memory): short-term memory \u2014 stores data the CPU is actively using. Fast but volatile (lost when power off). More RAM = can run more programs simultaneously. Storage (SSD/HDD): long-term memory. SSD: much faster, no moving parts. HDD: slower, spinning magnetic platters, cheaper per GB. GPU: originally for graphics, now also used for AI/ML \u2014 thousands of simpler cores vs CPU's few powerful ones. The fetch-decode-execute cycle: CPU fetches instruction from RAM \u2192 decodes it \u2192 executes it \u2192 stores result. This happens billions of times per second. Everything is processed as 0s and 1s (off/on electrical signals)."
     },
     {
-      "keywords": ["what is money", "how does money work", "fiat money", "currency", "banking", "how banks work", "fractional reserve"],
-      "answer": "Money is a medium of exchange, store of value, and unit of account. Modern money is fiat currency — it has value because governments decree it and people trust it, not because it's backed by gold (the US left the gold standard in 1971). How banks create money: fractional reserve banking — banks keep only a fraction of deposits as reserves and lend out the rest, creating new money. The Federal Reserve controls the money supply by setting interest rates, buying/selling government bonds (quantitative easing), and setting reserve requirements. Inflation: too much money chasing too few goods — purchasing power decreases. Hyperinflation: Zimbabwe 2008 — prices doubled every 24 hours. Deflation: falling prices cause economic paralysis (why buy today if cheaper tomorrow?)."
+      "keywords": [
+        "what is money",
+        "how does money work",
+        "fiat money",
+        "banking",
+        "how banks work",
+        "fractional reserve"
+      ],
+      "answer": "Money is a medium of exchange, store of value, and unit of account. Modern money is fiat currency \u2014 it has value because governments decree it and people trust it, not because it's backed by gold (the US left the gold standard in 1971). How banks create money: fractional reserve banking \u2014 banks keep only a fraction of deposits as reserves and lend out the rest, creating new money. The Federal Reserve controls the money supply by setting interest rates, buying/selling government bonds (quantitative easing), and setting reserve requirements. Inflation: too much money chasing too few goods \u2014 purchasing power decreases. Hyperinflation: Zimbabwe 2008 \u2014 prices doubled every 24 hours. Deflation: falling prices cause economic paralysis (why buy today if cheaper tomorrow?)."
     },
     {
-      "keywords": ["what is time", "how does time work", "time dilation", "arrow of time", "physics of time"],
-      "answer": "Time is one of physics' deepest mysteries. In classical physics: time is absolute and universal. Einstein's relativity changed this: time is relative. Time dilation: moving clocks run slower — the faster you move, the slower time passes for you. Gravitational time dilation: clocks run slower in stronger gravitational fields (GPS satellites must correct for this). The 'arrow of time': why does time flow forward? The laws of physics work equally in both directions EXCEPT the Second Law of Thermodynamics (entropy always increases) — this gives time its direction. The block universe theory: some physicists believe past, present, and future all exist simultaneously — 'now' is just where you are on the timeline. Time's ultimate nature remains one of physics' greatest unsolved problems."
+      "keywords": [
+        "what is time",
+        "how does time work",
+        "time dilation",
+        "arrow of time",
+        "physics of time"
+      ],
+      "answer": "Time is one of physics' deepest mysteries. In classical physics: time is absolute and universal. Einstein's relativity changed this: time is relative. Time dilation: moving clocks run slower \u2014 the faster you move, the slower time passes for you. Gravitational time dilation: clocks run slower in stronger gravitational fields (GPS satellites must correct for this). The 'arrow of time': why does time flow forward? The laws of physics work equally in both directions EXCEPT the Second Law of Thermodynamics (entropy always increases) \u2014 this gives time its direction. The block universe theory: some physicists believe past, present, and future all exist simultaneously \u2014 'now' is just where you are on the timeline. Time's ultimate nature remains one of physics' greatest unsolved problems."
     },
     {
-      "keywords": ["you are wrong", "that is wrong", "wrong answer", "incorrect answer", "you made a mistake"],
-      "answer": "I might be! I'm a rules-based system pulling answers from a static knowledge base — I can be outdated, imprecise, or just plain wrong. If you know the correct answer, let me know — Akiva can update my brain. 🐒"
+      "keywords": [
+        "you are wrong",
+        "that is wrong",
+        "wrong answer",
+        "incorrect answer",
+        "you made a mistake"
+      ],
+      "answer": "I might be! I'm a rules-based system pulling answers from a static knowledge base \u2014 I can be outdated, imprecise, or just plain wrong. If you know the correct answer, let me know \u2014 Akiva can update my brain. \ud83d\udc12"
     },
     {
-      "keywords": ["getting better", "getting smarter", "updating me", "add to brain", "teach you"],
-      "answer": "Yes! My brain is regularly updated by Akiva with new facts, improved matching, and better conversation handling. Each version adds more knowledge. If I don't know something, ask Akiva to add it. 🐒"
+      "keywords": [
+        "getting better",
+        "getting smarter",
+        "updating me",
+        "add to brain",
+        "teach you"
+      ],
+      "answer": "Yes! My brain is regularly updated by Akiva with new facts, improved matching, and better conversation handling. Each version adds more knowledge. If I don't know something, ask Akiva to add it. \ud83d\udc12"
     },
     {
-      "keywords": ["what year is it", "current year", "what's the date", "today's date", "what day is it"],
-      "answer": "I don't have live access to the current date — I'm a rules-based assistant without real-time data. Check your device for today's date!"
+      "keywords": [
+        "what year is it",
+        "current year",
+        "what's the date",
+        "today's date",
+        "what day is it"
+      ],
+      "answer": "I don't have live access to the current date \u2014 I'm a rules-based assistant without real-time data. Check your device for today's date!"
     },
     {
-      "keywords": ["who built you", "who made you", "who created you", "who is akiva", "your creator", "who wrote you"],
-      "answer": "I was built by Akiva — a developer who created me as a rules-based AI assistant called Monkey Joe. I run on a knowledge base of facts stored in JSON files, not a language model. Akiva keeps updating my brain to make me smarter. 🐒"
+      "keywords": [
+        "who built you",
+        "who made you",
+        "your creator",
+        "who wrote you"
+      ],
+      "answer": "I was built by Akiva \u2014 a developer who created me as a rules-based AI assistant called Monkey Joe. I run on a knowledge base of facts stored in JSON files, not a language model. Akiva keeps updating my brain to make me smarter. \ud83d\udc12"
     },
     {
-      "keywords": ["are you alive", "are you sentient", "do you have feelings", "are you conscious", "are you real"],
-      "answer": "Nope! I'm a rules-based program — I pattern-match your questions against a stored knowledge base. No feelings, no consciousness, no inner experience. I'm more like a very organized encyclopedia than a thinking being. 🐒"
+      "keywords": [
+        "are you alive",
+        "are you sentient",
+        "do you have feelings",
+        "are you real"
+      ],
+      "answer": "Nope! I'm a rules-based program \u2014 I pattern-match your questions against a stored knowledge base. No feelings, no consciousness, no inner experience. I'm more like a very organized encyclopedia than a thinking being. \ud83d\udc12"
     },
     {
-      "keywords": ["what can you not do", "your limitations", "what don't you know", "what are your limits", "what can't you do"],
-      "answer": "I can't: access the internet in real-time, remember previous sessions, learn from conversation, understand images or voice, do math calculations, or guarantee accuracy. I'm a static knowledge base — I know what Akiva has written into my brain, nothing more. 🐒"
+      "keywords": [
+        "what can you not do",
+        "your limitations",
+        "what don't you know",
+        "what are your limits",
+        "what can't you do"
+      ],
+      "answer": "I can't: access the internet in real-time, remember previous sessions, learn from conversation, understand images or voice, do math calculations, or guarantee accuracy. I'm a static knowledge base \u2014 I know what Akiva has written into my brain, nothing more. \ud83d\udc12"
     }
   ]
 }

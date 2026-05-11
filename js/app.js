@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
   await Brain.load();
-  Storage.getChats();
   MCP.init();
   Search.init();
   Draw.init();

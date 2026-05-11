@@ -71,7 +71,8 @@ const Chat = (() => {
     const bubble = el.querySelector('.bubble');
     if (msg.isHTML) bubble.innerHTML = msg.content;
     else bubble.textContent = msg.content;
-    if (msg.role === 'joe') {
+    const isError = typeof msg.content === 'string' && msg.content.startsWith('Error:');
+    if (msg.role === 'joe' && !isError) {
       const btn = document.createElement('button');
       btn.textContent = '🔊';
       btn.title = 'Read aloud';
@@ -276,6 +277,7 @@ const Chat = (() => {
         closeAllMenus();
       });
     });
+    anchor.parentElement.style.position = 'relative';
     anchor.parentElement.appendChild(menu);
     setTimeout(() => document.addEventListener('click', closeAllMenus, { once: true }), 0);
   }
@@ -305,7 +307,8 @@ const Chat = (() => {
     } else if (action === 'remove-proj') {
       chat.projectId = null;
     }
-    Storage.saveChat(chats.find(c => c.id === id) || {});
+    const saved = chats.find(c => c.id === id);
+    if (saved) Storage.saveChat(saved);
     renderSidebar();
   }
 

@@ -92,15 +92,16 @@ def fetch_backside_facts(api_key):
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
             data = json.loads(result.stdout)
             for note in (data.get('data') or []):
-                keywords = [k.strip() for k in note['title'].split(',')]
-                facts.append({'keywords': keywords, 'answer': note['body']})
+                keywords = [k.strip() for k in note.get('title', '').split(',')]
+                facts.append({'keywords': keywords, 'answer': note.get('body', '')})
             print(f"Joe: Syncing from Backside... {len(facts)} facts loaded", end='\r')
             if not data.get('has_more'):
                 break
             cursor = data.get('next_cursor')
             if not cursor:
                 break
-        except Exception:
+        except Exception as e:
+            print(f'Backside pagination error: {e}')
             break
 
     return facts
@@ -211,7 +212,7 @@ def learn_and_save(fact, brain_dir, github_token):
     new_keywords = [k for k in fact['keywords'] if k.lower() not in existing_keywords]
     if not new_keywords:
         return False
-    data['facts'].append({"keywords": fact['keywords'], "answer": fact['answer']})
+    data['facts'].append({"keywords": new_keywords, "answer": fact['answer']})
     with open(knowledge_path, 'w') as f:
         json.dump(data, f, indent=2)
     if github_token:
@@ -312,7 +313,8 @@ def update_brain(brain_dir):
         try:
             url = base_url + f
             dest = os.path.join(brain_dir, f)
-            urllib.request.urlretrieve(url, dest, context=ctx)
+            with urllib.request.urlopen(url, context=ctx) as resp, open(dest, 'wb') as out:
+                out.write(resp.read())
         except Exception:
             pass  # silently fail — use cached version
 
@@ -792,7 +794,7 @@ class MonkeyJoe:
 
     def brain_stats(self):
         """Show brain statistics."""
-        print(f"\n{DIM}Monkey Joe Brain v38{RESET}")
+        print(f"\n{DIM}Monkey Joe Brain v39{RESET}")
         print(f"  Knowledge facts: {len(self.knowledge)}")
         print(f"  Coding facts: {len(self.coding)}")
         print(f"  Conversation history: {len(self.history)} exchanges\n")
@@ -809,7 +811,7 @@ class MonkeyJoe:
         print("\033[33m|:::   |  |  |  |   :::|\033[0m")
         print("\033[33m       | ##   ##|\033[0m")
         print()
-        print("\033[1m🐒 Monkey Joe Terminal Interface v38\033[0m")
+        print("\033[1m🐒 Monkey Joe Terminal Interface v39\033[0m")
         print()
         print("Type 'exit' to quit, 'brain' for stats, 'help' for commands, 'files' to see files from this/previous sessions")
         if not get_anthropic_key():

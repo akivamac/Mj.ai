@@ -1,9 +1,10 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '33'; // bump when brain JSON files change
+  const BRAIN_VERSION = '40'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
   let terminal = null;
+  let coding = null;
 
   async function load() {
     // If version changed, clear cache and reload from JSON
@@ -11,16 +12,19 @@ const Brain = (() => {
       localStorage.removeItem('mj_brain_knowledge');
       localStorage.removeItem('mj_brain_rules');
       localStorage.removeItem('mj_brain_terminal');
+      localStorage.removeItem('mj_brain_coding');
       localStorage.setItem('mj_brain_version', BRAIN_VERSION);
     }
 
     knowledge = Storage.getBrain('knowledge');
     rules     = Storage.getBrain('rules');
     terminal  = Storage.getBrain('terminal');
+    coding    = Storage.getBrain('coding');
 
     if (!knowledge) { knowledge = await fetchJSON('brain/knowledge.json'); Storage.setBrain('knowledge', knowledge); }
     if (!rules)     { rules     = await fetchJSON('brain/rules.json');     Storage.setBrain('rules', rules); }
     if (!terminal)  { terminal  = await fetchJSON('brain/terminal.json');  Storage.setBrain('terminal', terminal); }
+    if (!coding)    { coding    = await fetchJSON('brain/coding.json');    Storage.setBrain('coding', coding); }
   }
 
   async function fetchJSON(path) {
@@ -59,14 +63,13 @@ const Brain = (() => {
       lower = lower + ' ' + _lastTopicLabel;
     }
 
-    // Edit intent — check if user is referring to a previously created file
-    const editTriggers = ['edit it','edit that','edit the file','change it','update it','update the file','modify it','modify the file','add to it','add to the file','rename it','rename the file','fix it','fix the file'];
     // "Yes" context — if Joe just offered to search, treat as search confirmation
     if (/^(yes|yeah|sure|ok|okay|yep|yup|do it|go ahead)[\s!.]*$/.test(lower)) {
       const lastJoe = [...history].reverse().find(m => m.role === 'joe');
       if (lastJoe && lastJoe.content && lastJoe.content.includes('search the web for it')) {
         // Find the topic from earlier in conversation
-        const lastUser = [...history].reverse().find(m => m.role === 'user' && m.content !== input);
+        const userMsgs = history.filter(m => m.role === 'user');
+        const lastUser = userMsgs[userMsgs.length - 2];
         if (lastUser) return '__SEARCH__:' + lastUser.content;
       }
     }
@@ -89,7 +92,8 @@ const Brain = (() => {
 
     // File creation
     const fileTypes = ['html','css','js','javascript','ts','typescript','md','markdown','txt','text','json','py','python','sh','bash','shell','svg','csv'];
-    const isFileReq = /^(make|create|write|generate|build)\s/.test(lower) && fileTypes.some(t => lower.includes(t));
+    const fileTypeRe = new RegExp('\\b(?:' + fileTypes.join('|') + ')\\b');
+    const isFileReq = /^(make|create|write|generate|build)\s/.test(lower) && fileTypeRe.test(lower);
     if (isFileReq) return '__FILE__:' + input;
 
     // GitHub push
@@ -292,21 +296,15 @@ const Brain = (() => {
         .replace(/izing$/, 'ize').replace(/ising$/, 'ise')
         .replace(/ization$/, '').replace(/isation$/, '')
         .replace(/ational$/, 'ate').replace(/tional$/, 'tion')
-        .replace(/izing$/, 'ize')
         .replace(/izes$/, 'ize').replace(/ised$/, 'ise')
-        .replace(/izing$/, 'ize')
         .replace(/nesses$/, '').replace(/ness$/, '')
         .replace(/ments$/, '').replace(/ment$/, '')
         .replace(/ities$/, 'ity').replace(/ity$/, '')
-        .replace(/ically$/, 'ic').replace(/ically$/, 'ic')
+        .replace(/ically$/, 'ic')
         .replace(/ical$/, 'ic')
         .replace(/ations$/, 'ate').replace(/ation$/, 'ate')
         .replace(/ators$/, 'ate').replace(/ator$/, 'ate')
-        .replace(/ators$/, 'ate')
         .replace(/ings$/, '').replace(/ing$/, '')
-        .replace(/edly$/, '').replace(/edly$/, '')
-        .replace(/edly$/, '')
-        .replace(/edly$/, '')
         .replace(/edly$/, '')
         .replace(/ed$/, '')
         .replace(/ers$/, '').replace(/er$/, '')
@@ -386,7 +384,7 @@ const Brain = (() => {
           let exactMatch = false;
           try {
             const esc = kl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const re = /^[a-z0-9 ]+$/.test(kl) ? new RegExp('\b' + esc) : new RegExp(esc);
+            const re = /^[a-z0-9 ]+$/.test(kl) ? new RegExp('\\b' + esc) : new RegExp(esc);
             exactMatch = re.test(q);
           } catch(e) { exactMatch = q.includes(kl); }
           if (exactMatch) { score += 2; continue; } // exact match worth 2
@@ -405,6 +403,7 @@ const Brain = (() => {
     // ── Context-aware follow-up handling ──────────────────────────
     // If this is a very short follow-up (under 4 words, no question words), append last topic
     function applyContextualFollowUp(q) {
+      if (_lastTopicLabel && q.includes(_lastTopicLabel)) return q;
       const wordCount = q.split(/\s+/).length;
       const hasQuestionWords = /^(what|who|how|why|where|when|is|are|do|does|can|could|would|should|will|did|was|were)/.test(q);
       if (wordCount <= 3 && !hasQuestionWords && _lastTopicLabel) {
@@ -425,7 +424,8 @@ const Brain = (() => {
       if (topic) variants.push(topic, expandSynonyms(topic));
 
       let bestFact = null, bestScore = 0;
-      for (const fact of knowledge.facts) {
+      const allFacts = (knowledge.facts || []).concat((coding && coding.facts) || []);
+      for (const fact of allFacts) {
         const score = scoreFactAgainst(fact, variants);
         if (score > bestScore) { bestScore = score; bestFact = fact; }
       }
@@ -479,10 +479,10 @@ const Brain = (() => {
       'news about', 'latest on', 'current status',
       'tell me about', 'explain'
     ];
-    if (questionTriggers.some(t => input.includes(t))) return true;
+    if (questionTriggers.some(t => input.startsWith(t + ' ') || input === t || input.startsWith(t + '?'))) return true;
 
     const actionTriggers = [
-      'look up', 'search for', 'search the web for', 'serch for',
+      'look up', 'search for', 'search the web for',
       'link to', 'photo of', 'picture of', 'image of',
       'show me', 'can you find', 'find me', 'find a link',
       'get me a link', 'find info', 'find monkeys', 'find a'
