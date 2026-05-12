@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '44'; // bump when brain JSON files change
+  const BRAIN_VERSION = '45'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -50,6 +50,11 @@ const Brain = (() => {
   let _lastTopicLabel    = '';
   let _lastFactAnswer    = '';
 
+  // ── Story session state (Phase 4) ─────────────────────────
+  // Set when Joe generates a story, used to keep characters/place/tone
+  // consistent on follow-ups like "continue", "what happens next", "chapter 2".
+  let _storySession = null;
+
   // Map mood keywords from a story request to the generator's tone tags.
   const storyToneKeywords = {
     silly:     ['silly', 'funny', 'goofy', 'wacky', 'absurd', 'wild'],
@@ -81,15 +86,41 @@ const Brain = (() => {
         if (!toneWords.includes(word) && !sizeOrCount.includes(word)) raw = word;
       }
     }
-    if (!raw) return { raw: null, singular: null };
+    if (!raw) return { raw: null, singular: null, lastWord: null, lastSingular: null };
     raw = raw.replace(/[.!?,;]+$/, '').trim();
-    let singular = raw;
-    if (raw.length > 3) {
-      if (raw.endsWith('ies'))      singular = raw.slice(0, -3) + 'y';
-      else if (raw.endsWith('ses')) singular = raw.slice(0, -2);
-      else if (raw.endsWith('s') && !raw.endsWith('ss')) singular = raw.slice(0, -1);
-    }
-    return { raw, singular };
+    const singularize = (w) => {
+      if (!w || w.length <= 3) return w;
+      if (w.endsWith('ies')) return w.slice(0, -3) + 'y';
+      if (w.endsWith('ses')) return w.slice(0, -2);
+      if (w.endsWith('s') && !w.endsWith('ss')) return w.slice(0, -1);
+      return w;
+    };
+    const singular = singularize(raw);
+    const words = raw.split(/\s+/);
+    const lastWord = words.length > 1 ? words[words.length - 1] : null;
+    const lastSingular = lastWord ? singularize(lastWord) : null;
+    return { raw, singular, lastWord, lastSingular };
+  }
+
+  // Match "continue", "what happens next", etc. — strictly anchored so
+  // mid-sentence uses like "when did the war continue" don't trigger.
+  const continuationPatterns = [
+    /^(continue|keep going|go on|continue the story|continue please)[\s!.?]*$/i,
+    /^(what happens next|then what|and then\??|and\?)[\s!.?]*$/i,
+    /^(tell me more|more please|more story|i want more|more!?)[\s!.?]*$/i,
+    /^(next chapter|next part|the next part|next page)[\s!.?]*$/i
+  ];
+  function detectStoryContinuation(input) {
+    return continuationPatterns.some(re => re.test(input.trim()));
+  }
+
+  const resetPatterns = [
+    /^(end (the |my )?story|stop (the |my )?story|end story|stop story)[\s!.?]*$/i,
+    /^(new story|start over|reset story|forget that story)[\s!.?]*$/i,
+    /^(that's enough|i'm done)[\s!.?]*$/i
+  ];
+  function detectStoryReset(input) {
+    return resetPatterns.some(re => re.test(input.trim()));
   }
 
   // Look up a fact for fact-weaving. Only exact keyword matches count —
@@ -97,8 +128,10 @@ const Brain = (() => {
   // multi-word "monkey joe" identity keyword). Tries raw + singular form.
   function findFactForSubject(subject, knowledge, coding) {
     if (!subject || !subject.raw) return null;
-    const tries = [subject.raw];
-    if (subject.singular && subject.singular !== subject.raw) tries.push(subject.singular);
+    const tries = [];
+    for (const v of [subject.raw, subject.singular, subject.lastWord, subject.lastSingular]) {
+      if (v && !tries.includes(v)) tries.push(v);
+    }
     const allFacts = ((knowledge && knowledge.facts) || []).concat((coding && coding.facts) || []);
     for (const term of tries) {
       const t = term.toLowerCase();
@@ -129,6 +162,56 @@ const Brain = (() => {
     if (/who am i|what is my name|do you know me/i.test(lower)) {
       if (userName) return `You're ${userName}! 👋`;
       return "I don't know your name yet — you might not be logged in with an account.";
+    }
+
+    // ── Story reset / continuation / chapter (Phase 4) ─────────────
+    // Runs near the top so short follow-ups like "continue" or
+    // "what happens next" aren't intercepted by the generic rules check.
+
+    if (detectStoryReset(lower)) {
+      if (_storySession) {
+        _storySession = null;
+        return "OK, ending that story. Tell me when you want a new one! 🐒";
+      }
+    }
+
+    const standaloneChapter = lower.trim().match(/^chapter\s+(\d+)[\s!.?]*$/);
+    if (standaloneChapter) {
+      if (_storySession && typeof Generator !== 'undefined') {
+        const num = parseInt(standaloneChapter[1], 10);
+        const r = Generator.generateStory({
+          continuation: true,
+          tone:      _storySession.tone,
+          character: _storySession.character,
+          place:     _storySession.place
+        });
+        _storySession.character  = r.character || _storySession.character;
+        _storySession.place      = r.place     || _storySession.place;
+        _storySession.chapter    = num;
+        _storySession.chapterMode = true;
+        return `**Chapter ${num}**\n\n${r.text}`;
+      }
+      return "I don't have a story going yet — try 'tell me a story about a fox' to get one started! 🐒";
+    }
+
+    if (detectStoryContinuation(lower)) {
+      if (_storySession && typeof Generator !== 'undefined') {
+        const r = Generator.generateStory({
+          continuation: true,
+          tone:      _storySession.tone,
+          character: _storySession.character,
+          place:     _storySession.place
+        });
+        _storySession.character = r.character || _storySession.character;
+        _storySession.place     = r.place     || _storySession.place;
+        let prefix = '';
+        if (_storySession.chapterMode) {
+          _storySession.chapter = (_storySession.chapter || 1) + 1;
+          prefix = `**Chapter ${_storySession.chapter}**\n\n`;
+        }
+        return prefix + r.text;
+      }
+      return "I don't have a story going yet — try 'tell me a story about a fox' to get one started! 🐒";
     }
 
     // ── Follow-up context injection ──────────────────────────
@@ -235,18 +318,34 @@ const Brain = (() => {
       /\b(tell|read|make|give|write|share)\s+(me\s+)?(a|an|another|me\s+a|me\s+an)\s+(\w+\s+)?(story|tale|adventure)\b/i,
       /\b(can|could|will|would)\s+you\s+(tell|read|make|give|write|share)\s+(me\s+)?(a|an)\s+(\w+\s+)?(story|tale|adventure)\b/i,
       /^(a\s+)?(\w+\s+)?(story|tale)\s+please/i,
-      /\bmake\s+(up|me)\s+(a|an)\s+(story|tale|adventure)/i
+      /\bmake\s+(up|me)\s+(a|an)\s+(story|tale|adventure)/i,
+      /^chapter\s+\d+\s+of\s+(?:a|an|the)\s+\w*\s*(?:story|tale|adventure)\b/i
     ];
     if (storyTriggers.some(re => re.test(input))) {
       if (typeof Generator !== 'undefined' && Generator.generateStory) {
         const tone    = detectStoryTone(lower);
         const subject = extractStorySubject(lower);
         const fact    = findFactForSubject(subject, knowledge, coding);
-        return Generator.generateStory({
+        // Prefer the last-word singular for character binding so a request
+        // like "story about a brave fox" treats "fox" as the protagonist.
+        const bindSubject = subject.lastSingular || subject.lastWord || subject.singular || subject.raw || null;
+        const r = Generator.generateStory({
           tone,
-          subject: subject.singular || subject.raw || null,
+          subject: bindSubject,
           fact:    fact ? fact.answer : null
         });
+        // Save session so "continue" / "chapter N" follow-ups work
+        const chMatch = input.match(/\bchapter\s+(\d+)\b/i);
+        _storySession = {
+          tone,
+          subject:     bindSubject,
+          character:   r.character,
+          place:       r.place,
+          chapter:     chMatch ? parseInt(chMatch[1], 10) : 1,
+          chapterMode: !!chMatch
+        };
+        const prefix = _storySession.chapterMode ? `**Chapter ${_storySession.chapter}**\n\n` : '';
+        return prefix + r.text;
       }
     }
 

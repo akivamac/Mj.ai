@@ -115,5 +115,36 @@
     { "tone": [],            "text": "Long ago, the wise ones told us: {FACT} A {ADJ} {NOUN:character} once {VERB:action} all the way across the {NOUN:place} to find out if it was true. It was." },
 
     { "tone": ["silly"],     "text": "Listen to this! {FACT} A {ADJ} {NOUN:character} was so {ADJ} about that fact, it {VERB:action} right out of the {NOUN:place} just to tell someone." }
+  ],
+  "continuations": [
+    { "tone": [], "text": "Just then, the {NOUN:character} heard a sound. A {ADJ} {NOUN:animal} stepped out from the {NOUN:place}. \"Hello,\" it said. The story was far from over." },
+
+    { "tone": [], "text": "The {NOUN:character} kept going. Through the {NOUN:place} it went, past a {ADJ} {NOUN:object}, past a {NOUN:animal} sleeping by the path. Something was waiting." },
+
+    { "tone": [], "text": "But the {NOUN:character} was not alone. {ADV}, a {ADJ} {NOUN:animal} appeared. \"You will need help,\" it said. So they traveled on together." },
+
+    { "tone": [], "text": "Now the {NOUN:character} faced a choice. One path led deeper into the {NOUN:place}. The other led somewhere unknown. {ADV}, it chose the unknown." },
+
+    { "tone": [], "text": "The {NOUN:character} found a {ADJ} {NOUN:object}. It was strange. It was {ADJ}. And it was about to change everything." },
+
+    { "tone": ["silly"], "text": "And then — the {NOUN:character} sneezed! A {NOUN:object} flew across the {NOUN:place}! The {NOUN:character} laughed and chased after it." },
+
+    { "tone": ["silly"], "text": "Wait, wait, wait. The {NOUN:character} had forgotten something important. It had to go back to the {NOUN:place} and find a {NOUN:object}. {ADV}, it returned, prouder than before." },
+
+    { "tone": ["spooky"], "text": "{ADV}, the wind picked up. The {NOUN:character} felt eyes on its back. Something was following. Something {ADJ}." },
+
+    { "tone": ["spooky"], "text": "From the shadows of the {NOUN:place}, a whisper. The {NOUN:character} froze. \"Do not turn around,\" the voice said. So it did not." },
+
+    { "tone": ["adventure"], "text": "The {NOUN:character} climbed higher. Each step was harder than the last. {ADV}, it reached the top — and what it saw there took its breath away." },
+
+    { "tone": ["adventure"], "text": "The map had been wrong. The {NOUN:character} muttered, gripped its {NOUN:object}, and pressed on. The real path went through the {NOUN:place}." },
+
+    { "tone": ["cozy"], "text": "The {NOUN:character} rested by the {NOUN:place}. The {NOUN:time} was {ADJ}. A {ADJ} {NOUN:animal} curled up beside it. They were both content." },
+
+    { "tone": ["cozy"], "text": "Tea was poured. Bread was shared. The {NOUN:character} and its friend talked of small things. The {NOUN:place} hummed with peace." },
+
+    { "tone": ["magical"], "text": "The {NOUN:object} began to glow. Symbols danced in the air. The {NOUN:character} spoke a word it did not know — and the world shifted." },
+
+    { "tone": ["magical"], "text": "A new path opened. It led into the heart of the {NOUN:place}. The {NOUN:character} stepped through, and the world behind it dimmed." }
   ]
 }

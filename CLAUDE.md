@@ -19,18 +19,19 @@ Served as static files. Auth gate with invite codes, login, signup.
 - `config.js` — admin password and config (not committed)
 - `settings.html` — settings page
 
-## Generator (v44, Phase 3)
-Joe can produce new text on prompts like "tell me a story", "tell me a silly story", "tell me a story about elephants". Templates use `{POS:theme}` slots filled from the dictionary. Within one template, repeated `{NOUN:...}` slots bind to the same word (so characters/places stay consistent); other parts of speech pick freshly.
+## Generator (v45, Phase 4)
+Joe can produce new text and continue stories across multiple turns. Templates use `{POS:theme}` slots filled from the dictionary. Within one template, repeated `{NOUN:...}` slots bind to the same word.
 
-- **Tone matching** (Phase 2): when the user asks for a `silly | spooky | adventure | cozy | magical` story, Joe filters templates to that tone and prefers tone-tagged words. See `detectStoryTone` in `brain.js`.
-- **Fact-weaving** (Phase 3): when the prompt names a subject Joe knows (e.g. "story about an elephant"), Joe pulls the matching fact from `knowledge.json` / `coding.json` and uses a fact-weaver template (the `factStories` array) that includes a `{FACT}` slot. If the subject is also a known dictionary noun (e.g. "elephant"), it's locked into `{NOUN:character}` so the protagonist matches. Subject extraction handles "story about X" and "an X story". Unknown subjects → regular toned story, no fact.
+- **Tone matching** (Phase 2): mood keywords (`silly | spooky | adventure | cozy | magical | bedtime`) filter templates and prefer tone-tagged words. See `detectStoryTone` in `brain.js`.
+- **Fact-weaving** (Phase 3): when the prompt names a known subject (`story about elephants`, `story about javascript`), Joe weaves the matching fact from `knowledge.json` / `coding.json` into a `factStories` template. Subject is locked into `{NOUN:character}` when it's also a known dictionary noun.
+- **Story sessions** (Phase 4): after generating any story, Joe stores `{character, place, tone, chapter}` in `_storySession`. Follow-ups like `continue`, `keep going`, `what happens next`, `tell me more` use the `continuations` template array with the saved character/place — protagonist and setting persist. Reset phrases (`end the story`, `new story`) clear the session. Chapter mode kicks in when the request contains `chapter N` — output gets a `**Chapter N**` header and subsequent continuations auto-increment. Standalone `chapter N` is treated as continuation with that chapter number.
 
-Templates: 51 regular + 6 fact-weavers in `brain/templates.json`.
+Templates: 51 regular + 6 fact-weavers + 15 continuations in `brain/templates.json`.
 Dictionary: ~470 words in `brain/dictionary.json` (pos + themes + tone).
 
 ## Brain versioning
 Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file changes.
-Currently: `'44'`
+Currently: `'45'`
 
 ## Deploy workflow
 ```bash
