@@ -1,10 +1,12 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '41'; // bump when brain JSON files change
+  const BRAIN_VERSION = '42'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
   let terminal = null;
   let coding = null;
+  let templates = null;
+  let dictionary = null;
 
   async function load() {
     // If version changed, clear cache and reload from JSON
@@ -13,18 +15,28 @@ const Brain = (() => {
       localStorage.removeItem('mj_brain_rules');
       localStorage.removeItem('mj_brain_terminal');
       localStorage.removeItem('mj_brain_coding');
+      localStorage.removeItem('mj_brain_templates');
+      localStorage.removeItem('mj_brain_dictionary');
       localStorage.setItem('mj_brain_version', BRAIN_VERSION);
     }
 
-    knowledge = Storage.getBrain('knowledge');
-    rules     = Storage.getBrain('rules');
-    terminal  = Storage.getBrain('terminal');
-    coding    = Storage.getBrain('coding');
+    knowledge  = Storage.getBrain('knowledge');
+    rules      = Storage.getBrain('rules');
+    terminal   = Storage.getBrain('terminal');
+    coding     = Storage.getBrain('coding');
+    templates  = Storage.getBrain('templates');
+    dictionary = Storage.getBrain('dictionary');
 
-    if (!knowledge) { knowledge = await fetchJSON('brain/knowledge.json'); Storage.setBrain('knowledge', knowledge); }
-    if (!rules)     { rules     = await fetchJSON('brain/rules.json');     Storage.setBrain('rules', rules); }
-    if (!terminal)  { terminal  = await fetchJSON('brain/terminal.json');  Storage.setBrain('terminal', terminal); }
-    if (!coding)    { coding    = await fetchJSON('brain/coding.json');    Storage.setBrain('coding', coding); }
+    if (!knowledge)  { knowledge  = await fetchJSON('brain/knowledge.json');  Storage.setBrain('knowledge', knowledge); }
+    if (!rules)      { rules      = await fetchJSON('brain/rules.json');      Storage.setBrain('rules', rules); }
+    if (!terminal)   { terminal   = await fetchJSON('brain/terminal.json');   Storage.setBrain('terminal', terminal); }
+    if (!coding)     { coding     = await fetchJSON('brain/coding.json');     Storage.setBrain('coding', coding); }
+    if (!templates)  { templates  = await fetchJSON('brain/templates.json');  Storage.setBrain('templates', templates); }
+    if (!dictionary) { dictionary = await fetchJSON('brain/dictionary.json'); Storage.setBrain('dictionary', dictionary); }
+
+    if (typeof Generator !== 'undefined' && Generator.init) {
+      Generator.init(templates, dictionary);
+    }
   }
 
   async function fetchJSON(path) {
@@ -154,6 +166,19 @@ const Brain = (() => {
         return pick(rules.greetings[0].responses);
       }
       return "That's me! 🐒 I'm Monkey Joe — a rules-based AI assistant made by Akiva. Ask me anything!";
+    }
+
+    // Story-generation intent — make up new text instead of looking up a fact
+    const storyTriggers = [
+      /\b(tell|read|make|give|write|share)\s+(me\s+)?(a|an|another|me\s+a|me\s+an)\s+(short\s+|silly\s+|funny\s+|scary\s+|spooky\s+|quick\s+|bedtime\s+|little\s+|small\s+)?(story|tale|adventure)\b/i,
+      /\b(can|could|will|would)\s+you\s+(tell|read|make|give|write|share)\s+(me\s+)?(a|an)\s+(short\s+|silly\s+|funny\s+|scary\s+|spooky\s+|quick\s+|bedtime\s+|little\s+|small\s+)?(story|tale|adventure)\b/i,
+      /^(a\s+)?(short\s+|silly\s+|funny\s+|scary\s+|spooky\s+|quick\s+|bedtime\s+|little\s+|small\s+)?story\s+please/i,
+      /\bmake\s+(up|me)\s+(a|an)\s+(story|tale|adventure)/i
+    ];
+    if (storyTriggers.some(re => re.test(input))) {
+      if (typeof Generator !== 'undefined' && Generator.generateStory) {
+        return Generator.generateStory();
+      }
     }
 
     // Terminal/command check — only if input looks like a command (starts with trigger or is short)

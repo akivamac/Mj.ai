@@ -1,0 +1,44 @@
+{
+  "_comment": "Sentence-skeleton templates for Joe's generator. Slots: {ADJ}, {ADV}, {CONN}, {NOUN:theme}, {VERB:theme}. Identical slot strings within a single template are bound — same word used for each occurrence.",
+  "stories": [
+    "Once upon a time, a {ADJ} {NOUN:character} lived in the {NOUN:place}. Every {NOUN:time}, it {VERB:action} through the trees. One day, it found a {ADJ} {NOUN:object}! The {NOUN:character} was very happy.",
+
+    "In a faraway {NOUN:place}, there lived a {ADJ} {NOUN:character}. The {NOUN:character} {VERB:action} all {NOUN:time}. {CONN} one {NOUN:time}, something {ADJ} happened — a tiny {NOUN:animal} appeared!",
+
+    "The {NOUN:character} was {ADJ} that {NOUN:time}. It picked up its {NOUN:object} and {VERB:action} toward the {NOUN:place}. {ADV}, the wind began to whisper. \"Who's there?\" said the {NOUN:character}.",
+
+    "Deep in the {NOUN:place}, a {ADJ} {NOUN:character} {VERB:action} alone. It carried a {ADJ} {NOUN:object} wherever it went. No one knew why. {CONN} one {NOUN:time}, the {NOUN:character} finally smiled.",
+
+    "Listen close, friend. A {ADJ} {NOUN:character} once met a {ADJ} {NOUN:animal} by the {NOUN:place}. They became best friends. Together they {VERB:action} every {NOUN:time}. And that's how legends are made!",
+
+    "The {NOUN:character} woke up in the {NOUN:place}. {ADV}, it heard a sound. {CONN} a {ADJ} {NOUN:animal} appeared! The two of them {VERB:action} all {NOUN:time} long.",
+
+    "A long time ago, in a {ADJ} {NOUN:place}, there was a {NOUN:character}. The {NOUN:character} had a {ADJ} {NOUN:object}. With it, the {NOUN:character} {VERB:action} all day. Everyone called it brave.",
+
+    "Have you ever seen a {ADJ} {NOUN:character}? They live in the {NOUN:place} and only come out at {NOUN:time}. They {VERB:action} when no one is watching. {ADV}, you might see one too.",
+
+    "The {NOUN:character} and the {NOUN:animal} were not supposed to be friends. But every {NOUN:time}, they met by the {NOUN:place}. They {VERB:action} and laughed until dark. Some friendships are just like that.",
+
+    "\"I will find the {ADJ} {NOUN:object}!\" said the {NOUN:character}. It packed its bag and {VERB:action} through the {NOUN:place}. The journey was {ADJ}. {CONN} the {NOUN:character} did not give up.",
+
+    "Once, a {ADJ} {NOUN:character} got lost in the {NOUN:place}. It {VERB:action} in circles, looking for home. {ADV}, a {ADJ} {NOUN:animal} appeared and showed the way. They became friends forever.",
+
+    "The {NOUN:time} was {ADJ}, and the {NOUN:character} was bored. So it did what any {NOUN:character} would do — it grabbed a {NOUN:object} and {VERB:action} into the {NOUN:place}. What it found there changed everything.",
+
+    "There was a {ADJ} {NOUN:place} where every {NOUN:character} {VERB:action} freely. No one was in charge. No one was scared. The only rule was: share your {NOUN:object} and be kind.",
+
+    "When {NOUN:time} fell over the {NOUN:place}, a {ADJ} {NOUN:character} crept out. It was careful not to wake the {NOUN:animal} sleeping nearby. It {VERB:action} toward something {ADJ}. It had a quest.",
+
+    "They say a {ADJ} {NOUN:character} once {VERB:action} across the entire {NOUN:place}. It carried only a {NOUN:object}. The trip took many days. When asked why, the {NOUN:character} just smiled.",
+
+    "The first {NOUN:character} to ever cross the {NOUN:place} was a {ADJ} one. Nobody believed it could be done. {CONN} the {NOUN:character} {VERB:action} all the way through. Now everyone tells the tale.",
+
+    "A {NOUN:character} can be {ADJ}. A {NOUN:animal} can be {ADJ} too. But only this one {NOUN:character} {VERB:action} the way it did. {ADV}, you should hear the whole story sometime.",
+
+    "{ADV}, the {NOUN:place} grew very quiet. The {NOUN:character} looked around. Something {ADJ} was about to happen. The {NOUN:character} {VERB:action} forward, ready for anything.",
+
+    "If you visit the {NOUN:place} at {NOUN:time}, you might meet a {ADJ} {NOUN:character}. It {VERB:action} there every {NOUN:time}. Bring a {NOUN:object} as a gift and it might say hello.",
+
+    "The end of the story is the best part. The {NOUN:character} {VERB:action} all the way home, holding its {NOUN:object} tight. The {NOUN:place} would always be there, waiting. {ADV}, that is how it goes."
+  ]
+}
