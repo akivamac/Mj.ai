@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '47'; // bump when brain JSON files change
+  const BRAIN_VERSION = '48'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -319,13 +319,18 @@ const Brain = (() => {
       return "That's me! 🐒 I'm Monkey Joe — a rules-based AI assistant made by Akiva. Ask me anything!";
     }
 
-    // Story-generation intent — make up new text instead of looking up a fact
+    // Story-generation intent — make up new text instead of looking up a fact.
+    // "book" is a synonym for story (matches the original v42 use case: user
+    // wanted to write a book with Joe). Includes natural / collaborative
+    // phrasings ("I want to make a book with you", "let's write a story").
     const storyTriggers = [
-      /\b(tell|read|make|give|write|share)\s+(me\s+)?(a|an|another|me\s+a|me\s+an)\s+(\w+\s+)?(story|tale|adventure)\b/i,
-      /\b(can|could|will|would)\s+you\s+(tell|read|make|give|write|share)\s+(me\s+)?(a|an)\s+(\w+\s+)?(story|tale|adventure)\b/i,
-      /^(a\s+)?(\w+\s+)?(story|tale)\s+please/i,
-      /\bmake\s+(up|me)\s+(a|an)\s+(story|tale|adventure)/i,
-      /^chapter\s+\d+\s+of\s+(?:a|an|the)\s+\w*\s*(?:story|tale|adventure)\b/i
+      /\b(tell|read|make|give|write|share)\s+(me\s+)?(a|an|another|me\s+a|me\s+an)\s+(\w+\s+)?(story|tale|adventure|book)\b/i,
+      /\b(can|could|will|would)\s+you\s+(tell|read|make|give|write|share)\s+(me\s+)?(a|an)\s+(\w+\s+)?(story|tale|adventure|book)\b/i,
+      /^(a\s+)?(\w+\s+)?(story|tale|book)\s+please/i,
+      /\bmake\s+(up|me)\s+(a|an)\s+(story|tale|adventure|book)/i,
+      /^chapter\s+\d+\s+of\s+(?:a|an|the)\s+\w*\s*(?:story|tale|adventure|book)\b/i,
+      /\b(let'?s|let us|we'?ll|i want to|i'?d like to|i wanna|wanna|want to|can we|shall we)\s+(make|write|create|tell|share|do|start)\s+(up\s+)?(a|an)\s+(\w+\s+)?(story|tale|adventure|book)\b/i,
+      /^(make|write|create|tell|start)\s+(a|an)\s+(\w+\s+)?(story|tale|adventure|book)\b/i
     ];
     if (storyTriggers.some(re => re.test(input))) {
       if (typeof Generator !== 'undefined' && Generator.generateStory) {
