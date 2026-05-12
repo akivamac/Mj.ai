@@ -42,49 +42,89 @@ const Generator = (() => {
     return pick(candidates).word;
   }
 
-  // Fill one template. Nouns with identical slot strings bind to the same word
-  // (so a character/place stays consistent through the story). Other parts of
-  // speech pick freshly each time so the language doesn't feel mechanical.
-  function fillTemplate(template, tone) {
+  // Check if a word exists in the dictionary as a noun — used to decide
+  // whether to force a user-provided subject as the story's protagonist.
+  function isKnownNoun(word) {
+    if (!dictionary || !dictionary.words || !word) return false;
+    const w = word.toLowerCase();
+    return dictionary.words.some(d => d.pos === 'noun' && d.word.toLowerCase() === w);
+  }
+
+  // First sentence (or up to ~180 chars) of a fact answer — keeps the
+  // weave readable when knowledge entries are paragraph-length.
+  function factSnippet(answer) {
+    if (!answer) return '';
+    const m = answer.match(/^[^.!?]+[.!?]/);
+    if (m) return m[0].trim();
+    return (answer.length > 180 ? answer.slice(0, 180).trim() + '...' : answer.trim());
+  }
+
+  // Fill one template. Nouns with identical slot strings bind to the same
+  // word; other PoS pick freshly. If a known subject is provided, the
+  // first {NOUN:character} occurrence is locked to it so the story stays
+  // on topic.
+  function fillTemplate(text, opts) {
     const nounBindings = {};
-    return template.replace(/\{([^}]+)\}/g, (match, slot) => {
+    if (opts.subject && isKnownNoun(opts.subject)) {
+      nounBindings['NOUN:character'] = opts.subject;
+    }
+    const factText = opts.fact ? factSnippet(opts.fact) : '';
+
+    return text.replace(/\{([^}]+)\}/g, (match, slot) => {
+      if (slot === 'FACT') return factText;
       const isNoun = slot.startsWith('NOUN');
       if (isNoun && nounBindings[slot]) return nounBindings[slot];
-      const word = pickWord(slot, tone);
+      const word = pickWord(slot, opts.tone);
       if (isNoun) nounBindings[slot] = word;
       return word;
     });
   }
 
-  // Capitalize the first letter of every sentence (handles slots like {ADV}
-  // that land at sentence start with a lowercase word).
   function fixSentenceCase(s) {
     return s.replace(/(^|[.!?]\s+)([a-z])/g, (m, pre, ch) => pre + ch.toUpperCase());
   }
 
-  // Pick a template matching the requested tone. Order of preference:
-  // 1) templates explicitly tagged with the tone
-  // 2) any template (so the user always gets a story, even if no tone match)
-  function pickTemplate(tone) {
-    const list = templates.stories;
-    if (tone) {
-      const toned = list.filter(s => s.tone && s.tone.includes(tone));
+  // Pick a template. When a fact is provided, prefer fact-weaver templates
+  // (those have a {FACT} slot). Within that pool, prefer matching tone.
+  function pickTemplate(opts) {
+    const wantFact = !!opts.fact;
+    const factList = (templates.factStories || []);
+    const baseList = templates.stories || [];
+
+    let pool;
+    if (wantFact && factList.length) {
+      pool = factList;
+    } else {
+      pool = baseList;
+    }
+
+    if (opts.tone) {
+      const toned = pool.filter(s => s.tone && s.tone.includes(opts.tone));
       if (toned.length) return pick(toned);
     }
-    return pick(list);
+    return pick(pool);
   }
 
-  function generateStory(tone) {
+  // Public entry point. Accepts either a tone string (back-compat with
+  // Phase 2 callers) or an options object { tone, subject, fact }.
+  function generateStory(arg) {
     if (!templates || !templates.stories || !templates.stories.length) {
       return "I want to tell stories, but my story-brain isn't loaded yet! 🐒";
     }
     if (!dictionary || !dictionary.words || !dictionary.words.length) {
       return "I want to tell stories, but my word-brain isn't loaded yet! 🐒";
     }
-    const tpl = pickTemplate(tone || null);
-    // Support both old (string) and new (object) template formats
+
+    let opts;
+    if (typeof arg === 'string' || arg == null) opts = { tone: arg || null };
+    else opts = arg;
+    opts.tone = opts.tone || null;
+    opts.subject = opts.subject || null;
+    opts.fact = opts.fact || null;
+
+    const tpl = pickTemplate(opts);
     const text = typeof tpl === 'string' ? tpl : tpl.text;
-    return fixSentenceCase(fillTemplate(text, tone || null));
+    return fixSentenceCase(fillTemplate(text, opts));
   }
 
   return { init, generateStory };

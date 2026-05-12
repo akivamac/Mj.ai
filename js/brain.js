@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '43'; // bump when brain JSON files change
+  const BRAIN_VERSION = '44'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -61,6 +61,53 @@ const Brain = (() => {
   function detectStoryTone(lower) {
     for (const [tone, words] of Object.entries(storyToneKeywords)) {
       if (words.some(w => new RegExp('\\b' + w + '\\b').test(lower))) return tone;
+    }
+    return null;
+  }
+
+  // Pull the subject out of a story request ("story about elephants" → "elephants").
+  // Returns the raw and a naïve singular form so the caller can try both for lookup.
+  function extractStorySubject(lower) {
+    let raw = null;
+    let m = lower.match(/\babout\s+(?:a|an|the|some|my|your)?\s*([a-z][a-z\s\-']*?)(?:\s*[?.!,;]|$)/);
+    if (m) raw = m[1].trim();
+    if (!raw) {
+      m = lower.match(/\b(?:a|an|the)\s+([a-z\-]+)\s+(?:story|tale|adventure)\b/);
+      if (m) {
+        const word = m[1];
+        const toneWords = Object.values(storyToneKeywords).flat();
+        // "silly story" — the captured word is a tone, not a subject. Skip.
+        const sizeOrCount = ['short', 'long', 'quick', 'small', 'big', 'little', 'tiny', 'huge', 'bedtime', 'good', 'nice', 'new', 'another'];
+        if (!toneWords.includes(word) && !sizeOrCount.includes(word)) raw = word;
+      }
+    }
+    if (!raw) return { raw: null, singular: null };
+    raw = raw.replace(/[.!?,;]+$/, '').trim();
+    let singular = raw;
+    if (raw.length > 3) {
+      if (raw.endsWith('ies'))      singular = raw.slice(0, -3) + 'y';
+      else if (raw.endsWith('ses')) singular = raw.slice(0, -2);
+      else if (raw.endsWith('s') && !raw.endsWith('ss')) singular = raw.slice(0, -1);
+    }
+    return { raw, singular };
+  }
+
+  // Look up a fact for fact-weaving. Only exact keyword matches count —
+  // partial matches would weave the wrong fact (e.g. "monkey" matching the
+  // multi-word "monkey joe" identity keyword). Tries raw + singular form.
+  function findFactForSubject(subject, knowledge, coding) {
+    if (!subject || !subject.raw) return null;
+    const tries = [subject.raw];
+    if (subject.singular && subject.singular !== subject.raw) tries.push(subject.singular);
+    const allFacts = ((knowledge && knowledge.facts) || []).concat((coding && coding.facts) || []);
+    for (const term of tries) {
+      const t = term.toLowerCase();
+      for (const fact of allFacts) {
+        if (!fact.keywords) continue;
+        for (const kw of fact.keywords) {
+          if (t === kw.toLowerCase()) return fact;
+        }
+      }
     }
     return null;
   }
@@ -192,7 +239,14 @@ const Brain = (() => {
     ];
     if (storyTriggers.some(re => re.test(input))) {
       if (typeof Generator !== 'undefined' && Generator.generateStory) {
-        return Generator.generateStory(detectStoryTone(lower));
+        const tone    = detectStoryTone(lower);
+        const subject = extractStorySubject(lower);
+        const fact    = findFactForSubject(subject, knowledge, coding);
+        return Generator.generateStory({
+          tone,
+          subject: subject.singular || subject.raw || null,
+          fact:    fact ? fact.answer : null
+        });
       }
     }
 

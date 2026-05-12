@@ -102,5 +102,18 @@
     { "tone": ["cozy"], "text": "Every {NOUN:character} needs a friend. The {ADJ} one found theirs in a {ADJ} {NOUN:animal}. The two of them {VERB:action} through every season. That was enough for both." },
 
     { "tone": [], "text": "Long after the others left, the {NOUN:character} stayed. So did its friend. They knew the {NOUN:place} better than anyone. They were never lonely again." }
+  ],
+  "factStories": [
+    { "tone": [],            "text": "Did you know? {FACT} So one day, a {ADJ} {NOUN:character} {VERB:action} through the {NOUN:place} to see for itself." },
+
+    { "tone": [],            "text": "Here is a fact: {FACT} Now here is a story. A {ADJ} {NOUN:character} once lived in the {NOUN:place} and knew this in its bones." },
+
+    { "tone": ["cozy"],      "text": "Settle in. First, a true thing: {FACT} Now imagine a {ADJ} {NOUN:character} in the {NOUN:place}, thinking on it. {ADV}, it smiled." },
+
+    { "tone": ["adventure"], "text": "{FACT} A {ADJ} {NOUN:character} heard this and had to see for itself. So it {VERB:action} into the {NOUN:place}, carrying nothing but a {NOUN:object}. The journey would not be easy." },
+
+    { "tone": [],            "text": "Long ago, the wise ones told us: {FACT} A {ADJ} {NOUN:character} once {VERB:action} all the way across the {NOUN:place} to find out if it was true. It was." },
+
+    { "tone": ["silly"],     "text": "Listen to this! {FACT} A {ADJ} {NOUN:character} was so {ADJ} about that fact, it {VERB:action} right out of the {NOUN:place} just to tell someone." }
   ]
 }

@@ -19,17 +19,18 @@ Served as static files. Auth gate with invite codes, login, signup.
 - `config.js` — admin password and config (not committed)
 - `settings.html` — settings page
 
-## Generator (v43, Phase 2)
-Joe can produce new text on prompts like "tell me a story", "tell me a silly story", "tell me a spooky bedtime story", etc. Templates use `{POS:theme}` slots filled from the dictionary. Within one template, repeated `{NOUN:...}` slots bind to the same word (so characters/places stay consistent); other parts of speech pick freshly.
+## Generator (v44, Phase 3)
+Joe can produce new text on prompts like "tell me a story", "tell me a silly story", "tell me a story about elephants". Templates use `{POS:theme}` slots filled from the dictionary. Within one template, repeated `{NOUN:...}` slots bind to the same word (so characters/places stay consistent); other parts of speech pick freshly.
 
-**Tone matching** (Phase 2): when the user asks for a `silly | spooky | adventure | cozy | magical` story, Joe filters templates to that tone and prefers tone-tagged words for adjectives/verbs/adverbs. Falls back gracefully if no match. Tone keywords detected in `detectStoryTone` in `brain.js`.
+- **Tone matching** (Phase 2): when the user asks for a `silly | spooky | adventure | cozy | magical` story, Joe filters templates to that tone and prefers tone-tagged words. See `detectStoryTone` in `brain.js`.
+- **Fact-weaving** (Phase 3): when the prompt names a subject Joe knows (e.g. "story about an elephant"), Joe pulls the matching fact from `knowledge.json` / `coding.json` and uses a fact-weaver template (the `factStories` array) that includes a `{FACT}` slot. If the subject is also a known dictionary noun (e.g. "elephant"), it's locked into `{NOUN:character}` so the protagonist matches. Subject extraction handles "story about X" and "an X story". Unknown subjects → regular toned story, no fact.
 
-Templates: 51 entries in `brain/templates.json` (object form: `{ text, tone }`).
-Dictionary: ~470 words in `brain/dictionary.json`, tagged with pos + themes + tone.
+Templates: 51 regular + 6 fact-weavers in `brain/templates.json`.
+Dictionary: ~470 words in `brain/dictionary.json` (pos + themes + tone).
 
 ## Brain versioning
 Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file changes.
-Currently: `'43'`
+Currently: `'44'`
 
 ## Deploy workflow
 ```bash
