@@ -91,8 +91,11 @@ const Brain = (() => {
     const singularize = (w) => {
       if (!w || w.length <= 3) return w;
       if (w.endsWith('ies')) return w.slice(0, -3) + 'y';
+      // Don't strip "s" off endings like "us" / "is" / "ss" — those mark
+      // singulars (octopus, analysis, kiss), not plurals.
+      if (/(us|is|ss)$/.test(w)) return w;
       if (w.endsWith('ses')) return w.slice(0, -2);
-      if (w.endsWith('s') && !w.endsWith('ss')) return w.slice(0, -1);
+      if (w.endsWith('s'))   return w.slice(0, -1);
       return w;
     };
     const singular = singularize(raw);
@@ -104,11 +107,14 @@ const Brain = (() => {
 
   // Match "continue", "what happens next", etc. — strictly anchored so
   // mid-sentence uses like "when did the war continue" don't trigger.
+  // Trailing politeness/filler that shouldn't block a continuation match.
+  const TRAIL = '(\\s+(please|now|joe|please now))?[\\s!.?]*$';
   const continuationPatterns = [
-    /^(continue|keep going|go on|continue the story|continue please)[\s!.?]*$/i,
-    /^(what happens next|then what|and then\??|and\?)[\s!.?]*$/i,
+    new RegExp('^(continue|keep going|go on|continue the story)' + TRAIL, 'i'),
+    new RegExp('^what happens next' + TRAIL, 'i'),
     /^(tell me more|more please|more story|i want more|more!?)[\s!.?]*$/i,
-    /^(next chapter|next part|the next part|next page)[\s!.?]*$/i
+    new RegExp('^next (chapter|part|page)' + TRAIL, 'i'),
+    /^(the next part|then what|and then\??|and\?)[\s!.?]*$/i
   ];
   function detectStoryContinuation(input) {
     return continuationPatterns.some(re => re.test(input.trim()));
@@ -189,7 +195,7 @@ const Brain = (() => {
         _storySession.place      = r.place     || _storySession.place;
         _storySession.chapter    = num;
         _storySession.chapterMode = true;
-        return `**Chapter ${num}**\n\n${r.text}`;
+        return `Chapter ${num}\n\n${r.text}`;
       }
       return "I don't have a story going yet — try 'tell me a story about a fox' to get one started! 🐒";
     }
@@ -207,7 +213,7 @@ const Brain = (() => {
         let prefix = '';
         if (_storySession.chapterMode) {
           _storySession.chapter = (_storySession.chapter || 1) + 1;
-          prefix = `**Chapter ${_storySession.chapter}**\n\n`;
+          prefix = `Chapter ${_storySession.chapter}\n\n`;
         }
         return prefix + r.text;
       }
@@ -344,7 +350,7 @@ const Brain = (() => {
           chapter:     chMatch ? parseInt(chMatch[1], 10) : 1,
           chapterMode: !!chMatch
         };
-        const prefix = _storySession.chapterMode ? `**Chapter ${_storySession.chapter}**\n\n` : '';
+        const prefix = _storySession.chapterMode ? `Chapter ${_storySession.chapter}\n\n` : '';
         return prefix + r.text;
       }
     }
