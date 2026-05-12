@@ -34,7 +34,7 @@ Dictionary: ~470 words in `brain/dictionary.json` (pos + themes + tone).
 
 ## Brain versioning
 Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file changes.
-Currently: `'48'`
+Currently: `'49'`
 
 ## Deploy workflow
 ```bash

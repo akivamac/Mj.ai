@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '48'; // bump when brain JSON files change
+  const BRAIN_VERSION = '49'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -268,12 +268,22 @@ const Brain = (() => {
       return "Sure! What do you want me to search for?";
     }
 
-    // Greeting check — only if short message (not combined with a question)
-    if (rules && rules.greetings && lower.length < 30 && !lower.includes('?') && !lower.includes('who') && !lower.includes('what') && !lower.includes('how')) {
+    // Greeting check — only when the WHOLE message is just a greeting
+    // (optionally followed by Joe's name / "there" / punctuation). Skip
+    // when a real request follows the greeting, e.g. "Hi, I want to
+    // make a book" — that should route to the story handler.
+    if (rules && rules.greetings && lower.length < 40) {
       for (const g of rules.greetings) {
-        if (g.if.some(w => lower === w || lower.startsWith(w + ' ') || lower.startsWith(w + '!') || lower.startsWith(w + ','))) {
+        const matched = g.if.some(w => {
+          const escW = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const re = new RegExp(
+            '^' + escW + "(\\s+(joe|monkey joe|there|friend|buddy|pal))?[\\s,!.?]*$",
+            'i'
+          );
+          return re.test(lower);
+        });
+        if (matched) {
           const greeting = pick(g.responses);
-          // Personalize greeting with user's name if available
           if (userName && greeting.includes('Hi') && !greeting.includes(userName)) {
             return greeting.replace(/^Hi/, `Hi ${userName},`);
           }
