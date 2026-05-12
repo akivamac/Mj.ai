@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '42'; // bump when brain JSON files change
+  const BRAIN_VERSION = '43'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -49,6 +49,21 @@ const Brain = (() => {
   let _lastTopicKeywords = [];
   let _lastTopicLabel    = '';
   let _lastFactAnswer    = '';
+
+  // Map mood keywords from a story request to the generator's tone tags.
+  const storyToneKeywords = {
+    silly:     ['silly', 'funny', 'goofy', 'wacky', 'absurd', 'wild'],
+    spooky:    ['spooky', 'scary', 'creepy', 'ghost', 'eerie', 'haunted', 'horror', 'frightening'],
+    adventure: ['adventure', 'exciting', 'brave', 'epic', 'heroic', 'quest', 'thrilling'],
+    cozy:      ['bedtime', 'cozy', 'calm', 'gentle', 'sleepy', 'peaceful', 'quiet', 'sleep', 'soft', 'soothing'],
+    magical:   ['magical', 'magic', 'fantasy', 'enchanted', 'wondrous', 'mystical', 'fairy']
+  };
+  function detectStoryTone(lower) {
+    for (const [tone, words] of Object.entries(storyToneKeywords)) {
+      if (words.some(w => new RegExp('\\b' + w + '\\b').test(lower))) return tone;
+    }
+    return null;
+  }
 
   function detectFollowUp(lower) {
     const pronounTriggers = ['they ','their ','them ','it ','its ','the animal','the creature','those animals','that animal'];
@@ -170,14 +185,14 @@ const Brain = (() => {
 
     // Story-generation intent — make up new text instead of looking up a fact
     const storyTriggers = [
-      /\b(tell|read|make|give|write|share)\s+(me\s+)?(a|an|another|me\s+a|me\s+an)\s+(short\s+|silly\s+|funny\s+|scary\s+|spooky\s+|quick\s+|bedtime\s+|little\s+|small\s+)?(story|tale|adventure)\b/i,
-      /\b(can|could|will|would)\s+you\s+(tell|read|make|give|write|share)\s+(me\s+)?(a|an)\s+(short\s+|silly\s+|funny\s+|scary\s+|spooky\s+|quick\s+|bedtime\s+|little\s+|small\s+)?(story|tale|adventure)\b/i,
-      /^(a\s+)?(short\s+|silly\s+|funny\s+|scary\s+|spooky\s+|quick\s+|bedtime\s+|little\s+|small\s+)?story\s+please/i,
+      /\b(tell|read|make|give|write|share)\s+(me\s+)?(a|an|another|me\s+a|me\s+an)\s+(\w+\s+)?(story|tale|adventure)\b/i,
+      /\b(can|could|will|would)\s+you\s+(tell|read|make|give|write|share)\s+(me\s+)?(a|an)\s+(\w+\s+)?(story|tale|adventure)\b/i,
+      /^(a\s+)?(\w+\s+)?(story|tale)\s+please/i,
       /\bmake\s+(up|me)\s+(a|an)\s+(story|tale|adventure)/i
     ];
     if (storyTriggers.some(re => re.test(input))) {
       if (typeof Generator !== 'undefined' && Generator.generateStory) {
-        return Generator.generateStory();
+        return Generator.generateStory(detectStoryTone(lower));
       }
     }
 

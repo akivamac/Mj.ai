@@ -1,44 +1,106 @@
 {
-  "_comment": "Sentence-skeleton templates for Joe's generator. Slots: {ADJ}, {ADV}, {CONN}, {NOUN:theme}, {VERB:theme}. Identical slot strings within a single template are bound — same word used for each occurrence.",
+  "_comment": "Story templates v2 (Phase 2). Each entry: { text, tone }. tone = [] means usable for any mood. Slots: {ADJ}, {ADV}, {CONN}, {NOUN:theme}, {VERB:theme}. Identical NOUN slots bind within one template.",
   "stories": [
-    "Once upon a time, a {ADJ} {NOUN:character} lived in the {NOUN:place}. Every {NOUN:time}, it {VERB:action} through the trees. One day, it found a {ADJ} {NOUN:object}! The {NOUN:character} was very happy.",
+    { "tone": [], "text": "Once upon a time, a {ADJ} {NOUN:character} lived in the {NOUN:place}. Every {NOUN:time}, it {VERB:action} through the trees. One day, it found a {ADJ} {NOUN:object}! The {NOUN:character} was very happy." },
 
-    "In a faraway {NOUN:place}, there lived a {ADJ} {NOUN:character}. The {NOUN:character} {VERB:action} all {NOUN:time}. {CONN} one {NOUN:time}, something {ADJ} happened — a tiny {NOUN:animal} appeared!",
+    { "tone": [], "text": "In a faraway {NOUN:place}, there lived a {ADJ} {NOUN:character}. The {NOUN:character} {VERB:action} all {NOUN:time}. {CONN} one {NOUN:time}, something {ADJ} happened — a tiny {NOUN:animal} appeared!" },
 
-    "The {NOUN:character} was {ADJ} that {NOUN:time}. It picked up its {NOUN:object} and {VERB:action} toward the {NOUN:place}. {ADV}, the wind began to whisper. \"Who's there?\" said the {NOUN:character}.",
+    { "tone": ["spooky"], "text": "The {NOUN:character} was {ADJ} that {NOUN:time}. It picked up its {NOUN:object} and {VERB:action} toward the {NOUN:place}. {ADV}, the wind began to whisper. \"Who's there?\" said the {NOUN:character}." },
 
-    "Deep in the {NOUN:place}, a {ADJ} {NOUN:character} {VERB:action} alone. It carried a {ADJ} {NOUN:object} wherever it went. No one knew why. {CONN} one {NOUN:time}, the {NOUN:character} finally smiled.",
+    { "tone": [], "text": "Deep in the {NOUN:place}, a {ADJ} {NOUN:character} {VERB:action} alone. It carried a {ADJ} {NOUN:object} wherever it went. No one knew why. {CONN} one {NOUN:time}, the {NOUN:character} finally smiled." },
 
-    "Listen close, friend. A {ADJ} {NOUN:character} once met a {ADJ} {NOUN:animal} by the {NOUN:place}. They became best friends. Together they {VERB:action} every {NOUN:time}. And that's how legends are made!",
+    { "tone": ["cozy"], "text": "Listen close, friend. A {ADJ} {NOUN:character} once met a {ADJ} {NOUN:animal} by the {NOUN:place}. They became best friends. Together they {VERB:action} every {NOUN:time}. And that's how legends are made!" },
 
-    "The {NOUN:character} woke up in the {NOUN:place}. {ADV}, it heard a sound. {CONN} a {ADJ} {NOUN:animal} appeared! The two of them {VERB:action} all {NOUN:time} long.",
+    { "tone": [], "text": "The {NOUN:character} woke up in the {NOUN:place}. {ADV}, it heard a sound. {CONN} a {ADJ} {NOUN:animal} appeared! The two of them {VERB:action} all {NOUN:time} long." },
 
-    "A long time ago, in a {ADJ} {NOUN:place}, there was a {NOUN:character}. The {NOUN:character} had a {ADJ} {NOUN:object}. With it, the {NOUN:character} {VERB:action} all day. Everyone called it brave.",
+    { "tone": ["adventure"], "text": "A long time ago, in a {ADJ} {NOUN:place}, there was a {NOUN:character}. The {NOUN:character} had a {ADJ} {NOUN:object}. With it, the {NOUN:character} {VERB:action} all day. Everyone called it brave." },
 
-    "Have you ever seen a {ADJ} {NOUN:character}? They live in the {NOUN:place} and only come out at {NOUN:time}. They {VERB:action} when no one is watching. {ADV}, you might see one too.",
+    { "tone": [], "text": "Have you ever seen a {ADJ} {NOUN:character}? They live in the {NOUN:place} and only come out at {NOUN:time}. They {VERB:action} when no one is watching. {ADV}, you might see one too." },
 
-    "The {NOUN:character} and the {NOUN:animal} were not supposed to be friends. But every {NOUN:time}, they met by the {NOUN:place}. They {VERB:action} and laughed until dark. Some friendships are just like that.",
+    { "tone": ["cozy"], "text": "The {NOUN:character} and the {NOUN:animal} were not supposed to be friends. But every {NOUN:time}, they met by the {NOUN:place}. They {VERB:action} and laughed until dark. Some friendships are just like that." },
 
-    "\"I will find the {ADJ} {NOUN:object}!\" said the {NOUN:character}. It packed its bag and {VERB:action} through the {NOUN:place}. The journey was {ADJ}. {CONN} the {NOUN:character} did not give up.",
+    { "tone": ["adventure"], "text": "\"I will find the {ADJ} {NOUN:object}!\" said the {NOUN:character}. It packed its bag and {VERB:action} through the {NOUN:place}. The journey was {ADJ}. {CONN} the {NOUN:character} did not give up." },
 
-    "Once, a {ADJ} {NOUN:character} got lost in the {NOUN:place}. It {VERB:action} in circles, looking for home. {ADV}, a {ADJ} {NOUN:animal} appeared and showed the way. They became friends forever.",
+    { "tone": ["adventure"], "text": "Once, a {ADJ} {NOUN:character} got lost in the {NOUN:place}. It {VERB:action} in circles, looking for home. {ADV}, a {ADJ} {NOUN:animal} appeared and showed the way. They became friends forever." },
 
-    "The {NOUN:time} was {ADJ}, and the {NOUN:character} was bored. So it did what any {NOUN:character} would do — it grabbed a {NOUN:object} and {VERB:action} into the {NOUN:place}. What it found there changed everything.",
+    { "tone": ["silly"], "text": "The {NOUN:time} was {ADJ}, and the {NOUN:character} was bored. So it did what any {NOUN:character} would do — it grabbed a {NOUN:object} and {VERB:action} into the {NOUN:place}. What it found there changed everything." },
 
-    "There was a {ADJ} {NOUN:place} where every {NOUN:character} {VERB:action} freely. No one was in charge. No one was scared. The only rule was: share your {NOUN:object} and be kind.",
+    { "tone": ["cozy"], "text": "There was a {ADJ} {NOUN:place} where every {NOUN:character} {VERB:action} freely. No one was in charge. No one was scared. The only rule was: share your {NOUN:object} and be kind." },
 
-    "When {NOUN:time} fell over the {NOUN:place}, a {ADJ} {NOUN:character} crept out. It was careful not to wake the {NOUN:animal} sleeping nearby. It {VERB:action} toward something {ADJ}. It had a quest.",
+    { "tone": ["spooky"], "text": "When {NOUN:time} fell over the {NOUN:place}, a {ADJ} {NOUN:character} crept out. It was careful not to wake the {NOUN:animal} sleeping nearby. It {VERB:action} toward something {ADJ}. It had a quest." },
 
-    "They say a {ADJ} {NOUN:character} once {VERB:action} across the entire {NOUN:place}. It carried only a {NOUN:object}. The trip took many days. When asked why, the {NOUN:character} just smiled.",
+    { "tone": ["adventure"], "text": "They say a {ADJ} {NOUN:character} once {VERB:action} across the entire {NOUN:place}. It carried only a {NOUN:object}. The trip took many days. When asked why, the {NOUN:character} just smiled." },
 
-    "The first {NOUN:character} to ever cross the {NOUN:place} was a {ADJ} one. Nobody believed it could be done. {CONN} the {NOUN:character} {VERB:action} all the way through. Now everyone tells the tale.",
+    { "tone": ["adventure"], "text": "The first {NOUN:character} to ever cross the {NOUN:place} was a {ADJ} one. Nobody believed it could be done. {CONN} the {NOUN:character} {VERB:action} all the way through. Now everyone tells the tale." },
 
-    "A {NOUN:character} can be {ADJ}. A {NOUN:animal} can be {ADJ} too. But only this one {NOUN:character} {VERB:action} the way it did. {ADV}, you should hear the whole story sometime.",
+    { "tone": ["silly"], "text": "A {NOUN:character} can be {ADJ}. A {NOUN:animal} can be {ADJ} too. But only this one {NOUN:character} {VERB:action} the way it did. {ADV}, you should hear the whole story sometime." },
 
-    "{ADV}, the {NOUN:place} grew very quiet. The {NOUN:character} looked around. Something {ADJ} was about to happen. The {NOUN:character} {VERB:action} forward, ready for anything.",
+    { "tone": ["spooky"], "text": "{ADV}, the {NOUN:place} grew very quiet. The {NOUN:character} looked around. Something {ADJ} was about to happen. The {NOUN:character} {VERB:action} forward, ready for anything." },
 
-    "If you visit the {NOUN:place} at {NOUN:time}, you might meet a {ADJ} {NOUN:character}. It {VERB:action} there every {NOUN:time}. Bring a {NOUN:object} as a gift and it might say hello.",
+    { "tone": [], "text": "If you visit the {NOUN:place} at {NOUN:time}, you might meet a {ADJ} {NOUN:character}. It {VERB:action} there every {NOUN:time}. Bring a {NOUN:object} as a gift and it might say hello." },
 
-    "The end of the story is the best part. The {NOUN:character} {VERB:action} all the way home, holding its {NOUN:object} tight. The {NOUN:place} would always be there, waiting. {ADV}, that is how it goes."
+    { "tone": ["cozy"], "text": "The end of the story is the best part. The {NOUN:character} {VERB:action} all the way home, holding its {NOUN:object} tight. The {NOUN:place} would always be there, waiting. {ADV}, that is how it goes." },
+
+    { "tone": ["silly"], "text": "The {NOUN:character} sneezed so hard, its {NOUN:object} flew across the {NOUN:place}! Every {NOUN:animal} came running to see what happened. They all laughed. The {NOUN:character} laughed loudest of all." },
+
+    { "tone": ["silly"], "text": "What do you get when a {ADJ} {NOUN:character} meets a {ADJ} {NOUN:animal}? Trouble! That's what! They {VERB:action} all day and made a wonderful mess of the {NOUN:place}." },
+
+    { "tone": ["silly"], "text": "A {NOUN:character} once tried to balance a {NOUN:object} on its nose. {ADV}, it dropped. {ADV}, it dropped again. After a hundred tries, the {NOUN:character} just ate it." },
+
+    { "tone": ["silly"], "text": "Two {NOUN:animal}s walked into a {NOUN:place}. One said, \"This is {ADJ}!\" The other said, \"I know! Let's tell everyone.\" And that is how the news got around." },
+
+    { "tone": ["silly"], "text": "Did you hear about the {NOUN:character} who could {VERB:action} backwards? It was very {ADJ}. Every {NOUN:character} in the {NOUN:place} came to watch. Some clapped. Some just stared." },
+
+    { "tone": ["silly"], "text": "Once, a {NOUN:character} put a {NOUN:object} on its head and called itself a king. Nobody noticed. {CONN} that's the whole joke. The {NOUN:character} is still wearing it." },
+
+    { "tone": ["spooky"], "text": "{ADV}, the {NOUN:place} grew very quiet. The {NOUN:character} froze. Something was watching. From behind a {ADJ} {NOUN:object}, two eyes glowed." },
+
+    { "tone": ["spooky"], "text": "They say at {NOUN:time}, a {ADJ} {NOUN:character} walks through the {NOUN:place}. Some hear it {VERB:action}. Some hear only silence. Either way, do not follow." },
+
+    { "tone": ["spooky"], "text": "The old {NOUN:place} had been empty for years. {CONN} that {NOUN:time}, a {ADJ} {NOUN:character} appeared at the door. \"I have come back,\" it whispered." },
+
+    { "tone": ["spooky"], "text": "Deep in the {NOUN:place}, there was a door no one opened. A {ADJ} {NOUN:character} once tried. It was never seen again. The {NOUN:object} it carried still sits there, waiting." },
+
+    { "tone": ["spooky"], "text": "If you stand by the {NOUN:place} at {NOUN:time}, you might hear something. Do not speak. Do not move. Just listen. {ADV}, it will pass." },
+
+    { "tone": ["adventure"], "text": "The map was old. The {NOUN:object} was older. But the {ADJ} {NOUN:character} did not care. It {VERB:action} into the {NOUN:place}, ready to find the treasure." },
+
+    { "tone": ["adventure"], "text": "Across mountains and rivers, through forests and caves, the {NOUN:character} {VERB:action}. Day after day passed. Nothing could stop it. The {NOUN:place} was calling." },
+
+    { "tone": ["adventure"], "text": "When the storm came, every {NOUN:animal} ran for cover — except a {ADJ} {NOUN:character}. It stood tall, gripped its {NOUN:object}, and waited. The storm passed. The {NOUN:character} smiled." },
+
+    { "tone": ["adventure"], "text": "\"The treasure is in the {NOUN:place},\" said the old map. So the {ADJ} {NOUN:character} packed its {NOUN:object} and set out at {NOUN:time}. The journey would change everything." },
+
+    { "tone": ["adventure"], "text": "There were three trials. A {ADJ} {NOUN:place}, a {ADJ} {NOUN:animal}, and a riddle no one could answer. The {NOUN:character} faced them all. And won." },
+
+    { "tone": ["cozy"], "text": "Snug in the {NOUN:place}, a {ADJ} {NOUN:character} {VERB:action} softly. The {NOUN:time} was warm. The world was quiet. Outside, the {NOUN:animal}s were dreaming too. Sweet dreams, little one." },
+
+    { "tone": ["cozy"], "text": "Once, in a {ADJ} {NOUN:place}, the {NOUN:character} sat with its {NOUN:object}. A gentle breeze blew. A {ADJ} {NOUN:animal} curled up nearby. They stayed like that all {NOUN:time}." },
+
+    { "tone": ["cozy"], "text": "There is a special {NOUN:place} where every {NOUN:character} can rest. The {NOUN:time} is always gentle there. The dreams are always {ADJ}. Maybe you will go there too, tonight." },
+
+    { "tone": ["cozy"], "text": "Tonight, the {NOUN:character} is tired. So is the {NOUN:animal}. So is the {NOUN:place} itself. {ADV}, the world grows still. Sleep well, the moon whispers. Sleep well." },
+
+    { "tone": ["cozy"], "text": "Long ago, a {ADJ} {NOUN:character} found a {ADJ} {NOUN:object}. It used the {NOUN:object} to bring kindness wherever it went. Even now, when the {NOUN:time} is quiet, you can feel the kindness still." },
+
+    { "tone": ["magical"], "text": "The {NOUN:object} glowed with a soft light. \"Who holds me will see the {NOUN:place} as it truly is,\" it whispered. The {ADJ} {NOUN:character} took a deep breath, and looked." },
+
+    { "tone": ["magical"], "text": "Once, magic was hidden in every {NOUN:object}. A wise {NOUN:character} taught others how to find it. \"It begins with kindness,\" the {NOUN:character} said. \"Then comes wonder.\"" },
+
+    { "tone": ["magical"], "text": "A {NOUN:character} {VERB:action} through the {NOUN:place} and found a hidden door. It was carved with stars. Behind it, anything was possible. The {NOUN:character} stepped through." },
+
+    { "tone": ["magical"], "text": "Some say a {ADJ} {NOUN:animal} lives in the heart of the {NOUN:place}. Some say it grants one wish to anyone who is kind. Some say I have met it. I will not tell you what I wished for." },
+
+    { "tone": ["magical"], "text": "The {NOUN:character} learned a spell from the {NOUN:place} itself. To say it, you had to be {ADJ}. To mean it, you had to be {ADJ}. The {NOUN:character} was both." },
+
+    { "tone": ["cozy"], "text": "The first time the {NOUN:character} and the {NOUN:animal} met, neither said a word. They just sat. The {NOUN:place} was {ADJ}. {ADV}, the {NOUN:character} smiled. And so did the {NOUN:animal}." },
+
+    { "tone": ["cozy"], "text": "Some friendships start with a {NOUN:object}. The {NOUN:character} found one in the {NOUN:place}. It was a gift, though no one knew from whom. The {NOUN:character} kept it close, and so the story began." },
+
+    { "tone": ["cozy"], "text": "A {NOUN:character} and a {NOUN:animal} once shared a {NOUN:object}. It was small, but it mattered. After that, they could not be apart. Some say they still travel the {NOUN:place} together." },
+
+    { "tone": ["cozy"], "text": "Every {NOUN:character} needs a friend. The {ADJ} one found theirs in a {ADJ} {NOUN:animal}. The two of them {VERB:action} through every season. That was enough for both." },
+
+    { "tone": [], "text": "Long after the others left, the {NOUN:character} stayed. So did its friend. They knew the {NOUN:place} better than anyone. They were never lonely again." }
   ]
 }
