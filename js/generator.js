@@ -20,7 +20,7 @@ const Generator = (() => {
   };
 
   function pickWord(slot, tone) {
-    if (!dictionary || !dictionary.words) return '[?]';
+    if (!dictionary || !dictionary.words) return '';
     const parts = slot.split(':');
     const wantPos = posMap[parts[0]] || parts[0].toLowerCase();
     const theme   = parts[1] || null;
@@ -30,7 +30,12 @@ const Generator = (() => {
       if (theme && (!w.themes || !w.themes.includes(theme))) return false;
       return true;
     });
-    if (!candidates.length) return '[' + slot + '?]';
+    // If theme filter zeroed the pool, fall back to any word of this pos —
+    // beats showing a [NOUN:foo?] debug marker to the user.
+    if (!candidates.length && theme) {
+      candidates = dictionary.words.filter(w => w.pos === wantPos);
+    }
+    if (!candidates.length) return '';
 
     if (tone) {
       const toned = candidates.filter(w => w.tone && w.tone.includes(tone));
@@ -79,6 +84,18 @@ const Generator = (() => {
     return s.replace(/(^|[.!?]\s+)([a-z])/g, (m, pre, ch) => pre + ch.toUpperCase());
   }
 
+  // Naïve a/an correction. Covers the common case (vowel-letter starts) but
+  // not every English exception (no "an hour" / "a university" handling).
+  function fixArticles(s) {
+    return s.replace(/\b(a|an|A|An)\s+([a-z][a-z']*)/g, (m, art, word) => {
+      const isVowelStart = /^[aeiou]/i.test(word);
+      const capitalized  = art[0] === 'A';
+      let newArt = isVowelStart ? 'an' : 'a';
+      if (capitalized) newArt = newArt[0].toUpperCase() + newArt.slice(1);
+      return newArt + ' ' + word;
+    });
+  }
+
   // Pick a template based on mode (continuation vs. fact vs. regular) and tone.
   function pickTemplate(opts) {
     let pool;
@@ -121,7 +138,7 @@ const Generator = (() => {
     const result  = fillTemplate(tplText, opts);
 
     return {
-      text:      fixSentenceCase(result.text),
+      text:      fixSentenceCase(fixArticles(result.text)),
       character: result.bindings['NOUN:character'] || null,
       place:     result.bindings['NOUN:place']     || null,
       tone:      opts.tone,

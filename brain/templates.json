@@ -47,9 +47,9 @@
 
     { "tone": ["silly"], "text": "A {NOUN:character} once tried to balance a {NOUN:object} on its nose. {ADV}, it dropped. {ADV}, it dropped again. After a hundred tries, the {NOUN:character} just ate it." },
 
-    { "tone": ["silly"], "text": "Two {NOUN:animal}s walked into a {NOUN:place}. One said, \"This is {ADJ}!\" The other said, \"I know! Let's tell everyone.\" And that is how the news got around." },
+    { "tone": ["silly"], "text": "A {NOUN:animal} and a friend walked into a {NOUN:place}. One said, \"This is {ADJ}!\" The other said, \"I know! Let's tell everyone.\" And that is how the news got around." },
 
-    { "tone": ["silly"], "text": "Did you hear about the {NOUN:character} who could {VERB:action} backwards? It was very {ADJ}. Every {NOUN:character} in the {NOUN:place} came to watch. Some clapped. Some just stared." },
+    { "tone": ["silly"], "text": "Did you hear about the {NOUN:character} that {VERB:action} backwards through the {NOUN:place}? It was very {ADJ}. Every other {NOUN:character} came to watch. Some clapped. Some just stared." },
 
     { "tone": ["silly"], "text": "Once, a {NOUN:character} put a {NOUN:object} on its head and called itself a king. Nobody noticed. {CONN} that's the whole joke. The {NOUN:character} is still wearing it." },
 
@@ -73,7 +73,7 @@
 
     { "tone": ["adventure"], "text": "There were three trials. A {ADJ} {NOUN:place}, a {ADJ} {NOUN:animal}, and a riddle no one could answer. The {NOUN:character} faced them all. And won." },
 
-    { "tone": ["cozy"], "text": "Snug in the {NOUN:place}, a {ADJ} {NOUN:character} {VERB:action} softly. The {NOUN:time} was warm. The world was quiet. Outside, the {NOUN:animal}s were dreaming too. Sweet dreams, little one." },
+    { "tone": ["cozy"], "text": "Snug in the {NOUN:place}, a {ADJ} {NOUN:character} {VERB:action} softly. The {NOUN:time} was warm. The world was quiet. Outside, every other {NOUN:animal} was dreaming too. Sweet dreams, little one." },
 
     { "tone": ["cozy"], "text": "Once, in a {ADJ} {NOUN:place}, the {NOUN:character} sat with its {NOUN:object}. A gentle breeze blew. A {ADJ} {NOUN:animal} curled up nearby. They stayed like that all {NOUN:time}." },
 

@@ -19,19 +19,22 @@ Served as static files. Auth gate with invite codes, login, signup.
 - `config.js` — admin password and config (not committed)
 - `settings.html` — settings page
 
-## Generator (v45, Phase 4)
+## Generator (v46, Phase 5 — polish)
 Joe can produce new text and continue stories across multiple turns. Templates use `{POS:theme}` slots filled from the dictionary. Within one template, repeated `{NOUN:...}` slots bind to the same word.
 
 - **Tone matching** (Phase 2): mood keywords (`silly | spooky | adventure | cozy | magical | bedtime`) filter templates and prefer tone-tagged words. See `detectStoryTone` in `brain.js`.
 - **Fact-weaving** (Phase 3): when the prompt names a known subject (`story about elephants`, `story about javascript`), Joe weaves the matching fact from `knowledge.json` / `coding.json` into a `factStories` template. Subject is locked into `{NOUN:character}` when it's also a known dictionary noun.
-- **Story sessions** (Phase 4): after generating any story, Joe stores `{character, place, tone, chapter}` in `_storySession`. Follow-ups like `continue`, `keep going`, `what happens next`, `tell me more` use the `continuations` template array with the saved character/place — protagonist and setting persist. Reset phrases (`end the story`, `new story`) clear the session. Chapter mode kicks in when the request contains `chapter N` — output gets a `**Chapter N**` header and subsequent continuations auto-increment. Standalone `chapter N` is treated as continuation with that chapter number.
+- **Story sessions** (Phase 4): after generating any story, Joe stores `{character, place, tone, chapter}` in `_storySession`. Follow-ups like `continue`, `keep going`, `what happens next`, `tell me more` use the `continuations` template array with the saved character/place — protagonist and setting persist. Reset phrases (`end the story`, `new story`) clear the session. Chapter mode prefixes `**Chapter N**` headers and auto-increments on continuations.
+- **Polish** (Phase 5): a/an grammar fix as a post-processing step in the generator. Empty-pool guard — if a slot's theme has no matching words, falls back to any word of that pos. Removed the one template that placed a past-tense verb after `could`.
 
 Templates: 51 regular + 6 fact-weavers + 15 continuations in `brain/templates.json`.
 Dictionary: ~470 words in `brain/dictionary.json` (pos + themes + tone).
 
+**Backside note:** `templates.json` and `dictionary.json` are static assets fetched directly by the browser. They do NOT need to be uploaded via `upload_brain.py` — that script only mirrors facts (`knowledge.json`, `coding.json`) to the Backside API.
+
 ## Brain versioning
 Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file changes.
-Currently: `'45'`
+Currently: `'46'`
 
 ## Deploy workflow
 ```bash
