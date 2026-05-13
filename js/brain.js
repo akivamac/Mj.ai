@@ -43,7 +43,7 @@ const Brain = (() => {
     try { const r = await fetch(path); return await r.json(); } catch(_) { return {}; }
   }
 
-  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+  function pick(arr) { return arr && arr.length ? arr[Math.floor(Math.random() * arr.length)] : ''; }
 
   // ── Context memory ────────────────────────────────────────
   let _lastTopicKeywords = [];
@@ -174,14 +174,17 @@ const Brain = (() => {
     // Runs near the top so short follow-ups like "continue" or
     // "what happens next" aren't intercepted by the generic rules check.
 
+    const NO_STORY_MSG = "I don't have a story going yet — try 'tell me a story about a fox' to get one started! 🐒";
+
     if (detectStoryReset(lower)) {
       if (_storySession) {
         _storySession = null;
         return "OK, ending that story. Tell me when you want a new one! 🐒";
       }
+      return NO_STORY_MSG;
     }
 
-    const standaloneChapter = lower.trim().match(/^chapter\s+(\d+)[\s!.?]*$/);
+    const standaloneChapter = lower.match(/^chapter\s+(\d+)[\s!.?]*$/);
     if (standaloneChapter) {
       if (_storySession && typeof Generator !== 'undefined') {
         const num = parseInt(standaloneChapter[1], 10);
@@ -197,7 +200,7 @@ const Brain = (() => {
         _storySession.chapterMode = true;
         return `Chapter ${num}\n\n${r.text}`;
       }
-      return "I don't have a story going yet — try 'tell me a story about a fox' to get one started! 🐒";
+      return NO_STORY_MSG;
     }
 
     if (detectStoryContinuation(lower)) {
@@ -212,12 +215,12 @@ const Brain = (() => {
         _storySession.place     = r.place     || _storySession.place;
         let prefix = '';
         if (_storySession.chapterMode) {
-          _storySession.chapter = (_storySession.chapter || 1) + 1;
+          _storySession.chapter = (_storySession.chapter ?? 1) + 1;
           prefix = `Chapter ${_storySession.chapter}\n\n`;
         }
         return prefix + r.text;
       }
-      return "I don't have a story going yet — try 'tell me a story about a fox' to get one started! 🐒";
+      return NO_STORY_MSG;
     }
 
     // ── Follow-up context injection ──────────────────────────

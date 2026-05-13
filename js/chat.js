@@ -114,7 +114,7 @@ const Chat = (() => {
     [...starred, ...unstarred].forEach(c => list.appendChild(makeChatItem(c)));
   }
 
-  function makeChatItem(chat, inProject = false) {
+  function makeChatItem(chat) {
     const item = document.createElement('div');
     item.className = 'chat-item' + (chat.id === activeId ? ' active' : '');
     item.innerHTML = `
@@ -302,8 +302,13 @@ const Chat = (() => {
       if (!projects.length) return;
       const names = projects.map((p, i) => i + 1 + '. ' + p.name).join('\n');
       const choice = prompt('Add to which project?\n' + names + '\n\nEnter number:');
-      const idx = parseInt(choice) - 1;
-      if (idx >= 0 && idx < projects.length) chat.projectId = projects[idx].id;
+      if (choice == null) return;
+      const idx = parseInt(choice, 10) - 1;
+      if (Number.isNaN(idx) || idx < 0 || idx >= projects.length) {
+        alert("That isn't a project number on the list.");
+        return;
+      }
+      chat.projectId = projects[idx].id;
     } else if (action === 'remove-proj') {
       chat.projectId = null;
     }

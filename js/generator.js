@@ -87,7 +87,7 @@ const Generator = (() => {
   // Naïve a/an correction. Covers the common case (vowel-letter starts) but
   // not every English exception (no "an hour" / "a university" handling).
   function fixArticles(s) {
-    return s.replace(/\b(a|an|A|An)\s+([a-z][a-z']*)/g, (m, art, word) => {
+    return s.replace(/\b(a|an|A|An)\s+([A-Za-z][A-Za-z']*)/g, (m, art, word) => {
       const isVowelStart = /^[aeiou]/i.test(word);
       const capitalized  = art[0] === 'A';
       let newArt = isVowelStart ? 'an' : 'a';
