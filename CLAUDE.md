@@ -39,9 +39,21 @@ Pools: 305 stories + 42 factStories + 63 continuations + 30 microStories + 29 cl
 
 **CLI parity:** The Python `mj` CLI now ports the full story generator. `update_brain()` fetches templates/dictionary/storyBeats on auto-update alongside the older brain files.
 
+## Coding helper (v51 — error/recipe/debug/code-paste dispatch)
+Joe now handles four coding-related input types BEFORE the generic knowledge lookup, both in the web `respond()` and the CLI `respond()`. Order: error > code-paste > debugging walkthrough > recipe.
+
+- **`brain/errors.json`** (409 patterns): error-string matchers. Each entry has a JS regex (`match`), `title`, `diagnosis`, `fixes[]`, optional `example_fix`. `{1}`/`{2}` placeholders substitute regex capture groups so the diagnosis names the actual variable/path/module from the user's error.
+- **`brain/recipes.json`** (307 recipes): "how do I X in Y" snippets. Each has `triggers[]` (lowercase phrasings), `title`, `code`, `notes`. Matched via the `findByTriggers` scorer.
+- **`brain/debugging.json`** (134 guides): procedural walkthroughs. Each has `triggers[]`, `title`, `steps[]`, `tips[]`.
+- **`brain/coding.json`** (691 facts): the existing fact-keyword lookup — still the final coding fallback. Expanded in v51 with Python typing/asyncio/pandas, JS event loop/streams, TS narrowing/utility types, bash strict mode, git internals, testing/CI/algorithms.
+
+The `findByTriggers` scorer: substring-match of a multi-word trigger = 3, single-word substring = 2, all-words-of-2+-word-trigger present = 1. Recipes fire at minScore 1; debug walkthroughs require minScore 2 (avoids false-positive walls of text).
+
+`looksLikeCode` triggers on ```` ``` ```` fences, 3+ lines with code-token indicators, or a single line with strong-bash signals (`$(...)` + `do/done/then/fi/...` or shebang). `detectLanguage` scores against signature regexes for 10 languages. `critiqueCode` runs generic bracket-balance + per-language pattern checks (Py: mixed indent / missing colon / Py2 print / bare except. JS: == vs ===, var, await without async, stale-closure setState. Bash: unquoted `$X` in `[`, backticks, missing `set -e`, `for x in $(ls)`).
+
 ## Brain versioning
 Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file changes.
-Currently: `'50'`
+Currently: `'51'`
 
 ## Deploy workflow
 ```bash

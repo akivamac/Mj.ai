@@ -184,7 +184,8 @@ def update_brain(brain_dir):
     """Silently pull latest brain files from GitHub on startup."""
     base_url = 'https://raw.githubusercontent.com/akivamac/Mj.ai/main/brain/'
     files = ['knowledge.json', 'rules.json', 'terminal.json', 'coding.json',
-             'templates.json', 'dictionary.json', 'storyBeats.json']
+             'templates.json', 'dictionary.json', 'storyBeats.json',
+             'errors.json', 'recipes.json', 'debugging.json']
     ctx = ssl.create_default_context()
     for f in files:
         try:
@@ -265,6 +266,9 @@ class MonkeyJoe:
         self.templates = {}
         self.dictionary = {}
         self.story_beats = {}
+        self.errors = {}
+        self.recipes = {}
+        self.debugging = {}
 
         self.history = []  # Last 10 exchanges
         self.last_topic_label = None
@@ -294,8 +298,9 @@ class MonkeyJoe:
                 # Silently use empty defaults — auto-update will fix on next startup
                 setattr(self, name, {} if name == 'rules' else [])
 
-        # Storyteller files: keep full dict.
-        for name in ['templates', 'dictionary', 'story_beats']:
+        # Storyteller + coding-helper files: keep full dict.
+        for name in ['templates', 'dictionary', 'story_beats',
+                     'errors', 'recipes', 'debugging']:
             fname = 'storyBeats.json' if name == 'story_beats' else f'{name}.json'
             path = os.path.join(self.brain_dir, fname)
             try:
@@ -705,6 +710,183 @@ class MonkeyJoe:
             prefix = f"Chapter {self.story_session['chapter']}\n\n" if self.story_session['chapterMode'] else ''
             return prefix + r['text']
 
+        return None
+
+    # ── Coding dispatchers (Python port of brain.js v51) ──────
+    def _detect_error_pattern(self, input_str):
+        patterns = (self.errors or {}).get('patterns') or []
+        best, best_len = None, 0
+        for p in patterns:
+            try:
+                m = re.search(p['match'], input_str)
+            except re.error:
+                continue
+            if m and len(m.group(0)) > best_len:
+                best, best_len = (p, m), len(m.group(0))
+        return best
+
+    @staticmethod
+    def _sub_captures(text, m):
+        if not text: return ''
+        def repl(mt):
+            idx = int(mt.group(1))
+            try: return m.group(idx) if m.group(idx) is not None else ''
+            except (IndexError, re.error): return ''
+        return re.sub(r'\{(\d+)\}', repl, text)
+
+    def _format_error_response(self, hit):
+        entry, m = hit
+        diagnosis = self._sub_captures(entry.get('diagnosis', ''), m)
+        fixes = [self._sub_captures(f, m) for f in (entry.get('fixes') or [])]
+        out = f"**{entry.get('title','Error')}**\n\n{diagnosis}"
+        if fixes:
+            out += "\n\n**Try:**\n" + "\n".join('• ' + f for f in fixes)
+        if entry.get('example_fix'):
+            out += f"\n\n**Example fix:**\n```\n{entry['example_fix']}\n```"
+        return out
+
+    @staticmethod
+    def _find_by_triggers(entries, lower, min_score=2):
+        if not entries: return None
+        best, best_score = None, 0
+        for e in entries:
+            score = 0
+            for trig in (e.get('triggers') or []):
+                t = trig.lower()
+                wc = len([w for w in t.split() if len(w) > 1])
+                if t in lower:
+                    score += 3 if wc >= 2 else 2
+                    continue
+                if wc >= 2:
+                    words = [w for w in t.split() if len(w) > 1]
+                    if all(w in lower for w in words):
+                        score += 1
+            if score > best_score:
+                best_score, best = score, e
+        return best if best_score >= min_score else None
+
+    def _format_recipe(self, r):
+        lang = (r.get('languages') or [''])[0]
+        out = f"**{r.get('title','Recipe')}**\n\n```{lang}\n{r.get('code','')}\n```"
+        if r.get('notes'): out += f"\n\n{r['notes']}"
+        out += "\n\n🐒"
+        return out
+
+    def _format_guide(self, g):
+        out = f"**{g.get('title','Guide')}**\n\n"
+        steps = g.get('steps') or []
+        if steps:
+            out += "**Steps:**\n" + "\n".join(f"{i+1}. {s}" for i, s in enumerate(steps))
+        tips = g.get('tips') or []
+        if tips:
+            out += "\n\n**Tips:**\n" + "\n".join('• ' + t for t in tips)
+        return out
+
+    @staticmethod
+    def _looks_like_code(input_str):
+        if not input_str: return False
+        if re.match(r'^```', input_str): return True
+        # Single-line strong-bash signal
+        if re.search(r'\$\([^)]+\)', input_str) and re.search(r'\b(do|done|then|fi|elif|case|esac)\b', input_str):
+            return True
+        if input_str.startswith('#!/'): return True
+        lines = input_str.split('\n')
+        if len(lines) < 3: return False
+        code_re = re.compile(
+            r'(\b(function|def|class|import|require|const|let|var|return|if|else|elif|for|while|'
+            r'try|catch|except|console\.log|print\(|System\.|public|private|static|interface|'
+            r'type|enum|fn|impl)\b|[{};]|=>|->|::|\$\(|<<|^\s+\S)',
+            re.MULTILINE
+        )
+        return len(code_re.findall(input_str)) >= 3
+
+    @staticmethod
+    def _detect_language(code):
+        sigs = {
+            'python':     r'^(?:\s*)(?:def |class |from .+ import|import [a-z_]+$|if __name__|@\w+\s*\n\s*def)|:\s*$|\bprint\(|self\.|\bNone\b|\bTrue\b|\bFalse\b|\belif\b',
+            'javascript': r'\b(function |const |let |=>|console\.log|require\(|module\.exports|export (?:default |const )|import .* from)\b|;\s*$',
+            'typescript': r'\b(interface |type \w+ =|as (?:string|number|boolean|any|unknown)|: (?:string|number|boolean|any|unknown)|enum |readonly )\b',
+            'bash':       r'^(?:#!\/bin\/(?:bash|sh|zsh)|set -[a-zeuxo]+|echo |if \[|for \w+ in|fi$|done$|esac$)',
+            'java':       r'\b(public class |System\.out\.|String\[\]|public static void)\b',
+            'rust':       r'\b(fn \w+|let mut |impl |trait |use std::)\b',
+            'go':         r'\b(func \w+|package main|fmt\.Println|interface\{\})\b',
+            'sql':        r'\b(SELECT |FROM |WHERE |INSERT INTO|UPDATE |DELETE FROM|CREATE TABLE)\b',
+            'html':       r'<\/?(html|head|body|div|span|a|p|h[1-6]|script|style|table|tr|td|ul|li|button|input|form)\b',
+            'css':        r'^[\s\w.#-]+\{[^}]*:\s*[^}]+;[^}]*\}',
+        }
+        best, best_score = None, 0
+        for lang, pat in sigs.items():
+            flags = re.MULTILINE | (re.IGNORECASE if lang in ('sql','html') else 0)
+            score = len(re.findall(pat, code, flags))
+            if score > best_score:
+                best_score, best = score, lang
+        return best if best_score > 0 else None
+
+    @staticmethod
+    def _critique_code(code, lang):
+        issues = []
+        opens = len(re.findall(r'[{(\[]', code))
+        closes = len(re.findall(r'[})\]]', code))
+        if opens != closes:
+            issues.append(f"Unbalanced brackets/braces/parens: {opens} opening vs {closes} closing. Look for a stray `(`, `{{`, or `[` (or a missing closer).")
+        for line in code.split('\n'):
+            sq = len(re.findall(r"(?<!\\)'", line))
+            dq = len(re.findall(r'(?<!\\)"', line))
+            if (sq % 2 or dq % 2) and line.strip() and not line.lstrip().startswith(('#','//')):
+                issues.append(f"Likely unclosed string on a line: `{line.strip()[:80]}`")
+                break
+        if lang == 'python':
+            if re.search(r'^\t', code, re.M) and re.search(r'^ ', code, re.M):
+                issues.append("Mixed tabs and spaces in indentation — Python rejects this. Pick one (PEP 8 recommends 4 spaces).")
+            block_re = re.compile(r'^(\s*)(def |if |elif |else|for |while |class |try|except|finally|with |async def )')
+            for line in code.split('\n'):
+                if block_re.match(line) and not line.rstrip().endswith(':') and not re.search(r'[\\(]$', line.rstrip()):
+                    issues.append(f"Missing colon at end of block-opening line: `{line.strip()[:80]}`")
+                    break
+            if re.search(r'\bprint\s+(?!\()', code) and re.search(r"\bprint\s+['\"]", code):
+                issues.append("`print` used without parentheses — that's Python 2 syntax. Use `print(...)` for Python 3.")
+            if re.search(r'except\s*:\s*$', code, re.M):
+                issues.append("Bare `except:` swallows ALL exceptions, including KeyboardInterrupt and SystemExit. Catch a specific class instead.")
+        if lang in ('javascript','typescript'):
+            if re.search(r'[^=!]==[^=]', code):
+                issues.append("Loose equality (`==`) detected. Prefer `===` for strict comparison — `==` does type coercion (`\"0\" == false` is true).")
+            if re.search(r'\bvar\s+\w', code):
+                issues.append("Using `var` — prefer `let` (mutable, block-scoped) or `const` (immutable). `var` has function-level scoping that surprises people.")
+            if re.search(r'\bawait\b', code) and not re.search(r'\basync\b', code):
+                issues.append("Using `await` inside a function that isn't marked `async`. Add `async` to the function declaration.")
+        if lang == 'bash':
+            if re.search(r'\bif\s+\[\s+\$\w+\s', code):
+                issues.append("Unquoted variable in `[ $X ]` — quote it: `[ \"$X\" = \"...\" ]` so empty/whitespace values don't blow up the test.")
+            if re.search(r'`[^`]+`', code):
+                issues.append("Using backticks for command substitution. Prefer `$(...)` — it nests cleanly and is easier to read.")
+            if not re.search(r'set\s+-[eu]', code) and len(code.split('\n')) > 5:
+                issues.append("No `set -e` (or `set -euo pipefail`) at the top. Without it, a failing command in the middle of the script is silently ignored.")
+            if re.search(r'\bfor\s+\w+\s+in\s+\$\(ls\b', code):
+                issues.append("Looping over `$(ls)` is fragile (breaks on spaces/newlines in filenames). Use globs: `for f in *.txt; do ...; done`.")
+        return issues
+
+    def _format_code_critique(self, lang, issues):
+        tag = lang.capitalize() if lang else 'Code'
+        if not issues:
+            return f"{tag} block detected. I scanned it for common patterns and didn't spot anything obvious — but I only do pattern checks, not real parsing. Want me to look at a specific error message? 🐒"
+        body = "\n".join('• ' + s for s in issues)
+        return f"{tag} block detected. A few things I noticed:\n\n{body}\n\nThese are pattern-based hints, not a real parser — your tooling will catch more. 🐒"
+
+    def handle_coding_input(self, user_input, lower):
+        """Run the coding dispatchers in order: error > code paste > debugging > recipe."""
+        if len(user_input) > 8:
+            hit = self._detect_error_pattern(user_input)
+            if hit: return self._format_error_response(hit)
+        if self._looks_like_code(user_input):
+            lang = self._detect_language(user_input)
+            issues = self._critique_code(user_input, lang)
+            return self._format_code_critique(lang, issues)
+        guides = (self.debugging or {}).get('guides') or []
+        guide = self._find_by_triggers(guides, lower, min_score=2)
+        if guide: return self._format_guide(guide)
+        recipes = (self.recipes or {}).get('recipes') or []
+        recipe = self._find_by_triggers(recipes, lower, min_score=1)
+        if recipe: return self._format_recipe(recipe)
         return None
 
     def strip_question(self, q: str) -> str:
@@ -1311,6 +1493,13 @@ class MonkeyJoe:
         story_resp = self.handle_story_input(user_input, lower)
         if story_resp is not None:
             return story_resp
+
+        # Coding dispatchers: error paste, code paste, debug walkthrough, recipe.
+        # Runs before knowledge lookup so "merge conflict" gets the walkthrough,
+        # not a stray fact match. Order matches brain.js v51.
+        coding_resp = self.handle_coding_input(user_input, lower)
+        if coding_resp is not None:
+            return coding_resp
 
         # Check for casual statements (not questions)
         if self.is_casual_statement(lower):
