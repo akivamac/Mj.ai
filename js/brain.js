@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '50'; // bump when brain JSON files change
+  const BRAIN_VERSION = '51'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -8,6 +8,9 @@ const Brain = (() => {
   let templates = null;
   let dictionary = null;
   let storyBeats = null;
+  let errors = null;
+  let recipes = null;
+  let debugging = null;
 
   async function load() {
     // If version changed, clear cache and reload from JSON
@@ -19,6 +22,9 @@ const Brain = (() => {
       localStorage.removeItem('mj_brain_templates');
       localStorage.removeItem('mj_brain_dictionary');
       localStorage.removeItem('mj_brain_storyBeats');
+      localStorage.removeItem('mj_brain_errors');
+      localStorage.removeItem('mj_brain_recipes');
+      localStorage.removeItem('mj_brain_debugging');
       localStorage.setItem('mj_brain_version', BRAIN_VERSION);
     }
 
@@ -29,6 +35,9 @@ const Brain = (() => {
     templates   = Storage.getBrain('templates');
     dictionary  = Storage.getBrain('dictionary');
     storyBeats  = Storage.getBrain('storyBeats');
+    errors      = Storage.getBrain('errors');
+    recipes     = Storage.getBrain('recipes');
+    debugging   = Storage.getBrain('debugging');
 
     if (!knowledge)  { knowledge  = await fetchJSON('brain/knowledge.json');  Storage.setBrain('knowledge', knowledge); }
     if (!rules)      { rules      = await fetchJSON('brain/rules.json');      Storage.setBrain('rules', rules); }
@@ -37,10 +46,226 @@ const Brain = (() => {
     if (!templates)  { templates  = await fetchJSON('brain/templates.json');  Storage.setBrain('templates', templates); }
     if (!dictionary) { dictionary = await fetchJSON('brain/dictionary.json'); Storage.setBrain('dictionary', dictionary); }
     if (!storyBeats) { storyBeats = await fetchJSON('brain/storyBeats.json'); Storage.setBrain('storyBeats', storyBeats); }
+    if (!errors)     { errors     = await fetchJSON('brain/errors.json');     Storage.setBrain('errors', errors); }
+    if (!recipes)    { recipes    = await fetchJSON('brain/recipes.json');    Storage.setBrain('recipes', recipes); }
+    if (!debugging)  { debugging  = await fetchJSON('brain/debugging.json');  Storage.setBrain('debugging', debugging); }
 
     if (typeof Generator !== 'undefined' && Generator.init) {
       Generator.init(templates, dictionary, storyBeats);
     }
+  }
+
+  // ── Coding dispatchers (v51) ──────────────────────────────
+
+  // Error-pattern matcher. Walks errors.patterns and returns the first
+  // entry whose `match` regex hits the input, plus capture groups for
+  // {1}/{2} substitution. Tries entries with longer matches first so
+  // specific patterns win over broad ones.
+  function detectErrorPattern(input) {
+    if (!errors || !errors.patterns) return null;
+    let best = null, bestLen = 0;
+    for (const p of errors.patterns) {
+      try {
+        const re = new RegExp(p.match);
+        const m = input.match(re);
+        if (m && m[0].length > bestLen) {
+          best = { entry: p, match: m };
+          bestLen = m[0].length;
+        }
+      } catch(_) {}
+    }
+    return best;
+  }
+
+  function substituteCaptures(text, m) {
+    if (!text) return '';
+    return text.replace(/\{(\d+)\}/g, (_, n) => {
+      const idx = parseInt(n, 10);
+      return (m && m[idx] != null) ? m[idx] : '';
+    });
+  }
+
+  function formatErrorResponse(hit) {
+    const e = hit.entry, m = hit.match;
+    const diagnosis = substituteCaptures(e.diagnosis || '', m);
+    const fixes = (e.fixes || []).map(f => '• ' + substituteCaptures(f, m)).join('\n');
+    let out = `**${e.title || 'Error'}**\n\n${diagnosis}`;
+    if (fixes) out += `\n\n**Try:**\n${fixes}`;
+    if (e.example_fix) out += `\n\n**Example fix:**\n\`\`\`\n${e.example_fix}\n\`\`\``;
+    return out;
+  }
+
+  // Trigger matcher. Scoring:
+  //   substring-match of a multi-word trigger → 3
+  //   substring-match of a single-word trigger → 2
+  //   all words of a 2+-word trigger present (any order) → 1
+  // Single-word triggers can ONLY substring-match (otherwise "git" alone
+  // would hit on every passing mention of git).
+  function findByTriggers(entries, lower, minScore = 2) {
+    if (!entries || !entries.length) return null;
+    let best = null, bestScore = 0;
+    for (const e of entries) {
+      let score = 0;
+      for (const trig of (e.triggers || [])) {
+        const t = trig.toLowerCase();
+        const wordCount = t.split(/\s+/).filter(w => w.length > 1).length;
+        if (lower.includes(t)) {
+          score += (wordCount >= 2) ? 3 : 2;
+          continue;
+        }
+        if (wordCount >= 2) {
+          const words = t.split(/\s+/).filter(w => w.length > 1);
+          if (words.every(w => lower.includes(w))) score += 1;
+        }
+      }
+      if (score > bestScore) { bestScore = score; best = e; }
+    }
+    return bestScore >= minScore ? best : null;
+  }
+
+  function formatRecipeResponse(r) {
+    let out = `**${r.title}**\n\n\`\`\`${(r.languages && r.languages[0]) || ''}\n${r.code}\n\`\`\``;
+    if (r.notes) out += `\n\n${r.notes}`;
+    out += `\n\n🐒`;
+    return out;
+  }
+
+  function formatDebuggingResponse(g) {
+    let out = `**${g.title}**\n\n`;
+    const steps = (g.steps || []).map((s, i) => `${i + 1}. ${s}`).join('\n');
+    if (steps) out += `**Steps:**\n${steps}`;
+    if (g.tips && g.tips.length) {
+      out += `\n\n**Tips:**\n` + g.tips.map(t => '• ' + t).join('\n');
+    }
+    return out;
+  }
+
+  // Heuristic: does the input look like a pasted code block? Needs to be
+  // permissive enough to catch multi-line snippets and strict enough to
+  // not fire on prose. Triggers when:
+  //   - input has ≥ 3 lines AND ≥ 2 code-indicator tokens, OR
+  //   - input is wrapped in ``` fences.
+  function looksLikeCode(input) {
+    if (!input) return false;
+    if (/^```|```[a-z]*\n/.test(input)) return true;
+    // Single-line: unmistakable shell-pipeline / loop syntax. Avoids
+    // letting "for f in $(ls); do echo $f; done" fall through to the
+    // generic knowledge lookup.
+    if (/\$\([^)]+\)/.test(input) && /\b(do|done|then|fi|elif|case|esac)\b/.test(input)) return true;
+    if (/^#!\//.test(input)) return true;
+    const lines = input.split('\n');
+    if (lines.length < 3) return false;
+    // `gm` flags so `^\s+\S` (indented line) matches every indented line,
+    // not just the first one.
+    const codeRe = /(\b(function|def|class|import|require|const|let|var|return|if|else|elif|for|while|try|catch|except|console\.log|print\(|System\.|public|private|static|interface|type|enum|fn|impl)\b|[{};]|=>|->|::|\$\(|<<|^\s+\S)/gm;
+    const indicators = (input.match(codeRe) || []).length;
+    return indicators >= 3;
+  }
+
+  function detectLanguage(code) {
+    const sigs = {
+      python:     /^(?:\s*)(?:def |class |from .+ import|import [a-z_]+$|if __name__|@\w+\s*\n\s*def)|:\s*$|\bprint\(|self\.|\bNone\b|\bTrue\b|\bFalse\b|\belif\b/m,
+      javascript: /\b(function |const |let |=>|console\.log|require\(|module\.exports|export (?:default |const )|import .* from)\b|;\s*$/m,
+      typescript: /\b(interface |type \w+ =|as (?:string|number|boolean|any|unknown)|: (?:string|number|boolean|any|unknown)|enum |readonly )\b/,
+      bash:       /^(?:#!\/bin\/(?:bash|sh|zsh)|set -[a-zeuxo]+|echo |if \[|for \w+ in|fi$|done$|esac$)/m,
+      java:       /\b(public class |System\.out\.|String\[\]|public static void)\b/,
+      rust:       /\b(fn \w+|let mut |impl |trait |use std::)\b/,
+      go:         /\b(func \w+|package main|fmt\.Println|interface\{\})\b/,
+      sql:        /\b(SELECT |FROM |WHERE |INSERT INTO|UPDATE |DELETE FROM|CREATE TABLE)\b/i,
+      html:       /<\/?(html|head|body|div|span|a|p|h[1-6]|script|style|table|tr|td|ul|li|button|input|form)\b/i,
+      css:        /^[\s\w.#-]+\{[^}]*:\s*[^}]+;[^}]*\}/m
+    };
+    let best = null, bestScore = 0;
+    for (const [lang, re] of Object.entries(sigs)) {
+      const g = new RegExp(re.source, (re.flags || '') + (re.flags.includes('g') ? '' : 'g'));
+      const matches = code.match(g);
+      const score = matches ? matches.length : 0;
+      if (score > bestScore) { bestScore = score; best = lang; }
+    }
+    return bestScore > 0 ? best : null;
+  }
+
+  function critiqueCode(code, lang) {
+    const issues = [];
+    // Generic bracket balance.
+    const opens  = (code.match(/[{([]/g) || []).length;
+    const closes = (code.match(/[})\]]/g) || []).length;
+    if (opens !== closes) {
+      issues.push(`Unbalanced brackets/braces/parens: ${opens} opening vs ${closes} closing. Look for a stray \`(\`, \`{\`, or \`[\` (or a missing closer).`);
+    }
+    // Generic unclosed string (odd count of un-escaped quotes on a single line)
+    for (const line of code.split('\n')) {
+      const sq = (line.match(/(?<!\\)'/g) || []).length;
+      const dq = (line.match(/(?<!\\)"/g) || []).length;
+      if (sq % 2 || dq % 2) {
+        if (line.trim().length && !line.trim().startsWith('#') && !line.trim().startsWith('//')) {
+          issues.push(`Likely unclosed string on a line: \`${line.trim().slice(0, 80)}\``);
+          break;
+        }
+      }
+    }
+    if (lang === 'python') {
+      if (/^\t/m.test(code) && /^ /m.test(code)) {
+        issues.push('Mixed tabs and spaces in indentation — Python rejects this. Pick one (PEP 8 recommends 4 spaces).');
+      }
+      const blockLineRe = /^(\s*)(def |if |elif |else|for |while |class |try|except|finally|with |async def |elif )/;
+      for (const line of code.split('\n')) {
+        const m = line.match(blockLineRe);
+        if (m && !line.trim().endsWith(':') && !/[\\(]$/.test(line.trimEnd())) {
+          issues.push(`Missing colon at end of block-opening line: \`${line.trim().slice(0,80)}\``);
+          break;
+        }
+      }
+      if (/\bprint\s+(?!\()/.test(code) && /\bprint\s+['"]/.test(code)) {
+        issues.push('`print` used without parentheses — that\'s Python 2 syntax. Use `print(...)` for Python 3.');
+      }
+      if (/except\s*:\s*$/m.test(code)) {
+        issues.push('Bare `except:` swallows ALL exceptions, including KeyboardInterrupt and SystemExit. Catch a specific class instead.');
+      }
+      if (/\bis\s+(?:0|1|-?\d+|".+?"|'.+?')\b/.test(code) || /\b(?:0|1|-?\d+)\s+is\b/.test(code)) {
+        issues.push('Using `is` to compare with a literal (number/string). Use `==` — `is` only checks identity, not value.');
+      }
+    }
+    if (lang === 'javascript' || lang === 'typescript') {
+      if (/[^=!]==[^=]/.test(code)) {
+        issues.push('Loose equality (`==`) detected. Prefer `===` for strict comparison — `==` does type coercion (`"0" == false` is true).');
+      }
+      if (/\bvar\s+\w/.test(code)) {
+        issues.push('Using `var` — prefer `let` (mutable, block-scoped) or `const` (immutable). `var` has function-level scoping that surprises people.');
+      }
+      if (/console\.log\(.*\bawait\b/.test(code) && !/\basync\b/.test(code)) {
+        issues.push('Using `await` inside a function that isn\'t marked `async`. Add `async` to the function declaration.');
+      }
+      const setStateRe = /set([A-Z]\w*)\s*\(\s*\w+\s*[+\-*/%]/;
+      if (setStateRe.test(code) && /useState|setState/.test(code)) {
+        issues.push('Updating React state based on the previous value? Use the functional form: `setX(prev => prev + 1)` to avoid stale-closure bugs.');
+      }
+    }
+    if (lang === 'bash') {
+      if (/\bif\s+\[\s+\$\w+\s/.test(code)) {
+        issues.push('Unquoted variable in `[ $X ]` — quote it: `[ "$X" = "..." ]` so empty/whitespace values don\'t blow up the test.');
+      }
+      if (/`[^`]+`/.test(code)) {
+        issues.push('Using backticks for command substitution. Prefer `$(...)` — it nests cleanly and is easier to read.');
+      }
+      if (!/set\s+-[eu]/.test(code) && code.split('\n').length > 5) {
+        issues.push('No `set -e` (or `set -euo pipefail`) at the top. Without it, a failing command in the middle of the script is silently ignored.');
+      }
+      if (/\bfor\s+\w+\s+in\s+\$\(ls\b/.test(code)) {
+        issues.push('Looping over `$(ls)` is fragile (breaks on spaces/newlines in filenames). Use globs: `for f in *.txt; do ...; done`.');
+      }
+    }
+    return issues;
+  }
+
+  function formatCodeCritique(lang, issues) {
+    const tag = lang ? lang.charAt(0).toUpperCase() + lang.slice(1) : 'Code';
+    if (!issues.length) {
+      return `${tag} block detected. I scanned it for common patterns and didn't spot anything obvious — but I only do pattern checks, not real parsing. Want me to look at a specific error message? 🐒`;
+    }
+    return `${tag} block detected. A few things I noticed:\n\n` +
+      issues.map(s => '• ' + s).join('\n') +
+      `\n\nThese are pattern-based hints, not a real parser — your tooling will catch more. 🐒`;
   }
 
   async function fetchJSON(path) {
@@ -499,6 +724,41 @@ const Brain = (() => {
         const prefix = _storySession.chapterMode ? `Chapter ${_storySession.chapter}\n\n` : '';
         return prefix + r.text;
       }
+    }
+
+    // ── Coding dispatchers (v51) ──────────────────────────
+    // Order: error-paste > code-paste > debugging walkthrough > recipe.
+    // Each runs before the generic knowledge lookup so coding intents
+    // don't get hijacked by stray keyword matches.
+
+    // 1. Error message paste — detect by regex match against errors.json.
+    //    Skip when the input is short and casual (low confidence).
+    if (errors && errors.patterns && input.length > 8) {
+      const errHit = detectErrorPattern(input);
+      if (errHit) return formatErrorResponse(errHit);
+    }
+
+    // 2. Code paste — multi-line, code-like tokens. Critique using patterns.
+    if (looksLikeCode(input)) {
+      const lang   = detectLanguage(input);
+      const issues = critiqueCode(input, lang);
+      return formatCodeCritique(lang, issues);
+    }
+
+    // 3. Debugging walkthrough — "merge conflict", "git is broken", etc.
+    //    minScore 2 here: walkthroughs are bigger replies, want a stronger
+    //    signal (substring-match, not just word-set overlap).
+    if (debugging && debugging.guides) {
+      const guide = findByTriggers(debugging.guides, lower, 2);
+      if (guide) return formatDebuggingResponse(guide);
+    }
+
+    // 4. Recipe — "how do I X in Y" / "python read csv".
+    //    minScore 1 here: snippet recipes are small enough that a 2+-word
+    //    word-set match is enough to fire.
+    if (recipes && recipes.recipes) {
+      const recipe = findByTriggers(recipes.recipes, lower, 1);
+      if (recipe) return formatRecipeResponse(recipe);
     }
 
     // Terminal/command check — only if input looks like a command (starts with trigger or is short)
