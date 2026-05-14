@@ -1,0 +1,3401 @@
+{
+  "_comment": "Debugging walkthroughs. Joe matches user phrases against `triggers` (substring/keyword) and returns title + ordered steps + tips. Each guide is a procedure, not a fact.",
+  "guides": [
+    {
+      "id": "py_module_not_found",
+      "languages": ["python"],
+      "triggers": [
+        "modulenotfounderror",
+        "module not found python",
+        "no module named",
+        "python can't find module",
+        "python import not found",
+        "python package missing",
+        "cannot import module python"
+      ],
+      "title": "Python: ModuleNotFoundError",
+      "steps": [
+        "Check the exact module name in the error and confirm spelling (case-sensitive).",
+        "Confirm which Python is running: `python -c 'import sys; print(sys.executable)'`.",
+        "Confirm which pip matches it: `python -m pip --version`.",
+        "Install into the same interpreter: `python -m pip install <package>`.",
+        "If you use a venv, activate it first (e.g. `source .venv/bin/activate`) before installing or running.",
+        "If the import is a local file, check `sys.path` and that you're running from the right working directory.",
+        "Re-run the script — the error should be gone."
+      ],
+      "tips": [
+        "Always use `python -m pip` instead of bare `pip` — it guarantees you're installing for the right interpreter.",
+        "If you have multiple Pythons, `which -a python python3` shows all of them.",
+        "For local packages, an empty `__init__.py` in the folder can fix discovery."
+      ]
+    },
+    {
+      "id": "py_import_error_cannot_import_name",
+      "languages": ["python"],
+      "triggers": [
+        "importerror cannot import name",
+        "cannot import name",
+        "circular import python",
+        "python circular import",
+        "import error python",
+        "partially initialized module"
+      ],
+      "title": "Python: ImportError cannot import name X",
+      "steps": [
+        "Read the full traceback — note both files involved in the import chain.",
+        "Check if file A imports B, and B imports A — that's a circular import.",
+        "Break the cycle: move the shared symbol to a third module, or do the import inside the function instead of the top of the file.",
+        "If not circular, verify the symbol exists in the target module: `python -c 'import target; print(dir(target))'`.",
+        "Check installed version: `pip show <package>` — the symbol may have been renamed/removed.",
+        "Pin a known-working version: `pip install '<package>==<version>'`."
+      ],
+      "tips": [
+        "Lazy import (inside a function) is the easiest fix for stubborn circular imports.",
+        "`from x import *` hides what's missing — switch to explicit names to surface the real error.",
+        "Check the package's CHANGELOG for renames between versions."
+      ]
+    },
+    {
+      "id": "py_type_error",
+      "languages": ["python"],
+      "triggers": [
+        "python typeerror",
+        "typeerror debug",
+        "python type error",
+        "unsupported operand type",
+        "object is not callable",
+        "object is not iterable",
+        "argument must be"
+      ],
+      "title": "Python: TypeError debug strategy",
+      "steps": [
+        "Read the exact TypeError message — it names the operation and the offending type.",
+        "Find the line in the traceback. Add `print(type(x), x)` right before it for each variable involved.",
+        "If it says 'NoneType', a function probably returned None when you expected a value — check return paths.",
+        "If it says 'str' where you expected 'int', cast explicitly: `int(x)` or `str(x)`.",
+        "If 'object is not callable', you're using `()` on something that isn't a function — likely a variable shadowing a function name.",
+        "If 'object is not iterable', wrap it in a list, or check you didn't forget to call a generator function."
+      ],
+      "tips": [
+        "Drop a `breakpoint()` on the failing line to inspect everything live.",
+        "Most TypeErrors trace back to one variable being a different type than you assumed.",
+        "Type hints + `mypy` catch many of these before runtime."
+      ]
+    },
+    {
+      "id": "py_attribute_error",
+      "languages": ["python"],
+      "triggers": [
+        "attributeerror python",
+        "python attribute error",
+        "has no attribute",
+        "nonetype has no attribute",
+        "python attr error"
+      ],
+      "title": "Python: AttributeError debug strategy",
+      "steps": [
+        "Look at the message: 'X has no attribute Y'. Note both X (the object) and Y (the missing attribute).",
+        "If X is `NoneType`, a function returned None — trace back to where the object was created.",
+        "If Y is misspelled, fix the typo. Use `dir(X)` to list real attributes.",
+        "If a method moved or was renamed, check the library version: `pip show <package>`.",
+        "If it's your class, confirm `__init__` actually sets `self.Y = ...` before this point.",
+        "Add `print(type(X), dir(X))` just before the failing line if you're still stuck."
+      ],
+      "tips": [
+        "AttributeError on None almost always means a missing return or a failed lookup upstream.",
+        "Some libraries lazy-load — try accessing the parent module first.",
+        "`hasattr(obj, 'name')` is a quick safety check."
+      ]
+    },
+    {
+      "id": "py_indentation_error",
+      "languages": ["python"],
+      "triggers": [
+        "indentationerror",
+        "taberror",
+        "python indentation",
+        "mixed tabs and spaces",
+        "inconsistent use of tabs",
+        "python tabs spaces"
+      ],
+      "title": "Python: IndentationError / TabError",
+      "steps": [
+        "Open the file in an editor that shows whitespace (VS Code: View > Render Whitespace).",
+        "Look at the line in the error — check whether it's tabs or spaces.",
+        "Pick one: PEP 8 says 4 spaces. Convert the whole file to spaces.",
+        "VS Code: open command palette, run 'Convert Indentation to Spaces'.",
+        "Or run: `python -m tabnanny <file.py>` to find inconsistencies.",
+        "Re-run the script."
+      ],
+      "tips": [
+        "Set your editor to insert spaces for the Tab key project-wide.",
+        "Add a `.editorconfig` so the whole team agrees: `indent_style = space, indent_size = 4`.",
+        "`autopep8 -i <file.py>` will fix indentation in place."
+      ]
+    },
+    {
+      "id": "py_pip_install_fails",
+      "languages": ["python"],
+      "triggers": [
+        "pip install fails",
+        "pip install error",
+        "pip ssl error",
+        "pip no matching distribution",
+        "pip permission denied",
+        "pip install broken",
+        "pip won't install"
+      ],
+      "title": "Python: pip install fails",
+      "steps": [
+        "Read the full error — note keywords: SSL, proxy, EACCES, no matching distribution, version solving.",
+        "Upgrade pip first: `python -m pip install --upgrade pip`.",
+        "If 'no matching distribution', check your Python version supports the package (`python --version`).",
+        "If SSL error, check your system time is correct, or try `--index-url https://pypi.org/simple`.",
+        "If 'permission denied', use a venv instead of system Python, or add `--user`.",
+        "If behind a proxy, set `HTTPS_PROXY` env var or pass `--proxy=http://...`.",
+        "If still failing, try `pip install -vvv <pkg>` for verbose logs."
+      ],
+      "tips": [
+        "Never use `sudo pip install` — make a venv instead.",
+        "Some packages need system libs first (e.g. `libpq-dev` for `psycopg2`).",
+        "Apple Silicon: many older wheels are x86 only — try `pip install --pre <pkg>` or build from source."
+      ]
+    },
+    {
+      "id": "py_venv_not_activating",
+      "languages": ["python"],
+      "triggers": [
+        "venv not activating",
+        "virtualenv not working",
+        "activate venv",
+        "venv activate fails",
+        "python virtual environment not working",
+        "source venv fails"
+      ],
+      "title": "Python: venv won't activate",
+      "steps": [
+        "Confirm the venv exists: `ls .venv/bin` (mac/linux) or `dir .venv\\Scripts` (windows).",
+        "On bash/zsh: `source .venv/bin/activate`.",
+        "On fish: `source .venv/bin/activate.fish`.",
+        "On Windows cmd: `.venv\\Scripts\\activate.bat`.",
+        "On Windows PowerShell: `.venv\\Scripts\\Activate.ps1` — may need `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.",
+        "Confirm activation: `which python` should now point inside `.venv/`.",
+        "If still wrong, delete and recreate: `rm -rf .venv && python -m venv .venv`."
+      ],
+      "tips": [
+        "If `which python` doesn't change, your activate script wasn't sourced (it was executed in a subshell).",
+        "Some shells need a hash refresh: `hash -r` after activating.",
+        "VS Code: select the venv interpreter via 'Python: Select Interpreter' command."
+      ]
+    },
+    {
+      "id": "py_version_conflict",
+      "languages": ["python"],
+      "triggers": [
+        "python version conflict",
+        "wrong python version",
+        "pyenv not working",
+        "multiple python versions",
+        "which python wrong",
+        "python 2 vs python 3"
+      ],
+      "title": "Python: version conflict / wrong interpreter",
+      "steps": [
+        "List every Python on PATH: `which -a python python3` (or `where python` on Windows).",
+        "Find the one you want: `python3.11 -c 'import sys; print(sys.executable)'`.",
+        "If using pyenv: `pyenv versions` lists installed, `pyenv local 3.11.4` pins a project.",
+        "If using asdf: `asdf list python` then `asdf local python <ver>`.",
+        "Create a venv with the right one explicitly: `python3.11 -m venv .venv`.",
+        "Activate it and re-run."
+      ],
+      "tips": [
+        "Never rely on `python` alone — it can be 2.x, 3.x, or missing depending on OS.",
+        "Add a `.python-version` file so pyenv auto-switches when you cd in.",
+        "macOS: `python` is unlinked by default — Homebrew installs as `python3`."
+      ]
+    },
+    {
+      "id": "py_pytest_no_tests",
+      "languages": ["python"],
+      "triggers": [
+        "pytest no tests",
+        "pytest collected 0",
+        "pytest collects nothing",
+        "tests not found pytest",
+        "pytest not finding tests",
+        "pytest discovery"
+      ],
+      "title": "Python: pytest collects 0 tests",
+      "steps": [
+        "Confirm file naming: files must start with `test_` or end with `_test.py`.",
+        "Confirm function naming: functions inside must start with `test_`.",
+        "Confirm class naming: classes must start with `Test` and have no `__init__`.",
+        "Run with verbose discovery: `pytest --collect-only`.",
+        "If running from a subdir, try from the project root or add `conftest.py` to the root.",
+        "Check `pytest.ini` / `pyproject.toml` for a restrictive `testpaths` or `python_files` setting.",
+        "If imports inside the test fail silently, run `pytest -p no:cacheprovider --tb=short` to surface them."
+      ],
+      "tips": [
+        "An empty `conftest.py` in the project root often fixes path-related discovery.",
+        "Use `pytest --rootdir=.` to be explicit about where the project starts.",
+        "If you renamed a test, pytest's cache might be stale — delete `.pytest_cache/`."
+      ]
+    },
+    {
+      "id": "py_flask_app_context",
+      "languages": ["python"],
+      "triggers": [
+        "working outside application context",
+        "flask app context",
+        "flask context error",
+        "runtimeerror flask context",
+        "flask current_app error"
+      ],
+      "title": "Python/Flask: working outside application context",
+      "steps": [
+        "Identify where you're using `current_app`, `g`, `session`, or `url_for` — those need an app context.",
+        "If it's in a script (not a request), wrap the code: `with app.app_context(): ...`.",
+        "If it's in a CLI command, register it with `@app.cli.command` so Flask provides context automatically.",
+        "If it's a background thread/job, push a context manually inside the worker.",
+        "For request-time things (`request`), you need a request context, not just app context.",
+        "Re-run and confirm the error is gone."
+      ],
+      "tips": [
+        "Factory pattern projects: import `current_app` instead of the app instance directly.",
+        "Celery tasks: use `flask.app_context` inside the task body, not at module import.",
+        "`g` is per-request; don't try to share data across requests with it."
+      ]
+    },
+    {
+      "id": "py_django_migrations",
+      "languages": ["python"],
+      "triggers": [
+        "django migrations",
+        "migrations not applied",
+        "django migration error",
+        "inconsistent migration",
+        "django no changes detected",
+        "migration conflict django"
+      ],
+      "title": "Python/Django: migrations broken",
+      "steps": [
+        "Run `python manage.py showmigrations` to see what's applied vs pending.",
+        "If 'no changes detected' but you changed a model, ensure the app is in `INSTALLED_APPS`.",
+        "Generate: `python manage.py makemigrations <app>`.",
+        "Apply: `python manage.py migrate`.",
+        "If you hit 'inconsistent migration history', someone deleted a migration that was already applied — recreate it or `migrate <app> zero` then re-migrate (dev only).",
+        "If two branches each made migrations, run `python manage.py makemigrations --merge` to create a merge migration."
+      ],
+      "tips": [
+        "NEVER edit a migration file that's already applied in production.",
+        "`migrate --plan` shows exactly what will run, in order.",
+        "For a clean dev reset: drop the DB and re-run `migrate`."
+      ]
+    },
+    {
+      "id": "py_asyncio_loop_already_running",
+      "languages": ["python"],
+      "triggers": [
+        "event loop is already running",
+        "asyncio jupyter",
+        "asyncio.run jupyter",
+        "loop already running",
+        "this event loop is already running"
+      ],
+      "title": "Python/asyncio: event loop is already running",
+      "steps": [
+        "Recognize the cause: Jupyter (and some frameworks) already run an event loop, so `asyncio.run()` conflicts.",
+        "In Jupyter: just `await your_coroutine()` directly at the top level.",
+        "Or install nest-asyncio: `pip install nest_asyncio` then `import nest_asyncio; nest_asyncio.apply()`.",
+        "In FastAPI/aiohttp handlers, never call `asyncio.run` inside a handler — `await` instead.",
+        "If you genuinely need a fresh loop, use `asyncio.new_event_loop()` in a separate thread."
+      ],
+      "tips": [
+        "Jupyter notebooks have an implicit loop — `asyncio.run` will always fail there.",
+        "`nest_asyncio` is a duct-tape fix; avoid in production code.",
+        "In Python 3.11+, `asyncio.Runner()` gives more control than `asyncio.run`."
+      ]
+    },
+    {
+      "id": "py_asyncio_task_pending",
+      "languages": ["python"],
+      "triggers": [
+        "task was destroyed but it is pending",
+        "asyncio task pending",
+        "coroutine was never awaited",
+        "task pending warning",
+        "never awaited coroutine"
+      ],
+      "title": "Python/asyncio: task pending / coroutine never awaited",
+      "steps": [
+        "Find the warning's filename:line — it's the coroutine that wasn't awaited.",
+        "If you called `foo()` (an async fn) without `await`, add `await` or wrap in `asyncio.create_task(foo())`.",
+        "If a task was created and the program exited before it finished, await it: `await task` or `asyncio.gather(*tasks)`.",
+        "For fire-and-forget tasks, keep a strong reference: `background_tasks.add(task)` and remove on completion.",
+        "Enable debug mode: `PYTHONASYNCIODEBUG=1 python script.py` for richer traces."
+      ],
+      "tips": [
+        "Tasks without a reference can be garbage-collected mid-flight — always store them.",
+        "`asyncio.gather` waits for everything; `asyncio.wait` lets you choose first/all.",
+        "Async code that mixes with sync (calling `time.sleep`) is its own bug."
+      ]
+    },
+    {
+      "id": "py_pandas_setting_with_copy",
+      "languages": ["python"],
+      "triggers": [
+        "settingwithcopywarning",
+        "pandas chained assignment",
+        "pandas copy warning",
+        "a value is trying to be set on a copy",
+        "pandas slice warning"
+      ],
+      "title": "Python/Pandas: SettingWithCopyWarning",
+      "steps": [
+        "Identify the assignment line that triggered the warning.",
+        "Recognize the bad pattern: `df[df.x > 0]['y'] = 1` — chained indexing on a view.",
+        "Rewrite with `.loc`: `df.loc[df.x > 0, 'y'] = 1`.",
+        "If you actually wanted a separate copy, make it explicit: `df2 = df[df.x > 0].copy()`.",
+        "Re-run — the warning should disappear and the value should actually be set."
+      ],
+      "tips": [
+        "Pandas can't always tell view from copy — `.loc` makes intent unambiguous.",
+        "Suppress globally only as a last resort: `pd.options.mode.chained_assignment = None`.",
+        "Pandas 3.0 plans copy-on-write — `pd.options.mode.copy_on_write = True` to preview."
+      ]
+    },
+    {
+      "id": "py_numpy_shape_mismatch",
+      "languages": ["python"],
+      "triggers": [
+        "numpy shape mismatch",
+        "operands could not be broadcast",
+        "numpy broadcasting error",
+        "shapes not aligned",
+        "dimension mismatch numpy"
+      ],
+      "title": "Python/numpy: shape mismatch",
+      "steps": [
+        "Print the shapes of every array involved: `print(a.shape, b.shape)` before the failing line.",
+        "Recall the broadcasting rule: aligned from the right, each dim must match or be 1.",
+        "If one array is 1D where you want a column, reshape: `a.reshape(-1, 1)` or `a[:, None]`.",
+        "If you want matrix multiply, use `@` or `np.matmul`, not `*`.",
+        "If you reduced an axis somewhere upstream (e.g. `mean`), the shape collapsed — use `keepdims=True`.",
+        "Re-run; print shapes again to verify."
+      ],
+      "tips": [
+        "Always print `.shape` before the failing op — most numpy bugs become obvious.",
+        "`np.newaxis` and `None` in indexing are the same thing — both add a dimension.",
+        "`einsum` makes complex shape dances explicit if broadcasting gets confusing."
+      ]
+    },
+    {
+      "id": "py_ssl_cert_verify_failed",
+      "languages": ["python"],
+      "triggers": [
+        "ssl certificate_verify_failed",
+        "certificate verify failed",
+        "python ssl error",
+        "requests ssl error",
+        "urllib ssl error",
+        "ssl cert error python"
+      ],
+      "title": "Python: SSL CERTIFICATE_VERIFY_FAILED",
+      "steps": [
+        "First confirm your system clock is correct — old time breaks cert validation.",
+        "On macOS, run the bundled installer: `/Applications/Python\\ 3.x/Install\\ Certificates.command`.",
+        "Update certifi: `pip install --upgrade certifi`.",
+        "If behind a corporate proxy with MITM cert, point requests at the corp CA: `REQUESTS_CA_BUNDLE=/path/to/corp.pem`.",
+        "As a TEMPORARY test only: `requests.get(url, verify=False)` — confirms it's a cert issue.",
+        "Don't ship `verify=False` to production — fix the trust chain instead."
+      ],
+      "tips": [
+        "macOS Python from python.org doesn't use the system keychain; that's why the Install Certificates step exists.",
+        "Self-signed certs need to be added to your trust store, not bypassed.",
+        "`openssl s_client -connect host:443` shows the actual cert the server presents."
+      ]
+    },
+    {
+      "id": "py_memory_leak",
+      "languages": ["python"],
+      "triggers": [
+        "python memory leak",
+        "python memory growing",
+        "long running script memory",
+        "python out of memory",
+        "memory leak debug python",
+        "python process growing"
+      ],
+      "title": "Python: memory leak in long-running script",
+      "steps": [
+        "Confirm growth is real: log `psutil.Process().memory_info().rss` over time.",
+        "Snapshot allocations: `import tracemalloc; tracemalloc.start()` early, then `tracemalloc.take_snapshot().statistics('lineno')` later.",
+        "Compare two snapshots to find what grew: `snap2.compare_to(snap1, 'lineno')`.",
+        "Look for caches without bounds (dicts, lru_cache without maxsize, growing lists).",
+        "Look for closures holding references — `gc.get_referrers(obj)` shows what keeps it alive.",
+        "If C extensions are involved, use objgraph or memray for deeper analysis."
+      ],
+      "tips": [
+        "`functools.lru_cache(maxsize=None)` is a classic culprit — bound it.",
+        "Global mutable state (lists, dicts) accumulates forever unless cleared.",
+        "memray gives a flamegraph of allocations — easier than tracemalloc for big apps."
+      ]
+    },
+    {
+      "id": "py_slow_script",
+      "languages": ["python"],
+      "triggers": [
+        "python script slow",
+        "python performance",
+        "python profile",
+        "cprofile python",
+        "python is slow",
+        "profile python code",
+        "speed up python"
+      ],
+      "title": "Python: slow script, find the hot spot",
+      "steps": [
+        "First measure: `time python script.py` gets you a baseline.",
+        "Profile with cProfile: `python -m cProfile -o out.prof script.py`.",
+        "Inspect: `python -m pstats out.prof` then `sort cumulative` and `stats 20`.",
+        "Or visualize with snakeviz: `pip install snakeviz && snakeviz out.prof`.",
+        "For line-by-line timing on the hot function: `pip install line_profiler`, decorate with `@profile`, run `kernprof -l -v script.py`.",
+        "Optimize the actual hot spot — usually one loop, one query, or one I/O call."
+      ],
+      "tips": [
+        "Don't optimize without profiling — you'll guess wrong.",
+        "`py-spy top --pid <pid>` profiles a running process without modifying it.",
+        "Often the fix is vectorization (numpy/pandas) or caching, not micro-optimization."
+      ]
+    },
+    {
+      "id": "py_hanging_script",
+      "languages": ["python"],
+      "triggers": [
+        "python script hanging",
+        "python frozen",
+        "python stuck",
+        "python not responding",
+        "where is my script stuck",
+        "python deadlock",
+        "py-spy"
+      ],
+      "title": "Python: hanging / stuck script",
+      "steps": [
+        "Hit Ctrl-C — Python prints a traceback showing exactly where it was waiting.",
+        "If Ctrl-C doesn't work (e.g. in a C extension), send SIGTERM and read the traceback.",
+        "From another terminal: `py-spy dump --pid <pid>` shows the live stack of every thread.",
+        "Common culprits: blocking I/O (no timeout), `input()` in a script, infinite loop, deadlock between threads.",
+        "Add timeouts to network calls: `requests.get(url, timeout=10)`.",
+        "If it's a deadlock, log which thread holds which lock and in what order."
+      ],
+      "tips": [
+        "py-spy is the single best tool for diagnosing a frozen Python process.",
+        "Default timeouts in requests/urllib are infinite — always set one explicitly.",
+        "If your loop has no exit condition you control, you have an infinite loop."
+      ]
+    },
+    {
+      "id": "py_unicode_encode_decode",
+      "languages": ["python"],
+      "triggers": [
+        "unicodeencodeerror",
+        "unicodedecodeerror",
+        "python unicode error",
+        "codec can't decode",
+        "codec can't encode",
+        "utf-8 error python"
+      ],
+      "title": "Python: Unicode encode/decode error",
+      "steps": [
+        "Read the error: it names the codec and the byte/char that broke (e.g. 0xff).",
+        "Identify the layer: are you reading a file, decoding network bytes, or printing to a terminal?",
+        "For files: open with explicit encoding: `open(path, encoding='utf-8')`.",
+        "For bytes from network/file: `bytes.decode('utf-8', errors='replace')` to recover gracefully.",
+        "For terminal output, set `PYTHONIOENCODING=utf-8`.",
+        "If the source really isn't UTF-8, identify it (often latin-1 or cp1252) and decode with that."
+      ],
+      "tips": [
+        "`chardet` or `charset-normalizer` can guess the encoding of unknown bytes.",
+        "Never let Python default to your locale — be explicit with `encoding=`.",
+        "Python 3 strings are unicode; bytes are bytes. Don't mix them — decode at the edge."
+      ]
+    },
+    {
+      "id": "py_psycopg2_install_mac",
+      "languages": ["python"],
+      "triggers": [
+        "psycopg2 install fails",
+        "psycopg2 macos",
+        "psycopg2 m1",
+        "psycopg2 apple silicon",
+        "pg_config not found",
+        "psycopg2 arm64"
+      ],
+      "title": "Python: psycopg2 install fails (macOS / arm)",
+      "steps": [
+        "Try the prebuilt binary wheel first: `pip install psycopg2-binary` instead of `psycopg2`.",
+        "If you need the source build, install libpq: `brew install libpq` (then `brew link --force libpq`).",
+        "Ensure pg_config is on PATH: `export PATH=\"/opt/homebrew/opt/libpq/bin:$PATH\"`.",
+        "On Apple Silicon, ensure your Python is arm64: `python -c 'import platform; print(platform.machine())'` should show `arm64`.",
+        "Retry: `pip install psycopg2`.",
+        "If still failing, consider switching to `psycopg` (v3) which has better wheels."
+      ],
+      "tips": [
+        "psycopg2-binary is fine for development; psycopg2 from source is preferred in production.",
+        "If you're on x86 Python under Rosetta, brew arm64 libs won't link — match the architectures.",
+        "psycopg v3 is the modern replacement and avoids most of these install pains."
+      ]
+    },
+    {
+      "id": "py_works_on_one_machine",
+      "languages": ["python", "general"],
+      "triggers": [
+        "works on my machine python",
+        "works locally fails on server python",
+        "tls works one machine not other",
+        "requests works locally fails",
+        "python differs between machines"
+      ],
+      "title": "Python: works on machine A, fails on machine B",
+      "steps": [
+        "Compare Python versions: `python --version` on both.",
+        "Compare installed packages: `pip freeze` on both, diff them.",
+        "Compare env vars: `env | sort` — look at PATH, PYTHONPATH, SSL_CERT_FILE.",
+        "Compare OS / arch: `uname -a` — Linux glibc differences and Mac vs Linux often matter.",
+        "If it's a network call, compare connectivity (`curl -v <url>`) from each machine.",
+        "Pin everything: lock with `pip freeze > requirements.txt` then `pip install -r` on the broken machine."
+      ],
+      "tips": [
+        "A reproducible env (Docker, poetry, pip-tools) eliminates 90% of these.",
+        "Different CA bundles can make TLS work on one machine and fail on another.",
+        "DNS resolution differs by network — try the IP directly to isolate."
+      ]
+    },
+    {
+      "id": "js_undefined_property",
+      "languages": ["javascript"],
+      "triggers": [
+        "cannot read properties of undefined",
+        "cannot read property of undefined",
+        "undefined is not an object",
+        "reading undefined",
+        "tried to read property",
+        "js undefined error"
+      ],
+      "title": "JS: Cannot read properties of undefined",
+      "steps": [
+        "Read the error: 'Cannot read properties of undefined (reading X)'. X is the property you tried to access.",
+        "Find the access in your code: it's `something.X` where `something` is undefined.",
+        "Add a console.log right before that line: `console.log({something})` to confirm.",
+        "Trace upstream: where should `something` have been set? A function return, an API response, a prop?",
+        "Add a guard: `something?.X` (optional chaining) — fixes the crash but masks the real issue.",
+        "Fix the real cause: ensure the data is there before the read, or provide a default."
+      ],
+      "tips": [
+        "Optional chaining (`?.`) is a band-aid; the real fix is understanding why it was undefined.",
+        "Async data — the component renders before the fetch resolves. Render a loading state.",
+        "Destructuring with defaults helps: `const { x = 0 } = obj ?? {}`."
+      ]
+    },
+    {
+      "id": "js_is_not_a_function",
+      "languages": ["javascript"],
+      "triggers": [
+        "is not a function",
+        "typeerror is not a function",
+        "calling not a function",
+        "x.y is not a function",
+        "js not a function"
+      ],
+      "title": "JS: X is not a function",
+      "steps": [
+        "Read the error — it names what you tried to call.",
+        "console.log the value just before the call: `console.log(typeof x, x)`.",
+        "If it's undefined, the import or property access failed — check spelling and the import statement.",
+        "If it's an object, you probably forgot a method name: `x()` should be `x.doThing()`.",
+        "If it's the result of `import X from ...`, check whether the module exports default or named — your import shape may be wrong.",
+        "If it's a CommonJS/ESM mismatch, use `require('mod').default` or fix the export."
+      ],
+      "tips": [
+        "`typeof` is the fastest way to know what you're dealing with.",
+        "Named vs default export is the #1 cause for new TypeScript/ESM projects.",
+        "If a library's API changed, `npm view <pkg> versions` plus changelog is your friend."
+      ]
+    },
+    {
+      "id": "js_reference_error",
+      "languages": ["javascript"],
+      "triggers": [
+        "referenceerror is not defined",
+        "is not defined javascript",
+        "js reference error",
+        "variable not defined",
+        "x is not defined node",
+        "window is not defined"
+      ],
+      "title": "JS: ReferenceError X is not defined",
+      "steps": [
+        "Read the variable name in the error.",
+        "Check spelling and case — JS is case-sensitive.",
+        "If it's a browser global (`window`, `document`), you're running in Node — guard with `typeof window !== 'undefined'`.",
+        "If it's a Node global (`process`, `__dirname`), you're in the browser — bundle it or remove the reference.",
+        "If it's a module export, check the import line: `import { X } from '...'`.",
+        "If you forgot to declare it, add `const`, `let`, or import it."
+      ],
+      "tips": [
+        "`window is not defined` during Next.js build means SSR is running browser-only code — move it inside useEffect or check `typeof`.",
+        "Strict mode catches this earlier — keep it on.",
+        "ESLint's `no-undef` would have caught most of these at edit time."
+      ]
+    },
+    {
+      "id": "js_tdz_before_initialization",
+      "languages": ["javascript"],
+      "triggers": [
+        "cannot access before initialization",
+        "temporal dead zone",
+        "tdz error",
+        "let const before declaration",
+        "before initialization js"
+      ],
+      "title": "JS: Cannot access X before initialization (TDZ)",
+      "steps": [
+        "Find the line that uses X — it's running before the `let`/`const` declaration.",
+        "Move the declaration above the first use.",
+        "If it's a circular import, the binding exists but isn't initialized yet — restructure or lazy-import.",
+        "If you intended hoisting (function-scoped), use `var` or a function declaration — but prefer fixing the order.",
+        "Re-run; the error should disappear."
+      ],
+      "tips": [
+        "`let` and `const` are hoisted but unusable until their declaration — that's the TDZ.",
+        "Circular imports cause TDZ when one module reads a binding from the other before it's set.",
+        "Function declarations are fully hoisted; arrow functions assigned to `const` are not."
+      ]
+    },
+    {
+      "id": "js_npm_install_fails",
+      "languages": ["javascript"],
+      "triggers": [
+        "npm install fails",
+        "npm install error",
+        "eresolve",
+        "peer dependency npm",
+        "npm 404",
+        "npm install broken",
+        "npm enetunreach"
+      ],
+      "title": "JS: npm install fails",
+      "steps": [
+        "Read the error — look for ERESOLVE, EACCES, ETARGET, ENETUNREACH, 404.",
+        "If ERESOLVE (peer dep conflict), try `npm install --legacy-peer-deps` once to confirm — then fix versions properly.",
+        "If 404, the package name is wrong or you're hitting a private registry without auth.",
+        "If ENETUNREACH, network or proxy — try `npm config get registry` and `curl -I` to it.",
+        "Nuke and retry: `rm -rf node_modules package-lock.json && npm install`.",
+        "If still broken, try a clean Node version (`nvm install --lts && nvm use --lts`)."
+      ],
+      "tips": [
+        "`--legacy-peer-deps` is a workaround, not a fix — pin the offending peer correctly.",
+        "Corporate networks: `npm config set registry` to your internal mirror.",
+        "pnpm and yarn often resolve trees that npm chokes on — worth a try."
+      ]
+    },
+    {
+      "id": "js_npm_eacces",
+      "languages": ["javascript"],
+      "triggers": [
+        "npm eacces",
+        "npm permission denied",
+        "npm global install permission",
+        "eacces npm install",
+        "npm sudo"
+      ],
+      "title": "JS: npm EACCES on global install",
+      "steps": [
+        "DON'T use `sudo npm install -g` — it makes future installs worse.",
+        "Use a Node version manager that owns its prefix: install nvm or fnm.",
+        "After installing nvm: `nvm install --lts && nvm use --lts`.",
+        "Confirm: `which npm` should point inside your home dir, not `/usr/local`.",
+        "Retry the global install: `npm install -g <pkg>`.",
+        "Or, change npm's prefix to a user-owned dir: `npm config set prefix ~/.npm-global` and add `~/.npm-global/bin` to PATH."
+      ],
+      "tips": [
+        "Globally installed binaries belong to your user, not root — keep it that way.",
+        "If you already ran `sudo npm` and broke perms, `sudo chown -R $(whoami) ~/.npm` fixes ownership.",
+        "Many tools (vite, eslint) work fine as project-local devDependencies — skip global install."
+      ]
+    },
+    {
+      "id": "js_package_lock_conflict",
+      "languages": ["javascript", "git"],
+      "triggers": [
+        "package-lock.json conflict",
+        "package lock merge conflict",
+        "yarn.lock conflict",
+        "pnpm-lock conflict",
+        "lockfile conflict"
+      ],
+      "title": "JS: package-lock.json merge conflict",
+      "steps": [
+        "Don't try to hand-merge a lockfile — it's machine-generated.",
+        "Accept one side (usually theirs/main): `git checkout --theirs package-lock.json`.",
+        "Delete node_modules: `rm -rf node_modules`.",
+        "Reinstall to regenerate the lockfile: `npm install`.",
+        "Stage the new lockfile: `git add package-lock.json`.",
+        "Commit the merge."
+      ],
+      "tips": [
+        "Same idea applies to yarn.lock and pnpm-lock.yaml — let the tool regenerate.",
+        "Some teams ignore lockfile conflicts in PR review and just take whichever fresh install produces.",
+        "If `npm install` resolves to different versions than expected, check engines and peer deps."
+      ]
+    },
+    {
+      "id": "js_esm_cjs_mismatch",
+      "languages": ["javascript"],
+      "triggers": [
+        "cannot use import statement outside a module",
+        "require is not defined",
+        "esm cjs mismatch",
+        "exports is not defined",
+        "es module error",
+        "type module package.json"
+      ],
+      "title": "JS: ESM vs CommonJS mismatch",
+      "steps": [
+        "Decide what your project is: ESM (modern, `import`) or CJS (`require`).",
+        "For ESM: add `\"type\": \"module\"` to package.json, use `.js` files with `import/export`.",
+        "For CJS: leave `\"type\"` out (or `\"commonjs\"`), use `require/module.exports`.",
+        "If you mix, name files explicitly: `.mjs` (ESM) or `.cjs` (CJS) overrides the package default.",
+        "If a dep is ESM-only and you're in CJS, dynamic import: `const x = await import('pkg')`.",
+        "Restart node — the loader caches module shape."
+      ],
+      "tips": [
+        "Most modern packages are ESM-only now (chalk v5, node-fetch v3) — projects that haven't migrated hit this constantly.",
+        "TypeScript: `module: NodeNext` in tsconfig matches Node's ESM behavior.",
+        "Top-level `await` works only in ESM."
+      ]
+    },
+    {
+      "id": "js_hydration_mismatch",
+      "languages": ["javascript"],
+      "triggers": [
+        "hydration mismatch",
+        "hydration failed",
+        "react hydration error",
+        "next.js hydration",
+        "text content did not match",
+        "server html does not match"
+      ],
+      "title": "JS/React: hydration mismatch",
+      "steps": [
+        "Open the browser console — React names the differing element.",
+        "Common cause: rendering `Date.now()`, `Math.random()`, or `localStorage` directly in render — produces different output server vs client.",
+        "Move browser-only data into `useEffect` (post-mount) and store in state.",
+        "Or guard with `typeof window !== 'undefined'` and provide a stable server render.",
+        "If using user-locale formatting, render a placeholder on the server and the localized value on the client.",
+        "Check that conditional rendering doesn't depend on `window`, `document`, or user agent during initial render."
+      ],
+      "tips": [
+        "Browser extensions sometimes inject DOM that React then 'mismatches' — incognito test rules that out.",
+        "Next.js `suppressHydrationWarning` silences but doesn't fix — use sparingly.",
+        "Dates and numbers are the #1 source; format them after mount."
+      ]
+    },
+    {
+      "id": "js_invalid_hook_call",
+      "languages": ["javascript"],
+      "triggers": [
+        "invalid hook call",
+        "hooks can only be called",
+        "react invalid hook",
+        "hook outside component",
+        "rules of hooks"
+      ],
+      "title": "JS/React: invalid hook call",
+      "steps": [
+        "Identify which hook is failing and where it's called.",
+        "Confirm it's called at the TOP LEVEL of a component or another hook — not inside an if/loop/callback.",
+        "Confirm the file is a component (function returning JSX), not a regular utility.",
+        "Check for duplicate React: `npm ls react` — two copies makes hooks fail.",
+        "If you're linking a local package, npm link can pull in a second React — use vite/webpack aliases to dedupe.",
+        "Restart the dev server after fixing duplicates."
+      ],
+      "tips": [
+        "The three rules of hooks: only call from React functions, only at top level, same order every render.",
+        "ESLint `react-hooks/rules-of-hooks` catches most violations.",
+        "Duplicate React from `npm link` is a classic gotcha for component libraries."
+      ]
+    },
+    {
+      "id": "js_unique_key_warning",
+      "languages": ["javascript"],
+      "triggers": [
+        "each child should have unique key",
+        "react key warning",
+        "missing key prop",
+        "key prop list",
+        "unique key prop"
+      ],
+      "title": "JS/React: each child should have unique key",
+      "steps": [
+        "Find the `.map()` rendering a list — the JSX element returned needs a `key` prop.",
+        "Use a stable unique value: `key={item.id}`.",
+        "Only fall back to index (`key={i}`) if the list is static and items never reorder.",
+        "If items have no id, generate one when creating the item (don't generate during render — it changes on every render).",
+        "Re-run; the warning should be gone."
+      ],
+      "tips": [
+        "`key={Math.random()}` is wrong — it remounts every render, killing state.",
+        "Index-as-key breaks state when items reorder or delete from the middle.",
+        "The key must be unique among SIBLINGS, not globally."
+      ]
+    },
+    {
+      "id": "js_useeffect_twice",
+      "languages": ["javascript"],
+      "triggers": [
+        "useeffect runs twice",
+        "useeffect twice strict mode",
+        "react double render",
+        "effect fires twice",
+        "react strict mode useeffect"
+      ],
+      "title": "JS/React: useEffect runs twice (StrictMode)",
+      "steps": [
+        "Recognize this is intentional in dev: React.StrictMode mounts, unmounts, then remounts to catch missing cleanups.",
+        "Add a cleanup function: `return () => { /* undo the effect */ }`.",
+        "For fetches, use an AbortController and abort in cleanup.",
+        "For subscriptions, unsubscribe in cleanup.",
+        "For increments/POST calls, gate with a ref or move to a one-shot location (event handler, useEffect with proper deps).",
+        "It does NOT happen in production builds — only dev under StrictMode."
+      ],
+      "tips": [
+        "Don't disable StrictMode to silence this — it's revealing a real bug.",
+        "If a fetch fires twice, your effect was missing cleanup; the dev double-fire just exposed it.",
+        "React 19's `<Activity>` and Suspense remove some of these patterns entirely."
+      ]
+    },
+    {
+      "id": "js_state_not_updating",
+      "languages": ["javascript"],
+      "triggers": [
+        "state not updating",
+        "react state stale",
+        "stale closure react",
+        "setstate not working",
+        "usestate not updating",
+        "react setState old value"
+      ],
+      "title": "JS/React: state not updating / stale closure",
+      "steps": [
+        "Print the value right after `setX`: it WON'T be updated — setState is async, the variable in this render is stale.",
+        "To use the new value, read it in the next render or use the functional form: `setX(prev => prev + 1)`.",
+        "If updating inside `useEffect` or `setInterval`, capture `x` via the functional setter, not the closed-over variable.",
+        "Add the missing dep to your useEffect array — ESLint exhaustive-deps catches this.",
+        "If state is an object/array, you must create a new reference: `setObj({ ...obj, k: v })`, not `obj.k = v`.",
+        "If using zustand/redux, check you're subscribing to the right slice."
+      ],
+      "tips": [
+        "The functional updater `setX(prev => ...)` is immune to stale closures.",
+        "Mutating state directly is the most common 'state isn't updating' bug.",
+        "`useEffect` with `[]` deps captures initial values forever — use refs or functional updates."
+      ]
+    },
+    {
+      "id": "js_unhandled_promise_rejection",
+      "languages": ["javascript"],
+      "triggers": [
+        "unhandled promise rejection",
+        "unhandledrejection",
+        "promise rejection not caught",
+        "async error not caught",
+        "unhandled rejection node"
+      ],
+      "title": "JS: unhandled promise rejection",
+      "steps": [
+        "Read the rejection message — it's the underlying error.",
+        "Find the promise: it's an async call without a `.catch()` or a missed `await` inside try/catch.",
+        "Add error handling: wrap awaits in try/catch, or `.catch()` every promise chain.",
+        "For top-level promises, install a global handler: `process.on('unhandledRejection', err => ...)` in Node, or `window.addEventListener('unhandledrejection', ...)` in browser.",
+        "If a library's promise rejects silently, await its result explicitly.",
+        "In Node 15+, unhandled rejections crash the process by default — fix them at the source."
+      ],
+      "tips": [
+        "Every `await` should be inside try/catch unless you're sure it can't reject.",
+        "`Promise.all` rejects on first error — use `Promise.allSettled` if you want all results.",
+        "Forgetting to await an async function is the #1 cause of phantom rejections."
+      ]
+    },
+    {
+      "id": "js_node_memory_leak",
+      "languages": ["javascript"],
+      "triggers": [
+        "node memory leak",
+        "node.js memory growing",
+        "node heap snapshot",
+        "node out of memory leak",
+        "node js memory issue",
+        "memory leak node app"
+      ],
+      "title": "JS/Node: memory leak debug",
+      "steps": [
+        "Run with inspector: `node --inspect app.js` and open chrome://inspect.",
+        "Take a heap snapshot, exercise the app to trigger the leak, take another snapshot.",
+        "Use 'Comparison' view to find objects that grew between snapshots.",
+        "Look for: event listeners never removed, closures retaining big data, growing Map/Set/array.",
+        "Patch the leak — remove listeners on cleanup, bound caches, release references.",
+        "Restart and re-snapshot to verify."
+      ],
+      "tips": [
+        "`process.memoryUsage()` logs current heap to console — useful for ambient monitoring.",
+        "clinic.js doctor is a guided tool: `clinic doctor -- node app.js`.",
+        "EventEmitter without `removeListener` is the classic Node leak."
+      ]
+    },
+    {
+      "id": "js_node_oom",
+      "languages": ["javascript"],
+      "triggers": [
+        "node out of memory",
+        "heap out of memory",
+        "javascript heap out of memory",
+        "max-old-space-size",
+        "node oom"
+      ],
+      "title": "JS/Node: out of memory",
+      "steps": [
+        "First, confirm it's a real need vs a leak — see the memory-leak walkthrough if the process grows over time.",
+        "Raise the limit for legitimate cases: `node --max-old-space-size=4096 app.js` (MB).",
+        "Set globally for npm scripts via NODE_OPTIONS: `NODE_OPTIONS='--max-old-space-size=4096' npm run build`.",
+        "For builds (webpack/tsc), this is usually the right fix — they need lots of memory.",
+        "If a leak, fix it instead of raising the limit forever.",
+        "On constrained machines (CI, Docker), match the limit to container memory."
+      ],
+      "tips": [
+        "Default heap is ~2GB on 64-bit Node — easy to blow past for large TS/webpack projects.",
+        "Docker: also pass memory to the container (`--memory=4g`), not just Node.",
+        "If raising the limit doesn't help, you have a real leak — go debug it."
+      ]
+    },
+    {
+      "id": "js_eaddrinuse",
+      "languages": ["javascript"],
+      "triggers": [
+        "eaddrinuse",
+        "address already in use",
+        "port already in use",
+        "port in use node",
+        "kill port node"
+      ],
+      "title": "JS/Node: EADDRINUSE port already in use",
+      "steps": [
+        "Find what's on the port: `lsof -i :3000` (mac/linux) or `netstat -ano | findstr :3000` (windows).",
+        "If it's an old run of your own app, kill it: `kill <pid>` (or `taskkill /PID <pid> /F` on windows).",
+        "Quick one-liner: `lsof -ti :3000 | xargs kill -9`.",
+        "Restart your server.",
+        "If you genuinely need two servers, change the port: `PORT=3001 npm start`."
+      ],
+      "tips": [
+        "Nodemon crashes can leave the old process behind — always check what's listening.",
+        "On macOS, AirPlay Receiver squats on port 5000 — disable in System Settings.",
+        "Add a graceful shutdown (`process.on('SIGTERM', ...)`) so your dev server releases the port cleanly."
+      ]
+    },
+    {
+      "id": "js_webpack_module_not_found",
+      "languages": ["javascript"],
+      "triggers": [
+        "webpack module not found",
+        "webpack cannot find module",
+        "webpack can't resolve",
+        "webpack resolve error",
+        "module not found webpack"
+      ],
+      "title": "JS/Webpack: module not found",
+      "steps": [
+        "Read the error: it names the missing module and the file that imported it.",
+        "If it's an npm package, install it: `npm install <pkg>`.",
+        "If it's a local file, check the relative path — case-sensitive on Linux/CI even when it works on macOS.",
+        "Check `resolve.extensions` in webpack config if you're omitting a file extension that isn't listed.",
+        "Check `resolve.alias` for path aliases that should map (`@/` → `src/`).",
+        "Clear webpack cache: `rm -rf node_modules/.cache` and rebuild."
+      ],
+      "tips": [
+        "Case mismatch is the most common cause of 'works on Mac, fails in CI'.",
+        "Aliases need to be set in BOTH webpack AND tsconfig for TS projects.",
+        "If a dep is ESM-only, you may need to mark it in `externalsType` or upgrade webpack."
+      ]
+    },
+    {
+      "id": "js_vite_hmr_not_working",
+      "languages": ["javascript"],
+      "triggers": [
+        "vite hmr not working",
+        "vite hot reload broken",
+        "vite not reloading",
+        "vite hmr error",
+        "hot module reload broken"
+      ],
+      "title": "JS/Vite: HMR not working",
+      "steps": [
+        "Open the browser devtools network tab — look for the WebSocket to `/__vite_hmr`. It should be open.",
+        "If blocked, check for a corporate proxy stripping WebSockets, or a service worker intercepting.",
+        "If running through Docker, expose the HMR port and set `server.hmr.host` in vite.config to the host's IP.",
+        "If working behind a tunnel (ngrok/tailscale), set `server.hmr.clientPort` to the public port.",
+        "Clear Vite cache: `rm -rf node_modules/.vite`.",
+        "Restart dev server and watch console for HMR connection messages."
+      ],
+      "tips": [
+        "Service workers in dev are the #1 silent HMR killer — unregister them.",
+        "Files outside the project root won't trigger HMR unless added to `server.fs.allow`.",
+        "Some component patterns (default-export anonymous functions) break Fast Refresh — name them."
+      ]
+    },
+    {
+      "id": "js_jest_hangs",
+      "languages": ["javascript"],
+      "triggers": [
+        "jest hangs",
+        "jest not exiting",
+        "jest open handles",
+        "jest force exit",
+        "jest test hangs",
+        "detectopenhandles"
+      ],
+      "title": "JS/Jest: tests hang / don't exit",
+      "steps": [
+        "Run with open handle detection: `jest --detectOpenHandles`.",
+        "Look at the stack — it points to the resource that's still alive (timer, server, db connection).",
+        "Close servers in afterAll: `afterAll(() => server.close())`.",
+        "Clear timers: `afterEach(() => jest.useRealTimers())` and clear any setInterval/setTimeout.",
+        "Close db pools: `afterAll(() => pool.end())`.",
+        "If you can't find it, `--forceExit` is a last resort (masks the bug, won't fix it)."
+      ],
+      "tips": [
+        "Any module that opens a connection on import will keep Jest alive — mock it or close it explicitly.",
+        "`testEnvironment: 'node'` for backend tests avoids jsdom overhead and weird handle leaks.",
+        "If using supertest, `app.close()` is needed even though it 'feels' synchronous."
+      ]
+    },
+    {
+      "id": "js_jest_setup_not_running",
+      "languages": ["javascript"],
+      "triggers": [
+        "jest setup not running",
+        "setupfiles not running",
+        "jest setupTests not loading",
+        "mocha setup not running",
+        "jest globals not defined"
+      ],
+      "title": "JS/Jest: setup file not running",
+      "steps": [
+        "Confirm the setup file path in jest.config: `setupFilesAfterEach: ['<rootDir>/jest.setup.ts']`.",
+        "Distinguish `setupFiles` (runs before test framework) from `setupFilesAfterEach` (runs after framework is loaded — where `expect.extend` works).",
+        "Confirm the file actually runs by adding `console.log('SETUP')` at the top.",
+        "If running with `--config`, ensure you're pointing at the right config.",
+        "If using projects/monorepo, each project may need its own setupFiles.",
+        "Restart watch mode after config changes."
+      ],
+      "tips": [
+        "`setupFilesAfterEach` is the one you want 99% of the time.",
+        "For Mocha, use `--require ./setup.js` on the CLI.",
+        "Module-level side effects in the setup file are the trick — top-level code runs once."
+      ]
+    },
+    {
+      "id": "js_cors_error",
+      "languages": ["javascript", "general"],
+      "triggers": [
+        "cors error",
+        "blocked by cors policy",
+        "access-control-allow-origin",
+        "cors browser",
+        "cors preflight",
+        "no access-control-allow-origin"
+      ],
+      "title": "JS: browser CORS error",
+      "steps": [
+        "Read the exact message — it names the missing or mismatched header.",
+        "CORS is enforced by the BROWSER, not the server — curl/Postman won't reproduce it.",
+        "Fix on the SERVER: add `Access-Control-Allow-Origin: <your origin>` (or `*` for public APIs).",
+        "If preflight fails (OPTIONS), the server must respond to OPTIONS and include `Allow-Methods`, `Allow-Headers`.",
+        "If sending credentials/cookies, origin can't be `*` — must be explicit, and add `Allow-Credentials: true` plus `credentials: 'include'` on the fetch.",
+        "In dev, use the framework's proxy (Vite `server.proxy`, CRA `proxy`) to avoid CORS entirely."
+      ],
+      "tips": [
+        "Disabling CORS in the browser is a hack — never ship code that needs it.",
+        "Wildcard `*` doesn't work with credentials — must list the origin explicitly.",
+        "The dev proxy is the cleanest dev-time workaround — it makes requests same-origin."
+      ]
+    },
+    {
+      "id": "ts_object_possibly_null",
+      "languages": ["typescript"],
+      "triggers": [
+        "object is possibly null",
+        "object is possibly undefined",
+        "ts2531",
+        "ts2532",
+        "typescript null check",
+        "ts possibly null"
+      ],
+      "title": "TS: object is possibly null/undefined",
+      "steps": [
+        "Read the error — TS sees a path where the value could be null/undefined.",
+        "Quick fix: use optional chaining `x?.y` to bail out if null.",
+        "If you know it's defined, narrow with an if: `if (x) { x.y }`.",
+        "If the type wrongly includes null, refine the type: `x: Foo` instead of `Foo | null`.",
+        "If from an API: validate at the boundary (zod, runtime check), then the type narrows.",
+        "Avoid `!` (non-null assertion) — it's a lie to the compiler and crashes at runtime."
+      ],
+      "tips": [
+        "`strictNullChecks` is what enables this — keep it on; it catches real bugs.",
+        "User-defined type guards (`function isFoo(x): x is Foo`) narrow nicely.",
+        "Discriminated unions narrow without manual checks."
+      ]
+    },
+    {
+      "id": "ts_not_assignable",
+      "languages": ["typescript"],
+      "triggers": [
+        "ts2322",
+        "type x is not assignable to type y",
+        "not assignable typescript",
+        "ts not assignable",
+        "type assignment error"
+      ],
+      "title": "TS: type X is not assignable to type Y",
+      "steps": [
+        "Read the full error — TS often points at the exact incompatible property.",
+        "Compare the two types side by side. Hover both in your editor to expand them.",
+        "If a property is missing, add it (or make it optional in the target type).",
+        "If types differ slightly (e.g. `string` vs `'a' | 'b'`), use a literal or `as const`.",
+        "If you intend the cast, use `as Y` — but understand you're overriding the checker.",
+        "If from a library type that's too strict, check if there's a generic param you can pass."
+      ],
+      "tips": [
+        "TS error messages get more useful when read from the bottom up — the root cause is at the bottom.",
+        "Don't reach for `as any` reflexively — usually a tiny type fix is right there.",
+        "`satisfies` is great when you want a literal type but still type-check assignability."
+      ]
+    },
+    {
+      "id": "ts_exhaustive_switch",
+      "languages": ["typescript"],
+      "triggers": [
+        "exhaustiveness check",
+        "typescript switch exhaustive",
+        "discriminated union switch",
+        "exhaustive switch",
+        "ts never exhaustive"
+      ],
+      "title": "TS: exhaustiveness check on switch",
+      "steps": [
+        "Define your union: `type Shape = Circle | Square | Triangle`.",
+        "Write the switch with a discriminant: `switch (shape.kind)`.",
+        "Add a `default` case that assigns to `never`: `const _: never = shape; throw new Error('Unhandled');`.",
+        "If you add a new variant later, TS errors on the never assignment until you handle it.",
+        "Use this pattern anywhere you fan out on a union — it makes refactors safe."
+      ],
+      "tips": [
+        "The `never` trick converts a runtime maybe-bug into a compile-time error.",
+        "Helper: `function assertNever(x: never): never { throw ... }` for reuse.",
+        "Pair with `as const` on literal arrays for similar guarantees."
+      ]
+    },
+    {
+      "id": "ts_decorators",
+      "languages": ["typescript"],
+      "triggers": [
+        "typescript decorators not working",
+        "ts decorators",
+        "experimentaldecorators",
+        "decorator error typescript",
+        "@decorator not working"
+      ],
+      "title": "TS: decorators not working",
+      "steps": [
+        "In tsconfig.json, enable `\"experimentalDecorators\": true`.",
+        "If using legacy emitDecoratorMetadata (NestJS, TypeORM): also set `\"emitDecoratorMetadata\": true`.",
+        "Make sure your TS version matches what your framework expects (NestJS-style legacy vs TC39 standard).",
+        "If using ts-node, ensure it reads the same tsconfig (`ts-node --project tsconfig.json`).",
+        "If using SWC or esbuild, enable decorator support in their config too — they're not always on by default.",
+        "Restart your build/dev server."
+      ],
+      "tips": [
+        "TS 5.0+ supports TC39 standard decorators by default — different syntax/semantics than experimental.",
+        "Frameworks like NestJS pin to experimental until they migrate.",
+        "Vite/esbuild may need `tsconfig` decorator flags AND a plugin (`@vitejs/plugin-react-swc` etc.)."
+      ]
+    },
+    {
+      "id": "ts_cannot_find_module_types",
+      "languages": ["typescript"],
+      "triggers": [
+        "cannot find module typescript",
+        "cannot find type declaration",
+        "could not find a declaration file",
+        "ts cannot find module",
+        "missing types typescript",
+        "@types missing"
+      ],
+      "title": "TS: cannot find module or its type declarations",
+      "steps": [
+        "Try installing community types: `npm i -D @types/<pkg>`.",
+        "If no @types exist, declare the module yourself: in `src/types/<pkg>.d.ts` add `declare module '<pkg>';`.",
+        "If types ship with the package, ensure tsconfig `moduleResolution` is `node` or `bundler` (or `nodenext`).",
+        "If the package is ESM with conditional exports, set `module` and `moduleResolution` to `nodenext`.",
+        "Check `typeRoots` and `types` in tsconfig — overly narrow values can exclude installed types.",
+        "Restart your editor's TS server after changes."
+      ],
+      "tips": [
+        "VS Code: command palette → 'TypeScript: Restart TS Server' after tsconfig edits.",
+        "`moduleResolution: bundler` is the modern default for Vite/Webpack projects.",
+        "DefinitelyTyped lag is real — declaring `declare module` is a fine stopgap."
+      ]
+    },
+    {
+      "id": "ts_slow_compile",
+      "languages": ["typescript"],
+      "triggers": [
+        "typescript slow",
+        "tsc slow",
+        "typescript out of memory",
+        "tsc hang",
+        "ts compile slow",
+        "typescript build slow"
+      ],
+      "title": "TS: slow compile / out of memory",
+      "steps": [
+        "Profile: `tsc --extendedDiagnostics --noEmit` shows where time is spent.",
+        "Enable incremental builds: `\"incremental\": true` in tsconfig (writes `.tsbuildinfo`).",
+        "For monorepos, switch to project references with `composite: true` and `tsc --build`.",
+        "Exclude things you don't need: `node_modules`, build output, generated files in `exclude`.",
+        "Avoid `skipLibCheck: false` unless you really need it — it slows huge projects.",
+        "If OOM: `NODE_OPTIONS='--max-old-space-size=8192' tsc`."
+      ],
+      "tips": [
+        "Deeply recursive conditional types are the biggest cost — simplify when possible.",
+        "`tsc --noEmit` for type-check + a fast bundler (esbuild/swc) for transpile is a common combo.",
+        "Project references let TS skip unchanged packages."
+      ]
+    },
+    {
+      "id": "ts_eslint_prettier_conflict",
+      "languages": ["typescript", "javascript"],
+      "triggers": [
+        "eslint prettier conflict",
+        "eslint prettier fight",
+        "prettier eslint formatting",
+        "eslint-config-prettier",
+        "eslint vs prettier"
+      ],
+      "title": "TS/JS: ESLint conflicts with Prettier",
+      "steps": [
+        "Install: `npm i -D eslint-config-prettier`.",
+        "In your eslint config `extends`, put `'prettier'` LAST — it disables formatting rules that fight Prettier.",
+        "Remove any `eslint-plugin-prettier` integrations unless you specifically want Prettier-as-ESLint-rule (slow).",
+        "Run Prettier first, ESLint second, in your scripts.",
+        "Restart your editor's ESLint server."
+      ],
+      "tips": [
+        "Let Prettier do formatting; let ESLint do logic/style rules.",
+        "Running prettier-as-ESLint-rule shows diffs as lint errors — annoying in editors. Skip it.",
+        "For monorepos, share config via a base package and extend per project."
+      ]
+    },
+    {
+      "id": "bash_runs_in_terminal_not_cron",
+      "languages": ["bash"],
+      "triggers": [
+        "script works in terminal but not cron",
+        "cron not running",
+        "cron script fails",
+        "crontab not working",
+        "bash cron issue"
+      ],
+      "title": "Bash: works in terminal, not in cron",
+      "steps": [
+        "Cron runs with a minimal env — no PATH, no shell aliases, no rc files.",
+        "Use absolute paths everywhere: `/usr/local/bin/python` not `python`.",
+        "Add PATH at the top of the cron entry: `PATH=/usr/local/bin:/usr/bin:/bin`.",
+        "Redirect output for debugging: `* * * * * /path/script.sh >> /tmp/script.log 2>&1`.",
+        "Check the log — cron's error is now visible.",
+        "If the script sources a file (env vars, virtualenv), source it explicitly inside the script."
+      ],
+      "tips": [
+        "Cron uses /bin/sh by default, not bash — start your script with `#!/bin/bash` and run as a file.",
+        "Mail still works on some systems — `MAILTO=you@x.com` in crontab gets you the error.",
+        "On systemd machines, prefer systemd timers — better logging via `journalctl`."
+      ]
+    },
+    {
+      "id": "bash_works_alone_not_in_if",
+      "languages": ["bash"],
+      "triggers": [
+        "works alone not in if",
+        "bash if not working",
+        "if statement fails bash",
+        "if returns wrong value bash",
+        "bash conditional broken"
+      ],
+      "title": "Bash: command works alone but not in `if`",
+      "steps": [
+        "Remember `if` checks exit status, not command output. `if grep foo file` works; `if [ grep foo file ]` doesn't.",
+        "Use `[[ ... ]]` for bash conditionals; `[ ... ]` for POSIX.",
+        "For command-output checks: `if [[ $(cmd) == 'expected' ]]; then ...`.",
+        "Add `set -x` above the if to trace what bash actually evaluates.",
+        "Quote variables: `if [[ -z \"$x\" ]]; then ...` — unquoted breaks on spaces and empty strings.",
+        "Check exit code directly with `if cmd; then ...` when you only care about success."
+      ],
+      "tips": [
+        "`[[` is bash-specific but much friendlier than `[`.",
+        "`set -x; ...; set +x` brackets a section to debug.",
+        "ShellCheck catches almost all of these — run it on every script."
+      ]
+    },
+    {
+      "id": "bash_test_brackets",
+      "languages": ["bash"],
+      "triggers": [
+        "if [ $x ] doesn't work",
+        "bash test command",
+        "bash if variable",
+        "[ unary operator expected",
+        "test bash empty"
+      ],
+      "title": "Bash: `if [ $X ]` doesn't behave",
+      "steps": [
+        "Quote the variable: `if [ \"$X\" ]; then ...` — unquoted, an empty X becomes `if [ ]`.",
+        "Use `-z` for empty: `if [ -z \"$X\" ]`. Use `-n` for non-empty.",
+        "For numeric comparison, use `-eq -lt -gt`, not `== <`.",
+        "For string comparison, use `=` (POSIX) or `==` (inside `[[`).",
+        "Use `[[ ]]` to avoid most quoting traps.",
+        "Run with `set -x` to see expansion."
+      ],
+      "tips": [
+        "Always quote variables in `[ ]` — it's the #1 source of test bugs.",
+        "`[[ ]]` doesn't word-split — safer for variables and easier to read.",
+        "ShellCheck flags every one of these mistakes."
+      ]
+    },
+    {
+      "id": "bash_subshell_variables",
+      "languages": ["bash"],
+      "triggers": [
+        "variable not visible subshell",
+        "bash variable lost",
+        "subshell variables",
+        "bash variable disappears",
+        "while loop variable bash"
+      ],
+      "title": "Bash: variable not visible after subshell",
+      "steps": [
+        "Common cause: piping into `while` creates a subshell — vars set inside don't survive.",
+        "Replace `cmd | while read line; do X=...; done` with `while read line; do X=...; done < <(cmd)`.",
+        "Or use a here-string: `while read line; do ...; done <<< \"$output\"`.",
+        "Avoid `()` — that's a subshell. Use `{ }` for grouping in the same shell.",
+        "`export` makes a variable visible to children — not back to parent.",
+        "Verify by echoing after the loop."
+      ],
+      "tips": [
+        "Process substitution `< <(cmd)` is the cleanest fix for the pipe-into-while trap.",
+        "Bash has lastpipe option: `shopt -s lastpipe` keeps the last segment of a pipe in the current shell.",
+        "POSIX sh doesn't have process substitution — `while read` from a temp file as a fallback."
+      ]
+    },
+    {
+      "id": "bash_set_e_silent",
+      "languages": ["bash"],
+      "triggers": [
+        "bash exits silently",
+        "set -e gotcha",
+        "bash script stops",
+        "set -e not working",
+        "bash silent fail"
+      ],
+      "title": "Bash: script exits silently / set -e gotchas",
+      "steps": [
+        "Start every script with `set -euo pipefail` to fail fast and surface bugs.",
+        "Know the gotchas: `set -e` does NOT trigger in `if`, `&&/||`, `!`, or `()` contexts — by design.",
+        "If you `cmd | other`, only the LAST command's status matters unless `set -o pipefail`.",
+        "Trap errors for debugging: `trap 'echo \"line $LINENO failed\"' ERR`.",
+        "Add `set -x` to trace every command — verbose but tells you where it died.",
+        "Check status explicitly after risky commands: `cmd || { echo fail; exit 1; }`."
+      ],
+      "tips": [
+        "`pipefail` is what most people miss — without it, `false | true` succeeds.",
+        "`set -u` catches typos in variable names (`$wrong_name` → error).",
+        "ShellCheck on every script — it pays for itself in an afternoon."
+      ]
+    },
+    {
+      "id": "bash_path_ci",
+      "languages": ["bash", "general"],
+      "triggers": [
+        "works locally fails in ci bash",
+        "path issue ci",
+        "ci script different",
+        "binary not found ci",
+        "command not found ci"
+      ],
+      "title": "Bash: works locally, fails in CI",
+      "steps": [
+        "Echo PATH in CI: `echo \"$PATH\"` — compare with your local `echo $PATH`.",
+        "Use absolute paths in scripts: `/usr/bin/git` not `git`.",
+        "Pin tool versions in CI (Node, Python, etc.) instead of trusting the runner default.",
+        "If a tool was installed by a previous step, ensure that step ran on the same runner/job (caching matters).",
+        "Reproduce locally with the same Docker image CI uses: `docker run -it <ci-image>`.",
+        "Add `set -x` to CI script to see what runs."
+      ],
+      "tips": [
+        "GitHub Actions Ubuntu image is NOT a fresh Ubuntu — many tools preinstalled. Don't assume the same elsewhere.",
+        "CI workers are ephemeral — anything installed in one job is gone in the next unless explicitly cached.",
+        "Use `actions/setup-node` etc. for reproducible tool versions."
+      ]
+    },
+    {
+      "id": "bash_permission_denied",
+      "languages": ["bash"],
+      "triggers": [
+        "permission denied bash",
+        "permission denied sudo",
+        "bash permission denied execute",
+        "chmod fix",
+        "cannot execute permission denied"
+      ],
+      "title": "Bash: permission denied (even with sudo)",
+      "steps": [
+        "Check the file has execute bit: `ls -l file.sh`. If no `x`, add it: `chmod +x file.sh`.",
+        "Check ownership: `ls -l file.sh` — `chown $USER file.sh` if owned by root.",
+        "If sudo also fails, the filesystem may be mounted noexec — check `mount | grep <path>`.",
+        "On macOS, files quarantined from downloads: `xattr -d com.apple.quarantine file.sh`.",
+        "If a script's shebang points to a missing interpreter, you get permission-like errors — verify with `file script.sh`.",
+        "Check parent directory perms — even with file +x, you need +x on every ancestor dir."
+      ],
+      "tips": [
+        "`./script.sh` requires +x; `bash script.sh` only requires +r — useful for diagnosis.",
+        "macOS Gatekeeper blocks unsigned downloads even with +x — `xattr -d` clears it.",
+        "/tmp is sometimes noexec on hardened systems — copy to a writeable, executable dir."
+      ]
+    },
+    {
+      "id": "bash_quoted_argument_spaces",
+      "languages": ["bash"],
+      "triggers": [
+        "bash spaces in argument",
+        "bash quoting issue",
+        "filename with spaces bash",
+        "bash word splitting",
+        "argument with spaces"
+      ],
+      "title": "Bash: quoted argument with spaces breaks",
+      "steps": [
+        "Always quote variables that may contain spaces: `cp \"$src\" \"$dst\"`.",
+        "When passing a path to a command, quote it at the point of use, not just on assignment.",
+        "When iterating files, use globs not `ls`: `for f in *.txt; do echo \"$f\"; done`.",
+        "For arrays of args, use bash arrays: `args=(--foo \"my value\") && cmd \"${args[@]}\"`.",
+        "For arguments built up over time, use `\"${arr[@]}\"` not `\"$arr\"`.",
+        "Run `set -x` to see exactly how bash splits your command."
+      ],
+      "tips": [
+        "`\"$@\"` preserves args with spaces; `$*` collapses them.",
+        "ShellCheck warns on every unquoted variable — listen to it.",
+        "Avoid eval-on-strings; use arrays for command construction."
+      ]
+    },
+    {
+      "id": "bash_heredoc_expansion",
+      "languages": ["bash"],
+      "triggers": [
+        "heredoc not expanding",
+        "heredoc variables",
+        "bash heredoc expansion",
+        "heredoc expanding variables",
+        "<<eof vs <<'eof'"
+      ],
+      "title": "Bash: heredoc variable expansion",
+      "steps": [
+        "Default heredoc expands variables: `cat <<EOF` — `$var` becomes its value.",
+        "To prevent expansion, quote the marker: `cat <<'EOF'` — content is literal.",
+        "To preserve indentation, use `<<-EOF` (strips leading TABS only, not spaces).",
+        "If embedding into another tool (e.g. ssh), think carefully about which shell expands — the local or remote.",
+        "Use `printf '%s\\n' \"$value\"` instead of heredoc if you only need one variable substituted.",
+        "Test with `cat <<EOF` first to see exactly what your shell produces."
+      ],
+      "tips": [
+        "Quoting the EOF is the on/off switch for variable expansion.",
+        "ssh: outer shell expands first; whatever you send is the literal command on the other end.",
+        "Indented heredocs need TABS, not spaces — `<<-` strips tabs only."
+      ]
+    },
+    {
+      "id": "bash_source_vs_exec",
+      "languages": ["bash"],
+      "triggers": [
+        "source vs execute",
+        "bash source script",
+        "variables not persisting bash",
+        "bash dot vs slash",
+        "source script variables"
+      ],
+      "title": "Bash: source vs ./ confusion",
+      "steps": [
+        "`./script.sh` runs in a child shell — its vars and cd don't affect you.",
+        "`source script.sh` (or `. script.sh`) runs in your current shell — vars persist.",
+        "If you want a script to set env vars for your shell, you must source it.",
+        "If you want isolation (clean exit, no side effects), execute it.",
+        "Activation scripts (`source .venv/bin/activate`) MUST be sourced — that's how they work.",
+        "Add a self-check inside the script: `(return 0 2>/dev/null) || { echo 'must be sourced'; exit 1; }`."
+      ],
+      "tips": [
+        "If you find yourself wishing exec changed env, you want source.",
+        "Sourcing also means a `set -e` in the script affects YOUR shell — be aware.",
+        "Function definitions only stick around if you source the file that defines them."
+      ]
+    },
+    {
+      "id": "bash_path_ordering",
+      "languages": ["bash"],
+      "triggers": [
+        "wrong binary picked",
+        "path order issue",
+        "which gives wrong binary",
+        "shadowing binary",
+        "two pythons on path"
+      ],
+      "title": "Bash: PATH ordering issue",
+      "steps": [
+        "List all candidates: `which -a <command>` (or `type -a <command>` in bash).",
+        "Inspect PATH: `echo \"$PATH\" | tr ':' '\\n'`.",
+        "The first directory containing the binary wins. Reorder PATH if needed.",
+        "Add to front: `export PATH=\"/desired/dir:$PATH\"`.",
+        "Use `hash -r` to flush bash's cache after PATH changes.",
+        "Persist the change in your shell rc (`.bashrc`, `.zshrc`)."
+      ],
+      "tips": [
+        "Homebrew often puts its prefix near the front; on Apple Silicon that's `/opt/homebrew/bin`.",
+        "Tools like nvm/pyenv install shims that need to be in PATH BEFORE the system binaries.",
+        "`command -v <name>` is more portable than `which`."
+      ]
+    },
+    {
+      "id": "bash_locale_encoding",
+      "languages": ["bash"],
+      "triggers": [
+        "locale issue bash",
+        "lc_all warning",
+        "lang setting bash",
+        "perl warning locale",
+        "encoding issue terminal",
+        "wide character"
+      ],
+      "title": "Bash: locale / encoding issues",
+      "steps": [
+        "Print current locale: `locale`. Look for entries set to `POSIX` or empty.",
+        "Set sane defaults in your shell rc: `export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8`.",
+        "On Linux, generate locales if missing: `sudo locale-gen en_US.UTF-8`.",
+        "On macOS, default Terminal.app sets LANG by default; iTerm may not — set explicitly.",
+        "For sort, awk, sed differences, override per command: `LC_ALL=C sort file` for byte-order sort.",
+        "Restart your shell after rc changes."
+      ],
+      "tips": [
+        "`LC_ALL=C` makes everything byte-wise — fast and predictable, but ASCII-only.",
+        "SSH on a server: locale isn't always forwarded — set on the server side.",
+        "Docker images: many minimal images lack locales — install `locales` or use the C locale."
+      ]
+    },
+    {
+      "id": "bash_ssh_hangs",
+      "languages": ["bash", "network"],
+      "triggers": [
+        "ssh hangs",
+        "ssh slow connect",
+        "ssh connection hang",
+        "ssh stuck",
+        "ssh timeout"
+      ],
+      "title": "Bash: ssh hangs on connect",
+      "steps": [
+        "Verbose: `ssh -vvv user@host` — shows exactly where it stalls.",
+        "If stuck on 'expecting SSH_MSG_KEX_ECDH_REPLY', it's often MTU/firewall — try `ssh -o IPQoS=throughput user@host`.",
+        "If DNS slow, try the IP directly to confirm: `ssh user@<ip>`.",
+        "Disable GSSAPI auth (a common stall): `-o GSSAPIAuthentication=no`.",
+        "If hanging on banner, server is overloaded or fail2ban is throttling you.",
+        "Set KeepAlive for unreliable links: `-o ServerAliveInterval=30`."
+      ],
+      "tips": [
+        "Add stable settings to `~/.ssh/config` per-host once you find what works.",
+        "`UseRoaming no` was a 2016 fix and is no longer relevant — don't add it.",
+        "`mosh` survives flaky networks better than ssh."
+      ]
+    },
+    {
+      "id": "bash_ssh_in_script",
+      "languages": ["bash"],
+      "triggers": [
+        "ssh works interactively fails in script",
+        "ssh in script fails",
+        "ssh tty allocation",
+        "ssh agent forwarding script",
+        "pseudo-terminal will not be allocated"
+      ],
+      "title": "Bash: ssh works locally, fails in script",
+      "steps": [
+        "If you see 'Pseudo-terminal will not be allocated', use `-t` to force TTY or `-T` to suppress.",
+        "If commands run remotely need a TTY (sudo with password, vim), force with `-t`.",
+        "If using agent forwarding (`-A`), confirm `SSH_AUTH_SOCK` is set in the script env.",
+        "Cron/CI: no agent, no terminal — use a key with no passphrase or use a deploy token.",
+        "Confirm host key trust: in scripts, pre-populate `~/.ssh/known_hosts` instead of disabling StrictHostKeyChecking.",
+        "Run the script with `set -x` to see exact ssh invocation."
+      ],
+      "tips": [
+        "Don't pipe a password into ssh — use keys. If you must, `sshpass` exists but is fragile.",
+        "`ssh -o BatchMode=yes` makes ssh fail fast in scripts instead of prompting.",
+        "GitHub Actions ssh agent: use `webfactory/ssh-agent` action to set up properly."
+      ]
+    },
+    {
+      "id": "bash_rsync_trailing_slash",
+      "languages": ["bash"],
+      "triggers": [
+        "rsync trailing slash",
+        "rsync extra directory",
+        "rsync copies more than expected",
+        "rsync slash semantics",
+        "rsync wrong files"
+      ],
+      "title": "Bash: rsync trailing slash gotcha",
+      "steps": [
+        "Recall the rule: `rsync src/` copies the CONTENTS of src; `rsync src` copies src ITSELF (as a subdir).",
+        "If you got a nested src/src/, you forgot the trailing slash on source.",
+        "If you got loose files where you wanted a folder, you added a trailing slash you didn't want.",
+        "Destination trailing slash doesn't matter — only the source.",
+        "Always dry-run first: `rsync -avn src/ dest/` (the `n` is dry-run).",
+        "Confirm the diff with `--itemize-changes` for verbose per-file info."
+      ],
+      "tips": [
+        "Trailing-slash semantics: src/ means 'this folder's contents', src means 'this folder'.",
+        "`--delete` mirrors — make sure your dry-run shows what you expect before removing it.",
+        "`-a` is the workhorse flag — archive (recursive, perms, links, times)."
+      ]
+    },
+    {
+      "id": "git_merge_conflict",
+      "languages": ["git"],
+      "triggers": [
+        "merge conflict",
+        "git conflict",
+        "fix merge conflict",
+        "resolve merge conflict",
+        "<<<<<<<",
+        "how to merge conflict",
+        "git merge messed up"
+      ],
+      "title": "Git: resolve a merge conflict",
+      "steps": [
+        "Find conflicted files: `git status` lists them under 'Unmerged paths'.",
+        "Open each file. Look for the markers: `<<<<<<<` (yours), `=======` (separator), `>>>>>>>` (theirs).",
+        "Edit the file: pick one side, blend both, or rewrite. Delete every line containing a marker.",
+        "Save the file.",
+        "Stage the resolved file: `git add <filename>`.",
+        "Repeat for each conflicted file.",
+        "Finish the merge: `git commit` (Git provides a default message — no -m needed).",
+        "Verify: `git status` should show 'working tree clean'."
+      ],
+      "tips": [
+        "Panic button: `git merge --abort` rolls back to before the merge.",
+        "VS Code / IntelliJ show conflicts with 'Accept Current / Incoming / Both' buttons in the gutter.",
+        "Inspect the three sides before deciding: `git log --merge -p <file>` shows commits involved."
+      ]
+    },
+    {
+      "id": "git_detached_head",
+      "languages": ["git"],
+      "triggers": [
+        "detached head",
+        "git detached head",
+        "how to fix detached head",
+        "head detached at",
+        "git not on branch"
+      ],
+      "title": "Git: detached HEAD — what it means and how to recover",
+      "steps": [
+        "Recognize the state: `git status` says 'HEAD detached at <commit>' — you're on a commit, not a branch.",
+        "If you DID make commits and want to keep them: create a branch here: `git switch -c my-fix`.",
+        "If you DIDN'T make commits: just switch back: `git switch main` (or wherever).",
+        "If you made commits and already left, find them: `git reflog` shows recent HEAD positions.",
+        "Recover with: `git switch -c rescue <commit-from-reflog>`.",
+        "Confirm: `git log --oneline -5` shows your work."
+      ],
+      "tips": [
+        "Detached HEAD isn't dangerous — it's just 'no branch points here'. Branch before committing.",
+        "`git switch -` jumps back to the previous branch (like `cd -`).",
+        "reflog keeps moves for ~90 days by default — plenty of time to rescue."
+      ]
+    },
+    {
+      "id": "git_pushed_wrong_branch",
+      "languages": ["git"],
+      "triggers": [
+        "pushed to wrong branch",
+        "git pushed to main by mistake",
+        "undo push wrong branch",
+        "accidentally pushed to main",
+        "wrong branch push"
+      ],
+      "title": "Git: pushed to the wrong branch",
+      "steps": [
+        "First decide: do you need to remove the commits from the wrong branch, or is moving them enough?",
+        "Move commits to the right branch: `git switch correct-branch && git cherry-pick <bad-commit>...<HEAD-of-wrong>`.",
+        "Push to the right branch: `git push origin correct-branch`.",
+        "Now remove from wrong branch: `git switch wrong-branch && git reset --hard <commit-before-bad>`.",
+        "Force-push the wrong branch BACK: `git push --force-with-lease origin wrong-branch`.",
+        "Tell collaborators — anyone who pulled needs to reset their local copy."
+      ],
+      "tips": [
+        "`--force-with-lease` is safer than `--force` — fails if someone else pushed in between.",
+        "Never force-push to `main` on a shared repo without coordination.",
+        "GitHub's branch protection can prevent these mistakes — enable it."
+      ]
+    },
+    {
+      "id": "git_committed_wrong_branch",
+      "languages": ["git"],
+      "triggers": [
+        "committed to wrong branch",
+        "commit on wrong branch",
+        "move commit to another branch",
+        "uncommit and move",
+        "wrong branch commit"
+      ],
+      "title": "Git: committed to wrong branch (not pushed yet)",
+      "steps": [
+        "Note the commit you want to move: `git log --oneline -5`.",
+        "Create or switch to the right branch from where you are: `git branch correct-branch`.",
+        "Reset the wrong branch back: `git reset --hard HEAD~1` (or further back if multiple commits).",
+        "Switch: `git switch correct-branch` — your commits are here now.",
+        "Confirm with `git log` on both branches.",
+        "Push the correct branch."
+      ],
+      "tips": [
+        "If you haven't pushed yet, this is fully safe — no one else is affected.",
+        "`git branch <name>` creates without switching; pair with reset on the old branch.",
+        "If the wrong branch shared other commits, only `reset` back as far as the misplaced ones."
+      ]
+    },
+    {
+      "id": "git_lost_commits_reflog",
+      "languages": ["git"],
+      "triggers": [
+        "lost commits",
+        "git reflog",
+        "find lost commits",
+        "recover deleted commit",
+        "git recover commit",
+        "deleted branch recover"
+      ],
+      "title": "Git: lost commits — find with reflog",
+      "steps": [
+        "Run `git reflog` — every HEAD movement in the last ~90 days is here.",
+        "Find the SHA that was your last good state.",
+        "Inspect it: `git show <sha>` or `git log <sha> -5`.",
+        "Recover by branching from it: `git branch rescue <sha>` then `git switch rescue`.",
+        "Or hard reset your current branch back to it: `git reset --hard <sha>` (destructive — be sure first).",
+        "Push the rescued branch."
+      ],
+      "tips": [
+        "reflog is your local-only safety net — it survives most accidents.",
+        "Deleted branches still appear in reflog by their last position.",
+        "If reflog doesn't have it, `git fsck --lost-found` looks at dangling objects."
+      ]
+    },
+    {
+      "id": "git_reset_hard_accident",
+      "languages": ["git"],
+      "triggers": [
+        "accidentally git reset hard",
+        "git reset hard mistake",
+        "undo reset hard",
+        "lost work git reset",
+        "reset hard lost commits"
+      ],
+      "title": "Git: accidentally `git reset --hard`",
+      "steps": [
+        "Don't make more commits — that's the only thing that can really lose your work.",
+        "Run `git reflog` — find the SHA from BEFORE the reset.",
+        "Reset back: `git reset --hard <good-sha>`.",
+        "Verify with `git log --oneline -5`.",
+        "If uncommitted changes were lost (not just commits): `git fsck --lost-found` may turn up dangling blobs.",
+        "Going forward, prefer `git switch -c <name>` before risky operations."
+      ],
+      "tips": [
+        "Commits live ~90 days in the local reflog even after reset — you have time.",
+        "Uncommitted, unstaged changes are NOT recoverable — they were never in git.",
+        "`git stash` before destructive operations as a habit."
+      ]
+    },
+    {
+      "id": "git_committed_secret",
+      "languages": ["git"],
+      "triggers": [
+        "committed secret",
+        "committed api key",
+        "remove secret from git",
+        "leaked credential git",
+        "committed .env",
+        "exposed key git"
+      ],
+      "title": "Git: accidentally committed a secret",
+      "steps": [
+        "ROTATE the secret immediately — assume it's compromised even if you remove it.",
+        "Add it to .gitignore so it doesn't return.",
+        "Remove from the latest commit only: `git rm --cached <file> && git commit --amend`.",
+        "If already pushed and the secret is in older commits, you must rewrite history: use `git-filter-repo --invert-paths --path <file>` (or BFG Repo-Cleaner).",
+        "Force-push the rewritten history: `git push --force-with-lease`.",
+        "Tell collaborators to re-clone — their old clones still have the secret."
+      ],
+      "tips": [
+        "Rotation is the only real fix; history rewrites don't help once it's been seen.",
+        "GitHub's secret-scanning alerts catch many common token formats automatically.",
+        "Use pre-commit hooks (`detect-secrets`, `gitleaks`) to catch them before they're committed."
+      ]
+    },
+    {
+      "id": "git_force_push_disaster",
+      "languages": ["git"],
+      "triggers": [
+        "force push went wrong",
+        "force push shared branch",
+        "lost commits force push",
+        "force push disaster",
+        "git force push overwrite"
+      ],
+      "title": "Git: force-push went wrong on a shared branch",
+      "steps": [
+        "Don't panic — anyone who pulled before the force-push still has the old commits locally.",
+        "Ask each teammate: `git reflog` on their machine for the pre-pull HEAD.",
+        "On their machine: `git push <remote> <good-sha>:refs/heads/<branch>` recovers the remote.",
+        "Or: `git push --force-with-lease <remote> <local-branch>:<branch>` from a teammate who still has good state.",
+        "After recovery, communicate to whoever made the bad push.",
+        "Set up branch protection to prevent recurrence."
+      ],
+      "tips": [
+        "GitHub's branch protection / 'do not allow force pushes' prevents this entirely — turn it on.",
+        "`--force-with-lease` is much safer than `--force`. Make it your default alias.",
+        "Reflog on the originator's machine is also valuable — check there too."
+      ]
+    },
+    {
+      "id": "git_rebase_abandoned",
+      "languages": ["git"],
+      "triggers": [
+        "mid rebase",
+        "rebase abandoned",
+        "rebase in progress",
+        "stuck in rebase",
+        "rebase continue or abort",
+        "git rebase confused"
+      ],
+      "title": "Git: stuck mid-rebase",
+      "steps": [
+        "Check state: `git status` — it tells you what's pending and offers commands.",
+        "If you want out: `git rebase --abort` returns you to the pre-rebase state.",
+        "If you've made progress and want to continue: resolve conflicts, `git add` resolved files, `git rebase --continue`.",
+        "If you want to skip a problematic commit: `git rebase --skip`.",
+        "If you've forgotten what you were rebasing onto: `cat .git/rebase-merge/onto` or check reflog.",
+        "After finishing, verify with `git log --oneline`."
+      ],
+      "tips": [
+        "`git rebase --abort` is ALWAYS safe — it returns you to where you started.",
+        "Interactive rebase (`-i`) keeps a TODO list at `.git/rebase-merge/git-rebase-todo`.",
+        "If terrified, `git switch -c backup` before starting any rebase."
+      ]
+    },
+    {
+      "id": "git_non_fast_forward",
+      "languages": ["git"],
+      "triggers": [
+        "non-fast-forward",
+        "cannot push behind",
+        "rejected non fast forward",
+        "git push rejected",
+        "updates were rejected"
+      ],
+      "title": "Git: cannot push, non-fast-forward",
+      "steps": [
+        "The remote has commits you don't. You need to integrate them first.",
+        "Fetch latest: `git fetch origin`.",
+        "Choose: merge (`git merge origin/<branch>`) or rebase (`git rebase origin/<branch>`).",
+        "Resolve any conflicts that arise.",
+        "Push: `git push`.",
+        "If you intentionally want to overwrite the remote, force-push: `git push --force-with-lease` (only for branches you own)."
+      ],
+      "tips": [
+        "Set rebase as default for pulls: `git config --global pull.rebase true`.",
+        "Never force-push to shared branches without coordination.",
+        "`git pull` does fetch + merge in one go if you prefer."
+      ]
+    },
+    {
+      "id": "git_pull_overwrite_local",
+      "languages": ["git"],
+      "triggers": [
+        "your local changes would be overwritten",
+        "git pull rejected",
+        "uncommitted changes pull",
+        "cannot pull changes",
+        "local changes pull"
+      ],
+      "title": "Git: cannot pull — local changes would be overwritten",
+      "steps": [
+        "Decide whether to keep your local edits or discard them.",
+        "To keep them: `git stash`, then `git pull`, then `git stash pop`.",
+        "To discard: `git checkout -- <files>` or `git restore <files>`.",
+        "If you want to commit before pulling: `git add -A && git commit -m 'wip'` then `git pull --rebase`.",
+        "If the stash pop conflicts, you'll get conflict markers — resolve like a merge.",
+        "Verify with `git status`."
+      ],
+      "tips": [
+        "Stash is the safest 'hold this for a sec' move.",
+        "`git stash --include-untracked` if you also have new files.",
+        "After `stash pop`, your stash entry is dropped on success — keep it with `stash apply`."
+      ]
+    },
+    {
+      "id": "git_stash_conflict",
+      "languages": ["git"],
+      "triggers": [
+        "stash pop conflict",
+        "git stash conflict",
+        "stash apply conflict",
+        "stash merge conflict",
+        "git stash error"
+      ],
+      "title": "Git: stash pop conflict",
+      "steps": [
+        "Recognize: `git stash pop` triggered a conflict — your stash is still saved.",
+        "Resolve like a normal merge conflict: open files, fix markers, save.",
+        "Stage the resolved files: `git add <files>`.",
+        "DO NOT run `git commit` — you're not in a merge state. The conflict is just informational.",
+        "Drop the stash if you no longer need it: `git stash drop`.",
+        "Confirm with `git status`."
+      ],
+      "tips": [
+        "Conflicted pop leaves the stash in place (unlike a clean pop) — `stash list` shows it.",
+        "Use `git stash apply` instead of `pop` if you want the stash kept around regardless.",
+        "If totally lost, `git checkout --theirs/--ours <file>` picks a side."
+      ]
+    },
+    {
+      "id": "git_status_changes_didnt_make",
+      "languages": ["git"],
+      "triggers": [
+        "git status shows changes I didn't make",
+        "crlf line endings",
+        "git showing changes mode",
+        "phantom changes git",
+        "git diff whitespace only"
+      ],
+      "title": "Git: files show as changed but I didn't change them",
+      "steps": [
+        "Run `git diff <file>` to see WHAT git thinks changed.",
+        "If the whole file 'changed' with no visible diff, it's line endings (CRLF vs LF).",
+        "Set the right endings: `git config core.autocrlf true` (Windows) or `false` (Mac/Linux).",
+        "Add a `.gitattributes` file to make endings explicit per file type.",
+        "Renormalize: `git add --renormalize .` and commit.",
+        "For file-mode (+x) changes: `git config core.filemode false` on Windows/WSL boundaries."
+      ],
+      "tips": [
+        ".gitattributes is the durable fix — config alone varies by clone.",
+        "`git diff --stat` shows which files have content vs metadata changes.",
+        "`git diff -w` ignores whitespace if you want to confirm content is identical."
+      ]
+    },
+    {
+      "id": "git_submodule_out_of_sync",
+      "languages": ["git"],
+      "triggers": [
+        "submodule out of sync",
+        "git submodule update",
+        "submodule wrong commit",
+        "submodule problems",
+        "submodule modified"
+      ],
+      "title": "Git: submodule out of sync",
+      "steps": [
+        "Check what's wrong: `git status` — submodule may show 'modified' or 'new commits'.",
+        "Sync to the recorded commit: `git submodule update --init --recursive`.",
+        "If you want the submodule's latest: `git submodule update --remote`.",
+        "If the URL changed: `git submodule sync --recursive` then update.",
+        "If totally broken, deinit and re-init: `git submodule deinit -f <path>` then `git submodule update --init <path>`.",
+        "Commit any submodule SHA changes you intend in the parent repo."
+      ],
+      "tips": [
+        "Submodules track a SHA, not a branch — `--remote` checks out the branch tip.",
+        "`git clone --recurse-submodules` pulls submodules at clone time.",
+        "Many teams replace submodules with monorepo tools (git-subtree, npm workspaces) to avoid this pain."
+      ]
+    },
+    {
+      "id": "git_large_file_rejected",
+      "languages": ["git"],
+      "triggers": [
+        "large file rejected github",
+        "file too large github",
+        "100mb limit github",
+        "git lfs",
+        "remote rejected large file"
+      ],
+      "title": "Git: large file rejected by GitHub (>100MB)",
+      "steps": [
+        "Decide: do you actually need this file in git? Consider artifacts/CDN if not.",
+        "If yes, set up Git LFS: `git lfs install` then `git lfs track '*.psd'` (per filetype).",
+        "Commit the .gitattributes file.",
+        "Re-add the file: `git add <file>` — LFS will handle it.",
+        "If already in history, you must rewrite to remove it: use `git-filter-repo --strip-blobs-bigger-than 100M`.",
+        "Force-push and re-add via LFS."
+      ],
+      "tips": [
+        "GitHub Pro plans include LFS quota; free has a small allowance.",
+        "Once big files are in git history, they live there forever unless you rewrite.",
+        "Common offenders: built binaries, node_modules, generated assets — add to .gitignore."
+      ]
+    },
+    {
+      "id": "git_authentication_failed",
+      "languages": ["git"],
+      "triggers": [
+        "git authentication failed",
+        "git push permission denied",
+        "github authentication",
+        "ssh push fails",
+        "git credentials",
+        "could not read username"
+      ],
+      "title": "Git: authentication failed",
+      "steps": [
+        "Determine remote protocol: `git remote -v` — HTTPS or SSH.",
+        "For HTTPS to GitHub: passwords don't work anymore. Use a personal access token in place of password.",
+        "Or switch to SSH: `git remote set-url origin git@github.com:user/repo.git`.",
+        "Test SSH: `ssh -T git@github.com` — should greet you by username.",
+        "For HTTPS, set up the credential helper: `git config --global credential.helper osxkeychain` (mac), `manager` (windows), `cache` or `store` (linux).",
+        "Retry the push."
+      ],
+      "tips": [
+        "GitHub deprecated password auth — token or SSH is your only option.",
+        "GitHub CLI (`gh auth login`) sets up credentials cleanly.",
+        "Multiple accounts: use `~/.ssh/config` Host aliases to pick the right key per repo."
+      ]
+    },
+    {
+      "id": "git_pages_not_updating",
+      "languages": ["git", "general"],
+      "triggers": [
+        "github pages not updating",
+        "github pages stale",
+        "pages deploy not working",
+        "github pages cache",
+        "site not updating github"
+      ],
+      "title": "Git: GitHub Pages not updating after push",
+      "steps": [
+        "Check the Actions tab — Pages now deploys via a workflow. Look for build errors.",
+        "Confirm Pages is enabled and points at the correct branch (Settings → Pages).",
+        "Wait 1-5 minutes — propagation isn't instant.",
+        "Force a browser cache bypass: hard reload (Cmd+Shift+R) or open in incognito.",
+        "Check the live URL with curl: `curl -I https://user.github.io/repo/` — Last-Modified shows when it actually deployed.",
+        "If using a custom domain, confirm DNS and that 'Enforce HTTPS' is checked."
+      ],
+      "tips": [
+        "CDN cache can hold for ~10 minutes — incognito bypasses it.",
+        "Jekyll builds happen on GitHub side — check the build log in Actions.",
+        "404s on direct routes are usually a missing 404.html for SPAs."
+      ]
+    },
+    {
+      "id": "git_branch_ahead_behind",
+      "languages": ["git"],
+      "triggers": [
+        "branch is behind",
+        "branch is ahead",
+        "ahead by commits",
+        "behind by commits",
+        "git ahead behind",
+        "diverged from main"
+      ],
+      "title": "Git: branch is ahead/behind — what to do",
+      "steps": [
+        "Read the status: 'ahead by N' = you have commits remote doesn't. 'behind by N' = remote has commits you don't.",
+        "'Diverged' = both have commits the other doesn't — you must merge or rebase.",
+        "If just ahead: `git push`.",
+        "If just behind: `git pull`.",
+        "If diverged: `git pull --rebase` (clean linear history) or `git pull` (merge commit).",
+        "After: confirm `git status` says 'up to date'."
+      ],
+      "tips": [
+        "`git status` numbers are based on the last `git fetch` — run fetch for an up-to-date view.",
+        "Set `pull.rebase = true` for cleaner history by default.",
+        "`git log --oneline --graph --all` visualizes divergence beautifully."
+      ]
+    },
+    {
+      "id": "git_cherry_pick_conflict",
+      "languages": ["git"],
+      "triggers": [
+        "cherry pick conflict",
+        "cherry-pick failed",
+        "cherry pick merge conflict",
+        "git cherry pick error",
+        "cherry pick continue"
+      ],
+      "title": "Git: cherry-pick conflict",
+      "steps": [
+        "`git status` shows which files conflicted.",
+        "Resolve like a merge — edit files, remove `<<<` markers.",
+        "Stage the resolved files: `git add <files>`.",
+        "Continue: `git cherry-pick --continue`.",
+        "To bail out completely: `git cherry-pick --abort`.",
+        "To skip the problematic commit (when cherry-picking a range): `git cherry-pick --skip`."
+      ],
+      "tips": [
+        "Cherry-pick is for moving an isolated commit. For ranges, consider rebase-onto.",
+        "If the same commit is already partially applied, `--strategy=recursive -X theirs` can resolve simple cases.",
+        "`git cherry-pick -x <sha>` adds a 'cherry-picked from' note in the message."
+      ]
+    },
+    {
+      "id": "git_pull_rebase_vs_merge",
+      "languages": ["git"],
+      "triggers": [
+        "pull rebase vs merge",
+        "git rebase or merge",
+        "rebase vs merge confusion",
+        "which to use rebase merge",
+        "git pull strategy"
+      ],
+      "title": "Git: rebase vs merge for pulling",
+      "steps": [
+        "Default `git pull` = fetch + merge. Creates a merge commit if histories diverged.",
+        "`git pull --rebase` = fetch + replay your commits ON TOP of remote — linear history, no merge commit.",
+        "Pick rebase for personal branches and clean history. Pick merge to preserve context of parallel work.",
+        "Pick a default and stick to it: `git config --global pull.rebase true` for rebase by default.",
+        "Never rebase commits that other people are working on — only your own untyped feature branches.",
+        "For PR branches into main: usually rebase; for long-lived branches: usually merge."
+      ],
+      "tips": [
+        "Linear history is easier to bisect; merge commits preserve actual time-order.",
+        "GitHub's 'Squash and merge' is the most common compromise.",
+        "`pull.ff = only` rejects pulls that aren't fast-forward — forces you to pick consciously."
+      ]
+    },
+    {
+      "id": "git_undo_last_commit",
+      "languages": ["git"],
+      "triggers": [
+        "undo last commit",
+        "uncommit",
+        "git undo commit",
+        "revert last commit",
+        "delete last commit"
+      ],
+      "title": "Git: undo the last commit",
+      "steps": [
+        "Decide: keep the changes (in working tree) or throw them away?",
+        "Keep changes (most common): `git reset --soft HEAD~1` — un-commits but leaves changes staged.",
+        "Or `git reset HEAD~1` (mixed, the default) — un-commits and unstages, files remain edited.",
+        "Throw away entirely: `git reset --hard HEAD~1` — DESTRUCTIVE, gone.",
+        "If already pushed: `git revert HEAD` creates a NEW commit that undoes the bad one — safe on shared branches.",
+        "Verify with `git log --oneline -5`."
+      ],
+      "tips": [
+        "`reset` rewrites history; `revert` adds new history. Use revert for shared branches.",
+        "`--soft` is the least scary — your work is preserved and staged for re-commit.",
+        "If you reset --hard by accident, reflog rescues you."
+      ]
+    },
+    {
+      "id": "net_server_unreachable",
+      "languages": ["network", "general"],
+      "triggers": [
+        "server unreachable",
+        "connection refused",
+        "cannot connect to server",
+        "server down debug",
+        "host unreachable",
+        "no route to host"
+      ],
+      "title": "Network: server unreachable / connection refused",
+      "steps": [
+        "Resolve DNS: `dig <host>` or `nslookup <host>` — does the name return an IP?",
+        "Ping the IP: `ping <ip>` — confirms basic reachability (some servers block ping, that's fine).",
+        "Check port: `nc -zv <host> <port>` or `telnet <host> <port>` — does TCP connect?",
+        "If TCP fails: firewall, service not running, or wrong port.",
+        "If TCP works but HTTPS fails: TLS issue — `openssl s_client -connect host:443`.",
+        "Curl with verbose: `curl -v https://host/path` — see every step."
+      ],
+      "tips": [
+        "'Connection refused' = nothing's listening. 'Timeout' = packets aren't getting there.",
+        "Test from a different network (phone hotspot) to isolate local issues.",
+        "`mtr <host>` is traceroute + ping combined — great for intermittent connectivity."
+      ]
+    },
+    {
+      "id": "net_dns_not_resolving",
+      "languages": ["network", "general"],
+      "triggers": [
+        "dns not resolving",
+        "dns failure",
+        "cannot resolve host",
+        "nslookup fails",
+        "name not resolved",
+        "dns issue"
+      ],
+      "title": "Network: DNS not resolving",
+      "steps": [
+        "Try a public resolver to isolate: `dig @8.8.8.8 <host>`.",
+        "If that works, your local DNS is the issue — check `/etc/resolv.conf` or system DNS settings.",
+        "Flush local DNS cache: `sudo dscacheutil -flushcache` (mac), `ipconfig /flushdns` (windows), `sudo systemd-resolve --flush-caches` (linux).",
+        "Check `/etc/hosts` for a stale override: `cat /etc/hosts`.",
+        "If on a VPN, your DNS may be routed through it — test with VPN off.",
+        "If a new domain, give DNS propagation up to 48 hours."
+      ],
+      "tips": [
+        "`dig +trace <host>` walks the resolution from the root down — pinpoints where it breaks.",
+        "DNS over HTTPS in browsers can mask /etc/hosts changes — test with curl.",
+        "Corporate networks often filter DNS — try the company's documented resolver."
+      ]
+    },
+    {
+      "id": "net_tls_cert_error",
+      "languages": ["network", "general"],
+      "triggers": [
+        "tls certificate error",
+        "ssl handshake failed",
+        "cert verify failed",
+        "tls error",
+        "ssl error",
+        "certificate not trusted"
+      ],
+      "title": "Network: TLS / certificate error",
+      "steps": [
+        "Inspect the cert: `openssl s_client -connect host:443 -servername host </dev/null | openssl x509 -noout -text`.",
+        "Check expiry: dates in the output.",
+        "Check the chain: `openssl s_client -showcerts` lists every cert sent.",
+        "Verify SNI: `-servername` matches what the server expects.",
+        "If self-signed, add to system trust or use `--insecure` for testing only.",
+        "Confirm system clock is accurate — wrong time invalidates many certs."
+      ],
+      "tips": [
+        "SSL Labs (ssllabs.com/ssltest) gives a full diagnostic for public-facing endpoints.",
+        "Let's Encrypt certs renew every 90 days — a forgotten renewal is the most common cause of sudden TLS errors.",
+        "Intermediate certs missing from the chain is a common server-side bug — `--showcerts` reveals it."
+      ]
+    },
+    {
+      "id": "perf_site_slow",
+      "languages": ["general"],
+      "triggers": [
+        "site slow",
+        "page load slow",
+        "website slow debug",
+        "slow site",
+        "performance issue web",
+        "page slow to load"
+      ],
+      "title": "Perf: website is slow",
+      "steps": [
+        "Open Chrome DevTools → Network: hard reload and look at the waterfall. What's the long bar?",
+        "If TTFB is long, server-side is slow — profile backend, not frontend.",
+        "If many small requests, consolidate or add HTTP/2.",
+        "If large bundles, check Coverage tab for unused JS/CSS; tree-shake or code-split.",
+        "Open DevTools → Lighthouse and run an audit — it ranks the biggest wins.",
+        "Open DevTools → Performance, record a load, look at the long-tasks in Main thread."
+      ],
+      "tips": [
+        "TTFB > 500ms is a backend problem; large LCP image is a frontend problem.",
+        "WebPageTest (webpagetest.org) gives a third-party view from many locations.",
+        "Lazy-load below-the-fold images: `<img loading=\"lazy\">`."
+      ]
+    },
+    {
+      "id": "api_401_token",
+      "languages": ["general"],
+      "triggers": [
+        "api 401",
+        "401 unauthorized api",
+        "token rejected",
+        "api returns 401",
+        "401 but token looks right",
+        "bearer token 401"
+      ],
+      "title": "API: 401 but token looks right",
+      "steps": [
+        "Confirm the header is being sent: curl with `-v` and check Authorization line.",
+        "Confirm the exact format: `Authorization: Bearer <token>` — case, space, no quotes.",
+        "Check token expiration — JWTs often expire in minutes; refresh if so.",
+        "Confirm you're hitting the right environment (dev/staging/prod tokens don't cross).",
+        "Try the token in Postman/curl directly — if it works there, your code is mangling the header.",
+        "Check token scopes — the call may need a scope your token lacks."
+      ],
+      "tips": [
+        "JWT.io decodes a JWT in the browser — check `exp` claim.",
+        "Some APIs use `Token <x>` or `ApiKey <x>` — confirm the exact scheme in their docs.",
+        "Trailing whitespace in env vars is a classic 401 cause."
+      ]
+    },
+    {
+      "id": "api_403",
+      "languages": ["general"],
+      "triggers": [
+        "api 403",
+        "403 forbidden api",
+        "permission denied api",
+        "api returns 403",
+        "403 error api"
+      ],
+      "title": "API: 403 forbidden",
+      "steps": [
+        "Confirm 401 vs 403: 401 = bad auth, 403 = good auth, no permission.",
+        "Check user/role permissions on the resource — does this account own/access it?",
+        "Check scopes on the token — many tokens are limited.",
+        "Check IP allowlist — some APIs restrict by source IP.",
+        "Some APIs return 403 instead of 404 for resources you can't see — confirm the resource exists with a higher-privilege account.",
+        "Check rate-limit headers — some services return 403 for soft bans."
+      ],
+      "tips": [
+        "If switching from staging to prod credentials gives 403, the resource may exist only in one env.",
+        "AWS S3 returns 403 for both 'no access' and 'no such key' if listing is denied — confusing.",
+        "Server-side, log the exact reason in your 403 responses — saves clients hours."
+      ]
+    },
+    {
+      "id": "api_429",
+      "languages": ["general"],
+      "triggers": [
+        "api 429",
+        "rate limit",
+        "too many requests",
+        "429 error",
+        "throttled api",
+        "rate limited"
+      ],
+      "title": "API: 429 too many requests",
+      "steps": [
+        "Read response headers — `Retry-After`, `X-RateLimit-Remaining`, `X-RateLimit-Reset` tell you the limit.",
+        "Implement client-side retry with backoff: respect `Retry-After`, exponential delay otherwise.",
+        "Batch requests where the API supports it.",
+        "Cache responses — don't re-fetch unchanged data.",
+        "If you legitimately need more, request a higher tier or use multiple API keys (only if allowed).",
+        "Add jitter to retries: random delay to avoid thundering-herd."
+      ],
+      "tips": [
+        "Exponential backoff with jitter is the standard pattern — every cloud SDK does it.",
+        "If parallel requests cause 429s, add a concurrency limit (p-limit, semaphore).",
+        "Stop ASAP on 429 — repeated hits can extend the ban."
+      ]
+    },
+    {
+      "id": "api_500",
+      "languages": ["general"],
+      "triggers": [
+        "api 500",
+        "500 internal server error",
+        "api crashing",
+        "500 error api",
+        "server error 500"
+      ],
+      "title": "API: 500 internal server error",
+      "steps": [
+        "First confirm: is it always 500, or intermittent? Retry to find out.",
+        "Check the response body — many APIs include diagnostic info.",
+        "If you control the server: check logs around the time of the failure.",
+        "Reproduce with the smallest possible request — strip headers and body until it works, then add back.",
+        "Check upstream dependencies — DB, cache, downstream APIs.",
+        "If it's a third-party API, check their status page."
+      ],
+      "tips": [
+        "500 is the server's fault; 4xx is the client's. Confirm before assuming.",
+        "If logs aren't accessible, request IDs in the response let you correlate with backend logs later.",
+        "Sentry/Datadog on the server side gives stack traces for 500s — invaluable."
+      ]
+    },
+    {
+      "id": "docker_build_fails",
+      "languages": ["build", "general"],
+      "triggers": [
+        "docker build fails",
+        "docker build error",
+        "dockerfile fails",
+        "docker build broken",
+        "docker buildkit error"
+      ],
+      "title": "Docker: build fails",
+      "steps": [
+        "Read the error — Docker shows which step (RUN/COPY/ETC) and the underlying command's output.",
+        "Reproduce just the bad step by running an interactive container at the previous stage: `docker run -it <previous-stage-image> sh`.",
+        "If a RUN command fails, run it manually inside the container to debug.",
+        "Check .dockerignore — needed files may be excluded.",
+        "Check FROM image — pinned versions disappear sometimes; use a specific digest.",
+        "Try `--no-cache` to rule out stale layers."
+      ],
+      "tips": [
+        "BuildKit gives much better error output — use `DOCKER_BUILDKIT=1`.",
+        "Multi-stage builds: the last stage matters — earlier stages may succeed/fail silently.",
+        "`docker buildx build --progress=plain` shows full logs for every step."
+      ]
+    },
+    {
+      "id": "docker_container_exits",
+      "languages": ["build", "general"],
+      "triggers": [
+        "docker container exits immediately",
+        "container exited",
+        "docker run exits",
+        "container won't stay up",
+        "docker exits 0"
+      ],
+      "title": "Docker: container exits immediately",
+      "steps": [
+        "Check exit code: `docker ps -a` shows STATUS like 'Exited (1) 5 seconds ago'.",
+        "Read logs: `docker logs <container>` — usually has the error.",
+        "If exit code 0, the entrypoint completed normally — your CMD is a one-shot, not a server.",
+        "If non-zero, the process crashed. Run interactively to debug: `docker run -it --entrypoint sh <image>`.",
+        "Verify your CMD/ENTRYPOINT actually starts a foreground process — backgrounded processes exit the container.",
+        "For dev, override with `docker run -it <image> sh` to poke around."
+      ],
+      "tips": [
+        "Containers run as long as PID 1 runs. `nohup app &` exits because PID 1 died.",
+        "Don't `init` daemons inside containers — let the orchestrator handle restarts.",
+        "`tail -f /dev/null` is a debugging trick to keep a misconfigured container alive."
+      ]
+    },
+    {
+      "id": "docker_host_service",
+      "languages": ["build", "general"],
+      "triggers": [
+        "docker connect to host",
+        "host.docker.internal",
+        "container can't reach host",
+        "docker network host",
+        "container localhost host"
+      ],
+      "title": "Docker: container can't reach host service",
+      "steps": [
+        "Inside the container, `localhost` means the container itself — not your host.",
+        "On Mac/Windows Docker Desktop: use `host.docker.internal` to reach the host.",
+        "On Linux: add `--add-host=host.docker.internal:host-gateway` to `docker run`.",
+        "Alternatively run with `--network host` (Linux only) to share the host's network namespace.",
+        "Confirm the host service is bound to all interfaces (0.0.0.0), not just 127.0.0.1.",
+        "Test from inside: `docker exec -it <c> curl host.docker.internal:<port>`."
+      ],
+      "tips": [
+        "Linux Docker doesn't have host.docker.internal by default — add it explicitly.",
+        "Services bound to 127.0.0.1 on the host aren't reachable from containers — bind to 0.0.0.0.",
+        "On Docker Compose, services see each other by service name — no host.docker.internal needed."
+      ]
+    },
+    {
+      "id": "docker_port_not_exposed",
+      "languages": ["build", "general"],
+      "triggers": [
+        "docker port not exposed",
+        "cannot access docker container",
+        "docker port mapping",
+        "docker -p not working",
+        "container port unreachable"
+      ],
+      "title": "Docker: port not exposed",
+      "steps": [
+        "Run with `-p <hostPort>:<containerPort>`: e.g. `docker run -p 8080:80 nginx`.",
+        "Verify with `docker port <container>` — lists actual mappings.",
+        "Inside the container, confirm the service is listening on the container port and on 0.0.0.0, not 127.0.0.1.",
+        "From the host, try `curl localhost:<hostPort>`.",
+        "EXPOSE in a Dockerfile is informational; you still need `-p` (or `-P` for all exposed).",
+        "Firewall on host can block — check ufw/iptables/Windows Firewall."
+      ],
+      "tips": [
+        "Common mistake: app listens on 127.0.0.1 inside the container — invisible from outside.",
+        "docker-compose: `ports:` is the equivalent of `-p`.",
+        "`docker run -P` (uppercase) maps every EXPOSEd port to a random host port."
+      ]
+    },
+    {
+      "id": "docker_image_too_large",
+      "languages": ["build", "general"],
+      "triggers": [
+        "docker image too large",
+        "slim docker image",
+        "docker image size",
+        "reduce docker image",
+        "docker image bloated"
+      ],
+      "title": "Docker: image too large",
+      "steps": [
+        "Inspect layer sizes: `docker history <image>` or `dive <image>`.",
+        "Switch base to slim/alpine: `python:3.11-slim` vs `python:3.11`.",
+        "Use multi-stage builds: build in a fat stage, copy artifacts into a slim final stage.",
+        "Combine RUN steps to reduce layers: `RUN apt-get update && apt-get install ... && rm -rf /var/lib/apt/lists/*`.",
+        "Exclude dev deps from prod images.",
+        "Add a comprehensive .dockerignore (node_modules, .git, tests, docs)."
+      ],
+      "tips": [
+        "Alpine is small but uses musl libc — some Python wheels break. Use slim if so.",
+        "`dive` is the best image-explorer; it shows wasted space per layer.",
+        "Distroless images (Google) give the smallest secure final images."
+      ]
+    },
+    {
+      "id": "k8s_crashloopbackoff",
+      "languages": ["general", "build"],
+      "triggers": [
+        "crashloopbackoff",
+        "kubernetes pod crashlooping",
+        "k8s crashloop",
+        "pod crash loop",
+        "crash loop back off"
+      ],
+      "title": "K8s: pod in CrashLoopBackOff",
+      "steps": [
+        "Read logs of the LAST run: `kubectl logs <pod>` shows current; `kubectl logs <pod> --previous` shows prior crash.",
+        "Describe the pod: `kubectl describe pod <pod>` — events at the bottom often explain.",
+        "Check resource limits — OOMKilled shows up here.",
+        "Run the image locally to reproduce: `docker run -it <image>`.",
+        "Check liveness probe — too aggressive can cause loops.",
+        "If env or configmaps are wrong, fix and roll the deployment: `kubectl rollout restart deployment <name>`."
+      ],
+      "tips": [
+        "`kubectl logs --previous` is the magic flag — most diagnoses live there.",
+        "OOMKilled means the limit is too low or the app leaks — bump or fix.",
+        "Backoff delays double up to 5min — fix fast or it gets slow to verify."
+      ]
+    },
+    {
+      "id": "k8s_imagepullbackoff",
+      "languages": ["general", "build"],
+      "triggers": [
+        "imagepullbackoff",
+        "kubernetes can't pull image",
+        "k8s image pull error",
+        "image pull failed",
+        "errimagepull"
+      ],
+      "title": "K8s: pod in ImagePullBackOff",
+      "steps": [
+        "`kubectl describe pod <pod>` — events section names the registry error.",
+        "Common: bad image name/tag. Verify with `docker pull <image>` from your machine.",
+        "If private registry: ensure an imagePullSecret is configured and referenced in the pod spec.",
+        "Create the secret: `kubectl create secret docker-registry <name> --docker-server=... --docker-username=... --docker-password=...`.",
+        "Reference in the pod: `imagePullSecrets: [name: <name>]`.",
+        "For ECR/GCR/ACR, use the cloud-provider auth helpers."
+      ],
+      "tips": [
+        "Tags can move; pinning to a digest (`sha256:...`) is most reliable.",
+        "Network policies can block egress to image registries — check those too.",
+        "DockerHub rate limits hit hard — authenticated pulls have a higher quota."
+      ]
+    },
+    {
+      "id": "ci_fails_only",
+      "languages": ["build", "general"],
+      "triggers": [
+        "github actions only fails in ci",
+        "step fails in ci",
+        "ci specific failure",
+        "passes locally fails ci",
+        "github actions step fails"
+      ],
+      "title": "CI: step fails only in CI",
+      "steps": [
+        "Diff env: print `env | sort` in CI vs locally. Common diffs: PATH, NODE_VERSION, language locale.",
+        "Match versions: pin Node/Python/etc. in CI to match local exactly.",
+        "Run the same Docker image CI uses, locally: `docker run -it <image>`.",
+        "Add `set -x` (bash) or equivalent to see exact commands.",
+        "Check for hidden state: CI machines are fresh; if you assume a tool is installed, install it.",
+        "Re-run with debug logging: set `ACTIONS_STEP_DEBUG=true` in repo secrets for GitHub Actions."
+      ],
+      "tips": [
+        "GitHub Actions: `act` can run workflows locally — closer to CI than your own shell.",
+        "File case-sensitivity bites: Linux is strict, macOS isn't by default.",
+        "If a test relies on time/locale, set TZ and LANG explicitly in CI."
+      ]
+    },
+    {
+      "id": "ci_cannot_access_secret",
+      "languages": ["build", "general"],
+      "triggers": [
+        "github actions secret",
+        "secret not available",
+        "ci cannot access secret",
+        "env secret missing",
+        "workflow secret empty"
+      ],
+      "title": "CI: GitHub Actions can't access a secret",
+      "steps": [
+        "Confirm the secret is set: Settings → Secrets and variables → Actions. Check name/case.",
+        "Reference correctly: `${{ secrets.MY_SECRET }}` — case matters, no spaces.",
+        "Secrets are NOT available to PRs from forks for security — workflows triggered by fork PRs see them as empty.",
+        "Secrets aren't available in `pull_request_target` outside the default branch's workflow file — use carefully.",
+        "Env scope: `env:` at job vs step level matters.",
+        "Log a masked check: `echo \"len=${#MY_SECRET}\"` to see if it's populated."
+      ],
+      "tips": [
+        "GitHub auto-masks secrets in logs — but echo'ing them still leaks via Base64 etc. Don't try to print them.",
+        "Environment secrets (under 'Environments') allow per-env scoping.",
+        "Organization secrets cover many repos at once."
+      ]
+    },
+    {
+      "id": "ci_test_passes_locally",
+      "languages": ["build", "general"],
+      "triggers": [
+        "test passes locally fails ci",
+        "ci tests fail",
+        "tests fail on ci only",
+        "flaky in ci",
+        "tests work locally not ci"
+      ],
+      "title": "CI: test passes locally, fails in CI",
+      "steps": [
+        "Run the SAME container/image CI uses, locally.",
+        "Match Node/Python/etc. versions exactly.",
+        "Check for ordering dependence: `--randomize` or shuffle tests.",
+        "Check for time/timezone assumptions — CI is usually UTC.",
+        "Check for filesystem case sensitivity — CI Linux is strict.",
+        "Check for parallel-test interference: shared DB, ports, files."
+      ],
+      "tips": [
+        "Test pollution: one test leaves state another depends on — shuffling reveals this.",
+        "Fixed seeds for randomness aren't 'fixed' across runtimes — verify on CI's runtime.",
+        "Snapshots can differ by line endings — `.gitattributes` to enforce LF."
+      ]
+    },
+    {
+      "id": "ci_build_works_locally",
+      "languages": ["build", "general"],
+      "triggers": [
+        "build works locally fails ci",
+        "build fails in ci",
+        "node version mismatch ci",
+        "build different ci",
+        "ci build broken"
+      ],
+      "title": "CI: build works locally, fails in CI",
+      "steps": [
+        "Match runtime versions: pin Node/Python/etc. in CI config to what you use locally.",
+        "Clean install locally to compare: `rm -rf node_modules && npm ci`.",
+        "Use `npm ci` (not `install`) in CI to honor the lockfile exactly.",
+        "Check for case-sensitivity in imports — Linux is strict.",
+        "Check for env vars baked into local builds (`.env.local`) not present in CI.",
+        "Increase verbosity: pass `--verbose` or set CI=true to enable diagnostic flags many tools use."
+      ],
+      "tips": [
+        "`npm ci` is reproducible; `npm install` may bump packages.",
+        ".env files generally shouldn't be in the repo; CI uses secrets.",
+        "Build caches in CI can mask issues — try a clean run to confirm."
+      ]
+    },
+    {
+      "id": "mac_vs_linux",
+      "languages": ["general"],
+      "triggers": [
+        "works on mac fails on linux",
+        "mac linux difference",
+        "macos linux compatibility",
+        "cross platform issue",
+        "case sensitive filesystem"
+      ],
+      "title": "Cross-platform: works on Mac, fails on Linux",
+      "steps": [
+        "Case sensitivity: macOS is usually case-insensitive; Linux is strict. Fix any case-mismatched imports/paths.",
+        "Line endings: macOS uses LF (good), Windows CRLF can sneak in via Git config — set `core.autocrlf` correctly.",
+        "GNU vs BSD coreutils: `sed`, `awk`, `xargs` flags differ. Use `gsed`/`gawk` locally or write POSIX-only.",
+        "File paths: hard-coded `/Users/...` won't exist on Linux. Use env vars or relative paths.",
+        "Permissions: Linux is stricter; ensure executables have +x and aren't on noexec mounts.",
+        "Test in Docker (linux container) before pushing — avoid all surprises."
+      ],
+      "tips": [
+        "GNU sed in-place: `sed -i 's/x/y/' file`. BSD/Mac requires: `sed -i '' 's/x/y/' file`. Painful.",
+        "Filesystem case-insensitivity on Mac hides 'should-fail' imports — Linux exposes them.",
+        "A Linux dev container in VS Code reproduces CI locally with minimal setup."
+      ]
+    },
+    {
+      "id": "encoding_utf8_bom",
+      "languages": ["general"],
+      "triggers": [
+        "utf-8 bom",
+        "byte order mark",
+        "encoding issue file",
+        "file encoding wrong",
+        "bom causing issue"
+      ],
+      "title": "Encoding: UTF-8 / BOM issues",
+      "steps": [
+        "Detect a BOM: `head -c 3 file | xxd` — `efbbbf` is the BOM.",
+        "Strip a BOM: `sed -i '1s/^\\xEF\\xBB\\xBF//' file` (GNU sed) or rewrite the file in your editor without BOM.",
+        "Detect encoding: `file -i file.txt` shows it.",
+        "Convert encoding: `iconv -f WINDOWS-1252 -t UTF-8 in.txt > out.txt`.",
+        "If parsing JSON/YAML, a BOM causes 'unexpected character' errors at column 1.",
+        "Set editor to 'UTF-8 without BOM' for source files."
+      ],
+      "tips": [
+        "Windows Notepad adds a BOM by default — switch tools.",
+        "YAML and JSON spec forbid BOMs — many parsers tolerate them, some don't.",
+        "VS Code: bottom bar shows encoding; click to re-save without BOM."
+      ]
+    },
+    {
+      "id": "timezone_bug",
+      "languages": ["general"],
+      "triggers": [
+        "time zone bug",
+        "timezone wrong",
+        "date off by hours",
+        "utc vs local time",
+        "time zone issue",
+        "date one day off"
+      ],
+      "title": "General: time zone bug",
+      "steps": [
+        "First rule: store all times as UTC. Convert only at display time.",
+        "Identify where the time is coming from: DB, API, system clock.",
+        "Check the server's TZ: `date` and `cat /etc/timezone`.",
+        "Set TZ explicitly in your runtime (TZ env var, container, etc.) — UTC for servers is standard.",
+        "When formatting for users, convert to their TZ at the boundary, not in the middle of logic.",
+        "If date appears 'one day off', it's often a UTC midnight crossing — check the time component too."
+      ],
+      "tips": [
+        "Beware: JS `new Date('2024-01-01')` parses as UTC; `new Date('2024-01-01T00:00')` as LOCAL. Subtle.",
+        "Always test around DST transitions — bugs hide there.",
+        "Use libraries (luxon, date-fns-tz, pytz) instead of rolling your own TZ math."
+      ]
+    },
+    {
+      "id": "off_by_one",
+      "languages": ["general"],
+      "triggers": [
+        "off by one",
+        "off-by-one error",
+        "index out of range",
+        "loop one too many",
+        "indexing error"
+      ],
+      "title": "General: off-by-one error",
+      "steps": [
+        "Print the boundaries: start, end, length, what's at index 0 and at index length-1.",
+        "Identify the language's slice semantics: most are half-open ([start, end)).",
+        "Sketch a small example by hand for n=0, n=1, n=2 — see when it breaks.",
+        "Common: confusing length with last index (length is N, last index is N-1).",
+        "Common: using `<=` where you meant `<` (or vice versa).",
+        "Common: iterating one beyond a sentinel that should stop you."
+      ],
+      "tips": [
+        "Prefer iterators (`for x in xs`) over manual indices when possible.",
+        "Write a test for empty input, single element, and 'standard' cases — off-by-ones surface here.",
+        "Fence-post problem: N posts make N-1 fence sections."
+      ]
+    },
+    {
+      "id": "flaky_test",
+      "languages": ["general"],
+      "triggers": [
+        "flaky test",
+        "intermittent test failure",
+        "test fails sometimes",
+        "random test failures",
+        "test flakiness"
+      ],
+      "title": "General: intermittent / flaky test",
+      "steps": [
+        "Run it many times: `for i in 1..100; pytest -x test_foo.py`. Get a real failure rate.",
+        "Identify the category: time/async race, ordering dependence, shared resource, randomness.",
+        "Fix async races: await every promise; remove arbitrary sleeps in favor of proper waits.",
+        "Fix order dependence: isolate state, run tests in random order to expose.",
+        "Fix shared resources: unique ports, unique DB schemas per test, clean up always.",
+        "Pin random seeds at test boundaries."
+      ],
+      "tips": [
+        "Quarantine, then fix — don't merge new code on a flaky baseline.",
+        "Retries hide flakiness; only use them as a temporary measure.",
+        "If a test passes alone but fails in suite, it's almost always shared state."
+      ]
+    },
+    {
+      "id": "env_var_not_loading",
+      "languages": ["general"],
+      "triggers": [
+        "env var not loading",
+        "environment variable empty",
+        ".env not working",
+        "dotenv not loading",
+        "process.env undefined"
+      ],
+      "title": "General: env var not loading",
+      "steps": [
+        "Confirm the file is named exactly `.env` (no extension, hidden) in the right directory.",
+        "Confirm your framework loads it: Next.js auto-loads from project root; Node needs `dotenv` imported FIRST.",
+        "Import order matters: `require('dotenv').config()` MUST be before any code that reads `process.env`.",
+        "For deployment, set env vars in the platform (Vercel, Heroku, Docker) — `.env` files often aren't deployed.",
+        "Print to verify: `console.log('X=', process.env.MY_VAR)` early in startup.",
+        "Reserved-prefix gotchas: CRA needs `REACT_APP_`; Vite needs `VITE_`; Next.js needs `NEXT_PUBLIC_` for client-side."
+      ],
+      "tips": [
+        "Don't commit `.env` — add to .gitignore. Commit `.env.example` with empty values as documentation.",
+        "Trailing whitespace and quotes in env values cause silent bugs — strip both.",
+        "`direnv` auto-loads .env when you cd in — great for terminals."
+      ]
+    },
+    {
+      "id": "build_node_version",
+      "languages": ["build", "javascript"],
+      "triggers": [
+        "node version build fails",
+        "engine node mismatch",
+        "node version error",
+        "wrong node version",
+        "npm engine error"
+      ],
+      "title": "Build: Node version mismatch",
+      "steps": [
+        "Read `engines` in package.json — it specifies required Node range.",
+        "Check your version: `node -v` and your CI's version.",
+        "Install the matching version: `nvm install <version> && nvm use <version>`.",
+        "Add a `.nvmrc` file with the version so collaborators auto-switch.",
+        "In CI, pin: `actions/setup-node@v4` with `node-version-file: '.nvmrc'`.",
+        "Reinstall deps after switching: `rm -rf node_modules && npm ci`."
+      ],
+      "tips": [
+        "`engines` in package.json is documentation; npm doesn't enforce unless you set `engine-strict=true`.",
+        "Lockfile resolution can change with Node version — `npm ci` failures often trace here.",
+        "Volta is an alternative to nvm — auto-switches per project."
+      ]
+    },
+    {
+      "id": "mobile_responsive_broken",
+      "languages": ["general"],
+      "triggers": [
+        "mobile site broken",
+        "responsive not working",
+        "site looks bad mobile",
+        "mobile layout broken",
+        "viewport mobile"
+      ],
+      "title": "Mobile: site broken on phone",
+      "steps": [
+        "Confirm meta viewport is set: `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">`.",
+        "Open Chrome DevTools → device toolbar (Cmd+Shift+M) to simulate phones.",
+        "Inspect overflow: 100vw containers + scrollbars cause horizontal scroll. Use `max-width: 100%`.",
+        "Check fixed pixel widths in CSS — switch to %, rem, or vw/vh.",
+        "Touch targets too small: minimum 44x44px per Apple HIG.",
+        "Test on a real device — emulators miss touch and font-rendering issues."
+      ],
+      "tips": [
+        "Safari iOS has its own quirks — test there too, not just Chrome's emulator.",
+        "100vh on iOS Safari includes the URL bar — use `dvh` (dynamic) or JS fallback.",
+        "BrowserStack/Sauce Labs let you test real devices remotely."
+      ]
+    },
+    {
+      "id": "deployment_404_routes",
+      "languages": ["general"],
+      "triggers": [
+        "spa 404 on refresh",
+        "404 direct url",
+        "deep link 404",
+        "react router 404",
+        "spa deployment routes"
+      ],
+      "title": "Deploy: SPA routes 404 on refresh",
+      "steps": [
+        "Recognize: the URL works when you navigate from the home page, but refresh on a deep link 404s.",
+        "Reason: the server tries to serve `/some/route` as a file, doesn't find it, returns 404.",
+        "Configure the server to serve `index.html` for ALL routes (SPA fallback).",
+        "Apache: `.htaccess` with `FallbackResource /index.html`.",
+        "Nginx: `try_files $uri $uri/ /index.html;`.",
+        "Static hosts (Netlify, Vercel) usually have a SPA toggle or `_redirects` / `vercel.json` config."
+      ],
+      "tips": [
+        "Netlify: add `_redirects` with `/* /index.html 200`.",
+        "Vercel/Next.js: routing is handled, but for static export ensure rewrites.",
+        "Hash-based routing (`#/path`) sidesteps this entirely but isn't SEO-friendly."
+      ]
+    },
+    {
+      "id": "log_level_too_quiet",
+      "languages": ["general"],
+      "triggers": [
+        "no logs in production",
+        "log level production",
+        "missing logs",
+        "log level too quiet",
+        "logging not showing"
+      ],
+      "title": "General: missing logs in production",
+      "steps": [
+        "Check the log level: `LOG_LEVEL=info` or similar. Many frameworks default to warn/error in prod.",
+        "Make sure your log calls match: `logger.info(...)` won't appear if level is `warn`.",
+        "Confirm logs are flushed: synchronous on startup/shutdown, async during runtime.",
+        "Check where logs go: stdout, file, log service. Some platforms only capture stdout.",
+        "If using JSON logging, ensure your viewer can parse the structure.",
+        "For ephemeral containers, ship logs to a central service — they're gone on restart."
+      ],
+      "tips": [
+        "12-factor: log to stdout, let the platform handle aggregation.",
+        "Buffered logging can drop the last messages on crash — use sync logging at shutdown.",
+        "Sentry/Datadog/CloudWatch all work — pick one before you're firefighting."
+      ]
+    },
+    {
+      "id": "windows_line_endings",
+      "languages": ["general", "bash"],
+      "triggers": [
+        "bad interpreter no such file",
+        "windows line endings shell",
+        "crlf shell script",
+        "^M at end of line",
+        "bash script crlf"
+      ],
+      "title": "General: CRLF line endings break shell scripts",
+      "steps": [
+        "Recognize the symptom: 'bad interpreter: No such file or directory' or `^M` in error output.",
+        "Confirm with `file script.sh` — 'with CRLF line terminators' is the giveaway.",
+        "Convert: `dos2unix script.sh` (if installed), or `sed -i 's/\\r$//' script.sh`.",
+        "Configure git to use LF in repo: in `.gitattributes` add `*.sh text eol=lf`.",
+        "Set Git globally: `git config --global core.autocrlf input` on Linux/Mac; `true` on Windows.",
+        "Renormalize: `git add --renormalize . && git commit -m 'normalize line endings'`."
+      ],
+      "tips": [
+        "Editors on Windows default to CRLF; force LF via editor settings or .editorconfig.",
+        ".editorconfig: `end_of_line = lf` is the durable answer.",
+        "WSL plus mounted Windows drives is a common source of mixed endings."
+      ]
+    },
+    {
+      "id": "general_works_then_doesnt",
+      "languages": ["general"],
+      "triggers": [
+        "worked yesterday now broken",
+        "suddenly stopped working",
+        "was working now isn't",
+        "something changed broke",
+        "regression debug"
+      ],
+      "title": "General: it worked yesterday, broken today",
+      "steps": [
+        "What changed? List every variable: code, deps, OS update, certificate expiry, time of day, DST switch.",
+        "If code changed, `git log --since=yesterday` shows commits. `git bisect` if many.",
+        "If deps changed: `npm ls --depth=0` or `pip freeze` — diff against yesterday's snapshot.",
+        "If env changed: a system update, an OS upgrade, a TLS cert expiry, a token rotation.",
+        "If time-based: DST switches, midnight UTC crossings, monthly cert renewals.",
+        "If nothing 'changed', check disk, memory, free file handles — silent resource exhaustion."
+      ],
+      "tips": [
+        "git bisect is gold for code regressions — it finds the exact bad commit in log(N) steps.",
+        "TLS cert expiry is the #1 cause of 'nothing changed and it broke'.",
+        "Snapshot deps with a lockfile so 'what changed' is answerable."
+      ]
+    },
+    {
+      "id": "git_clone_slow_or_fails",
+      "languages": ["git", "network"],
+      "triggers": [
+        "git clone slow",
+        "git clone fails",
+        "git clone hangs",
+        "clone timeout",
+        "git clone stuck"
+      ],
+      "title": "Git: clone slow or fails",
+      "steps": [
+        "Try a shallow clone: `git clone --depth 1 <url>` — only latest commit.",
+        "If specific branch: `git clone --depth 1 --branch <name> <url>`.",
+        "If hanging on resolving deltas, raise buffer: `git config --global http.postBuffer 524288000`.",
+        "If a huge repo, try partial clone: `git clone --filter=blob:none <url>`.",
+        "Check network — try fetching one file from the repo via curl.",
+        "If SSH, try HTTPS as an alternative (or vice versa)."
+      ],
+      "tips": [
+        "Shallow clones can't push easily — unshallow with `git fetch --unshallow` if needed.",
+        "Some networks throttle long-lived TCP — pause/resume by checking out shallowly first.",
+        "Mirrors (e.g. GitHub Enterprise + LFS proxy) sometimes are faster than the canonical host."
+      ]
+    },
+    {
+      "id": "py_circular_logic_traceback",
+      "languages": ["python"],
+      "triggers": [
+        "python traceback unreadable",
+        "long traceback",
+        "find real error python",
+        "python error chain",
+        "during handling another exception"
+      ],
+      "title": "Python: making sense of a long traceback",
+      "steps": [
+        "Read from the BOTTOM — the most useful line is the last exception type and message.",
+        "Walk up frame-by-frame: each entry is a stack level, the topmost is where Python started.",
+        "Look for the first frame in YOUR code (skip library internals).",
+        "If you see 'During handling of the above exception, another exception occurred', the lower one is the trigger; the upper is the cascade.",
+        "Use `traceback.print_exc()` in catch blocks to capture the full chain.",
+        "For exceptions in threads, install a `threading.excepthook` to surface them."
+      ],
+      "tips": [
+        "rich (`pip install rich`) pretty-prints tracebacks with locals — game-changer for debugging.",
+        "Chained exceptions use `from`: `raise NewError(...) from original_err` preserves context cleanly.",
+        "`sys.exception()` in 3.11+ gets the current exception without explicit args."
+      ]
+    },
+    {
+      "id": "general_disk_space",
+      "languages": ["general"],
+      "triggers": [
+        "no space left on device",
+        "disk full",
+        "out of disk space",
+        "df full",
+        "inode full"
+      ],
+      "title": "General: no space left on device",
+      "steps": [
+        "Check disk usage: `df -h` — find the full filesystem.",
+        "If filesystem isn't full but you still get the error, check inodes: `df -i`.",
+        "Find big stuff: `du -sh /* 2>/dev/null | sort -h` (top-level), drill down into the biggest.",
+        "Common culprits: logs (`/var/log`), Docker (`/var/lib/docker`), build caches, node_modules everywhere.",
+        "Clean Docker: `docker system prune -a`.",
+        "Clean homebrew caches, npm caches, pip caches as appropriate."
+      ],
+      "tips": [
+        "`ncdu` is an interactive du — much faster to navigate.",
+        "Lots of tiny files = inode exhaustion even with disk space free.",
+        "Truncate, don't delete, active log files: `truncate -s 0 file.log` keeps the file handle alive."
+      ]
+    },
+    {
+      "id": "general_too_many_open_files",
+      "languages": ["general"],
+      "triggers": [
+        "too many open files",
+        "emfile",
+        "file descriptor limit",
+        "ulimit too low",
+        "open files limit"
+      ],
+      "title": "General: too many open files",
+      "steps": [
+        "Check current limit: `ulimit -n`.",
+        "Raise it for this shell: `ulimit -n 65535`.",
+        "Persist: in `/etc/security/limits.conf` add `* soft nofile 65535` (and hard).",
+        "On macOS, add `kern.maxfiles` and `kern.maxfilesperproc` to `/etc/sysctl.conf` or a launchd plist.",
+        "Find the leak in your app: not closing sockets/files in a loop. Use `lsof -p <pid>` to see what's open.",
+        "Most languages have explicit close calls or context managers — use them rigorously."
+      ],
+      "tips": [
+        "1024 is the default on many systems — way too low for any real server.",
+        "Connection pools that don't release connections are a classic leak.",
+        "Each TCP connection = one file descriptor."
+      ]
+    },
+    {
+      "id": "py_pytest_capture",
+      "languages": ["python"],
+      "triggers": [
+        "pytest no output",
+        "pytest print not showing",
+        "pytest capture output",
+        "pytest -s",
+        "pytest stdout missing"
+      ],
+      "title": "Python/pytest: print statements not showing",
+      "steps": [
+        "By default pytest captures stdout. Disable with `pytest -s`.",
+        "Or run with `--capture=no` for the same effect explicitly.",
+        "On failure, captured output is shown by default — only on PASS is it hidden.",
+        "If you really need real-time output, `-s --log-cli-level=DEBUG`.",
+        "Use `caplog` fixture to inspect captured logs in assertions.",
+        "Use `capsys` fixture to inspect captured stdout/stderr in assertions."
+      ],
+      "tips": [
+        "`-s` is the most-used pytest flag for interactive debugging.",
+        "If you need a debugger, `pytest --pdb` drops into pdb on failure.",
+        "`pytest -x` stops at the first failure — great for iterating."
+      ]
+    },
+    {
+      "id": "js_dev_dependency_missing_prod",
+      "languages": ["javascript"],
+      "triggers": [
+        "module not found production",
+        "works dev fails prod",
+        "missing module production",
+        "devDependency in production",
+        "npm prod missing"
+      ],
+      "title": "JS: works in dev, fails in prod (devDependency)",
+      "steps": [
+        "Check the failing import — is the package in `dependencies` or `devDependencies`?",
+        "Production installs (`npm ci --production`, `NODE_ENV=production npm install`) skip devDependencies.",
+        "If the package is needed at runtime, move it to `dependencies`: `npm install <pkg> --save`.",
+        "If it's only build-time, ensure your build step runs before pruning devDeps.",
+        "For Docker: keep devDeps during build stage, prune in final stage.",
+        "Verify with `npm ls <pkg>` — should show it as not-dev-only."
+      ],
+      "tips": [
+        "Common mistake: TypeScript/babel in devDeps, runtime helpers also there. Move runtime helpers out.",
+        "`npm prune --production` removes devDeps from an existing install — useful after build.",
+        "Multi-stage Docker: build in one stage with all deps, copy to slim runtime stage."
+      ]
+    },
+    {
+      "id": "general_clipboard_lost",
+      "languages": ["general"],
+      "triggers": [
+        "command output to clipboard",
+        "copy from terminal",
+        "pbcopy",
+        "xclip",
+        "send to clipboard terminal"
+      ],
+      "title": "General: pipe terminal output to clipboard",
+      "steps": [
+        "macOS: `echo hello | pbcopy` — clipboard now has 'hello'. Paste with `pbpaste`.",
+        "Linux X11: install xclip, then `echo hello | xclip -selection clipboard`.",
+        "Linux Wayland: `wl-copy` and `wl-paste`.",
+        "Windows (Git Bash): `echo hello | clip.exe`.",
+        "WSL: `echo hello | clip.exe` reaches the Windows clipboard.",
+        "Make it a function: `alias clip='pbcopy'` (or distro equivalent) for muscle memory."
+      ],
+      "tips": [
+        "Tmux 'copy mode' captures terminal output into its own buffer — sync to system clipboard with config.",
+        "iTerm2 (Mac) can auto-copy on selection — saves keystrokes.",
+        "`pbpaste | command` is great for processing whatever you copied."
+      ]
+    },
+    {
+      "id": "py_pythonpath",
+      "languages": ["python"],
+      "triggers": [
+        "pythonpath",
+        "module path python",
+        "sys.path issue",
+        "python can't find local module",
+        "import local module python"
+      ],
+      "title": "Python: sys.path / PYTHONPATH issues",
+      "steps": [
+        "Print sys.path: `python -c 'import sys; print(sys.path)'`. Note your cwd is usually `''` in the list.",
+        "If your local module isn't on sys.path, run from the project root, or add `PYTHONPATH=src python ...`.",
+        "Better: install your package in editable mode: `pip install -e .` with a `pyproject.toml`.",
+        "Or use `python -m mymodule` instead of `python path/to/mymodule.py` — the `-m` adds the package's root to sys.path correctly.",
+        "Add `__init__.py` to make a folder a real package (or PEP 420 namespace if you skip it).",
+        "Avoid mucking with `sys.path` from your code — fix the install instead."
+      ],
+      "tips": [
+        "`pip install -e .` is the right way to make local imports work — no path hacks needed.",
+        "`python -m` is much more reliable than running scripts directly for path resolution.",
+        "Layout matters: src layout vs flat layout has different gotchas."
+      ]
+    },
+    {
+      "id": "react_infinite_render",
+      "languages": ["javascript"],
+      "triggers": [
+        "too many re-renders",
+        "react infinite render",
+        "maximum update depth exceeded",
+        "infinite loop react",
+        "react re-render loop"
+      ],
+      "title": "JS/React: too many re-renders",
+      "steps": [
+        "Read the error: 'Maximum update depth exceeded' or 'Too many re-renders'.",
+        "Look for state updates IN render: calling `setX()` directly in the function body re-runs render forever.",
+        "Move state updates into event handlers or useEffect.",
+        "Check useEffect deps: an object/array in deps recreated each render triggers infinite effects. Memoize with useMemo or extract primitives.",
+        "Check that event handlers aren't called by mistake (e.g. `onClick={handler()}` calls; `onClick={handler}` references).",
+        "Add `console.log('render')` at the top of the component to count renders.",
+        "Use React DevTools Profiler to see what's re-rendering."
+      ],
+      "tips": [
+        "Most infinite-render bugs are 'I called setX during render' — search for setX outside callbacks.",
+        "An object literal in deps `[{ foo: 1 }]` is a new reference every render — useMemo it.",
+        "useCallback for handlers passed to memoized children."
+      ]
+    },
+    {
+      "id": "py_pickling_error",
+      "languages": ["python"],
+      "triggers": [
+        "pickle error",
+        "cannot pickle",
+        "pickling error python",
+        "cannot serialize python",
+        "pickle multiprocessing"
+      ],
+      "title": "Python: PicklingError",
+      "steps": [
+        "Read the error — it names what can't be pickled (often a lambda, local function, or thread lock).",
+        "Replace lambdas with top-level functions.",
+        "Don't pass module-level resources (open files, connections) across processes — open them in the worker.",
+        "For `multiprocessing`, switch to `dill` (`import dill as pickle`) which handles more cases — or use `multiprocess` library.",
+        "For `concurrent.futures.ProcessPoolExecutor`, the same restriction applies.",
+        "Consider switching to threads if the work is I/O bound and pickling is the blocker."
+      ],
+      "tips": [
+        "Pickling rules: top-level callables only, no open OS handles, no thread locks.",
+        "`__reduce__` lets you define how a class pickles if needed.",
+        "Cloudpickle (used by Dask, Ray) is broader than stdlib pickle — sometimes a drop-in fix."
+      ]
+    },
+    {
+      "id": "py_jupyter_kernel_dies",
+      "languages": ["python"],
+      "triggers": [
+        "jupyter kernel died",
+        "kernel keeps dying jupyter",
+        "ipykernel crash",
+        "jupyter restarting kernel",
+        "kernel restart unexpectedly"
+      ],
+      "title": "Python/Jupyter: kernel keeps dying",
+      "steps": [
+        "Open the terminal that launched Jupyter — kernel crashes log there.",
+        "If OOM, free memory or downsize data. Check with `htop`.",
+        "If a native lib segfaults, isolate which import — comment out and run a minimal cell.",
+        "Numpy/scipy/torch built against different BLAS can crash on import — match versions.",
+        "On Apple Silicon, mixed arm64/x86 wheels can crash — reinstall everything for one architecture.",
+        "Update ipykernel: `pip install --upgrade ipykernel`."
+      ],
+      "tips": [
+        "Kernel logs are in `~/.jupyter` or printed to the launching terminal — check both.",
+        "If it crashes on import, that import is incompatible with another in the env.",
+        "Fresh venv + reinstall is faster than tracking down a binary mismatch."
+      ]
+    },
+    {
+      "id": "git_track_remote_branch",
+      "languages": ["git"],
+      "triggers": [
+        "track remote branch",
+        "set upstream branch",
+        "no upstream branch",
+        "git push set upstream",
+        "remote branch not tracked"
+      ],
+      "title": "Git: track a remote branch",
+      "steps": [
+        "On a new local branch, first push: `git push -u origin <branch>` sets upstream and pushes.",
+        "For an existing branch: `git branch --set-upstream-to=origin/<branch>`.",
+        "Confirm: `git branch -vv` shows tracking info per branch.",
+        "After upstream is set, `git push` and `git pull` work without args.",
+        "To switch what a branch tracks: `git branch --set-upstream-to=<new-remote>/<new-branch>`."
+      ],
+      "tips": [
+        "`push.autoSetupRemote=true` in config means `git push` of a new branch sets upstream automatically.",
+        "`git fetch` updates remote-tracking refs (origin/main) without touching your local branches.",
+        "`git remote -v` shows the URL behind each remote name."
+      ]
+    },
+    {
+      "id": "general_intermittent_network",
+      "languages": ["network", "general"],
+      "triggers": [
+        "intermittent network",
+        "flaky connection",
+        "occasional timeouts",
+        "sometimes connects",
+        "spotty network"
+      ],
+      "title": "Network: intermittent / flaky connectivity",
+      "steps": [
+        "Run `mtr <host>` for a few minutes — it pings AND traceroutes continuously, showing packet loss per hop.",
+        "If loss appears at a specific hop, that hop is the problem.",
+        "Test at different times — ISP congestion has patterns.",
+        "Test from a different network (phone hotspot) to isolate your network vs the destination.",
+        "Check DNS resolver — sometimes DNS times out while reachability is fine: `dig +stats <host>`.",
+        "If wireless, test wired to isolate Wi-Fi as cause."
+      ],
+      "tips": [
+        "`mtr` is the single best tool for intermittent issues — better than ping or traceroute alone.",
+        "Cloudflare's 1.1.1.1 or Google's 8.8.8.8 as a test DNS isolates resolver issues.",
+        "Wi-Fi interference (2.4 GHz especially) is wildly underestimated as a cause."
+      ]
+    },
+    {
+      "id": "py_walrus_or_match",
+      "languages": ["python"],
+      "triggers": [
+        "python syntax error new feature",
+        "walrus operator error",
+        "match case syntax",
+        "python feature not supported",
+        "f-string error old python"
+      ],
+      "title": "Python: new-feature syntax errors on old Python",
+      "steps": [
+        "Confirm Python version: `python --version`.",
+        "Map: walrus `:=` needs 3.8+; positional-only `/` needs 3.8+; `match` needs 3.10+; PEP 695 generics need 3.12+; type statements need 3.12+.",
+        "f-strings need 3.6+; nested f-strings with quotes need 3.12+.",
+        "If supporting old versions, rewrite without the feature OR raise the minimum.",
+        "Set `python_requires` in setup.cfg/pyproject.toml to enforce.",
+        "Use `pyupgrade` to add new syntax automatically once you bump the minimum."
+      ],
+      "tips": [
+        "End-of-life Pythons (3.7 and older) are commonly broken — drop support unless required.",
+        "ruff/mypy can be configured to your minimum version and warn on incompatible usage.",
+        "vermin scans a codebase for the minimum Python version actually required by the syntax used."
+      ]
+    },
+    {
+      "id": "node_promise_chain_swallow",
+      "languages": ["javascript"],
+      "triggers": [
+        "promise swallowed",
+        "missing catch promise",
+        "promise error not caught",
+        "silent promise failure",
+        "async error swallowed"
+      ],
+      "title": "JS: silent promise / async failure",
+      "steps": [
+        "Find the async call — look for a missing `await` or `.catch`.",
+        "Wrap awaits in try/catch: `try { await x() } catch (e) { ... }`.",
+        "Chain `.catch()` on every promise where you don't have try/catch.",
+        "In Node, install a global handler: `process.on('unhandledRejection', e => console.error(e))`.",
+        "In the browser: `window.addEventListener('unhandledrejection', e => ...)`.",
+        "Forgot to return a promise from an arrow body? `() => asyncFn()` returns the promise; `() => { asyncFn() }` swallows it."
+      ],
+      "tips": [
+        "Implicit-return arrows propagate the inner promise; block-body arrows need explicit `return`.",
+        "ESLint's `no-floating-promises` (TypeScript-ESLint) catches every dangling promise.",
+        "Top-level await in ESM removes a lot of swallow-prone patterns."
+      ]
+    },
+    {
+      "id": "general_curl_debugging",
+      "languages": ["network", "general"],
+      "triggers": [
+        "curl debugging",
+        "curl request fails",
+        "curl verbose",
+        "how to debug http request",
+        "curl trace"
+      ],
+      "title": "Network: debugging an HTTP request with curl",
+      "steps": [
+        "Start with `-v`: `curl -v https://api.example.com/path` — shows TLS, headers, response.",
+        "Show only response headers: `curl -I <url>`.",
+        "Save body to a file: `curl -o body.json <url>` so the terminal isn't flooded.",
+        "Send custom headers: `-H 'Authorization: Bearer X' -H 'Content-Type: application/json'`.",
+        "POST JSON: `-X POST -d '{\"k\":\"v\"}' -H 'Content-Type: application/json'`.",
+        "Follow redirects: `-L`. Trace timings: `-w '%{time_total}\\n' -o /dev/null -s`."
+      ],
+      "tips": [
+        "`httpie` is a friendlier alternative for ad-hoc testing.",
+        "`curl --trace-ascii /dev/stdout` shows every byte sent and received — nuclear option.",
+        "`-w` format strings give you precise timing breakdowns (DNS, TLS, TTFB, total)."
+      ]
+    }
+  ]
+}

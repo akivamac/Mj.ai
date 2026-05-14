@@ -1,0 +1,5597 @@
+{
+  "_comment": "Error-pattern matcher. Joe matches user input against `match` regex; if it hits, returns diagnosis + fixes. Languages: python, javascript, typescript, bash, git, generic.",
+  "patterns": [
+    {
+      "id": "py_nameerror",
+      "languages": [
+        "python"
+      ],
+      "match": "NameError: name '([^']+)' is not defined",
+      "title": "NameError — variable doesn't exist",
+      "diagnosis": "Python can't find a variable, function, or class named `{1}` in the current scope. Either it's misspelled, not imported, or referenced before it's assigned.",
+      "fixes": [
+        "Check spelling — Python is case-sensitive (`Print` is not `print`).",
+        "If `{1}` comes from another module, did you `import` it?",
+        "If `{1}` is defined later in the file, move the definition above the line that uses it.",
+        "Inside a function: assign before referencing, use `global {1}`, or pass it as a parameter."
+      ],
+      "example_fix": "name = 'Joe'\nprint(name)  # not Name"
+    },
+    {
+      "id": "py_type_unsupported_operand",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: unsupported operand type\\(s\\) for ([^:]+): '([^']+)' and '([^']+)'",
+      "title": "TypeError — can't combine those types",
+      "diagnosis": "Python doesn't know how to apply `{1}` between a `{2}` and a `{3}`. Most often this is mixing strings with numbers, or a `None` slipped in where a value was expected.",
+      "fixes": [
+        "Convert one side: `int(x)`, `float(x)`, or `str(x)` so both sides match.",
+        "Check whether one operand is `None` — print it just before the line that fails.",
+        "If you're doing `'5' + 5`, decide which you want: `'5' + str(5)` or `int('5') + 5`."
+      ],
+      "example_fix": "total = int(user_input) + 10"
+    },
+    {
+      "id": "py_object_not_callable",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: '([^']+)' object is not callable",
+      "title": "TypeError — that thing isn't a function",
+      "diagnosis": "You put `()` after `{1}` but it isn't callable. Usually this means a variable is shadowing a function name (e.g. `list = [1,2]` then later `list(...)`), or you used `()` instead of `[]` for indexing.",
+      "fixes": [
+        "Did you assign over a builtin? Rename your variable (no more `list = ...`, `dict = ...`, `str = ...`).",
+        "If you meant to index, use `[]` not `()`.",
+        "Check what `{1}` actually holds by printing `type(it)` just before the call."
+      ]
+    },
+    {
+      "id": "py_object_not_subscriptable",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: '([^']+)' object is not subscriptable",
+      "title": "TypeError — can't index that",
+      "diagnosis": "You wrote `thing[i]` but `thing` is a `{1}`, which doesn't support indexing. Common cause: trying to index into a function, generator, or `None`.",
+      "fixes": [
+        "If `{1}` is `NoneType`, check whether a function silently returned `None`.",
+        "Generators aren't indexable — wrap with `list(gen)` first or use `next(gen)`.",
+        "If you have an `int` and meant a digit, convert: `str(n)[i]`."
+      ]
+    },
+    {
+      "id": "py_object_not_iterable",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: '([^']+)' object is not iterable",
+      "title": "TypeError — can't loop over that",
+      "diagnosis": "You tried to iterate over a `{1}`, but it isn't iterable. Often this is iterating over an `int` or a function instead of a sequence.",
+      "fixes": [
+        "If you meant a range of numbers, use `range(n)` not `n`.",
+        "If `{1}` is `NoneType`, check what produced it — a function that returned nothing?",
+        "Wrap single values in a list: `for x in [thing]:`."
+      ]
+    },
+    {
+      "id": "py_positional_args",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: ([\\w.]+)\\(\\) takes (\\d+) positional arguments? but (\\d+) (?:was|were) given",
+      "title": "TypeError — wrong number of arguments",
+      "diagnosis": "`{1}` expects {2} positional arguments but got {3}. If this is a method, the extra one is probably `self` being passed implicitly.",
+      "fixes": [
+        "Recount the arguments at the call site.",
+        "If `{1}` is a method, did you call it on an instance (`obj.method(x)`) or on the class (`Cls.method(x)`)? The class form needs `self` explicitly.",
+        "Did you forget to put `self` as the first parameter in the method definition?"
+      ]
+    },
+    {
+      "id": "py_unexpected_kwarg",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: ([\\w.]+)\\(\\) got an unexpected keyword argument '([^']+)'",
+      "title": "TypeError — unknown keyword argument",
+      "diagnosis": "`{1}` doesn't accept a keyword argument called `{2}`. Either it's misspelled or the API changed.",
+      "fixes": [
+        "Check spelling of `{2}`.",
+        "Look at the signature: `help({1})` or check the docs for the version you have installed.",
+        "If you upgraded a library, the parameter may have been renamed or removed."
+      ]
+    },
+    {
+      "id": "py_missing_required_arg",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: ([\\w.]+)\\(\\) missing (\\d+) required positional argument",
+      "title": "TypeError — missing required argument",
+      "diagnosis": "You called `{1}` without one of its required arguments.",
+      "fixes": [
+        "Check the function signature with `help({1})`.",
+        "If this is a method, make sure you called it on an instance, not the class itself.",
+        "Provide the missing argument or give it a default value in the definition."
+      ]
+    },
+    {
+      "id": "py_attribute_error",
+      "languages": [
+        "python"
+      ],
+      "match": "AttributeError: '([^']+)' object has no attribute '([^']+)'",
+      "title": "AttributeError — that attribute doesn't exist",
+      "diagnosis": "A `{1}` doesn't have a `{2}`. The object is the wrong type, or the name is misspelled, or you're using an older/newer version of a library.",
+      "fixes": [
+        "Print `type(obj)` and `dir(obj)` to see what attributes it actually has.",
+        "If `{1}` is `NoneType`, an earlier function returned `None` — chase that up.",
+        "Check spelling — `lenght` vs `length`, `append` vs `add`, etc."
+      ]
+    },
+    {
+      "id": "py_module_attribute_error",
+      "languages": [
+        "python"
+      ],
+      "match": "AttributeError: module '([^']+)' has no attribute '([^']+)'",
+      "title": "AttributeError — module has no such attribute",
+      "diagnosis": "The module `{1}` doesn't expose `{2}`. Common causes: name was removed in a newer version, you imported the wrong module, or a local file is shadowing the real one.",
+      "fixes": [
+        "Check `dir({1})` to list what's actually available.",
+        "Do you have a local file named `{1}.py` shadowing the real package?",
+        "Check the version of the library and consult its changelog."
+      ]
+    },
+    {
+      "id": "py_index_error_list",
+      "languages": [
+        "python"
+      ],
+      "match": "IndexError: list index out of range",
+      "title": "IndexError — index past the end of the list",
+      "diagnosis": "You asked for `lst[i]` where `i` is `>=` `len(lst)` (or `<` `-len(lst)`). The list is shorter than you expected, or your index calculation is off by one.",
+      "fixes": [
+        "Print `len(lst)` and the index just before the line that fails.",
+        "Empty list? Check whether the data source returned anything.",
+        "Off-by-one — remember indexes go from `0` to `len(lst) - 1`."
+      ]
+    },
+    {
+      "id": "py_index_error_string",
+      "languages": [
+        "python"
+      ],
+      "match": "IndexError: string index out of range",
+      "title": "IndexError — string index past the end",
+      "diagnosis": "You tried to read a character past the end of the string.",
+      "fixes": [
+        "Check `len(s)` first.",
+        "Use slicing — `s[:n]` is safe even if `s` is shorter than `n`.",
+        "Empty input? Guard with `if s:`."
+      ]
+    },
+    {
+      "id": "py_key_error",
+      "languages": [
+        "python"
+      ],
+      "match": "KeyError: '?([^'\\n]+?)'?(?:\\s|$)",
+      "title": "KeyError — missing dict key",
+      "diagnosis": "The dict doesn't have a key matching `{1}`. Either it's spelled differently, the key has a different type (string vs int), or the dict was built without that key.",
+      "fixes": [
+        "Use `d.get('{1}')` to return `None` instead of raising.",
+        "Use `if '{1}' in d:` to check first.",
+        "Print `list(d.keys())` to see what's actually there."
+      ]
+    },
+    {
+      "id": "py_valueerror_int",
+      "languages": [
+        "python"
+      ],
+      "match": "ValueError: invalid literal for int\\(\\) with base \\d+: '([^']*)'",
+      "title": "ValueError — can't parse that as an int",
+      "diagnosis": "`int()` got `'{1}'` and can't turn it into a number. Common cause: whitespace, decimal point, or non-digit characters.",
+      "fixes": [
+        "Use `int('{1}'.strip())` to remove whitespace.",
+        "If it might be a float string like `'3.14'`, use `int(float(x))`.",
+        "Validate with `s.isdigit()` before calling `int()`."
+      ]
+    },
+    {
+      "id": "py_valueerror_too_many_unpack",
+      "languages": [
+        "python"
+      ],
+      "match": "ValueError: too many values to unpack",
+      "title": "ValueError — too many values to unpack",
+      "diagnosis": "You wrote something like `a, b = iterable` but the iterable has more than two items.",
+      "fixes": [
+        "Use `*rest` to absorb the extras: `a, b, *rest = iterable`.",
+        "Check the actual length: `print(len(list(iterable)))`.",
+        "Are you accidentally unpacking a string? `a, b = 'hi there'` would split into characters."
+      ]
+    },
+    {
+      "id": "py_valueerror_not_enough_unpack",
+      "languages": [
+        "python"
+      ],
+      "match": "ValueError: not enough values to unpack \\(expected (\\d+), got (\\d+)\\)",
+      "title": "ValueError — not enough values to unpack",
+      "diagnosis": "You asked for {1} values but the iterable only has {2}.",
+      "fixes": [
+        "Check the actual length before unpacking.",
+        "Provide defaults with a helper: `a, b = (lst + [None]*2)[:2]`.",
+        "If the source is a `str.split(...)`, pass `maxsplit` to guarantee count."
+      ]
+    },
+    {
+      "id": "py_zerodivision",
+      "languages": [
+        "python"
+      ],
+      "match": "ZeroDivisionError",
+      "title": "ZeroDivisionError — divided by zero",
+      "diagnosis": "You divided by zero (or took `%` of zero). Somewhere a denominator slipped to `0`.",
+      "fixes": [
+        "Guard with `if denom != 0:` before dividing.",
+        "Print the denominator just before the line that fails.",
+        "If averaging, return `0` (or `None`) when the count is zero."
+      ]
+    },
+    {
+      "id": "py_file_not_found",
+      "languages": [
+        "python"
+      ],
+      "match": "FileNotFoundError: \\[Errno 2\\] No such file or directory: '([^']+)'",
+      "title": "FileNotFoundError — file doesn't exist",
+      "diagnosis": "Python can't find `{1}`. Either the path is wrong, you're in a different working directory, or the file truly isn't there yet.",
+      "fixes": [
+        "Print `os.getcwd()` to see where Python is looking.",
+        "Use an absolute path or `pathlib.Path(__file__).parent / '{1}'`.",
+        "Check spelling and capitalization — `Data.txt` is not `data.txt` on case-sensitive filesystems."
+      ]
+    },
+    {
+      "id": "py_permission_error",
+      "languages": [
+        "python"
+      ],
+      "match": "PermissionError: \\[Errno 13\\] Permission denied",
+      "title": "PermissionError — not allowed to access that file",
+      "diagnosis": "The OS refused the read/write. Either the file's permissions block you, or a directory above it is locked, or the file is open elsewhere (Windows).",
+      "fixes": [
+        "Check permissions: `ls -l <path>` and `chmod` if you own it.",
+        "If on Windows, close the file in any other program first.",
+        "Don't write into system folders — use your home directory or a tmp dir."
+      ]
+    },
+    {
+      "id": "py_is_a_directory",
+      "languages": [
+        "python"
+      ],
+      "match": "IsADirectoryError: \\[Errno 21\\] Is a directory",
+      "title": "IsADirectoryError — you gave a folder where a file is needed",
+      "diagnosis": "You called something like `open(...)` on a path that points to a directory, not a file.",
+      "fixes": [
+        "Append a filename: `open(folder / 'data.txt')`.",
+        "If you wanted to list the directory, use `os.listdir()` or `pathlib.Path(...).iterdir()`."
+      ]
+    },
+    {
+      "id": "py_not_a_directory",
+      "languages": [
+        "python"
+      ],
+      "match": "NotADirectoryError: \\[Errno 20\\] Not a directory",
+      "title": "NotADirectoryError — that path isn't a folder",
+      "diagnosis": "You treated a file as if it were a directory (e.g. `os.listdir(file_path)`).",
+      "fixes": [
+        "Use `os.path.dirname(path)` to get the parent directory.",
+        "Check with `os.path.isdir(path)` before treating it as a folder."
+      ]
+    },
+    {
+      "id": "py_module_not_found",
+      "languages": [
+        "python"
+      ],
+      "match": "ModuleNotFoundError: No module named '([^']+)'",
+      "title": "ModuleNotFoundError — package isn't installed",
+      "diagnosis": "Python can't find a package called `{1}`. Either it's not installed, you're using the wrong interpreter, or your virtualenv isn't activated.",
+      "fixes": [
+        "Install it: `pip install {1}` (or `pip3 install {1}`).",
+        "If you have a venv, activate it first: `source venv/bin/activate`.",
+        "Check which python you're running: `which python` and `which pip` should point to the same place.",
+        "If `{1}` is a local module, make sure you're running from the right directory and there's an `__init__.py` if needed."
+      ]
+    },
+    {
+      "id": "py_import_cannot_import_name",
+      "languages": [
+        "python"
+      ],
+      "match": "ImportError: cannot import name '([^']+)' from '([^']+)'",
+      "title": "ImportError — that name isn't exported",
+      "diagnosis": "Module `{2}` doesn't expose `{1}`. The name was renamed, removed, or you're hitting a circular import.",
+      "fixes": [
+        "Check the docs for the version of `{2}` you have installed.",
+        "Look for circular imports — module A imports B which imports A.",
+        "Print `dir({2})` (after `import {2}`) to see what's actually there."
+      ]
+    },
+    {
+      "id": "py_import_relative",
+      "languages": [
+        "python"
+      ],
+      "match": "ImportError: attempted relative import",
+      "title": "ImportError — relative import outside package",
+      "diagnosis": "You used `from . import ...` but Python isn't treating the current file as part of a package.",
+      "fixes": [
+        "Run from the project root with `python -m package.module`, not `python module.py`.",
+        "Add an `__init__.py` to the package directory.",
+        "Or switch to absolute imports: `from package.module import thing`."
+      ]
+    },
+    {
+      "id": "py_syntax_error",
+      "languages": [
+        "python"
+      ],
+      "match": "SyntaxError: invalid syntax",
+      "title": "SyntaxError — Python can't parse the line",
+      "diagnosis": "Python tripped on the line marked by the caret. Most often: a missing colon, an unmatched bracket, or an `=` instead of `==`.",
+      "fixes": [
+        "Check the previous line too — an unclosed `(` will report the error on the next line.",
+        "Did you forget `:` at the end of `if`, `for`, `def`, `class`?",
+        "Look for stray quotes or unmatched brackets."
+      ]
+    },
+    {
+      "id": "py_syntax_eof",
+      "languages": [
+        "python"
+      ],
+      "match": "SyntaxError: unexpected EOF while parsing",
+      "title": "SyntaxError — file ended too soon",
+      "diagnosis": "Python reached the end of the file with something still open — usually an unclosed `(`, `[`, or `{`.",
+      "fixes": [
+        "Match every opening bracket with a closer.",
+        "Most editors highlight matching brackets — jump back from the end of the file.",
+        "Check for an unfinished string literal."
+      ]
+    },
+    {
+      "id": "py_syntax_eol_string",
+      "languages": [
+        "python"
+      ],
+      "match": "SyntaxError: EOL while scanning string literal",
+      "title": "SyntaxError — string never closed",
+      "diagnosis": "A string opened with `'` or `\"` never closed on the same line.",
+      "fixes": [
+        "Add the matching closing quote.",
+        "If the string spans lines, use triple quotes: `\"\"\"...\"\"\"`.",
+        "Watch for an apostrophe inside a single-quoted string — `'don't'` breaks; use `\"don't\"` or escape it."
+      ]
+    },
+    {
+      "id": "py_indentation_expected",
+      "languages": [
+        "python"
+      ],
+      "match": "IndentationError: expected an indented block",
+      "title": "IndentationError — empty block",
+      "diagnosis": "After a line ending in `:` (an `if`, `for`, `def`, `class`, etc.), Python expects an indented body.",
+      "fixes": [
+        "Add at least one indented line below — `pass` if you want a placeholder.",
+        "Check the indent uses the same whitespace as the rest of the file (all tabs or all spaces)."
+      ],
+      "example_fix": "def todo():\n    pass"
+    },
+    {
+      "id": "py_indentation_unindent",
+      "languages": [
+        "python"
+      ],
+      "match": "IndentationError: unindent does not match",
+      "title": "IndentationError — indent levels don't line up",
+      "diagnosis": "A line's indentation doesn't match any earlier indent level.",
+      "fixes": [
+        "Make sure each block uses a consistent number of spaces (4 is standard).",
+        "Don't mix tabs and spaces — pick one and stick with it.",
+        "Most editors have a 'show whitespace' option to spot the mismatch."
+      ]
+    },
+    {
+      "id": "py_tab_error",
+      "languages": [
+        "python"
+      ],
+      "match": "TabError: inconsistent use of tabs and spaces",
+      "title": "TabError — tabs and spaces mixed",
+      "diagnosis": "Python sees tabs in some places and spaces in others within the same block.",
+      "fixes": [
+        "Pick one (spaces — 4 is standard) and convert the file.",
+        "In VSCode: `Convert Indentation to Spaces` from the command palette.",
+        "Configure your editor to insert spaces when you press Tab."
+      ]
+    },
+    {
+      "id": "py_unbound_local",
+      "languages": [
+        "python"
+      ],
+      "match": "UnboundLocalError: local variable '([^']+)' referenced before assignment",
+      "title": "UnboundLocalError — used a local before assigning it",
+      "diagnosis": "Inside a function, you read `{1}` before writing to it. Because the function assigns `{1}` somewhere, Python treats it as local, hiding any outer variable of the same name.",
+      "fixes": [
+        "If you want the outer variable, add `global {1}` (or `nonlocal {1}` for an enclosing function) at the top of the function.",
+        "Or rename — don't shadow an outer name accidentally.",
+        "Initialize `{1}` at the top of the function before any conditional assignment."
+      ]
+    },
+    {
+      "id": "py_recursion_depth",
+      "languages": [
+        "python"
+      ],
+      "match": "RecursionError: maximum recursion depth exceeded",
+      "title": "RecursionError — too many recursive calls",
+      "diagnosis": "A function called itself (directly or indirectly) too many times. Either the base case never fires, or the depth is genuinely huge.",
+      "fixes": [
+        "Add a base case that returns without recursing.",
+        "Print the arguments at each call to see whether they converge toward the base case.",
+        "For very deep but legitimate recursion, rewrite as a loop, or `sys.setrecursionlimit(10000)` (with caution)."
+      ]
+    },
+    {
+      "id": "py_dict_changed_size",
+      "languages": [
+        "python"
+      ],
+      "match": "RuntimeError: dictionary changed size during iteration",
+      "title": "RuntimeError — modified dict while iterating",
+      "diagnosis": "You added or removed keys inside a `for k in d:` loop. Python forbids that because it'd skip or revisit items.",
+      "fixes": [
+        "Iterate over a copy: `for k in list(d):` or `for k in d.copy():`.",
+        "Collect keys to remove first, then delete after the loop.",
+        "Use a dict comprehension to build a new dict instead of mutating in place."
+      ]
+    },
+    {
+      "id": "py_stop_iteration",
+      "languages": [
+        "python"
+      ],
+      "match": "StopIteration",
+      "title": "StopIteration — iterator exhausted",
+      "diagnosis": "An iterator has no more values, but something kept calling `next()` on it.",
+      "fixes": [
+        "Use `next(it, default)` to return a fallback instead of raising.",
+        "Wrap with `try`/`except StopIteration:`.",
+        "Inside a generator, returning ends iteration cleanly — don't `raise StopIteration` manually (PEP 479)."
+      ]
+    },
+    {
+      "id": "py_oserror_nospace",
+      "languages": [
+        "python"
+      ],
+      "match": "OSError: \\[Errno 28\\] No space left on device",
+      "title": "OSError — disk full",
+      "diagnosis": "The disk (or the partition you're writing to) has no free space.",
+      "fixes": [
+        "Check disk usage: `df -h`.",
+        "Clean up `~/.cache`, old logs, or build artifacts.",
+        "If writing to `/tmp`, switch to a partition with more room."
+      ]
+    },
+    {
+      "id": "py_oserror_too_many_open",
+      "languages": [
+        "python"
+      ],
+      "match": "OSError: \\[Errno 24\\] Too many open files",
+      "title": "OSError — too many open files",
+      "diagnosis": "The process hit its file-descriptor limit. Often this is from forgetting to close files or sockets in a loop.",
+      "fixes": [
+        "Use `with open(...) as f:` so files close automatically.",
+        "Close sockets after use, especially in long-running scripts.",
+        "Raise the limit: `ulimit -n 4096` (shell) before running."
+      ]
+    },
+    {
+      "id": "py_connection_refused",
+      "languages": [
+        "python"
+      ],
+      "match": "ConnectionRefusedError",
+      "title": "ConnectionRefusedError — server isn't listening",
+      "diagnosis": "Nothing is accepting connections on the host/port you tried. The server is down, blocked, or on a different port.",
+      "fixes": [
+        "Check the server is actually running.",
+        "Verify host and port — `telnet host port` or `nc -zv host port`.",
+        "Check firewall rules."
+      ]
+    },
+    {
+      "id": "py_connection_reset",
+      "languages": [
+        "python"
+      ],
+      "match": "ConnectionResetError",
+      "title": "ConnectionResetError — peer dropped the connection",
+      "diagnosis": "The other end of the connection closed it abruptly (RST). Often a server crash, idle timeout, or proxy reset.",
+      "fixes": [
+        "Retry with backoff — transient resets are common.",
+        "Check server logs for crashes around the same time.",
+        "If long-lived connection, send keepalives."
+      ]
+    },
+    {
+      "id": "py_timeout_error",
+      "languages": [
+        "python"
+      ],
+      "match": "^TimeoutError(?!:.*not defined)",
+      "title": "TimeoutError — operation took too long",
+      "diagnosis": "An I/O call exceeded its timeout.",
+      "fixes": [
+        "Increase the timeout if the operation legitimately needs more time.",
+        "Add retries with backoff for flaky networks.",
+        "Check whether the remote service is overloaded."
+      ]
+    },
+    {
+      "id": "py_socket_gaierror",
+      "languages": [
+        "python"
+      ],
+      "match": "socket\\.gaierror",
+      "title": "socket.gaierror — DNS lookup failed",
+      "diagnosis": "Python couldn't resolve the hostname to an IP. Either the name is wrong, DNS is broken, or there's no network.",
+      "fixes": [
+        "Check spelling of the hostname.",
+        "Test resolution with `nslookup host` or `dig host`.",
+        "Verify network connectivity: `ping 8.8.8.8`."
+      ]
+    },
+    {
+      "id": "py_unicode_decode",
+      "languages": [
+        "python"
+      ],
+      "match": "UnicodeDecodeError: '([^']+)' codec can't decode byte",
+      "title": "UnicodeDecodeError — wrong encoding",
+      "diagnosis": "You tried to decode bytes with `{1}` but they aren't valid `{1}`. The file is in a different encoding.",
+      "fixes": [
+        "Try `encoding='utf-8'` if you used the default.",
+        "If it's a Windows file, try `encoding='cp1252'` or `'latin-1'`.",
+        "Use `errors='replace'` to substitute unknown bytes instead of raising."
+      ]
+    },
+    {
+      "id": "py_unicode_encode",
+      "languages": [
+        "python"
+      ],
+      "match": "UnicodeEncodeError: '([^']+)' codec can't encode character",
+      "title": "UnicodeEncodeError — character not in target encoding",
+      "diagnosis": "You're writing a character that `{1}` can't represent. Common when stdout/locale is ASCII and you print emoji or non-ASCII.",
+      "fixes": [
+        "Specify `encoding='utf-8'` when opening the output file.",
+        "Set `PYTHONIOENCODING=utf-8` in your environment for stdout.",
+        "Use `errors='replace'` or `'ignore'` to skip bad characters."
+      ]
+    },
+    {
+      "id": "py_json_decode",
+      "languages": [
+        "python"
+      ],
+      "match": "json\\.decoder\\.JSONDecodeError",
+      "title": "JSONDecodeError — string isn't valid JSON",
+      "diagnosis": "`json.loads` couldn't parse the input. Often: empty string, HTML error page, trailing commas, or single quotes.",
+      "fixes": [
+        "Print the raw input — is it actually JSON or an HTML error page?",
+        "Strip whitespace before parsing.",
+        "JSON requires double quotes (not single) and no trailing commas."
+      ]
+    },
+    {
+      "id": "py_pip_not_found",
+      "languages": [
+        "python",
+        "bash"
+      ],
+      "match": "(?:^|\\s)pip: command not found",
+      "title": "pip not found",
+      "diagnosis": "Your shell can't find `pip` on `PATH`. Maybe Python is installed but `pip` isn't on `PATH`, or you need `pip3`.",
+      "fixes": [
+        "Try `pip3` instead of `pip`.",
+        "Use `python -m pip install ...` — works as long as Python itself is on `PATH`.",
+        "On macOS with Homebrew Python, `pip` may live next to `python3` in `/opt/homebrew/bin`."
+      ]
+    },
+    {
+      "id": "py_pip_resolution_impossible",
+      "languages": [
+        "python"
+      ],
+      "match": "ResolutionImpossible|ERROR: Cannot install",
+      "title": "pip — dependency resolution failed",
+      "diagnosis": "pip can't find a combination of versions that satisfies every requirement.",
+      "fixes": [
+        "Loosen version pins where you can.",
+        "Use `pip install --upgrade pip` — newer resolvers handle more.",
+        "Try resolving in a fresh virtualenv so existing packages don't constrain you."
+      ]
+    },
+    {
+      "id": "py_pip_no_matching_distribution",
+      "languages": [
+        "python"
+      ],
+      "match": "No matching distribution found for ([\\w\\-.]+)",
+      "title": "pip — no matching distribution",
+      "diagnosis": "pip couldn't find a build of `{1}` for your Python version and platform.",
+      "fixes": [
+        "Check that the package name is correct and exists on PyPI.",
+        "Your Python version may be too old or too new for `{1}` — check its supported versions.",
+        "On Apple Silicon (M1/M2), some old wheels don't exist — try `--prefer-binary` or build from source."
+      ]
+    },
+    {
+      "id": "py_pip_ssl",
+      "languages": [
+        "python"
+      ],
+      "match": "pip.*SSLError|SSL: CERTIFICATE_VERIFY_FAILED",
+      "title": "pip — SSL certificate error",
+      "diagnosis": "pip can't validate the TLS certificate of PyPI (or your mirror). Usually a system cert store issue or corporate proxy.",
+      "fixes": [
+        "Update certs: `pip install --upgrade certifi`.",
+        "On macOS, run `/Applications/Python\\ X.Y/Install\\ Certificates.command`.",
+        "If behind a proxy, set `HTTPS_PROXY` and trust your corporate root cert."
+      ]
+    },
+    {
+      "id": "py_pytest_collection",
+      "languages": [
+        "python"
+      ],
+      "match": "ERROR (?:collecting|test_)",
+      "title": "pytest — collection error",
+      "diagnosis": "pytest crashed importing a test file before it could run any tests. Usually a syntax or import error in the test module.",
+      "fixes": [
+        "Run the test file directly: `python path/to/test_file.py` to see the underlying error.",
+        "Check imports at the top of the test file.",
+        "Use `pytest --collect-only` to narrow down which file fails."
+      ]
+    },
+    {
+      "id": "py_asyncio_running",
+      "languages": [
+        "python"
+      ],
+      "match": "RuntimeError: This event loop is already running",
+      "title": "asyncio — event loop already running",
+      "diagnosis": "You called `asyncio.run(...)` (or `loop.run_until_complete`) from inside an already-running loop. Jupyter, IPython, and some web frameworks already run a loop.",
+      "fixes": [
+        "In Jupyter, just `await` the coroutine directly — no `asyncio.run`.",
+        "Use `nest_asyncio.apply()` if you really need nested loops.",
+        "Restructure so the outer code is also a coroutine."
+      ]
+    },
+    {
+      "id": "py_asyncio_task_pending",
+      "languages": [
+        "python"
+      ],
+      "match": "Task was destroyed but it is pending|coroutine.*was never awaited",
+      "title": "asyncio — coroutine never awaited",
+      "diagnosis": "You created a coroutine but never `await`ed or scheduled it. Python warns because the work never ran.",
+      "fixes": [
+        "Add `await` before the coroutine call.",
+        "Or schedule it: `asyncio.create_task(coro())`.",
+        "Make sure async functions called from sync code go through `asyncio.run(...)`."
+      ]
+    },
+    {
+      "id": "py_assertion_error",
+      "languages": [
+        "python"
+      ],
+      "match": "^AssertionError(?:: (.+))?",
+      "title": "AssertionError — assertion failed",
+      "diagnosis": "An `assert` statement evaluated false. {1}",
+      "fixes": [
+        "Read the message after `AssertionError:` for the specific check that failed.",
+        "If running with `python -O`, asserts are stripped — don't rely on them for production checks.",
+        "Replace with a real `if x: raise ValueError(...)` if it's a real validation."
+      ]
+    },
+    {
+      "id": "py_not_implemented",
+      "languages": [
+        "python"
+      ],
+      "match": "NotImplementedError",
+      "title": "NotImplementedError — method not implemented",
+      "diagnosis": "Someone called a method that's defined as `raise NotImplementedError`, usually a placeholder in a base class.",
+      "fixes": [
+        "Subclass and override the method.",
+        "Look at the docs for which methods you must implement.",
+        "If you wrote the stub yourself, fill it in!"
+      ]
+    },
+    {
+      "id": "py_pickle_error",
+      "languages": [
+        "python"
+      ],
+      "match": "_pickle\\.PicklingError|pickle\\.UnpicklingError",
+      "title": "Pickle error",
+      "diagnosis": "Pickle couldn't serialize or deserialize the object. Common causes: nested function, lambda, open file, lock, or a class that's moved.",
+      "fixes": [
+        "Top-level (module-level) functions pickle; lambdas and nested functions don't.",
+        "For unpickling, the class must be importable at the same path it was pickled from.",
+        "Consider `json` or `dill` if pickle keeps failing."
+      ]
+    },
+    {
+      "id": "py_recursion_calling",
+      "languages": [
+        "python"
+      ],
+      "match": "RecursionError: maximum recursion depth exceeded while calling a Python object",
+      "title": "RecursionError — runaway calls",
+      "diagnosis": "Likely an infinite loop in `__getattr__`, `__repr__`, or similar dunder methods.",
+      "fixes": [
+        "Inside `__getattr__`, use `object.__getattribute__(self, ...)` to avoid re-entering.",
+        "Inside `__repr__`, don't reference attributes that themselves trigger `__getattr__`.",
+        "Add a guard to break the loop."
+      ]
+    },
+    {
+      "id": "py_pandas_settingwithcopy",
+      "languages": [
+        "python"
+      ],
+      "match": "SettingWithCopyWarning",
+      "title": "pandas — SettingWithCopyWarning",
+      "diagnosis": "You're assigning to a slice of a DataFrame, and pandas isn't sure whether you're modifying the original or a copy.",
+      "fixes": [
+        "Use `.loc[row_idx, 'col']` for assignments instead of chained indexing.",
+        "If you want a copy, be explicit: `df2 = df[mask].copy()`.",
+        "The warning isn't always a bug, but treat it as one until you understand it."
+      ]
+    },
+    {
+      "id": "py_pandas_cannot_convert",
+      "languages": [
+        "python"
+      ],
+      "match": "ValueError: cannot convert .* to (?:int|float|datetime)",
+      "title": "pandas — can't convert column",
+      "diagnosis": "A column has values that won't convert cleanly to the target dtype.",
+      "fixes": [
+        "Use `pd.to_numeric(col, errors='coerce')` to turn bad values into `NaN`.",
+        "For dates, `pd.to_datetime(col, errors='coerce')`.",
+        "Inspect with `col[col.apply(lambda x: not pd.api.types.is_number(x))]`."
+      ]
+    },
+    {
+      "id": "py_numpy_shape",
+      "languages": [
+        "python"
+      ],
+      "match": "ValueError: (?:operands could not be broadcast together with shapes|could not broadcast input array from shape)",
+      "title": "numpy — shape mismatch",
+      "diagnosis": "Two arrays have shapes that can't broadcast together. Check the dimensions on each side.",
+      "fixes": [
+        "Print `a.shape` and `b.shape` right before the operation.",
+        "Use `np.reshape`, `np.expand_dims`, or `np.broadcast_to` to align shapes.",
+        "Common cause: forgot to transpose a column vector."
+      ]
+    },
+    {
+      "id": "py_numpy_dtype",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: Cannot cast .* dtype",
+      "title": "numpy — dtype mismatch",
+      "diagnosis": "An operation needs a different dtype than the array has.",
+      "fixes": [
+        "Convert: `arr.astype(np.float64)` or `np.float32`.",
+        "Check `arr.dtype` before the operation.",
+        "Some functions require float input even when the array is int."
+      ]
+    },
+    {
+      "id": "py_requests_connection_error",
+      "languages": [
+        "python"
+      ],
+      "match": "requests\\.exceptions\\.ConnectionError",
+      "title": "requests — connection failed",
+      "diagnosis": "The HTTP request couldn't establish a connection. DNS, refused, no route, or TLS.",
+      "fixes": [
+        "Check the URL — typo in the host?",
+        "Verify network connectivity to the host.",
+        "If it's a local server, is it running on the expected port?"
+      ]
+    },
+    {
+      "id": "py_requests_timeout",
+      "languages": [
+        "python"
+      ],
+      "match": "requests\\.exceptions\\.(?:ConnectTimeout|ReadTimeout|Timeout)",
+      "title": "requests — timeout",
+      "diagnosis": "The HTTP request didn't complete within the timeout.",
+      "fixes": [
+        "Increase: `requests.get(url, timeout=30)`.",
+        "Always pass a `timeout` — the default is none, which can hang forever.",
+        "Add retries via `urllib3.util.Retry` or `tenacity`."
+      ]
+    },
+    {
+      "id": "py_requests_ssl",
+      "languages": [
+        "python"
+      ],
+      "match": "requests\\.exceptions\\.SSLError",
+      "title": "requests — SSL error",
+      "diagnosis": "TLS handshake failed. Cert expired, untrusted CA, hostname mismatch, or outdated `certifi`.",
+      "fixes": [
+        "Update certifi: `pip install --upgrade certifi`.",
+        "Check the cert in a browser to see if it's valid.",
+        "As a last resort for self-signed dev servers: `verify=False` (don't ship this!)."
+      ]
+    },
+    {
+      "id": "py_requests_missing_schema",
+      "languages": [
+        "python"
+      ],
+      "match": "requests\\.exceptions\\.MissingSchema",
+      "title": "requests — URL missing scheme",
+      "diagnosis": "The URL is missing `http://` or `https://`.",
+      "fixes": [
+        "Prepend `https://` to the URL.",
+        "Check whether you accidentally split a config value."
+      ]
+    },
+    {
+      "id": "py_django_operational",
+      "languages": [
+        "python"
+      ],
+      "match": "django\\.db\\.utils\\.OperationalError",
+      "title": "Django — database operational error",
+      "diagnosis": "Django couldn't talk to the database properly. Connection refused, missing table, or locked.",
+      "fixes": [
+        "Run `python manage.py migrate` if the schema is out of date.",
+        "Check `DATABASES` settings — host, port, credentials.",
+        "Make sure the database server is running."
+      ]
+    },
+    {
+      "id": "py_django_integrity",
+      "languages": [
+        "python"
+      ],
+      "match": "django\\.db\\.utils\\.IntegrityError",
+      "title": "Django — integrity constraint violation",
+      "diagnosis": "A database constraint was broken — unique, foreign key, or `NOT NULL`.",
+      "fixes": [
+        "Read the underlying SQL error for which constraint.",
+        "Check for `NULL` in a non-null column.",
+        "Use `get_or_create` if you might be inserting a duplicate."
+      ]
+    },
+    {
+      "id": "py_django_improperly_configured",
+      "languages": [
+        "python"
+      ],
+      "match": "django\\.core\\.exceptions\\.ImproperlyConfigured",
+      "title": "Django — ImproperlyConfigured",
+      "diagnosis": "Django's settings aren't set up correctly for what you're doing.",
+      "fixes": [
+        "Make sure `DJANGO_SETTINGS_MODULE` is set in your environment.",
+        "Check `INSTALLED_APPS` includes any app you're using.",
+        "Some settings (`SECRET_KEY`, database `ENGINE`) are mandatory."
+      ]
+    },
+    {
+      "id": "py_flask_context",
+      "languages": [
+        "python"
+      ],
+      "match": "RuntimeError: Working outside of (?:application|request) context",
+      "title": "Flask — outside application context",
+      "diagnosis": "You used something that needs the Flask app/request context (like `current_app`, `g`, `request`) outside a request handler.",
+      "fixes": [
+        "Wrap in `with app.app_context():` for CLI / scripts.",
+        "For request-scoped things, only access them inside a route handler.",
+        "Background jobs need an explicit `app.app_context()` push."
+      ]
+    },
+    {
+      "id": "py_venv_not_activated",
+      "languages": [
+        "python",
+        "bash"
+      ],
+      "match": "command not found: (?:python|pip)\\s*$",
+      "title": "Python/pip not on PATH",
+      "diagnosis": "Your shell can't find `python` or `pip`. Either Python isn't installed, your venv isn't activated, or `PATH` doesn't include the install dir.",
+      "fixes": [
+        "Activate your venv: `source venv/bin/activate`.",
+        "Try `python3` / `pip3` — `python` often points to Python 2 on older systems.",
+        "Check `PATH` includes the directory where Python lives."
+      ]
+    },
+    {
+      "id": "py_python2_vs_3",
+      "languages": [
+        "python",
+        "bash"
+      ],
+      "match": "python: command not found",
+      "title": "`python` not found (Python 2 vs 3)",
+      "diagnosis": "Many modern systems removed `python` (the unversioned name) and only ship `python3`.",
+      "fixes": [
+        "Use `python3` explicitly.",
+        "On macOS install Python: `brew install python` and you'll get `python3`.",
+        "Make a symlink only if you understand what you're aliasing."
+      ]
+    },
+    {
+      "id": "py_typo_prnt",
+      "languages": [
+        "python"
+      ],
+      "match": "^(?:pirnt|prnt|prit|prnit)\\s*\\(",
+      "title": "Looks like a typo for `print`",
+      "diagnosis": "That looks like a misspelling of `print(...)`.",
+      "fixes": [
+        "Use `print(...)` — p-r-i-n-t.",
+        "Most editors will auto-suggest builtins as you type."
+      ]
+    },
+    {
+      "id": "py_typo_improt",
+      "languages": [
+        "python"
+      ],
+      "match": "^(?:improt|imoprt|imprt)\\s+\\w",
+      "title": "Looks like a typo for `import`",
+      "diagnosis": "That looks like a misspelling of `import`.",
+      "fixes": [
+        "Use `import module` or `from module import thing`."
+      ]
+    },
+    {
+      "id": "py_typo_inpt",
+      "languages": [
+        "python"
+      ],
+      "match": "\\b(?:inpt|inptu|inupt)\\s*\\(",
+      "title": "Looks like a typo for `input`",
+      "diagnosis": "That looks like a misspelling of `input(...)`.",
+      "fixes": [
+        "Use `input(prompt)` — i-n-p-u-t."
+      ]
+    },
+    {
+      "id": "py_typeerror_concatenate_list",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: can only concatenate (?:list|str) \\(not \\\"([^\\\"]+)\\\"\\) to (?:list|str)",
+      "title": "TypeError — list/str concatenation type mismatch",
+      "diagnosis": "You used `+` between a sequence and a `{1}`. `+` only works between same-typed sequences.",
+      "fixes": [
+        "Convert: `lst + list(other)` or `s + str(other)`.",
+        "Use `.append(x)` to add a single item to a list.",
+        "Use f-strings to build strings from non-strings: `f'{x}'`."
+      ]
+    },
+    {
+      "id": "py_typeerror_str_int",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: can't multiply sequence by non-int of type",
+      "title": "TypeError — non-int sequence multiplier",
+      "diagnosis": "You did `sequence * x` where `x` isn't an `int`.",
+      "fixes": [
+        "Use `int(x)` if `x` is a string of digits.",
+        "If you want element-wise math, use a numpy array or list comprehension."
+      ]
+    },
+    {
+      "id": "py_typeerror_int_str",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: %d format: a number is required, not str",
+      "title": "TypeError — old-style format wanted a number",
+      "diagnosis": "`%d` needs an int but got a string.",
+      "fixes": [
+        "Convert: `'%d' % int(s)`.",
+        "Or switch to f-string: `f'{s}'`."
+      ]
+    },
+    {
+      "id": "py_typeerror_nonetype_iter",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: 'NoneType' object is not iterable",
+      "title": "TypeError — None can't be iterated",
+      "diagnosis": "You tried to loop over `None`. A function probably returned `None` instead of a list/sequence.",
+      "fixes": [
+        "Check what produced the value — `print(it)` just before the loop.",
+        "Functions that 'return nothing' implicitly return `None`. Make sure they `return []` or similar.",
+        "Guard with `for x in (it or []):`."
+      ]
+    },
+    {
+      "id": "py_typeerror_nonetype_sub",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: 'NoneType' object is not subscriptable",
+      "title": "TypeError — None can't be indexed",
+      "diagnosis": "You tried `obj[i]` but `obj` is `None`.",
+      "fixes": [
+        "Whatever produced `obj` returned `None`. Trace it backward.",
+        "Check `if obj is not None:` before indexing.",
+        "Dict `.get(...)` returns `None` for missing keys — handle that."
+      ]
+    },
+    {
+      "id": "py_typeerror_nonetype_attr",
+      "languages": [
+        "python"
+      ],
+      "match": "AttributeError: 'NoneType' object has no attribute '([^']+)'",
+      "title": "AttributeError — None has no `{1}`",
+      "diagnosis": "You tried `.{1}` on `None`. Something earlier returned `None` instead of a real object.",
+      "fixes": [
+        "Print the value just before the line that fails.",
+        "Did a function forget to `return`? Implicit returns are `None`.",
+        "Use `obj and obj.{1}` or `getattr(obj, '{1}', None)` to guard."
+      ]
+    },
+    {
+      "id": "py_dict_no_attribute",
+      "languages": [
+        "python"
+      ],
+      "match": "AttributeError: 'dict' object has no attribute '([^']+)'",
+      "title": "AttributeError — dict accessed like an object",
+      "diagnosis": "You wrote `d.{1}` but `d` is a dict. Dicts use `d['{1}']`, not dot syntax.",
+      "fixes": [
+        "Use `d['{1}']` to read.",
+        "Use `d.get('{1}')` to avoid a `KeyError`.",
+        "If you really want attribute access, use `types.SimpleNamespace(**d)` or a dataclass."
+      ]
+    },
+    {
+      "id": "py_circular_import",
+      "languages": [
+        "python"
+      ],
+      "match": "ImportError.*partially initialized module",
+      "title": "ImportError — circular import",
+      "diagnosis": "Two modules import each other. One imports the other before it's finished loading.",
+      "fixes": [
+        "Move the import inside the function where it's used (lazy import).",
+        "Refactor common code into a third module both can import.",
+        "Avoid `from a import x` style for the circular pair — `import a` then use `a.x` defers lookup."
+      ]
+    },
+    {
+      "id": "py_typeerror_pos_only",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: ([\\w.]+)\\(\\) got some positional-only arguments passed as keyword arguments",
+      "title": "TypeError — positional-only arg passed as keyword",
+      "diagnosis": "`{1}` declares some arguments as positional-only (after `/` in the signature). You passed one by name.",
+      "fixes": [
+        "Drop the keyword: `f(value)` not `f(name=value)`.",
+        "Check the signature with `help({1})`."
+      ]
+    },
+    {
+      "id": "py_typeerror_object_attribute",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: object\\.__init__\\(\\) takes exactly one argument",
+      "title": "TypeError — extra args passed to object.__init__",
+      "diagnosis": "A parent class's `__init__` got arguments it doesn't accept, usually because `super().__init__(...)` was passed args meant for someone else.",
+      "fixes": [
+        "Call `super().__init__()` with no args, unless the parent class explicitly accepts them.",
+        "Make sure your class hierarchy is sane — check `Cls.__mro__`."
+      ]
+    },
+    {
+      "id": "py_keyboard_interrupt",
+      "languages": [
+        "python"
+      ],
+      "match": "^KeyboardInterrupt",
+      "title": "KeyboardInterrupt — you hit Ctrl+C",
+      "diagnosis": "Someone (probably you) pressed Ctrl+C. Python interrupted the program.",
+      "fixes": [
+        "If this was unintended, just rerun.",
+        "To handle gracefully, wrap with `try / except KeyboardInterrupt:` and clean up."
+      ]
+    },
+    {
+      "id": "py_system_exit",
+      "languages": [
+        "python"
+      ],
+      "match": "^SystemExit",
+      "title": "SystemExit — program called sys.exit()",
+      "diagnosis": "Something called `sys.exit()` (or `exit()`). That's how scripts end normally; only odd if you weren't expecting it.",
+      "fixes": [
+        "Trace which code called `exit()` — often a CLI parser does this on bad args.",
+        "Inside tests, `pytest` catches `SystemExit` for you."
+      ]
+    },
+    {
+      "id": "py_pandas_keyerror",
+      "languages": [
+        "python"
+      ],
+      "match": "KeyError: ['\\\"]([^'\\\"]+)['\\\"]\\s*$",
+      "title": "pandas/dict — missing key `{1}`",
+      "diagnosis": "You asked for a key/column called `{1}` that doesn't exist.",
+      "fixes": [
+        "List actual columns: `df.columns.tolist()` or `list(d.keys())`.",
+        "Check for whitespace, capitalization, or hidden characters.",
+        "Use `df.get('{1}')` to return `None` instead of raising."
+      ]
+    },
+    {
+      "id": "py_overflow",
+      "languages": [
+        "python"
+      ],
+      "match": "^OverflowError",
+      "title": "OverflowError — number too large",
+      "diagnosis": "A float computation exceeded the largest representable value (Python ints can grow unbounded).",
+      "fixes": [
+        "Use `decimal.Decimal` or `math.log` to keep things in range.",
+        "Check whether you really need an exponential or factorial that big."
+      ]
+    },
+    {
+      "id": "py_floating_invalid",
+      "languages": [
+        "python"
+      ],
+      "match": "FloatingPointError",
+      "title": "FloatingPointError — invalid float op",
+      "diagnosis": "Numpy/decimal raised on a floating-point exception (only if you set the policy).",
+      "fixes": [
+        "Check inputs for `inf` / `NaN`.",
+        "`np.seterr(divide='ignore', invalid='ignore')` if you want to suppress."
+      ]
+    },
+    {
+      "id": "py_unicode_translate",
+      "languages": [
+        "python"
+      ],
+      "match": "UnicodeTranslateError",
+      "title": "UnicodeTranslateError",
+      "diagnosis": "A `str.translate` failed on a character.",
+      "fixes": [
+        "Make sure your translation table covers the characters in the input.",
+        "Try `errors='replace'` style handling upstream."
+      ]
+    },
+    {
+      "id": "py_lookup_error",
+      "languages": [
+        "python"
+      ],
+      "match": "^LookupError(?!:)",
+      "title": "LookupError — invalid key or index",
+      "diagnosis": "A generic lookup failed. Catches both `KeyError` and `IndexError`.",
+      "fixes": [
+        "Catch the specific subtype where possible.",
+        "Validate keys/indices before lookup."
+      ]
+    },
+    {
+      "id": "py_warning_deprecation",
+      "languages": [
+        "python"
+      ],
+      "match": "DeprecationWarning",
+      "title": "DeprecationWarning",
+      "diagnosis": "You're using something that's planned for removal.",
+      "fixes": [
+        "Read the warning text — it usually says what to use instead.",
+        "Pin the library version if you can't update yet.",
+        "Treat as `error` with `-W error::DeprecationWarning` to catch all instances."
+      ]
+    },
+    {
+      "id": "py_attr_self",
+      "languages": [
+        "python"
+      ],
+      "match": "NameError: name 'self' is not defined",
+      "title": "NameError — `self` used outside a method",
+      "diagnosis": "You used `self` outside a class method.",
+      "fixes": [
+        "Inside a class, indent the function under `class:` and name the first parameter `self`.",
+        "If this is a standalone function, drop the `self.` prefix."
+      ]
+    },
+    {
+      "id": "py_recursion_pickle",
+      "languages": [
+        "python"
+      ],
+      "match": "maximum recursion depth exceeded.*pickle",
+      "title": "Pickle recursion limit",
+      "diagnosis": "Pickling a deeply nested or self-referential object hit the recursion limit.",
+      "fixes": [
+        "Use `dill` which handles more shapes than `pickle`.",
+        "Refactor data so it isn't self-referential.",
+        "Bump the limit cautiously: `sys.setrecursionlimit(10000)`."
+      ]
+    },
+    {
+      "id": "py_argparse_required",
+      "languages": [
+        "python"
+      ],
+      "match": "the following arguments are required:",
+      "title": "argparse — missing required argument",
+      "diagnosis": "You ran a CLI without one of its required arguments.",
+      "fixes": [
+        "Pass `--help` to see the usage.",
+        "Add the missing argument on the command line."
+      ]
+    },
+    {
+      "id": "py_argparse_unrecognized",
+      "languages": [
+        "python"
+      ],
+      "match": "unrecognized arguments:",
+      "title": "argparse — unknown argument",
+      "diagnosis": "You passed an argument the script doesn't define.",
+      "fixes": [
+        "Check spelling against `--help`.",
+        "Quote arguments with spaces."
+      ]
+    },
+    {
+      "id": "py_warning_resource",
+      "languages": [
+        "python"
+      ],
+      "match": "ResourceWarning: unclosed",
+      "title": "ResourceWarning — unclosed file/socket",
+      "diagnosis": "Something was garbage-collected without being closed.",
+      "fixes": [
+        "Use `with` blocks for files and sockets.",
+        "Run with `-W error::ResourceWarning` to catch leaks at the source."
+      ]
+    },
+    {
+      "id": "py_typeerror_unhashable",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: unhashable type: '([^']+)'",
+      "title": "TypeError — unhashable type",
+      "diagnosis": "You used a `{1}` (a mutable type) as a dict key or set member. Only hashable (immutable) things can be hashed.",
+      "fixes": [
+        "Convert lists to tuples: `tuple(my_list)`.",
+        "Convert sets to frozensets: `frozenset(my_set)`.",
+        "Use a different data structure if mutability is essential."
+      ]
+    },
+    {
+      "id": "py_typeerror_bytes_str",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: a bytes-like object is required, not 'str'",
+      "title": "TypeError — bytes vs str",
+      "diagnosis": "An API needs `bytes` but got a `str` (or vice versa).",
+      "fixes": [
+        "Encode: `s.encode('utf-8')` to make bytes.",
+        "Decode: `b.decode('utf-8')` to make str.",
+        "Open files as `'rb'`/`'wb'` for bytes mode."
+      ]
+    },
+    {
+      "id": "py_typeerror_immutable",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: '([^']+)' object does not support item assignment",
+      "title": "TypeError — that thing is immutable",
+      "diagnosis": "You tried `obj[i] = x` but a `{1}` is immutable.",
+      "fixes": [
+        "Strings and tuples can't be modified in place — build a new one.",
+        "If `{1}` is `bytes`, use `bytearray` for mutability."
+      ]
+    },
+    {
+      "id": "py_string_format_index",
+      "languages": [
+        "python"
+      ],
+      "match": "IndexError: tuple index out of range.*format|IndexError: Replacement index \\d+ out of range",
+      "title": "Format string — bad index",
+      "diagnosis": "A `{...}` in your format string refers to a positional argument that wasn't provided.",
+      "fixes": [
+        "Count `{}` placeholders vs args.",
+        "Switch to f-strings — they catch this at compile time."
+      ]
+    },
+    {
+      "id": "py_string_format_key",
+      "languages": [
+        "python"
+      ],
+      "match": "KeyError.*format_map|str\\.format",
+      "title": "Format string — missing key",
+      "diagnosis": "A `{name}` placeholder references a keyword you didn't pass.",
+      "fixes": [
+        "Pass it: `'Hi {name}'.format(name='Joe')`.",
+        "Use `.format_map(d)` with a `defaultdict(str)` to allow missing keys."
+      ]
+    },
+    {
+      "id": "py_warning_runtime",
+      "languages": [
+        "python"
+      ],
+      "match": "RuntimeWarning: invalid value encountered",
+      "title": "RuntimeWarning — invalid math",
+      "diagnosis": "Numpy hit `NaN`/`inf`/divide-by-zero in elementwise math.",
+      "fixes": [
+        "Filter out bad values before the op.",
+        "Use `np.where(...)` to short-circuit safely."
+      ]
+    },
+    {
+      "id": "py_argument_after_star_args",
+      "languages": [
+        "python"
+      ],
+      "match": "SyntaxError: positional argument follows keyword argument",
+      "title": "SyntaxError — positional after keyword arg",
+      "diagnosis": "You wrote something like `f(a=1, 2)` — once you start using keyword args, all later args must also be keywords.",
+      "fixes": [
+        "Reorder: positional first, then keyword.",
+        "Or use names for all: `f(a=1, b=2)`."
+      ]
+    },
+    {
+      "id": "py_lambda_keyword",
+      "languages": [
+        "python"
+      ],
+      "match": "SyntaxError: lambda cannot contain assignment",
+      "title": "SyntaxError — assignment in lambda",
+      "diagnosis": "Lambdas can only contain expressions, not statements like `x = 1`.",
+      "fixes": [
+        "Use `:=` (walrus) for assignment-expressions if Python 3.8+.",
+        "Define a `def` if you need statements."
+      ]
+    },
+    {
+      "id": "py_global_func",
+      "languages": [
+        "python"
+      ],
+      "match": "SyntaxError: name '([^']+)' is parameter and global",
+      "title": "SyntaxError — name is both parameter and global",
+      "diagnosis": "You declared a function parameter as `global` inside the same function.",
+      "fixes": [
+        "Remove the `global` declaration — the parameter is local.",
+        "Rename one of them."
+      ]
+    },
+    {
+      "id": "py_keyword_arg_repeat",
+      "languages": [
+        "python"
+      ],
+      "match": "SyntaxError: keyword argument repeated",
+      "title": "SyntaxError — duplicate keyword argument",
+      "diagnosis": "Same keyword used twice in a call.",
+      "fixes": [
+        "Remove one of the duplicates.",
+        "If merging dicts, use `**{**a, **b}`."
+      ]
+    },
+    {
+      "id": "py_walrus",
+      "languages": [
+        "python"
+      ],
+      "match": "SyntaxError: invalid syntax.*:=",
+      "title": "SyntaxError — walrus on old Python",
+      "diagnosis": "The `:=` walrus operator needs Python 3.8+.",
+      "fixes": [
+        "Upgrade Python.",
+        "Rewrite without `:=`."
+      ]
+    },
+    {
+      "id": "py_async_for_await",
+      "languages": [
+        "python"
+      ],
+      "match": "SyntaxError: 'await' outside (?:async )?function",
+      "title": "SyntaxError — `await` outside async function",
+      "diagnosis": "You used `await` in a regular function. Only `async def` functions can `await`.",
+      "fixes": [
+        "Change `def` to `async def`.",
+        "Or call the coroutine via `asyncio.run(coro())`."
+      ]
+    },
+    {
+      "id": "py_typeerror_no_default",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: __init__\\(\\) missing \\d+ required positional argument",
+      "title": "TypeError — missing required init arg",
+      "diagnosis": "A class's `__init__` was called without one of its required args.",
+      "fixes": [
+        "Pass the missing arg when constructing.",
+        "Give it a default value in the `__init__` signature.",
+        "Check whether you're using a dataclass and need to set the field."
+      ]
+    },
+    {
+      "id": "py_exception_chain",
+      "languages": [
+        "python"
+      ],
+      "match": "During handling of the above exception, another exception occurred",
+      "title": "Exception during handling — chained",
+      "diagnosis": "An `except` block itself raised. Python shows both.",
+      "fixes": [
+        "Read the FIRST traceback — it's usually the real cause.",
+        "The second traceback is whatever your handler did wrong."
+      ]
+    },
+    {
+      "id": "py_class_init_missing",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: Can't instantiate abstract class",
+      "title": "TypeError — abstract class",
+      "diagnosis": "You tried to instantiate a class that has abstract methods.",
+      "fixes": [
+        "Subclass it and implement all `@abstractmethod` methods.",
+        "Don't instantiate the base — make a concrete subclass."
+      ]
+    },
+    {
+      "id": "py_max_recursion_str",
+      "languages": [
+        "python"
+      ],
+      "match": "RecursionError.*__repr__|RecursionError.*__str__",
+      "title": "RecursionError — runaway repr/str",
+      "diagnosis": "`__repr__` or `__str__` calls itself.",
+      "fixes": [
+        "Don't reference attributes that themselves trigger `__repr__`.",
+        "Use `object.__repr__(self)` as a base case."
+      ]
+    },
+    {
+      "id": "py_collections_ordereddict",
+      "languages": [
+        "python"
+      ],
+      "match": "AttributeError: 'OrderedDict' object has no attribute",
+      "title": "Possible OrderedDict typo",
+      "diagnosis": "An attribute call on `OrderedDict` failed.",
+      "fixes": [
+        "Plain `dict` is ordered since 3.7 — you may not need `OrderedDict`.",
+        "Check the available methods with `dir(od)`."
+      ]
+    },
+    {
+      "id": "py_class_decorator",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: ('?\\w+'? )object is not subscriptable.*generic",
+      "title": "TypeError — using subscript on non-generic",
+      "diagnosis": "You wrote `Foo[int]` but `Foo` isn't a generic class.",
+      "fixes": [
+        "Make `Foo` inherit from `Generic[T]`.",
+        "On older Python, use `from __future__ import annotations` for forward refs."
+      ]
+    },
+    {
+      "id": "py_async_run_in_running",
+      "languages": [
+        "python"
+      ],
+      "match": "asyncio\\.run\\(\\) cannot be called from a running event loop",
+      "title": "asyncio.run inside running loop",
+      "diagnosis": "You called `asyncio.run` while a loop was already running.",
+      "fixes": [
+        "Use `await coro` instead.",
+        "Use `loop.create_task(coro())` in the existing loop."
+      ]
+    },
+    {
+      "id": "py_blockingioerror",
+      "languages": [
+        "python"
+      ],
+      "match": "BlockingIOError",
+      "title": "BlockingIOError",
+      "diagnosis": "A non-blocking I/O call would have blocked.",
+      "fixes": [
+        "Use `select`/`selectors` to wait for readiness.",
+        "Or switch to blocking mode if appropriate."
+      ]
+    },
+    {
+      "id": "py_recursionlimit_calling",
+      "languages": [
+        "python"
+      ],
+      "match": "maximum recursion depth exceeded while calling",
+      "title": "Recursion depth exceeded",
+      "diagnosis": "Recursion ran away. Check that the base case fires.",
+      "fixes": [
+        "Print arguments at each call.",
+        "Convert to iteration if depth is genuinely needed."
+      ]
+    },
+    {
+      "id": "js_cannot_read_undefined",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "TypeError: Cannot read propert(?:y|ies) (?:of undefined \\(reading '([^']+)'\\)|'([^']+)' of undefined)",
+      "title": "TypeError — reading property of undefined",
+      "diagnosis": "Something is `undefined` and you tried to read `.{1}{2}` on it. The variable wasn't assigned, an array index didn't exist, or an API returned nothing.",
+      "fixes": [
+        "Add optional chaining: `obj?.{1}{2}`.",
+        "Default with nullish coalescing: `(obj ?? {}).{1}{2}`.",
+        "Trace where `obj` came from — print it just before the access.",
+        "Async result? Make sure you `await`ed it."
+      ]
+    },
+    {
+      "id": "js_cannot_read_null",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "TypeError: Cannot read propert(?:y|ies) (?:of null \\(reading '([^']+)'\\)|'([^']+)' of null)",
+      "title": "TypeError — reading property of null",
+      "diagnosis": "Something is `null` and you tried to read `.{1}{2}` on it.",
+      "fixes": [
+        "Use optional chaining: `obj?.{1}{2}`.",
+        "Check for null first: `if (obj) { ... }`.",
+        "`document.querySelector` returns `null` if not found — guard the result."
+      ]
+    },
+    {
+      "id": "js_is_not_a_function",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "TypeError: ([\\w.$]+) is not a function",
+      "title": "TypeError — `{1}` isn't a function",
+      "diagnosis": "You called `{1}(...)` but `{1}` isn't a function. Either it's the wrong type, misspelled, or not imported.",
+      "fixes": [
+        "Check `typeof {1}` just before the call.",
+        "If `{1}` is a method, did the import succeed? `console.log({1})` to inspect.",
+        "If a library API, check the version — the method may have been renamed."
+      ]
+    },
+    {
+      "id": "js_assign_to_const",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "TypeError: Assignment to constant variable",
+      "title": "TypeError — reassigning a const",
+      "diagnosis": "You wrote `const x = ...` then later tried `x = ...`. `const` bindings can't be reassigned.",
+      "fixes": [
+        "Use `let` if you need to reassign.",
+        "If you're mutating a property of a const object (`obj.x = 1`), that's allowed — only the binding is constant."
+      ]
+    },
+    {
+      "id": "js_cannot_set_undefined",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "TypeError: Cannot set propert(?:y|ies) (?:'?([^'\\s]+)'? of undefined|of undefined)",
+      "title": "TypeError — setting property on undefined",
+      "diagnosis": "You tried `obj.{1} = ...` but `obj` is `undefined`.",
+      "fixes": [
+        "Ensure `obj` is defined first.",
+        "Guard with `if (obj) obj.{1} = ...`."
+      ]
+    },
+    {
+      "id": "js_convert_null_object",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "TypeError: Cannot convert undefined or null to object",
+      "title": "TypeError — null/undefined where object needed",
+      "diagnosis": "You passed `null`/`undefined` to something that needs an object — usually `Object.keys`, `Object.assign`, or spreading.",
+      "fixes": [
+        "Default with `obj ?? {}`.",
+        "Check the value before the call."
+      ]
+    },
+    {
+      "id": "js_referenceerror",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "ReferenceError: (\\w+) is not defined",
+      "title": "ReferenceError — `{1}` doesn't exist",
+      "diagnosis": "JS doesn't know what `{1}` is. Misspelled, not imported, scope issue, or browser-vs-node mismatch.",
+      "fixes": [
+        "Check spelling.",
+        "If from another module, did you `import` it?",
+        "If `{1}` is a browser global (like `window`, `document`), is this code running in Node?",
+        "If `{1}` is a Node global (like `process`, `__dirname`), it won't exist in browser code."
+      ]
+    },
+    {
+      "id": "js_tdz",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "ReferenceError: Cannot access '([^']+)' before initialization",
+      "title": "ReferenceError — temporal dead zone",
+      "diagnosis": "You read `{1}` before its `let`/`const` declaration line. `let`/`const` are hoisted but unreadable until the declaration runs.",
+      "fixes": [
+        "Move the declaration above the use.",
+        "If `{1}` is inside a closure that runs early, restructure so the closure can see the final value."
+      ]
+    },
+    {
+      "id": "js_syntax_unexpected_token",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "SyntaxError: Unexpected token",
+      "title": "SyntaxError — unexpected token",
+      "diagnosis": "The parser hit something it didn't expect at that point.",
+      "fixes": [
+        "Check the previous line for a missing `;`, `,`, `)`, or `}`.",
+        "If parsing JSON, the input may be HTML or an empty string.",
+        "Look for stray characters from a copy-paste."
+      ]
+    },
+    {
+      "id": "js_syntax_json_end",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "SyntaxError: Unexpected end of JSON input",
+      "title": "SyntaxError — JSON ended too soon",
+      "diagnosis": "`JSON.parse` got an empty string or truncated JSON.",
+      "fixes": [
+        "Check the response body — was the request successful?",
+        "Log the raw text before parsing.",
+        "Empty body? Default to `{}` before parsing."
+      ]
+    },
+    {
+      "id": "js_syntax_identifier",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "SyntaxError: Unexpected identifier",
+      "title": "SyntaxError — unexpected identifier",
+      "diagnosis": "An identifier sits where the parser expected a comma, operator, or `;`.",
+      "fixes": [
+        "Check for a missing comma between object properties or array items.",
+        "If you pasted code, check for invisible characters."
+      ]
+    },
+    {
+      "id": "js_already_declared",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "SyntaxError: Identifier '([^']+)' has already been declared",
+      "title": "SyntaxError — duplicate declaration",
+      "diagnosis": "You declared `{1}` twice in the same scope with `let`/`const`/`class`.",
+      "fixes": [
+        "Reassign with just `{1} = ...` (no `let`/`const`).",
+        "Rename one of them.",
+        "Check whether two files are merged together (bundling)."
+      ]
+    },
+    {
+      "id": "js_missing_paren",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "SyntaxError: missing \\) after argument list",
+      "title": "SyntaxError — missing closing paren",
+      "diagnosis": "A function call has an unclosed `(`.",
+      "fixes": [
+        "Match every `(` with `)`.",
+        "Look for a string with an unescaped quote that's eating the rest of the line."
+      ]
+    },
+    {
+      "id": "js_invalid_token",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "SyntaxError: Invalid or unexpected token",
+      "title": "SyntaxError — invalid token",
+      "diagnosis": "Some character isn't legal here — could be a stray symbol or a typo.",
+      "fixes": [
+        "Check the line for `&` instead of `&&`, `;` inside a string, or smart-quotes.",
+        "Copy-paste sometimes brings in `'` (curly quote) instead of `'`."
+      ]
+    },
+    {
+      "id": "js_range_stack",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "RangeError: Maximum call stack size exceeded",
+      "title": "RangeError — infinite recursion",
+      "diagnosis": "A function calls itself (directly or via mutual recursion) without ever reaching a base case.",
+      "fixes": [
+        "Add a base case.",
+        "Check getters/setters that may trigger each other.",
+        "Convert to iteration if depth is needed."
+      ]
+    },
+    {
+      "id": "js_range_invalid_array",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "RangeError: Invalid array length",
+      "title": "RangeError — bad array length",
+      "diagnosis": "You tried `new Array(n)` with a negative number or a non-integer.",
+      "fixes": [
+        "Cast: `new Array(Math.max(0, Math.floor(n)))`.",
+        "Verify `n` is a sane integer."
+      ]
+    },
+    {
+      "id": "js_uncaught_promise",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "Uncaught \\(in promise\\)",
+      "title": "Promise rejection not handled",
+      "diagnosis": "A promise rejected and no `.catch` or `try/await` was around to handle it.",
+      "fixes": [
+        "Add `.catch(err => ...)` to the promise chain.",
+        "Inside `async` functions, wrap the `await` in `try/catch`.",
+        "At top level, listen on `unhandledrejection` (browser) or `process.on('unhandledRejection', ...)` (Node)."
+      ]
+    },
+    {
+      "id": "js_unhandled_rejection",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "UnhandledPromiseRejection",
+      "title": "Unhandled promise rejection",
+      "diagnosis": "Node logs this when a promise rejects without a handler. Future Node versions will exit the process.",
+      "fixes": [
+        "Always attach `.catch` or wrap `await` in `try/catch`.",
+        "Add `process.on('unhandledRejection', ...)` as a safety net."
+      ]
+    },
+    {
+      "id": "js_module_not_found_webpack",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "Module not found: (?:Error: )?Can't resolve '([^']+)'",
+      "title": "Module not found — `{1}`",
+      "diagnosis": "Webpack/Vite/Node can't find `{1}`. Either not installed, wrong path, or a typo.",
+      "fixes": [
+        "Install it: `npm install {1}`.",
+        "Check spelling and path — relative imports need `./` or `../`.",
+        "If using TypeScript, also check `tsconfig.json` paths.",
+        "Restart the dev server after installing."
+      ]
+    },
+    {
+      "id": "js_enoent_node",
+      "languages": [
+        "javascript",
+        "typescript",
+        "generic"
+      ],
+      "match": "ENOENT: no such file or directory(?:, (?:open|stat) '([^']+)')?",
+      "title": "ENOENT — file/path not found",
+      "diagnosis": "The OS can't find `{1}`. Wrong path, file not created yet, or you're in the wrong CWD.",
+      "fixes": [
+        "Print `process.cwd()` to see where Node is looking.",
+        "Use an absolute path or `path.join(__dirname, '{1}')`.",
+        "Check spelling and case sensitivity."
+      ]
+    },
+    {
+      "id": "js_eaddrinuse",
+      "languages": [
+        "javascript",
+        "typescript",
+        "generic"
+      ],
+      "match": "EADDRINUSE(?:: address already in use)?(?:[:\\s]+(?:[\\w.:]+))?",
+      "title": "EADDRINUSE — port already in use",
+      "diagnosis": "Another process is already listening on that port.",
+      "fixes": [
+        "Find it: `lsof -i :PORT` (macOS/Linux) or `netstat -ano | findstr :PORT` (Windows).",
+        "Kill the old process, or pick a different port.",
+        "If you killed your server but the port lingers, wait a few seconds for `TIME_WAIT`."
+      ]
+    },
+    {
+      "id": "js_eacces",
+      "languages": [
+        "javascript",
+        "typescript",
+        "generic"
+      ],
+      "match": "EACCES: permission denied",
+      "title": "EACCES — permission denied",
+      "diagnosis": "The OS won't let you read/write/listen there.",
+      "fixes": [
+        "Don't run `npm` with `sudo` — use a node version manager like `nvm`.",
+        "Ports below 1024 need root on Linux/macOS — pick a higher port.",
+        "Check `ls -l` on the file/directory."
+      ]
+    },
+    {
+      "id": "js_emfile",
+      "languages": [
+        "javascript",
+        "typescript",
+        "generic"
+      ],
+      "match": "EMFILE: too many open files",
+      "title": "EMFILE — too many open files",
+      "diagnosis": "Your process exceeded its file-descriptor limit.",
+      "fixes": [
+        "Make sure file handles are closed (`fs.close`, end streams).",
+        "Raise the limit: `ulimit -n 4096`.",
+        "Use `graceful-fs` which queues opens."
+      ]
+    },
+    {
+      "id": "js_module_not_found",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "Error: Cannot find module '([^']+)'|MODULE_NOT_FOUND",
+      "title": "MODULE_NOT_FOUND",
+      "diagnosis": "Node can't find `{1}`. Either not installed, path is wrong, or you forgot `npm install`.",
+      "fixes": [
+        "Run `npm install` to fetch dependencies.",
+        "For local imports, check the relative path and add the `.js` extension if using ES modules.",
+        "If `package.json` exists but `node_modules` doesn't, install."
+      ]
+    },
+    {
+      "id": "js_require_not_defined",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "ReferenceError: require is not defined",
+      "title": "require not defined (ESM context)",
+      "diagnosis": "You used `require` in an ES module. ESM uses `import`.",
+      "fixes": [
+        "Convert to `import x from 'y'`.",
+        "Or set `\"type\": \"commonjs\"` in `package.json` (or rename file to `.cjs`).",
+        "If you really need `require` in ESM, use `import { createRequire } from 'module'`."
+      ]
+    },
+    {
+      "id": "js_import_meta",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "SyntaxError: Cannot use 'import\\.meta' outside",
+      "title": "import.meta outside module",
+      "diagnosis": "`import.meta` only works in ES modules.",
+      "fixes": [
+        "Set `\"type\": \"module\"` in `package.json`.",
+        "Rename file to `.mjs`."
+      ]
+    },
+    {
+      "id": "js_cannot_use_import",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "SyntaxError: Cannot use import statement outside a module",
+      "title": "Cannot use `import` outside a module",
+      "diagnosis": "Node treated this file as CommonJS but you used ES `import`.",
+      "fixes": [
+        "Set `\"type\": \"module\"` in `package.json`.",
+        "Rename file to `.mjs`.",
+        "Use `require` if you intend CommonJS."
+      ]
+    },
+    {
+      "id": "js_dirname_esm",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "ReferenceError: __dirname is not defined",
+      "title": "__dirname not defined (ESM)",
+      "diagnosis": "ES modules don't have `__dirname`/`__filename` automatically.",
+      "fixes": [
+        "Compute them: `const __dirname = path.dirname(fileURLToPath(import.meta.url))`.",
+        "Switch back to CommonJS if you don't need ESM."
+      ]
+    },
+    {
+      "id": "js_npm_enoent",
+      "languages": [
+        "javascript"
+      ],
+      "match": "npm ERR! (?:code )?ENOENT",
+      "title": "npm ENOENT",
+      "diagnosis": "npm tried to read a file/directory that's missing. Often a typo in a script path or missing `package.json`.",
+      "fixes": [
+        "Make sure you're in the right directory (one with `package.json`).",
+        "Run `npm install` to populate `node_modules`."
+      ]
+    },
+    {
+      "id": "js_npm_peer",
+      "languages": [
+        "javascript"
+      ],
+      "match": "npm ERR! peer dep",
+      "title": "npm peer dependency conflict",
+      "diagnosis": "A package wants a peer it can't find or that conflicts with another version.",
+      "fixes": [
+        "Install the requested peer manually.",
+        "Use `--legacy-peer-deps` to bypass (only if you trust the result).",
+        "Look at the message — it names the conflicting versions."
+      ]
+    },
+    {
+      "id": "js_npm_eresolve",
+      "languages": [
+        "javascript"
+      ],
+      "match": "npm ERR! ERESOLVE",
+      "title": "npm ERESOLVE — dependency conflict",
+      "diagnosis": "npm v7+ resolver found incompatible version ranges in your tree.",
+      "fixes": [
+        "Read the message — it shows which packages conflict.",
+        "Update one of the conflicting packages.",
+        "`--legacy-peer-deps` falls back to the old behavior."
+      ]
+    },
+    {
+      "id": "js_npm_404",
+      "languages": [
+        "javascript"
+      ],
+      "match": "npm ERR! 404",
+      "title": "npm — package not found (404)",
+      "diagnosis": "npm asked the registry for a package and got a 404.",
+      "fixes": [
+        "Check the package name spelling.",
+        "If it's a private package, log in: `npm login`.",
+        "Check your `.npmrc` registry URL."
+      ]
+    },
+    {
+      "id": "js_cors",
+      "languages": [
+        "javascript"
+      ],
+      "match": "(?:Cross-Origin Request Blocked|CORS policy)",
+      "title": "CORS error",
+      "diagnosis": "The browser blocked a request because the server didn't send the right `Access-Control-Allow-Origin` headers.",
+      "fixes": [
+        "Have the server send `Access-Control-Allow-Origin: <your-origin>`.",
+        "For dev only: use a proxy in your dev server to bypass.",
+        "Preflight `OPTIONS` requests need the server to respond correctly too."
+      ]
+    },
+    {
+      "id": "js_mixed_content",
+      "languages": [
+        "javascript"
+      ],
+      "match": "Mixed Content",
+      "title": "Mixed content blocked",
+      "diagnosis": "An HTTPS page tried to load an HTTP resource. Browsers block this.",
+      "fixes": [
+        "Use HTTPS for all resources.",
+        "Update third-party URLs to their HTTPS form.",
+        "If you control the resource, redirect HTTP to HTTPS."
+      ]
+    },
+    {
+      "id": "js_err_connection_refused",
+      "languages": [
+        "javascript",
+        "generic"
+      ],
+      "match": "net::ERR_CONNECTION_REFUSED",
+      "title": "Connection refused",
+      "diagnosis": "The browser couldn't connect — nothing listening at that host/port.",
+      "fixes": [
+        "Is the server running?",
+        "Check the URL — right port, right host?"
+      ]
+    },
+    {
+      "id": "js_failed_to_fetch",
+      "languages": [
+        "javascript"
+      ],
+      "match": "TypeError: Failed to fetch",
+      "title": "fetch failed",
+      "diagnosis": "`fetch` couldn't complete — CORS, network down, mixed content, or DNS.",
+      "fixes": [
+        "Check the URL is reachable in a browser tab.",
+        "Open devtools network tab for the underlying reason.",
+        "Verify CORS headers if cross-origin."
+      ]
+    },
+    {
+      "id": "js_process_not_defined",
+      "languages": [
+        "javascript"
+      ],
+      "match": "Uncaught ReferenceError: process is not defined",
+      "title": "`process` not defined (browser)",
+      "diagnosis": "`process` is a Node global. Browser code doesn't have it.",
+      "fixes": [
+        "Use `import.meta.env` (Vite) or `process.env` polyfilled by your bundler.",
+        "Webpack/Vite can inject `process.env.X` at build time."
+      ]
+    },
+    {
+      "id": "js_react_hydration",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "Hydration failed because the initial UI does not match",
+      "title": "React — hydration mismatch",
+      "diagnosis": "Server-rendered HTML doesn't match what React rendered on the client.",
+      "fixes": [
+        "Avoid `Date.now()`, `Math.random()`, or `window` checks in render.",
+        "Use `useEffect` to set client-only state after mount.",
+        "Make sure server and client see the same data."
+      ]
+    },
+    {
+      "id": "js_react_invalid_hook",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "Invalid hook call",
+      "title": "React — invalid hook call",
+      "diagnosis": "Hooks must be called at the top of a function component or another hook — not in a class, conditional, or non-component function.",
+      "fixes": [
+        "Move the hook call to the top of the component body.",
+        "Don't put hooks inside `if`/`for`.",
+        "Check for two copies of React (run `npm ls react`)."
+      ]
+    },
+    {
+      "id": "js_react_key",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "Each child in a list should have a unique \\\"key\\\" prop",
+      "title": "React — missing list key",
+      "diagnosis": "When rendering arrays, each element needs a stable, unique `key` prop.",
+      "fixes": [
+        "Use a stable id: `<Item key={item.id} />`.",
+        "Don't use the array index unless the list never reorders.",
+        "Make sure keys are unique across siblings."
+      ]
+    },
+    {
+      "id": "js_react_object_as_child",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "Objects are not valid as a React child",
+      "title": "React — rendered an object",
+      "diagnosis": "You tried to render a plain object (or a Promise) directly. React renders strings, numbers, arrays of these, or elements.",
+      "fixes": [
+        "Stringify: `{JSON.stringify(obj)}`.",
+        "Pick a specific field: `{obj.name}`.",
+        "If it's a Promise, `await` it before render or use Suspense."
+      ]
+    },
+    {
+      "id": "ts_property_not_exist",
+      "languages": [
+        "typescript"
+      ],
+      "match": "Property '([^']+)' does not exist on type '([^']+)'",
+      "title": "TS — property doesn't exist on type",
+      "diagnosis": "TypeScript sees `{2}` and it doesn't declare `{1}`.",
+      "fixes": [
+        "Add `{1}` to the type definition.",
+        "If you're confident at runtime, cast: `(obj as any).{1}`.",
+        "Use an index signature `[key: string]: T` if the type is dynamic.",
+        "Check imports — you may be importing a stale type."
+      ]
+    },
+    {
+      "id": "ts_not_assignable",
+      "languages": [
+        "typescript"
+      ],
+      "match": "Type '([^']+)' is not assignable to type '([^']+)'",
+      "title": "TS — type not assignable",
+      "diagnosis": "You're assigning a `{1}` where a `{2}` is expected.",
+      "fixes": [
+        "Adjust the source value to match `{2}`.",
+        "Widen the target type if appropriate.",
+        "Use type assertion `as {2}` only when you know runtime is safe."
+      ]
+    },
+    {
+      "id": "ts_cannot_find_module",
+      "languages": [
+        "typescript"
+      ],
+      "match": "Cannot find module '([^']+)' or its corresponding type declarations",
+      "title": "TS — module / types not found",
+      "diagnosis": "TypeScript can't resolve `{1}`, or it has no type declarations.",
+      "fixes": [
+        "Install types: `npm install --save-dev @types/{1}`.",
+        "If the package has no types, add `declare module '{1}';` to a `.d.ts` file.",
+        "Check `tsconfig.json` paths and `moduleResolution`."
+      ]
+    },
+    {
+      "id": "ts_possibly_null",
+      "languages": [
+        "typescript"
+      ],
+      "match": "Object is possibly 'null'",
+      "title": "TS — possibly null",
+      "diagnosis": "TypeScript thinks the value could be `null` here.",
+      "fixes": [
+        "Guard: `if (x !== null) { ... }`.",
+        "Optional chaining: `x?.prop`.",
+        "Non-null assertion (when you're sure): `x!.prop`.",
+        "Narrow earlier — early-return on null."
+      ]
+    },
+    {
+      "id": "ts_possibly_undefined",
+      "languages": [
+        "typescript"
+      ],
+      "match": "Object is possibly 'undefined'",
+      "title": "TS — possibly undefined",
+      "diagnosis": "TS thinks the value could be `undefined` here.",
+      "fixes": [
+        "Guard: `if (x) { ... }`.",
+        "Optional chaining: `x?.prop`.",
+        "Provide a default: `x ?? defaultValue`."
+      ]
+    },
+    {
+      "id": "ts_argument_not_assignable",
+      "languages": [
+        "typescript"
+      ],
+      "match": "Argument of type '([^']+)' is not assignable to parameter of type '([^']+)'",
+      "title": "TS — bad argument type",
+      "diagnosis": "You're passing a `{1}` where a `{2}` is needed.",
+      "fixes": [
+        "Convert the value to match.",
+        "Loosen the parameter type if appropriate.",
+        "Check if you're passing the right variable."
+      ]
+    },
+    {
+      "id": "ts_no_exported_member",
+      "languages": [
+        "typescript"
+      ],
+      "match": "Module '\\\"([^\\\"]+)\\\"' has no exported member '([^']+)'",
+      "title": "TS — no exported member `{2}`",
+      "diagnosis": "The module `{1}` doesn't export `{2}`.",
+      "fixes": [
+        "Check spelling.",
+        "Open the file and see what it actually exports.",
+        "If types lag the runtime, you may need `@ts-ignore` temporarily."
+      ]
+    },
+    {
+      "id": "ts_conversion_mistake",
+      "languages": [
+        "typescript"
+      ],
+      "match": "Conversion of type '([^']+)' to type '([^']+)' may be a mistake",
+      "title": "TS — possibly mistaken cast",
+      "diagnosis": "You used `as` between two unrelated types.",
+      "fixes": [
+        "Cast through `unknown` first: `x as unknown as Target`.",
+        "Reconsider — usually a cast like this signals a bug."
+      ]
+    },
+    {
+      "id": "js_webpack_module_parse",
+      "languages": [
+        "javascript"
+      ],
+      "match": "Module parse failed",
+      "title": "Webpack — module parse failed",
+      "diagnosis": "Webpack can't parse a file. Often missing loader for that file type.",
+      "fixes": [
+        "Add an appropriate loader (`babel-loader`, `ts-loader`, etc.).",
+        "Check the file is the format webpack expects.",
+        "If importing CSS/SVG, configure the right rule."
+      ]
+    },
+    {
+      "id": "js_vite_hmr",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "\\[vite\\].*hmr",
+      "title": "Vite — HMR error",
+      "diagnosis": "Hot Module Replacement failed to apply an update.",
+      "fixes": [
+        "Save the file again after fixing any syntax error.",
+        "Hard reload the browser if HMR gets stuck.",
+        "Check the terminal for the actual error message."
+      ]
+    },
+    {
+      "id": "js_typo_cosnt",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "^(?:cosnt|conts|cnost)\\s+\\w",
+      "title": "Looks like `const` typo",
+      "diagnosis": "That's probably meant to be `const`.",
+      "fixes": [
+        "Use `const x = ...` for constants."
+      ]
+    },
+    {
+      "id": "js_typo_lenght",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "\\.lenght\\b",
+      "title": "Looks like `length` typo",
+      "diagnosis": "`.lenght` should be `.length`.",
+      "fixes": [
+        "Use `.length` (l-e-n-g-t-h)."
+      ]
+    },
+    {
+      "id": "js_typo_recieve",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "\\brecieve\\b",
+      "title": "Looks like `receive` typo",
+      "diagnosis": "`recieve` should be `receive` (i before e except after c).",
+      "fixes": [
+        "Spell it `receive`."
+      ]
+    },
+    {
+      "id": "js_strict_arguments",
+      "languages": [
+        "javascript"
+      ],
+      "match": "Uncaught SyntaxError: Unexpected strict mode reserved word",
+      "title": "Reserved word in strict mode",
+      "diagnosis": "You used a name reserved in strict mode (like `arguments`, `eval`, `implements`).",
+      "fixes": [
+        "Rename the variable."
+      ]
+    },
+    {
+      "id": "js_circular_json",
+      "languages": [
+        "javascript"
+      ],
+      "match": "TypeError: (?:Converting circular structure to JSON|cyclic object value)",
+      "title": "Circular reference in JSON",
+      "diagnosis": "`JSON.stringify` hit an object that references itself.",
+      "fixes": [
+        "Pick only safe fields to serialize.",
+        "Use a replacer that tracks seen objects.",
+        "Libraries like `flatted` handle cycles."
+      ]
+    },
+    {
+      "id": "js_promise_constructor",
+      "languages": [
+        "javascript"
+      ],
+      "match": "TypeError: Promise resolver .* is not a function",
+      "title": "Promise constructor needs a function",
+      "diagnosis": "`new Promise(...)` needs an executor function, not a value.",
+      "fixes": [
+        "Call: `new Promise((resolve, reject) => { ... })`.",
+        "Use `Promise.resolve(x)` to wrap a value."
+      ]
+    },
+    {
+      "id": "js_for_in_array",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "for-in.*array|for \\.\\.\\. in.*array",
+      "title": "for-in over array (likely bug)",
+      "diagnosis": "`for...in` iterates keys (as strings) including inherited ones. For arrays, use `for...of` or `forEach`.",
+      "fixes": [
+        "Use `for (const x of arr)` for values.",
+        "Use `arr.forEach((x, i) => ...)` for index+value."
+      ]
+    },
+    {
+      "id": "js_eval",
+      "languages": [
+        "javascript"
+      ],
+      "match": "unsafe-eval|eval is not allowed",
+      "title": "eval blocked by CSP",
+      "diagnosis": "Content Security Policy forbade `eval` (or `new Function`).",
+      "fixes": [
+        "Avoid `eval` — there's almost always a better way.",
+        "Loosen CSP only if you absolutely must (and understand the risk)."
+      ]
+    },
+    {
+      "id": "js_strict_with",
+      "languages": [
+        "javascript"
+      ],
+      "match": "Strict mode code may not include a with statement",
+      "title": "`with` not allowed in strict mode",
+      "diagnosis": "Strict mode forbids `with`. Use explicit references.",
+      "fixes": [
+        "Bind the object to a name and use `obj.prop`."
+      ]
+    },
+    {
+      "id": "js_top_level_return",
+      "languages": [
+        "javascript"
+      ],
+      "match": "SyntaxError: Illegal return statement",
+      "title": "Illegal return statement",
+      "diagnosis": "`return` outside a function.",
+      "fixes": [
+        "Wrap your code in a function.",
+        "If at top level of an ES module, use early-`if` and don't `return`."
+      ]
+    },
+    {
+      "id": "js_octal_strict",
+      "languages": [
+        "javascript"
+      ],
+      "match": "Octal literals are not allowed in strict mode",
+      "title": "Octal literal in strict mode",
+      "diagnosis": "`017` style octal literals don't work in strict mode.",
+      "fixes": [
+        "Use `0o17` instead."
+      ]
+    },
+    {
+      "id": "js_duplicate_param",
+      "languages": [
+        "javascript"
+      ],
+      "match": "Duplicate parameter name not allowed",
+      "title": "Duplicate parameter name",
+      "diagnosis": "Two parameters with the same name in a strict-mode function.",
+      "fixes": [
+        "Rename one of them."
+      ]
+    },
+    {
+      "id": "js_chai_jest_expect",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "ReferenceError: expect is not defined",
+      "title": "`expect` not defined (test setup)",
+      "diagnosis": "Test runner globals weren't injected.",
+      "fixes": [
+        "Make sure the file is matched by your test runner's pattern.",
+        "Import `expect` if your config requires it.",
+        "Check jest/vitest setup files."
+      ]
+    },
+    {
+      "id": "js_no_active_test",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "There is no active test",
+      "title": "Jest — no active test",
+      "diagnosis": "You called an assertion outside `it(...)` / `test(...)`.",
+      "fixes": [
+        "Move the call inside a test block."
+      ]
+    },
+    {
+      "id": "js_max_listeners",
+      "languages": [
+        "javascript"
+      ],
+      "match": "MaxListenersExceededWarning",
+      "title": "EventEmitter — too many listeners",
+      "diagnosis": "More than 10 listeners attached to one event (default warning threshold).",
+      "fixes": [
+        "Remove listeners when no longer needed.",
+        "If legitimate, `emitter.setMaxListeners(N)`."
+      ]
+    },
+    {
+      "id": "js_invalid_regex",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "SyntaxError: Invalid regular expression",
+      "title": "Invalid regex",
+      "diagnosis": "Your regex literal isn't valid.",
+      "fixes": [
+        "Test on regex101.com (set JavaScript flavor).",
+        "Escape special chars inside character classes too.",
+        "Check for unbalanced parens or brackets."
+      ]
+    },
+    {
+      "id": "js_async_no_await",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "SyntaxError: Unexpected reserved word.*await",
+      "title": "`await` outside async function",
+      "diagnosis": "You can only `await` inside an `async` function (or at top level of an ES module).",
+      "fixes": [
+        "Add `async` to the enclosing function.",
+        "Top-level await needs ESM and a recent Node version."
+      ]
+    },
+    {
+      "id": "js_arrow_no_yield",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "SyntaxError: Unexpected (?:strict mode reserved word|token) yield",
+      "title": "`yield` outside generator",
+      "diagnosis": "Only `function*` (generator) functions can `yield`.",
+      "fixes": [
+        "Use `function* name()` syntax.",
+        "Arrow functions can't be generators."
+      ]
+    },
+    {
+      "id": "js_class_extends_undefined",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "TypeError: Class extends value undefined",
+      "title": "extends undefined — bad import",
+      "diagnosis": "`class X extends Y` where `Y` is `undefined`. Usually a broken import.",
+      "fixes": [
+        "Check the import — wrong default vs named export.",
+        "Print `Y` before the class declaration."
+      ]
+    },
+    {
+      "id": "js_undefined_default_export",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "The requested module .* does not provide an export named 'default'",
+      "title": "ESM — missing default export",
+      "diagnosis": "You imported `default` from a module that doesn't export one.",
+      "fixes": [
+        "Use named imports: `import { thing } from 'mod'`.",
+        "Or add a default export to the module."
+      ]
+    },
+    {
+      "id": "js_unknown_export",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "The requested module .* does not provide an export named '([^']+)'",
+      "title": "ESM — missing named export `{1}`",
+      "diagnosis": "You imported `{1}` but the module doesn't export it.",
+      "fixes": [
+        "Check what the module actually exports.",
+        "Spelling, casing, default vs named."
+      ]
+    },
+    {
+      "id": "js_window_undefined",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "ReferenceError: window is not defined",
+      "title": "`window` not defined (Node/SSR)",
+      "diagnosis": "You used `window` in server-side code.",
+      "fixes": [
+        "Guard with `if (typeof window !== 'undefined')`.",
+        "Move browser-only logic into `useEffect` (React) or client components.",
+        "Check for SSR frameworks running your code on the server."
+      ]
+    },
+    {
+      "id": "js_document_undefined",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "ReferenceError: document is not defined",
+      "title": "`document` not defined (Node/SSR)",
+      "diagnosis": "Same idea as `window` — you're running browser code on the server.",
+      "fixes": [
+        "Guard with `typeof document !== 'undefined'`.",
+        "Move DOM code into client-only contexts."
+      ]
+    },
+    {
+      "id": "js_buffer_undefined",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "ReferenceError: Buffer is not defined",
+      "title": "`Buffer` not defined (browser)",
+      "diagnosis": "`Buffer` is a Node global. Browsers use `Uint8Array` / `TextEncoder`.",
+      "fixes": [
+        "Use `TextEncoder().encode(str)` for bytes.",
+        "Polyfill `Buffer` via your bundler if you must."
+      ]
+    },
+    {
+      "id": "js_setimmediate_undefined",
+      "languages": [
+        "javascript"
+      ],
+      "match": "ReferenceError: setImmediate is not defined",
+      "title": "`setImmediate` not defined (browser)",
+      "diagnosis": "`setImmediate` is Node-only.",
+      "fixes": [
+        "Use `setTimeout(fn, 0)` in the browser.",
+        "Or `queueMicrotask(fn)`."
+      ]
+    },
+    {
+      "id": "js_invalid_date",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "Invalid Date|Invalid time value",
+      "title": "Invalid Date",
+      "diagnosis": "A `Date` constructor got something it couldn't parse.",
+      "fixes": [
+        "Log the input — it's probably not what you expect.",
+        "Parse explicitly with `Date.parse` or a library like `date-fns`.",
+        "ISO 8601 strings (`2024-01-15T12:00:00Z`) parse most reliably."
+      ]
+    },
+    {
+      "id": "js_too_much_recursion",
+      "languages": [
+        "javascript"
+      ],
+      "match": "too much recursion",
+      "title": "Firefox — too much recursion",
+      "diagnosis": "Firefox's version of the stack-overflow message.",
+      "fixes": [
+        "Find the recursive function and add a base case.",
+        "Check for circular getters/setters."
+      ]
+    },
+    {
+      "id": "js_npm_lockfile",
+      "languages": [
+        "javascript"
+      ],
+      "match": "npm ERR! .*lockfile",
+      "title": "npm lockfile issue",
+      "diagnosis": "`package-lock.json` is out of sync with `package.json`.",
+      "fixes": [
+        "Run `npm install` (without `ci`).",
+        "Delete `package-lock.json` and `node_modules` then reinstall (last resort)."
+      ]
+    },
+    {
+      "id": "js_jest_open_handles",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "Jest did not exit one second after the test run",
+      "title": "Jest didn't exit — open handles",
+      "diagnosis": "A timer, server, or DB connection is keeping the event loop alive.",
+      "fixes": [
+        "Close servers/DB clients in `afterAll`.",
+        "Clear timers with `clearTimeout`/`clearInterval`.",
+        "Run with `--detectOpenHandles` to see what's keeping it open."
+      ]
+    },
+    {
+      "id": "js_node_engine",
+      "languages": [
+        "javascript"
+      ],
+      "match": "npm WARN EBADENGINE|Unsupported engine",
+      "title": "Node version mismatch (engine)",
+      "diagnosis": "Your Node version doesn't match what a package wants.",
+      "fixes": [
+        "Use `nvm install <version>` and `nvm use <version>`.",
+        "Update the package or pin to an older version that supports your Node."
+      ]
+    },
+    {
+      "id": "js_storage_quota",
+      "languages": [
+        "javascript"
+      ],
+      "match": "QuotaExceededError",
+      "title": "LocalStorage quota exceeded",
+      "diagnosis": "You hit the browser's storage limit (~5MB per origin for localStorage).",
+      "fixes": [
+        "Don't store huge blobs in localStorage — use IndexedDB.",
+        "Clean up old keys."
+      ]
+    },
+    {
+      "id": "bash_command_not_found",
+      "languages": [
+        "bash"
+      ],
+      "match": "(?:bash|zsh|sh): ([\\w\\-./]+): command not found",
+      "title": "command not found — `{1}`",
+      "diagnosis": "Your shell can't find `{1}` on `PATH`. Either not installed, not on `PATH`, or misspelled.",
+      "fixes": [
+        "Check spelling.",
+        "Verify installation: `which {1}` should print a path.",
+        "If installed but not found, add its directory to `PATH` in your shell rc.",
+        "If using a venv/conda, activate it first."
+      ]
+    },
+    {
+      "id": "bash_permission_denied_generic",
+      "languages": [
+        "bash"
+      ],
+      "match": "(?:bash|zsh|sh): [^:]+: Permission denied",
+      "title": "Permission denied — script/file",
+      "diagnosis": "The file isn't executable, or you don't have read access.",
+      "fixes": [
+        "Make executable: `chmod +x ./script.sh`.",
+        "Run via interpreter: `bash script.sh` works even without `+x`.",
+        "Check ownership: `ls -l script.sh`."
+      ]
+    },
+    {
+      "id": "bash_no_such_file",
+      "languages": [
+        "bash"
+      ],
+      "match": "(?:bash|zsh|sh): [^:]+: No such file or directory",
+      "title": "No such file or directory (shell)",
+      "diagnosis": "Shell couldn't find the file you referenced.",
+      "fixes": [
+        "Check the path — `ls -l <path>` to confirm.",
+        "Tab-complete to catch typos.",
+        "Watch for stale `~` expansion or unset variables."
+      ]
+    },
+    {
+      "id": "bash_syntax_unexpected_token",
+      "languages": [
+        "bash"
+      ],
+      "match": "syntax error near unexpected token",
+      "title": "Bash — syntax error",
+      "diagnosis": "Something in the script doesn't match the grammar.",
+      "fixes": [
+        "Check for unbalanced quotes or parens.",
+        "On Windows-edited files, CRLF line endings can cause weird errors — `dos2unix script.sh`.",
+        "Pass through `bash -n script.sh` for a parse-only check."
+      ]
+    },
+    {
+      "id": "bash_unexpected_eof",
+      "languages": [
+        "bash"
+      ],
+      "match": "unexpected end of file",
+      "title": "Bash — unexpected EOF",
+      "diagnosis": "The script ended with something still open — a `do`, `then`, `fi`, or quote.",
+      "fixes": [
+        "Every `if` needs a `fi`, every `do` a `done`, every `case` an `esac`.",
+        "Check for unterminated heredocs (`<<EOF` without `EOF`)."
+      ]
+    },
+    {
+      "id": "bash_bad_substitution",
+      "languages": [
+        "bash"
+      ],
+      "match": "bad substitution",
+      "title": "Bash — bad substitution",
+      "diagnosis": "A `${...}` expansion has invalid syntax.",
+      "fixes": [
+        "Watch the operators: `${var:-default}`, `${var%/*}`, `${var//a/b}` — exact placement matters.",
+        "Some sh shells don't support all bash expansions — set `#!/usr/bin/env bash`."
+      ]
+    },
+    {
+      "id": "bash_event_not_found",
+      "languages": [
+        "bash"
+      ],
+      "match": "event not found",
+      "title": "Bash history — event not found",
+      "diagnosis": "`!` triggered history expansion and found no matching event.",
+      "fixes": [
+        "Quote with single quotes: `echo 'hello!'`.",
+        "Or escape: `echo \"hello\\!\"`.",
+        "Disable history expansion in scripts: `set +H`."
+      ]
+    },
+    {
+      "id": "bash_event_not_found_quote",
+      "languages": [
+        "bash"
+      ],
+      "match": "!\\\"': event not found",
+      "title": "Bash history — bang quote",
+      "diagnosis": "A `!` near a quote triggered history expansion.",
+      "fixes": [
+        "Use single quotes around exclamation marks.",
+        "Or `set +H` to disable history expansion."
+      ]
+    },
+    {
+      "id": "bash_arg_list_too_long",
+      "languages": [
+        "bash"
+      ],
+      "match": "Argument list too long",
+      "title": "Argument list too long",
+      "diagnosis": "You expanded too many filenames into a single command (`rm *`, `cp ./*`).",
+      "fixes": [
+        "Use `find ... -delete` or `find ... -exec ... +`.",
+        "Pipe through `xargs`.",
+        "Process in batches."
+      ]
+    },
+    {
+      "id": "bash_killed",
+      "languages": [
+        "bash"
+      ],
+      "match": "^Killed$",
+      "title": "Killed — OOM or signal",
+      "diagnosis": "The kernel killed your process, usually because it ran out of memory.",
+      "fixes": [
+        "Check `dmesg | tail` for an OOM message.",
+        "Reduce memory use — stream data instead of loading it all.",
+        "If running in a container, raise the memory limit."
+      ]
+    },
+    {
+      "id": "bash_segfault",
+      "languages": [
+        "bash"
+      ],
+      "match": "Segmentation fault",
+      "title": "Segmentation fault",
+      "diagnosis": "A native program tried to access memory it shouldn't have.",
+      "fixes": [
+        "Likely a bug in the binary (or in C code you wrote).",
+        "Re-run under a debugger (`gdb`, `lldb`).",
+        "If from a package, search for known crashes and update."
+      ]
+    },
+    {
+      "id": "bash_broken_pipe",
+      "languages": [
+        "bash"
+      ],
+      "match": "Broken pipe",
+      "title": "Broken pipe",
+      "diagnosis": "A pipeline's reader (e.g. `head`) closed before the writer was done. Often harmless.",
+      "fixes": [
+        "If undesired, restructure so the reader consumes everything.",
+        "Wrap with `2>/dev/null` if you don't care."
+      ]
+    },
+    {
+      "id": "bash_operation_not_permitted",
+      "languages": [
+        "bash"
+      ],
+      "match": "Operation not permitted",
+      "title": "Operation not permitted",
+      "diagnosis": "Even root sometimes can't override certain restrictions (immutable files, capabilities).",
+      "fixes": [
+        "Check `lsattr` for the `i` flag (immutable).",
+        "On macOS, System Integrity Protection blocks some paths.",
+        "In containers, missing capabilities cause this."
+      ]
+    },
+    {
+      "id": "bash_bad_interpreter",
+      "languages": [
+        "bash"
+      ],
+      "match": "bad interpreter",
+      "title": "Bad interpreter (shebang)",
+      "diagnosis": "The interpreter named in the script's `#!` line doesn't exist or has CRLF line endings.",
+      "fixes": [
+        "Make sure the path after `#!` exists.",
+        "Use `#!/usr/bin/env python3` for portability.",
+        "Run `dos2unix script` to strip Windows line endings."
+      ]
+    },
+    {
+      "id": "bash_set_e_exit",
+      "languages": [
+        "bash"
+      ],
+      "match": "set -e.*exit",
+      "title": "Script exited due to set -e",
+      "diagnosis": "With `set -e`, any non-zero exit kills the script.",
+      "fixes": [
+        "Allow specific failures: `cmd || true`.",
+        "Wrap with `if cmd; then ... else ...; fi` if you want to handle failure."
+      ]
+    },
+    {
+      "id": "bash_unbound_variable",
+      "languages": [
+        "bash"
+      ],
+      "match": "unbound variable",
+      "title": "Bash — unbound variable",
+      "diagnosis": "With `set -u`, referencing an unset variable is fatal.",
+      "fixes": [
+        "Use a default: `${VAR:-default}`.",
+        "Initialize the variable before use.",
+        "Check spelling."
+      ]
+    },
+    {
+      "id": "bash_parameter_not_set",
+      "languages": [
+        "bash"
+      ],
+      "match": "parameter (?:null or )?not set",
+      "title": "Bash — parameter not set",
+      "diagnosis": "A required parameter is missing (often inside `${VAR:?msg}`).",
+      "fixes": [
+        "Set the variable before calling.",
+        "Pass it via env or argument."
+      ]
+    },
+    {
+      "id": "bash_cd_too_many",
+      "languages": [
+        "bash"
+      ],
+      "match": "cd: too many arguments",
+      "title": "cd: too many arguments",
+      "diagnosis": "Usually `cd $path` where `$path` contains spaces and wasn't quoted.",
+      "fixes": [
+        "Quote it: `cd \"$path\"`.",
+        "Always quote variables in shell."
+      ]
+    },
+    {
+      "id": "bash_ambiguous_redirect",
+      "languages": [
+        "bash"
+      ],
+      "match": "ambiguous redirect",
+      "title": "Bash — ambiguous redirect",
+      "diagnosis": "You wrote `> $file` where `$file` is empty or has spaces.",
+      "fixes": [
+        "Quote: `> \"$file\"`.",
+        "Set the variable before using it."
+      ]
+    },
+    {
+      "id": "bash_kill_no_such_process",
+      "languages": [
+        "bash"
+      ],
+      "match": "kill: \\(\\d+\\) - No such process",
+      "title": "kill — no such process",
+      "diagnosis": "The PID is already gone (or never existed).",
+      "fixes": [
+        "Confirm with `ps -p <pid>`.",
+        "List processes by name: `pgrep -fl pattern`."
+      ]
+    },
+    {
+      "id": "bash_xargs_too_long",
+      "languages": [
+        "bash"
+      ],
+      "match": "xargs: argument line too long",
+      "title": "xargs — argument line too long",
+      "diagnosis": "An item is too big to fit in one exec call.",
+      "fixes": [
+        "Add `-n 1` to xargs to process one at a time.",
+        "Use `find ... -exec ... +` instead."
+      ]
+    },
+    {
+      "id": "bash_find_paths_precede",
+      "languages": [
+        "bash"
+      ],
+      "match": "find: paths must precede expression",
+      "title": "find — paths must precede expression",
+      "diagnosis": "You wrote `find -name '*.py' .` — the path has to come before flags.",
+      "fixes": [
+        "Put the path first: `find . -name '*.py'`.",
+        "Quote globs to prevent shell expansion."
+      ]
+    },
+    {
+      "id": "bash_sed_unterminated",
+      "languages": [
+        "bash"
+      ],
+      "match": "sed: .*unterminated (?:substitute|s command)",
+      "title": "sed — unterminated substitute",
+      "diagnosis": "Your `s/.../.../` command isn't closed properly.",
+      "fixes": [
+        "Check that you have three delimiters: `s/a/b/`.",
+        "If the pattern contains `/`, use a different delimiter: `s|/usr|/opt|`."
+      ]
+    },
+    {
+      "id": "bash_awk_read_error",
+      "languages": [
+        "bash"
+      ],
+      "match": "awk: .*read error",
+      "title": "awk — read error",
+      "diagnosis": "awk couldn't read its input.",
+      "fixes": [
+        "Check the input file exists and is readable.",
+        "Try the same file with `cat` to verify."
+      ]
+    },
+    {
+      "id": "bash_tar_invalid_magic",
+      "languages": [
+        "bash"
+      ],
+      "match": "tar: .*not in tar format|invalid magic",
+      "title": "tar — not a tar archive",
+      "diagnosis": "The file isn't a tar archive (or it's truncated/corrupt).",
+      "fixes": [
+        "Check with `file archive.tar` to see what it actually is.",
+        "Re-download — partial transfers cause this."
+      ]
+    },
+    {
+      "id": "bash_gzip_format",
+      "languages": [
+        "bash"
+      ],
+      "match": "gzip: stdin: not in gzip format",
+      "title": "gzip — not a gzip file",
+      "diagnosis": "Input isn't gzip-compressed.",
+      "fixes": [
+        "Check with `file <name>`.",
+        "Don't double-extract — `tar xf` already handles gz."
+      ]
+    },
+    {
+      "id": "bash_lsof_not_found",
+      "languages": [
+        "bash"
+      ],
+      "match": "command not found: (?:lsof|ps|top|netstat)",
+      "title": "Missing utility (minimal container)",
+      "diagnosis": "Standard Unix tools aren't present in stripped-down images.",
+      "fixes": [
+        "Install: `apt install lsof procps` (Debian) or `apk add lsof procps` (Alpine).",
+        "Use BusyBox alternatives where available."
+      ]
+    },
+    {
+      "id": "bash_ssh_publickey",
+      "languages": [
+        "bash",
+        "git"
+      ],
+      "match": "Permission denied \\(publickey\\)",
+      "title": "SSH — permission denied (publickey)",
+      "diagnosis": "The remote rejected your SSH key.",
+      "fixes": [
+        "Make sure you've added your key: `ssh-add ~/.ssh/id_ed25519`.",
+        "For GitHub: upload your public key (`~/.ssh/id_ed25519.pub`) at github.com/settings/keys.",
+        "Test with `ssh -vT git@github.com`.",
+        "Generate a new key if you don't have one: `ssh-keygen -t ed25519`."
+      ]
+    },
+    {
+      "id": "bash_ssh_host_verification",
+      "languages": [
+        "bash"
+      ],
+      "match": "Host key verification failed",
+      "title": "SSH — host key verification failed",
+      "diagnosis": "The remote's key doesn't match what's in `~/.ssh/known_hosts`.",
+      "fixes": [
+        "If the host legitimately changed, remove the stale line: `ssh-keygen -R hostname`.",
+        "Verify the new fingerprint with the server owner before accepting.",
+        "Never blindly accept — could be a MITM attack."
+      ]
+    },
+    {
+      "id": "bash_ssh_connection_refused",
+      "languages": [
+        "bash"
+      ],
+      "match": "ssh:.*Connection refused",
+      "title": "SSH — connection refused",
+      "diagnosis": "Nothing accepting SSH connections on the remote.",
+      "fixes": [
+        "Is sshd running on the remote?",
+        "Right port? Default is 22, but some hosts use a non-standard port.",
+        "Firewall blocking?"
+      ]
+    },
+    {
+      "id": "bash_ssh_remote_changed",
+      "languages": [
+        "bash"
+      ],
+      "match": "REMOTE HOST IDENTIFICATION HAS CHANGED",
+      "title": "SSH — remote identity changed!",
+      "diagnosis": "The remote's key changed since you last connected. Could be a re-install, or a man-in-the-middle attack.",
+      "fixes": [
+        "If you trust the change (reinstall, key rotation), remove the old line: `ssh-keygen -R hostname`.",
+        "Otherwise: don't connect until you've verified with the server owner."
+      ]
+    },
+    {
+      "id": "bash_curl_resolve",
+      "languages": [
+        "bash"
+      ],
+      "match": "curl: \\(6\\) Could not resolve host",
+      "title": "curl (6) — DNS resolution failed",
+      "diagnosis": "DNS couldn't resolve the hostname.",
+      "fixes": [
+        "Check spelling of the URL.",
+        "Test with `nslookup host` or `dig host`.",
+        "Verify network: `ping 8.8.8.8`."
+      ]
+    },
+    {
+      "id": "bash_curl_connect",
+      "languages": [
+        "bash"
+      ],
+      "match": "curl: \\(7\\) Failed to connect",
+      "title": "curl (7) — failed to connect",
+      "diagnosis": "DNS resolved but the connection was refused or unreachable.",
+      "fixes": [
+        "Is the server actually listening on that port?",
+        "Try `nc -zv host port`.",
+        "Firewall blocking?"
+      ]
+    },
+    {
+      "id": "bash_curl_ssl_connect",
+      "languages": [
+        "bash"
+      ],
+      "match": "curl: \\(35\\) SSL connect error",
+      "title": "curl (35) — SSL connect error",
+      "diagnosis": "TLS handshake failed.",
+      "fixes": [
+        "Server may require a newer TLS version — update curl.",
+        "Outdated CA bundle — `brew upgrade curl` or update OS.",
+        "Try `--tlsv1.2` or higher explicitly."
+      ]
+    },
+    {
+      "id": "bash_curl_cert",
+      "languages": [
+        "bash"
+      ],
+      "match": "curl: \\(60\\)|SSL certificate problem",
+      "title": "curl (60) — SSL certificate problem",
+      "diagnosis": "Couldn't validate the certificate.",
+      "fixes": [
+        "Update CA certs (`apt install ca-certificates` or `brew install ca-certificates`).",
+        "For dev only: `-k` skips verification (don't ship!).",
+        "Trust corporate CA via `CURL_CA_BUNDLE`."
+      ]
+    },
+    {
+      "id": "bash_wget_failed",
+      "languages": [
+        "bash"
+      ],
+      "match": "wget:.*(?:unable to resolve|failed)",
+      "title": "wget — failed",
+      "diagnosis": "Similar to curl — DNS, connection, or TLS.",
+      "fixes": [
+        "Test the URL with curl for a clearer error.",
+        "Check network and DNS."
+      ]
+    },
+    {
+      "id": "bash_npm_global_perm",
+      "languages": [
+        "bash",
+        "javascript"
+      ],
+      "match": "EACCES.*npm",
+      "title": "npm global install — permission denied",
+      "diagnosis": "Don't run `npm install -g` with `sudo`.",
+      "fixes": [
+        "Use a Node version manager: `nvm`, `fnm`, `volta`.",
+        "Or set npm's prefix to a folder you own: `npm config set prefix ~/.npm-global`."
+      ]
+    },
+    {
+      "id": "bash_locale",
+      "languages": [
+        "bash"
+      ],
+      "match": "(?:locale: Cannot set LC|LC_ALL).*(?:not supported|cannot)",
+      "title": "Locale not configured",
+      "diagnosis": "The locale env var points at a locale not installed.",
+      "fixes": [
+        "Set `LC_ALL=C.UTF-8` or `en_US.UTF-8`.",
+        "On Debian/Ubuntu: `locale-gen en_US.UTF-8`."
+      ]
+    },
+    {
+      "id": "bash_home_not_set",
+      "languages": [
+        "bash"
+      ],
+      "match": "cd: HOME not set",
+      "title": "HOME not set",
+      "diagnosis": "`$HOME` is empty and `cd` (with no args) has nowhere to go.",
+      "fixes": [
+        "Set `HOME=/path/to/home`.",
+        "Common in cron/systemd contexts — export it in the script."
+      ]
+    },
+    {
+      "id": "bash_read_arg_count",
+      "languages": [
+        "bash"
+      ],
+      "match": "read: arg count",
+      "title": "read — arg count",
+      "diagnosis": "`read` got the wrong number of variable names.",
+      "fixes": [
+        "Check the `read` invocation syntax.",
+        "Use `read -r var` for one value, `read -r a b c` for three."
+      ]
+    },
+    {
+      "id": "bash_test_too_many",
+      "languages": [
+        "bash"
+      ],
+      "match": "\\[: too many arguments",
+      "title": "[ ] — too many arguments",
+      "diagnosis": "Usually an unquoted variable that contains spaces split into separate args.",
+      "fixes": [
+        "Quote: `[ \"$var\" = \"value\" ]`.",
+        "Use `[[ ... ]]` in bash — handles spaces better."
+      ]
+    },
+    {
+      "id": "bash_test_unary",
+      "languages": [
+        "bash"
+      ],
+      "match": "\\[: unary operator expected",
+      "title": "[ ] — unary operator expected",
+      "diagnosis": "A variable is empty and `[ -z $var ]` (unquoted) becomes `[ -z ]`.",
+      "fixes": [
+        "Quote: `[ -z \"$var\" ]`.",
+        "Use `[[ ... ]]` for safer behavior."
+      ]
+    },
+    {
+      "id": "bash_arithmetic_syntax",
+      "languages": [
+        "bash"
+      ],
+      "match": "\\(\\(: .*: arithmetic syntax error",
+      "title": "Arithmetic syntax error",
+      "diagnosis": "`$((expr))` had bad syntax — non-numeric value, stray character.",
+      "fixes": [
+        "Make sure all operands are integers.",
+        "Quote subshells: `$(( $(date +%s) - start ))` style."
+      ]
+    },
+    {
+      "id": "bash_zsh_no_matches",
+      "languages": [
+        "bash"
+      ],
+      "match": "zsh: no matches found",
+      "title": "zsh — no glob matches",
+      "diagnosis": "zsh aborts when a glob has no matches (bash silently passes it through).",
+      "fixes": [
+        "Quote it: `'pattern'` to pass literal.",
+        "`setopt nullglob` to make unmatched globs expand to nothing.",
+        "`setopt no_nomatch` to make zsh act like bash."
+      ]
+    },
+    {
+      "id": "bash_chmod_no_such",
+      "languages": [
+        "bash"
+      ],
+      "match": "chmod:.*No such file",
+      "title": "chmod — file missing",
+      "diagnosis": "Target file doesn't exist.",
+      "fixes": [
+        "Check the path with `ls`.",
+        "Tab-complete to avoid typos."
+      ]
+    },
+    {
+      "id": "bash_pipe_status",
+      "languages": [
+        "bash"
+      ],
+      "match": "PIPESTATUS",
+      "title": "PIPESTATUS — pipeline element failed",
+      "diagnosis": "A non-last command in a pipeline failed; without `pipefail` you'd never know.",
+      "fixes": [
+        "`set -o pipefail` makes pipelines fail if any element does.",
+        "Check `${PIPESTATUS[@]}` after the pipeline."
+      ]
+    },
+    {
+      "id": "bash_env_command_not_found",
+      "languages": [
+        "bash"
+      ],
+      "match": "^env:.*: No such file or directory",
+      "title": "env — interpreter not found",
+      "diagnosis": "`#!/usr/bin/env <thing>` couldn't find `<thing>` on PATH.",
+      "fixes": [
+        "Make sure the interpreter is on PATH.",
+        "Check for CRLF line endings in the script."
+      ]
+    },
+    {
+      "id": "bash_dollar_brace",
+      "languages": [
+        "bash"
+      ],
+      "match": "bad substitution.*\\$\\{",
+      "title": "Bad ${ } substitution",
+      "diagnosis": "An invalid expansion form inside `${...}`.",
+      "fixes": [
+        "Some forms are bash-only — use `#!/usr/bin/env bash`, not `sh`.",
+        "Check operator placement."
+      ]
+    },
+    {
+      "id": "bash_sudo_not_found",
+      "languages": [
+        "bash"
+      ],
+      "match": "sudo: command not found",
+      "title": "sudo not installed",
+      "diagnosis": "Common in minimal containers — `sudo` isn't there.",
+      "fixes": [
+        "Run as root directly (containers often do).",
+        "Install sudo if you need it (`apt install sudo`)."
+      ]
+    },
+    {
+      "id": "bash_make_no_targets",
+      "languages": [
+        "bash"
+      ],
+      "match": "make: \\*\\*\\* No rule to make target",
+      "title": "make — no rule for target",
+      "diagnosis": "You asked make to build something it doesn't know how to make.",
+      "fixes": [
+        "Check the target name spelling.",
+        "Run `make help` (if your Makefile supports it) to list targets.",
+        "Open the Makefile and find which rules exist."
+      ]
+    },
+    {
+      "id": "git_not_a_repo",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: not a git repository",
+      "title": "Not a git repository",
+      "diagnosis": "You ran `git` outside a repository (and not in a subfolder of one).",
+      "fixes": [
+        "Run `git init` to start a new repo.",
+        "Or `cd` into an existing repo.",
+        "Run `git rev-parse --show-toplevel` to find the nearest repo root."
+      ]
+    },
+    {
+      "id": "git_refusing_unrelated",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: refusing to merge unrelated histories",
+      "title": "Refusing to merge unrelated histories",
+      "diagnosis": "Two branches share no common commits. Common after cloning + re-initing, or merging two separate projects.",
+      "fixes": [
+        "Force the merge if you're sure: `git pull --allow-unrelated-histories`.",
+        "Often a sign you cloned into the wrong directory or initialized twice."
+      ]
+    },
+    {
+      "id": "git_auth_failed",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: Authentication failed",
+      "title": "Git — authentication failed",
+      "diagnosis": "The remote rejected your credentials.",
+      "fixes": [
+        "For GitHub HTTPS: use a Personal Access Token, not your password.",
+        "Update stored creds: `git credential-manager` or your OS keychain.",
+        "Or switch to SSH: change remote with `git remote set-url origin git@github.com:user/repo.git`."
+      ]
+    },
+    {
+      "id": "git_remote_exists",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: remote (\\w+) already exists",
+      "title": "Remote already exists",
+      "diagnosis": "A remote named `{1}` is already configured.",
+      "fixes": [
+        "Update it: `git remote set-url {1} <new-url>`.",
+        "Or remove and re-add: `git remote remove {1}` then `git remote add {1} <url>`."
+      ]
+    },
+    {
+      "id": "git_not_on_branch",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: not currently on any branch",
+      "title": "Not on a branch (detached HEAD)",
+      "diagnosis": "You're in detached HEAD — checked out a commit, not a branch.",
+      "fixes": [
+        "Create a branch from here: `git switch -c new-branch`.",
+        "Or jump back: `git switch main`."
+      ]
+    },
+    {
+      "id": "git_pathspec_match",
+      "languages": [
+        "git"
+      ],
+      "match": "(?:fatal|error): pathspec '([^']+)' did not match any file",
+      "title": "pathspec didn't match",
+      "diagnosis": "Git can't find anything matching `{1}`. Wrong path, deleted file, or a branch name that doesn't exist.",
+      "fixes": [
+        "Check spelling.",
+        "If switching branches: list with `git branch -a`.",
+        "If checking out a file: confirm with `git ls-files | grep ...`."
+      ]
+    },
+    {
+      "id": "git_bad_object",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: bad object",
+      "title": "Git — bad object",
+      "diagnosis": "Git's object database has a damaged or unknown object reference.",
+      "fixes": [
+        "Try `git fsck --full` to find broken objects.",
+        "If recoverable: `git fetch` to re-download from remote.",
+        "Last resort: re-clone."
+      ]
+    },
+    {
+      "id": "git_partial_commit_merge",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: cannot do a partial commit during a merge",
+      "title": "Partial commit during merge",
+      "diagnosis": "Mid-merge you can't commit just some files — git wants the whole index.",
+      "fixes": [
+        "Stage everything: `git add -A`.",
+        "Or finish the merge first, then commit selectively in a new change."
+      ]
+    },
+    {
+      "id": "git_local_changes_overwritten",
+      "languages": [
+        "git"
+      ],
+      "match": "Your local changes to the following files would be overwritten",
+      "title": "Local changes would be overwritten",
+      "diagnosis": "Git won't let you switch/pull because doing so would clobber uncommitted edits.",
+      "fixes": [
+        "Stash: `git stash` then `git stash pop` after.",
+        "Commit your work first.",
+        "If you want to throw away local changes: `git restore .` (careful!)."
+      ]
+    },
+    {
+      "id": "git_pathspec_known",
+      "languages": [
+        "git"
+      ],
+      "match": "error: pathspec '([^']+)' did not match any file\\(s\\) known to git",
+      "title": "pathspec — file not known to git",
+      "diagnosis": "`{1}` isn't tracked or doesn't exist in the working tree.",
+      "fixes": [
+        "Confirm it's tracked: `git ls-files | grep {1}`.",
+        "Check spelling and case (case-sensitive on Linux, varies elsewhere)."
+      ]
+    },
+    {
+      "id": "git_push_rejected",
+      "languages": [
+        "git"
+      ],
+      "match": "error: failed to push some refs",
+      "title": "Push rejected",
+      "diagnosis": "The remote has commits you don't. Git won't let you overwrite them.",
+      "fixes": [
+        "Pull first: `git pull --rebase` then push.",
+        "If your local is intentionally ahead and you want to force: `git push --force-with-lease` (only on your own branches!).",
+        "Never force-push to shared branches without coordinating."
+      ]
+    },
+    {
+      "id": "git_src_refspec",
+      "languages": [
+        "git"
+      ],
+      "match": "error: src refspec ([^\\s]+) does not match any",
+      "title": "src refspec doesn't match",
+      "diagnosis": "You tried to push a branch `{1}` that doesn't exist locally.",
+      "fixes": [
+        "List local branches: `git branch`.",
+        "Check spelling.",
+        "If you just created it, commit at least once before pushing."
+      ]
+    },
+    {
+      "id": "git_cannot_lock_ref",
+      "languages": [
+        "git"
+      ],
+      "match": "error: cannot lock ref",
+      "title": "Cannot lock ref",
+      "diagnosis": "Git couldn't get a lock on a ref file — usually a stale `.git/refs/...lock` or permission issue.",
+      "fixes": [
+        "Remove stale lock files: `find .git -name '*.lock' -delete`.",
+        "Check `.git/` permissions."
+      ]
+    },
+    {
+      "id": "git_non_fast_forward",
+      "languages": [
+        "git"
+      ],
+      "match": "! \\[rejected\\].*non-fast-forward",
+      "title": "Non-fast-forward push rejected",
+      "diagnosis": "Your branch diverged from the remote.",
+      "fixes": [
+        "Pull and rebase: `git pull --rebase`.",
+        "Then push: `git push`.",
+        "Only force-push (`--force-with-lease`) on personal branches."
+      ]
+    },
+    {
+      "id": "git_updates_rejected_behind",
+      "languages": [
+        "git"
+      ],
+      "match": "Updates were rejected because the tip of your current branch is behind",
+      "title": "Branch is behind remote",
+      "diagnosis": "Remote has commits you haven't pulled.",
+      "fixes": [
+        "Pull: `git pull --rebase`.",
+        "Then push."
+      ]
+    },
+    {
+      "id": "git_merge_conflict",
+      "languages": [
+        "git"
+      ],
+      "match": "CONFLICT \\(content\\): Merge conflict in ([^\\s]+)",
+      "title": "Merge conflict in `{1}`",
+      "diagnosis": "Git can't auto-merge changes in `{1}`. You need to resolve manually.",
+      "fixes": [
+        "Open `{1}` and look for `<<<<<<<`, `=======`, `>>>>>>>` markers.",
+        "Edit to keep the right version, remove the markers.",
+        "Then `git add {1}` and `git commit` (or `git merge --continue`).",
+        "Abort if you want out: `git merge --abort`."
+      ]
+    },
+    {
+      "id": "git_detached_head",
+      "languages": [
+        "git"
+      ],
+      "match": "You are in 'detached HEAD' state",
+      "title": "Detached HEAD",
+      "diagnosis": "You checked out a specific commit/tag, not a branch. New commits won't belong to any branch.",
+      "fixes": [
+        "If you want to keep work here: `git switch -c new-branch`.",
+        "If you just wanted to peek: `git switch main` to return."
+      ]
+    },
+    {
+      "id": "git_diverged",
+      "languages": [
+        "git"
+      ],
+      "match": "have diverged|diverged.*and have \\d+",
+      "title": "Branch diverged from upstream",
+      "diagnosis": "You and the remote each have commits the other doesn't.",
+      "fixes": [
+        "Rebase to put your commits on top: `git pull --rebase`.",
+        "Merge if you prefer: `git pull` (creates a merge commit)."
+      ]
+    },
+    {
+      "id": "git_nothing_to_commit",
+      "languages": [
+        "git"
+      ],
+      "match": "nothing to commit, working tree clean",
+      "title": "Nothing to commit",
+      "diagnosis": "Git sees no changes. Either you didn't edit anything, or the changes aren't staged (or are ignored).",
+      "fixes": [
+        "Check `git status`.",
+        "Did your file match `.gitignore`?",
+        "Run `git add <files>` if you have unstaged changes."
+      ]
+    },
+    {
+      "id": "git_empty_ident",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: empty ident name",
+      "title": "Empty author identity",
+      "diagnosis": "Git needs a name to attribute commits to.",
+      "fixes": [
+        "Set it: `git config --global user.name \"Your Name\"`.",
+        "And email: `git config --global user.email \"you@example.com\"`."
+      ]
+    },
+    {
+      "id": "git_tell_me_who",
+      "languages": [
+        "git"
+      ],
+      "match": "Please tell me who you are",
+      "title": "Identity not configured",
+      "diagnosis": "Git needs `user.name` and `user.email` before committing.",
+      "fixes": [
+        "`git config --global user.name \"Your Name\"`.",
+        "`git config --global user.email \"you@example.com\"`."
+      ]
+    },
+    {
+      "id": "git_could_not_read_username",
+      "languages": [
+        "git"
+      ],
+      "match": "could not read Username",
+      "title": "Could not read Username (no TTY)",
+      "diagnosis": "Git tried to prompt for credentials but there's no terminal.",
+      "fixes": [
+        "Use SSH instead of HTTPS for git remotes.",
+        "Configure a credential helper: `git config --global credential.helper store`.",
+        "Use a token in the URL (not recommended — leaks in shell history)."
+      ]
+    },
+    {
+      "id": "git_remote_hung_up",
+      "languages": [
+        "git"
+      ],
+      "match": "The remote end hung up unexpectedly",
+      "title": "Remote hung up",
+      "diagnosis": "Network dropped or remote rejected the connection.",
+      "fixes": [
+        "Retry — could be transient.",
+        "For large pushes, increase buffer: `git config http.postBuffer 524288000`.",
+        "Try SSH instead of HTTPS."
+      ]
+    },
+    {
+      "id": "git_fetch_failed",
+      "languages": [
+        "git"
+      ],
+      "match": "error: failed to fetch some refs",
+      "title": "Fetch failed",
+      "diagnosis": "Some refs couldn't be retrieved from remote.",
+      "fixes": [
+        "Check network connectivity.",
+        "Authentication issue? Test with `git ls-remote <url>`.",
+        "Specific refs deleted on remote? Try `git fetch --prune`."
+      ]
+    },
+    {
+      "id": "git_large_file_push",
+      "languages": [
+        "git"
+      ],
+      "match": "file (.*?) is (\\d+\\.\\d+ MB|larger than 100)",
+      "title": "Push rejected — file too large",
+      "diagnosis": "`{1}` exceeds GitHub's 100MB limit.",
+      "fixes": [
+        "Remove the file from history: `git filter-repo` or BFG Repo-Cleaner.",
+        "Use Git LFS for large binaries: `git lfs track '*.zip'`.",
+        "Add the file to `.gitignore` going forward."
+      ]
+    },
+    {
+      "id": "git_lf_crlf",
+      "languages": [
+        "git"
+      ],
+      "match": "LF will be replaced by CRLF",
+      "title": "LF/CRLF line ending warning",
+      "diagnosis": "Git's auto-conversion will change line endings on checkout.",
+      "fixes": [
+        "Usually harmless — just a notice.",
+        "Configure `core.autocrlf` for your platform (`input` on Linux/Mac, `true` on Windows).",
+        "Add `.gitattributes` with explicit line endings for cross-platform repos."
+      ]
+    },
+    {
+      "id": "git_ambiguous",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: ambiguous argument",
+      "title": "Ambiguous argument",
+      "diagnosis": "Git can't tell whether your argument is a branch, file, or ref.",
+      "fixes": [
+        "Use `--` to separate refs from paths: `git checkout HEAD -- file`.",
+        "Spell out the full ref: `refs/heads/foo` vs `foo`."
+      ]
+    },
+    {
+      "id": "git_object_empty",
+      "languages": [
+        "git"
+      ],
+      "match": "error: object file .* is empty",
+      "title": "Object file is empty",
+      "diagnosis": "An object in `.git/objects/` is corrupt (zero bytes).",
+      "fixes": [
+        "Try `git fsck`.",
+        "Delete the bad file and `git fetch` to re-download.",
+        "Worst case, re-clone."
+      ]
+    },
+    {
+      "id": "git_not_a_command",
+      "languages": [
+        "git"
+      ],
+      "match": "git: '([^']+)' is not a git command",
+      "title": "git: not a git command — `{1}`",
+      "diagnosis": "`{1}` isn't a built-in or installed subcommand.",
+      "fixes": [
+        "Check spelling — `git stauts` → `git status`.",
+        "Did you mean one of the suggestions Git printed?",
+        "Some commands need extras (`git lfs` needs git-lfs installed)."
+      ]
+    },
+    {
+      "id": "git_submodule_uncommitted",
+      "languages": [
+        "git"
+      ],
+      "match": "Submodule '([^']+)' has uncommitted changes",
+      "title": "Submodule has uncommitted changes",
+      "diagnosis": "Submodule `{1}` has local edits.",
+      "fixes": [
+        "Enter the submodule and commit/discard those changes.",
+        "Or skip with `--ignore-submodules`."
+      ]
+    },
+    {
+      "id": "git_pre_commit_failed",
+      "languages": [
+        "git"
+      ],
+      "match": "pre-commit hook failed|pre-commit.*FAILED",
+      "title": "Pre-commit hook failed",
+      "diagnosis": "A hook rejected your commit.",
+      "fixes": [
+        "Read the hook output — it usually says exactly what to fix.",
+        "Fix and re-stage, then commit again.",
+        "Skip the hook only if you know what you're doing: `--no-verify`."
+      ]
+    },
+    {
+      "id": "git_commit_msg_failed",
+      "languages": [
+        "git"
+      ],
+      "match": "commit-msg hook failed",
+      "title": "Commit message hook failed",
+      "diagnosis": "Your commit message didn't pass the hook (often Conventional Commits or DCO).",
+      "fixes": [
+        "Re-write the message to match the convention.",
+        "Common format: `type(scope): description`."
+      ]
+    },
+    {
+      "id": "git_gpg_sign",
+      "languages": [
+        "git"
+      ],
+      "match": "gpg failed to sign the data",
+      "title": "gpg failed to sign commit",
+      "diagnosis": "Git is configured to GPG-sign but signing failed.",
+      "fixes": [
+        "Check your signing key: `gpg --list-secret-keys`.",
+        "Set the right key: `git config user.signingkey <key>`.",
+        "Make sure gpg-agent is running.",
+        "Disable signing temporarily: `git commit --no-gpg-sign`."
+      ]
+    },
+    {
+      "id": "git_index_lock",
+      "languages": [
+        "git"
+      ],
+      "match": "Unable to create '.*\\.git/index\\.lock'",
+      "title": "Index lock exists",
+      "diagnosis": "Another git process is running, or a stale lock remains.",
+      "fixes": [
+        "Wait for any other git command to finish.",
+        "If stale: `rm .git/index.lock`."
+      ]
+    },
+    {
+      "id": "git_clean_force",
+      "languages": [
+        "git"
+      ],
+      "match": "Please use -f if you really want to clean",
+      "title": "git clean needs -f",
+      "diagnosis": "Git won't delete files without confirmation.",
+      "fixes": [
+        "Add `-f`: `git clean -fd`.",
+        "Preview first: `git clean -n`."
+      ]
+    },
+    {
+      "id": "git_branch_already_exists",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: A branch named '([^']+)' already exists",
+      "title": "Branch already exists — `{1}`",
+      "diagnosis": "You can't create a branch with a name that's taken.",
+      "fixes": [
+        "Switch to it: `git switch {1}`.",
+        "Or pick a new name.",
+        "Force-overwrite (destructive): `git branch -f {1}`."
+      ]
+    },
+    {
+      "id": "git_rebase_conflict",
+      "languages": [
+        "git"
+      ],
+      "match": "CONFLICT.*rebase|Automatic rebase failed",
+      "title": "Rebase conflict",
+      "diagnosis": "Rebasing hit a conflict.",
+      "fixes": [
+        "Resolve the conflict, then `git add` and `git rebase --continue`.",
+        "Skip the offending commit: `git rebase --skip`.",
+        "Abort: `git rebase --abort`."
+      ]
+    },
+    {
+      "id": "git_branch_not_fully_merged",
+      "languages": [
+        "git"
+      ],
+      "match": "error: The branch '([^']+)' is not fully merged",
+      "title": "Branch not fully merged",
+      "diagnosis": "Deleting `{1}` would lose commits not on any other branch.",
+      "fixes": [
+        "Make sure those commits are merged elsewhere.",
+        "Force-delete if you're sure: `git branch -D {1}`."
+      ]
+    },
+    {
+      "id": "git_clone_into_existing",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: destination path '([^']+)' already exists",
+      "title": "Clone destination exists",
+      "diagnosis": "`{1}` is already there and not empty.",
+      "fixes": [
+        "Pick a different directory: `git clone <url> other-name`.",
+        "Or remove the existing directory first."
+      ]
+    },
+    {
+      "id": "git_too_many_objects",
+      "languages": [
+        "git"
+      ],
+      "match": "warning: There are too many unreachable loose objects",
+      "title": "Too many loose objects",
+      "diagnosis": "Git's storage has accumulated cruft.",
+      "fixes": [
+        "Run `git gc` (garbage collect).",
+        "For deeper cleanup: `git gc --aggressive --prune=now`."
+      ]
+    },
+    {
+      "id": "git_clone_partial",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: early EOF|fatal: index-pack failed",
+      "title": "Clone failed mid-transfer",
+      "diagnosis": "Network dropped or remote sent bad data.",
+      "fixes": [
+        "Retry — usually transient.",
+        "Try shallow clone first: `git clone --depth 1`, then fetch the rest.",
+        "Increase buffer: `git config http.postBuffer 524288000`."
+      ]
+    },
+    {
+      "id": "git_no_upstream",
+      "languages": [
+        "git"
+      ],
+      "match": "There is no tracking information for the current branch|no upstream branch",
+      "title": "No upstream branch",
+      "diagnosis": "This branch isn't tracking a remote, so `git pull` doesn't know where to fetch.",
+      "fixes": [
+        "Set it: `git push -u origin <branch>`.",
+        "Or `git branch --set-upstream-to=origin/<branch>`."
+      ]
+    },
+    {
+      "id": "git_tag_exists",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: tag '([^']+)' already exists",
+      "title": "Tag already exists",
+      "diagnosis": "Tag `{1}` is already in the repo.",
+      "fixes": [
+        "Use a different tag name.",
+        "Force-replace (rarely a good idea): `git tag -f {1}`."
+      ]
+    },
+    {
+      "id": "git_no_changes_added",
+      "languages": [
+        "git"
+      ],
+      "match": "no changes added to commit",
+      "title": "No changes added to commit",
+      "diagnosis": "You have edits but didn't `git add` them.",
+      "fixes": [
+        "Stage specific files: `git add <files>`.",
+        "Or stage everything: `git add -A`.",
+        "Use `git commit -a` to stage all tracked changes."
+      ]
+    },
+    {
+      "id": "git_pull_conflict_unmerged",
+      "languages": [
+        "git"
+      ],
+      "match": "You have unmerged paths",
+      "title": "Unmerged paths",
+      "diagnosis": "There's an in-progress merge or rebase to finish.",
+      "fixes": [
+        "Resolve the conflicts and `git add` the resolved files.",
+        "Continue: `git merge --continue` or `git rebase --continue`.",
+        "Abort: `git merge --abort` or `git rebase --abort`."
+      ]
+    },
+    {
+      "id": "git_remote_disconnect",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: unable to access .* Could not resolve host",
+      "title": "Couldn't reach git host",
+      "diagnosis": "DNS or network can't reach the git remote.",
+      "fixes": [
+        "Check network.",
+        "Try `ping github.com`.",
+        "Corporate proxy? Configure `http.proxy`."
+      ]
+    },
+    {
+      "id": "git_https_proxy",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: unable to access .*: Failed to connect to .* proxy",
+      "title": "Git proxy connection failed",
+      "diagnosis": "Git's proxy setting points somewhere unreachable.",
+      "fixes": [
+        "Check `git config --get http.proxy`.",
+        "Unset if not needed: `git config --global --unset http.proxy`."
+      ]
+    },
+    {
+      "id": "git_remote_not_found",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: '([^']+)' does not appear to be a git repository",
+      "title": "Remote isn't a git repo",
+      "diagnosis": "`{1}` URL doesn't point to a repo.",
+      "fixes": [
+        "Double-check the URL.",
+        "Authentication failed? Some hosts return 'not a repo' instead of 'access denied'."
+      ]
+    },
+    {
+      "id": "gen_econnrefused",
+      "languages": [
+        "generic"
+      ],
+      "match": "ECONNREFUSED",
+      "title": "ECONNREFUSED — connection refused",
+      "diagnosis": "Nothing is listening at that address:port. Server is down or you're hitting the wrong host/port.",
+      "fixes": [
+        "Confirm the server is running.",
+        "Verify host and port.",
+        "Check firewalls."
+      ]
+    },
+    {
+      "id": "gen_etimedout",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\bETIMEDOUT\\b",
+      "title": "ETIMEDOUT — operation timed out",
+      "diagnosis": "A network operation took longer than allowed.",
+      "fixes": [
+        "Retry with backoff.",
+        "Increase the timeout if appropriate.",
+        "Test reachability with `ping` / `curl -v`."
+      ]
+    },
+    {
+      "id": "gen_ehostunreach",
+      "languages": [
+        "generic"
+      ],
+      "match": "EHOSTUNREACH",
+      "title": "EHOSTUNREACH — no route to host",
+      "diagnosis": "The OS can't find a route to the target host.",
+      "fixes": [
+        "Check routing: `traceroute host` or `ip route`.",
+        "VPN required? Connect it.",
+        "Firewall dropping packets?"
+      ]
+    },
+    {
+      "id": "gen_enetunreach",
+      "languages": [
+        "generic"
+      ],
+      "match": "ENETUNREACH",
+      "title": "ENETUNREACH — network unreachable",
+      "diagnosis": "Your machine has no path to that network at all.",
+      "fixes": [
+        "Check that you have a working network interface.",
+        "Test with `ping 8.8.8.8`.",
+        "VPN or interface down?"
+      ]
+    },
+    {
+      "id": "gen_eai_again",
+      "languages": [
+        "generic"
+      ],
+      "match": "EAI_AGAIN",
+      "title": "EAI_AGAIN — DNS temporary failure",
+      "diagnosis": "DNS resolution failed but might succeed if retried.",
+      "fixes": [
+        "Retry after a moment.",
+        "Check that your DNS server is reachable.",
+        "Try a public resolver (1.1.1.1, 8.8.8.8)."
+      ]
+    },
+    {
+      "id": "gen_eai_noname",
+      "languages": [
+        "generic"
+      ],
+      "match": "EAI_NONAME",
+      "title": "EAI_NONAME — name unknown",
+      "diagnosis": "Hostname doesn't exist in DNS.",
+      "fixes": [
+        "Check spelling.",
+        "Confirm the domain resolves: `dig hostname`.",
+        "If internal, are you on the right network/VPN?"
+      ]
+    },
+    {
+      "id": "gen_enotfound",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\bENOTFOUND\\b",
+      "title": "ENOTFOUND — DNS lookup failed",
+      "diagnosis": "Couldn't resolve the hostname.",
+      "fixes": [
+        "Check the URL.",
+        "Test with `nslookup`.",
+        "Verify DNS settings."
+      ]
+    },
+    {
+      "id": "gen_epipe",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\bEPIPE\\b",
+      "title": "EPIPE — broken pipe",
+      "diagnosis": "Wrote to a stream whose reader closed.",
+      "fixes": [
+        "Often harmless — the reader (e.g. `head`) finished early.",
+        "Listen for the `error` event on the stream to avoid an unhandled exception."
+      ]
+    },
+    {
+      "id": "gen_eisdir",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\bEISDIR\\b",
+      "title": "EISDIR — path is a directory",
+      "diagnosis": "You treated a directory as a file.",
+      "fixes": [
+        "Append a filename.",
+        "If listing, use `readdir`/`ls` style."
+      ]
+    },
+    {
+      "id": "gen_enotdir",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\bENOTDIR\\b",
+      "title": "ENOTDIR — not a directory",
+      "diagnosis": "Some component of the path is a file, not a directory.",
+      "fixes": [
+        "Inspect the path with `ls -l`.",
+        "Did a path concatenation produce something weird?"
+      ]
+    },
+    {
+      "id": "gen_eexist",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\bEEXIST\\b",
+      "title": "EEXIST — file already exists",
+      "diagnosis": "A create operation hit something that already exists.",
+      "fixes": [
+        "Pick a different name.",
+        "Delete the existing file if you mean to replace it.",
+        "Use a flag that allows overwriting if available."
+      ]
+    },
+    {
+      "id": "gen_enospc",
+      "languages": [
+        "generic"
+      ],
+      "match": "ENOSPC: no space left|No space left on device",
+      "title": "ENOSPC — disk full",
+      "diagnosis": "No free space on the target filesystem.",
+      "fixes": [
+        "Check usage: `df -h`.",
+        "Clean caches, logs, old downloads.",
+        "Check inodes too: `df -i`."
+      ]
+    },
+    {
+      "id": "gen_erofs",
+      "languages": [
+        "generic"
+      ],
+      "match": "EROFS: read-only file system",
+      "title": "EROFS — read-only filesystem",
+      "diagnosis": "You can't write here — the filesystem is mounted read-only.",
+      "fixes": [
+        "Check the mount with `mount | grep <path>`.",
+        "Write somewhere writable (home dir, /tmp).",
+        "On macOS, some system paths are read-only by design."
+      ]
+    },
+    {
+      "id": "gen_oom",
+      "languages": [
+        "generic"
+      ],
+      "match": "OOM(?:Killed)?|out of memory",
+      "title": "Out of memory",
+      "diagnosis": "Process exhausted available RAM and was killed.",
+      "fixes": [
+        "Stream data instead of loading it all into memory.",
+        "Increase memory limit (container/VM).",
+        "Profile memory use to find leaks."
+      ]
+    },
+    {
+      "id": "gen_http_401",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\b401\\b.*(?:Unauthorized|unauthorized)",
+      "title": "HTTP 401 — Unauthorized",
+      "diagnosis": "Request lacked valid credentials.",
+      "fixes": [
+        "Provide auth headers (token, basic auth).",
+        "Token expired? Refresh it.",
+        "Check the auth method the API expects."
+      ]
+    },
+    {
+      "id": "gen_http_403",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\b403\\b.*(?:Forbidden|forbidden)",
+      "title": "HTTP 403 — Forbidden",
+      "diagnosis": "You're authenticated but not allowed.",
+      "fixes": [
+        "Account may lack permission for this resource.",
+        "Some 403s mean the IP/origin is blocked.",
+        "Check the response body — it often explains why."
+      ]
+    },
+    {
+      "id": "gen_http_404",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\b404\\b.*(?:Not Found|not found)",
+      "title": "HTTP 404 — Not Found",
+      "diagnosis": "The URL doesn't exist on the server.",
+      "fixes": [
+        "Check the path spelling.",
+        "Verify the API version in the URL.",
+        "Resource may have been deleted or moved."
+      ]
+    },
+    {
+      "id": "gen_http_429",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\b429\\b.*(?:Too Many Requests|rate limit)",
+      "title": "HTTP 429 — Too Many Requests",
+      "diagnosis": "You hit a rate limit.",
+      "fixes": [
+        "Back off and retry after the time in `Retry-After`.",
+        "Reduce request rate.",
+        "Cache responses to make fewer calls."
+      ]
+    },
+    {
+      "id": "gen_http_500",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\b500\\b.*Internal Server Error",
+      "title": "HTTP 500 — Internal Server Error",
+      "diagnosis": "The server crashed handling your request.",
+      "fixes": [
+        "Not usually your fault — but check whether your input is malformed.",
+        "Check the server's logs.",
+        "Retry — could be transient."
+      ]
+    },
+    {
+      "id": "gen_http_502",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\b502\\b.*Bad Gateway",
+      "title": "HTTP 502 — Bad Gateway",
+      "diagnosis": "A reverse proxy got a bad response from the upstream server.",
+      "fixes": [
+        "Upstream service may be down or crashing.",
+        "Retry — often transient during deploys.",
+        "Check upstream health if you own it."
+      ]
+    },
+    {
+      "id": "gen_http_503",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\b503\\b.*Service Unavailable",
+      "title": "HTTP 503 — Service Unavailable",
+      "diagnosis": "Server is overloaded, in maintenance, or has no upstream available.",
+      "fixes": [
+        "Retry with backoff.",
+        "Check status page if it's a third-party service."
+      ]
+    },
+    {
+      "id": "gen_http_504",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\b504\\b.*Gateway Timeout",
+      "title": "HTTP 504 — Gateway Timeout",
+      "diagnosis": "Reverse proxy gave up waiting for the upstream.",
+      "fixes": [
+        "Upstream is slow or hung.",
+        "Increase proxy timeout if you control it.",
+        "Optimize the upstream operation."
+      ]
+    },
+    {
+      "id": "gen_sql_duplicate",
+      "languages": [
+        "generic"
+      ],
+      "match": "duplicate key value violates unique constraint",
+      "title": "SQL — duplicate key",
+      "diagnosis": "Insert/update broke a unique constraint.",
+      "fixes": [
+        "Check the value — does a row with that key exist?",
+        "Use `ON CONFLICT` (Postgres) or `INSERT IGNORE` (MySQL).",
+        "Use upsert logic where appropriate."
+      ]
+    },
+    {
+      "id": "gen_sql_foreign_key",
+      "languages": [
+        "generic"
+      ],
+      "match": "foreign key (?:constraint|violation)",
+      "title": "SQL — foreign key violation",
+      "diagnosis": "You referenced a row that doesn't exist (or tried to delete a row that's referenced).",
+      "fixes": [
+        "Insert the parent row first.",
+        "Or use `ON DELETE CASCADE` if appropriate.",
+        "Check ID values match between tables."
+      ]
+    },
+    {
+      "id": "gen_sql_relation_does_not_exist",
+      "languages": [
+        "generic"
+      ],
+      "match": "relation \\\"?([^\\\"\\s]+)\\\"? does not exist",
+      "title": "SQL — relation `{1}` doesn't exist",
+      "diagnosis": "The table/view `{1}` isn't in the current schema.",
+      "fixes": [
+        "Check spelling and schema (`schema.table`).",
+        "Run pending migrations.",
+        "Maybe you're connected to the wrong database."
+      ]
+    },
+    {
+      "id": "gen_sql_permission",
+      "languages": [
+        "generic"
+      ],
+      "match": "permission denied for (?:table|relation|schema)",
+      "title": "SQL — permission denied",
+      "diagnosis": "Your DB user lacks privileges on that object.",
+      "fixes": [
+        "`GRANT SELECT/INSERT/UPDATE/DELETE ON <table> TO <user>;`.",
+        "Check whether you're connected as the right user."
+      ]
+    },
+    {
+      "id": "gen_docker_daemon",
+      "languages": [
+        "generic"
+      ],
+      "match": "Cannot connect to the Docker daemon",
+      "title": "Docker daemon not reachable",
+      "diagnosis": "The Docker daemon isn't running or your user can't talk to it.",
+      "fixes": [
+        "Start Docker: `systemctl start docker` (Linux) or open Docker Desktop.",
+        "Linux: add user to `docker` group, then log out and back in.",
+        "Check `DOCKER_HOST` env var."
+      ]
+    },
+    {
+      "id": "gen_docker_image_not_found",
+      "languages": [
+        "generic"
+      ],
+      "match": "(?:image|repository).*not found|pull access denied",
+      "title": "Docker — image not found",
+      "diagnosis": "Docker couldn't find the requested image (typo, private registry, or doesn't exist).",
+      "fixes": [
+        "Check spelling and tag.",
+        "`docker login` for private registries.",
+        "Search: `docker search <name>`."
+      ]
+    },
+    {
+      "id": "gen_docker_port_allocated",
+      "languages": [
+        "generic"
+      ],
+      "match": "port is already allocated|bind: address already in use",
+      "title": "Docker — port already allocated",
+      "diagnosis": "Another container or process is using that port.",
+      "fixes": [
+        "Find: `docker ps` or `lsof -i :PORT`.",
+        "Stop the conflicting container or pick a different host port."
+      ]
+    },
+    {
+      "id": "gen_docker_socket_permission",
+      "languages": [
+        "generic"
+      ],
+      "match": "permission denied while trying to connect to the Docker daemon socket",
+      "title": "Docker — socket permission denied",
+      "diagnosis": "Your user doesn't have access to `/var/run/docker.sock`.",
+      "fixes": [
+        "Add user to docker group: `sudo usermod -aG docker $USER`, then log out/in.",
+        "Or run with `sudo` (less ideal)."
+      ]
+    },
+    {
+      "id": "gen_k8s_imagepull",
+      "languages": [
+        "generic"
+      ],
+      "match": "ImagePullBackOff|ErrImagePull",
+      "title": "K8s — ImagePullBackOff",
+      "diagnosis": "Kubelet can't pull the container image.",
+      "fixes": [
+        "Check image name and tag in the manifest.",
+        "If private registry: add a `imagePullSecrets` to the pod spec.",
+        "`kubectl describe pod <pod>` for the underlying error."
+      ]
+    },
+    {
+      "id": "gen_k8s_crashloop",
+      "languages": [
+        "generic"
+      ],
+      "match": "CrashLoopBackOff",
+      "title": "K8s — CrashLoopBackOff",
+      "diagnosis": "Container starts then crashes repeatedly.",
+      "fixes": [
+        "`kubectl logs <pod> --previous` for the last crash log.",
+        "Common causes: bad config, missing env var, app exits immediately.",
+        "Check the container's command and args."
+      ]
+    },
+    {
+      "id": "gen_k8s_pending",
+      "languages": [
+        "generic"
+      ],
+      "match": "Pod .* Pending",
+      "title": "K8s — pod stuck Pending",
+      "diagnosis": "Pod can't be scheduled. Usually no node with enough resources or missing volumes.",
+      "fixes": [
+        "`kubectl describe pod <pod>` and look at Events.",
+        "Check node CPU/memory capacity.",
+        "If using PVCs, make sure they're Bound."
+      ]
+    },
+    {
+      "id": "gen_k8s_oomkilled",
+      "languages": [
+        "generic"
+      ],
+      "match": "OOMKilled",
+      "title": "K8s — pod OOMKilled",
+      "diagnosis": "Container exceeded its memory limit and was killed.",
+      "fixes": [
+        "Raise the memory limit if the app legitimately needs it.",
+        "Investigate the memory profile — likely a leak.",
+        "Set `requests` and `limits` based on observed usage."
+      ]
+    },
+    {
+      "id": "gen_k8s_forbidden",
+      "languages": [
+        "generic"
+      ],
+      "match": "is forbidden: User \\\"([^\\\"]+)\\\"",
+      "title": "K8s — forbidden for user `{1}`",
+      "diagnosis": "RBAC denied the action.",
+      "fixes": [
+        "Check role bindings for `{1}`.",
+        "`kubectl auth can-i <verb> <resource>` to test.",
+        "Bind a role: `kubectl create rolebinding ...`."
+      ]
+    },
+    {
+      "id": "gen_ssl_handshake",
+      "languages": [
+        "generic"
+      ],
+      "match": "SSL (?:handshake|protocol) (?:failed|error)",
+      "title": "SSL handshake failed",
+      "diagnosis": "Couldn't agree on TLS parameters with the server.",
+      "fixes": [
+        "Server may require a newer TLS version — update client.",
+        "Check the cert isn't expired.",
+        "Try `openssl s_client -connect host:443` for details."
+      ]
+    },
+    {
+      "id": "gen_ssl_cert_expired",
+      "languages": [
+        "generic"
+      ],
+      "match": "certificate has expired|cert (?:has expired|expired)",
+      "title": "SSL cert expired",
+      "diagnosis": "The server's TLS certificate is past its valid-until date.",
+      "fixes": [
+        "Server admin needs to renew.",
+        "As a temporary client-side workaround for testing, skip verification (don't ship).",
+        "Open the URL in a browser to confirm."
+      ]
+    },
+    {
+      "id": "gen_ssl_self_signed",
+      "languages": [
+        "generic"
+      ],
+      "match": "self[- ]signed certificate",
+      "title": "SSL — self-signed cert",
+      "diagnosis": "The server presents a cert not signed by a trusted CA.",
+      "fixes": [
+        "For dev with self-signed certs: trust the cert in your store.",
+        "Don't use `--insecure` / `verify=False` in production."
+      ]
+    },
+    {
+      "id": "gen_dns_nxdomain",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\bNXDOMAIN\\b",
+      "title": "DNS — NXDOMAIN",
+      "diagnosis": "DNS authoritative server says this name doesn't exist.",
+      "fixes": [
+        "Check spelling.",
+        "Wait for DNS propagation if you just created the record.",
+        "Try a different resolver."
+      ]
+    },
+    {
+      "id": "gen_dns_servfail",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\bSERVFAIL\\b",
+      "title": "DNS — SERVFAIL",
+      "diagnosis": "Resolver couldn't answer because of an upstream problem.",
+      "fixes": [
+        "Try a different DNS server.",
+        "Wait a bit — could be transient.",
+        "If you own the domain, check DNSSEC and name-server config."
+      ]
+    },
+    {
+      "id": "gen_pip_no_version",
+      "languages": [
+        "generic",
+        "python"
+      ],
+      "match": "Could not find a version that satisfies the requirement",
+      "title": "pip — no compatible version",
+      "diagnosis": "pip can't find a version of the package that fits your constraints / Python version / platform.",
+      "fixes": [
+        "Check the package supports your Python version.",
+        "Loosen any version pin.",
+        "Try `--pre` to allow pre-releases."
+      ]
+    },
+    {
+      "id": "gen_disk_full",
+      "languages": [
+        "generic"
+      ],
+      "match": "disk (?:is )?full|no space",
+      "title": "Disk full",
+      "diagnosis": "Out of disk space (or inodes).",
+      "fixes": [
+        "`df -h` to find the full volume.",
+        "Clean caches, logs, old containers.",
+        "`df -i` to check inode usage."
+      ]
+    },
+    {
+      "id": "gen_too_many_files",
+      "languages": [
+        "generic"
+      ],
+      "match": "too many open files",
+      "title": "Too many open files",
+      "diagnosis": "Process exceeded FD limit.",
+      "fixes": [
+        "`ulimit -n 4096` to raise.",
+        "Close file handles promptly.",
+        "Pool connections instead of opening fresh ones each time."
+      ]
+    },
+    {
+      "id": "gen_addr_in_use",
+      "languages": [
+        "generic"
+      ],
+      "match": "address already in use",
+      "title": "Address already in use",
+      "diagnosis": "Another process owns that port.",
+      "fixes": [
+        "Find with `lsof -i :PORT` or `netstat`.",
+        "Kill the old process or pick another port."
+      ]
+    },
+    {
+      "id": "gen_quota_exceeded",
+      "languages": [
+        "generic"
+      ],
+      "match": "quota exceeded|Disk quota exceeded",
+      "title": "Disk quota exceeded",
+      "diagnosis": "User account hit their disk quota (separate from physical space).",
+      "fixes": [
+        "Clean up your home directory.",
+        "Ask admin to raise the quota."
+      ]
+    },
+    {
+      "id": "gen_input_output_error",
+      "languages": [
+        "generic"
+      ],
+      "match": "Input/output error",
+      "title": "I/O error",
+      "diagnosis": "Low-level disk/IO failure.",
+      "fixes": [
+        "Check `dmesg` for hardware errors.",
+        "Filesystem may need `fsck`.",
+        "If on a network share, check connectivity."
+      ]
+    },
+    {
+      "id": "gen_stale_file_handle",
+      "languages": [
+        "generic"
+      ],
+      "match": "Stale file handle",
+      "title": "Stale file handle",
+      "diagnosis": "On NFS: the file was deleted/replaced from another client.",
+      "fixes": [
+        "Re-open the file.",
+        "Reduce `noac`/refresh interval on the NFS mount."
+      ]
+    },
+    {
+      "id": "gen_dns_timeout",
+      "languages": [
+        "generic"
+      ],
+      "match": "DNS .*timed? out|dns.*timeout",
+      "title": "DNS timeout",
+      "diagnosis": "DNS server didn't respond in time.",
+      "fixes": [
+        "Try another resolver.",
+        "Check network."
+      ]
+    },
+    {
+      "id": "gen_tls_protocol_mismatch",
+      "languages": [
+        "generic"
+      ],
+      "match": "SSLV3_ALERT_HANDSHAKE_FAILURE|TLSV\\d_ALERT_PROTOCOL_VERSION",
+      "title": "TLS protocol version mismatch",
+      "diagnosis": "Client and server can't agree on a TLS version.",
+      "fixes": [
+        "Update client (old curl / Python / OpenSSL won't support modern TLS).",
+        "Server too old? It may need to support TLS 1.2+."
+      ]
+    },
+    {
+      "id": "gen_tls_unknown_ca",
+      "languages": [
+        "generic"
+      ],
+      "match": "unable to get local issuer certificate|UNABLE_TO_VERIFY_LEAF_SIGNATURE",
+      "title": "TLS — unknown issuer",
+      "diagnosis": "Server's cert is signed by a CA the client doesn't trust.",
+      "fixes": [
+        "Update CA bundle (`certifi`, system store).",
+        "If it's an internal CA, add it to the trust store."
+      ]
+    },
+    {
+      "id": "gen_no_route_to_host",
+      "languages": [
+        "generic"
+      ],
+      "match": "No route to host",
+      "title": "No route to host",
+      "diagnosis": "Network has no path to the destination.",
+      "fixes": [
+        "Check routes: `ip route` / `route -n`.",
+        "VPN required?",
+        "Firewall dropping?"
+      ]
+    },
+    {
+      "id": "gen_connection_reset",
+      "languages": [
+        "generic"
+      ],
+      "match": "Connection reset by peer",
+      "title": "Connection reset by peer",
+      "diagnosis": "Remote side sent RST — abrupt close.",
+      "fixes": [
+        "Retry — often transient.",
+        "Check server logs for crashes."
+      ]
+    },
+    {
+      "id": "gen_partial_write",
+      "languages": [
+        "generic"
+      ],
+      "match": "short write|partial write",
+      "title": "Partial write",
+      "diagnosis": "Wrote fewer bytes than requested. Often disk full or pipe closed.",
+      "fixes": [
+        "Check disk space.",
+        "Loop until all bytes written if writing manually."
+      ]
+    },
+    {
+      "id": "gen_file_too_large",
+      "languages": [
+        "generic"
+      ],
+      "match": "File too large|EFBIG",
+      "title": "File too large",
+      "diagnosis": "Exceeds filesystem max file size or process limit.",
+      "fixes": [
+        "Split the file.",
+        "Some filesystems (FAT32) have small file-size limits."
+      ]
+    },
+    {
+      "id": "gen_text_file_busy",
+      "languages": [
+        "generic"
+      ],
+      "match": "Text file busy|ETXTBSY",
+      "title": "Text file busy",
+      "diagnosis": "You tried to write to an executable that's currently running.",
+      "fixes": [
+        "Stop the running program first.",
+        "Or write to a temp name and rename atomically."
+      ]
+    },
+    {
+      "id": "gen_argument_list_too_long_grp",
+      "languages": [
+        "generic"
+      ],
+      "match": "E2BIG",
+      "title": "E2BIG — argument list too long",
+      "diagnosis": "Same as the bash one — the args don't fit.",
+      "fixes": [
+        "Use `xargs` or `find -exec ... +`."
+      ]
+    },
+    {
+      "id": "gen_invalid_argument",
+      "languages": [
+        "generic"
+      ],
+      "match": "EINVAL: invalid argument",
+      "title": "EINVAL — invalid argument",
+      "diagnosis": "A syscall got a bad argument.",
+      "fixes": [
+        "Check the call's parameters.",
+        "Some calls fail with EINVAL on certain unsupported flag combos."
+      ]
+    },
+    {
+      "id": "gen_loop",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\bELOOP\\b|Too many levels of symbolic links",
+      "title": "ELOOP — symlink loop",
+      "diagnosis": "Symlinks form a cycle.",
+      "fixes": [
+        "`readlink -f <path>` to follow.",
+        "Break the cycle."
+      ]
+    },
+    {
+      "id": "gen_no_locks_available",
+      "languages": [
+        "generic"
+      ],
+      "match": "No locks available",
+      "title": "ENOLCK — no locks available",
+      "diagnosis": "File locking unavailable (often on network filesystems without locking).",
+      "fixes": [
+        "Use a different filesystem.",
+        "Mount NFS with `lock` option."
+      ]
+    },
+    {
+      "id": "gen_function_not_implemented",
+      "languages": [
+        "generic"
+      ],
+      "match": "ENOSYS|Function not implemented",
+      "title": "ENOSYS — not implemented",
+      "diagnosis": "The kernel/library doesn't implement that call.",
+      "fixes": [
+        "Library version mismatch?",
+        "Containers may filter syscalls — check seccomp profile."
+      ]
+    },
+    {
+      "id": "gen_resource_unavailable",
+      "languages": [
+        "generic"
+      ],
+      "match": "EAGAIN|Resource temporarily unavailable",
+      "title": "EAGAIN — try again",
+      "diagnosis": "Non-blocking call had nothing to return right now.",
+      "fixes": [
+        "Wait and retry, or use `select`/`poll` to wait for readiness."
+      ]
+    },
+    {
+      "id": "gen_interrupted_syscall",
+      "languages": [
+        "generic"
+      ],
+      "match": "EINTR|Interrupted system call",
+      "title": "EINTR — interrupted syscall",
+      "diagnosis": "A signal interrupted a blocking call.",
+      "fixes": [
+        "Retry the call.",
+        "Most modern libraries handle this for you."
+      ]
+    },
+    {
+      "id": "gen_seccomp_blocked",
+      "languages": [
+        "generic"
+      ],
+      "match": "Operation not permitted.*seccomp|seccomp.*denied",
+      "title": "Seccomp blocked operation",
+      "diagnosis": "Sandbox blocked a syscall.",
+      "fixes": [
+        "Relax the seccomp profile (carefully).",
+        "Run with `--security-opt seccomp=unconfined` in Docker (only for debugging)."
+      ]
+    },
+    {
+      "id": "gen_aws_credentials",
+      "languages": [
+        "generic"
+      ],
+      "match": "NoCredentialProviders|Unable to locate credentials",
+      "title": "AWS — credentials missing",
+      "diagnosis": "AWS SDK can't find credentials.",
+      "fixes": [
+        "Set env vars: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`.",
+        "Or configure `~/.aws/credentials`.",
+        "Or use an IAM role on EC2/ECS."
+      ]
+    },
+    {
+      "id": "gen_aws_access_denied",
+      "languages": [
+        "generic"
+      ],
+      "match": "AccessDenied|AccessDeniedException",
+      "title": "AWS — access denied",
+      "diagnosis": "IAM denied the call.",
+      "fixes": [
+        "Check the policy attached to the role/user.",
+        "Confirm region and account.",
+        "Read the error — it usually names the missing permission."
+      ]
+    },
+    {
+      "id": "gen_aws_throttled",
+      "languages": [
+        "generic"
+      ],
+      "match": "ThrottlingException|RequestThrottled",
+      "title": "AWS — throttled",
+      "diagnosis": "You're calling too fast for the service's limits.",
+      "fixes": [
+        "Use exponential backoff (most SDKs do automatically).",
+        "Request a service quota increase if legitimate."
+      ]
+    },
+    {
+      "id": "gen_gcp_quota",
+      "languages": [
+        "generic"
+      ],
+      "match": "Quota exceeded.*google",
+      "title": "GCP — quota exceeded",
+      "diagnosis": "Hit a Google Cloud quota.",
+      "fixes": [
+        "Check quotas in the console.",
+        "Request increase if needed."
+      ]
+    },
+    {
+      "id": "gen_mongo_dup_key",
+      "languages": [
+        "generic"
+      ],
+      "match": "E11000 duplicate key",
+      "title": "MongoDB — duplicate key",
+      "diagnosis": "Insert/update violated a unique index.",
+      "fixes": [
+        "Use upsert.",
+        "Pick a unique value."
+      ]
+    },
+    {
+      "id": "gen_postgres_conn_full",
+      "languages": [
+        "generic"
+      ],
+      "match": "too many (?:clients|connections)",
+      "title": "Postgres — too many connections",
+      "diagnosis": "DB hit its max_connections.",
+      "fixes": [
+        "Use a connection pool (PgBouncer).",
+        "Close idle connections.",
+        "Raise `max_connections` if hardware can take it."
+      ]
+    },
+    {
+      "id": "gen_mysql_lock_wait",
+      "languages": [
+        "generic"
+      ],
+      "match": "Lock wait timeout exceeded",
+      "title": "MySQL — lock wait timeout",
+      "diagnosis": "Transaction waited too long for a row lock.",
+      "fixes": [
+        "Shorten transactions.",
+        "Look for contended rows / hot keys.",
+        "Tune `innodb_lock_wait_timeout`."
+      ]
+    },
+    {
+      "id": "gen_redis_max_clients",
+      "languages": [
+        "generic"
+      ],
+      "match": "ERR max number of clients reached",
+      "title": "Redis — max clients reached",
+      "diagnosis": "Hit `maxclients`.",
+      "fixes": [
+        "Close idle connections.",
+        "Use a pool.",
+        "Raise `maxclients` config."
+      ]
+    },
+    {
+      "id": "gen_kafka_offset",
+      "languages": [
+        "generic"
+      ],
+      "match": "OffsetOutOfRangeException|out of range offset",
+      "title": "Kafka — offset out of range",
+      "diagnosis": "Consumer asked for an offset that's no longer in the topic.",
+      "fixes": [
+        "Reset offset to earliest/latest.",
+        "Increase retention if you need older messages."
+      ]
+    },
+    {
+      "id": "gen_grpc_deadline",
+      "languages": [
+        "generic"
+      ],
+      "match": "DEADLINE_EXCEEDED",
+      "title": "gRPC — deadline exceeded",
+      "diagnosis": "RPC didn't complete within its deadline.",
+      "fixes": [
+        "Increase the deadline if reasonable.",
+        "Check why the server is slow."
+      ]
+    },
+    {
+      "id": "gen_grpc_unavailable",
+      "languages": [
+        "generic"
+      ],
+      "match": "UNAVAILABLE: (?:upstream|connection|.*failed to connect)",
+      "title": "gRPC — unavailable",
+      "diagnosis": "Couldn't reach the gRPC service.",
+      "fixes": [
+        "Check the service address.",
+        "Retry — often transient."
+      ]
+    },
+    {
+      "id": "gen_oauth_invalid_grant",
+      "languages": [
+        "generic"
+      ],
+      "match": "invalid_grant",
+      "title": "OAuth — invalid_grant",
+      "diagnosis": "Refresh/auth code rejected. Expired, revoked, or already used.",
+      "fixes": [
+        "Re-authorize from scratch.",
+        "Check clock skew on the client (JWT iat/exp)."
+      ]
+    },
+    {
+      "id": "gen_jwt_expired",
+      "languages": [
+        "generic"
+      ],
+      "match": "(?:jwt|token).*expired|TokenExpiredError",
+      "title": "JWT expired",
+      "diagnosis": "Your auth token is past its expiration.",
+      "fixes": [
+        "Refresh the token.",
+        "Re-authenticate."
+      ]
+    },
+    {
+      "id": "gen_signature_verification",
+      "languages": [
+        "generic"
+      ],
+      "match": "(?:signature verification failed|invalid signature)",
+      "title": "Signature verification failed",
+      "diagnosis": "A signed payload didn't verify. Wrong key, tampering, or formatting.",
+      "fixes": [
+        "Confirm both sides use the same key/algorithm.",
+        "Don't re-encode the payload between sign and verify."
+      ]
+    },
+    {
+      "id": "gen_npm_audit",
+      "languages": [
+        "generic",
+        "javascript"
+      ],
+      "match": "npm WARN.*vulnerabilities",
+      "title": "npm audit — vulnerabilities",
+      "diagnosis": "Some dependencies have known security advisories.",
+      "fixes": [
+        "`npm audit fix` to auto-fix what's safe.",
+        "Review remaining advisories carefully — not every CVE applies to your use."
+      ]
+    },
+    {
+      "id": "gen_chrome_headless",
+      "languages": [
+        "generic"
+      ],
+      "match": "Failed to launch (?:the )?(?:browser|chrome)",
+      "title": "Headless Chrome failed to launch",
+      "diagnosis": "Puppeteer/Playwright couldn't start the browser.",
+      "fixes": [
+        "Install missing system libraries (most distros need `--no-sandbox` or extras).",
+        "Try `--no-sandbox` in args (only in sandboxed envs).",
+        "On Linux, install: `libnss3`, `libatk-bridge2.0-0`, etc."
+      ]
+    },
+    {
+      "id": "py_typeerror_int_iteration",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: 'int' object is not iterable",
+      "title": "TypeError — int isn't iterable",
+      "diagnosis": "You wrote `for x in n:` where `n` is an int. To loop a number of times, use `range(n)`.",
+      "fixes": [
+        "Use `range(n)` to iterate `n` times.",
+        "Convert to string `str(n)` to iterate digits."
+      ]
+    },
+    {
+      "id": "py_typeerror_int_len",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: object of type 'int' has no len\\(\\)",
+      "title": "TypeError — int has no len()",
+      "diagnosis": "You called `len(n)` on a number.",
+      "fixes": [
+        "Convert to string first: `len(str(n))` to count digits.",
+        "Or apply `len` to the actual collection you meant."
+      ]
+    },
+    {
+      "id": "py_zlib_error",
+      "languages": [
+        "python"
+      ],
+      "match": "zlib\\.error",
+      "title": "zlib error",
+      "diagnosis": "Decompression failed — data corrupt or wrong format.",
+      "fixes": [
+        "Verify the source data is actually gzip/zlib compressed.",
+        "Check for truncated downloads."
+      ]
+    },
+    {
+      "id": "py_invalid_argument_os",
+      "languages": [
+        "python"
+      ],
+      "match": "OSError: \\[Errno 22\\] Invalid argument",
+      "title": "OSError EINVAL",
+      "diagnosis": "An OS call got an argument it considered invalid.",
+      "fixes": [
+        "Check path encoding (especially on Windows with non-ASCII).",
+        "Some operations need specific flags."
+      ]
+    },
+    {
+      "id": "py_zerodivision_float",
+      "languages": [
+        "python"
+      ],
+      "match": "ZeroDivisionError: float division by zero",
+      "title": "ZeroDivisionError — float division by zero",
+      "diagnosis": "You did `x / 0.0` with floats.",
+      "fixes": [
+        "Use `math.inf` or `nan` semantics: `numerator / denom if denom else float('inf')`."
+      ]
+    },
+    {
+      "id": "py_typeerror_format",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: not all arguments converted during string formatting",
+      "title": "TypeError — leftover args in % formatting",
+      "diagnosis": "Old-style `%` formatting has more args than placeholders.",
+      "fixes": [
+        "Wrap multiple args in a tuple: `'%s %s' % (a, b)`.",
+        "Switch to f-strings."
+      ]
+    },
+    {
+      "id": "py_typeerror_format_int",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: %.* format: a (?:real )?number is required",
+      "title": "TypeError — number format needed",
+      "diagnosis": "`%d`/`%f` got a non-number.",
+      "fixes": [
+        "Convert: `'%d' % int(x)`."
+      ]
+    },
+    {
+      "id": "py_str_decode",
+      "languages": [
+        "python"
+      ],
+      "match": "AttributeError: 'str' object has no attribute 'decode'",
+      "title": "AttributeError — str.decode (Python 3)",
+      "diagnosis": "Python 3 strings don't have `.decode` — that's a bytes method.",
+      "fixes": [
+        "If you have bytes, `.decode('utf-8')`.",
+        "If you already have a str, you don't need to decode anything."
+      ]
+    },
+    {
+      "id": "py_bytes_encode",
+      "languages": [
+        "python"
+      ],
+      "match": "AttributeError: 'bytes' object has no attribute 'encode'",
+      "title": "AttributeError — bytes.encode",
+      "diagnosis": "Bytes don't have `.encode`. You probably want `.decode` to get a str.",
+      "fixes": [
+        "Use `.decode('utf-8')` to turn bytes into str."
+      ]
+    },
+    {
+      "id": "py_typeerror_init_returned",
+      "languages": [
+        "python"
+      ],
+      "match": "TypeError: __init__\\(\\) should return None",
+      "title": "TypeError — __init__ returned non-None",
+      "diagnosis": "`__init__` mustn't return anything other than None.",
+      "fixes": [
+        "Remove the `return` statement.",
+        "If you want to construct and return, use `__new__` or a classmethod factory."
+      ]
+    },
+    {
+      "id": "py_decimal_invalid",
+      "languages": [
+        "python"
+      ],
+      "match": "decimal\\.InvalidOperation",
+      "title": "decimal — invalid operation",
+      "diagnosis": "A `Decimal` operation got bad input or hit a trap.",
+      "fixes": [
+        "Validate the string before constructing `Decimal(s)`.",
+        "Set a more lenient `getcontext()` if needed."
+      ]
+    },
+    {
+      "id": "js_react_max_update_depth",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "Maximum update depth exceeded",
+      "title": "React — too many re-renders",
+      "diagnosis": "A component keeps calling `setState`/state-setter inside render or in an effect with bad deps, causing an infinite loop.",
+      "fixes": [
+        "Don't call setters unconditionally in the render body.",
+        "Check `useEffect` deps — missing them can cause loops.",
+        "Memoize functions and values that go into deps."
+      ]
+    },
+    {
+      "id": "js_react_state_in_unmounted",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "Can't perform a React state update on an unmounted component",
+      "title": "React — setState on unmounted component",
+      "diagnosis": "An async callback fired after the component unmounted.",
+      "fixes": [
+        "Track a mounted flag with `useRef` and skip the setter if unmounted.",
+        "Cancel pending requests in the effect cleanup.",
+        "Use AbortController with fetch."
+      ]
+    },
+    {
+      "id": "js_react_render_function",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "Functions are not valid as a React child",
+      "title": "React — rendered a function",
+      "diagnosis": "You rendered a function instead of calling it.",
+      "fixes": [
+        "Call it: `{render()}`, not `{render}`.",
+        "If you meant a component, capitalize and use JSX: `<Render />`."
+      ]
+    },
+    {
+      "id": "js_node_engine_strict",
+      "languages": [
+        "javascript"
+      ],
+      "match": "engine .* incompatible with this module",
+      "title": "Node engine incompatible",
+      "diagnosis": "Module declares Node engines that don't match yours.",
+      "fixes": [
+        "Upgrade Node via `nvm`.",
+        "Or pick an older module version that supports your Node."
+      ]
+    },
+    {
+      "id": "js_tls_self_signed",
+      "languages": [
+        "javascript"
+      ],
+      "match": "DEPTH_ZERO_SELF_SIGNED_CERT|SELF_SIGNED_CERT_IN_CHAIN",
+      "title": "Node — self-signed cert",
+      "diagnosis": "Node rejected a self-signed TLS cert.",
+      "fixes": [
+        "Trust the cert in `NODE_EXTRA_CA_CERTS`.",
+        "For dev only: `NODE_TLS_REJECT_UNAUTHORIZED=0` (don't ship!)."
+      ]
+    },
+    {
+      "id": "js_eperm",
+      "languages": [
+        "javascript"
+      ],
+      "match": "EPERM: operation not permitted",
+      "title": "EPERM — operation not permitted",
+      "diagnosis": "On Windows often a file is open in another process. On Unix, missing capability.",
+      "fixes": [
+        "Close anything that has the file open.",
+        "Antivirus on Windows can hold files briefly — retry."
+      ]
+    },
+    {
+      "id": "js_typeerror_promise_chain",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "TypeError: .* is not iterable .*Promise\\.all",
+      "title": "Promise.all needs an iterable",
+      "diagnosis": "`Promise.all` got something that isn't iterable.",
+      "fixes": [
+        "Pass an array of promises.",
+        "Use `Object.values(map)` if you have an object of promises."
+      ]
+    },
+    {
+      "id": "js_node_warning_punycode",
+      "languages": [
+        "javascript"
+      ],
+      "match": "DEP0040.*punycode",
+      "title": "Node deprecation — punycode",
+      "diagnosis": "Node has deprecated the built-in `punycode` module.",
+      "fixes": [
+        "Install the userland version: `npm install punycode`.",
+        "Or check if your dependency has an update that removes its use."
+      ]
+    },
+    {
+      "id": "git_too_many_arguments",
+      "languages": [
+        "git"
+      ],
+      "match": "warning: too many arguments",
+      "title": "Git — too many arguments",
+      "diagnosis": "Subcommand got more args than it accepts.",
+      "fixes": [
+        "Check the command syntax.",
+        "Quote arguments with spaces."
+      ]
+    },
+    {
+      "id": "git_invalid_path",
+      "languages": [
+        "git"
+      ],
+      "match": "fatal: invalid path '([^']+)'",
+      "title": "Git — invalid path",
+      "diagnosis": "Path `{1}` isn't valid (e.g. contains `..`, or Windows reserved chars).",
+      "fixes": [
+        "Rename the file.",
+        "On Windows, watch for `CON`, `PRN`, `AUX`, etc."
+      ]
+    },
+    {
+      "id": "git_rename_failed",
+      "languages": [
+        "git"
+      ],
+      "match": "rename .* failed",
+      "title": "Git rename failed",
+      "diagnosis": "Git's working-tree rename failed — usually permissions or a file lock.",
+      "fixes": [
+        "Close anything that has the file open.",
+        "Check filesystem permissions."
+      ]
+    },
+    {
+      "id": "git_loose_object",
+      "languages": [
+        "git"
+      ],
+      "match": "loose object .* is corrupt",
+      "title": "Git — corrupt loose object",
+      "diagnosis": "Object file in `.git/objects/` is damaged.",
+      "fixes": [
+        "Run `git fsck`.",
+        "Re-fetch from remote to repair.",
+        "Re-clone as a last resort."
+      ]
+    },
+    {
+      "id": "git_no_email_set",
+      "languages": [
+        "git"
+      ],
+      "match": "Author identity unknown",
+      "title": "Author identity unknown",
+      "diagnosis": "Git needs user.name and user.email.",
+      "fixes": [
+        "`git config --global user.name 'You'`.",
+        "`git config --global user.email 'you@example.com'`."
+      ]
+    },
+    {
+      "id": "git_push_no_upstream",
+      "languages": [
+        "git"
+      ],
+      "match": "The current branch .* has no upstream branch",
+      "title": "No upstream — first push",
+      "diagnosis": "You haven't set an upstream branch yet.",
+      "fixes": [
+        "`git push -u origin <branch>` to set it on first push.",
+        "After that, plain `git push` works."
+      ]
+    },
+    {
+      "id": "bash_no_such_signal",
+      "languages": [
+        "bash"
+      ],
+      "match": "kill: invalid signal",
+      "title": "kill — invalid signal",
+      "diagnosis": "Signal name/number isn't recognized.",
+      "fixes": [
+        "List signals: `kill -l`.",
+        "Common: `TERM`, `KILL`, `HUP`, `INT`, `QUIT`."
+      ]
+    },
+    {
+      "id": "bash_command_substitution",
+      "languages": [
+        "bash"
+      ],
+      "match": "command substitution.*unterminated",
+      "title": "Unterminated command substitution",
+      "diagnosis": "`$(...)` or backticks not closed.",
+      "fixes": [
+        "Balance parens / backticks.",
+        "Watch for nested substitutions."
+      ]
+    },
+    {
+      "id": "bash_set_pipefail",
+      "languages": [
+        "bash"
+      ],
+      "match": "pipefail",
+      "title": "pipefail mention",
+      "diagnosis": "Pipefail makes pipelines fail when any stage does.",
+      "fixes": [
+        "`set -o pipefail` is recommended at the top of scripts.",
+        "Combined with `set -eu` for safer scripts."
+      ]
+    },
+    {
+      "id": "gen_keychain_locked",
+      "languages": [
+        "generic"
+      ],
+      "match": "keychain.*locked|unable to access keychain",
+      "title": "Keychain locked",
+      "diagnosis": "macOS keychain is locked — you need to unlock it.",
+      "fixes": [
+        "Unlock from Keychain Access app.",
+        "`security unlock-keychain`."
+      ]
+    },
+    {
+      "id": "gen_proxy_authentication",
+      "languages": [
+        "generic"
+      ],
+      "match": "\\b407\\b.*Proxy Authentication",
+      "title": "HTTP 407 — proxy auth required",
+      "diagnosis": "Your proxy needs credentials.",
+      "fixes": [
+        "Set credentials in the proxy URL: `http://user:pass@proxy:port`.",
+        "Or configure your client's proxy auth settings."
+      ]
+    },
+    {
+      "id": "gen_dns_refused",
+      "languages": [
+        "generic"
+      ],
+      "match": "DNS .*REFUSED|status: REFUSED",
+      "title": "DNS — REFUSED",
+      "diagnosis": "The DNS server refused to answer (likely policy / ACL).",
+      "fixes": [
+        "Try a different resolver.",
+        "If you control the server, check its ACLs."
+      ]
+    },
+    {
+      "id": "gen_address_family",
+      "languages": [
+        "generic"
+      ],
+      "match": "EAFNOSUPPORT|Address family not supported",
+      "title": "Address family not supported",
+      "diagnosis": "Tried to use IPv6 on a system without IPv6, or vice versa.",
+      "fixes": [
+        "Force IPv4: `curl -4`, `python -c 'socket.AF_INET'`.",
+        "Check that the interface supports the family."
+      ]
+    },
+    {
+      "id": "py_setrecursionlimit",
+      "languages": [
+        "python"
+      ],
+      "match": "sys\\.setrecursionlimit",
+      "title": "Tip — setrecursionlimit",
+      "diagnosis": "You're raising the recursion limit. Make sure the deep recursion is really intended.",
+      "fixes": [
+        "Verify the algorithm — could it be iterative?",
+        "Very deep recursion risks stack overflow at the OS level."
+      ]
+    },
+    {
+      "id": "js_invalid_uri",
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "match": "URIError: URI malformed",
+      "title": "URIError — malformed URI",
+      "diagnosis": "`decodeURIComponent` (or similar) got an invalid encoding like `%G1`.",
+      "fixes": [
+        "Validate input before decoding.",
+        "Wrap in try/catch and fall back to the raw value."
+      ]
+    },
+    {
+      "id": "py_warning_pendingdeprecation",
+      "languages": [
+        "python"
+      ],
+      "match": "PendingDeprecationWarning",
+      "title": "PendingDeprecationWarning",
+      "diagnosis": "A future Python release plans to remove this. You have time, but plan ahead.",
+      "fixes": [
+        "Read the warning text for the replacement.",
+        "Bump your code now while it's easy."
+      ]
+    }
+  ]
+}

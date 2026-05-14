@@ -1,0 +1,2462 @@
+{
+  "_comment": "How-do-I recipes. Joe matches a user's query against `triggers` (substring/keyword match) and returns title + code + notes. Languages: python, javascript, typescript, bash, git.",
+  "recipes": [
+    {
+      "id": "py_read_file",
+      "languages": ["python"],
+      "triggers": ["read file in python", "open file python", "read text file python", "load file python", "python read file"],
+      "title": "Read a text file in Python",
+      "code": "with open('path/to/file.txt', 'r', encoding='utf-8') as f:\n    content = f.read()\n\n# Line by line (memory-friendly for big files):\nwith open('path/to/file.txt') as f:\n    for line in f:\n        print(line.rstrip())",
+      "notes": "`'r'` is the default mode. The `with` block auto-closes the file. Pass `encoding='utf-8'` for non-ASCII text. For binary, use `'rb'`."
+    },
+    {
+      "id": "py_write_file",
+      "languages": ["python"],
+      "triggers": ["write file python", "write text file python", "save string to file python", "python write to file"],
+      "title": "Write a text file in Python",
+      "code": "with open('out.txt', 'w', encoding='utf-8') as f:\n    f.write('hello\\n')\n    f.writelines(['line1\\n', 'line2\\n'])",
+      "notes": "`'w'` truncates the file. Use `'a'` to append. `writelines` does NOT add newlines for you."
+    },
+    {
+      "id": "py_append_file",
+      "languages": ["python"],
+      "triggers": ["append to file python", "python append file", "add line to file python"],
+      "title": "Append to a file in Python",
+      "code": "with open('log.txt', 'a', encoding='utf-8') as f:\n    f.write('new line\\n')",
+      "notes": "`'a'` creates the file if missing. Each program run keeps appending — rotate logs if you care about size."
+    },
+    {
+      "id": "py_read_binary",
+      "languages": ["python"],
+      "triggers": ["read binary file python", "python binary read", "load bytes python"],
+      "title": "Read a binary file in Python",
+      "code": "with open('image.png', 'rb') as f:\n    data = f.read()  # bytes object",
+      "notes": "Use `'rb'`/`'wb'` for non-text files (images, archives, executables). Don't pass `encoding` with binary modes."
+    },
+    {
+      "id": "py_read_json",
+      "languages": ["python"],
+      "triggers": ["read json python", "load json file python", "parse json python", "python json load"],
+      "title": "Read a JSON file in Python",
+      "code": "import json\n\nwith open('data.json') as f:\n    data = json.load(f)\n\n# From a string:\nobj = json.loads('{\"a\": 1}')",
+      "notes": "`json.load` reads from a file, `json.loads` from a string. Raises `json.JSONDecodeError` on bad JSON."
+    },
+    {
+      "id": "py_write_json",
+      "languages": ["python"],
+      "triggers": ["write json python", "save json file python", "python json dump", "pretty print json python"],
+      "title": "Write JSON (pretty) in Python",
+      "code": "import json\n\nwith open('out.json', 'w', encoding='utf-8') as f:\n    json.dump(data, f, indent=2, ensure_ascii=False)",
+      "notes": "`indent=2` for pretty output. `ensure_ascii=False` keeps unicode readable. Use `default=str` to serialize datetimes."
+    },
+    {
+      "id": "py_read_csv",
+      "languages": ["python"],
+      "triggers": ["read csv python", "csv reader python", "parse csv python", "python csv module"],
+      "title": "Read a CSV with the csv module",
+      "code": "import csv\n\nwith open('data.csv', newline='') as f:\n    reader = csv.DictReader(f)\n    for row in reader:\n        print(row['name'], row['age'])",
+      "notes": "`DictReader` uses the first row as headers. Always pass `newline=''` on the open() — avoids weird line splits on Windows."
+    },
+    {
+      "id": "py_write_csv",
+      "languages": ["python"],
+      "triggers": ["write csv python", "save csv python", "csv writer python", "python csv export"],
+      "title": "Write a CSV in Python",
+      "code": "import csv\n\nrows = [{'name': 'Ada', 'age': 36}, {'name': 'Joe', 'age': 9}]\nwith open('out.csv', 'w', newline='') as f:\n    writer = csv.DictWriter(f, fieldnames=['name', 'age'])\n    writer.writeheader()\n    writer.writerows(rows)",
+      "notes": "`newline=''` prevents blank lines between rows. For huge data, use `csv.writer` with row tuples — slightly faster."
+    },
+    {
+      "id": "py_pandas_read_csv",
+      "languages": ["python"],
+      "triggers": ["read csv pandas", "pandas read csv", "load csv dataframe", "pandas load file"],
+      "title": "Read a CSV with pandas",
+      "code": "import pandas as pd\n\ndf = pd.read_csv('data.csv')\nprint(df.head())\nprint(df.dtypes)",
+      "notes": "For mixed-type columns pass `low_memory=False`. Use `dtype={'col': str}` to force types. `parse_dates=['date']` parses on load."
+    },
+    {
+      "id": "py_read_yaml",
+      "languages": ["python"],
+      "triggers": ["read yaml python", "parse yaml python", "load yaml python", "python yaml file"],
+      "title": "Read a YAML file in Python",
+      "code": "import yaml  # pip install pyyaml\n\nwith open('config.yaml') as f:\n    cfg = yaml.safe_load(f)",
+      "notes": "Always `safe_load` — `load` can execute arbitrary Python via tags. Use `yaml.dump(obj, f)` to write."
+    },
+    {
+      "id": "py_read_ini",
+      "languages": ["python"],
+      "triggers": ["read ini python", "configparser python", "parse config file python", "python ini file"],
+      "title": "Read an INI/config file in Python",
+      "code": "import configparser\n\ncfg = configparser.ConfigParser()\ncfg.read('app.ini')\nprint(cfg['database']['host'])",
+      "notes": "Section access is dict-like. Use `cfg.getint`, `getboolean`, `getfloat` for typed values."
+    },
+    {
+      "id": "py_file_exists",
+      "languages": ["python"],
+      "triggers": ["check file exists python", "python file exists", "does file exist python", "is file python"],
+      "title": "Check if a file exists in Python",
+      "code": "from pathlib import Path\n\np = Path('data.txt')\nif p.exists() and p.is_file():\n    print('yes')",
+      "notes": "`exists()` is true for directories too — use `is_file()` to be specific. Old-style: `os.path.isfile('data.txt')`."
+    },
+    {
+      "id": "py_list_dir",
+      "languages": ["python"],
+      "triggers": ["list files in directory python", "list dir python", "ls in python", "python list folder"],
+      "title": "List files in a directory (Python)",
+      "code": "from pathlib import Path\n\nfor p in Path('.').iterdir():\n    print(p.name, p.is_file())\n\n# Just .py files:\nfor p in Path('.').glob('*.py'):\n    print(p)",
+      "notes": "`iterdir()` is non-recursive. Use `rglob('*.py')` for recursive globbing. `Path('.').glob('**/*.py')` works too."
+    },
+    {
+      "id": "py_walk_tree",
+      "languages": ["python"],
+      "triggers": ["walk directory python", "recursive list files python", "os walk python", "python find files recursively"],
+      "title": "Walk a directory tree in Python",
+      "code": "import os\n\nfor dirpath, dirnames, filenames in os.walk('.'):\n    for name in filenames:\n        print(os.path.join(dirpath, name))\n\n# Pathlib version:\nfrom pathlib import Path\nfor p in Path('.').rglob('*'):\n    if p.is_file():\n        print(p)",
+      "notes": "Modify `dirnames` in place to prune (e.g., `dirnames[:] = [d for d in dirnames if d != '.git']`)."
+    },
+    {
+      "id": "py_pathlib",
+      "languages": ["python"],
+      "triggers": ["pathlib python", "python path manipulation", "path join python", "python path basics"],
+      "title": "Path manipulation with pathlib",
+      "code": "from pathlib import Path\n\np = Path('/var/log') / 'app' / 'today.log'\nprint(p.parent)        # /var/log/app\nprint(p.name)          # today.log\nprint(p.stem)          # today\nprint(p.suffix)        # .log\nprint(p.with_suffix('.txt'))\nprint(Path.home(), Path.cwd())",
+      "notes": "`/` is the join operator. `Path` is OS-aware. Convert to string with `str(p)` if a library demands it."
+    },
+    {
+      "id": "py_requests_get",
+      "languages": ["python"],
+      "triggers": ["http get python", "requests get python", "fetch url python", "python http request"],
+      "title": "HTTP GET with requests",
+      "code": "import requests\n\nr = requests.get('https://api.example.com/users', params={'q': 'joe'}, timeout=10)\nr.raise_for_status()\ndata = r.json()",
+      "notes": "Always set a `timeout` — default is no timeout, which can hang forever. `raise_for_status()` throws on 4xx/5xx."
+    },
+    {
+      "id": "py_requests_post",
+      "languages": ["python"],
+      "triggers": ["http post python", "requests post python", "post json python", "python api post"],
+      "title": "HTTP POST with requests",
+      "code": "import requests\n\nr = requests.post(\n    'https://api.example.com/items',\n    json={'name': 'banana'},\n    headers={'Authorization': 'Bearer TOKEN'},\n    timeout=10,\n)\nr.raise_for_status()\nprint(r.json())",
+      "notes": "Use `json=` to send JSON (sets Content-Type automatically). Use `data=` for form-encoded, `files=` for uploads."
+    },
+    {
+      "id": "py_urllib_get",
+      "languages": ["python"],
+      "triggers": ["urllib get python", "stdlib http python", "python no requests", "urlopen python"],
+      "title": "HTTP GET with urllib (stdlib)",
+      "code": "from urllib.request import urlopen, Request\nimport json\n\nreq = Request('https://httpbin.org/get', headers={'User-Agent': 'monkey-joe/1.0'})\nwith urlopen(req, timeout=10) as resp:\n    data = json.loads(resp.read())",
+      "notes": "Use this when you can't `pip install requests`. Less ergonomic but always available."
+    },
+    {
+      "id": "py_httpx_async",
+      "languages": ["python"],
+      "triggers": ["httpx python", "async http python", "python httpx async", "modern http client python"],
+      "title": "Async HTTP with httpx",
+      "code": "import httpx, asyncio\n\nasync def fetch():\n    async with httpx.AsyncClient(timeout=10) as client:\n        r = await client.get('https://api.example.com/')\n        return r.json()\n\nasyncio.run(fetch())",
+      "notes": "httpx has the same API as requests but supports async, HTTP/2, and connection pooling. Reuse the `AsyncClient` across requests."
+    },
+    {
+      "id": "py_aiohttp",
+      "languages": ["python"],
+      "triggers": ["aiohttp python", "async http aiohttp", "python concurrent requests", "asyncio http"],
+      "title": "Async HTTP with aiohttp",
+      "code": "import aiohttp, asyncio\n\nasync def fetch(url):\n    async with aiohttp.ClientSession() as session:\n        async with session.get(url, timeout=10) as r:\n            return await r.json()\n\nasyncio.run(fetch('https://api.example.com/'))",
+      "notes": "For lots of concurrent requests, use `asyncio.gather` with a shared session. Don't create a new session per request."
+    },
+    {
+      "id": "py_subprocess_run",
+      "languages": ["python"],
+      "triggers": ["subprocess python", "run command python", "shell command python", "python execute command", "capture output python"],
+      "title": "Run a subprocess and capture output",
+      "code": "import subprocess\n\nresult = subprocess.run(\n    ['ls', '-la'],\n    capture_output=True, text=True, check=True,\n)\nprint(result.stdout)",
+      "notes": "`check=True` raises on non-zero exit. `text=True` decodes bytes to str. Pass a list (not a string) unless you need `shell=True`."
+    },
+    {
+      "id": "py_subprocess_pipe",
+      "languages": ["python"],
+      "triggers": ["pipe subprocess python", "python pipe commands", "subprocess chain python"],
+      "title": "Pipe between subprocesses (Python)",
+      "code": "import subprocess\n\nps = subprocess.Popen(['ps', 'aux'], stdout=subprocess.PIPE)\ngrep = subprocess.run(['grep', 'python'], stdin=ps.stdout, capture_output=True, text=True)\nps.stdout.close()\nprint(grep.stdout)",
+      "notes": "Close the upstream stdout after handoff so SIGPIPE works correctly. Simpler alternative: `subprocess.run('ps aux | grep python', shell=True)` (watch for injection)."
+    },
+    {
+      "id": "py_subprocess_background",
+      "languages": ["python"],
+      "triggers": ["run command background python", "python popen background", "subprocess no wait"],
+      "title": "Run a subprocess in the background",
+      "code": "import subprocess\n\nproc = subprocess.Popen(['long-running', 'job'])\n# ... do other work ...\nproc.terminate()  # or proc.wait() to block",
+      "notes": "`Popen` returns immediately. Use `proc.poll()` to check if done. `terminate()` sends SIGTERM, `kill()` SIGKILL."
+    },
+    {
+      "id": "py_argparse",
+      "languages": ["python"],
+      "triggers": ["argparse python", "command line args python", "cli args python", "python argument parser"],
+      "title": "argparse basics",
+      "code": "import argparse\n\np = argparse.ArgumentParser(description='Greet someone.')\np.add_argument('name')\np.add_argument('--shout', action='store_true')\np.add_argument('--count', type=int, default=1)\nargs = p.parse_args()\n\nmsg = f'Hello, {args.name}!'\nprint((msg.upper() if args.shout else msg) * args.count)",
+      "notes": "Positional args have no `--`. `action='store_true'` for booleans. `type=int` auto-validates."
+    },
+    {
+      "id": "py_argparse_subcommands",
+      "languages": ["python"],
+      "triggers": ["argparse subcommands python", "subparsers python", "python cli subcommands"],
+      "title": "argparse subcommands",
+      "code": "import argparse\n\np = argparse.ArgumentParser()\nsub = p.add_subparsers(dest='cmd', required=True)\n\nadd = sub.add_parser('add')\nadd.add_argument('item')\n\nls = sub.add_parser('list')\n\nargs = p.parse_args()\nif args.cmd == 'add':\n    print('adding', args.item)\nelif args.cmd == 'list':\n    print('listing')",
+      "notes": "`required=True` makes the subcommand mandatory. Each subparser is its own ArgumentParser with its own args."
+    },
+    {
+      "id": "py_click",
+      "languages": ["python"],
+      "triggers": ["click python", "click cli python", "python click library"],
+      "title": "CLI with Click",
+      "code": "import click\n\n@click.command()\n@click.argument('name')\n@click.option('--shout', is_flag=True)\ndef hello(name, shout):\n    msg = f'Hello, {name}!'\n    click.echo(msg.upper() if shout else msg)\n\nif __name__ == '__main__':\n    hello()",
+      "notes": "`pip install click`. `click.echo` handles unicode/buffering better than `print`. For groups of commands use `@click.group()`."
+    },
+    {
+      "id": "py_typer",
+      "languages": ["python"],
+      "triggers": ["typer python", "fastapi cli", "modern python cli", "typer library"],
+      "title": "CLI with Typer",
+      "code": "import typer\n\napp = typer.Typer()\n\n@app.command()\ndef hello(name: str, shout: bool = False):\n    msg = f'Hello, {name}!'\n    typer.echo(msg.upper() if shout else msg)\n\nif __name__ == '__main__':\n    app()",
+      "notes": "Typer builds on Click and infers args from type hints. Great when you already use type hints everywhere."
+    },
+    {
+      "id": "py_env_vars",
+      "languages": ["python"],
+      "triggers": ["env vars python", "environment variable python", "os getenv python", "read env python"],
+      "title": "Read environment variables (with default)",
+      "code": "import os\n\nhost = os.getenv('DB_HOST', 'localhost')\nport = int(os.getenv('DB_PORT', '5432'))",
+      "notes": "`os.getenv` returns `None` if unset and no default. `os.environ['X']` raises KeyError. Cast to int/bool yourself — env values are always strings."
+    },
+    {
+      "id": "py_dotenv",
+      "languages": ["python"],
+      "triggers": ["dotenv python", "load .env python", "python-dotenv", "read .env file python"],
+      "title": "Load a .env file",
+      "code": "from dotenv import load_dotenv  # pip install python-dotenv\nimport os\n\nload_dotenv()  # reads .env in cwd\nprint(os.getenv('API_KEY'))",
+      "notes": "Call `load_dotenv()` before reading the vars. Existing env vars are NOT overridden unless you pass `override=True`."
+    },
+    {
+      "id": "py_fstring",
+      "languages": ["python"],
+      "triggers": ["f string python", "fstring python", "string formatting python", "python format string"],
+      "title": "f-string formatting",
+      "code": "name, count = 'Joe', 3\nprint(f'Hello {name}, you have {count} items.')\nprint(f'{3.14159:.2f}')        # 3.14\nprint(f'{42:08d}')             # 00000042\nprint(f'{count=}')             # count=3 (debug)\nprint(f'{name!r}')             # 'Joe' (repr)",
+      "notes": "Use `{var=}` (Py 3.8+) for quick debugging. `:.2f` = 2 decimal places. `!r` = repr, `!s` = str."
+    },
+    {
+      "id": "py_datetime_now",
+      "languages": ["python"],
+      "triggers": ["datetime now python", "current time python", "today python", "python current date"],
+      "title": "Current date/time in Python",
+      "code": "from datetime import datetime, timezone\n\nnow = datetime.now()                        # local naive\nutc = datetime.now(timezone.utc)            # aware UTC\nprint(now.isoformat())\nprint(utc.strftime('%Y-%m-%d %H:%M:%S'))",
+      "notes": "Prefer timezone-aware datetimes (`timezone.utc` or `zoneinfo.ZoneInfo`). Naive datetimes cause bugs at DST boundaries."
+    },
+    {
+      "id": "py_datetime_parse",
+      "languages": ["python"],
+      "triggers": ["parse date python", "strptime python", "python date from string", "convert string to date python"],
+      "title": "Parse a date string",
+      "code": "from datetime import datetime\n\nd = datetime.strptime('2026-05-14', '%Y-%m-%d')\nd2 = datetime.fromisoformat('2026-05-14T10:30:00')",
+      "notes": "`fromisoformat` is fastest if your input is ISO-8601. For fuzzy formats, use `dateutil.parser.parse` (pip install python-dateutil)."
+    },
+    {
+      "id": "py_datetime_add",
+      "languages": ["python"],
+      "triggers": ["add days date python", "timedelta python", "date arithmetic python", "python add days"],
+      "title": "Add days/hours to a date",
+      "code": "from datetime import datetime, timedelta\n\nnow = datetime.now()\ntomorrow = now + timedelta(days=1)\nin_3h = now + timedelta(hours=3)\ndelta = tomorrow - now  # timedelta(days=1)\nprint(delta.total_seconds())",
+      "notes": "`timedelta` supports days, seconds, microseconds, minutes, hours, weeks. No `months`/`years` — use `dateutil.relativedelta` for those."
+    },
+    {
+      "id": "py_sort_list",
+      "languages": ["python"],
+      "triggers": ["sort list python", "python sorted", "sort array python"],
+      "title": "Sort a list in Python",
+      "code": "nums = [3, 1, 4, 1, 5, 9, 2, 6]\nasc = sorted(nums)            # new list\ndesc = sorted(nums, reverse=True)\nnums.sort()                    # in place",
+      "notes": "`sorted()` returns a new list; `.sort()` mutates. Both are stable (equal items keep order)."
+    },
+    {
+      "id": "py_sort_key",
+      "languages": ["python"],
+      "triggers": ["sort by key python", "sort dict python", "sort objects python", "python sort lambda"],
+      "title": "Sort by a custom key",
+      "code": "users = [{'name': 'Joe', 'age': 9}, {'name': 'Ada', 'age': 36}]\nby_age = sorted(users, key=lambda u: u['age'])\nby_name = sorted(users, key=lambda u: u['name'].lower())\n\n# Sort dict by value:\nd = {'a': 3, 'b': 1, 'c': 2}\nordered = dict(sorted(d.items(), key=lambda kv: kv[1]))",
+      "notes": "For multi-key sort: `key=lambda u: (u['age'], u['name'])`. `operator.itemgetter('age')` is faster than a lambda."
+    },
+    {
+      "id": "py_dedupe",
+      "languages": ["python"],
+      "triggers": ["deduplicate list python", "unique list python", "remove duplicates python", "python distinct"],
+      "title": "Deduplicate a list (preserve order)",
+      "code": "items = ['a', 'b', 'a', 'c', 'b']\nunique = list(dict.fromkeys(items))   # ['a', 'b', 'c']\n\n# If order doesn't matter:\nunique_unordered = list(set(items))",
+      "notes": "`dict.fromkeys` preserves first-seen order (Py 3.7+). `set()` is faster but loses order."
+    },
+    {
+      "id": "py_flatten",
+      "languages": ["python"],
+      "triggers": ["flatten list python", "flatten nested list python", "python flatten array"],
+      "title": "Flatten a nested list",
+      "code": "from itertools import chain\n\nnested = [[1, 2], [3, 4], [5]]\nflat = list(chain.from_iterable(nested))  # [1,2,3,4,5]\n\n# Deeply nested? Recursive:\ndef flatten(xs):\n    for x in xs:\n        if isinstance(x, list):\n            yield from flatten(x)\n        else:\n            yield x",
+      "notes": "`chain.from_iterable` only flattens one level. For arbitrary nesting, write a recursive generator."
+    },
+    {
+      "id": "py_groupby",
+      "languages": ["python"],
+      "triggers": ["group by python", "groupby python", "python group items", "itertools groupby"],
+      "title": "Group items by a key",
+      "code": "from collections import defaultdict\n\nitems = [('fruit', 'apple'), ('veg', 'carrot'), ('fruit', 'pear')]\ngroups = defaultdict(list)\nfor cat, name in items:\n    groups[cat].append(name)\n\n# itertools.groupby — requires sorted input:\nfrom itertools import groupby\nfor key, grp in groupby(sorted(items), key=lambda x: x[0]):\n    print(key, list(grp))",
+      "notes": "`defaultdict` is usually easier and doesn't require sorting. `itertools.groupby` only groups CONSECUTIVE matches."
+    },
+    {
+      "id": "py_chunk_list",
+      "languages": ["python"],
+      "triggers": ["chunk list python", "split list python", "batch list python", "python list into chunks"],
+      "title": "Chunk a list into N-sized pieces",
+      "code": "def chunks(lst, n):\n    for i in range(0, len(lst), n):\n        yield lst[i:i + n]\n\nfor c in chunks(list(range(10)), 3):\n    print(c)\n# [0,1,2] [3,4,5] [6,7,8] [9]",
+      "notes": "Py 3.12+: `itertools.batched(lst, n)` is built in. For iterators (not lists), write a generator that uses `islice`."
+    },
+    {
+      "id": "py_max_min_by",
+      "languages": ["python"],
+      "triggers": ["max by key python", "min by key python", "python find max object", "argmax python"],
+      "title": "Find max/min by key",
+      "code": "users = [{'name': 'Joe', 'age': 9}, {'name': 'Ada', 'age': 36}]\noldest = max(users, key=lambda u: u['age'])\nyoungest = min(users, key=lambda u: u['age'])",
+      "notes": "Pass `default=None` to handle empty iterables without exceptions: `max(xs, key=..., default=None)`."
+    },
+    {
+      "id": "py_counter",
+      "languages": ["python"],
+      "triggers": ["most common element python", "counter python", "frequency count python", "python count items"],
+      "title": "Count items / most common",
+      "code": "from collections import Counter\n\nwords = 'the quick brown fox the lazy dog the'.split()\nc = Counter(words)\nprint(c.most_common(2))  # [('the', 3), ('quick', 1)]\nprint(c['the'])           # 3\nprint(c['missing'])       # 0 (no KeyError)",
+      "notes": "Counter is a dict subclass. Supports arithmetic: `c1 + c2`, `c1 - c2`, `c1 & c2` (min), `c1 | c2` (max)."
+    },
+    {
+      "id": "py_postgres",
+      "languages": ["python"],
+      "triggers": ["postgres python", "psycopg2 python", "connect postgresql python", "python pg connect"],
+      "title": "Connect to PostgreSQL (psycopg)",
+      "code": "import psycopg  # psycopg3, or psycopg2\n\nwith psycopg.connect('postgresql://user:pw@localhost/db') as conn:\n    with conn.cursor() as cur:\n        cur.execute('SELECT id, name FROM users WHERE active = %s', (True,))\n        for row in cur.fetchall():\n            print(row)",
+      "notes": "Always parameterize queries (`%s` placeholders) — never string-format SQL. psycopg3 supports async; psycopg2 is the older sync-only version."
+    },
+    {
+      "id": "py_sqlite",
+      "languages": ["python"],
+      "triggers": ["sqlite python", "connect sqlite python", "python sqlite3"],
+      "title": "Connect to SQLite",
+      "code": "import sqlite3\n\nwith sqlite3.connect('app.db') as conn:\n    conn.execute('CREATE TABLE IF NOT EXISTS notes(id INTEGER PRIMARY KEY, text TEXT)')\n    conn.execute('INSERT INTO notes(text) VALUES (?)', ('hello',))\n    for row in conn.execute('SELECT * FROM notes'):\n        print(row)",
+      "notes": "SQLite is stdlib — no install needed. The `with conn:` block auto-commits on success, rolls back on exception."
+    },
+    {
+      "id": "py_mysql",
+      "languages": ["python"],
+      "triggers": ["mysql python", "connect mysql python", "pymysql python", "mysql-connector python"],
+      "title": "Connect to MySQL",
+      "code": "import pymysql  # pip install pymysql\n\nconn = pymysql.connect(host='localhost', user='root', password='pw', database='app')\ntry:\n    with conn.cursor() as cur:\n        cur.execute('SELECT id FROM users WHERE active=%s', (1,))\n        print(cur.fetchall())\nfinally:\n    conn.close()",
+      "notes": "Alternatives: `mysql-connector-python` (Oracle's official), `aiomysql` for async. Parameterize with `%s` not f-strings."
+    },
+    {
+      "id": "py_sqlalchemy",
+      "languages": ["python"],
+      "triggers": ["sqlalchemy python", "orm python", "sqlalchemy basics", "python orm example"],
+      "title": "SQLAlchemy ORM basics",
+      "code": "from sqlalchemy import create_engine, String\nfrom sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session\n\nclass Base(DeclarativeBase): pass\nclass User(Base):\n    __tablename__ = 'users'\n    id: Mapped[int] = mapped_column(primary_key=True)\n    name: Mapped[str] = mapped_column(String(50))\n\nengine = create_engine('sqlite:///app.db')\nBase.metadata.create_all(engine)\n\nwith Session(engine) as s:\n    s.add(User(name='Joe'))\n    s.commit()",
+      "notes": "This is SQLAlchemy 2.x style. For 1.x you used `declarative_base()` and `Column(...)`. Always commit or use `with s.begin()`."
+    },
+    {
+      "id": "py_flask",
+      "languages": ["python"],
+      "triggers": ["flask app python", "flask hello world", "flask basics", "python flask server"],
+      "title": "Minimal Flask app",
+      "code": "from flask import Flask, jsonify, request\n\napp = Flask(__name__)\n\n@app.get('/')\ndef home():\n    return 'Hello from Flask!'\n\n@app.post('/echo')\ndef echo():\n    return jsonify(request.get_json())\n\nif __name__ == '__main__':\n    app.run(debug=True)",
+      "notes": "`debug=True` enables hot reload + tracebacks — never in production. For prod, run behind gunicorn: `gunicorn app:app`."
+    },
+    {
+      "id": "py_fastapi",
+      "languages": ["python"],
+      "triggers": ["fastapi python", "fastapi hello world", "fastapi basics", "modern python api"],
+      "title": "Minimal FastAPI app",
+      "code": "from fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\nclass Item(BaseModel):\n    name: str\n    price: float\n\n@app.get('/')\ndef home():\n    return {'hello': 'world'}\n\n@app.post('/items')\ndef create(item: Item):\n    return item",
+      "notes": "Run with `uvicorn app:app --reload`. FastAPI auto-generates OpenAPI docs at `/docs`."
+    },
+    {
+      "id": "py_send_email",
+      "languages": ["python"],
+      "triggers": ["send email python", "smtp python", "smtplib python", "python email send"],
+      "title": "Send an email via SMTP",
+      "code": "import smtplib\nfrom email.message import EmailMessage\n\nmsg = EmailMessage()\nmsg['Subject'] = 'Hello'\nmsg['From'] = 'me@example.com'\nmsg['To'] = 'you@example.com'\nmsg.set_content('Hi there!')\n\nwith smtplib.SMTP_SSL('smtp.gmail.com', 465) as s:\n    s.login('me@example.com', 'app-password')\n    s.send_message(msg)",
+      "notes": "Use an app-specific password for Gmail (regular passwords don't work). For HTML email, call `msg.add_alternative(html, subtype='html')`."
+    },
+    {
+      "id": "py_apscheduler",
+      "languages": ["python"],
+      "triggers": ["schedule task python", "apscheduler python", "cron in python", "python scheduled job"],
+      "title": "Schedule a function with APScheduler",
+      "code": "from apscheduler.schedulers.blocking import BlockingScheduler\n\nsched = BlockingScheduler()\n\n@sched.scheduled_job('interval', minutes=5)\ndef tick():\n    print('every 5 minutes')\n\n@sched.scheduled_job('cron', hour=9)\ndef morning():\n    print('9 AM daily')\n\nsched.start()",
+      "notes": "`BlockingScheduler` blocks the main thread. Use `BackgroundScheduler` inside a web app. `pip install apscheduler`."
+    },
+    {
+      "id": "py_async_run",
+      "languages": ["python"],
+      "triggers": ["asyncio run python", "run async function python", "python async basics", "asyncio basics"],
+      "title": "Run an async function",
+      "code": "import asyncio\n\nasync def main():\n    print('hi')\n    await asyncio.sleep(1)\n    print('bye')\n\nasyncio.run(main())",
+      "notes": "`asyncio.run` creates a fresh event loop. Don't call it inside another async function — use `await` instead."
+    },
+    {
+      "id": "py_async_gather",
+      "languages": ["python"],
+      "triggers": ["asyncio gather python", "run async tasks parallel python", "python concurrent async"],
+      "title": "Run async tasks in parallel (gather)",
+      "code": "import asyncio\n\nasync def task(n):\n    await asyncio.sleep(1)\n    return n * 2\n\nasync def main():\n    results = await asyncio.gather(task(1), task(2), task(3))\n    print(results)  # [2, 4, 6]\n\nasyncio.run(main())",
+      "notes": "`gather` runs concurrently and returns results in order. Use `return_exceptions=True` to keep going if one fails."
+    },
+    {
+      "id": "py_type_hints",
+      "languages": ["python"],
+      "triggers": ["type hints python", "python typing", "function annotations python", "python type annotations"],
+      "title": "Type hints basics",
+      "code": "def greet(name: str, count: int = 1) -> str:\n    return f'hi {name}' * count\n\nfrom typing import Optional\ndef find(id: int) -> Optional[dict]:\n    return None\n\n# Py 3.10+ shorthand:\ndef find2(id: int) -> dict | None:\n    return None",
+      "notes": "Hints don't enforce at runtime — they're for tools (mypy, IDEs). Use `from __future__ import annotations` to defer all evaluation."
+    },
+    {
+      "id": "py_typeddict",
+      "languages": ["python"],
+      "triggers": ["typeddict python", "python typed dict", "dict type hints python"],
+      "title": "TypedDict and Protocol",
+      "code": "from typing import TypedDict, Protocol\n\nclass User(TypedDict):\n    name: str\n    age: int\n\nu: User = {'name': 'Joe', 'age': 9}\n\nclass Greeter(Protocol):\n    def greet(self, name: str) -> str: ...\n\ndef use(g: Greeter):\n    print(g.greet('joe'))",
+      "notes": "TypedDict = shape of a dict. Protocol = structural (duck) typing — any class with matching methods passes."
+    },
+    {
+      "id": "py_dataclass",
+      "languages": ["python"],
+      "triggers": ["dataclass python", "python dataclass", "dataclass example"],
+      "title": "Dataclass example",
+      "code": "from dataclasses import dataclass, field\n\n@dataclass\nclass User:\n    name: str\n    age: int = 0\n    tags: list[str] = field(default_factory=list)\n\nu = User('Joe', 9)\nprint(u)  # User(name='Joe', age=9, tags=[])",
+      "notes": "Auto-generates `__init__`, `__repr__`, `__eq__`. Use `field(default_factory=list)` for mutable defaults — never `tags: list = []`."
+    },
+    {
+      "id": "py_pydantic",
+      "languages": ["python"],
+      "triggers": ["pydantic python", "pydantic model", "python validation", "pydantic basemodel"],
+      "title": "Pydantic model",
+      "code": "from pydantic import BaseModel, Field, EmailStr\n\nclass User(BaseModel):\n    name: str = Field(min_length=1)\n    age: int = Field(ge=0)\n    email: EmailStr | None = None\n\nu = User(name='Joe', age=9)\nprint(u.model_dump())            # dict\nprint(u.model_dump_json())       # JSON",
+      "notes": "Pydantic v2 uses `model_dump` instead of v1's `dict()`. `EmailStr` requires `pip install pydantic[email]`."
+    },
+    {
+      "id": "py_enum",
+      "languages": ["python"],
+      "triggers": ["enum python", "python enumeration", "python enum class"],
+      "title": "Enum in Python",
+      "code": "from enum import Enum, auto\n\nclass Status(Enum):\n    PENDING = auto()\n    ACTIVE = auto()\n    DONE = auto()\n\nprint(Status.ACTIVE.name, Status.ACTIVE.value)\nfor s in Status:\n    print(s)",
+      "notes": "Use `StrEnum` (Py 3.11+) when you want string semantics: `class Color(StrEnum): RED='red'`. Members are singletons and hashable."
+    },
+    {
+      "id": "py_generator",
+      "languages": ["python"],
+      "triggers": ["generator python", "yield python", "python generator function", "lazy iterator python"],
+      "title": "Generator (yield)",
+      "code": "def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        yield a\n        a, b = b, a + b\n\nfor x in fib(10):\n    print(x)\n\n# Generator expression:\nsquares = (x*x for x in range(10))",
+      "notes": "Generators are lazy — values produced on demand, memory-efficient for large sequences. Use `yield from sub()` to delegate."
+    },
+    {
+      "id": "py_decorator",
+      "languages": ["python"],
+      "triggers": ["decorator python", "python decorator function", "function decorator python", "wraps python"],
+      "title": "Decorator (with and without args)",
+      "code": "from functools import wraps\n\ndef log(fn):\n    @wraps(fn)\n    def wrapper(*args, **kwargs):\n        print(f'calling {fn.__name__}')\n        return fn(*args, **kwargs)\n    return wrapper\n\ndef repeat(n):\n    def deco(fn):\n        @wraps(fn)\n        def wrapper(*a, **kw):\n            for _ in range(n):\n                fn(*a, **kw)\n        return wrapper\n    return deco\n\n@log\n@repeat(3)\ndef hi(name): print(f'hi {name}')\n\nhi('joe')",
+      "notes": "Always use `@wraps(fn)` so the decorated function keeps its name/docstring. Decorators with args add one more layer."
+    },
+    {
+      "id": "py_context_manager",
+      "languages": ["python"],
+      "triggers": ["context manager python", "with statement python", "contextmanager decorator", "python custom context manager"],
+      "title": "Custom context manager",
+      "code": "from contextlib import contextmanager\nimport time\n\n@contextmanager\ndef timer(label):\n    start = time.perf_counter()\n    try:\n        yield\n    finally:\n        print(f'{label}: {time.perf_counter() - start:.3f}s')\n\nwith timer('work'):\n    sum(range(10_000_000))",
+      "notes": "The `finally` block is critical — it runs even if the `with` body raises. For classes, implement `__enter__` / `__exit__`."
+    },
+    {
+      "id": "py_regex_basics",
+      "languages": ["python"],
+      "triggers": ["regex python", "re module python", "python regex match", "regular expression python"],
+      "title": "Regex basics (re module)",
+      "code": "import re\n\ntext = 'Email me at joe@example.com or ada@example.org'\n\nm = re.search(r'\\b\\w+@\\w+\\.\\w+\\b', text)\nif m:\n    print(m.group())  # joe@example.com\n\nall_emails = re.findall(r'\\b\\w+@\\w+\\.\\w+\\b', text)\nfixed = re.sub(r'@', ' [at] ', text)\n\n# Match at start vs anywhere:\nre.match(r'\\d+', '42abc')   # matches\nre.match(r'\\d+', 'abc42')   # None\nre.search(r'\\d+', 'abc42')  # matches",
+      "notes": "Always use raw strings (`r'...'`) for regex. `match` anchors to start; `search` finds anywhere. `findall` returns list of matches."
+    },
+    {
+      "id": "py_walrus",
+      "languages": ["python"],
+      "triggers": ["walrus operator python", "python := operator", "assignment expression python"],
+      "title": "Walrus operator (:=)",
+      "code": "data = [1, 2, 3, 4, 5]\n\nif (n := len(data)) > 3:\n    print(f'long: {n}')\n\n# In a while loop:\nwhile (line := input('> ')):\n    print(f'got: {line}')",
+      "notes": "Py 3.8+. Useful for combining a check with capturing the value. Don't overuse — can hurt readability."
+    },
+    {
+      "id": "py_pip_install",
+      "languages": ["python"],
+      "triggers": ["pip install requirements python", "install requirements.txt", "python install dependencies", "pip from file"],
+      "title": "pip install from requirements.txt",
+      "code": "# Install all:\npip install -r requirements.txt\n\n# Freeze installed deps:\npip freeze > requirements.txt\n\n# Install with upgrade:\npip install -r requirements.txt --upgrade",
+      "notes": "`pip freeze` includes EVERY installed package — use `pip-tools` or `uv pip compile` for cleaner lockfiles. Prefer pinned versions in prod."
+    },
+    {
+      "id": "py_venv",
+      "languages": ["python"],
+      "triggers": ["create venv python", "virtualenv python", "python virtual environment", "venv create"],
+      "title": "Create a virtual environment",
+      "code": "python3 -m venv .venv\nsource .venv/bin/activate     # macOS/Linux\n.venv\\Scripts\\activate         # Windows\npip install -r requirements.txt\ndeactivate",
+      "notes": "Always create one per project. Modern alternative: `uv venv .venv` (much faster). Add `.venv/` to `.gitignore`."
+    },
+    {
+      "id": "py_pyproject",
+      "languages": ["python"],
+      "triggers": ["pyproject.toml python", "modern python packaging", "pyproject example"],
+      "title": "Minimal pyproject.toml",
+      "code": "[build-system]\nrequires = ['hatchling']\nbuild-backend = 'hatchling.build'\n\n[project]\nname = 'my-pkg'\nversion = '0.1.0'\ndependencies = ['requests>=2.30']\n\n[project.scripts]\nmy-cli = 'my_pkg.cli:main'\n\n[tool.ruff]\nline-length = 100",
+      "notes": "`pyproject.toml` replaces `setup.py` / `setup.cfg`. Hatchling, setuptools, poetry, and uv are all valid build backends."
+    },
+    {
+      "id": "py_pytest_fixture",
+      "languages": ["python"],
+      "triggers": ["pytest fixture", "python test fixture", "pytest setup", "pytest yield fixture"],
+      "title": "pytest fixture",
+      "code": "import pytest\n\n@pytest.fixture\ndef sample_data():\n    data = {'a': 1, 'b': 2}\n    yield data\n    # teardown after yield\n    print('cleaning up')\n\ndef test_sum(sample_data):\n    assert sum(sample_data.values()) == 3",
+      "notes": "Code before `yield` is setup, after is teardown. Use `scope='session'` to share a fixture across the whole test run."
+    },
+    {
+      "id": "py_pytest_parametrize",
+      "languages": ["python"],
+      "triggers": ["pytest parametrize", "pytest multiple cases", "pytest data driven", "python parametrized test"],
+      "title": "pytest parametrize",
+      "code": "import pytest\n\n@pytest.mark.parametrize('a,b,expected', [\n    (1, 2, 3),\n    (0, 0, 0),\n    (-1, 1, 0),\n])\ndef test_add(a, b, expected):\n    assert a + b == expected",
+      "notes": "Each tuple becomes a separate test case. Use `pytest.param(..., id='name')` to label cases or `marks=pytest.mark.skip`."
+    },
+    {
+      "id": "py_mock",
+      "languages": ["python"],
+      "triggers": ["mock function python", "python unittest mock", "patch python", "mock.patch python"],
+      "title": "Mock a function",
+      "code": "from unittest.mock import patch, MagicMock\n\n# Patch where it's USED, not where it's defined:\nwith patch('mymodule.requests.get') as mock_get:\n    mock_get.return_value.json.return_value = {'ok': True}\n    result = mymodule.fetch()\n    mock_get.assert_called_once()",
+      "notes": "Common gotcha: patch the import path where the function is LOOKED UP, not where it's defined. `pytest-mock` provides a `mocker` fixture for nicer syntax."
+    },
+    {
+      "id": "py_property",
+      "languages": ["python"],
+      "triggers": ["property decorator python", "python getter setter", "python property example"],
+      "title": "@property decorator",
+      "code": "class Temp:\n    def __init__(self, c):\n        self._c = c\n\n    @property\n    def celsius(self):\n        return self._c\n\n    @celsius.setter\n    def celsius(self, value):\n        if value < -273.15:\n            raise ValueError('below absolute zero')\n        self._c = value\n\n    @property\n    def fahrenheit(self):\n        return self._c * 9/5 + 32\n\nt = Temp(25)\nt.celsius = 30\nprint(t.fahrenheit)",
+      "notes": "Use properties to add validation or computed values without changing the public API. Don't make every attribute a property — only when you need logic."
+    },
+    {
+      "id": "py_inheritance",
+      "languages": ["python"],
+      "triggers": ["class inheritance python", "python subclass", "extend class python", "super python"],
+      "title": "Class inheritance",
+      "code": "class Animal:\n    def __init__(self, name):\n        self.name = name\n    def speak(self):\n        return 'generic sound'\n\nclass Dog(Animal):\n    def __init__(self, name, breed):\n        super().__init__(name)\n        self.breed = breed\n    def speak(self):\n        return 'woof'\n\nd = Dog('Rex', 'lab')\nprint(d.name, d.speak())",
+      "notes": "Always call `super().__init__()` to run parent setup. Override methods by redefining them in the child."
+    },
+    {
+      "id": "py_abc",
+      "languages": ["python"],
+      "triggers": ["abstract class python", "abc python", "abstractmethod python", "python interface"],
+      "title": "Abstract base class",
+      "code": "from abc import ABC, abstractmethod\n\nclass Shape(ABC):\n    @abstractmethod\n    def area(self) -> float: ...\n\nclass Square(Shape):\n    def __init__(self, side): self.side = side\n    def area(self): return self.side ** 2\n\n# Shape()  # raises TypeError - can't instantiate abstract",
+      "notes": "ABCs enforce that subclasses implement required methods. Use Protocols instead if you want structural typing without inheritance."
+    },
+    {
+      "id": "py_singleton",
+      "languages": ["python"],
+      "triggers": ["singleton python", "python singleton pattern", "one instance python"],
+      "title": "Singleton pattern",
+      "code": "class Settings:\n    _instance = None\n    def __new__(cls):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n            cls._instance.value = 'default'\n        return cls._instance\n\na = Settings()\nb = Settings()\nassert a is b",
+      "notes": "Modules are already singletons in Python — usually a plain module with module-level values is simpler than a Singleton class."
+    },
+    {
+      "id": "py_lru_cache",
+      "languages": ["python"],
+      "triggers": ["lru_cache python", "memoize python", "cache function python", "functools cache"],
+      "title": "Memoize with lru_cache",
+      "code": "from functools import lru_cache\n\n@lru_cache(maxsize=128)\ndef fib(n):\n    if n < 2: return n\n    return fib(n-1) + fib(n-2)\n\nprint(fib(50))",
+      "notes": "Args must be hashable (no lists/dicts). Py 3.9+: `@cache` is `lru_cache(maxsize=None)`. Clear with `fib.cache_clear()`."
+    },
+    {
+      "id": "py_thread_pool",
+      "languages": ["python"],
+      "triggers": ["threadpoolexecutor python", "python thread pool", "concurrent futures python", "python parallel io"],
+      "title": "ThreadPoolExecutor",
+      "code": "from concurrent.futures import ThreadPoolExecutor, as_completed\nimport requests\n\nurls = ['https://a.com', 'https://b.com', 'https://c.com']\n\nwith ThreadPoolExecutor(max_workers=10) as ex:\n    futures = {ex.submit(requests.get, u): u for u in urls}\n    for f in as_completed(futures):\n        print(futures[f], f.result().status_code)",
+      "notes": "Threads are great for I/O-bound work (HTTP, file I/O). For CPU-bound work, use `ProcessPoolExecutor` instead — GIL blocks real parallelism on threads."
+    },
+    {
+      "id": "py_process_pool",
+      "languages": ["python"],
+      "triggers": ["processpoolexecutor python", "python process pool", "multiprocessing python", "python parallel cpu"],
+      "title": "ProcessPoolExecutor",
+      "code": "from concurrent.futures import ProcessPoolExecutor\n\ndef heavy(n):\n    return sum(i*i for i in range(n))\n\nif __name__ == '__main__':\n    with ProcessPoolExecutor() as ex:\n        results = list(ex.map(heavy, [10_000_000] * 4))\n    print(results)",
+      "notes": "Must guard with `if __name__ == '__main__'` on Windows/macOS (spawn). Function and args must be picklable."
+    },
+    {
+      "id": "py_websocket_client",
+      "languages": ["python"],
+      "triggers": ["websocket client python", "python websocket connect", "websockets library python"],
+      "title": "WebSocket client (websockets lib)",
+      "code": "import asyncio\nimport websockets\n\nasync def main():\n    async with websockets.connect('wss://echo.websocket.org') as ws:\n        await ws.send('hello')\n        msg = await ws.recv()\n        print(msg)\n\nasyncio.run(main())",
+      "notes": "`pip install websockets`. For sync code use the `websocket-client` package. Always wrap in try/except for `ConnectionClosed`."
+    },
+    {
+      "id": "py_logging",
+      "languages": ["python"],
+      "triggers": ["logging python", "python logger", "configure logging python", "logging setup python"],
+      "title": "Logging setup (file + console)",
+      "code": "import logging\n\nlogging.basicConfig(\n    level=logging.INFO,\n    format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',\n    handlers=[\n        logging.FileHandler('app.log'),\n        logging.StreamHandler(),\n    ],\n)\n\nlog = logging.getLogger(__name__)\nlog.info('starting up')\nlog.error('something broke', exc_info=True)",
+      "notes": "Use `getLogger(__name__)` per module so logs carry their module name. `exc_info=True` includes the current traceback."
+    },
+    {
+      "id": "py_pprint",
+      "languages": ["python"],
+      "triggers": ["pretty print python", "pprint python", "rich print python", "python pretty output"],
+      "title": "Pretty print",
+      "code": "from pprint import pp\npp({'a': [1, 2, 3], 'b': {'nested': True}}, depth=2, width=60)\n\n# Even prettier with rich:\nfrom rich import print as rprint  # pip install rich\nrprint({'a': [1, 2, 3]})",
+      "notes": "`pprint.pp` (Py 3.8+) is the modern one. `rich` adds color, tables, tracebacks, progress bars — worth it for CLI tools."
+    },
+    {
+      "id": "py_timeit",
+      "languages": ["python"],
+      "triggers": ["timeit python", "benchmark python", "measure speed python", "profile code python"],
+      "title": "Profile / time code",
+      "code": "import timeit\n\nprint(timeit.timeit('sum(range(1000))', number=10000))\n\n# Profile a whole function:\nimport cProfile\ncProfile.run('main()', sort='cumulative')",
+      "notes": "`timeit` for micro-benchmarks (runs many times). `cProfile` for full-program profiling. View output with `snakeviz`."
+    },
+    {
+      "id": "py_mypy",
+      "languages": ["python"],
+      "triggers": ["mypy python", "type check python", "static type check python"],
+      "title": "Type-check with mypy",
+      "code": "# Install:\npip install mypy\n\n# Run:\nmypy src/\n\n# Strict mode:\nmypy --strict src/\n\n# pyproject.toml config:\n[tool.mypy]\nstrict = true\npython_version = '3.11'",
+      "notes": "Start non-strict to ease adoption. `# type: ignore` silences a single line. Use `from __future__ import annotations` for forward refs."
+    },
+    {
+      "id": "py_black_ruff",
+      "languages": ["python"],
+      "triggers": ["black python", "ruff python", "format python code", "python formatter"],
+      "title": "Format with black / ruff",
+      "code": "# Format:\nruff format .         # fast, replaces black\n# or:\nblack .\n\n# Lint:\nruff check . --fix\n\n# pyproject.toml:\n[tool.ruff]\nline-length = 100\n[tool.ruff.lint]\nselect = ['E', 'F', 'I', 'B']",
+      "notes": "`ruff` does linting AND formatting now — most projects can drop black/flake8/isort and just use ruff. Much faster too."
+    },
+    {
+      "id": "py_numpy_basics",
+      "languages": ["python"],
+      "triggers": ["numpy basics", "numpy array python", "numpy reshape", "python numpy create"],
+      "title": "numpy: create, reshape, slice",
+      "code": "import numpy as np\n\na = np.array([1, 2, 3, 4, 5, 6])\nb = a.reshape(2, 3)\nprint(b[0, :])       # first row\nprint(b[:, 1])       # second col\nprint(np.zeros((3, 3)))\nprint(np.linspace(0, 1, 5))",
+      "notes": "Reshape must match total size. `np.newaxis` adds a dimension. Vectorized ops (e.g. `a * 2`) are MUCH faster than Python loops."
+    },
+    {
+      "id": "py_pandas_filter_group",
+      "languages": ["python"],
+      "triggers": ["pandas filter python", "pandas group by python", "pandas dataframe basics", "python dataframe filter"],
+      "title": "pandas: filter, group, merge",
+      "code": "import pandas as pd\n\ndf = pd.read_csv('data.csv')\nactive = df[df['status'] == 'active']\nby_dept = df.groupby('dept')['salary'].mean()\nmerged = df.merge(other, on='id', how='left')\npivot = df.pivot_table(index='dept', columns='year', values='salary', aggfunc='sum')",
+      "notes": "Use `.loc[mask, cols]` for explicit row/col selection. Chained boolean masks need parens: `df[(df.a > 1) & (df.b < 2)]`."
+    },
+    {
+      "id": "py_matplotlib",
+      "languages": ["python"],
+      "triggers": ["matplotlib python", "plot python", "line plot python", "save figure python"],
+      "title": "matplotlib: line plot + save",
+      "code": "import matplotlib.pyplot as plt\n\nx = [1, 2, 3, 4]\ny = [10, 20, 25, 30]\n\nfig, ax = plt.subplots(figsize=(6, 4))\nax.plot(x, y, marker='o')\nax.set_title('My plot')\nax.set_xlabel('x'); ax.set_ylabel('y')\nfig.savefig('plot.png', dpi=150, bbox_inches='tight')",
+      "notes": "Prefer the OO style (`fig, ax = subplots()`) over `plt.plot(...)`. `bbox_inches='tight'` trims whitespace around the figure."
+    },
+    {
+      "id": "py_plotly",
+      "languages": ["python"],
+      "triggers": ["plotly python", "interactive plot python", "plotly express"],
+      "title": "Plot with plotly express",
+      "code": "import plotly.express as px\nimport pandas as pd\n\ndf = pd.DataFrame({'x': [1,2,3,4], 'y': [10, 20, 25, 30]})\nfig = px.line(df, x='x', y='y', title='My plot')\nfig.write_html('plot.html')\n# fig.show()  # in notebooks",
+      "notes": "`plotly.express` is the easy API; drop down to `plotly.graph_objects` for fine control. Output is interactive HTML."
+    },
+    {
+      "id": "py_sklearn_split",
+      "languages": ["python"],
+      "triggers": ["train test split python", "sklearn split", "python ml split", "train_test_split"],
+      "title": "Train/test split (sklearn)",
+      "code": "from sklearn.model_selection import train_test_split\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42, stratify=y,\n)",
+      "notes": "Set `random_state` for reproducibility. `stratify=y` keeps class proportions equal between train/test (important for classification)."
+    },
+    {
+      "id": "py_pickle",
+      "languages": ["python"],
+      "triggers": ["pickle python", "save object python", "python serialize object", "pickle dump load"],
+      "title": "Pickle: save/load objects",
+      "code": "import pickle\n\nwith open('data.pkl', 'wb') as f:\n    pickle.dump(my_obj, f)\n\nwith open('data.pkl', 'rb') as f:\n    obj = pickle.load(f)",
+      "notes": "NEVER unpickle data from an untrusted source — pickle can execute arbitrary code. For safer cross-language formats use JSON or msgpack."
+    },
+    {
+      "id": "py_hash_sha256",
+      "languages": ["python"],
+      "triggers": ["sha256 python", "hash string python", "python hashlib", "hash file python"],
+      "title": "Hash a string or file (sha256)",
+      "code": "import hashlib\n\nh = hashlib.sha256(b'hello').hexdigest()\nprint(h)\n\n# Hash a big file in chunks:\nh = hashlib.sha256()\nwith open('big.bin', 'rb') as f:\n    for chunk in iter(lambda: f.read(8192), b''):\n        h.update(chunk)\nprint(h.hexdigest())",
+      "notes": "Hash inputs must be bytes — encode strings: `'hello'.encode()`. Use sha256/sha512, NOT md5 or sha1 for security."
+    },
+    {
+      "id": "py_hmac",
+      "languages": ["python"],
+      "triggers": ["hmac python", "python hmac sha256", "sign payload python"],
+      "title": "HMAC signature",
+      "code": "import hmac, hashlib\n\nsig = hmac.new(b'secret', b'message', hashlib.sha256).hexdigest()\n\n# Verify constant-time:\nexpected = '...'\nassert hmac.compare_digest(sig, expected)",
+      "notes": "Always use `hmac.compare_digest` to verify — protects against timing attacks. Keys and messages must be bytes."
+    },
+    {
+      "id": "py_fernet",
+      "languages": ["python"],
+      "triggers": ["encrypt decrypt python", "fernet python", "cryptography python", "symmetric encryption python"],
+      "title": "Encrypt/decrypt with Fernet",
+      "code": "from cryptography.fernet import Fernet\n\nkey = Fernet.generate_key()  # save this securely!\nf = Fernet(key)\n\ntoken = f.encrypt(b'secret message')\nprint(f.decrypt(token))",
+      "notes": "Fernet = AES-128-CBC + HMAC. The key is itself bytes — store it in a secret manager, not in code. `pip install cryptography`."
+    },
+    {
+      "id": "py_base64",
+      "languages": ["python"],
+      "triggers": ["base64 python", "encode base64 python", "decode base64 python"],
+      "title": "Base64 encode/decode",
+      "code": "import base64\n\nenc = base64.b64encode(b'hello').decode()  # 'aGVsbG8='\nraw = base64.b64decode(enc)                # b'hello'\n\n# URL-safe variant:\nbase64.urlsafe_b64encode(b'data')",
+      "notes": "Use `urlsafe_b64encode` if you'll put the result in a URL — replaces `+`/`/` with `-`/`_`."
+    },
+    {
+      "id": "py_url_encode",
+      "languages": ["python"],
+      "triggers": ["url encode python", "urlencode python", "quote string python url"],
+      "title": "URL encode/decode",
+      "code": "from urllib.parse import quote, unquote, urlencode\n\nquote('hello world!')       # 'hello%20world%21'\nunquote('hello%20world')    # 'hello world'\n\nurlencode({'q': 'monkey joe', 'page': 2})\n# 'q=monkey+joe&page=2'",
+      "notes": "`quote` escapes one string. `urlencode` builds a query string from a dict. Use `quote_plus` for form-style spaces-as-`+`."
+    },
+    {
+      "id": "py_uuid",
+      "languages": ["python"],
+      "triggers": ["uuid python", "generate uuid python", "python random id", "uuid4 python"],
+      "title": "Generate a UUID",
+      "code": "import uuid\n\nprint(uuid.uuid4())               # random\nprint(uuid.uuid4().hex)           # no dashes\nprint(str(uuid.uuid5(uuid.NAMESPACE_DNS, 'example.com')))",
+      "notes": "`uuid4` = random. `uuid5` = deterministic from a namespace + name. Avoid `uuid1` (leaks MAC address + time)."
+    },
+    {
+      "id": "py_random",
+      "languages": ["python"],
+      "triggers": ["random python", "random number python", "random choice python", "python random pick"],
+      "title": "Random numbers and choices",
+      "code": "import random\n\nrandom.random()              # float in [0, 1)\nrandom.randint(1, 10)        # int in [1, 10]\nrandom.choice(['a','b','c'])\nrandom.sample(range(100), 5) # 5 unique\nrandom.shuffle(my_list)      # in place",
+      "notes": "Seed with `random.seed(42)` for reproducibility. For crypto/security use `secrets` instead — `random` is NOT cryptographically secure."
+    },
+    {
+      "id": "py_secrets",
+      "languages": ["python"],
+      "triggers": ["secrets python", "secure random python", "token python secrets", "python cryptographic random"],
+      "title": "secrets module (crypto random)",
+      "code": "import secrets\n\nsecrets.token_hex(16)         # 32-char hex\nsecrets.token_urlsafe(16)     # url-safe token\nsecrets.choice(['a','b'])\nsecrets.randbelow(100)",
+      "notes": "Use this for passwords, API tokens, session IDs — anything an attacker might try to predict."
+    },
+    {
+      "id": "py_exception_specific",
+      "languages": ["python"],
+      "triggers": ["catch specific exception python", "try except python", "python exception handling", "multiple exceptions python"],
+      "title": "Catch specific exceptions",
+      "code": "try:\n    risky()\nexcept FileNotFoundError as e:\n    print(f'missing: {e}')\nexcept (ValueError, TypeError) as e:\n    print(f'bad input: {e}')\nexcept Exception:\n    raise            # don't silently swallow",
+      "notes": "Always catch the narrowest exception class you actually handle. Never bare `except:` — it catches KeyboardInterrupt too."
+    },
+    {
+      "id": "py_exception_reraise",
+      "languages": ["python"],
+      "triggers": ["re-raise exception python", "raise from python", "exception chain python", "python rethrow"],
+      "title": "Re-raise with context",
+      "code": "try:\n    parse(data)\nexcept ValueError as e:\n    raise RuntimeError('failed to parse') from e\n\n# Suppress chain:\nraise RuntimeError('clean') from None",
+      "notes": "`raise X from e` preserves the original traceback as `__cause__`. `from None` hides it for cleaner errors at API boundaries."
+    },
+    {
+      "id": "py_custom_exception",
+      "languages": ["python"],
+      "triggers": ["custom exception python", "python user exception", "create exception class python"],
+      "title": "Custom exception class",
+      "code": "class ValidationError(Exception):\n    def __init__(self, field, message):\n        super().__init__(f'{field}: {message}')\n        self.field = field\n\ntry:\n    raise ValidationError('email', 'is invalid')\nexcept ValidationError as e:\n    print(e.field, e)",
+      "notes": "Subclass `Exception`, not `BaseException` (which includes KeyboardInterrupt). Store extra context on the exception for the caller to inspect."
+    },
+    {
+      "id": "py_try_finally",
+      "languages": ["python"],
+      "triggers": ["try finally python", "try except else python", "python finally block"],
+      "title": "try/except/else/finally",
+      "code": "try:\n    result = compute()\nexcept ValueError:\n    print('bad value')\nelse:\n    print('only runs if NO exception:', result)\nfinally:\n    print('always runs, even on return/raise')",
+      "notes": "`else` is for the success path so the `try` block stays narrow. `finally` always runs — perfect for cleanup."
+    },
+    {
+      "id": "py_threading_basic",
+      "languages": ["python"],
+      "triggers": ["threading python", "python thread basic", "start thread python"],
+      "title": "Basic threading",
+      "code": "import threading, time\n\ndef worker(name):\n    print(f'{name} starting')\n    time.sleep(1)\n    print(f'{name} done')\n\nt = threading.Thread(target=worker, args=('a',))\nt.start()\nt.join()",
+      "notes": "GIL means threads don't speed up CPU work — use them for I/O. Use `concurrent.futures` for higher-level pools."
+    },
+    {
+      "id": "py_shelve",
+      "languages": ["python"],
+      "triggers": ["shelve python", "key value store python stdlib", "python persistent dict"],
+      "title": "Shelve: persistent key-value store",
+      "code": "import shelve\n\nwith shelve.open('mydata') as db:\n    db['user'] = {'name': 'Joe', 'age': 9}\n    print(db['user'])",
+      "notes": "Shelve = pickled values + dbm. Simple persistent dict for small projects. Don't use it for shared/concurrent writes."
+    },
+    {
+      "id": "js_read_file_sync",
+      "languages": ["javascript"],
+      "triggers": ["read file node", "fs readfilesync", "javascript read file", "node read text file"],
+      "title": "Read a file in Node (sync + async)",
+      "code": "import fs from 'node:fs';\nimport { readFile } from 'node:fs/promises';\n\n// Sync (small scripts):\nconst text = fs.readFileSync('data.txt', 'utf8');\n\n// Async (preferred):\nconst text2 = await readFile('data.txt', 'utf8');",
+      "notes": "Pass `'utf8'` (or any encoding) to get a string — otherwise you get a Buffer. Prefer `fs/promises` in modern code."
+    },
+    {
+      "id": "js_write_file",
+      "languages": ["javascript"],
+      "triggers": ["write file node", "fs writefile", "javascript save file", "node write text file"],
+      "title": "Write a file in Node",
+      "code": "import { writeFile } from 'node:fs/promises';\n\nawait writeFile('out.txt', 'hello\\n', 'utf8');",
+      "notes": "`writeFile` overwrites. Use `appendFile` to add to end. For binary, omit the encoding and pass a Buffer."
+    },
+    {
+      "id": "js_append_file",
+      "languages": ["javascript"],
+      "triggers": ["append file node", "node append file", "fs appendfile"],
+      "title": "Append to a file in Node",
+      "code": "import { appendFile } from 'node:fs/promises';\n\nawait appendFile('log.txt', `${new Date().toISOString()} event\\n`);",
+      "notes": "Creates the file if missing. For high-frequency logging use a write stream (`fs.createWriteStream`) — opens once, writes many times."
+    },
+    {
+      "id": "js_read_line_by_line",
+      "languages": ["javascript"],
+      "triggers": ["read file line by line node", "node readline file", "javascript stream lines"],
+      "title": "Read a file line by line",
+      "code": "import { createReadStream } from 'node:fs';\nimport { createInterface } from 'node:readline';\n\nconst rl = createInterface({\n  input: createReadStream('big.txt'),\n  crlfDelay: Infinity,\n});\n\nfor await (const line of rl) {\n  console.log(line);\n}",
+      "notes": "`crlfDelay: Infinity` handles Windows line endings. Memory-friendly for huge files — never `readFileSync` a multi-GB file."
+    },
+    {
+      "id": "js_walk_dir",
+      "languages": ["javascript"],
+      "triggers": ["walk directory node", "recursive readdir node", "list files recursively javascript"],
+      "title": "Walk a directory tree (Node)",
+      "code": "import { readdir } from 'node:fs/promises';\nimport path from 'node:path';\n\nasync function walk(dir) {\n  const entries = await readdir(dir, { withFileTypes: true });\n  for (const e of entries) {\n    const full = path.join(dir, e.name);\n    if (e.isDirectory()) yield* walk(full);\n    else yield full;\n  }\n}\n// Node 20+: fs.readdir(dir, { recursive: true })",
+      "notes": "Node 20+ has `readdir(dir, { recursive: true })` built in. The generator version above gives you fine-grained control + filtering."
+    },
+    {
+      "id": "js_file_exists",
+      "languages": ["javascript"],
+      "triggers": ["check file exists node", "node file exists", "fs exists javascript"],
+      "title": "Check if a file exists (Node)",
+      "code": "import { access } from 'node:fs/promises';\nimport { constants } from 'node:fs';\n\ntry {\n  await access('data.txt', constants.F_OK);\n  console.log('exists');\n} catch {\n  console.log('missing');\n}",
+      "notes": "`fs.existsSync` is fine for scripts but discouraged in async code (race conditions). The try/catch on `access` is the modern way."
+    },
+    {
+      "id": "js_path_ops",
+      "languages": ["javascript"],
+      "triggers": ["path module node", "node path join", "javascript path basename"],
+      "title": "Path operations in Node",
+      "code": "import path from 'node:path';\n\npath.join('a', 'b', 'c.txt');     // 'a/b/c.txt'\npath.resolve('a', 'b');           // absolute\npath.basename('/a/b/c.txt');      // 'c.txt'\npath.dirname('/a/b/c.txt');       // '/a/b'\npath.extname('c.txt');            // '.txt'\npath.parse('/a/b/c.txt');         // { root, dir, base, ext, name }",
+      "notes": "Use `path.join` not string concatenation — handles separators correctly across OSes. `path.resolve` makes a path absolute."
+    },
+    {
+      "id": "js_fetch_get",
+      "languages": ["javascript"],
+      "triggers": ["fetch get javascript", "fetch api javascript", "node fetch get", "http get javascript"],
+      "title": "fetch GET",
+      "code": "const r = await fetch('https://api.example.com/users?q=joe');\nif (!r.ok) throw new Error(`HTTP ${r.status}`);\nconst data = await r.json();",
+      "notes": "fetch is built into modern Node (18+) and browsers. `r.ok` is true for 2xx. Always check it — fetch only rejects on network errors, not HTTP errors."
+    },
+    {
+      "id": "js_fetch_post",
+      "languages": ["javascript"],
+      "triggers": ["fetch post javascript", "post json fetch", "javascript api post"],
+      "title": "fetch POST with JSON",
+      "code": "const r = await fetch('https://api.example.com/items', {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n    'Authorization': 'Bearer TOKEN',\n  },\n  body: JSON.stringify({ name: 'banana' }),\n});\nif (!r.ok) throw new Error(`HTTP ${r.status}`);\nconst data = await r.json();",
+      "notes": "Must `JSON.stringify` the body yourself — fetch won't do it. Always set `Content-Type` for JSON."
+    },
+    {
+      "id": "js_axios_post",
+      "languages": ["javascript"],
+      "triggers": ["axios post", "axios javascript", "axios with headers"],
+      "title": "axios POST with headers",
+      "code": "import axios from 'axios';\n\nconst { data } = await axios.post(\n  'https://api.example.com/items',\n  { name: 'banana' },\n  { headers: { Authorization: 'Bearer TOKEN' }, timeout: 10_000 },\n);",
+      "notes": "axios auto-stringifies JSON and parses responses. Use `axios.create({ baseURL })` for a reusable client. Throws on 4xx/5xx by default."
+    },
+    {
+      "id": "js_form_upload",
+      "languages": ["javascript"],
+      "triggers": ["form data upload javascript", "multipart upload node", "javascript file upload fetch"],
+      "title": "Multipart form upload (Node 20+)",
+      "code": "import { openAsBlob } from 'node:fs';\n\nconst form = new FormData();\nform.append('file', await openAsBlob('photo.jpg'), 'photo.jpg');\nform.append('caption', 'hello');\n\nconst r = await fetch('https://api.example.com/upload', {\n  method: 'POST',\n  body: form,\n});",
+      "notes": "Don't set `Content-Type` manually — fetch generates the multipart boundary. In the browser, you'd grab the file from an `<input type='file'>`."
+    },
+    {
+      "id": "js_subprocess",
+      "languages": ["javascript"],
+      "triggers": ["spawn child process node", "child_process javascript", "run shell command node", "node exec"],
+      "title": "Run a shell command in Node",
+      "code": "import { spawn, exec } from 'node:child_process';\nimport { promisify } from 'node:util';\n\nconst execP = promisify(exec);\nconst { stdout } = await execP('ls -la');\nconsole.log(stdout);\n\n// Streaming output:\nconst proc = spawn('ping', ['-c', '3', 'example.com']);\nproc.stdout.on('data', d => process.stdout.write(d));",
+      "notes": "`exec` is convenient for short commands; `spawn` for streaming/large output. Avoid `shell: true` with user input — injection risk."
+    },
+    {
+      "id": "js_env_vars",
+      "languages": ["javascript"],
+      "triggers": ["env var node", "process.env javascript", "node environment variable"],
+      "title": "Environment variables in Node",
+      "code": "const port = Number(process.env.PORT ?? 3000);\nconst dbUrl = process.env.DATABASE_URL;\nif (!dbUrl) throw new Error('DATABASE_URL is required');",
+      "notes": "`process.env` values are always strings. Use `??` (nullish coalescing) for defaults. Cast numbers/bools yourself."
+    },
+    {
+      "id": "js_dotenv",
+      "languages": ["javascript"],
+      "triggers": ["dotenv node", "load .env node", "javascript dotenv"],
+      "title": "Load .env in Node",
+      "code": "import 'dotenv/config';   // npm i dotenv\n// or:\nimport dotenv from 'dotenv';\ndotenv.config();\n\nconsole.log(process.env.API_KEY);\n\n// Node 20.6+ built-in:\n// node --env-file=.env script.js",
+      "notes": "Node 20.6+ has `--env-file=.env` built-in — no library needed. dotenv won't overwrite existing env vars unless you pass `{ override: true }`."
+    },
+    {
+      "id": "js_argv_yargs",
+      "languages": ["javascript"],
+      "triggers": ["yargs node", "command line args node", "javascript cli args", "argv node"],
+      "title": "CLI args with yargs",
+      "code": "import yargs from 'yargs';\nimport { hideBin } from 'yargs/helpers';\n\nconst argv = yargs(hideBin(process.argv))\n  .option('name', { type: 'string', demandOption: true })\n  .option('shout', { type: 'boolean', default: false })\n  .parse();\n\nlet msg = `Hello, ${argv.name}!`;\nconsole.log(argv.shout ? msg.toUpperCase() : msg);",
+      "notes": "Alternatives: `commander` (chainable API), `minimist` (lightweight). Node 20+ also has built-in `util.parseArgs`."
+    },
+    {
+      "id": "js_date_basics",
+      "languages": ["javascript"],
+      "triggers": ["date javascript", "new date js", "current time javascript"],
+      "title": "Date basics in JavaScript",
+      "code": "const now = new Date();\nconst iso = now.toISOString();          // '2026-05-14T10:30:00.000Z'\nconst ms = Date.now();                  // epoch ms\n\nconst parsed = new Date('2026-05-14');\nconst tomorrow = new Date(now);\ntomorrow.setDate(now.getDate() + 1);",
+      "notes": "Built-in Date is rough. Reach for `date-fns` (tree-shakeable) or `dayjs` (small, immutable) for anything beyond basics."
+    },
+    {
+      "id": "js_date_format",
+      "languages": ["javascript"],
+      "triggers": ["format date javascript", "date-fns format", "dayjs format", "javascript date string"],
+      "title": "Format a date (date-fns / Intl)",
+      "code": "import { format, addDays } from 'date-fns';\n\nformat(new Date(), 'yyyy-MM-dd HH:mm');\nformat(addDays(new Date(), 7), 'PPP');     // 'May 21st, 2026'\n\n// Stdlib Intl:\nnew Intl.DateTimeFormat('en-US', {\n  dateStyle: 'long', timeStyle: 'short',\n}).format(new Date());",
+      "notes": "`Intl.DateTimeFormat` is built in and locale-aware — no dependency needed. date-fns is great if you need lots of date math."
+    },
+    {
+      "id": "js_array_methods",
+      "languages": ["javascript"],
+      "triggers": ["array map filter reduce javascript", "array methods js", "javascript transform array"],
+      "title": "Array map / filter / reduce",
+      "code": "const xs = [1, 2, 3, 4, 5];\n\nconst doubled = xs.map(x => x * 2);\nconst evens = xs.filter(x => x % 2 === 0);\nconst sum = xs.reduce((a, b) => a + b, 0);\nconst first = xs.find(x => x > 2);\nconst all = xs.every(x => x > 0);\nconst any = xs.some(x => x > 4);",
+      "notes": "Always pass the initial value to `reduce` (the `0` above) — without it, the first element becomes the accumulator and weird things happen with empty arrays."
+    },
+    {
+      "id": "js_array_flat",
+      "languages": ["javascript"],
+      "triggers": ["array flat javascript", "flatmap javascript", "flatten array js"],
+      "title": "Flatten an array",
+      "code": "[[1,2],[3,4]].flat();           // [1,2,3,4]\n[[1,[2]],[3]].flat(Infinity);    // [1,2,3]\n\n['a b', 'c d'].flatMap(s => s.split(' '));\n// ['a','b','c','d']",
+      "notes": "`flat(Infinity)` for arbitrary nesting. `flatMap` = map + flat(1) — handy for splitting strings or expanding arrays."
+    },
+    {
+      "id": "js_sort_objects",
+      "languages": ["javascript"],
+      "triggers": ["sort array of objects javascript", "sort by property js", "javascript custom sort"],
+      "title": "Sort an array of objects",
+      "code": "const users = [{ name: 'Joe', age: 9 }, { name: 'Ada', age: 36 }];\n\nconst byAge = [...users].sort((a, b) => a.age - b.age);\nconst byName = [...users].sort((a, b) => a.name.localeCompare(b.name));",
+      "notes": "`sort` mutates! Spread to a new array first if you want immutability. `localeCompare` handles unicode/accents correctly."
+    },
+    {
+      "id": "js_dedupe_array",
+      "languages": ["javascript"],
+      "triggers": ["dedupe array javascript", "unique array js", "remove duplicates javascript"],
+      "title": "Deduplicate an array",
+      "code": "const unique = [...new Set([1, 2, 2, 3])];   // [1,2,3]\n\n// By a key:\nconst byKey = Object.values(\n  Object.fromEntries(users.map(u => [u.id, u]))\n);",
+      "notes": "`Set` works on primitives. For objects, dedupe by a key (id, email) using a Map or `Object.fromEntries`."
+    },
+    {
+      "id": "js_sum_array",
+      "languages": ["javascript"],
+      "triggers": ["sum array javascript", "javascript total array", "add up array js"],
+      "title": "Sum an array",
+      "code": "const sum = [1, 2, 3, 4].reduce((a, b) => a + b, 0);\n\n// Sum by property:\nconst total = items.reduce((a, it) => a + it.price, 0);",
+      "notes": "The `0` initial value matters — without it, `[].reduce((a,b) => a+b)` throws."
+    },
+    {
+      "id": "js_group_by",
+      "languages": ["javascript"],
+      "triggers": ["group by javascript", "object.groupby js", "javascript group array"],
+      "title": "Group array by key",
+      "code": "const items = [\n  { type: 'fruit', name: 'apple' },\n  { type: 'veg', name: 'carrot' },\n  { type: 'fruit', name: 'pear' },\n];\n\n// Modern (Node 21+, recent browsers):\nObject.groupBy(items, x => x.type);\n\n// Polyfill:\nconst groups = items.reduce((acc, it) => {\n  (acc[it.type] ??= []).push(it);\n  return acc;\n}, {});",
+      "notes": "`Object.groupBy` is new — check support. The reduce version works everywhere. `??=` only assigns if currently nullish."
+    },
+    {
+      "id": "js_object_methods",
+      "languages": ["javascript"],
+      "triggers": ["object keys values entries js", "iterate object javascript", "object.entries"],
+      "title": "Object: keys, values, entries",
+      "code": "const o = { a: 1, b: 2, c: 3 };\n\nObject.keys(o);     // ['a','b','c']\nObject.values(o);   // [1,2,3]\nObject.entries(o);  // [['a',1],['b',2],['c',3]]\n\n// Build from entries:\nObject.fromEntries([['a', 1], ['b', 2]]);\n\nfor (const [k, v] of Object.entries(o)) {\n  console.log(k, v);\n}",
+      "notes": "Order is insertion order for string keys (integer-like keys come first numerically). For arbitrary key types use a `Map`."
+    },
+    {
+      "id": "js_object_spread",
+      "languages": ["javascript"],
+      "triggers": ["object spread javascript", "merge objects js", "spread operator object"],
+      "title": "Object spread / merge",
+      "code": "const a = { x: 1, y: 2 };\nconst b = { y: 99, z: 3 };\n\nconst merged = { ...a, ...b };  // { x:1, y:99, z:3 }\n\n// Override one field immutably:\nconst updated = { ...user, name: 'New' };",
+      "notes": "Later spreads override earlier ones. This is SHALLOW — nested objects are still shared references. Use `structuredClone` for deep copies."
+    },
+    {
+      "id": "js_deep_clone",
+      "languages": ["javascript"],
+      "triggers": ["deep clone javascript", "structuredclone js", "deep copy object javascript"],
+      "title": "Deep clone an object",
+      "code": "const clone = structuredClone(original);",
+      "notes": "Built into modern Node + browsers. Handles Maps, Sets, Dates, typed arrays. Won't clone functions or DOM nodes."
+    },
+    {
+      "id": "js_destructure",
+      "languages": ["javascript"],
+      "triggers": ["destructure javascript", "destructuring with defaults js", "javascript object destructuring"],
+      "title": "Destructuring with defaults",
+      "code": "const { name = 'anon', age = 0 } = user;\nconst { theme: { color = 'red' } = {} } = settings;  // nested\nconst [first, second = 'b', ...rest] = ['a'];\n\nfunction greet({ name, shout = false } = {}) {\n  const msg = `Hi ${name}`;\n  return shout ? msg.toUpperCase() : msg;\n}",
+      "notes": "The `= {}` after a nested destructure is critical when the parent might be undefined — without it you'll get a TypeError."
+    },
+    {
+      "id": "js_promise_all",
+      "languages": ["javascript"],
+      "triggers": ["promise.all javascript", "promise.allsettled", "parallel promises js"],
+      "title": "Promise.all / allSettled",
+      "code": "// Fail-fast — rejects on first error:\nconst results = await Promise.all([fetchA(), fetchB(), fetchC()]);\n\n// Always returns all results:\nconst settled = await Promise.allSettled([fetchA(), fetchB()]);\nfor (const r of settled) {\n  if (r.status === 'fulfilled') console.log(r.value);\n  else console.error(r.reason);\n}",
+      "notes": "Use `allSettled` when you want every result, success or fail. `all` is faster when you can short-circuit on error."
+    },
+    {
+      "id": "js_async_await",
+      "languages": ["javascript"],
+      "triggers": ["async await javascript", "async function js", "javascript async basics"],
+      "title": "async/await pattern",
+      "code": "async function loadUser(id) {\n  const r = await fetch(`/api/users/${id}`);\n  if (!r.ok) throw new Error(`HTTP ${r.status}`);\n  return r.json();\n}\n\ntry {\n  const u = await loadUser(1);\n  console.log(u);\n} catch (err) {\n  console.error(err);\n}",
+      "notes": "`await` only works inside `async` (or at top level of ES modules). Always wrap awaits in try/catch or attach `.catch` somewhere."
+    },
+    {
+      "id": "js_sleep",
+      "languages": ["javascript"],
+      "triggers": ["sleep javascript", "javascript wait", "settimeout promise", "delay js"],
+      "title": "Sleep / setTimeout as promise",
+      "code": "const sleep = (ms) => new Promise(r => setTimeout(r, ms));\n\nawait sleep(1000);  // wait 1 second\nconsole.log('done');",
+      "notes": "Node 16+ has `import { setTimeout } from 'node:timers/promises'` — `await setTimeout(1000)` natively."
+    },
+    {
+      "id": "js_debounce",
+      "languages": ["javascript"],
+      "triggers": ["debounce javascript", "throttle javascript", "debounce function js"],
+      "title": "Debounce a function",
+      "code": "function debounce(fn, ms) {\n  let t;\n  return (...args) => {\n    clearTimeout(t);\n    t = setTimeout(() => fn(...args), ms);\n  };\n}\n\nconst onResize = debounce(() => console.log('resized'), 200);\nwindow.addEventListener('resize', onResize);",
+      "notes": "Debounce = wait for quiet. Throttle = fire at most once per N ms. Use debounce for search input, throttle for scroll handlers."
+    },
+    {
+      "id": "js_event_emitter",
+      "languages": ["javascript"],
+      "triggers": ["event emitter node", "events module node", "javascript pub sub"],
+      "title": "Node EventEmitter",
+      "code": "import { EventEmitter } from 'node:events';\n\nconst bus = new EventEmitter();\nbus.on('user:login', (user) => console.log('login', user));\nbus.emit('user:login', { id: 1 });\n\n// One-shot:\nbus.once('ready', () => console.log('ready'));",
+      "notes": "EventEmitter is synchronous — listeners run in order. Default max listeners is 10; bump with `bus.setMaxListeners(20)` for high-fanout buses."
+    },
+    {
+      "id": "js_stream_file",
+      "languages": ["javascript"],
+      "triggers": ["stream file node", "createreadstream", "pipe file node"],
+      "title": "Stream a file",
+      "code": "import { createReadStream, createWriteStream } from 'node:fs';\nimport { pipeline } from 'node:stream/promises';\nimport { createGzip } from 'node:zlib';\n\nawait pipeline(\n  createReadStream('input.txt'),\n  createGzip(),\n  createWriteStream('input.txt.gz'),\n);",
+      "notes": "`pipeline` handles errors and cleanup correctly across all streams. Don't use `.pipe()` directly — error handling is messy."
+    },
+    {
+      "id": "js_sse",
+      "languages": ["javascript"],
+      "triggers": ["server sent events node", "sse javascript", "express sse"],
+      "title": "Server-Sent Events (Express)",
+      "code": "app.get('/events', (req, res) => {\n  res.set({\n    'Content-Type': 'text/event-stream',\n    'Cache-Control': 'no-cache',\n    Connection: 'keep-alive',\n  });\n  const id = setInterval(() => {\n    res.write(`data: ${JSON.stringify({ t: Date.now() })}\\n\\n`);\n  }, 1000);\n  req.on('close', () => clearInterval(id));\n});",
+      "notes": "SSE is one-way (server → client) and simpler than WebSockets. Each event ends with two newlines. Client side: `new EventSource('/events')`."
+    },
+    {
+      "id": "js_ws_server",
+      "languages": ["javascript"],
+      "triggers": ["websocket server node", "ws library", "node websocket"],
+      "title": "WebSocket server (ws)",
+      "code": "import { WebSocketServer } from 'ws';   // npm i ws\n\nconst wss = new WebSocketServer({ port: 8080 });\n\nwss.on('connection', (ws) => {\n  ws.on('message', (data) => {\n    console.log('got:', data.toString());\n    ws.send('echo: ' + data);\n  });\n  ws.send('hello');\n});",
+      "notes": "Messages arrive as Buffers — call `.toString()` for text. Use a heartbeat (ping/pong) for long-lived connections."
+    },
+    {
+      "id": "js_express_basics",
+      "languages": ["javascript"],
+      "triggers": ["express get post", "express hello world", "express basics node", "express routes"],
+      "title": "Express GET / POST",
+      "code": "import express from 'express';\n\nconst app = express();\napp.use(express.json());\n\napp.get('/', (req, res) => res.send('hello'));\n\napp.post('/echo', (req, res) => {\n  res.json(req.body);\n});\n\napp.listen(3000, () => console.log('http://localhost:3000'));",
+      "notes": "`express.json()` is required to parse JSON request bodies. Use `express.urlencoded({ extended: true })` for form posts."
+    },
+    {
+      "id": "js_express_middleware",
+      "languages": ["javascript"],
+      "triggers": ["express middleware", "express auth middleware", "express custom middleware"],
+      "title": "Express middleware",
+      "code": "function requireAuth(req, res, next) {\n  const token = req.headers.authorization?.replace('Bearer ', '');\n  if (!token) return res.status(401).json({ error: 'no token' });\n  req.user = decode(token);\n  next();\n}\n\napp.use('/api', requireAuth);\napp.get('/api/me', (req, res) => res.json(req.user));",
+      "notes": "Middleware takes `(req, res, next)` — call `next()` to continue, or send a response to short-circuit. Error middleware has 4 args."
+    },
+    {
+      "id": "js_express_error",
+      "languages": ["javascript"],
+      "triggers": ["express error handler", "express error middleware", "express try catch"],
+      "title": "Express error handling",
+      "code": "app.get('/users/:id', async (req, res, next) => {\n  try {\n    const user = await db.users.find(req.params.id);\n    if (!user) return res.status(404).json({ error: 'not found' });\n    res.json(user);\n  } catch (err) { next(err); }\n});\n\n// Error middleware (4 args):\napp.use((err, req, res, _next) => {\n  console.error(err);\n  res.status(500).json({ error: err.message });\n});",
+      "notes": "Async route errors don't propagate automatically in old Express — wrap in try/catch and call `next(err)`. Express 5 fixes this."
+    },
+    {
+      "id": "js_fastify",
+      "languages": ["javascript"],
+      "triggers": ["fastify basics", "fastify node", "fastify routes"],
+      "title": "Fastify basics",
+      "code": "import Fastify from 'fastify';\n\nconst app = Fastify({ logger: true });\n\napp.get('/', async () => ({ hello: 'world' }));\n\napp.post('/items', async (req) => {\n  return req.body;\n});\n\nawait app.listen({ port: 3000 });",
+      "notes": "Faster than Express, schema-first (JSON schema validation built in). Handlers return the body — Fastify serializes automatically."
+    },
+    {
+      "id": "js_pg",
+      "languages": ["javascript"],
+      "triggers": ["postgres node", "pg library", "connect postgresql node", "node postgres pool"],
+      "title": "Connect to PostgreSQL (pg)",
+      "code": "import pg from 'pg';\n\nconst pool = new pg.Pool({\n  connectionString: process.env.DATABASE_URL,\n});\n\nconst { rows } = await pool.query(\n  'SELECT id, name FROM users WHERE active = $1',\n  [true],\n);",
+      "notes": "Always use the pool (not a single client). Parameterize with `$1`/`$2` — never template strings. Close with `await pool.end()` on shutdown."
+    },
+    {
+      "id": "js_mongoose",
+      "languages": ["javascript"],
+      "triggers": ["mongoose node", "mongodb javascript", "connect mongodb node"],
+      "title": "MongoDB with mongoose",
+      "code": "import mongoose from 'mongoose';\n\nawait mongoose.connect(process.env.MONGO_URL);\n\nconst User = mongoose.model('User', new mongoose.Schema({\n  name: { type: String, required: true },\n  email: String,\n}));\n\nconst u = await User.create({ name: 'Joe' });\nconst all = await User.find({ name: /joe/i });",
+      "notes": "Mongoose adds schemas/validation on top of MongoDB. For raw driver use `mongodb` package. Always `await` queries — they return Promises."
+    },
+    {
+      "id": "js_redis",
+      "languages": ["javascript"],
+      "triggers": ["redis node", "ioredis", "connect redis javascript"],
+      "title": "Connect to Redis (ioredis)",
+      "code": "import Redis from 'ioredis';   // npm i ioredis\n\nconst redis = new Redis(process.env.REDIS_URL);\n\nawait redis.set('user:1', JSON.stringify({ name: 'Joe' }), 'EX', 60);\nconst raw = await redis.get('user:1');\nconst user = raw ? JSON.parse(raw) : null;",
+      "notes": "`'EX', 60` = expire in 60 seconds. ioredis supports cluster, sentinel, pub/sub out of the box. Alternative: `redis` (official)."
+    },
+    {
+      "id": "js_prisma",
+      "languages": ["javascript", "typescript"],
+      "triggers": ["prisma node", "prisma client", "orm node prisma"],
+      "title": "Prisma ORM basics",
+      "code": "// schema.prisma:\n// model User { id Int @id @default(autoincrement()) name String }\n// then: npx prisma generate\n\nimport { PrismaClient } from '@prisma/client';\n\nconst prisma = new PrismaClient();\n\nconst u = await prisma.user.create({ data: { name: 'Joe' } });\nconst all = await prisma.user.findMany({ where: { name: { contains: 'Joe' } } });",
+      "notes": "Run `npx prisma migrate dev` to apply schema changes. Prisma generates fully-typed clients — great with TypeScript."
+    },
+    {
+      "id": "js_nodemailer",
+      "languages": ["javascript"],
+      "triggers": ["send email node", "nodemailer", "smtp node"],
+      "title": "Send email with nodemailer",
+      "code": "import nodemailer from 'nodemailer';\n\nconst tx = nodemailer.createTransport({\n  host: 'smtp.gmail.com', port: 465, secure: true,\n  auth: { user: 'me@gmail.com', pass: 'app-password' },\n});\n\nawait tx.sendMail({\n  from: 'me@gmail.com',\n  to: 'you@example.com',\n  subject: 'Hello',\n  text: 'hi',\n  html: '<b>hi</b>',\n});",
+      "notes": "Use app-passwords for Gmail. For transactional email at scale, use a service like Postmark/Resend with their SDK."
+    },
+    {
+      "id": "js_bcrypt",
+      "languages": ["javascript"],
+      "triggers": ["bcrypt node", "hash password node", "javascript bcrypt"],
+      "title": "Hash a password (bcrypt)",
+      "code": "import bcrypt from 'bcrypt';\n\nconst hash = await bcrypt.hash('mypassword', 12);\nconst ok = await bcrypt.compare('mypassword', hash);",
+      "notes": "Cost factor 10-12 is current standard. Higher = slower = more secure. Never store plain passwords. Alternatives: argon2 (modern), scrypt (stdlib)."
+    },
+    {
+      "id": "js_jwt",
+      "languages": ["javascript"],
+      "triggers": ["jwt node", "jsonwebtoken sign verify", "javascript jwt"],
+      "title": "JWT sign / verify",
+      "code": "import jwt from 'jsonwebtoken';\n\nconst token = jwt.sign(\n  { sub: 'user-1', role: 'admin' },\n  process.env.JWT_SECRET,\n  { expiresIn: '7d' },\n);\n\ntry {\n  const payload = jwt.verify(token, process.env.JWT_SECRET);\n  console.log(payload.sub);\n} catch { console.log('invalid'); }",
+      "notes": "Use a strong, long secret (32+ random bytes). Prefer HS256 for symmetric, RS256 if you need separate signing/verifying keys."
+    },
+    {
+      "id": "js_cors",
+      "languages": ["javascript"],
+      "triggers": ["cors node", "express cors", "enable cors javascript"],
+      "title": "CORS in Express",
+      "code": "import cors from 'cors';\n\napp.use(cors({\n  origin: ['https://myapp.com', 'http://localhost:3000'],\n  credentials: true,\n}));",
+      "notes": "`credentials: true` allows cookies — required for session-based auth. Don't use `origin: '*'` with credentials (browsers refuse it)."
+    },
+    {
+      "id": "js_rate_limit",
+      "languages": ["javascript"],
+      "triggers": ["rate limit node", "express-rate-limit", "throttle requests node"],
+      "title": "Rate limiting (express-rate-limit)",
+      "code": "import rateLimit from 'express-rate-limit';\n\nconst limiter = rateLimit({\n  windowMs: 60_000,    // 1 minute\n  max: 100,            // 100 requests per IP\n  standardHeaders: true,\n});\n\napp.use('/api', limiter);",
+      "notes": "In-memory by default — won't share across processes. For multi-instance, back it with Redis via `rate-limit-redis`."
+    },
+    {
+      "id": "js_pino",
+      "languages": ["javascript"],
+      "triggers": ["pino node", "logger node", "winston node", "structured logging node"],
+      "title": "Structured logging with pino",
+      "code": "import pino from 'pino';\n\nconst log = pino({ level: 'info' });\n\nlog.info({ userId: 1 }, 'login');\nlog.error({ err }, 'something broke');\n\n// Pretty for dev: pipe to pino-pretty\n// node app.js | pino-pretty",
+      "notes": "Pino is the fastest JSON logger for Node — production friendly. Winston is more featureful but slower. For dev pretty-print, use `pino-pretty`."
+    },
+    {
+      "id": "js_read_json",
+      "languages": ["javascript"],
+      "triggers": ["read json node", "javascript parse json file", "load json node"],
+      "title": "Read a JSON file in Node",
+      "code": "import { readFile } from 'node:fs/promises';\n\nconst data = JSON.parse(await readFile('data.json', 'utf8'));",
+      "notes": "ES modules can also `import data from './data.json' assert { type: 'json' }` (still flagged in some Node versions)."
+    },
+    {
+      "id": "js_write_json",
+      "languages": ["javascript"],
+      "triggers": ["write json node", "save json file node", "pretty json node"],
+      "title": "Write JSON (pretty)",
+      "code": "import { writeFile } from 'node:fs/promises';\n\nawait writeFile('out.json', JSON.stringify(data, null, 2));",
+      "notes": "`null, 2` = pretty print with 2-space indent. For huge data, stream with `JSONStream` or `ndjson`."
+    },
+    {
+      "id": "js_csv_parse",
+      "languages": ["javascript"],
+      "triggers": ["parse csv node", "csv-parse node", "javascript read csv"],
+      "title": "Parse CSV with csv-parse",
+      "code": "import { parse } from 'csv-parse/sync';   // npm i csv-parse\nimport { readFileSync } from 'node:fs';\n\nconst rows = parse(readFileSync('data.csv'), {\n  columns: true,\n  skip_empty_lines: true,\n});\nconsole.log(rows[0]);",
+      "notes": "Use the async version (`csv-parse`) for big files. `columns: true` makes each row an object with header keys."
+    },
+    {
+      "id": "js_uuid",
+      "languages": ["javascript"],
+      "triggers": ["uuid node", "javascript uuid", "crypto.randomuuid"],
+      "title": "Generate UUID (crypto.randomUUID)",
+      "code": "import { randomUUID } from 'node:crypto';\n\nconst id = randomUUID();  // 'b1e3a...'\n\n// Browser:\n// crypto.randomUUID()",
+      "notes": "Built into Node 14.17+ and modern browsers — no `uuid` package needed. Always v4 (random)."
+    },
+    {
+      "id": "js_random",
+      "languages": ["javascript"],
+      "triggers": ["random number javascript", "math.random js", "random pick array js"],
+      "title": "Random numbers and picks",
+      "code": "Math.random();                // [0, 1)\nMath.floor(Math.random() * 10);  // 0-9\n\nconst pick = arr => arr[Math.floor(Math.random() * arr.length)];\npick(['a','b','c']);\n\n// Secure:\nimport { randomInt } from 'node:crypto';\nrandomInt(0, 100);",
+      "notes": "`Math.random` is NOT cryptographically secure. Use `crypto.randomInt` / `randomBytes` for tokens, keys, anything security-sensitive."
+    },
+    {
+      "id": "js_esm_cjs",
+      "languages": ["javascript"],
+      "triggers": ["esm vs commonjs", "module.exports", "import vs require", "javascript module syntax"],
+      "title": "ES Modules vs CommonJS",
+      "code": "// ESM (preferred, package.json has \"type\": \"module\"):\nexport function greet() {}\nexport default class Foo {}\nimport { greet } from './util.js';\nimport Foo from './foo.js';\n\n// CommonJS (older, default in plain .js):\nmodule.exports = { greet };\nmodule.exports.greet = greet;\nconst { greet } = require('./util');",
+      "notes": "ESM is the future — supports tree-shaking, top-level await. Use `.cjs` / `.mjs` extensions if you need to mix. ESM imports need the `.js` extension in Node."
+    },
+    {
+      "id": "js_top_level_await",
+      "languages": ["javascript"],
+      "triggers": ["top level await javascript", "await at top level js", "await outside async js", "javascript module top await"],
+      "title": "Top-level await",
+      "code": "// In an ES module (package.json: \"type\": \"module\"):\nimport { readFile } from 'node:fs/promises';\n\nconst config = JSON.parse(await readFile('config.json', 'utf8'));\nconsole.log(config);",
+      "notes": "Only works in ES modules. Doesn't work in CommonJS or in non-module browser scripts."
+    },
+    {
+      "id": "js_dynamic_import",
+      "languages": ["javascript"],
+      "triggers": ["dynamic import javascript", "lazy import js", "import function js"],
+      "title": "Dynamic import",
+      "code": "// Lazy-load a heavy module:\nasync function loadParser() {\n  const { parse } = await import('heavy-csv-parser');\n  return parse;\n}",
+      "notes": "Returns a Promise. Works in both ESM and CommonJS. Useful for code splitting in bundlers and conditional loading."
+    },
+    {
+      "id": "js_tsx_run",
+      "languages": ["typescript"],
+      "triggers": ["run typescript directly", "tsx node", "ts-node alternative"],
+      "title": "Run TypeScript with tsx",
+      "code": "npm i -D tsx\n\n# Run a file:\nnpx tsx script.ts\n\n# Watch mode:\nnpx tsx watch script.ts",
+      "notes": "`tsx` is faster than `ts-node` and supports ESM out of the box. Node 22+ has experimental built-in TS via `node --experimental-strip-types`."
+    },
+    {
+      "id": "js_worker_threads",
+      "languages": ["javascript"],
+      "triggers": ["worker threads node", "javascript multithreading", "node worker"],
+      "title": "Worker threads",
+      "code": "// main.js:\nimport { Worker } from 'node:worker_threads';\nconst w = new Worker('./heavy.js');\nw.on('message', m => console.log('result:', m));\nw.postMessage({ n: 1000000 });\n\n// heavy.js:\nimport { parentPort } from 'node:worker_threads';\nparentPort.on('message', ({ n }) => {\n  let s = 0;\n  for (let i = 0; i < n; i++) s += i;\n  parentPort.postMessage(s);\n});",
+      "notes": "Use for CPU-heavy work. For I/O, async is enough. Each worker has its own V8 instance — communication via messages (structured-cloned)."
+    },
+    {
+      "id": "js_cluster",
+      "languages": ["javascript"],
+      "triggers": ["cluster node", "node cluster mode", "fork workers node"],
+      "title": "Cluster mode (fork workers)",
+      "code": "import cluster from 'node:cluster';\nimport { cpus } from 'node:os';\n\nif (cluster.isPrimary) {\n  for (let i = 0; i < cpus().length; i++) cluster.fork();\n  cluster.on('exit', () => cluster.fork());  // restart on crash\n} else {\n  // worker code (e.g., start express server)\n  startServer();\n}",
+      "notes": "Each worker is a full Node process — uses all CPU cores for a single port. Modern alternative: PM2 or running multiple containers behind a load balancer."
+    },
+    {
+      "id": "js_jest_basic",
+      "languages": ["javascript"],
+      "triggers": ["jest test basic", "jest example", "javascript unit test jest"],
+      "title": "Jest test basics",
+      "code": "// sum.js\nexport const sum = (a, b) => a + b;\n\n// sum.test.js\nimport { sum } from './sum.js';\n\ndescribe('sum', () => {\n  let counter;\n  beforeEach(() => { counter = 0; });\n\n  test('adds two numbers', () => {\n    expect(sum(1, 2)).toBe(3);\n  });\n});",
+      "notes": "`toBe` = strict equality (===). Use `toEqual` for deep object comparison. ESM with Jest needs the `--experimental-vm-modules` flag."
+    },
+    {
+      "id": "js_jest_mock",
+      "languages": ["javascript"],
+      "triggers": ["jest mock", "jest mock function", "jest mock module"],
+      "title": "Jest mocks",
+      "code": "import { fetchUser } from './api.js';\nimport { greet } from './greet.js';\n\njest.mock('./api.js');\n\ntest('greet', async () => {\n  fetchUser.mockResolvedValue({ name: 'Joe' });\n  await expect(greet(1)).resolves.toBe('hi Joe');\n  expect(fetchUser).toHaveBeenCalledWith(1);\n});",
+      "notes": "`jest.mock` is hoisted to the top of the file. `mockResolvedValue` for promises, `mockReturnValue` for sync. `jest.fn()` for ad-hoc mocks."
+    },
+    {
+      "id": "js_vitest",
+      "languages": ["javascript", "typescript"],
+      "triggers": ["vitest basic", "vitest example", "test javascript vitest"],
+      "title": "Vitest test basics",
+      "code": "import { describe, test, expect, beforeEach } from 'vitest';\nimport { sum } from './sum.js';\n\ndescribe('sum', () => {\n  test('adds', () => {\n    expect(sum(1, 2)).toBe(3);\n  });\n});",
+      "notes": "Vitest has the same API as Jest but works natively with Vite/ESM/TypeScript — usually no config needed. Run with `npx vitest`."
+    },
+    {
+      "id": "js_jest_snapshot",
+      "languages": ["javascript"],
+      "triggers": ["jest snapshot test", "snapshot testing javascript", "tomatchsnapshot"],
+      "title": "Snapshot test",
+      "code": "test('renders correctly', () => {\n  const tree = renderComponent();\n  expect(tree).toMatchSnapshot();\n});\n\n// Update snapshots:\n// jest -u",
+      "notes": "Snapshots are committed to git. Review diffs carefully on changes — easy to update past mistakes. Don't snapshot huge things."
+    },
+    {
+      "id": "js_prettier",
+      "languages": ["javascript", "typescript"],
+      "triggers": ["prettier javascript", "format js code", "prettier config"],
+      "title": "Format with prettier",
+      "code": "npm i -D prettier\n\n# Format files:\nnpx prettier --write .\n\n# Check (CI):\nnpx prettier --check .\n\n# .prettierrc.json:\n{ \"singleQuote\": true, \"trailingComma\": \"all\", \"printWidth\": 100 }",
+      "notes": "Pair with ESLint via `eslint-config-prettier` (turns off conflicting rules). Add a pre-commit hook with `lint-staged` + `husky`."
+    },
+    {
+      "id": "js_eslint",
+      "languages": ["javascript", "typescript"],
+      "triggers": ["eslint config", "eslint setup", "lint javascript"],
+      "title": "ESLint setup",
+      "code": "npm i -D eslint @eslint/js\n\n// eslint.config.js (flat config, ESLint 9+):\nimport js from '@eslint/js';\nexport default [\n  js.configs.recommended,\n  { rules: { 'no-unused-vars': 'warn' } },\n];\n\n# Run:\nnpx eslint .",
+      "notes": "ESLint 9+ uses flat config (eslint.config.js). For TypeScript: `typescript-eslint`. For React: `eslint-plugin-react`."
+    },
+    {
+      "id": "ts_type_vs_interface",
+      "languages": ["typescript"],
+      "triggers": ["type vs interface typescript", "type or interface", "ts type alias"],
+      "title": "Type alias vs interface",
+      "code": "type User = { id: number; name: string };\ninterface UserI { id: number; name: string }\n\n// Extend:\ntype Admin = User & { role: 'admin' };\ninterface AdminI extends UserI { role: 'admin' }\n\n// Type can be a union; interface can't:\ntype Status = 'active' | 'inactive';",
+      "notes": "Interfaces can be re-opened (declaration merging) — useful for extending lib types. Otherwise prefer `type` for unions, mapped types, function signatures."
+    },
+    {
+      "id": "ts_generic_function",
+      "languages": ["typescript"],
+      "triggers": ["generic function typescript", "ts generics", "typescript generic example"],
+      "title": "Generic function",
+      "code": "function first<T>(arr: T[]): T | undefined {\n  return arr[0];\n}\n\nconst x = first([1, 2, 3]);     // T inferred as number\nconst y = first<string>([]);    // explicit",
+      "notes": "TypeScript usually infers generics from arguments. Add constraints with `<T extends Foo>` to require a shape."
+    },
+    {
+      "id": "ts_generic_class",
+      "languages": ["typescript"],
+      "triggers": ["generic class typescript", "typescript class generic", "ts container class"],
+      "title": "Generic class",
+      "code": "class Stack<T> {\n  private items: T[] = [];\n  push(x: T) { this.items.push(x); }\n  pop(): T | undefined { return this.items.pop(); }\n  get size() { return this.items.length; }\n}\n\nconst s = new Stack<number>();\ns.push(1);",
+      "notes": "Generic param is part of the class type — `Stack<number>` and `Stack<string>` are different types."
+    },
+    {
+      "id": "ts_utility_types",
+      "languages": ["typescript"],
+      "triggers": ["utility types typescript", "partial pick omit", "ts utility types"],
+      "title": "Utility types (Partial, Pick, Omit, Record, Readonly)",
+      "code": "type User = { id: number; name: string; email: string };\n\ntype UserUpdate = Partial<User>;             // all optional\ntype UserKey = Pick<User, 'id' | 'name'>;    // subset\ntype UserNoId = Omit<User, 'id'>;            // exclude\ntype UserMap = Record<string, User>;         // dict-like\ntype Frozen = Readonly<User>;                // all readonly\ntype RequiredUser = Required<User>;          // all required",
+      "notes": "These cover 90% of object-type manipulation. `Required` is the inverse of `Partial`. `Record<K, V>` is shorthand for `{ [k in K]: V }`."
+    },
+    {
+      "id": "ts_type_guards",
+      "languages": ["typescript"],
+      "triggers": ["type guards typescript", "ts typeof instanceof", "type predicate typescript"],
+      "title": "Type guards",
+      "code": "function isString(x: unknown): x is string {\n  return typeof x === 'string';\n}\n\nfunction process(input: string | number) {\n  if (typeof input === 'string') input.toUpperCase();   // narrowed\n  if (input instanceof Date) {}                          // class narrowing\n  if (isString(input)) input.length;                      // custom predicate\n}",
+      "notes": "`x is string` is a *type predicate* — tells TS the function narrows the type. TS narrows automatically on `typeof`, `instanceof`, equality checks."
+    },
+    {
+      "id": "ts_discriminated_union",
+      "languages": ["typescript"],
+      "triggers": ["discriminated union typescript", "tagged union ts", "typescript switch on type"],
+      "title": "Discriminated union",
+      "code": "type Shape =\n  | { kind: 'circle'; radius: number }\n  | { kind: 'square'; side: number };\n\nfunction area(s: Shape): number {\n  switch (s.kind) {\n    case 'circle': return Math.PI * s.radius ** 2;\n    case 'square': return s.side ** 2;\n  }\n}",
+      "notes": "The `kind` field (any literal property) is the discriminator. TS narrows inside each `case`. Add `default: const _: never = s;` for exhaustiveness."
+    },
+    {
+      "id": "ts_mapped_type",
+      "languages": ["typescript"],
+      "triggers": ["mapped type typescript", "ts mapped types", "iterate keys typescript"],
+      "title": "Mapped type",
+      "code": "type User = { id: number; name: string };\n\ntype Stringified<T> = { [K in keyof T]: string };\ntype S = Stringified<User>;  // { id: string; name: string }\n\n// Make all props optional + readonly:\ntype Loose<T> = { readonly [K in keyof T]?: T[K] };",
+      "notes": "`keyof T` gives the union of T's keys. Modifiers: `readonly`, `?`. Use `+`/`-` to add/remove: `-readonly`, `-?`."
+    },
+    {
+      "id": "ts_conditional_type",
+      "languages": ["typescript"],
+      "triggers": ["conditional type typescript", "ts extends infer", "typescript infer keyword"],
+      "title": "Conditional type",
+      "code": "type ElementOf<T> = T extends (infer U)[] ? U : never;\ntype A = ElementOf<string[]>;    // string\ntype B = ElementOf<number>;       // never\n\ntype IsString<T> = T extends string ? true : false;",
+      "notes": "`infer U` captures a type for use in the true branch. Conditional types distribute over unions: `ToArr<string | number> = string[] | number[]`."
+    },
+    {
+      "id": "ts_template_literal",
+      "languages": ["typescript"],
+      "triggers": ["template literal types typescript", "ts string template type", "typescript string literal type", "ts capitalize type"],
+      "title": "Template literal types",
+      "code": "type Greeting = `Hello, ${string}!`;\nconst g: Greeting = 'Hello, Joe!';   // ok\n// const bad: Greeting = 'Hi';        // error\n\ntype Event = 'click' | 'hover';\ntype Handler = `on${Capitalize<Event>}`;  // 'onClick' | 'onHover'",
+      "notes": "Built-in helpers: `Uppercase<S>`, `Lowercase<S>`, `Capitalize<S>`, `Uncapitalize<S>`. Powerful for API/event-name typing."
+    },
+    {
+      "id": "ts_enum_const",
+      "languages": ["typescript"],
+      "triggers": ["enum vs const assertion typescript", "ts const enum", "typescript enum alternative"],
+      "title": "Enum vs const assertion",
+      "code": "// Enum (runtime object):\nenum Status { Active = 'active', Done = 'done' }\n\n// Often preferred — const object + union type:\nconst Status = { Active: 'active', Done: 'done' } as const;\ntype Status = (typeof Status)[keyof typeof Status];  // 'active' | 'done'",
+      "notes": "Plain enums generate runtime code and have weird bidirectional mapping for numeric. The `as const` pattern is more TS-idiomatic, tree-shakeable, and JSON-safe."
+    },
+    {
+      "id": "ts_declare_module",
+      "languages": ["typescript"],
+      "triggers": ["declare module typescript", "ambient module ts", "augment module typescript"],
+      "title": "Module declarations / augmentation",
+      "code": "// types/foo.d.ts — declare a module with no types:\ndeclare module 'untyped-lib' {\n  export function thing(): string;\n}\n\n// Augment an existing module:\ndeclare module 'express' {\n  interface Request {\n    user?: { id: number };\n  }\n}",
+      "notes": "Use this when a library has no types or you want to add fields. The augmentation must be in a file TS sees (referenced via tsconfig)."
+    },
+    {
+      "id": "ts_dts",
+      "languages": ["typescript"],
+      "triggers": ["d.ts file", "ambient types typescript", "global types ts"],
+      "title": "Ambient types (.d.ts)",
+      "code": "// types/globals.d.ts:\ndeclare global {\n  interface Window {\n    myAnalytics: { track(name: string): void };\n  }\n  const __VERSION__: string;\n}\nexport {};   // makes the file a module",
+      "notes": "The `export {}` is critical when using `declare global` — without it, the file is a script and `declare global` is unnecessary. Reference the file in tsconfig.json `include`."
+    },
+    {
+      "id": "ts_react_fc",
+      "languages": ["typescript"],
+      "triggers": ["react functional component typescript", "ts react component", "typescript props"],
+      "title": "React functional component typing",
+      "code": "type Props = {\n  name: string;\n  count?: number;\n  onClick: (id: number) => void;\n};\n\nfunction Hello({ name, count = 1, onClick }: Props) {\n  return <button onClick={() => onClick(1)}>{name} x{count}</button>;\n}",
+      "notes": "Prefer typing props directly rather than `React.FC` — `FC` adds an implicit `children` and isn't generic-friendly. For children, add `children: React.ReactNode`."
+    },
+    {
+      "id": "ts_usestate",
+      "languages": ["typescript"],
+      "triggers": ["usestate typescript", "react usestate types", "ts useState"],
+      "title": "useState typing",
+      "code": "import { useState } from 'react';\n\nconst [count, setCount] = useState(0);                // number inferred\nconst [user, setUser] = useState<User | null>(null);  // explicit\n\n// Functional update keeps types tidy:\nsetCount(c => c + 1);",
+      "notes": "Explicit type when the initial value doesn't capture the full shape (null, empty array, etc.). For complex state, `useReducer` is clearer."
+    },
+    {
+      "id": "ts_useeffect",
+      "languages": ["typescript"],
+      "triggers": ["useeffect typescript", "react cleanup function ts", "useeffect deps"],
+      "title": "useEffect with cleanup",
+      "code": "import { useEffect } from 'react';\n\nuseEffect(() => {\n  const ctrl = new AbortController();\n  fetch('/api', { signal: ctrl.signal })\n    .then(r => r.json())\n    .then(setData);\n  return () => ctrl.abort();   // cleanup\n}, [/* deps */]);",
+      "notes": "Always return a cleanup if you set up subscriptions/timers/fetches. AbortController is the modern way to cancel an in-flight fetch."
+    },
+    {
+      "id": "ts_react_event",
+      "languages": ["typescript"],
+      "triggers": ["react event types typescript", "onchange type react", "event handler typescript"],
+      "title": "React event types",
+      "code": "function Input() {\n  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n    console.log(e.target.value);\n  };\n  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {};\n  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => { e.preventDefault(); };\n  return <input onChange={onChange} />;\n}",
+      "notes": "Generic event types take the element type. For mixed elements use a broader type like `HTMLElement`. Inline handlers usually don't need types — TS infers."
+    },
+    {
+      "id": "ts_react_ref",
+      "languages": ["typescript"],
+      "triggers": ["useref typescript", "react ref types", "ts useRef"],
+      "title": "React useRef typing",
+      "code": "import { useRef, useEffect } from 'react';\n\nfunction Focusable() {\n  const inputRef = useRef<HTMLInputElement>(null);\n  useEffect(() => { inputRef.current?.focus(); }, []);\n  return <input ref={inputRef} />;\n}",
+      "notes": "Initial value `null` and the type `<HTMLInputElement>` are the typical pattern for DOM refs. Use `useRef<T>(undefined as T)` if you want a mutable ref without null checks."
+    },
+    {
+      "id": "ts_async_return",
+      "languages": ["typescript"],
+      "triggers": ["async function return type typescript", "promise return type ts", "typescript async return", "ts async type annotation"],
+      "title": "Async function return type",
+      "code": "async function load(id: number): Promise<User> {\n  const r = await fetch(`/api/users/${id}`);\n  return r.json() as Promise<User>;\n}\n\n// Type only the resolve shape — TS wraps in Promise automatically:\nasync function safer(id: number): Promise<User | null> {\n  return null;\n}",
+      "notes": "Always declare the resolved type as `Promise<T>`. TS infers, but explicit is better for public APIs."
+    },
+    {
+      "id": "ts_satisfies",
+      "languages": ["typescript"],
+      "triggers": ["satisfies typescript", "as vs satisfies", "ts satisfies operator"],
+      "title": "satisfies vs as",
+      "code": "type Config = Record<string, { url: string }>;\n\n// as — silences errors but loses narrowness:\nconst c1 = { dev: { url: '...' } } as Config;\n// c1.dev is { url: string }\n\n// satisfies — validates AND keeps narrow type:\nconst c2 = { dev: { url: '...' } } satisfies Config;\n// c2.dev is { url: string } AND keys are narrowed to 'dev'",
+      "notes": "Prefer `satisfies` to `as` — `as` is a forced cast that can hide bugs. `satisfies` checks the value matches the type without widening it."
+    },
+    {
+      "id": "ts_index_sig",
+      "languages": ["typescript"],
+      "triggers": ["index signature typescript", "dict type typescript", "ts dynamic keys"],
+      "title": "Index signature",
+      "code": "type Dict<V> = { [key: string]: V };\nconst counts: Dict<number> = { apples: 3, pears: 5 };\n\n// Restrict keys with template literal:\ntype Css = { [K in `--${string}`]: string };",
+      "notes": "Once you add an index signature, ALL declared properties must be assignable to it. `Record<K, V>` is usually cleaner."
+    },
+    {
+      "id": "ts_tuple",
+      "languages": ["typescript"],
+      "triggers": ["tuple typescript", "ts fixed array", "typescript tuple type"],
+      "title": "Tuple types",
+      "code": "type Pair = [string, number];\nconst p: Pair = ['joe', 9];\n\n// Named tuples (better hovers):\ntype Range = [start: number, end: number];\n\n// Variadic / rest in tuples:\ntype WithFirst<T extends unknown[]> = [string, ...T];",
+      "notes": "Tuples are fixed-length, position-typed arrays. Useful for React-style return values: `[state, setState]`."
+    },
+    {
+      "id": "ts_readonly_array",
+      "languages": ["typescript"],
+      "triggers": ["readonly array typescript", "ts immutable array", "readonlyarray"],
+      "title": "ReadonlyArray",
+      "code": "function sumAll(xs: readonly number[]): number {\n  return xs.reduce((a, b) => a + b, 0);\n  // xs.push(1) — error\n}\n\nconst arr: ReadonlyArray<number> = [1, 2, 3];",
+      "notes": "Use `readonly T[]` for function params you won't mutate — lets callers pass immutable arrays too. `ReadonlyArray<T>` is the long form."
+    },
+    {
+      "id": "ts_overloads",
+      "languages": ["typescript"],
+      "triggers": ["function overloads typescript", "ts overload", "multiple signatures typescript"],
+      "title": "Function overloads",
+      "code": "function pad(s: string, len: number): string;\nfunction pad(n: number, len: number): string;\nfunction pad(v: string | number, len: number): string {\n  return String(v).padStart(len, '0');\n}\n\npad('1', 3);   // '001'\npad(1, 3);     // '001'",
+      "notes": "Overload signatures (the lines without bodies) define the call signatures. The implementation must be compatible with all of them. Often a single union signature is cleaner."
+    },
+    {
+      "id": "ts_never_unknown",
+      "languages": ["typescript"],
+      "triggers": ["never unknown any typescript", "ts never type", "unknown vs any"],
+      "title": "never vs unknown vs any",
+      "code": "// any — turns off type checking. Avoid.\nlet a: any = 'hi'; a.foo();   // no error, runtime crash\n\n// unknown — must narrow before use:\nfunction handle(v: unknown) {\n  if (typeof v === 'string') v.toUpperCase();\n}\n\n// never — value that can't exist (exhaustiveness):\nfunction fail(msg: string): never { throw new Error(msg); }",
+      "notes": "`unknown` is the type-safe `any` — forces narrowing. `never` is useful in unreachable branches and exhaustive switches: `const _: never = x;`."
+    },
+    {
+      "id": "ts_promise_t",
+      "languages": ["typescript"],
+      "triggers": ["promise generic typescript", "ts promise type", "typescript awaited"],
+      "title": "Promise<T> and Awaited<T>",
+      "code": "async function load(): Promise<User> {\n  return { id: 1, name: 'Joe' } as User;\n}\n\ntype LoadResult = Awaited<ReturnType<typeof load>>;  // User",
+      "notes": "`Awaited<T>` unwraps any nested promises (`Promise<Promise<X>>` → `X`). `ReturnType<typeof fn>` extracts return type of a function value."
+    },
+    {
+      "id": "bash_if",
+      "languages": ["bash"],
+      "triggers": ["bash if statement", "shell if elif else", "bash conditional"],
+      "title": "if / elif / else",
+      "code": "if [[ -f \"$file\" ]]; then\n  echo 'exists'\nelif [[ -d \"$file\" ]]; then\n  echo 'is a directory'\nelse\n  echo 'missing'\nfi",
+      "notes": "Use `[[ ... ]]` (bash) not `[ ... ]` (POSIX) — fewer quoting gotchas. Common tests: `-f` file, `-d` dir, `-z` empty string, `-n` non-empty, `=` equal, `-eq` numeric."
+    },
+    {
+      "id": "bash_for",
+      "languages": ["bash"],
+      "triggers": ["bash for loop", "for range bash", "shell loop files"],
+      "title": "for loops (range, files, array)",
+      "code": "# C-style range:\nfor ((i = 0; i < 5; i++)); do echo $i; done\n\n# Sequence:\nfor i in {1..5}; do echo $i; done\n\n# Files matching a glob:\nfor f in *.txt; do echo \"$f\"; done\n\n# Array:\narr=(one two three)\nfor x in \"${arr[@]}\"; do echo \"$x\"; done",
+      "notes": "Always quote `\"${arr[@]}\"` to preserve elements with spaces. `{1..5}` is brace expansion — happens before variable expansion."
+    },
+    {
+      "id": "bash_while_read",
+      "languages": ["bash"],
+      "triggers": ["read file line by line bash", "while read line", "bash read file"],
+      "title": "Read a file line by line",
+      "code": "while IFS= read -r line; do\n  echo \"got: $line\"\ndone < input.txt",
+      "notes": "`IFS=` prevents stripping leading/trailing whitespace. `-r` disables backslash escapes. This is the safe canonical form."
+    },
+    {
+      "id": "bash_read_input",
+      "languages": ["bash"],
+      "triggers": ["read user input bash", "prompt user shell", "bash read command"],
+      "title": "Read user input",
+      "code": "read -p 'Name: ' name\necho \"hello $name\"\n\n# Silent (passwords):\nread -s -p 'Password: ' pw\necho",
+      "notes": "`-s` hides the input. `-t 10` adds a 10-second timeout. `-r` is good practice to disable backslash processing."
+    },
+    {
+      "id": "bash_function",
+      "languages": ["bash"],
+      "triggers": ["bash function", "shell function args", "bash function $1"],
+      "title": "Functions and arguments",
+      "code": "greet() {\n  local name=\"$1\"\n  local count=\"${2:-1}\"   # default 1\n  for ((i = 0; i < count; i++)); do\n    echo \"hello $name\"\n  done\n}\n\ngreet 'joe' 3",
+      "notes": "`$1` `$2` are positional args. `$@` = all args (each quoted), `$*` = all args (one string). Always use `local` for function vars."
+    },
+    {
+      "id": "bash_default_var",
+      "languages": ["bash"],
+      "triggers": ["bash default value", "${var:-default}", "shell variable default"],
+      "title": "Default values for variables",
+      "code": "name=\"${1:-anon}\"               # default if unset OR empty\nname=\"${NAME:?must be set}\"      # error out if unset\n: \"${PORT:=3000}\"                # assign default if unset",
+      "notes": "`:-` use default. `:=` assign default. `:?` error message. `:+` use alternate (if set, use this — else empty)."
+    },
+    {
+      "id": "bash_check_set",
+      "languages": ["bash"],
+      "triggers": ["check variable set bash", "is var defined shell", "bash test variable"],
+      "title": "Check if a variable is set",
+      "code": "if [[ -z \"${VAR-}\" ]]; then\n  echo 'VAR is unset or empty'\nfi\n\n# Distinguish unset from empty:\nif [[ -z \"${VAR+x}\" ]]; then echo 'unset'; fi",
+      "notes": "`${VAR-}` returns empty if unset (avoids errors with `set -u`). `${VAR+x}` returns 'x' only if set — useful to tell unset vs empty."
+    },
+    {
+      "id": "bash_arithmetic",
+      "languages": ["bash"],
+      "triggers": ["bash arithmetic", "math in shell", "bash add subtract"],
+      "title": "Arithmetic in bash",
+      "code": "i=5\n((i++))            # increment\nresult=$((i * 2))   # 12\nif (( i > 3 )); then echo big; fi\n\n# Floats need bc or awk:\necho 'scale=2; 10 / 3' | bc",
+      "notes": "`(( ))` is integer-only. For floats use `bc -l`, `awk`, or just call Python. No `$` needed inside `(( ))`."
+    },
+    {
+      "id": "bash_string_ops",
+      "languages": ["bash"],
+      "triggers": ["bash string length", "substring bash", "bash string replace"],
+      "title": "String length, substring, replace",
+      "code": "s='hello world'\necho \"${#s}\"            # 11 (length)\necho \"${s:0:5}\"         # 'hello' (substring)\necho \"${s/world/joe}\"   # replace first\necho \"${s//l/L}\"        # replace all\necho \"${s%world}\"       # remove shortest match from end\necho \"${s#hello}\"       # remove shortest match from start\necho \"${s^^}\"           # uppercase",
+      "notes": "These are all parameter expansion — no external programs needed. `^^` upper, `,,` lower (bash 4+)."
+    },
+    {
+      "id": "bash_array",
+      "languages": ["bash"],
+      "triggers": ["bash array", "shell array declare", "bash array iterate"],
+      "title": "Arrays in bash",
+      "code": "arr=(one two three)\narr+=('four')\necho \"${arr[0]}\"            # one\necho \"${arr[@]}\"            # all elements\necho \"${#arr[@]}\"           # length\n\nfor x in \"${arr[@]}\"; do echo \"$x\"; done",
+      "notes": "Always quote `\"${arr[@]}\"` — without quotes, spaces in elements get split. Bash arrays are zero-indexed."
+    },
+    {
+      "id": "bash_assoc_array",
+      "languages": ["bash"],
+      "triggers": ["associative array bash", "bash hash map", "declare -A bash"],
+      "title": "Associative array (hash)",
+      "code": "declare -A user\nuser[name]='Joe'\nuser[age]=9\n\necho \"${user[name]}\"\nfor k in \"${!user[@]}\"; do\n  echo \"$k = ${user[$k]}\"\ndone",
+      "notes": "Bash 4+ only. macOS ships bash 3 — use `brew install bash` or zsh. `${!user[@]}` gives keys, `${user[@]}` gives values."
+    },
+    {
+      "id": "bash_read_stdin",
+      "languages": ["bash"],
+      "triggers": ["read stdin bash", "pipe input shell", "bash from pipe"],
+      "title": "Read from stdin",
+      "code": "while IFS= read -r line; do\n  echo \"line: $line\"\ndone\n\n# Usage:\n# cat file.txt | ./script.sh\n# echo 'hi' | ./script.sh",
+      "notes": "Same pattern as reading from a file, but no `< file` redirection. Use `[[ -t 0 ]]` to detect if stdin is a terminal vs pipe."
+    },
+    {
+      "id": "bash_command_sub",
+      "languages": ["bash"],
+      "triggers": ["command substitution bash", "save output to variable shell", "bash $() backticks"],
+      "title": "Capture command output",
+      "code": "files=$(ls -1)\ndate=$(date +%Y-%m-%d)\nresult=\"$(curl -s https://example.com)\"\n\n# Multi-line:\noutput=$(cat <<-EOF\n  line 1\n  line 2\nEOF\n)",
+      "notes": "Use `$(...)` not backticks — they nest cleanly and are easier to read. Always quote `\"$(...)\"` if the output may have spaces."
+    },
+    {
+      "id": "bash_stderr",
+      "languages": ["bash"],
+      "triggers": ["redirect stderr bash", "2>&1 shell", "capture stderr bash"],
+      "title": "Capture stderr / redirect",
+      "code": "# stderr -> stdout (combine):\ncmd 2>&1\n\n# Separate streams:\ncmd > out.log 2> err.log\n\n# Discard stderr:\ncmd 2> /dev/null\n\n# Capture both in a variable:\noutput=$(cmd 2>&1)",
+      "notes": "Order matters: `> file 2>&1` works, `2>&1 > file` does NOT (redirects stderr to old stdout, then redirects stdout to file)."
+    },
+    {
+      "id": "bash_devnull",
+      "languages": ["bash"],
+      "triggers": ["redirect to /dev/null", "silence command output bash", "discard output shell"],
+      "title": "Silence output",
+      "code": "cmd > /dev/null            # discard stdout\ncmd 2> /dev/null           # discard stderr\ncmd > /dev/null 2>&1       # discard both\ncmd &> /dev/null            # bash shortcut for both",
+      "notes": "`&>` is bash-specific — POSIX shells need `> file 2>&1`. Use for commands where you only care about exit code."
+    },
+    {
+      "id": "bash_tee",
+      "languages": ["bash"],
+      "triggers": ["tee command bash", "save and print output", "bash tee log"],
+      "title": "Tee output to file AND stdout",
+      "code": "cmd | tee output.log\n\n# Append instead of overwrite:\ncmd | tee -a output.log\n\n# With sudo, useful pattern:\necho 'line' | sudo tee -a /etc/somefile",
+      "notes": "`tee` is also the trick for writing to root-owned files with `sudo` — the redirection `> file` doesn't get sudo, but `sudo tee` does."
+    },
+    {
+      "id": "bash_background_wait",
+      "languages": ["bash"],
+      "triggers": ["run background bash", "bash & wait", "parallel commands shell"],
+      "title": "Run in background and wait",
+      "code": "task1 &\ntask2 &\ntask3 &\nwait                  # wait for all\necho 'all done'\n\n# Capture PIDs:\ntask1 & pid1=$!\nwait \"$pid1\"\necho \"exit: $?\"",
+      "notes": "`$!` = PID of the last backgrounded job. `wait` with no args waits for all jobs. `wait $pid` waits for one and gives you its exit code in `$?`."
+    },
+    {
+      "id": "bash_trap",
+      "languages": ["bash"],
+      "triggers": ["trap bash", "cleanup on exit shell", "bash signal handler"],
+      "title": "Trap signals for cleanup",
+      "code": "tmpdir=$(mktemp -d)\ntrap 'rm -rf \"$tmpdir\"' EXIT\ntrap 'echo interrupted; exit 130' INT\n\n# do stuff with $tmpdir...",
+      "notes": "`EXIT` runs on any exit (success, failure, signal). `INT` is Ctrl+C. Combine: `trap cleanup EXIT INT TERM`."
+    },
+    {
+      "id": "bash_strict_mode",
+      "languages": ["bash"],
+      "triggers": ["bash strict mode", "set -euo pipefail", "bash safe options"],
+      "title": "Strict mode",
+      "code": "#!/usr/bin/env bash\nset -euo pipefail\nIFS=$'\\n\\t'",
+      "notes": "`-e` exit on error, `-u` error on unset var, `-o pipefail` make pipes fail loudly. `IFS=$'\\n\\t'` makes word splitting more predictable. Add at the top of every script."
+    },
+    {
+      "id": "bash_exit_codes",
+      "languages": ["bash"],
+      "triggers": ["bash exit code", "shell return value", "$? bash"],
+      "title": "Exit codes",
+      "code": "cmd\necho \"exit: $?\"\n\nif cmd; then echo ok; else echo \"failed ($?)\"; fi\n\n# Return from function:\nmy_func() {\n  [[ -f \"$1\" ]] || return 1\n  return 0\n}",
+      "notes": "0 = success, 1-255 = error. Conventions: 1 general, 2 misuse, 126 not executable, 127 not found, 128+N killed by signal N."
+    },
+    {
+      "id": "bash_find",
+      "languages": ["bash"],
+      "triggers": ["find command bash", "find by name shell", "find mtime size"],
+      "title": "find: name, mtime, size, exec",
+      "code": "find . -name '*.log'\nfind . -iname '*.JPG' -type f\nfind . -mtime -7        # modified last 7 days\nfind . -size +100M      # bigger than 100MB\nfind . -name '*.tmp' -delete\nfind . -name '*.txt' -exec wc -l {} +",
+      "notes": "`-iname` is case-insensitive. `-mtime -7` last 7 days, `+7` older than 7 days. `-exec ... {} +` batches args (faster than `\\;`)."
+    },
+    {
+      "id": "bash_find_xargs",
+      "languages": ["bash"],
+      "triggers": ["find xargs bash", "xargs -0", "find with parallel"],
+      "title": "find + xargs",
+      "code": "find . -name '*.log' -print0 | xargs -0 rm\nfind . -name '*.txt' -print0 | xargs -0 -n1 -P4 process_file",
+      "notes": "Always use `-print0` / `-0` for filenames with spaces or newlines. `-P4` runs 4 in parallel. `-n1` = one arg per invocation."
+    },
+    {
+      "id": "bash_sed",
+      "languages": ["bash"],
+      "triggers": ["sed substitute", "sed in place", "sed replace bash"],
+      "title": "sed: substitute, in-place",
+      "code": "sed 's/foo/bar/g' file.txt              # print with replacement\nsed -i 's/foo/bar/g' file.txt            # GNU in-place\nsed -i '' 's/foo/bar/g' file.txt         # macOS/BSD in-place\nsed -n '5,10p' file.txt                  # print lines 5-10\nsed '/^#/d' file.txt                     # delete comment lines",
+      "notes": "`-i ''` is required on macOS (BSD sed). For portability, write to a temp file and `mv`. `/g` = replace all on a line."
+    },
+    {
+      "id": "bash_awk",
+      "languages": ["bash"],
+      "triggers": ["awk print field", "awk sum column", "awk basics"],
+      "title": "awk: print fields, sum a column",
+      "code": "awk '{print $1, $3}' file.txt                # cols 1 & 3\nawk -F',' '{print $2}' data.csv              # CSV col 2\nawk '{sum += $1} END {print sum}' file.txt   # sum col 1\nawk '$3 > 100 {print $0}' file.txt           # filter rows",
+      "notes": "Default field separator is whitespace. `-F` sets it. `$0` is the whole line, `$1`/`$2`/... are fields. `NR` = line number."
+    },
+    {
+      "id": "bash_grep",
+      "languages": ["bash"],
+      "triggers": ["grep command bash", "grep recursive", "grep case insensitive"],
+      "title": "grep: useful flags",
+      "code": "grep 'pattern' file.txt\ngrep -i 'pattern' file        # case-insensitive\ngrep -r 'pattern' dir/         # recursive\ngrep -l 'pattern' *.txt        # files with matches\ngrep -v 'pattern' file         # invert (lines NOT matching)\ngrep -n 'pattern' file         # line numbers\ngrep -E 'foo|bar' file         # extended regex (use -P for PCRE)",
+      "notes": "`rg` (ripgrep) is way faster and respects gitignore — recommended for codebases. `-F` for literal string (no regex)."
+    },
+    {
+      "id": "bash_cut_sort_uniq",
+      "languages": ["bash"],
+      "triggers": ["cut sort uniq bash", "shell text processing", "wc word count"],
+      "title": "cut, sort, uniq, wc",
+      "code": "cut -d',' -f2,4 data.csv          # cols 2 & 4 from CSV\nsort file.txt | uniq               # dedupe (sorted)\nsort file.txt | uniq -c | sort -rn  # count occurrences\nwc -l file.txt                     # line count\nwc -w file.txt                      # word count",
+      "notes": "`uniq` only dedupes ADJACENT lines — always pair with `sort` first. `sort -n` numeric, `sort -r` reverse."
+    },
+    {
+      "id": "bash_jq",
+      "languages": ["bash"],
+      "triggers": ["jq json bash", "parse json shell", "jq select filter"],
+      "title": "jq: filter and transform JSON",
+      "code": "curl -s api/users | jq '.[] | .name'\njq '.users[] | select(.age > 30) | .name' users.json\njq -r '.users[].email' users.json     # raw (no quotes)\njq '{name: .name, total: (.items | length)}' user.json",
+      "notes": "`.` is the identity filter. `.[]` iterates. `select()` filters. `-r` outputs raw strings (no JSON quotes) — useful in shell pipelines."
+    },
+    {
+      "id": "bash_yq",
+      "languages": ["bash"],
+      "triggers": ["yq yaml bash", "parse yaml shell", "yq command"],
+      "title": "yq: process YAML",
+      "code": "yq '.database.host' config.yaml\nyq '.users | length' config.yaml\nyq -i '.version = \"2.0\"' config.yaml     # in-place edit\nyq -o json config.yaml > config.json     # convert to JSON",
+      "notes": "Two main yq tools: mikefarah/yq (Go, syntax like jq) and python-yq (Python wrapper around jq). They have different syntax — install mikefarah's via brew."
+    },
+    {
+      "id": "bash_date",
+      "languages": ["bash"],
+      "triggers": ["date command bash", "format date shell", "bash date add days"],
+      "title": "date: format and arithmetic",
+      "code": "date +%Y-%m-%d                       # 2026-05-14\ndate +%s                             # epoch\ndate -u +%Y-%m-%dT%H:%M:%SZ           # UTC ISO\n\n# GNU:\ndate -d '+7 days' +%Y-%m-%d\ndate -d '@1700000000'\n\n# macOS/BSD:\ndate -v+7d +%Y-%m-%d",
+      "notes": "GNU `date -d` and BSD `date -v` differ — write scripts for one or both. Install GNU date on macOS: `brew install coreutils` then use `gdate`."
+    },
+    {
+      "id": "bash_realpath",
+      "languages": ["bash"],
+      "triggers": ["realpath bash", "readlink absolute path", "shell absolute path"],
+      "title": "Get absolute path",
+      "code": "realpath path/to/file\nrealpath --relative-to=/base path\n\n# Portable (macOS lacks GNU realpath by default):\nabs=$(cd \"$(dirname \"$1\")\" && pwd)/$(basename \"$1\")",
+      "notes": "`realpath` is GNU; macOS may need `brew install coreutils` (then `grealpath`). The portable cd/dirname trick works almost anywhere."
+    },
+    {
+      "id": "bash_mktemp",
+      "languages": ["bash"],
+      "triggers": ["mktemp bash", "temporary file shell", "temp dir bash"],
+      "title": "Make a temp file or dir",
+      "code": "tmpfile=$(mktemp)\ntmpdir=$(mktemp -d)\ntrap 'rm -rf \"$tmpfile\" \"$tmpdir\"' EXIT\n\necho 'data' > \"$tmpfile\"\n# ... use it ...",
+      "notes": "Pair with a `trap ... EXIT` to clean up automatically. Use `-t prefix` to control the prefix name."
+    },
+    {
+      "id": "bash_script_dir",
+      "languages": ["bash"],
+      "triggers": ["get script directory bash", "script dir self", "where is script"],
+      "title": "Get the script's own directory",
+      "code": "SCRIPT_DIR=\"$( cd \"$( dirname \"${BASH_SOURCE[0]}\" )\" && pwd )\"\necho \"script lives in: $SCRIPT_DIR\"",
+      "notes": "Use `BASH_SOURCE[0]` instead of `$0` so it works when sourced too. Doesn't resolve symlinks — wrap with `realpath` if you need that."
+    },
+    {
+      "id": "bash_compare",
+      "languages": ["bash"],
+      "triggers": ["compare numbers bash", "string comparison shell", "bash equal test"],
+      "title": "Compare numbers and strings",
+      "code": "# Numbers:\nif (( a > b )); then echo big; fi\nif [[ $a -gt $b ]]; then echo big; fi\n\n# Strings:\nif [[ \"$s\" == 'hello' ]]; then echo hi; fi\nif [[ \"$s\" == hel* ]]; then echo prefix; fi\nif [[ \"$s\" =~ ^[0-9]+$ ]]; then echo digits; fi",
+      "notes": "Numeric: `-eq -ne -lt -le -gt -ge` (or `(( ))`). String: `==` `!=` (with glob support in `[[ ]]`). `=~` for regex match."
+    },
+    {
+      "id": "bash_loop_index",
+      "languages": ["bash"],
+      "triggers": ["loop with index bash", "bash enumerate", "for loop counter shell"],
+      "title": "Loop with index",
+      "code": "arr=(a b c d)\nfor i in \"${!arr[@]}\"; do\n  echo \"$i: ${arr[$i]}\"\ndone",
+      "notes": "`${!arr[@]}` gives the keys/indices. For C-style: `for ((i=0; i<${#arr[@]}; i++))`."
+    },
+    {
+      "id": "bash_glob",
+      "languages": ["bash"],
+      "triggers": ["bash glob patterns", "shell wildcards", "globbing bash"],
+      "title": "Glob patterns",
+      "code": "ls *.txt                   # any .txt\nls file?.txt               # one char\nls [abc]*                  # starts with a, b, or c\n\nshopt -s globstar\nls **/*.py                 # recursive (bash 4+)\n\nshopt -s nullglob          # empty pattern = nothing (not literal)",
+      "notes": "Default behavior: an unmatched glob expands to the literal pattern (surprising). Set `nullglob` to make it expand to nothing instead."
+    },
+    {
+      "id": "bash_brace",
+      "languages": ["bash"],
+      "triggers": ["brace expansion bash", "{1..10} bash", "shell brace"],
+      "title": "Brace expansion",
+      "code": "echo {1..5}             # 1 2 3 4 5\necho {a..e}             # a b c d e\necho {01..10..2}        # 01 03 05 07 09\nmv file.{txt,bak}        # mv file.txt file.bak\nmkdir -p src/{js,css,img}",
+      "notes": "Happens BEFORE variable/glob expansion. Useful for generating filenames, paths, sequences. Won't work inside double quotes."
+    },
+    {
+      "id": "bash_heredoc",
+      "languages": ["bash"],
+      "triggers": ["heredoc bash", "<<EOF shell", "multi line string bash"],
+      "title": "Heredoc (multi-line strings)",
+      "code": "cat <<EOF\nHello $USER\ntoday is $(date +%Y-%m-%d)\nEOF\n\n# No variable expansion:\ncat <<'EOF'\n$USER stays literal\nEOF",
+      "notes": "Quoted delimiter (`'EOF'`) disables expansion — useful for embedding scripts. `<<-EOF` strips leading TABS (not spaces)."
+    },
+    {
+      "id": "bash_detect_os",
+      "languages": ["bash"],
+      "triggers": ["detect os bash", "uname linux mac", "macos vs linux bash"],
+      "title": "Detect OS / distro",
+      "code": "case \"$(uname -s)\" in\n  Darwin*) os=macos ;;\n  Linux*)  os=linux ;;\n  CYGWIN*|MINGW*) os=windows ;;\n  *) os=unknown ;;\nesac\n\n# Linux distro:\n. /etc/os-release && echo \"$ID $VERSION_ID\"",
+      "notes": "`/etc/os-release` is the standard way to identify Linux distros. `uname -m` for architecture (x86_64, arm64)."
+    },
+    {
+      "id": "bash_curl_post",
+      "languages": ["bash"],
+      "triggers": ["curl post json", "curl bash json", "curl with auth header"],
+      "title": "curl POST JSON",
+      "code": "curl -fsSL -X POST 'https://api.example.com/items' \\\n  -H 'Authorization: Bearer TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"name\":\"banana\"}'\n\n# From a file:\ncurl -d @body.json -H 'Content-Type: application/json' URL",
+      "notes": "`-f` fail on HTTP errors, `-s` silent, `-S` show errors anyway, `-L` follow redirects. Combine as `-fsSL` for scripts."
+    },
+    {
+      "id": "bash_curl_retry",
+      "languages": ["bash"],
+      "triggers": ["curl with retries", "curl retry bash", "robust curl"],
+      "title": "curl with retries",
+      "code": "curl --retry 5 --retry-delay 2 --retry-max-time 60 \\\n     --retry-connrefused \\\n     -fsSL URL",
+      "notes": "`--retry-connrefused` (curl 7.52+) retries when the connection is refused — important for waiting on services starting up."
+    },
+    {
+      "id": "bash_wait_port",
+      "languages": ["bash"],
+      "triggers": ["wait for port bash", "check port open shell", "wait service ready"],
+      "title": "Wait for a port to open",
+      "code": "until nc -z localhost 5432; do\n  echo 'waiting for postgres...'\n  sleep 1\ndone\necho 'ready'",
+      "notes": "`nc -z` does a zero-IO connect — pure port check. Alternative tools: `wait-for-it.sh`, `dockerize -wait`."
+    },
+    {
+      "id": "bash_watch",
+      "languages": ["bash"],
+      "triggers": ["watch command bash", "rerun every n seconds", "shell watch output"],
+      "title": "Watch a command",
+      "code": "watch -n 2 'ls -la'        # every 2 seconds\nwatch -d 'df -h'           # highlight differences",
+      "notes": "Ships with most Linux distros; on macOS `brew install watch`. For one-shot loops, a `while sleep 2; do ...; done` works too."
+    },
+    {
+      "id": "bash_flock",
+      "languages": ["bash"],
+      "triggers": ["flock bash", "lock file shell", "prevent concurrent runs"],
+      "title": "Lock a file (flock)",
+      "code": "(\n  flock -n 9 || { echo 'already running'; exit 1; }\n  # critical section\n  do_work\n) 9>/var/lock/myscript.lock",
+      "notes": "`flock -n` = non-blocking (exit if locked). Without `-n` it waits. Use FD 9 (arbitrary) to hold the lock for the subshell."
+    },
+    {
+      "id": "bash_tmux",
+      "languages": ["bash"],
+      "triggers": ["tmux session bash", "run in tmux", "tmux new session"],
+      "title": "Run inside a tmux session",
+      "code": "tmux new -d -s mywork 'long-running-cmd'\ntmux attach -t mywork\ntmux ls\ntmux kill-session -t mywork",
+      "notes": "`-d` detached. Survives SSH disconnects. Alternative: `screen`. For modern setups, `tmux` is the default choice."
+    },
+    {
+      "id": "bash_cron",
+      "languages": ["bash"],
+      "triggers": ["cron job bash", "crontab schedule", "schedule script linux"],
+      "title": "Schedule via cron",
+      "code": "# Edit:\ncrontab -e\n\n# Examples:\n0 9 * * *      /usr/local/bin/morning-job.sh\n*/5 * * * *    /opt/scripts/heartbeat.sh\n0 0 * * 0      /opt/scripts/weekly.sh\n\n# Log output:\n*/5 * * * *    cmd >> /var/log/cron.log 2>&1",
+      "notes": "Cron runs with a minimal env — set PATH explicitly. Capture stderr or jobs fail silently. systemd timers are a modern alternative."
+    },
+    {
+      "id": "bash_signals",
+      "languages": ["bash"],
+      "triggers": ["kill process bash", "send signal shell", "pkill bash"],
+      "title": "Send signals to processes",
+      "code": "kill 1234              # SIGTERM\nkill -9 1234           # SIGKILL\nkill -HUP 1234         # reload (common convention)\n\npkill nginx            # by name\npkill -f 'python app.py'  # match full cmdline",
+      "notes": "SIGTERM (default) is polite — let the process clean up. SIGKILL (9) is forceful — no cleanup. Use `kill -l` to list signals."
+    },
+    {
+      "id": "bash_find_process",
+      "languages": ["bash"],
+      "triggers": ["find process bash", "pgrep ps grep", "shell find pid"],
+      "title": "Find process by name",
+      "code": "pgrep -f 'python app.py'\nps aux | grep '[p]ython app.py'    # the [p] trick avoids matching grep itself\n\n# PID of last background job:\nlong-cmd & pid=$!",
+      "notes": "`[p]ython` is a regex trick — `grep` won't match its own command line. `pgrep -f` matches full command (not just process name)."
+    },
+    {
+      "id": "bash_cpu_mem",
+      "languages": ["bash"],
+      "triggers": ["cpu memory usage bash", "top htop free", "shell system stats"],
+      "title": "CPU / memory usage",
+      "code": "top -bn1 | head -20            # one snapshot\nhtop                            # interactive\nfree -h                         # memory\nuptime                          # load avg\nvmstat 1 5                      # 5 samples, 1s apart",
+      "notes": "`top -bn1` is the scriptable form. macOS doesn't have `free` — use `vm_stat` or `top -l 1 | grep PhysMem`."
+    },
+    {
+      "id": "bash_du",
+      "languages": ["bash"],
+      "triggers": ["disk usage bash", "du command", "size of directory shell"],
+      "title": "Disk usage by directory",
+      "code": "du -sh ./*           # one level\ndu -sh .             # total\ndu -h --max-depth=2 . | sort -h\ndf -h                # filesystem usage",
+      "notes": "`-h` human-readable. `sort -h` understands human-readable sizes. On macOS BSD `du`, use `-d 2` instead of `--max-depth`."
+    },
+    {
+      "id": "bash_tar",
+      "languages": ["bash"],
+      "triggers": ["tar gzip bash", "tar create extract", "compress directory shell"],
+      "title": "tar gzip / extract",
+      "code": "# Create:\ntar -czf archive.tar.gz dir/\n\n# Extract:\ntar -xzf archive.tar.gz\ntar -xzf archive.tar.gz -C /target/dir\n\n# List:\ntar -tzf archive.tar.gz",
+      "notes": "Flags: `c`reate, e`x`tract, `t`list, `z` gzip, `j` bzip2, `J` xz, `v` verbose, `f` file. Memorize `czf` and `xzf`."
+    },
+    {
+      "id": "bash_unzip",
+      "languages": ["bash"],
+      "triggers": ["unzip bash", "extract zip shell", "zip file commands"],
+      "title": "Unzip a file",
+      "code": "unzip archive.zip\nunzip archive.zip -d /target/dir\nunzip -l archive.zip          # list contents\n\n# Create:\nzip -r archive.zip dir/",
+      "notes": "`zip`/`unzip` may not be installed everywhere — `apt install unzip`. For tar archives, see the tar recipe."
+    },
+    {
+      "id": "bash_ssh_keygen",
+      "languages": ["bash"],
+      "triggers": ["ssh-keygen", "ssh key setup", "ssh-copy-id"],
+      "title": "Generate SSH key + push to server",
+      "code": "ssh-keygen -t ed25519 -C 'me@example.com'\n# accept default path ~/.ssh/id_ed25519\n\nssh-copy-id user@host\nssh user@host",
+      "notes": "ed25519 is current best practice (faster + safer than RSA). Add to `~/.ssh/config` for an alias: `Host myserver\\n  HostName ...\\n  User ...`"
+    },
+    {
+      "id": "bash_rsync",
+      "languages": ["bash"],
+      "triggers": ["rsync bash", "rsync directory", "sync files shell"],
+      "title": "rsync a directory",
+      "code": "# Local:\nrsync -avh src/ dst/\n\n# Remote:\nrsync -avh --progress src/ user@host:/path/\n\n# Mirror (delete extras at dest):\nrsync -avh --delete src/ dst/",
+      "notes": "Trailing `/` on `src/` matters — `src/` copies contents, `src` copies the dir itself. `-a` archive (preserves perms, times, etc.). `--dry-run` to preview."
+    },
+    {
+      "id": "bash_inotify",
+      "languages": ["bash"],
+      "triggers": ["watch directory changes bash", "inotifywait fswatch", "file change script"],
+      "title": "Watch a directory for changes",
+      "code": "# Linux (apt install inotify-tools):\ninotifywait -mr -e modify,create,delete src/ | while read path event file; do\n  echo \"$event $path$file\"\ndone\n\n# macOS (brew install fswatch):\nfswatch -r src/ | while read change; do echo \"$change\"; done",
+      "notes": "For dev hot-reload, tools like `entr`, `nodemon`, `watchexec` are friendlier wrappers. `watchexec -r cmd` reruns on any change."
+    },
+    {
+      "id": "bash_color",
+      "languages": ["bash"],
+      "triggers": ["bash color output", "ansi color shell", "echo with color"],
+      "title": "Print colored output",
+      "code": "RED='\\033[31m'\nGREEN='\\033[32m'\nBOLD='\\033[1m'\nRESET='\\033[0m'\n\nprintf \"${RED}error:${RESET} %s\\n\" 'something failed'\nprintf \"${GREEN}${BOLD}ok${RESET}\\n\"",
+      "notes": "Use `printf` (not `echo -e`) for portability. Check `[[ -t 1 ]]` and skip colors when stdout isn't a TTY (e.g. logs to file)."
+    },
+    {
+      "id": "bash_getopts",
+      "languages": ["bash"],
+      "triggers": ["getopts bash", "parse flags shell", "bash option parsing"],
+      "title": "Parse flags with getopts",
+      "code": "verbose=0\nname=''\n\nwhile getopts 'vn:' opt; do\n  case \"$opt\" in\n    v) verbose=1 ;;\n    n) name=\"$OPTARG\" ;;\n    *) echo \"usage: $0 [-v] [-n name]\"; exit 1 ;;\n  esac\ndone\nshift $((OPTIND - 1))",
+      "notes": "`v` = flag, `n:` = takes an arg. Only handles short options. For long options use `getopt` (note: not portable across BSD/GNU)."
+    },
+    {
+      "id": "bash_source",
+      "languages": ["bash"],
+      "triggers": ["source script bash", ". script shell", "include bash file"],
+      "title": "Source another script",
+      "code": "source ./common.sh\n. ./common.sh           # same thing, POSIX\n\n# Guard against being executed:\n# (in common.sh)\nif [[ \"${BASH_SOURCE[0]}\" == \"${0}\" ]]; then\n  echo 'this file is meant to be sourced'\n  exit 1\nfi",
+      "notes": "Sourcing runs the file in the current shell — definitions persist. Executing runs it in a subshell — changes don't escape."
+    },
+    {
+      "id": "git_clone",
+      "languages": ["git"],
+      "triggers": ["git clone", "clone repository", "clone a repo"],
+      "title": "Clone a repo",
+      "code": "git clone https://github.com/user/repo.git\ngit clone git@github.com:user/repo.git target-dir\n\n# Shallow (faster, no full history):\ngit clone --depth 1 https://github.com/user/repo.git\n\n# Specific branch:\ngit clone -b dev --single-branch URL",
+      "notes": "`--depth 1` saves time/space for huge repos but limits some operations (like git log). Use SSH URL if you have a key set up."
+    },
+    {
+      "id": "git_init",
+      "languages": ["git"],
+      "triggers": ["git init", "initialize git repo", "start git project"],
+      "title": "Init a new repo",
+      "code": "git init\ngit init -b main           # set initial branch name\n\n# With first commit:\ngit init && echo '# project' > README.md && git add . && git commit -m 'init'",
+      "notes": "Configure default branch globally: `git config --global init.defaultBranch main`."
+    },
+    {
+      "id": "git_add",
+      "languages": ["git"],
+      "triggers": ["git add", "stage files git", "git stage"],
+      "title": "Stage files",
+      "code": "git add file.txt\ngit add .                       # current dir + subdirs\ngit add -A                      # all changes in repo\ngit add -p                      # interactively pick hunks\ngit add -u                      # only update tracked files (no new)",
+      "notes": "`-p` is great for crafting focused commits. `git add .` only adds within cwd; `git add -A` is repo-wide."
+    },
+    {
+      "id": "git_unstage",
+      "languages": ["git"],
+      "triggers": ["git unstage", "git restore --staged", "remove from staging"],
+      "title": "Unstage files",
+      "code": "git restore --staged file.txt\ngit restore --staged .          # everything\n\n# Older syntax (still works):\ngit reset HEAD file.txt",
+      "notes": "`restore` is the modern split out of `reset`. Working tree changes are kept — only the index is reset."
+    },
+    {
+      "id": "git_commit",
+      "languages": ["git"],
+      "triggers": ["git commit", "commit changes", "git commit message"],
+      "title": "Commit with a message",
+      "code": "git commit -m 'fix: handle empty input'\n\n# Multi-line:\ngit commit -m 'fix: handle empty input' -m 'Was crashing on null. See #123.'\n\n# Stage all tracked + commit:\ngit commit -am 'fix typo'",
+      "notes": "`-a` only stages already-tracked files — won't pick up new ones. For Conventional Commits style: `<type>(scope): subject`."
+    },
+    {
+      "id": "git_amend",
+      "languages": ["git"],
+      "triggers": ["git amend", "git commit --amend", "fix last commit"],
+      "title": "Amend the last commit",
+      "code": "# Change message:\ngit commit --amend -m 'better message'\n\n# Add staged changes without changing message:\ngit add forgot.txt\ngit commit --amend --no-edit",
+      "notes": "NEVER amend a commit you've already pushed and shared — it rewrites history and forces collaborators to recover. Safe locally."
+    },
+    {
+      "id": "git_status",
+      "languages": ["git"],
+      "triggers": ["git status", "git current state", "what changed git"],
+      "title": "View status",
+      "code": "git status\ngit status -s                  # short format\ngit status -sb                  # short + branch info",
+      "notes": "Short format: `M` modified, `A` added, `D` deleted, `??` untracked. Left column = index, right column = working tree."
+    },
+    {
+      "id": "git_log",
+      "languages": ["git"],
+      "triggers": ["git log", "git history", "git log graph"],
+      "title": "View log",
+      "code": "git log\ngit log --oneline -20\ngit log --graph --oneline --all\ngit log --stat                 # files changed per commit\ngit log -p                     # full diffs\ngit log --since='2 weeks ago' --author='Akiva'",
+      "notes": "Set a nice alias: `git config --global alias.lg 'log --graph --oneline --all'`. `--follow file` traces renames."
+    },
+    {
+      "id": "git_diff",
+      "languages": ["git"],
+      "triggers": ["git diff", "git diff staged", "git compare commits"],
+      "title": "View diffs",
+      "code": "git diff                       # working tree vs index\ngit diff --staged              # index vs HEAD\ngit diff HEAD                  # all uncommitted changes\ngit diff main..feature         # between branches\ngit diff abc123..def456 -- file.txt",
+      "notes": "`a..b` shows commits in b not in a. `a...b` shows commits in either, not both. Use `--word-diff` for word-level diffs."
+    },
+    {
+      "id": "git_discard",
+      "languages": ["git"],
+      "triggers": ["discard changes git", "git restore file", "undo local changes"],
+      "title": "Discard local changes",
+      "code": "git restore file.txt           # one file\ngit restore .                  # everything in cwd\n\n# Also remove untracked files:\ngit clean -nd                  # preview\ngit clean -fd                  # do it",
+      "notes": "DESTRUCTIVE — your changes are gone. Use `git stash` first if you might want them back. `clean -fdx` also wipes ignored files."
+    },
+    {
+      "id": "git_revert",
+      "languages": ["git"],
+      "triggers": ["git revert", "undo commit safely", "revert commit"],
+      "title": "Revert a commit (safe)",
+      "code": "git revert abc123              # creates a new 'undo' commit\ngit revert HEAD                # revert most recent\ngit revert -n abc123 def456    # stage reverts without committing",
+      "notes": "Revert is safe for shared history — it creates a new commit instead of rewriting. Use `reset` only on local/private commits."
+    },
+    {
+      "id": "git_reset",
+      "languages": ["git"],
+      "triggers": ["git reset", "soft mixed hard reset", "rewind branch git"],
+      "title": "Reset (soft, mixed, hard)",
+      "code": "# Keep changes staged:\ngit reset --soft HEAD~1\n\n# Keep changes in working tree (default):\ngit reset --mixed HEAD~1\ngit reset HEAD~1\n\n# Discard EVERYTHING:\ngit reset --hard HEAD~1",
+      "notes": "soft = move HEAD only. mixed = HEAD + index. hard = HEAD + index + working tree (destroys uncommitted work). NEVER hard reset shared branches."
+    },
+    {
+      "id": "git_reflog",
+      "languages": ["git"],
+      "triggers": ["git reflog", "recover lost commit", "git undo reset"],
+      "title": "Recover lost commits (reflog)",
+      "code": "git reflog\n# 7d3a4b9 HEAD@{0}: reset: moving to HEAD~3\n# abc123 HEAD@{1}: commit: feature work\n\ngit reset --hard HEAD@{1}    # back to before the reset\n# or:\ngit checkout abc123",
+      "notes": "Reflog stays for ~90 days by default — your safety net for most 'I lost a commit!' situations. Commits are only truly gone after gc."
+    },
+    {
+      "id": "git_branch",
+      "languages": ["git"],
+      "triggers": ["git branch", "create branch git", "list branches", "switch branch"],
+      "title": "Branch list / create / switch / delete",
+      "code": "git branch                     # local\ngit branch -a                  # all (incl. remote)\ngit switch -c feature/new      # create + switch\ngit switch main                # switch\ngit branch -d feature/new      # delete (merged)\ngit branch -D feature/new      # force delete",
+      "notes": "`switch` and `restore` are modern (Git 2.23+) — clearer than overloaded `checkout`. `-d` refuses unmerged branches; `-D` is forceful."
+    },
+    {
+      "id": "git_rename_branch",
+      "languages": ["git"],
+      "triggers": ["rename branch git", "git branch -m", "change branch name"],
+      "title": "Rename a branch",
+      "code": "# Rename current branch:\ngit branch -m new-name\n\n# Rename another branch:\ngit branch -m old-name new-name\n\n# Push the new branch and delete the old one on remote:\ngit push origin -u new-name\ngit push origin --delete old-name",
+      "notes": "Common: rename `master` to `main`. Don't forget to update upstream tracking and any CI configs that reference the old name."
+    },
+    {
+      "id": "git_push",
+      "languages": ["git"],
+      "triggers": ["git push", "push to remote git", "git push -u"],
+      "title": "Push to remote",
+      "code": "git push\ngit push origin main\n\n# First push of a new branch — track upstream:\ngit push -u origin feature/new\n\n# Push all branches:\ngit push --all origin",
+      "notes": "`-u` (--set-upstream) sets the branch to track the remote so future `git push`/`pull` need no args."
+    },
+    {
+      "id": "git_force_push",
+      "languages": ["git"],
+      "triggers": ["git force push", "force push lease", "git push --force"],
+      "title": "Force push (safely)",
+      "code": "# Safer — refuses if remote was updated by someone else:\ngit push --force-with-lease\n\n# Plain force (use rarely):\ngit push --force",
+      "notes": "Use `--force-with-lease` always — it won't clobber others' work. NEVER force-push to main/master without team agreement."
+    },
+    {
+      "id": "git_pull",
+      "languages": ["git"],
+      "triggers": ["git pull", "git pull rebase", "fetch and merge"],
+      "title": "Pull (merge vs rebase)",
+      "code": "git pull                       # default merge\ngit pull --rebase              # rebase your commits on top\n\n# Set rebase as the default:\ngit config --global pull.rebase true",
+      "notes": "Rebase keeps history linear — easier to read. Merge preserves the exact history. Most teams prefer rebase for feature branches."
+    },
+    {
+      "id": "git_stash",
+      "languages": ["git"],
+      "triggers": ["git stash", "git stash pop", "stash changes git"],
+      "title": "Stash changes",
+      "code": "git stash                      # stash tracked\ngit stash -u                   # include untracked\ngit stash push -m 'wip auth'\ngit stash list\ngit stash pop                  # apply + drop\ngit stash apply stash@{1}      # apply without dropping\ngit stash drop stash@{0}",
+      "notes": "`-u` includes untracked. `pop` removes the stash after applying; `apply` keeps it for reuse. Conflicts are possible — resolve like a merge."
+    },
+    {
+      "id": "git_cherry_pick",
+      "languages": ["git"],
+      "triggers": ["git cherry-pick", "apply commit from another branch", "git pick commit"],
+      "title": "Cherry-pick a commit",
+      "code": "git cherry-pick abc123\ngit cherry-pick abc123..def456     # range (exclusive..inclusive)\ngit cherry-pick -x abc123          # adds '(cherry picked from ...)' note",
+      "notes": "Use `-x` for an audit trail. On conflict: resolve, `git add`, then `git cherry-pick --continue` (or `--abort`)."
+    },
+    {
+      "id": "git_rebase_interactive",
+      "languages": ["git"],
+      "triggers": ["git rebase interactive", "squash commits git", "git rebase -i"],
+      "title": "Interactive rebase (squash, reword)",
+      "code": "git rebase -i HEAD~5\n\n# In the editor change 'pick' to:\n#   r/reword  - change commit message\n#   s/squash  - merge into previous, keep both messages\n#   f/fixup   - merge into previous, drop message\n#   d/drop    - remove the commit\n#   e/edit    - stop to amend",
+      "notes": "Only rebase commits you haven't pushed (or that nobody else has pulled). After conflicts: `git rebase --continue` or `--abort`."
+    },
+    {
+      "id": "git_rebase_onto",
+      "languages": ["git"],
+      "triggers": ["git rebase onto", "rebase branch on main", "git rebase another branch"],
+      "title": "Rebase a branch onto another",
+      "code": "git switch feature/new\ngit rebase main\n# resolve conflicts, git add, then:\ngit rebase --continue\n\n# Rebase a slice of commits onto a different base:\ngit rebase --onto new-base old-base feature",
+      "notes": "Use to keep a feature branch up to date with main. After rebasing a pushed branch, force-push with `--force-with-lease`."
+    },
+    {
+      "id": "git_merge",
+      "languages": ["git"],
+      "triggers": ["git merge", "merge branch", "git merge --no-ff"],
+      "title": "Merge a branch",
+      "code": "git switch main\ngit merge feature/new\n\n# Always create a merge commit even on fast-forward:\ngit merge --no-ff feature/new\n\n# Squash all commits into one:\ngit merge --squash feature/new && git commit",
+      "notes": "`--no-ff` preserves the branch shape in history. `--squash` collapses without recording a merge."
+    },
+    {
+      "id": "git_abort",
+      "languages": ["git"],
+      "triggers": ["git abort merge", "git abort rebase", "cancel merge"],
+      "title": "Abort merge / rebase / cherry-pick",
+      "code": "git merge --abort\ngit rebase --abort\ngit cherry-pick --abort\n\n# Generic 'get back to a clean state':\ngit reset --merge",
+      "notes": "Aborts return you to the state before the operation started. Conflicts must be either resolved (`--continue`) or aborted."
+    },
+    {
+      "id": "git_resolve_conflict",
+      "languages": ["git"],
+      "triggers": ["resolve merge conflict git", "git conflict markers", "fix conflicts git"],
+      "title": "Resolve a merge conflict",
+      "code": "# 1. Open conflicted files (look for <<<<<<<, =======, >>>>>>>)\n# 2. Edit to the desired result (remove markers)\n# 3. Stage and continue:\ngit add file.txt\ngit commit              # for merge\n# or:\ngit rebase --continue   # for rebase\n\n# Use a 3-way merge tool:\ngit mergetool",
+      "notes": "Conflict markers: `<<<<<<< HEAD` (your side), `=======`, `>>>>>>> branch` (their side). `git status` lists conflicted files."
+    },
+    {
+      "id": "git_mv",
+      "languages": ["git"],
+      "triggers": ["git mv", "rename file git", "git move file"],
+      "title": "Rename / move a file",
+      "code": "git mv old.txt new.txt\ngit mv src/old.py lib/new.py\ngit commit -m 'move foo to lib/'",
+      "notes": "`git mv` is just `mv` + `git add` + `git rm`. Git tracks renames by content similarity, not by command — you can also just plain-`mv` then `git add -A`."
+    },
+    {
+      "id": "git_untrack",
+      "languages": ["git"],
+      "triggers": ["untrack file git", "git rm --cached", "remove from git but keep file"],
+      "title": "Untrack a file (keep locally)",
+      "code": "# Add to .gitignore first, then:\ngit rm --cached file.txt\ngit commit -m 'chore: ignore file.txt'\n\n# Whole directory:\ngit rm -r --cached node_modules/",
+      "notes": "`--cached` removes from the index only — the file stays on disk. Common when you accidentally committed `node_modules` or a `.env`."
+    },
+    {
+      "id": "git_gitignore",
+      "languages": ["git"],
+      "triggers": ["gitignore patterns", "git ignore file", ".gitignore example"],
+      "title": ".gitignore patterns",
+      "code": "# Comments start with #\nnode_modules/        # any 'node_modules' folder\n*.log                 # any .log file\n!important.log        # except this one\n/secrets.json         # only at repo root\nbuild/**/*.tmp        # globstar (Git globs support **)",
+      "notes": "Patterns are relative to the .gitignore file. Use `!` to negate. Already-tracked files aren't ignored — `git rm --cached` them first."
+    },
+    {
+      "id": "git_gitattributes",
+      "languages": ["git"],
+      "triggers": ["gitattributes line endings", "git binary files", ".gitattributes example"],
+      "title": ".gitattributes (line endings, binary)",
+      "code": "# Normalize line endings to LF in repo:\n* text=auto\n\n# Always CRLF on Windows checkouts:\n*.bat text eol=crlf\n\n# Treat as binary (no diff):\n*.png binary\n*.pdf binary",
+      "notes": "Eliminates CRLF/LF wars across platforms. After adding, run `git add --renormalize .` to apply to existing files."
+    },
+    {
+      "id": "git_tag",
+      "languages": ["git"],
+      "triggers": ["git tag", "annotated tag git", "create release tag"],
+      "title": "Tag (lightweight vs annotated)",
+      "code": "# Annotated (recommended for releases):\ngit tag -a v1.0.0 -m 'first release'\n\n# Lightweight:\ngit tag v1.0.1\n\ngit tag                       # list\ngit show v1.0.0",
+      "notes": "Annotated tags carry author, date, message — use these for releases. Lightweight are just pointers, fine for private bookmarks."
+    },
+    {
+      "id": "git_push_tags",
+      "languages": ["git"],
+      "triggers": ["git push tags", "push tag git", "share git tag"],
+      "title": "Push tags to remote",
+      "code": "git push origin v1.0.0          # single tag\ngit push origin --tags           # all tags\ngit push --follow-tags            # only annotated tags reachable from commits",
+      "notes": "Tags are NOT pushed by `git push`. `--follow-tags` is the recommended default — won't push random local tags."
+    },
+    {
+      "id": "git_delete_tag",
+      "languages": ["git"],
+      "triggers": ["delete tag git", "remove git tag", "git tag -d"],
+      "title": "Delete a tag (local + remote)",
+      "code": "git tag -d v1.0.0                       # local\ngit push origin --delete v1.0.0          # remote\n# or:\ngit push origin :refs/tags/v1.0.0",
+      "notes": "Deleting a published tag is rude — collaborators who fetched it still have it locally. Better: tag a new release."
+    },
+    {
+      "id": "git_worktree",
+      "languages": ["git"],
+      "triggers": ["git worktree", "git multiple checkouts", "git worktree add"],
+      "title": "Worktrees (multiple checkouts)",
+      "code": "git worktree add ../repo-feature feature/new\n# now ../repo-feature is a working tree on the feature branch\n\ngit worktree list\ngit worktree remove ../repo-feature",
+      "notes": "Lets you have multiple branches checked out at once without cloning twice. Same repo, separate working dirs."
+    },
+    {
+      "id": "git_submodule",
+      "languages": ["git"],
+      "triggers": ["git submodule", "git submodule add update", "submodules basics"],
+      "title": "Submodules: add / update",
+      "code": "# Add:\ngit submodule add https://github.com/user/lib.git vendor/lib\ngit commit -m 'add lib submodule'\n\n# Clone a repo WITH submodules:\ngit clone --recurse-submodules URL\n# Or after a regular clone:\ngit submodule update --init --recursive\n\n# Update to latest commit on tracked branch:\ngit submodule update --remote",
+      "notes": "Submodules are heavy. Alternatives: monorepo, git subtree, or a package manager. If you must, document the workflow for collaborators."
+    },
+    {
+      "id": "git_remote_url",
+      "languages": ["git"],
+      "triggers": ["git remote url", "change remote git", "git remote -v"],
+      "title": "Get / change remote URL",
+      "code": "git remote -v                                    # list\ngit remote get-url origin\ngit remote set-url origin git@github.com:user/repo.git",
+      "notes": "Common use: switching from HTTPS to SSH. Add a new remote: `git remote add upstream URL`."
+    },
+    {
+      "id": "git_add_remote",
+      "languages": ["git"],
+      "triggers": ["git add remote", "second remote git", "upstream fork git"],
+      "title": "Add a second remote (fork workflow)",
+      "code": "git remote add upstream https://github.com/original/repo.git\ngit fetch upstream\ngit merge upstream/main          # or rebase",
+      "notes": "Common pattern: `origin` = your fork, `upstream` = the source repo. Fetch upstream to pick up new changes."
+    },
+    {
+      "id": "git_config_user",
+      "languages": ["git"],
+      "triggers": ["git config user.name", "set git email", "git identity"],
+      "title": "Configure user name + email",
+      "code": "# Global (all repos):\ngit config --global user.name 'Akiva'\ngit config --global user.email 'me@example.com'\n\n# Per-repo (overrides global):\ngit config user.email 'work@company.com'",
+      "notes": "Use per-repo email for work vs personal. View current: `git config --get user.email`. List all: `git config --list --show-origin`."
+    },
+    {
+      "id": "git_ssh_github",
+      "languages": ["git"],
+      "triggers": ["use ssh github", "ssh key github setup", "git ssh authentication"],
+      "title": "Use SSH for GitHub",
+      "code": "# Generate key:\nssh-keygen -t ed25519 -C 'me@example.com'\n\n# Copy public key, paste at github.com/settings/keys:\ncat ~/.ssh/id_ed25519.pub\n\n# Test:\nssh -T git@github.com\n\n# Switch existing repo from HTTPS to SSH:\ngit remote set-url origin git@github.com:user/repo.git",
+      "notes": "Use SSH to avoid password/token prompts. Add `IdentityFile` per-host in `~/.ssh/config` if you juggle multiple keys."
+    },
+    {
+      "id": "git_credential_helper",
+      "languages": ["git"],
+      "triggers": ["git credential helper", "git save password", "git store credentials"],
+      "title": "Configure credential helper",
+      "code": "# macOS keychain:\ngit config --global credential.helper osxkeychain\n\n# Windows:\ngit config --global credential.helper manager\n\n# Linux libsecret:\ngit config --global credential.helper libsecret\n\n# Cache in memory for 1 hour:\ngit config --global credential.helper 'cache --timeout=3600'",
+      "notes": "Avoids re-entering tokens for HTTPS. For Linux without a desktop env, the cache helper is the simplest option."
+    },
+    {
+      "id": "git_gpg_sign",
+      "languages": ["git"],
+      "triggers": ["sign commits gpg", "git signed commits", "git commit signing"],
+      "title": "Sign commits with GPG (or SSH key)",
+      "code": "# GPG:\ngit config --global user.signingkey ABCDEF123\ngit config --global commit.gpgsign true\n\n# Sign one commit:\ngit commit -S -m 'signed'\n\n# SSH-key signing (Git 2.34+):\ngit config --global gpg.format ssh\ngit config --global user.signingkey ~/.ssh/id_ed25519.pub",
+      "notes": "SSH signing is much simpler than GPG and works great with GitHub's 'Verified' badge. Add the SSH key as a 'signing key' on GitHub."
+    },
+    {
+      "id": "git_show",
+      "languages": ["git"],
+      "triggers": ["git show file at commit", "git show commit", "view file old version"],
+      "title": "View a file at a past commit",
+      "code": "git show abc123:path/to/file.txt > /tmp/old.txt\ngit show abc123              # full commit details\ngit show HEAD~3 --stat\n\n# Checkout one file from another commit:\ngit checkout abc123 -- file.txt",
+      "notes": "`git show COMMIT:PATH` writes the historical content to stdout without touching your working tree. Useful for `diff`ing against an old version."
+    },
+    {
+      "id": "git_bisect",
+      "languages": ["git"],
+      "triggers": ["git bisect", "find bad commit git", "git bisect run"],
+      "title": "Find a regression with bisect",
+      "code": "git bisect start\ngit bisect bad                      # current is bad\ngit bisect good v1.0.0              # this was good\n# git checks out the midpoint — test it, then:\ngit bisect good   # or  git bisect bad\n# repeat until git tells you the culprit\ngit bisect reset\n\n# Automated:\ngit bisect run ./test.sh",
+      "notes": "`bisect run script.sh` automates it — the script should exit 0 (good), non-zero (bad), or 125 (skip)."
+    },
+    {
+      "id": "git_compare_branches",
+      "languages": ["git"],
+      "triggers": ["compare branches git", "git diff branches", "commits between branches"],
+      "title": "Compare two branches",
+      "code": "git log main..feature           # commits in feature, not in main\ngit log feature..main           # commits in main, not in feature\ngit log --left-right main...feature  # both, with arrows\ngit diff main...feature         # diff (since common ancestor)",
+      "notes": "`..` = exclusive range, `...` = symmetric/triple-dot. For diff, `...` is usually what you want (PR-style: 'what does feature add?')."
+    },
+    {
+      "id": "git_blame",
+      "languages": ["git"],
+      "triggers": ["git blame", "who wrote this line git", "git annotate file"],
+      "title": "Blame: who changed each line",
+      "code": "git blame file.txt\ngit blame -L 10,30 file.txt        # only lines 10-30\ngit blame -w file.txt              # ignore whitespace changes\ngit log -p -L 10,30:file.txt       # full commit history for those lines",
+      "notes": "`-w` is usually what you want — pure whitespace changes shouldn't claim authorship. `git log -L` digs deeper into the line's history."
+    },
+    {
+      "id": "git_log_pickaxe",
+      "languages": ["git"],
+      "triggers": ["git log -S", "search git history for string", "git pickaxe"],
+      "title": "Find when a string was added/removed",
+      "code": "git log -S 'function_name' --source --all\ngit log -G 'regex_pattern'           # regex variant\ngit log -p -S 'thing' -- path/to/file",
+      "notes": "`-S` finds commits that change the count of literal occurrences (added or removed). `-G` matches by regex. Excellent for tracking down deletions."
+    },
+    {
+      "id": "git_clean",
+      "languages": ["git"],
+      "triggers": ["git clean", "remove untracked files git", "git clean -fd"],
+      "title": "Clean untracked files",
+      "code": "git clean -nd                # dry-run, dirs too\ngit clean -fd                # actually remove\ngit clean -fdx               # also ignored files\ngit clean -i                 # interactive",
+      "notes": "DESTRUCTIVE. Always `-n` (dry-run) first. `-x` also nukes things like `node_modules` — useful when something is wedged."
+    },
+    {
+      "id": "git_fetch_all",
+      "languages": ["git"],
+      "triggers": ["git fetch all", "fetch all branches git", "update remote refs"],
+      "title": "Fetch all branches / prune stale",
+      "code": "git fetch --all\ngit fetch --prune              # remove deleted remote branches\ngit fetch origin --tags\n\n# Configure auto-prune:\ngit config --global fetch.prune true",
+      "notes": "`--prune` cleans up local references to branches that were deleted on the remote. Make it the default — keeps things tidy."
+    },
+    {
+      "id": "git_track_upstream",
+      "languages": ["git"],
+      "triggers": ["track upstream branch git", "git set upstream", "git push -u origin"],
+      "title": "Track an upstream branch",
+      "code": "# When creating a new branch and pushing:\ngit push -u origin feature/new\n\n# On an existing local branch:\ngit branch --set-upstream-to=origin/feature/new\n\n# Check what's tracking what:\ngit branch -vv",
+      "notes": "Tracking means `git pull`/`git push` know which remote branch to use without you specifying. `-vv` shows ahead/behind counts."
+    },
+    {
+      "id": "py_threading_multiprocessing",
+      "languages": ["python"],
+      "triggers": ["threading vs multiprocessing python", "python concurrency choices", "gil python"],
+      "title": "threading vs multiprocessing (when to use)",
+      "code": "# I/O-bound (HTTP, files, DB): threads or asyncio\nfrom concurrent.futures import ThreadPoolExecutor\nwith ThreadPoolExecutor(20) as ex:\n    list(ex.map(fetch_url, urls))\n\n# CPU-bound (math, parsing, image): processes\nfrom concurrent.futures import ProcessPoolExecutor\nwith ProcessPoolExecutor() as ex:\n    list(ex.map(heavy_compute, inputs))",
+      "notes": "GIL means CPython only runs one thread of bytecode at a time — threads don't help CPU work. Processes use OS-level isolation; data must be pickled."
+    },
+    {
+      "id": "js_map_set",
+      "languages": ["javascript"],
+      "triggers": ["map set javascript", "javascript map vs object", "es6 map set"],
+      "title": "Map and Set",
+      "code": "const m = new Map();\nm.set('a', 1); m.set({}, 2);     // object keys work\nm.get('a');                       // 1\nm.has('a'); m.delete('a');\nfor (const [k, v] of m) {}\n\nconst s = new Set([1, 2, 2, 3]);  // {1,2,3}\ns.add(4); s.has(2); s.delete(1);",
+      "notes": "Use Map when keys aren't strings/numbers, or when you need preserved insertion order with the Map API. Set for unique collections of primitives."
+    },
+    {
+      "id": "js_url_construct",
+      "languages": ["javascript"],
+      "triggers": ["url javascript", "urlsearchparams js", "build url javascript", "query string js"],
+      "title": "Build / parse a URL",
+      "code": "const u = new URL('https://api.example.com/items');\nu.searchParams.set('q', 'monkey joe');\nu.searchParams.set('page', '2');\nconsole.log(u.toString());\n// https://api.example.com/items?q=monkey+joe&page=2\n\n// Parse:\nconst p = new URL(window.location.href);\nconsole.log(p.pathname, p.searchParams.get('id'));",
+      "notes": "`URL` and `URLSearchParams` are built into Node and browsers. No need for `qs` or `query-string` packages anymore."
+    },
+    {
+      "id": "ts_react_children",
+      "languages": ["typescript"],
+      "triggers": ["react children type typescript", "typescript reactnode", "ts children prop"],
+      "title": "Typing React children",
+      "code": "import { ReactNode } from 'react';\n\ntype Props = {\n  title: string;\n  children: ReactNode;\n};\n\nfunction Card({ title, children }: Props) {\n  return <div><h2>{title}</h2>{children}</div>;\n}",
+      "notes": "`ReactNode` is the most permissive — strings, numbers, elements, arrays. Use `ReactElement` if you need an actual JSX element."
+    },
+    {
+      "id": "ts_assert_type",
+      "languages": ["typescript"],
+      "triggers": ["type assertion typescript", "as keyword typescript", "ts cast type"],
+      "title": "Type assertions (as)",
+      "code": "const el = document.getElementById('app') as HTMLDivElement;\nel.innerHTML = '...';\n\n// Two-step when types don't overlap:\nconst num = (someString as unknown) as number;\n\n// Non-null assertion:\nconst data = maybeData!;   // tell TS this is not null/undefined",
+      "notes": "`as` is a forced cast — it lies if you're wrong. Prefer real type guards (`if (x instanceof HTMLDivElement)`) where possible."
+    },
+    {
+      "id": "ts_interface_extend",
+      "languages": ["typescript"],
+      "triggers": ["extend interface typescript", "interface inheritance ts", "typescript combine types"],
+      "title": "Extend / intersect types",
+      "code": "interface Animal { name: string }\ninterface Dog extends Animal { breed: string }\n\n// Type intersection (works for type aliases):\ntype Timestamped = { createdAt: Date };\ntype Post = { title: string } & Timestamped;",
+      "notes": "Interfaces use `extends`. Type aliases use `&` intersection. Both compose object types — the result must satisfy all parts."
+    },
+    {
+      "id": "bash_until",
+      "languages": ["bash"],
+      "triggers": ["until loop bash", "while not bash", "retry loop shell"],
+      "title": "until loop / retry pattern",
+      "code": "# until: run until condition succeeds\nuntil ping -c1 example.com &>/dev/null; do\n  echo 'no network, retrying...'\n  sleep 2\ndone\n\n# Retry N times:\nfor i in {1..5}; do\n  cmd && break\n  sleep $((i * 2))\ndone",
+      "notes": "`until` is the inverse of `while` — runs while the condition is FALSE. Great for waiting on services to come up."
+    },
+    {
+      "id": "bash_case",
+      "languages": ["bash"],
+      "triggers": ["case statement bash", "shell switch case", "bash pattern match"],
+      "title": "case statement",
+      "code": "case \"$1\" in\n  start)   echo 'starting' ;;\n  stop)    echo 'stopping' ;;\n  re*)     echo 'restart-ish' ;;\n  '')      echo 'no arg' ;;\n  *)       echo \"unknown: $1\" ;;\nesac",
+      "notes": "Patterns use glob syntax, not regex. `;;` terminates a branch. `;&` falls through to the next (bash 4+)."
+    },
+    {
+      "id": "py_textwrap",
+      "languages": ["python"],
+      "triggers": ["textwrap python", "wrap text python", "indent string python"],
+      "title": "Wrap and indent text",
+      "code": "import textwrap\n\nprint(textwrap.fill('long sentence ' * 20, width=40))\nprint(textwrap.indent('a\\nb\\n', '> '))\nprint(textwrap.dedent('''\n    these lines\n    lose their common indent\n''').strip())",
+      "notes": "`dedent` is great for triple-quoted strings — strips the consistent leading whitespace. `fill` wraps to width; `wrap` returns a list of lines."
+    },
+    {
+      "id": "py_zip",
+      "languages": ["python"],
+      "triggers": ["zip python", "iterate two lists python", "python parallel iteration"],
+      "title": "Iterate two lists in parallel (zip)",
+      "code": "names = ['Joe', 'Ada', 'Tom']\nages = [9, 36, 50]\n\nfor name, age in zip(names, ages):\n    print(name, age)\n\n# Stop at shortest by default; use strict for safety:\nfor a, b in zip(names, ages, strict=True):  # Py 3.10+\n    pass\n\n# Index too:\nfor i, name in enumerate(names, start=1):\n    print(i, name)",
+      "notes": "`zip` truncates to the shortest input — easy bug. Pass `strict=True` (3.10+) to raise on length mismatch. `itertools.zip_longest` pads instead."
+    },
+    {
+      "id": "git_pretty_log",
+      "languages": ["git"],
+      "triggers": ["pretty git log", "git log custom format", "git log alias"],
+      "title": "Pretty git log alias",
+      "code": "git config --global alias.lg \"log --graph --pretty=format:'%C(auto)%h %C(blue)%ad %C(green)%an%C(auto)%d %s' --date=short\"\n\n# Then:\ngit lg\ngit lg -20",
+      "notes": "Aliases live in `~/.gitconfig` under `[alias]`. Other handy aliases: `co=checkout`, `st=status`, `cm='commit -m'`."
+    }
+  ]
+}
+
