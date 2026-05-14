@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '49'; // bump when brain JSON files change
+  const BRAIN_VERSION = '50'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -7,6 +7,7 @@ const Brain = (() => {
   let coding = null;
   let templates = null;
   let dictionary = null;
+  let storyBeats = null;
 
   async function load() {
     // If version changed, clear cache and reload from JSON
@@ -17,15 +18,17 @@ const Brain = (() => {
       localStorage.removeItem('mj_brain_coding');
       localStorage.removeItem('mj_brain_templates');
       localStorage.removeItem('mj_brain_dictionary');
+      localStorage.removeItem('mj_brain_storyBeats');
       localStorage.setItem('mj_brain_version', BRAIN_VERSION);
     }
 
-    knowledge  = Storage.getBrain('knowledge');
-    rules      = Storage.getBrain('rules');
-    terminal   = Storage.getBrain('terminal');
-    coding     = Storage.getBrain('coding');
-    templates  = Storage.getBrain('templates');
-    dictionary = Storage.getBrain('dictionary');
+    knowledge   = Storage.getBrain('knowledge');
+    rules       = Storage.getBrain('rules');
+    terminal    = Storage.getBrain('terminal');
+    coding      = Storage.getBrain('coding');
+    templates   = Storage.getBrain('templates');
+    dictionary  = Storage.getBrain('dictionary');
+    storyBeats  = Storage.getBrain('storyBeats');
 
     if (!knowledge)  { knowledge  = await fetchJSON('brain/knowledge.json');  Storage.setBrain('knowledge', knowledge); }
     if (!rules)      { rules      = await fetchJSON('brain/rules.json');      Storage.setBrain('rules', rules); }
@@ -33,9 +36,10 @@ const Brain = (() => {
     if (!coding)     { coding     = await fetchJSON('brain/coding.json');     Storage.setBrain('coding', coding); }
     if (!templates)  { templates  = await fetchJSON('brain/templates.json');  Storage.setBrain('templates', templates); }
     if (!dictionary) { dictionary = await fetchJSON('brain/dictionary.json'); Storage.setBrain('dictionary', dictionary); }
+    if (!storyBeats) { storyBeats = await fetchJSON('brain/storyBeats.json'); Storage.setBrain('storyBeats', storyBeats); }
 
     if (typeof Generator !== 'undefined' && Generator.init) {
-      Generator.init(templates, dictionary);
+      Generator.init(templates, dictionary, storyBeats);
     }
   }
 
@@ -57,17 +61,91 @@ const Brain = (() => {
 
   // Map mood keywords from a story request to the generator's tone tags.
   const storyToneKeywords = {
-    silly:     ['silly', 'funny', 'goofy', 'wacky', 'absurd', 'wild'],
-    spooky:    ['spooky', 'scary', 'creepy', 'ghost', 'eerie', 'haunted', 'horror', 'frightening'],
-    adventure: ['adventure', 'exciting', 'brave', 'epic', 'heroic', 'quest', 'thrilling'],
-    cozy:      ['bedtime', 'cozy', 'calm', 'gentle', 'sleepy', 'peaceful', 'quiet', 'sleep', 'soft', 'soothing'],
-    magical:   ['magical', 'magic', 'fantasy', 'enchanted', 'wondrous', 'mystical', 'fairy']
+    silly:       ['silly', 'funny', 'goofy', 'wacky', 'absurd', 'wild', 'hilarious'],
+    spooky:      ['spooky', 'scary', 'creepy', 'ghost', 'eerie', 'haunted', 'horror', 'frightening'],
+    adventure:   ['adventure', 'exciting', 'brave', 'epic', 'heroic', 'quest', 'thrilling', 'daring'],
+    cozy:        ['bedtime', 'cozy', 'calm', 'gentle', 'sleepy', 'peaceful', 'quiet', 'sleep', 'soft', 'soothing'],
+    magical:     ['magical', 'magic', 'fantasy', 'enchanted', 'wondrous', 'mystical', 'fairy', 'fairytale'],
+    bittersweet: ['bittersweet', 'sad-happy', 'happy-sad', 'sweet sad', 'gentle sad'],
+    triumphant:  ['triumphant', 'victorious', 'heroic ending', 'epic win', 'glorious'],
+    mysterious:  ['mysterious', 'mystery', 'enigmatic', 'puzzling', 'cryptic'],
+    whimsical:   ['whimsical', 'quirky', 'fanciful', 'odd', 'peculiar'],
+    wistful:     ['wistful', 'nostalgic', 'longing', 'remembering', 'long ago']
   };
   function detectStoryTone(lower) {
     for (const [tone, words] of Object.entries(storyToneKeywords)) {
       if (words.some(w => new RegExp('\\b' + w + '\\b').test(lower))) return tone;
     }
     return null;
+  }
+
+  // "longer story" / "weave me a tale" → use beat-chain mode.
+  const longerStoryPatterns = [
+    /\b(longer|a long|a longer)\s+(story|tale|adventure)\b/i,
+    /\bweave\s+(me\s+)?a\s+(tale|story)\b/i,
+    /\btell\s+(me\s+)?an?\s+adventure\b/i,
+    /\b(epic|grand|sprawling)\s+(story|tale|adventure)\b/i,
+    /\b(big|long)\s+story\s+please/i
+  ];
+  const microStoryPatterns = [
+    /\b(shorter|short|tiny|quick)\s+(story|tale)\b/i,
+    /\bjust\s+one\s+line\b/i,
+    /\bone[-\s](line|sentence)\s+(story|tale)\b/i,
+    /\bmicro[-\s]?story\b/i,
+    /\bbriefly\s+a\s+story\b/i
+  ];
+  function detectStoryMode(lower) {
+    if (longerStoryPatterns.some(re => re.test(lower))) return 'beats';
+    if (microStoryPatterns.some(re => re.test(lower))) return 'micro';
+    return null;
+  }
+
+  // "another" / "one more" — generate another story in the same tone if
+  // a session exists. Match the whole message strictly so mid-sentence
+  // uses don't trigger.
+  const anotherPatterns = [
+    /^(another|one more|another one|do another|tell another|give another|one more please|another please)[\s!.?]*$/i,
+    /^(another (story|tale)|one more (story|tale))[\s!.?]*$/i
+  ];
+  function detectAnother(input) {
+    return anotherPatterns.some(re => re.test(input.trim()));
+  }
+
+  // "tell me about a brave fox" / "what about a sneaky raccoon" — generate
+  // a micro story featuring that ADJ + NOUN. Returns { adj, noun } or null.
+  function detectAboutMicroStory(lower) {
+    const m = lower.match(/^(?:tell me|what)\s+about\s+(?:a|an)\s+([a-z]+)\s+([a-z]+)[\s!.?]*$/i);
+    if (!m) return null;
+    return { adj: m[1], noun: m[2] };
+  }
+
+  // Score a fact's keyword overlap with a tone's keyword bank — used to
+  // pick a thematically appropriate fact when the user asks for a toned
+  // story without specifying a subject.
+  const toneFactKeywords = {
+    spooky:     ['wolf','cave','midnight','grave','witch','ghost','dark','shadow','night','blood','spider','snake','bat','crow','poison','venom','haunt','death'],
+    cozy:       ['cat','dog','tea','bread','sleep','baby','warm','blanket','home','family','kitten','puppy','milk','honey','cookie'],
+    adventure:  ['mountain','ocean','sail','climb','journey','treasure','explore','discover','volcano','jungle','expedition','space','astronaut'],
+    magical:    ['unicorn','dragon','fairy','spell','star','moon','aurora','rainbow','wonder','magic','enchanted','phoenix'],
+    silly:      ['monkey','banana','laugh','joke','silly','funny','platypus','penguin','octopus'],
+    mysterious: ['mystery','ancient','old','vanish','lost','secret','riddle','unknown','disappear'],
+    wistful:    ['old','ancient','remember','past','memory','long ago','first','original','forgotten'],
+    triumphant: ['won','victory','hero','first','fastest','greatest','tallest','largest'],
+    whimsical:  ['butterfly','jellyfish','platypus','octopus','flamingo','peacock'],
+    bittersweet:['memory','end','last','goodbye','remember','past']
+  };
+  function pickToneAwareFact(facts, tone) {
+    if (!facts || !facts.length) return null;
+    if (!tone || !toneFactKeywords[tone]) return pick(facts);
+    const kws = toneFactKeywords[tone];
+    let best = null, bestScore = 0;
+    for (const f of facts) {
+      const blob = ((f.answer || '') + ' ' + ((f.keywords||[]).join(' '))).toLowerCase();
+      let score = 0;
+      for (const kw of kws) if (blob.includes(kw)) score++;
+      if (score > bestScore) { bestScore = score; best = f; }
+    }
+    return best || pick(facts);
   }
 
   // Pull the subject out of a story request ("story about elephants" → "elephants").
@@ -332,33 +410,80 @@ const Brain = (() => {
       return "That's me! 🐒 I'm Monkey Joe — a rules-based AI assistant made by Akiva. Ask me anything!";
     }
 
+    // "Another" / "one more" — generate a new story in the same tone if a
+    // session exists. Skipped if there's no prior session.
+    if (detectAnother(input) && _storySession && typeof Generator !== 'undefined') {
+      const r = Generator.generateStory({
+        tone:    _storySession.tone,
+        subject: _storySession.subject,
+        mode:    _storySession.mode === 'beats' ? 'beats' : 'regular'
+      });
+      _storySession.character = r.character || _storySession.character;
+      _storySession.place     = r.place     || _storySession.place;
+      return r.text;
+    }
+
+    // "tell me about a brave fox" — micro story featuring that ADJ + NOUN.
+    const aboutMicro = detectAboutMicroStory(lower);
+    if (aboutMicro && typeof Generator !== 'undefined') {
+      const r = Generator.generateStory({
+        mode:    'micro',
+        subject: aboutMicro.noun,
+        tone:    detectStoryTone(lower)
+      });
+      if (r.text && r.text.trim()) {
+        _storySession = {
+          tone:        r.tone || null,
+          subject:     aboutMicro.noun,
+          character:   r.character,
+          place:       r.place,
+          chapter:     1,
+          chapterMode: false,
+          mode:        'micro'
+        };
+        return r.text;
+      }
+    }
+
     // Story-generation intent — make up new text instead of looking up a fact.
     // "book" is a synonym for story (matches the original v42 use case: user
-    // wanted to write a book with Joe). Includes natural / collaborative
-    // phrasings ("I want to make a book with you", "let's write a story").
+    // wanted to write a book with Joe). "fable", "legend", "yarn",
+    // "bedtime story" all route here too.
     const storyTriggers = [
-      /\b(tell|read|make|give|write|share)\s+(me\s+)?(a|an|another|me\s+a|me\s+an)\s+(\w+\s+)?(story|tale|adventure|book)\b/i,
-      /\b(can|could|will|would)\s+you\s+(tell|read|make|give|write|share)\s+(me\s+)?(a|an)\s+(\w+\s+)?(story|tale|adventure|book)\b/i,
-      /^(a\s+)?(\w+\s+)?(story|tale|book)\s+please/i,
-      /\bmake\s+(up|me)\s+(a|an)\s+(story|tale|adventure|book)/i,
+      /\b(tell|read|make|give|write|share)\s+(me\s+)?(a|an|another|me\s+a|me\s+an)\s+(\w+\s+)?(story|tale|adventure|book|fable|legend|yarn)\b/i,
+      /\b(can|could|will|would)\s+you\s+(tell|read|make|give|write|share)\s+(me\s+)?(a|an)\s+(\w+\s+)?(story|tale|adventure|book|fable|legend|yarn)\b/i,
+      /^(a\s+)?(\w+\s+)?(story|tale|book|fable|legend|yarn)\s+please/i,
+      /\bmake\s+(up|me)\s+(a|an)\s+(\w+\s+)?(story|tale|adventure|book|fable|legend|yarn)/i,
       /^chapter\s+\d+\s+of\s+(?:a|an|the)\s+\w*\s*(?:story|tale|adventure|book)\b/i,
-      /\b(let'?s|let us|we'?ll|i want to|i'?d like to|i wanna|wanna|want to|can we|shall we)\s+(make|write|create|tell|share|do|start)\s+(up\s+)?(a|an)\s+(\w+\s+)?(story|tale|adventure|book)\b/i,
-      /^(make|write|create|tell|start)\s+(a|an)\s+(\w+\s+)?(story|tale|adventure|book)\b/i
+      /\b(let'?s|let us|we'?ll|i want to|i'?d like to|i wanna|wanna|want to|can we|shall we)\s+(make|write|create|tell|share|do|start)\s+(up\s+)?(a|an)\s+(\w+\s+)?(story|tale|adventure|book|fable|legend|yarn)\b/i,
+      /^(make|write|create|tell|start)\s+(a|an)\s+(\w+\s+)?(story|tale|adventure|book|fable|legend|yarn)\b/i,
+      /\bbedtime\s+story\b/i,
+      /\b(weave|spin)\s+(me\s+)?a\s+(story|tale|yarn|legend)\b/i
     ];
     if (storyTriggers.some(re => re.test(input))) {
       if (typeof Generator !== 'undefined' && Generator.generateStory) {
         const tone    = detectStoryTone(lower);
+        const mode    = detectStoryMode(lower);
         const subject = extractStorySubject(lower);
-        const fact    = findFactForSubject(subject, knowledge, coding);
+        let   fact    = findFactForSubject(subject, knowledge, coding);
+        // If the user wanted a toned story but didn't name a subject, pick
+        // a tone-appropriate fact so a "spooky factStory" weaves a wolf-fact,
+        // not a capital-city fact.
+        if (!fact && tone && knowledge && knowledge.facts) {
+          const all = (knowledge.facts || []).concat((coding && coding.facts) || []);
+          // Only ~30% of the time so most no-subject stories don't lock into factStories.
+          if (Math.random() < 0.3) fact = pickToneAwareFact(all, tone);
+        }
         // Prefer the last-word singular for character binding so a request
         // like "story about a brave fox" treats "fox" as the protagonist.
         const bindSubject = subject.lastSingular || subject.lastWord || subject.singular || subject.raw || null;
         const r = Generator.generateStory({
           tone,
+          mode:    mode || 'regular',
           subject: bindSubject,
           fact:    fact ? fact.answer : null
         });
-        // Save session so "continue" / "chapter N" follow-ups work
+        // Save session so "continue" / "chapter N" / "another" follow-ups work
         const chMatch = input.match(/\bchapter\s+(\d+)\b/i);
         _storySession = {
           tone,
@@ -366,7 +491,8 @@ const Brain = (() => {
           character:   r.character,
           place:       r.place,
           chapter:     chMatch ? parseInt(chMatch[1], 10) : 1,
-          chapterMode: !!chMatch
+          chapterMode: !!chMatch,
+          mode:        r.mode || mode || 'regular'
         };
         const prefix = _storySession.chapterMode ? `Chapter ${_storySession.chapter}\n\n` : '';
         return prefix + r.text;
