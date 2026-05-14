@@ -458,7 +458,9 @@ const Brain = (() => {
       /\b(let'?s|let us|we'?ll|i want to|i'?d like to|i wanna|wanna|want to|can we|shall we)\s+(make|write|create|tell|share|do|start)\s+(up\s+)?(a|an)\s+(\w+\s+)?(story|tale|adventure|book|fable|legend|yarn)\b/i,
       /^(make|write|create|tell|start)\s+(a|an)\s+(\w+\s+)?(story|tale|adventure|book|fable|legend|yarn)\b/i,
       /\bbedtime\s+story\b/i,
-      /\b(weave|spin)\s+(me\s+)?a\s+(story|tale|yarn|legend)\b/i
+      /\b(weave|spin)\s+(me\s+)?a\s+(story|tale|yarn|legend)\b/i,
+      // Mode-prefixed forms ("one line story please", "longer adventure", "micro story")
+      /\b(one[-\s](line|sentence)|micro|tiny|short(er)?|quick|long(er)?|epic|grand|sprawling)\s+(story|tale|adventure|book|fable|legend|yarn)\b/i
     ];
     if (storyTriggers.some(re => re.test(input))) {
       if (typeof Generator !== 'undefined' && Generator.generateStory) {

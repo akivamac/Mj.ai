@@ -183,7 +183,8 @@ def fix_typos(text: str) -> str:
 def update_brain(brain_dir):
     """Silently pull latest brain files from GitHub on startup."""
     base_url = 'https://raw.githubusercontent.com/akivamac/Mj.ai/main/brain/'
-    files = ['knowledge.json', 'rules.json', 'terminal.json', 'coding.json']
+    files = ['knowledge.json', 'rules.json', 'terminal.json', 'coding.json',
+             'templates.json', 'dictionary.json', 'storyBeats.json']
     ctx = ssl.create_default_context()
     for f in files:
         try:
@@ -261,15 +262,25 @@ class MonkeyJoe:
         self.rules = {}
         self.terminal = {}
         self.coding = {}
+        self.templates = {}
+        self.dictionary = {}
+        self.story_beats = {}
 
         self.history = []  # Last 10 exchanges
         self.last_topic_label = None
         self.last_fact_answer = None
 
+        # Story session — persists character/place across continuations.
+        self.story_session = None
+        # Per-slot recent-word tracking (de-repetition window).
+        self._recent_words = {}
+        self._recent_limit = 30
+
         self.load_brains()
 
     def load_brains(self):
         """Load all brain JSON files. Silently use empty defaults if missing."""
+        # Knowledge-style files: pull .facts out if wrapped.
         for name in ['knowledge', 'rules', 'terminal', 'coding']:
             path = os.path.join(self.brain_dir, f'{name}.json')
             try:
@@ -282,6 +293,419 @@ class MonkeyJoe:
             except Exception:
                 # Silently use empty defaults — auto-update will fix on next startup
                 setattr(self, name, {} if name == 'rules' else [])
+
+        # Storyteller files: keep full dict.
+        for name in ['templates', 'dictionary', 'story_beats']:
+            fname = 'storyBeats.json' if name == 'story_beats' else f'{name}.json'
+            path = os.path.join(self.brain_dir, fname)
+            try:
+                with open(path) as f:
+                    setattr(self, name, json.load(f))
+            except Exception:
+                setattr(self, name, {})
+
+    # ── Storyteller (Python port of js/generator.js) ──────────
+    _POS_MAP = {'NOUN': 'noun', 'VERB': 'verb', 'ADJ': 'adjective',
+                'ADV': 'adverb', 'CONN': 'connector'}
+
+    _STORY_TONE_KEYWORDS = {
+        'silly':       ['silly', 'funny', 'goofy', 'wacky', 'absurd', 'wild', 'hilarious'],
+        'spooky':      ['spooky', 'scary', 'creepy', 'ghost', 'eerie', 'haunted', 'horror', 'frightening'],
+        'adventure':   ['adventure', 'exciting', 'brave', 'epic', 'heroic', 'quest', 'thrilling', 'daring'],
+        'cozy':        ['bedtime', 'cozy', 'calm', 'gentle', 'sleepy', 'peaceful', 'quiet', 'sleep', 'soft', 'soothing'],
+        'magical':     ['magical', 'magic', 'fantasy', 'enchanted', 'wondrous', 'mystical', 'fairy', 'fairytale'],
+        'bittersweet': ['bittersweet', 'sweet sad', 'gentle sad'],
+        'triumphant':  ['triumphant', 'victorious', 'heroic ending', 'epic win', 'glorious'],
+        'mysterious':  ['mysterious', 'mystery', 'enigmatic', 'puzzling', 'cryptic'],
+        'whimsical':   ['whimsical', 'quirky', 'fanciful', 'odd', 'peculiar'],
+        'wistful':     ['wistful', 'nostalgic', 'longing', 'remembering', 'long ago']
+    }
+
+    def _detect_story_tone(self, lower):
+        for tone, words in self._STORY_TONE_KEYWORDS.items():
+            for w in words:
+                if re.search(r'\b' + re.escape(w) + r'\b', lower):
+                    return tone
+        return None
+
+    def _detect_story_mode(self, lower):
+        longer = [r'\b(longer|a long|a longer)\s+(story|tale|adventure)\b',
+                  r'\bweave\s+(me\s+)?a\s+(tale|story)\b',
+                  r'\btell\s+(me\s+)?an?\s+adventure\b',
+                  r'\b(epic|grand|sprawling)\s+(story|tale|adventure)\b']
+        micro = [r'\b(shorter|short|tiny|quick)\s+(story|tale)\b',
+                 r'\bjust\s+one\s+line\b',
+                 r'\bone[-\s](line|sentence)\s+(story|tale)\b',
+                 r'\bmicro[-\s]?story\b']
+        for p in longer:
+            if re.search(p, lower, re.I): return 'beats'
+        for p in micro:
+            if re.search(p, lower, re.I): return 'micro'
+        return None
+
+    _STORY_TRIGGERS = [
+        r'\b(tell|read|make|give|write|share)\s+(me\s+)?(a|an|another|me\s+a|me\s+an)\s+(\w+\s+)?(story|tale|adventure|book|fable|legend|yarn)\b',
+        r'\b(can|could|will|would)\s+you\s+(tell|read|make|give|write|share)\s+(me\s+)?(a|an)\s+(\w+\s+)?(story|tale|adventure|book|fable|legend|yarn)\b',
+        r'^(a\s+)?(\w+\s+)?(story|tale|book|fable|legend|yarn)\s+please',
+        r'\bmake\s+(up|me)\s+(a|an)\s+(\w+\s+)?(story|tale|adventure|book|fable|legend|yarn)',
+        r'^chapter\s+\d+\s+of\s+(?:a|an|the)\s+\w*\s*(?:story|tale|adventure|book)\b',
+        r"\b(let'?s|let us|we'?ll|i want to|i'?d like to|i wanna|wanna|want to|can we|shall we)\s+(make|write|create|tell|share|do|start)\s+(up\s+)?(a|an)\s+(\w+\s+)?(story|tale|adventure|book|fable|legend|yarn)\b",
+        r'^(make|write|create|tell|start)\s+(a|an)\s+(\w+\s+)?(story|tale|adventure|book|fable|legend|yarn)\b',
+        r'\bbedtime\s+story\b',
+        r'\b(weave|spin)\s+(me\s+)?a\s+(story|tale|yarn|legend)\b',
+        # Mode-prefixed forms ("one line story please", "longer adventure", "micro story")
+        r'\b(one[-\s](line|sentence)|micro|tiny|short(er)?|quick|long(er)?|epic|grand|sprawling)\s+(story|tale|adventure|book|fable|legend|yarn)\b'
+    ]
+    _CONT_TRAIL = r'(\s+(please|now|joe|please now))?[\s!.?]*$'
+    _CONTINUATION_PATTERNS = [
+        r'^(continue|keep going|go on|continue the story)' + _CONT_TRAIL,
+        r'^what happens next' + _CONT_TRAIL,
+        r'^(tell me more|more please|more story|i want more|more!?)[\s!.?]*$',
+        r'^next (chapter|part|page)' + _CONT_TRAIL,
+        r'^(the next part|then what|and then\??|and\?)[\s!.?]*$'
+    ]
+    _RESET_PATTERNS = [
+        r'^(end (the |my )?story|stop (the |my )?story|end story|stop story)[\s!.?]*$',
+        r'^(new story|start over|reset story|forget that story)[\s!.?]*$',
+        r"^(that's enough|i'm done)[\s!.?]*$"
+    ]
+    _ANOTHER_PATTERNS = [
+        r'^(another|one more|another one|do another|tell another|give another|one more please|another please)[\s!.?]*$',
+        r'^(another (story|tale)|one more (story|tale))[\s!.?]*$'
+    ]
+
+    def _detect_story_continuation(self, line):
+        return any(re.match(p, line.strip(), re.I) for p in self._CONTINUATION_PATTERNS)
+
+    def _detect_story_reset(self, line):
+        return any(re.match(p, line.strip(), re.I) for p in self._RESET_PATTERNS)
+
+    def _detect_another(self, line):
+        return any(re.match(p, line.strip(), re.I) for p in self._ANOTHER_PATTERNS)
+
+    def _detect_about_micro(self, lower):
+        m = re.match(r'^(?:tell me|what)\s+about\s+(?:a|an)\s+([a-z]+)\s+([a-z]+)[\s!.?]*$', lower, re.I)
+        return {'adj': m.group(1), 'noun': m.group(2)} if m else None
+
+    def _is_story_request(self, text):
+        return any(re.search(p, text, re.I) for p in self._STORY_TRIGGERS)
+
+    def _pick(self, arr):
+        return random.choice(arr) if arr else ''
+
+    def _is_known_noun(self, word):
+        words = (self.dictionary or {}).get('words') or []
+        if not word: return False
+        wl = word.lower()
+        return any(w.get('pos') == 'noun' and w.get('word','').lower() == wl for w in words)
+
+    def _pick_word(self, slot, tone):
+        words = (self.dictionary or {}).get('words') or []
+        if not words: return ''
+        parts = slot.split(':')
+        want_pos = self._POS_MAP.get(parts[0], parts[0].lower())
+        theme = parts[1] if len(parts) > 1 else None
+        candidates = [w for w in words
+                      if w.get('pos') == want_pos
+                      and (theme is None or theme in (w.get('themes') or []))]
+        if not candidates and theme:
+            candidates = [w for w in words if w.get('pos') == want_pos]
+        if not candidates: return ''
+        if tone:
+            toned = [w for w in candidates if tone in (w.get('tone') or [])]
+            if toned: candidates = toned
+        # de-rep
+        key = f'{want_pos}:{theme or ""}'
+        recent = self._recent_words.get(key, [])
+        if recent:
+            fresh = [w for w in candidates if w['word'] not in recent]
+            if fresh: candidates = fresh
+        chosen = self._pick(candidates)['word']
+        bucket = self._recent_words.setdefault(key, [])
+        bucket.append(chosen)
+        if len(bucket) > self._recent_limit: bucket.pop(0)
+        return chosen
+
+    @staticmethod
+    def _fact_snippet(answer):
+        if not answer: return ''
+        m = re.match(r'^[^.!?]+[.!?]', answer)
+        if m: return m.group(0).strip()
+        return (answer[:180].strip() + '...') if len(answer) > 180 else answer.strip()
+
+    def _fill_template(self, text, opts):
+        bindings = {}
+        if opts.get('character'): bindings['NOUN:character'] = opts['character']
+        if opts.get('place'):     bindings['NOUN:place']     = opts['place']
+        if opts.get('subject') and self._is_known_noun(opts['subject']):
+            bindings.setdefault('NOUN:character', opts['subject'])
+        fact_text = self._fact_snippet(opts.get('fact'))
+
+        def repl(m):
+            slot = m.group(1)
+            if slot == 'FACT': return fact_text
+            is_noun = slot.startswith('NOUN')
+            if is_noun and slot in bindings: return bindings[slot]
+            word = self._pick_word(slot, opts.get('tone'))
+            if is_noun: bindings[slot] = word
+            return word
+
+        out = re.sub(r'\{([^}]+)\}', repl, text)
+        return out, bindings
+
+    @staticmethod
+    def _fix_articles(s):
+        return re.sub(r"\b(a|an|A|An)\s+([A-Za-z][A-Za-z']*)",
+                      lambda m: ( ('an' if re.match(r'^[aeiou]', m.group(2), re.I) else 'a').capitalize()
+                                  if m.group(1)[0].isupper()
+                                  else ('an' if re.match(r'^[aeiou]', m.group(2), re.I) else 'a')
+                                ) + ' ' + m.group(2), s)
+
+    @staticmethod
+    def _fix_sentence_case(s):
+        return re.sub(r'(^|[.!?]\s+)([a-z])',
+                      lambda m: m.group(1) + m.group(2).upper(), s)
+
+    def _pick_closer(self, tone):
+        closers = (self.templates or {}).get('closers') or []
+        if not closers: return None
+        pool = closers
+        if tone:
+            toned = [c for c in pool if tone in (c.get('tone') or [])]
+            if toned: pool = toned
+        return self._pick(pool)['text']
+
+    def _pick_pacing(self):
+        p = (self.templates or {}).get('pacingBeats') or []
+        return self._pick(p)['text'] if p else None
+
+    def _pick_template(self, opts):
+        t = self.templates or {}
+        if opts.get('mode') == 'micro' and t.get('microStories'):
+            pool = t['microStories']
+        elif opts.get('continuation') and t.get('continuations'):
+            pool = t['continuations']
+        elif opts.get('fact') and t.get('factStories'):
+            pool = t['factStories']
+        else:
+            pool = t.get('stories', [])
+        if opts.get('tone'):
+            toned = [s for s in pool if opts['tone'] in (s.get('tone') or [])]
+            if toned: return self._pick(toned)
+        return self._pick(pool) if pool else None
+
+    def _generate_beat_story(self, opts):
+        beats = (self.story_beats or {}).get('beats') or []
+        if not beats:
+            return self.generate_story({**opts, 'mode': 'regular'})
+        tone = opts.get('tone')
+        by_id = {b['id']: b for b in beats}
+        def by_type(t): return [b for b in beats if b.get('type') == t]
+        def match_tone(lst):
+            if not tone: return lst
+            t = [b for b in lst if tone in (b.get('tone') or [])]
+            return t if t else lst
+
+        openings = match_tone(by_type('opening'))
+        if not openings:
+            return self.generate_story({**opts, 'mode': 'regular'})
+        current = self._pick(openings)
+
+        visited, chain = set(), []
+        target_len = 4 + random.randint(0, 2)  # 4..6
+        for i in range(target_len + 2):
+            chain.append(current)
+            visited.add(current['id'])
+            if current.get('type') == 'closing': break
+            nexts = current.get('next_beats') or []
+            if not nexts: break
+            cands = [by_id[i_] for i_ in nexts if i_ in by_id]
+            if not cands: break
+            if i >= 3:
+                endish = [b for b in cands if b.get('type') in ('closing', 'resolution')]
+                if endish: cands = endish
+            cands = match_tone(cands)
+            unv = [b for b in cands if b['id'] not in visited]
+            if unv: cands = unv
+            current = self._pick(cands)
+
+        if chain[-1].get('type') != 'closing':
+            cl = match_tone(by_type('closing'))
+            if cl: chain.append(self._pick(cl))
+
+        character = opts.get('character')
+        place     = opts.get('place')
+        subject   = opts.get('subject')
+
+        lines = []
+        for i, b in enumerate(chain):
+            text, bindings = self._fill_template(b['text'],
+                {'tone': tone, 'character': character, 'place': place, 'subject': subject})
+            character = character or bindings.get('NOUN:character')
+            place     = place     or bindings.get('NOUN:place')
+            lines.append(text)
+            if i < len(chain) - 1 and chain[i+1].get('type') != 'closing' and random.random() < 0.28:
+                p = self._pick_pacing()
+                if p: lines.append(p)
+        text = self._fix_sentence_case(self._fix_articles(' '.join(lines)))
+        closer = self._pick_closer(tone)
+        if closer: text += '\n\n' + closer
+        return {'text': text, 'character': character, 'place': place,
+                'tone': tone, 'subject': subject, 'mode': 'beats'}
+
+    def generate_story(self, opts=None):
+        opts = dict(opts or {})
+        templates_ok = bool((self.templates or {}).get('stories'))
+        dict_ok = bool((self.dictionary or {}).get('words'))
+        if not templates_ok:
+            return {'text': "I want to tell stories, but my story-brain isn't loaded yet! 🐒"}
+        if not dict_ok:
+            return {'text': "I want to tell stories, but my word-brain isn't loaded yet! 🐒"}
+        opts.setdefault('tone', None)
+        opts.setdefault('subject', None)
+        opts.setdefault('fact', None)
+        opts.setdefault('character', None)
+        opts.setdefault('place', None)
+        opts.setdefault('continuation', False)
+        opts.setdefault('mode', 'regular')
+        if opts['mode'] == 'beats':
+            return self._generate_beat_story(opts)
+        tpl = self._pick_template(opts)
+        if not tpl:
+            return {'text': "My templates ran dry! 🐒"}
+        tpl_text = tpl['text'] if isinstance(tpl, dict) else tpl
+        filled, bindings = self._fill_template(tpl_text, opts)
+        text = self._fix_sentence_case(self._fix_articles(filled))
+        if opts['mode'] == 'regular' and not opts['continuation'] and random.random() < 0.4:
+            c = self._pick_closer(opts['tone'])
+            if c: text += '\n\n' + c
+        return {'text': text,
+                'character': bindings.get('NOUN:character'),
+                'place':     bindings.get('NOUN:place'),
+                'tone': opts['tone'], 'subject': opts['subject'], 'mode': opts['mode']}
+
+    # ── Story-subject helpers (port of brain.js) ─────────
+    def _extract_story_subject(self, lower):
+        raw = None
+        m = re.search(r"\babout\s+(?:a|an|the|some|my|your)?\s*([a-z][a-z\s\-']*?)(?:\s*[?.!,;]|$)", lower)
+        if m: raw = m.group(1).strip()
+        if not raw:
+            m = re.search(r"\b(?:a|an|the)\s+([a-z\-]+)\s+(?:story|tale|adventure)\b", lower)
+            if m:
+                word = m.group(1)
+                tone_words = sum(self._STORY_TONE_KEYWORDS.values(), [])
+                size_or_count = ['short','long','quick','small','big','little','tiny','huge',
+                                 'bedtime','good','nice','new','another','longer','shorter']
+                if word not in tone_words and word not in size_or_count:
+                    raw = word
+        if not raw: return {'raw': None, 'singular': None, 'lastWord': None, 'lastSingular': None}
+        raw = re.sub(r'[.!?,;]+$', '', raw).strip()
+        def singularize(w):
+            if not w or len(w) <= 3: return w
+            if w.endswith('ies'): return w[:-3] + 'y'
+            if re.search(r'(us|is|ss)$', w): return w
+            if w.endswith('ses'): return w[:-2]
+            if w.endswith('s'): return w[:-1]
+            return w
+        singular = singularize(raw)
+        words = raw.split()
+        last_word = words[-1] if len(words) > 1 else None
+        last_singular = singularize(last_word) if last_word else None
+        return {'raw': raw, 'singular': singular, 'lastWord': last_word, 'lastSingular': last_singular}
+
+    def _find_fact_for_subject(self, subject):
+        if not subject or not subject.get('raw'): return None
+        tries = []
+        for v in [subject.get('raw'), subject.get('singular'),
+                  subject.get('lastWord'), subject.get('lastSingular')]:
+            if v and v not in tries: tries.append(v)
+        all_facts = list(self.knowledge or []) + list(self.coding or [])
+        for term in tries:
+            tl = term.lower()
+            for fact in all_facts:
+                for kw in (fact.get('keywords') or []):
+                    if tl == kw.lower(): return fact
+        return None
+
+    def handle_story_input(self, user_input, lower):
+        """Returns response string if input is a story request/continuation/reset/another; else None."""
+        NO_STORY_MSG = "I don't have a story going yet — try 'tell me a story about a fox' to get one started! 🐒"
+
+        if self._detect_story_reset(lower):
+            if self.story_session:
+                self.story_session = None
+                return "OK, ending that story. Tell me when you want a new one! 🐒"
+            return NO_STORY_MSG
+
+        m = re.match(r'^chapter\s+(\d+)[\s!.?]*$', lower)
+        if m:
+            if self.story_session:
+                num = int(m.group(1))
+                r = self.generate_story({'continuation': True,
+                                         'tone': self.story_session.get('tone'),
+                                         'character': self.story_session.get('character'),
+                                         'place': self.story_session.get('place')})
+                self.story_session['character']   = r.get('character') or self.story_session.get('character')
+                self.story_session['place']       = r.get('place')     or self.story_session.get('place')
+                self.story_session['chapter']     = num
+                self.story_session['chapterMode'] = True
+                return f"Chapter {num}\n\n{r['text']}"
+            return NO_STORY_MSG
+
+        if self._detect_story_continuation(lower):
+            if self.story_session:
+                r = self.generate_story({'continuation': True,
+                                         'tone': self.story_session.get('tone'),
+                                         'character': self.story_session.get('character'),
+                                         'place': self.story_session.get('place')})
+                self.story_session['character'] = r.get('character') or self.story_session.get('character')
+                self.story_session['place']     = r.get('place')     or self.story_session.get('place')
+                prefix = ''
+                if self.story_session.get('chapterMode'):
+                    self.story_session['chapter'] = (self.story_session.get('chapter') or 1) + 1
+                    prefix = f"Chapter {self.story_session['chapter']}\n\n"
+                return prefix + r['text']
+            return NO_STORY_MSG
+
+        if self._detect_another(user_input):
+            if self.story_session:
+                r = self.generate_story({'tone': self.story_session.get('tone'),
+                                         'subject': self.story_session.get('subject'),
+                                         'mode': 'beats' if self.story_session.get('mode') == 'beats' else 'regular'})
+                self.story_session['character'] = r.get('character') or self.story_session.get('character')
+                self.story_session['place']     = r.get('place')     or self.story_session.get('place')
+                return r['text']
+
+        about = self._detect_about_micro(lower)
+        if about:
+            r = self.generate_story({'mode': 'micro', 'subject': about['noun'],
+                                     'tone': self._detect_story_tone(lower)})
+            if r.get('text'):
+                self.story_session = {'tone': r.get('tone'), 'subject': about['noun'],
+                                      'character': r.get('character'), 'place': r.get('place'),
+                                      'chapter': 1, 'chapterMode': False, 'mode': 'micro'}
+                return r['text']
+
+        if self._is_story_request(user_input):
+            tone    = self._detect_story_tone(lower)
+            mode    = self._detect_story_mode(lower)
+            subject = self._extract_story_subject(lower)
+            fact    = self._find_fact_for_subject(subject)
+            bind_subject = subject.get('lastSingular') or subject.get('lastWord') or \
+                           subject.get('singular') or subject.get('raw')
+            r = self.generate_story({'tone': tone, 'mode': mode or 'regular',
+                                     'subject': bind_subject,
+                                     'fact': fact.get('answer') if fact else None})
+            ch = re.search(r'\bchapter\s+(\d+)\b', user_input, re.I)
+            self.story_session = {'tone': tone, 'subject': bind_subject,
+                                  'character': r.get('character'), 'place': r.get('place'),
+                                  'chapter': int(ch.group(1)) if ch else 1,
+                                  'chapterMode': bool(ch),
+                                  'mode': r.get('mode') or mode or 'regular'}
+            prefix = f"Chapter {self.story_session['chapter']}\n\n" if self.story_session['chapterMode'] else ''
+            return prefix + r['text']
+
+        return None
 
     def strip_question(self, q: str) -> str:
         """Remove filler phrases from question."""
@@ -881,6 +1305,12 @@ class MonkeyJoe:
                 return f"Created {filename} in {cwd}/ ✓\nPush it to GitHub with: push {filename}"
             except Exception as e:
                 return f"Error creating file: {e}"
+
+        # Story handling — must run before knowledge lookup so "tell me a story
+        # about elephants" doesn't get hijacked by the elephant fact lookup.
+        story_resp = self.handle_story_input(user_input, lower)
+        if story_resp is not None:
+            return story_resp
 
         # Check for casual statements (not questions)
         if self.is_casual_statement(lower):
