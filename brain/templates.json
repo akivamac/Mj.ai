@@ -5649,56 +5649,206 @@
       "tone": [],
       "text": "Stories like this keep happening. Look for one."
     },
-    "And the {NOUN:character} drifted off to sleep, dreaming of every wonder still to come.",
-    "So ended the day, and the stars blinked out one by one over the {NOUN:place}.",
-    "The {NOUN:character} would tell this tale for years, and each telling grew a little grander.",
-    "And that, my friend, is exactly how it happened.",
-    "From that night on, the {NOUN:place} was never quite so quiet again.",
-    "The {NOUN:character} smiled, tucked the memory away, and waited for morning.",
-    "And everyone agreed it was the finest adventure the {NOUN:place} had ever seen.",
-    "The {NOUN:character} went home with mud on the boots and a story worth keeping.",
-    "And so the {NOUN:animal} returned to its burrow, wiser than before.",
-    "The end, though the {NOUN:character} suspected it was really just a beginning.",
-    "And when the {NOUN:weather} finally cleared, all was well in the {NOUN:place} once more.",
-    "The {NOUN:character} laughed all the way home, and who could blame them?",
-    "So they all sat down to a feast, and not a single {NOUN:food} was left over.",
-    "And the {NOUN:character} kept that little secret tucked safely in a pocket forever.",
-    "The {NOUN:character} closed both eyes and listened to the {NOUN:sound} fade into the dark.",
-    "And that is why, to this very day, the {NOUN:animal} sings at dawn.",
-    "The {NOUN:character} waved goodbye to the {NOUN:place} and set off down a brand-new road.",
-    "And somewhere, even now, the {NOUN:character} is still chuckling about it.",
-    "So the {NOUN:character} hung up the lantern, and the long night turned gently to morning.",
-    "And every {NOUN:season} after, they remembered the day it all began.",
-    "The {NOUN:character} had no idea what came next, and that was the very best part.",
-    "And the {NOUN:plant} bloomed right where the {NOUN:character} had planted hope.",
-    "So the {NOUN:character} sailed on, chasing the horizon until the stars came out.",
-    "And the whole {NOUN:place} slept soundly, knowing the {NOUN:character} kept watch.",
-    "The {NOUN:character} let out a long, happy sigh and called it a perfect day.",
-    "And just like that, the {NOUN:character} was home, and home felt brand new.",
-    "So they shook hands, the {NOUN:character} and the {NOUN:animal}, and parted as the truest of friends.",
-    "And the {NOUN:character} tucked the moon-bright memory beneath the pillow for safekeeping.",
-    "The {NOUN:character} grinned, dusted off both knees, and decided to do it all again tomorrow.",
-    "And so the {NOUN:sound} echoed once more through the {NOUN:place}, soft as a goodnight.",
-    "The {NOUN:character} stepped through the door, and the warm {NOUN:smell} of supper said welcome home.",
-    "And the little {NOUN:animal} curled up tight and slept right through till morning.",
-    "So the {NOUN:character} pressed the last page flat and whispered, the end, just like that.",
-    "And nobody who saw the {NOUN:character} that evening ever forgot the look of pure joy.",
-    "The {NOUN:character} traded one last wink with the {NOUN:celestial} and headed off to bed.",
-    "And the {NOUN:place} held its breath, then settled into the quiet of a tale well told.",
-    "So the {NOUN:character} packed up the wonder, the worry, and the wisdom, and carried them all home.",
-    "And the {NOUN:character} learned that the bravest thing of all is simply to begin.",
-    "The morning found the {NOUN:character} fast asleep, still smiling at a dream that had come true.",
-    "And that is the whole of it, give or take a {NOUN:character} who would tell it differently.",
-    "And so {NOUN:character} curled up beneath the {ADJ} {NOUN:plant}, and the whole {NOUN:place} went quiet.",
-    "The {NOUN:weather} faded, the {NOUN:celestial} blinked once, and everyone slept warm.",
-    "{NOUN:character} hung the lantern by the door, and the {NOUN:structure} was home again.",
-    "And that, my friend, is how the {ADJ} {NOUN:animal} earned its name.",
-    "So {NOUN:character} kept the little {NOUN:object} forever, just in case.",
-    "And every {NOUN:season} after, the {NOUN:plant} bloomed exactly there.",
-    "The {NOUN:vehicle} sailed home, and {NOUN:character} never stopped grinning.",
-    "And to this day, if you listen near the {NOUN:body_of_water}, you can still hear it {VERB:sound}.",
-    "{NOUN:character} raised the {NOUN:object} high, and the whole {NOUN:place} cheered.",
-    "And nothing could stop {NOUN:character} after that, not even the {ADJ} {NOUN:weather}."
+    {
+      "tone": [],
+      "text": "And the {NOUN:character} drifted off to sleep, dreaming of every wonder still to come."
+    },
+    {
+      "tone": [],
+      "text": "So ended the day, and the stars blinked out one by one over the {NOUN:place}."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} would tell this tale for years, and each telling grew a little grander."
+    },
+    {
+      "tone": [],
+      "text": "And that, my friend, is exactly how it happened."
+    },
+    {
+      "tone": [],
+      "text": "From that night on, the {NOUN:place} was never quite so quiet again."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} smiled, tucked the memory away, and waited for morning."
+    },
+    {
+      "tone": [],
+      "text": "And everyone agreed it was the finest adventure the {NOUN:place} had ever seen."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} went home with mud on the boots and a story worth keeping."
+    },
+    {
+      "tone": [],
+      "text": "And so the {NOUN:animal} returned to its burrow, wiser than before."
+    },
+    {
+      "tone": [],
+      "text": "The end, though the {NOUN:character} suspected it was really just a beginning."
+    },
+    {
+      "tone": [],
+      "text": "And when the {NOUN:weather} finally cleared, all was well in the {NOUN:place} once more."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} laughed all the way home, and who could blame them?"
+    },
+    {
+      "tone": [],
+      "text": "So they all sat down to a feast, and not a single {NOUN:food} was left over."
+    },
+    {
+      "tone": [],
+      "text": "And the {NOUN:character} kept that little secret tucked safely in a pocket forever."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} closed both eyes and listened to the {NOUN:sound} fade into the dark."
+    },
+    {
+      "tone": [],
+      "text": "And that is why, to this very day, the {NOUN:animal} sings at dawn."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} waved goodbye to the {NOUN:place} and set off down a brand-new road."
+    },
+    {
+      "tone": [],
+      "text": "And somewhere, even now, the {NOUN:character} is still chuckling about it."
+    },
+    {
+      "tone": [],
+      "text": "So the {NOUN:character} hung up the lantern, and the long night turned gently to morning."
+    },
+    {
+      "tone": [],
+      "text": "And every {NOUN:season} after, they remembered the day it all began."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} had no idea what came next, and that was the very best part."
+    },
+    {
+      "tone": [],
+      "text": "And the {NOUN:plant} bloomed right where the {NOUN:character} had planted hope."
+    },
+    {
+      "tone": [],
+      "text": "So the {NOUN:character} sailed on, chasing the horizon until the stars came out."
+    },
+    {
+      "tone": [],
+      "text": "And the whole {NOUN:place} slept soundly, knowing the {NOUN:character} kept watch."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} let out a long, happy sigh and called it a perfect day."
+    },
+    {
+      "tone": [],
+      "text": "And just like that, the {NOUN:character} was home, and home felt brand new."
+    },
+    {
+      "tone": [],
+      "text": "So they shook hands, the {NOUN:character} and the {NOUN:animal}, and parted as the truest of friends."
+    },
+    {
+      "tone": [],
+      "text": "And the {NOUN:character} tucked the moon-bright memory beneath the pillow for safekeeping."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} grinned, dusted off both knees, and decided to do it all again tomorrow."
+    },
+    {
+      "tone": [],
+      "text": "And so the {NOUN:sound} echoed once more through the {NOUN:place}, soft as a goodnight."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} stepped through the door, and the warm {NOUN:smell} of supper said welcome home."
+    },
+    {
+      "tone": [],
+      "text": "And the little {NOUN:animal} curled up tight and slept right through till morning."
+    },
+    {
+      "tone": [],
+      "text": "So the {NOUN:character} pressed the last page flat and whispered, the end, just like that."
+    },
+    {
+      "tone": [],
+      "text": "And nobody who saw the {NOUN:character} that evening ever forgot the look of pure joy."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} traded one last wink with the {NOUN:celestial} and headed off to bed."
+    },
+    {
+      "tone": [],
+      "text": "And the {NOUN:place} held its breath, then settled into the quiet of a tale well told."
+    },
+    {
+      "tone": [],
+      "text": "So the {NOUN:character} packed up the wonder, the worry, and the wisdom, and carried them all home."
+    },
+    {
+      "tone": [],
+      "text": "And the {NOUN:character} learned that the bravest thing of all is simply to begin."
+    },
+    {
+      "tone": [],
+      "text": "The morning found the {NOUN:character} fast asleep, still smiling at a dream that had come true."
+    },
+    {
+      "tone": [],
+      "text": "And that is the whole of it, give or take a {NOUN:character} who would tell it differently."
+    },
+    {
+      "tone": [],
+      "text": "And so {NOUN:character} curled up beneath the {ADJ} {NOUN:plant}, and the whole {NOUN:place} went quiet."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:weather} faded, the {NOUN:celestial} blinked once, and everyone slept warm."
+    },
+    {
+      "tone": [],
+      "text": "{NOUN:character} hung the lantern by the door, and the {NOUN:structure} was home again."
+    },
+    {
+      "tone": [],
+      "text": "And that, my friend, is how the {ADJ} {NOUN:animal} earned its name."
+    },
+    {
+      "tone": [],
+      "text": "So {NOUN:character} kept the little {NOUN:object} forever, just in case."
+    },
+    {
+      "tone": [],
+      "text": "And every {NOUN:season} after, the {NOUN:plant} bloomed exactly there."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:vehicle} sailed home, and {NOUN:character} never stopped grinning."
+    },
+    {
+      "tone": [],
+      "text": "And to this day, if you listen near the {NOUN:body_of_water}, you can still hear it {VERB:sound}."
+    },
+    {
+      "tone": [],
+      "text": "{NOUN:character} raised the {NOUN:object} high, and the whole {NOUN:place} cheered."
+    },
+    {
+      "tone": [],
+      "text": "And nothing could stop {NOUN:character} after that, not even the {ADJ} {NOUN:weather}."
+    }
   ],
   "pacingBeats": [
     {
@@ -5817,30 +5967,105 @@
       ],
       "text": "A pause. A breath. A long, soft moment."
     },
-    "And then, just like that...",
-    "Meanwhile, not far away...",
-    "After a little while...",
-    "But that was not all.",
-    "Sooner than anyone expected...",
-    "A whole {NOUN:time} slipped by...",
-    "Quietly, when no one was looking...",
-    "And so the journey went on.",
-    "Before long...",
-    "Right about then...",
-    "Off in the distance, something stirred.",
-    "Without a single word more...",
-    "As one {NOUN:time} faded into the next...",
-    "And just when things felt calm...",
-    "Step by careful step...",
-    "Far away, the story kept turning.",
-    "Then came a curious moment.",
-    "Little did anyone know...",
-    "And on they pressed.",
-    "Somewhere along the way...",
-    "Soon, very soon...",
-    "Back where it all began...",
-    "The next {NOUN:time} brought a surprise.",
-    "And the adventure rolled onward.",
-    "In the blink of an eye..."
+    {
+      "tone": [],
+      "text": "And then, just like that..."
+    },
+    {
+      "tone": [],
+      "text": "Meanwhile, not far away..."
+    },
+    {
+      "tone": [],
+      "text": "After a little while..."
+    },
+    {
+      "tone": [],
+      "text": "But that was not all."
+    },
+    {
+      "tone": [],
+      "text": "Sooner than anyone expected..."
+    },
+    {
+      "tone": [],
+      "text": "A whole {NOUN:time} slipped by..."
+    },
+    {
+      "tone": [],
+      "text": "Quietly, when no one was looking..."
+    },
+    {
+      "tone": [],
+      "text": "And so the journey went on."
+    },
+    {
+      "tone": [],
+      "text": "Before long..."
+    },
+    {
+      "tone": [],
+      "text": "Right about then..."
+    },
+    {
+      "tone": [],
+      "text": "Off in the distance, something stirred."
+    },
+    {
+      "tone": [],
+      "text": "Without a single word more..."
+    },
+    {
+      "tone": [],
+      "text": "As one {NOUN:time} faded into the next..."
+    },
+    {
+      "tone": [],
+      "text": "And just when things felt calm..."
+    },
+    {
+      "tone": [],
+      "text": "Step by careful step..."
+    },
+    {
+      "tone": [],
+      "text": "Far away, the story kept turning."
+    },
+    {
+      "tone": [],
+      "text": "Then came a curious moment."
+    },
+    {
+      "tone": [],
+      "text": "Little did anyone know..."
+    },
+    {
+      "tone": [],
+      "text": "And on they pressed."
+    },
+    {
+      "tone": [],
+      "text": "Somewhere along the way..."
+    },
+    {
+      "tone": [],
+      "text": "Soon, very soon..."
+    },
+    {
+      "tone": [],
+      "text": "Back where it all began..."
+    },
+    {
+      "tone": [],
+      "text": "The next {NOUN:time} brought a surprise."
+    },
+    {
+      "tone": [],
+      "text": "And the adventure rolled onward."
+    },
+    {
+      "tone": [],
+      "text": "In the blink of an eye..."
+    }
   ]
 }

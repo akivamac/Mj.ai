@@ -1517,6 +1517,8 @@ class MonkeyJoe:
     def _pick_closer(self, tone):
         closers = (self.templates or {}).get('closers') or []
         if not closers: return None
+        # Tolerate string OR {text,tone} entries (defensive).
+        closers = [{'tone': [], 'text': c} if isinstance(c, str) else c for c in closers]
         pool = closers
         if tone:
             toned = [c for c in pool if tone in (c.get('tone') or [])]
@@ -1544,7 +1546,9 @@ class MonkeyJoe:
 
     def _pick_pacing(self):
         p = (self.templates or {}).get('pacingBeats') or []
-        return self._pick(p)['text'] if p else None
+        if not p: return None
+        c = self._pick(p)
+        return c if isinstance(c, str) else c.get('text')
 
     def _pick_template(self, opts):
         t = self.templates or {}

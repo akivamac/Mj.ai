@@ -219,7 +219,9 @@ const Generator = (() => {
 
   function pickCloser(tone) {
     if (!templates || !templates.closers || !templates.closers.length) return null;
-    let pool = templates.closers;
+    // Tolerate string OR {text,tone} entries (defensive — closers/pacingBeats
+    // are objects, but never crash if a bare string slips in).
+    let pool = templates.closers.map(c => typeof c === 'string' ? { tone: [], text: c } : c);
     if (tone) {
       const toned = pool.filter(c => c.tone && c.tone.includes(tone));
       if (toned.length) pool = toned;
@@ -248,7 +250,8 @@ const Generator = (() => {
 
   function pickPacingBeat() {
     if (!templates || !templates.pacingBeats || !templates.pacingBeats.length) return null;
-    return pick(templates.pacingBeats).text;
+    const c = pick(templates.pacingBeats);
+    return typeof c === 'string' ? c : c.text;
   }
 
   // ── Beat-chain mode ─────────────────────────────────────────

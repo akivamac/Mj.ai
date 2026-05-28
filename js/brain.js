@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '63'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '64'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
