@@ -3158,6 +3158,16 @@ class MonkeyJoe:
                     return self._maybe_garnish_science(sci_resp, user_input, lower)
                 return sci_resp
 
+        # Meta / feedback ABOUT Joe ("you didn't answer", "that's wrong", "I'll
+        # tell Claude to fix you") — respond humbly instead of dumping a fact
+        # that merely shares a keyword like "Claude". (v61 parity)
+        if re.search(r"\b(you('?re| are)?\s+wrong|wrong\s+(answer|response)|that('?s| was)?\s*(not\s+(right|it|what\s+i)|wrong)|did(n'?t| not)\s+(answer|help|work|understand)|not\s+the\s+right\s+(answer|response|thing)|does(n'?t| not)\s+make\s+sense|made\s+no\s+sense|you('?re| are)?\s+(broken|useless|dumb|stupid|not\s+working)|fix\s+you|tell\s+(claude|akiva)|report\s+you|bad\s+(bot|monkey|answer|response)|you\s+(suck|messed\s+up|don'?t\s+work)|wrong\s+again)\b", lower):
+            return random.choice([
+                "Oof, sorry — I'm just a rules-based monkey, so I flub things sometimes. 🐒 What were you hoping I'd say?",
+                "You're right, that one missed. 🙈 Akiva and Claude keep teaching me — what did you actually want?",
+                "My bad! 🐒 Tell me what you meant and I'll have another go.",
+                "Yeah, that wasn't my best. 🐒 Want to ask me again a different way?"])
+
         # Check for casual statements (not questions)
         if self.is_casual_statement(lower):
             casual_responses = [

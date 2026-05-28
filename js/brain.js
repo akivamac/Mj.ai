@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '61'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '62'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1558,6 +1558,18 @@ const Brain = (() => {
       ]);
     }
 
+    // Meta / feedback ABOUT Joe ("you didn't answer", "that's wrong", "I'll
+    // tell Claude to fix you") — respond humbly instead of dumping a fact that
+    // merely shares a keyword like "Claude" or "Anthropic". (v61)
+    if (/\b(you('?re| are)?\s+wrong|wrong\s+(answer|response)|that('?s| was)?\s*(not\s+(right|it|what\s+i)|wrong)|did(n'?t| not)\s+(answer|help|work|understand)|not\s+the\s+right\s+(answer|response|thing)|does(n'?t| not)\s+make\s+sense|made\s+no\s+sense|you('?re| are)?\s+(broken|useless|dumb|stupid|not\s+working)|fix\s+you|tell\s+(claude|akiva)|report\s+you|bad\s+(bot|monkey|answer|response)|you\s+(suck|messed\s+up|don'?t\s+work)|wrong\s+again)\b/i.test(lower)) {
+      return pick([
+        "Oof, sorry — I'm just a rules-based monkey, so I flub things sometimes. 🐒 What were you hoping I'd say?",
+        "You're right, that one missed. 🙈 Akiva and Claude keep teaching me — what did you actually want?",
+        "My bad! 🐒 Tell me what you meant and I'll have another go.",
+        "Yeah, that wasn't my best. 🐒 Want to ask me again a different way?"
+      ]);
+    }
+
     // Emoji-only or emoji-heavy check
     if (rules && rules.emojis) {
       for (const [emoji, responses] of Object.entries(rules.emojis)) {
@@ -2018,6 +2030,24 @@ const Brain = (() => {
         return q + ' ' + _lastTopicLabel;
       }
       return q;
+    }
+
+    // Casual statement, not a question — e.g. "i think that was weird",
+    // "lol you're funny", "i'm gonna tell on you". Mirror of the mj CLI's
+    // is_casual_statement so a rambling first-person remark that merely shares
+    // a keyword doesn't dump an encyclopedia entry. Runs after every real
+    // dispatcher (story/coding/math/science/terminal), just before lookup.
+    {
+      const hasQ = /^(what|why|how|where|when|who|which|can |do |does |is |are |was |were |will |would |could |should |tell me|explain|define)/.test(lower) || lower.endsWith('?');
+      const casualWords = ['cool','awesome','nice','great','love','hate','think','feel','wow','lol','haha','interesting','yeah','yep','nope','okay','sure','thanks','thank you','no way','really','seriously','funny','weird','agree','i guess','i bet','gonna tell','tell on you'];
+      if (!hasQ && lower.split(/\s+/).length >= 4 && casualWords.some(w => lower.includes(w))) {
+        return pick([
+          "Ha, gotcha! 🐒 What do you want to know?",
+          "🐒 Fair enough! Anything I can help with?",
+          "Cool — ask me something! 🐒",
+          "Interesting! What's on your mind? 🐒"
+        ]);
+      }
     }
 
     if (knowledge && knowledge.facts) {
