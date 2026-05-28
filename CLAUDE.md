@@ -17,6 +17,10 @@ Served as static files. Auth gate with invite codes, login, signup.
 - `brain/templates.json` — sentence-skeleton templates for generator
 - `brain/dictionary.json` — tagged vocabulary (pos + themes + tone) for generator
 - `brain/responseFlavors.json` — leadIns / signOffs / responseWraps for fact flavoring
+- `brain/mathTutorials.json` — 156 math concept explainers + walker bindings
+- `brain/mathFlavors.json` — one-line garnishes for math compute answers
+- `js/math.js` — math engine (evaluator, equations, stats, prime, calculus, matrices)
+- `js/mathWalkers.js` — 12 step-walker pure functions for showing math work
 - `config.js` — admin password and config (not committed)
 - `settings.html` — settings page
 
@@ -58,6 +62,27 @@ The `findByTriggers` scorer: substring-match of a multi-word trigger = 3, single
 ## Knowledge base (v54 — Phase 4)
 `brain/knowledge.json` holds 970 facts (Phase 4 added ~472). Coverage: marine biology, geology, physics, astronomy, biology (CRISPR, chameleon color, monarch navigation, octopus hearts), history (Mesopotamia, Silk Road, Mongol Yam, printing press, Maya/Inca/Byzantine/Ottoman), culture (etymologies, music genre origins, pigment history), psychology (cognitive biases with concrete examples, rubber-hand illusion, mirror neurons), tech history (microwave, post-it, ENIAC, transistor, WWW), geography surprise facts, ~80 animal record-holders and superpowers, mathematics (Banach-Tarski, Monty Hall, Gödel, infinities), plus food/drink/inventions/body bonus.
 
+## Math system (v55 — FREAKY good at math)
+Joe gets a 4-intent math dispatcher slotted between coding and knowledge in `respond()`:
+
+- **COMPUTE**: bare expression → answer. `25% of 80 → 20`. Uses `MathEngine.evaluateExpression` (recursive-descent Pratt parser, no eval, degree-aware trig, factorial, percentages, NL preprocessing, π/e), `convertUnit` (7 categories), and helpers for stats / prime / factor / equation.
+- **WORKED**: same compute + step-by-step work shown. Triggered by "show your work", "step by step", "show me", "with steps". Equations *always* show work.
+- **TEACH**: concept explainer from `brain/mathTutorials.json` (156 entries). Triggered by "explain X", "how do X work", "i don't get X", "confused about X". If user supplied numbers, the tutorial's `walker` runs them through `js/mathWalkers.js`.
+- **DEFINE**: short one-paragraph definition. Triggered by "what is/define X". Also catches bare math-noun phrases ("pythagorean theorem", "quadratic formula").
+
+Math engines:
+- `js/math.js` — JS engine. `MathEngine.{evaluateExpression, convertUnit, solveEquation, summarize, isPrime, primeFactor, gcd, lcm, choose, permute, tip, discount, percentChange, polyDerivative, polyIntegral, Matrix2, solveLinearSystem2}`. Equation solving uses a 3-point sampling trick: evaluate `f(x) = LHS - RHS` at x = 0, 1, -1, back out (a, b, c) for `ax² + bx + c = 0`, dispatch on whether a is zero. Miller-Rabin primality test is deterministic for n < 3.3e14.
+- `mj` Python: full mirror as a `MathEngine` class (stdlib only — math, statistics, re, fractions).
+
+Step-walkers (`js/mathWalkers.js` + Python `MathWalkers` class) — 12 pure functions returning `{answer, steps: [{label, calc, result?}]}`:
+- `walkArithmetic`, `walkPercent`, `walkLinearEq`, `walkQuadratic`, `walkFractionOp`, `walkPrimeFactor`, `walkLongDivision`, `walkUnitConvert` (kid-tier)
+- `walkPolyDerivative`, `walkPolyIntegral`, `walkMatrix2x2`, `walkLinearSystem2` (adult-tier)
+
+Voice layer:
+- `brain/mathFlavors.json` — 49 one-line garnishes across four match types: `answer_equals` (specific values like 144 → "a gross"), `answer_contains` (irrational constants), `input_contains` (keywords like "25%", "sqrt"), `any` (generic asides). 20% chance per COMPUTE/WORKED response. Respects the existing SKIP_FLAVOR_WORDS gate so `just 25% of 80` doesn't get garnished.
+
+Scope cuts (deliberate): no general CAS, no symbolic simplification past collecting like terms in {1, x, x²}, no calculus past polynomial differentiation/integration, no matrices past 2×2, no graphing, no word-problem NLP.
+
 ## Response flavoring (v53 — Phase 3)
 Three mechanics make Joe feel less like a lookup table:
 
@@ -69,7 +94,7 @@ State is module-level (JS) / instance-level (Python): `_recentFlavorAge`, `_stor
 
 ## Brain versioning
 Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file changes.
-Currently: `'54'`
+Currently: `'55'`
 
 ## Deploy workflow
 ```bash
