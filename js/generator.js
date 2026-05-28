@@ -228,7 +228,10 @@ const Generator = (() => {
     recentCloserTexts.push(chosen.text);
     if (recentCloserStems.length > CLOSER_STEM_HISTORY) recentCloserStems.shift();
     if (recentCloserTexts.length > CLOSER_STEM_HISTORY) recentCloserTexts.shift();
-    return chosen.text;
+    // Closers may contain slots — fill them so {NOUN:plant} etc. don't
+    // leak raw to the user.
+    const r = fillTemplate(chosen.text, { tone });
+    return fixSentenceCase(fixArticles(r.text));
   }
 
   function pickPacingBeat() {
@@ -381,5 +384,22 @@ const Generator = (() => {
     };
   }
 
-  return { init, generateStory };
+  // Public slot-filler for callers (e.g. brain.js response flavoring)
+  // that want to render a template string without going through the
+  // full story-picking pipeline.
+  function fillSlots(text, opts) {
+    if (!text) return '';
+    opts = opts || {};
+    if (!dictionary || !dictionary.words || !dictionary.words.length) return text;
+    const r = fillTemplate(text, {
+      tone:      opts.tone      || null,
+      character: opts.character || null,
+      place:     opts.place     || null,
+      subject:   opts.subject   || null,
+      fact:      opts.fact      || null
+    });
+    return fixSentenceCase(fixArticles(r.text));
+  }
+
+  return { init, generateStory, fillSlots };
 })();

@@ -1,0 +1,169 @@
+{
+  "_comment": "Response flavoring v1. leadIns/signOffs are one-sentence wraps appended before/after a fact. responseWraps are two-line shells (before + after) that bracket the fact. Slots: {ADJ}, {ADV}, {NOUN:theme}, {VERB:theme}, {ADJ:theme} — same syntax as templates.json. tone array can be [] for any-tone.",
+  "leadIns": [
+    { "tone": ["cozy"], "text": "The {ADJ} {NOUN:character} in the {NOUN:place} once asked this very question, and here is what the old {NOUN:profession} told them:" },
+    { "tone": ["cozy"], "text": "Pull a {NOUN:object} closer and warm your hands, because a {ADJ} {NOUN:profession} once whispered this by the hearth:" },
+    { "tone": ["cozy"], "text": "An old {NOUN:profession} kept this tucked inside a {ADJ} {NOUN:object} for safekeeping, and now it is your turn to know:" },
+    { "tone": ["cozy"], "text": "Settle in beside the {NOUN:plant}, friend, because a kind {NOUN:character} once shared this very thing with me:" },
+    { "tone": ["whimsical"], "text": "A {ADJ} {NOUN:animal} scratched this into the bark of an old {NOUN:plant} long ago, and the {NOUN:plant} has been repeating it ever since:" },
+    { "tone": ["whimsical"], "text": "Once a {ADJ} {NOUN:character} sneezed and out tumbled this little truth, which I caught in a {NOUN:object} and kept for you:" },
+    { "tone": ["whimsical"], "text": "A jolly {NOUN:profession} hummed this answer into the wind one {NOUN:time_period}, and the wind has been carrying it around since:" },
+    { "tone": ["whimsical"], "text": "Somewhere a {ADJ} {NOUN:animal} is doing a little dance, because it has been waiting all {NOUN:time_period} to hear someone ask exactly this:" },
+    { "tone": ["magical"], "text": "Long before the {NOUN:weather_event} ended, a {NOUN:profession} wrote this down on the back of a {ADJ} {NOUN:object}:" },
+    { "tone": ["magical"], "text": "When the {NOUN:celestial} was still young, a {NOUN:mythical_creature} bent down to a curious {NOUN:character} and murmured this:" },
+    { "tone": ["magical"], "text": "Beneath a {ADJ} {NOUN:structure}, a wandering {NOUN:profession} once dug up this shimmering little fact and dusted it off:" },
+    { "tone": ["magical"], "text": "The {NOUN:mythical_creature} of the {NOUN:body_of_water} guards a small stone with these words carved on it, and the words are these:" },
+    { "tone": ["adventure"], "text": "An old {NOUN:profession} who crossed the {NOUN:body_of_water} on a {ADJ} {NOUN:vehicle} brought back this very answer in their pocket:" },
+    { "tone": ["adventure"], "text": "A bold {NOUN:character} once climbed a {ADJ} {NOUN:structure} just to find this out, and they came back grinning:" },
+    { "tone": ["adventure"], "text": "Far past the {NOUN:place}, where the {NOUN:vehicle}s no longer travel, a {NOUN:profession} learned this and rode home to tell it:" },
+    { "tone": ["mysterious"], "text": "A {ADJ} {NOUN:character} I met only once, in a {NOUN:place} I cannot quite remember, told me this and then was gone:" },
+    { "tone": ["mysterious"], "text": "Some say a {NOUN:mythical_creature} guards this answer in a {ADJ} {NOUN:structure}, but tonight the gate is open:" },
+    { "tone": ["mysterious"], "text": "The {NOUN:profession} from the {NOUN:place} that nobody quite agrees on left a note, and the note said this:" },
+    { "tone": ["spooky"], "text": "When the {NOUN:weather_event} settled over the old {NOUN:structure}, a {ADJ} {NOUN:character} leaned close and whispered this:" },
+    { "tone": ["spooky"], "text": "Deep under the {NOUN:plant}s where the {NOUN:animal}s do not go, a {NOUN:profession} once chiseled this onto a {NOUN:mineral}:" },
+    { "tone": ["silly"], "text": "A {ADJ} {NOUN:animal} hopped onto a {NOUN:object}, cleared its throat with great importance, and announced exactly this:" },
+    { "tone": ["silly"], "text": "I once met a {NOUN:profession} who insisted on standing on a {NOUN:object} to say important things, and they stood on it to say this:" },
+    { "tone": ["silly"], "text": "A confused {NOUN:character} asked a {NOUN:animal}, the {NOUN:animal} asked a {NOUN:plant}, and the {NOUN:plant} finally answered:" },
+    { "tone": ["triumphant"], "text": "After a long {NOUN:time_period} of searching, a determined {NOUN:character} stood atop the {NOUN:structure} and shouted this for everyone to hear:" },
+    { "tone": ["triumphant"], "text": "The {NOUN:profession} who solved this rang the bell of the {NOUN:structure} so the whole {NOUN:place} would know, and the news was this:" },
+    { "tone": ["bittersweet"], "text": "An old {NOUN:profession} who has since wandered off into the {NOUN:place} left this behind, like a parting gift:" },
+    { "tone": ["bittersweet"], "text": "The {ADJ} {NOUN:character} who first learned this is far away now, but their answer still sits warm on the {NOUN:object}:" },
+    { "tone": ["wistful"], "text": "A {NOUN:profession} I knew long ago, back when the {NOUN:plant}s were smaller, used to begin every {NOUN:time_period} by saying this:" },
+    { "tone": ["wistful"], "text": "There is a small {NOUN:structure} I think of sometimes, and the {NOUN:character} who lived there once told me this very thing:" },
+    { "tone": ["wistful"], "text": "I learned this from a {ADJ} {NOUN:profession} a long {NOUN:time_period} ago, and I have been keeping it carefully ever since:" },
+    { "tone": [], "text": "Here is something an old {NOUN:profession} once told me, and I think it is worth telling again:" },
+    { "tone": [], "text": "A {ADJ} {NOUN:character} passed this along the other {NOUN:time_period}, and now I am passing it along to you:" },
+    { "tone": [], "text": "Lean in just a little, because the answer is the kind a {NOUN:profession} likes to share quietly:" },
+    { "tone": [], "text": "A friendly {NOUN:animal} reminded me of this only yesterday, so it is fresh and ready to share:" },
+    { "tone": [], "text": "I have been waiting for someone to ask this, and now that you have, here is the {ADJ} answer:" },
+    { "tone": [], "text": "The {NOUN:profession}s of the {NOUN:place} all agree on this one, which is rare enough to be worth mentioning:" },
+    { "tone": [], "text": "There is a small {NOUN:object} on my desk for exactly this kind of question, and when I open it, this is what is inside:" },
+    { "tone": [], "text": "A wise {NOUN:character} once told me to keep this answer ready, and so I have, and so here it is:" },
+    { "tone": [], "text": "Every {NOUN:profession} I have ever asked says the same thing about this, which is comforting in its own way:" },
+    { "tone": [], "text": "Picture a {ADJ} {NOUN:character} sitting by a {NOUN:body_of_water}, nodding to themselves, because they already know what I am about to say:" }
+  ],
+  "signOffs": [
+    { "tone": ["whimsical"], "text": "The {NOUN:character} who first discovered this {VERB:action} three times around the {NOUN:place} for sheer joy." },
+    { "tone": ["whimsical"], "text": "A passing {NOUN:animal} heard that and twitched its ears in agreement, which is how you know it is true." },
+    { "tone": ["whimsical"], "text": "Somewhere a {ADJ} {NOUN:profession} just clapped a {NOUN:object} on the table and grinned for no reason at all." },
+    { "tone": ["whimsical"], "text": "The {NOUN:plant}s near my window leaned in to listen, and now they will be telling each other about it all {NOUN:time_period}." },
+    { "tone": ["cozy"], "text": "Somewhere a {ADJ} {NOUN:character} is learning this for the first time right now, and good for them." },
+    { "tone": ["cozy"], "text": "Hold onto that one like a warm {NOUN:object}, friend, because little knowings like these are how a {NOUN:time_period} gets brighter." },
+    { "tone": ["cozy"], "text": "Now you and the {ADJ} {NOUN:profession} by the fire both know it, and that makes two of you keeping it warm." },
+    { "tone": ["cozy"], "text": "Tuck that under a {NOUN:plant} in your mind, where the {ADJ} thoughts grow well." },
+    { "tone": ["magical"], "text": "The {NOUN:celestial} above the old {NOUN:structure} flickered a little just then, as if it had been waiting for you to know." },
+    { "tone": ["magical"], "text": "A {NOUN:mythical_creature} somewhere just nodded its great {ADJ} head, satisfied that the secret is well-placed." },
+    { "tone": ["magical"], "text": "That little truth will glow faintly inside you for at least one whole {NOUN:time_period}, the way enchanted things tend to do." },
+    { "tone": ["adventure"], "text": "Now you carry that the way a bold {NOUN:character} carries a {ADJ} {NOUN:object} into the {NOUN:place} — proudly." },
+    { "tone": ["adventure"], "text": "Stamp that into your travel-journal, because the next {NOUN:profession} you meet on the road will want to hear it." },
+    { "tone": ["adventure"], "text": "Hoist it up on the mast of your {NOUN:vehicle} and sail on into the {NOUN:time_period}, friend." },
+    { "tone": ["mysterious"], "text": "The {NOUN:profession} who first uncovered this never spoke of it again, but you may, if you choose." },
+    { "tone": ["mysterious"], "text": "Some answers are a {ADJ} kind of door, and that one just clicked open behind you." },
+    { "tone": ["mysterious"], "text": "Carry it lightly, the way the {NOUN:mythical_creature} of the {NOUN:body_of_water} carries its only secret." },
+    { "tone": ["spooky"], "text": "An old {NOUN:profession} once said that knowing this makes the {NOUN:weather_event}s a little less {ADJ}, and they were right." },
+    { "tone": ["spooky"], "text": "Somewhere under a {ADJ} {NOUN:structure}, a sleeping {NOUN:animal} rolled over, as if it had felt the truth tip slightly into place." },
+    { "tone": ["silly"], "text": "A {ADJ} {NOUN:animal} just fell off a {NOUN:object} in surprise upon hearing that, but it is fine, it is fine." },
+    { "tone": ["silly"], "text": "The {NOUN:profession} who taught me this insisted on saying it while balanced on one foot, but you do not have to." },
+    { "tone": ["silly"], "text": "If a {NOUN:character} hears that and does not at least giggle, check that the {NOUN:character} is awake." },
+    { "tone": ["triumphant"], "text": "Now hoist that on your shoulders and march straight through the {NOUN:place} like the {NOUN:character} you are." },
+    { "tone": ["triumphant"], "text": "Every {NOUN:profession} in the {NOUN:structure} would clap to hear you know that now." },
+    { "tone": ["bittersweet"], "text": "The {NOUN:profession} who first told me that has wandered far into the {NOUN:place} by now, but the telling stays warm." },
+    { "tone": ["bittersweet"], "text": "It is a small, {ADJ} thing to know, the way a folded {NOUN:object} in a coat pocket is small and {ADJ}." },
+    { "tone": ["wistful"], "text": "The {NOUN:profession} who told me that is long gone, but the telling is still here." },
+    { "tone": ["wistful"], "text": "Somewhere a {ADJ} {NOUN:character} who once knew that is remembering it again, just because you asked." },
+    { "tone": ["wistful"], "text": "It rings a little like a bell in an old {NOUN:structure}, that one, doesn't it." },
+    { "tone": [], "text": "Tuck that one away, because facts like this are best kept warm." },
+    { "tone": [], "text": "There you have it, polished up like a small {NOUN:mineral} for your pocket." },
+    { "tone": [], "text": "And that, as the {NOUN:profession}s of the {NOUN:place} like to say, is the whole of it." },
+    { "tone": [], "text": "Carry that gently — it is the kind of thing that improves a {NOUN:time_period}." },
+    { "tone": [], "text": "Now you know it the way a {ADJ} {NOUN:character} knows the path back to the {NOUN:place}." },
+    { "tone": [], "text": "Pass it along to the next curious {NOUN:character} you meet, and they will pass it along after that." },
+    { "tone": [], "text": "Set that one beside the other true things on the shelf of your mind." },
+    { "tone": [], "text": "And that is one more small light lit in the long {NOUN:time_period} of knowing things." },
+    { "tone": [], "text": "Keep that close, the way a {NOUN:profession} keeps a favorite {NOUN:object} close." },
+    { "tone": [], "text": "There — a little wiser already, and the {NOUN:time_period} not even half over." },
+    { "tone": [], "text": "The {NOUN:plant}s outside seem to nod whenever I say that, which is as good a confirmation as any." }
+  ],
+  "responseWraps": [
+    {
+      "before": "Pull up a {NOUN:object} and listen, because a {ADJ} {NOUN:profession} once spent a whole {NOUN:time_period} learning what comes next:",
+      "after": "And ever since, every {NOUN:character} who hears it nods just so, as if they already half-knew."
+    },
+    {
+      "before": "The {NOUN:character} found this written on the inside of an {ADJ} {NOUN:object}, which is probably where you'll find it again someday:",
+      "after": "Some truths are like that — they wait quietly to be discovered, and then they wait to be told again."
+    },
+    {
+      "before": "An old {NOUN:profession} once stopped a {ADJ} {NOUN:character} on the road to the {NOUN:place} just to share this:",
+      "after": "The {NOUN:character} walked on a little lighter for it, and so, I hope, do you."
+    },
+    {
+      "before": "There is a small {NOUN:structure} I know of, and on its inner wall someone long ago carved this very thing:",
+      "after": "The carving is still there, and now the carving is also here, in you."
+    },
+    {
+      "before": "Settle in beside the {NOUN:plant} and let the {NOUN:time_period} stretch out, because the answer prefers a little space to land in:",
+      "after": "There — and the {NOUN:plant}s are still rustling about it, the way they tend to do."
+    },
+    {
+      "before": "A {ADJ} {NOUN:animal} once cocked its head at a passing {NOUN:profession} and asked the same question you just asked, and got this back:",
+      "after": "The {NOUN:animal} trotted off well-pleased, and you may do the same."
+    },
+    {
+      "before": "Picture a small {NOUN:object} on a high shelf in an old {NOUN:structure}, and inside that {NOUN:object}, folded up small, is this:",
+      "after": "Now the shelf is a little emptier, and your knowing is a little fuller."
+    },
+    {
+      "before": "Long ago, before the {NOUN:vehicle}s ran and the {NOUN:structure}s were built, a {NOUN:character} learned this and made sure to pass it along:",
+      "after": "It has been passed along ever since, hand to hand and {NOUN:time_period} to {NOUN:time_period}, all the way to you."
+    },
+    {
+      "before": "A wandering {NOUN:profession} once told this to a curious {NOUN:character} by the {NOUN:body_of_water}, and the {NOUN:body_of_water} has been murmuring it ever since:",
+      "after": "Listen for it next time you pass a quiet shore, and you will hear it again in the small sounds of the water."
+    },
+    {
+      "before": "Here is a thing the {NOUN:profession}s of the {NOUN:place} agree on, which is unusual enough that you should probably write it on a {NOUN:object}:",
+      "after": "Agreement is a {ADJ} kind of light, and that little fact is glowing with it."
+    },
+    {
+      "before": "A {ADJ} {NOUN:character} once asked the same thing while sheltering from a {NOUN:weather_event}, and the answer they were given was this:",
+      "after": "The {NOUN:weather_event} passed, as {NOUN:weather_event}s do, but the answer stayed."
+    },
+    {
+      "before": "There is a small notebook that a kind {NOUN:profession} keeps for exactly this kind of question, and the page they would open to says this:",
+      "after": "Now you have read the page, and the page is content to have been read."
+    },
+    {
+      "before": "Imagine a {ADJ} {NOUN:character} pulling a {NOUN:object} from a deep pocket, holding it up to the light, and saying very plainly:",
+      "after": "Then the {NOUN:character} tucks the {NOUN:object} away again, satisfied that the telling is done."
+    },
+    {
+      "before": "Across the {NOUN:body_of_water} there is a quiet {NOUN:place} where the {NOUN:character}s have known this for a very long {NOUN:time_period}:",
+      "after": "Now you know it too, and the distance between here and there feels a little shorter for it."
+    },
+    {
+      "before": "An old {NOUN:profession} once said the best answers should be served warm, like a good {NOUN:food}, so here is yours, warm:",
+      "after": "Eat it slowly, the way a wise {NOUN:character} eats anything good — with full attention."
+    },
+    {
+      "before": "There is a soft {ADJ} light that falls across the {NOUN:structure} only at one particular {NOUN:time_period}, and in that light you can read this:",
+      "after": "The light has moved on by now, but the reading remains, and the reading is yours."
+    },
+    {
+      "before": "A {ADJ} {NOUN:character} once carved this onto a smooth {NOUN:mineral} and left it by the path for whoever needed it next, which appears to be you:",
+      "after": "Pick the {NOUN:mineral} up in your mind, polish it once, and put it gently back for the next traveler."
+    },
+    {
+      "before": "Somewhere in the high branches of an old {NOUN:plant}, a {ADJ} {NOUN:animal} has been waiting all {NOUN:time_period} for someone to ask, and now finally:",
+      "after": "The {NOUN:animal} settles down, satisfied, and the {NOUN:plant} sways once in approval."
+    },
+    {
+      "before": "A {NOUN:profession} I trust very much keeps a {ADJ} little box of answers, and when I asked for yours, this is the one they handed me:",
+      "after": "They closed the box again gently, and asked me to be sure to pass it along well, which I hope I have."
+    },
+    {
+      "before": "If you walked into a certain quiet {NOUN:structure} on the edge of the {NOUN:place} and asked the {ADJ} {NOUN:profession} there, you would hear exactly this:",
+      "after": "You did not have to walk all that way in the end, which is one of the small kindnesses of asking me instead."
+    }
+  ]
+}

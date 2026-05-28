@@ -185,7 +185,8 @@ def update_brain(brain_dir):
     base_url = 'https://raw.githubusercontent.com/akivamac/Mj.ai/main/brain/'
     files = ['knowledge.json', 'rules.json', 'terminal.json', 'coding.json',
              'templates.json', 'dictionary.json', 'storyBeats.json',
-             'errors.json', 'recipes.json', 'debugging.json']
+             'errors.json', 'recipes.json', 'debugging.json',
+             'responseFlavors.json']
     ctx = ssl.create_default_context()
     for f in files:
         try:
@@ -287,6 +288,12 @@ class MonkeyJoe:
         self._recent_closer_stems = []
         self._recent_closer_texts = []
         self._closer_stem_history = 5
+        # Phase 3: response flavoring + story-hook follow-up.
+        self.response_flavors = {}
+        self._recent_flavor_age = 99    # turns since last flavored response
+        self._story_hook_subject = None
+        self._story_hook_keywords = None
+        self._story_hook_age = 99       # turns since story-hook offered
 
         self.load_brains()
 
@@ -308,8 +315,10 @@ class MonkeyJoe:
 
         # Storyteller + coding-helper files: keep full dict.
         for name in ['templates', 'dictionary', 'story_beats',
-                     'errors', 'recipes', 'debugging']:
-            fname = 'storyBeats.json' if name == 'story_beats' else f'{name}.json'
+                     'errors', 'recipes', 'debugging', 'response_flavors']:
+            fname = ('storyBeats.json'        if name == 'story_beats'      else
+                     'responseFlavors.json'   if name == 'response_flavors' else
+                     f'{name}.json')
             path = os.path.join(self.brain_dir, fname)
             try:
                 with open(path) as f:
@@ -556,7 +565,10 @@ class MonkeyJoe:
             self._recent_closer_stems.pop(0)
         if len(self._recent_closer_texts) > self._closer_stem_history:
             self._recent_closer_texts.pop(0)
-        return chosen['text']
+        # Closers may contain slots — fill them so {NOUN:plant} etc.
+        # don't leak raw to the user.
+        filled, _ = self._fill_template(chosen['text'], {'tone': tone})
+        return self._fix_sentence_case(self._fix_articles(filled))
 
     def _pick_pacing(self):
         p = (self.templates or {}).get('pacingBeats') or []
@@ -721,6 +733,82 @@ class MonkeyJoe:
                 for kw in (fact.get('keywords') or []):
                     if tl == kw.lower(): return fact
         return None
+
+    # ── Phase 3: response flavoring ────────────────────────
+    FLAVOR_CHANCE       = 0.25
+    FLAVOR_CHANCE_BUSY  = 0.05
+    PROCEDURAL_CHANCE   = 0.30
+    STORY_HOOK_CHANCE   = 0.15
+    SKIP_FLAVOR_WORDS   = ['just ', ' just', 'quick', 'briefly', 'short',
+                           'tldr', 'tl;dr']
+
+    def _render_flavor(self, text, tone):
+        """Fill {SLOT} placeholders in flavor text using the generator."""
+        if not text or not self.dictionary or not self.dictionary.get('words'):
+            return text
+        filled, _ = self._fill_template(text, {'tone': tone})
+        return self._fix_sentence_case(self._fix_articles(filled))
+
+    def _pick_toned_flavor(self, pool, tone):
+        if not pool: return None
+        if tone:
+            toned = [e for e in pool if tone in (e.get('tone') or [])]
+            if toned: return random.choice(toned)
+        return random.choice(pool)
+
+    def _should_flavor(self, lower):
+        if not self.response_flavors: return False
+        for w in self.SKIP_FLAVOR_WORDS:
+            if w in lower: return False
+        chance = (self.FLAVOR_CHANCE_BUSY if self._recent_flavor_age <= 2
+                  else self.FLAVOR_CHANCE)
+        return random.random() < chance
+
+    def _flavor_fact(self, answer, tone):
+        f = self.response_flavors or {}
+        types = []
+        if f.get('leadIns'):       types.append('leadIn')
+        if f.get('signOffs'):      types.append('signOff')
+        if f.get('responseWraps'): types.append('wrap')
+        if not types or not answer: return answer
+        t = random.choice(types)
+        if t == 'leadIn':
+            e = self._pick_toned_flavor(f['leadIns'], tone)
+            return self._render_flavor(e['text'], tone) + '\n\n' + answer if e else answer
+        if t == 'signOff':
+            e = self._pick_toned_flavor(f['signOffs'], tone)
+            return answer + '\n\n' + self._render_flavor(e['text'], tone) if e else answer
+        e = random.choice(f['responseWraps'])
+        if not e or not e.get('before') or not e.get('after'): return answer
+        return (self._render_flavor(e['before'], None) + '\n\n' + answer +
+                '\n\n' + self._render_flavor(e['after'], None))
+
+    def _maybe_append_story_hook(self, answer, fact):
+        if not fact or not fact.get('keywords'): return answer
+        if random.random() >= self.STORY_HOOK_CHANCE: return answer
+        self._story_hook_subject  = fact['keywords'][0]
+        self._story_hook_keywords = list(fact['keywords'])
+        self._story_hook_age      = 0
+        return answer + "\n\nWant a story about that? Just say 'tell me a story about it' 🐒"
+
+    def _with_procedural(self, text):
+        """Maybe prepend a one-sentence microStory to a short canned reply."""
+        if not self.templates or not self.dictionary: return text
+        if random.random() >= self.PROCEDURAL_CHANCE: return text
+        tone = random.choice([None, 'silly', 'cozy', 'whimsical'])
+        r = self.generate_story({'mode': 'micro', 'tone': tone})
+        out = (r or {}).get('text', '')
+        if not out or out.startswith('I want to tell stories'): return text
+        return out + ' ' + text
+
+    _STORY_HOOK_YES_RE = re.compile(
+        r'^(yes|yeah|sure|yep|yup|ok|okay|go on|do it|please do|tell me|'
+        r'tell me a story(?: about it)?|story please)[\s!.?]*$', re.I)
+
+    def _is_story_hook_yes(self, lower):
+        if self._story_hook_age > 2 or not self._story_hook_subject:
+            return False
+        return bool(self._STORY_HOOK_YES_RE.match(lower.strip()))
 
     def handle_story_input(self, user_input, lower):
         """Returns response string if input is a story request/continuation/reset/another; else None."""
@@ -1509,6 +1597,32 @@ class MonkeyJoe:
         if not lower:
             return ""
 
+        # Tick flavoring counters (Phase 3) once per respond() call.
+        self._recent_flavor_age += 1
+        self._story_hook_age    += 1
+
+        # Story-hook reply — short affirmative within 2 turns of a hook
+        # triggers a fact-woven story on the hooked subject.
+        if self._is_story_hook_yes(lower):
+            subj = self._story_hook_subject
+            kws  = self._story_hook_keywords or []
+            self._story_hook_subject = None
+            self._story_hook_age = 99
+            all_facts = list(self.knowledge or []) + list(self.coding or [])
+            fact = next((f for f in all_facts
+                         if f.get('keywords')
+                         and any(k in f['keywords'] for k in kws)), None)
+            r = self.generate_story({
+                'subject': subj, 'fact': fact.get('answer') if fact else None,
+                'tone': None, 'mode': 'regular'
+            })
+            self.story_session = {
+                'tone': r.get('tone'), 'subject': subj,
+                'character': r.get('character'), 'place': r.get('place'),
+                'chapter': 1, 'chapterMode': False, 'mode': 'regular'
+            }
+            return r.get('text', '')
+
         # How are you — must be first, before ANY knowledge lookup
         how_are_you = ['how are you', 'how are u', 'how do you feel', 'you okay', 'you good',
                        'hows it going', "how's it going", 'how you doing', 'how you doin', "how're you"]
@@ -1529,7 +1643,7 @@ class MonkeyJoe:
                     if lower == word or lower.startswith(word + ' ') or lower.startswith(word + '!') or lower.startswith(word + ','):
                         responses = greeting.get('responses', [])
                         if responses:
-                            return random.choice(responses)
+                            return self._with_procedural(random.choice(responses))
 
         # Name recognition — user addresses or asks about Joe by name
         if 'monkey joe' in lower:
@@ -1634,14 +1748,20 @@ class MonkeyJoe:
             if len(answer) > 500:
                 sentences = answer.split('. ')
                 answer = '. '.join(sentences[:3]) + '.'
-            return answer
+            # Phase 3: maybe wrap in flavor, then maybe append story hook.
+            if self._should_flavor(lower):
+                answer = self._flavor_fact(answer, None)
+                self._recent_flavor_age = 0
+            return self._maybe_append_story_hook(answer, best_fact)
 
         # Partial match — suggest the topic Joe does know about
         if best_fact and best_score >= 0.5:
             topic = best_fact['keywords'][0]
             return f"I'm not sure about that specific question, but I know about {topic}! Ask me something more specific about it. 🐒"
 
-        return "Hmm, I don't know that one yet 🐒 Try asking me to search the web, or ask Akiva to add it to my brain!"
+        return self._with_procedural(
+            "Hmm, I don't know that one yet 🐒 Try asking me to search the web, or ask Akiva to add it to my brain!"
+        )
 
     def github_push(self, file_path: str) -> bool:
         """Push file to GitHub using API."""

@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '52'; // bump when brain JSON files change
+  const BRAIN_VERSION = '53'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -11,6 +11,18 @@ const Brain = (() => {
   let errors = null;
   let recipes = null;
   let debugging = null;
+  let responseFlavors = null;
+
+  // Phase 3: response flavoring + story hook
+  const FLAVOR_CHANCE      = 0.25;
+  const FLAVOR_CHANCE_BUSY = 0.05;  // drops to this when recently flavored
+  const PROCEDURAL_CHANCE  = 0.30;  // prepend a micro to a greeting/thanks
+  const STORY_HOOK_CHANCE  = 0.15;  // suggest a story after a strong fact hit
+  const SKIP_FLAVOR_WORDS  = ['just ', ' just', 'quick', 'briefly', 'short', 'tldr', 'tl;dr'];
+  let _recentFlavorAge = 99;  // turns since last flavored response
+  let _storyHookSubject = null;
+  let _storyHookKeywords = null;
+  let _storyHookAge = 99;     // turns since story hook offered
 
   async function load() {
     // If version changed, clear cache and reload from JSON
@@ -25,30 +37,33 @@ const Brain = (() => {
       localStorage.removeItem('mj_brain_errors');
       localStorage.removeItem('mj_brain_recipes');
       localStorage.removeItem('mj_brain_debugging');
+      localStorage.removeItem('mj_brain_responseFlavors');
       localStorage.setItem('mj_brain_version', BRAIN_VERSION);
     }
 
-    knowledge   = Storage.getBrain('knowledge');
-    rules       = Storage.getBrain('rules');
-    terminal    = Storage.getBrain('terminal');
-    coding      = Storage.getBrain('coding');
-    templates   = Storage.getBrain('templates');
-    dictionary  = Storage.getBrain('dictionary');
-    storyBeats  = Storage.getBrain('storyBeats');
-    errors      = Storage.getBrain('errors');
-    recipes     = Storage.getBrain('recipes');
-    debugging   = Storage.getBrain('debugging');
+    knowledge       = Storage.getBrain('knowledge');
+    rules           = Storage.getBrain('rules');
+    terminal        = Storage.getBrain('terminal');
+    coding          = Storage.getBrain('coding');
+    templates       = Storage.getBrain('templates');
+    dictionary      = Storage.getBrain('dictionary');
+    storyBeats      = Storage.getBrain('storyBeats');
+    errors          = Storage.getBrain('errors');
+    recipes         = Storage.getBrain('recipes');
+    debugging       = Storage.getBrain('debugging');
+    responseFlavors = Storage.getBrain('responseFlavors');
 
-    if (!knowledge)  { knowledge  = await fetchJSON('brain/knowledge.json');  Storage.setBrain('knowledge', knowledge); }
-    if (!rules)      { rules      = await fetchJSON('brain/rules.json');      Storage.setBrain('rules', rules); }
-    if (!terminal)   { terminal   = await fetchJSON('brain/terminal.json');   Storage.setBrain('terminal', terminal); }
-    if (!coding)     { coding     = await fetchJSON('brain/coding.json');     Storage.setBrain('coding', coding); }
-    if (!templates)  { templates  = await fetchJSON('brain/templates.json');  Storage.setBrain('templates', templates); }
-    if (!dictionary) { dictionary = await fetchJSON('brain/dictionary.json'); Storage.setBrain('dictionary', dictionary); }
-    if (!storyBeats) { storyBeats = await fetchJSON('brain/storyBeats.json'); Storage.setBrain('storyBeats', storyBeats); }
-    if (!errors)     { errors     = await fetchJSON('brain/errors.json');     Storage.setBrain('errors', errors); }
-    if (!recipes)    { recipes    = await fetchJSON('brain/recipes.json');    Storage.setBrain('recipes', recipes); }
-    if (!debugging)  { debugging  = await fetchJSON('brain/debugging.json');  Storage.setBrain('debugging', debugging); }
+    if (!knowledge)       { knowledge       = await fetchJSON('brain/knowledge.json');       Storage.setBrain('knowledge', knowledge); }
+    if (!rules)           { rules           = await fetchJSON('brain/rules.json');           Storage.setBrain('rules', rules); }
+    if (!terminal)        { terminal        = await fetchJSON('brain/terminal.json');        Storage.setBrain('terminal', terminal); }
+    if (!coding)          { coding          = await fetchJSON('brain/coding.json');          Storage.setBrain('coding', coding); }
+    if (!templates)       { templates       = await fetchJSON('brain/templates.json');       Storage.setBrain('templates', templates); }
+    if (!dictionary)      { dictionary      = await fetchJSON('brain/dictionary.json');      Storage.setBrain('dictionary', dictionary); }
+    if (!storyBeats)      { storyBeats      = await fetchJSON('brain/storyBeats.json');      Storage.setBrain('storyBeats', storyBeats); }
+    if (!errors)          { errors          = await fetchJSON('brain/errors.json');          Storage.setBrain('errors', errors); }
+    if (!recipes)         { recipes         = await fetchJSON('brain/recipes.json');         Storage.setBrain('recipes', recipes); }
+    if (!debugging)       { debugging       = await fetchJSON('brain/debugging.json');       Storage.setBrain('debugging', debugging); }
+    if (!responseFlavors) { responseFlavors = await fetchJSON('brain/responseFlavors.json'); Storage.setBrain('responseFlavors', responseFlavors); }
 
     if (typeof Generator !== 'undefined' && Generator.init) {
       Generator.init(templates, dictionary, storyBeats);
@@ -460,7 +475,94 @@ const Brain = (() => {
     return pronounTriggers.some(w => lower.includes(w)) || starterTriggers.some(w => lower.startsWith(w));
   }
 
+  // ── Phase 3: response flavoring ──────────────────────────
+  // Pick a flavor entry from a pool, preferring same-tone if any match.
+  function pickTonedFlavor(pool, tone) {
+    if (!pool || !pool.length) return null;
+    if (tone) {
+      const toned = pool.filter(e => e.tone && e.tone.includes(tone));
+      if (toned.length) return pick(toned);
+    }
+    return pick(pool);
+  }
+
+  function renderFlavor(text, tone) {
+    if (typeof Generator !== 'undefined' && Generator.fillSlots) {
+      return Generator.fillSlots(text, { tone });
+    }
+    return text;
+  }
+
+  // Decide whether to flavor this response.
+  function shouldFlavor(lower) {
+    if (!responseFlavors) return false;
+    for (const w of SKIP_FLAVOR_WORDS) {
+      if (lower.includes(w)) return false;
+    }
+    const chance = (_recentFlavorAge <= 2) ? FLAVOR_CHANCE_BUSY : FLAVOR_CHANCE;
+    return Math.random() < chance;
+  }
+
+  // Wrap a fact answer in a leadIn / signOff / responseWrap flourish.
+  function flavorFact(answer, tone) {
+    if (!responseFlavors || !answer) return answer;
+    const types = [];
+    if (responseFlavors.leadIns  && responseFlavors.leadIns.length)  types.push('leadIn');
+    if (responseFlavors.signOffs && responseFlavors.signOffs.length) types.push('signOff');
+    if (responseFlavors.responseWraps && responseFlavors.responseWraps.length) types.push('wrap');
+    if (!types.length) return answer;
+    const t = pick(types);
+    if (t === 'leadIn') {
+      const e = pickTonedFlavor(responseFlavors.leadIns, tone);
+      if (!e) return answer;
+      return renderFlavor(e.text, tone) + '\n\n' + answer;
+    }
+    if (t === 'signOff') {
+      const e = pickTonedFlavor(responseFlavors.signOffs, tone);
+      if (!e) return answer;
+      return answer + '\n\n' + renderFlavor(e.text, tone);
+    }
+    // wrap: before-fact-after sandwich
+    const e = pick(responseFlavors.responseWraps);
+    if (!e || !e.before || !e.after) return answer;
+    return renderFlavor(e.before, null) + '\n\n' + answer + '\n\n' + renderFlavor(e.after, null);
+  }
+
+  // Append a "want a story about that?" hook to a fact answer.
+  // Tracks the topic so a follow-up "yes"/"tell me a story" within 2
+  // turns can spin a fact-woven story without re-asking.
+  function maybeAppendStoryHook(answer, fact) {
+    if (!fact || !fact.keywords || !fact.keywords.length) return answer;
+    if (Math.random() >= STORY_HOOK_CHANCE) return answer;
+    _storyHookSubject  = fact.keywords[0];
+    _storyHookKeywords = fact.keywords;
+    _storyHookAge      = 0;
+    return answer + "\n\nWant a story about that? Just say 'tell me a story about it' 🐒";
+  }
+
+  // 30% chance to prepend a microStory to short canned replies (greetings,
+  // thanks, "good job"). Skip if dictionary/templates not loaded.
+  function withProcedural(text) {
+    if (!templates || !dictionary) return text;
+    if (Math.random() >= PROCEDURAL_CHANCE) return text;
+    if (typeof Generator === 'undefined' || !Generator.generateStory) return text;
+    const tone = pick([null, 'silly', 'cozy', 'whimsical']);
+    const r = Generator.generateStory({ mode: 'micro', tone });
+    if (!r || !r.text || r.text.startsWith('I want to tell stories')) return text;
+    return r.text + ' ' + text;
+  }
+
+  // Detect a short affirmative reply that should trigger the story-hook
+  // follow-up (only valid within 2 turns of the hook firing).
+  function isStoryHookYes(lower) {
+    if (_storyHookAge > 2 || !_storyHookSubject) return false;
+    return /^(yes|yeah|sure|yep|yup|ok|okay|go on|do it|please do|tell me|tell me a story(?: about it)?|story please)[\s!.?]*$/i.test(lower);
+  }
+
   function respond(input, history = []) {
+    // Tick flavoring counters once per respond() call.
+    _recentFlavorAge++;
+    _storyHookAge++;
     let lower = input.toLowerCase().trim();
 
     // Get user account name for personalization
@@ -526,6 +628,30 @@ const Brain = (() => {
       return NO_STORY_MSG;
     }
 
+    // Story-hook reply — if Joe recently offered a story-about-X, treat
+    // a short "yes"/"tell me a story about it" as that confirmation.
+    if (isStoryHookYes(lower) && typeof Generator !== 'undefined') {
+      const subj = _storyHookSubject;
+      const kws  = _storyHookKeywords || [];
+      _storyHookSubject = null;
+      _storyHookAge = 99;
+      let fact = null;
+      const allFacts = ((knowledge && knowledge.facts) || []).concat((coding && coding.facts) || []);
+      for (const f of allFacts) {
+        if (f.keywords && kws.some(k => f.keywords.includes(k))) { fact = f; break; }
+      }
+      const r = Generator.generateStory({
+        subject: subj,
+        fact:    fact ? fact.answer : null,
+        tone:    null,
+        mode:    'regular'
+      });
+      _storySession = { tone: r.tone || null, subject: subj,
+                        character: r.character, place: r.place,
+                        chapter: 1, chapterMode: false, mode: 'regular' };
+      return r.text;
+    }
+
     // ── Follow-up context injection ──────────────────────────
     if (_lastTopicLabel && detectFollowUp(lower)) {
       // inject last topic so "what do they eat?" becomes "what do they eat elephant"
@@ -589,11 +715,11 @@ const Brain = (() => {
           return re.test(lower);
         });
         if (matched) {
-          const greeting = pick(g.responses);
+          let greeting = pick(g.responses);
           if (userName && greeting.includes('Hi') && !greeting.includes(userName)) {
-            return greeting.replace(/^Hi/, `Hi ${userName},`);
+            greeting = greeting.replace(/^Hi/, `Hi ${userName},`);
           }
-          return greeting;
+          return withProcedural(greeting);
         }
       }
     }
@@ -617,7 +743,7 @@ const Brain = (() => {
     if (rules && rules.rules) {
       for (const rule of rules.rules) {
         if (rule.if && lower.includes(rule.if.toLowerCase())) {
-          return rule.then;
+          return rule.procedural ? withProcedural(rule.then) : rule.then;
         }
       }
     }
@@ -1046,7 +1172,13 @@ const Brain = (() => {
         _lastTopicKeywords = bestFact.keywords;
         _lastTopicLabel    = bestFact.keywords[0];
         _lastFactAnswer    = bestFact.answer;
-        return bestFact.answer;
+        let out = bestFact.answer;
+        if (shouldFlavor(lower)) {
+          out = flavorFact(out, null);
+          _recentFlavorAge = 0;
+        }
+        out = maybeAppendStoryHook(out, bestFact);
+        return out;
       }
 
       // Weak match (0.5-1.5 score): fall back to search instead of returning unreliable answer
@@ -1060,7 +1192,7 @@ const Brain = (() => {
       return '__SEARCH__:' + input.replace(/^(find a link to|find me|find a|find|look up|show me|get me|can you find|s[ea]rch for|s[ea]rch the web for)\s+/i, '');
     }
 
-    return "Hmm, I don't know that one yet 🐒 Try asking me to search the web for it, or ask Akiva to add it to my brain!";
+    return withProcedural("Hmm, I don't know that one yet 🐒 Try asking me to search the web for it, or ask Akiva to add it to my brain!");
   }
 
   function detectEmotion(lower, original) {
