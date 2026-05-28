@@ -23,6 +23,8 @@ Served as static files. Auth gate with invite codes, login, signup.
 - `brain/scienceFlavors.json` — one-line garnishes for science answers
 - `js/math.js` — math engine (evaluator, equations, stats, prime, calculus, matrices)
 - `js/mathWalkers.js` — 12 step-walker pure functions for showing math work
+- `js/memory.js` — cross-session memory (usage + facts split, see below)
+- `js/drawAnalyzer.js` — quantitative pixel analysis for drawings (browser only)
 - `config.js` — admin password and config (not committed)
 - `settings.html` — settings page
 
@@ -60,6 +62,40 @@ Joe now handles four coding-related input types BEFORE the generic knowledge loo
 The `findByTriggers` scorer: substring-match of a multi-word trigger = 3, single-word substring = 2, all-words-of-2+-word-trigger present = 1. Recipes fire at minScore 1; debug walkthroughs require minScore 2 (avoids false-positive walls of text).
 
 `looksLikeCode` triggers on ```` ``` ```` fences, 3+ lines with code-token indicators, or a single line with strong-bash signals (`$(...)` + `do/done/then/fi/...` or shebang). `detectLanguage` scores against signature regexes for 10 languages. `critiqueCode` runs generic bracket-balance + per-language pattern checks (Py: mixed indent / missing colon / Py2 print / bare except. JS: == vs ===, var, await without async, stale-closure setState. Bash: unquoted `$X` in `[`, backticks, missing `set -e`, `for x in $(ls)`).
+
+## Cross-session memory (v57 — hybrid with the split)
+Joe remembers across sessions. Two stores in one localStorage key (`mj_memory`) / `~/.mj_memory.json`:
+
+- **`facts`** — what the user explicitly told Joe via `remember that my X is Y` / `remember that I love X` / `remember this for later: X`. Set / get / forget commands. PII rejected by regex.
+- **`usage`** — anonymous behavior counts: `session_count`, `topic_counts`, `tone_counts`, `dispatcher_counts`, `recent_subjects` (10-slot ring), `last_story` snapshot.
+
+**The split is the design**: implicit data only describes the conversation ("we did wolves last time"), never the user ("you like wolves"). Welcome-back greetings cite `last_story` or `recent_subjects`; fact recall always sources the user ("you told me your cat is Felix"). That line never gets crossed.
+
+Memory commands (handled at the top of `respond()` so they always win):
+- `remember that my X is Y` → setFact
+- `remember that I love X` → about_me list (comma-appended)
+- `remember this for later: X` → timed note
+- `do you remember my X` / `what's my X` → getFact
+- `what do you remember` / `what do you know about me` → summary (lists everything Joe stores)
+- `forget about my X` → forgetFact
+- `forget everything` → asks for `yes` confirmation, then wipes both stores
+
+Implicit hooks: `Brain.load()` calls `Memory.tickSession()`. The knowledge-fact path calls `Memory.recordTopic(bestFact.keywords[0])`. The greeting handler swaps to `Memory.formatWelcomeBack()` when `session_count > 1` and `last_session > 24h` ago. Welcome hint shows exactly once (`welcome_hint_shown` flag).
+
+Privacy: `PII_REJECT_RE` blocks password/ssn/credit-card/address inputs from facts. No network. 365-day inactivity TTL. Caps on counts and map sizes.
+
+## Drawing analysis (v58 — quantitative + conversational + story payoff)
+`js/drawAnalyzer.js` does single-pass O(n) pixel analysis on the canvas: top colors (kid-friendly HSL bucketing), coverage, color temperature (warm/cool/mixed), position label, busiest 3x3 zone, vertical symmetry score, intensity (tiny/sparse/medium/busy), and mood (cozy/mysterious/spooky/adventure — derived from temp + darkness + busyness). Plus stroke stats (count + duration) tracked via pointer-event hooks in `js/draw.js`.
+
+Three-turn flow at the TOP of `respond()` (drawing wins over everything):
+
+1. **Turn 1**: `Chat.processResponse('__DRAWING__:' + JSON)` lands → analysis decoded → `_drawingContext` set with `awaitingDescription=true` → Joe returns warm observation framed as friendly language (NOT numbers), ending with "What is it? 🐒".
+2. **Turn 2**: user describes → `_drawingExtractNoun` strips "it's a/my/the" lead-ins → enthusiastic react + follow-up question ("dog! Want me to spin a tiny story about it?").
+3. **Turn 3**: user says yes / sure / tell me a story → `Generator.generateStory({subject: noun, mode:'micro', tone: analysis.mood})` returns a micro-story payoff. Drawing context graduates into a `_storySession` so "another" / "longer story" continue with the same subject.
+
+5-minute context timeout; "i don't know" graceful release; empty-canvas branch.
+
+Browser-only — `mj` CLI has no canvas, so no Python mirror.
 
 ## Science system (v56 — FREAKY good at science)
 Mirrors the v55 math system architecture: 3-intent dispatcher (SCIENCE_TEACH | SCIENCE_DEFINE | SCIENCE_FORMULA), tutorial bank, formula compute, voice layer. Slot order in `respond()`: greetings/story/coding/math/**science**/terminal/knowledge.
@@ -108,7 +144,7 @@ State is module-level (JS) / instance-level (Python): `_recentFlavorAge`, `_stor
 
 ## Brain versioning
 Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file changes.
-Currently: `'56'`
+Currently: `'58'`
 
 ## Deploy workflow
 ```bash
