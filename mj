@@ -279,6 +279,14 @@ class MonkeyJoe:
         # Per-slot recent-word tracking (de-repetition window).
         self._recent_words = {}
         self._recent_limit = 30
+        # Beat-level dedup: cross-story ring buffer.
+        self._recent_beat_ids = []
+        self._beat_history = 20
+        # Closer dedup: ring of stem-sets, plus verbatim text ring for
+        # closers whose every word is too short to be a stem.
+        self._recent_closer_stems = []
+        self._recent_closer_texts = []
+        self._closer_stem_history = 5
 
         self.load_brains()
 
@@ -431,12 +439,58 @@ class MonkeyJoe:
         if len(bucket) > self._recent_limit: bucket.pop(0)
         return chosen
 
+    # ── English pluralization ──────────────────────────────
+    _IRREGULAR_PLURALS = {
+        'jellyfish': 'jellyfish', 'octopus': 'octopuses', 'equinox': 'equinoxes',
+        'ox': 'oxen', 'mouse': 'mice', 'goose': 'geese',
+        'wolf': 'wolves', 'leaf': 'leaves', 'half': 'halves',
+        'knife': 'knives', 'life': 'lives', 'self': 'selves', 'thief': 'thieves',
+        'child': 'children', 'person': 'people',
+        'foot': 'feet', 'tooth': 'teeth',
+        'cactus': 'cacti', 'fungus': 'fungi', 'nucleus': 'nuclei', 'alumnus': 'alumni',
+        'criterion': 'criteria', 'phenomenon': 'phenomena',
+        'index': 'indices', 'matrix': 'matrices', 'vertex': 'vertices'
+    }
+    _F_EXCEPTIONS = {'roof','chief','belief','cliff','cuff',
+                     'gulf','reef','safe','cafe','proof','staff'}
+
+    @classmethod
+    def _pluralize(cls, word):
+        if not word: return word
+        lw = word.lower()
+        if lw in cls._IRREGULAR_PLURALS: return cls._IRREGULAR_PLURALS[lw]
+        if re.search(r'[^aeiou]y$', word, re.I): return word[:-1] + 'ies'
+        if re.search(r'(?:s|x|z|ch|sh)$', word, re.I): return word + 'es'
+        if re.search(r'fe$', word, re.I) and lw not in cls._F_EXCEPTIONS:
+            return word[:-2] + 'ves'
+        if re.search(r'f$', word, re.I) and lw not in cls._F_EXCEPTIONS:
+            return word[:-1] + 'ves'
+        return word + 's'
+
+    _CLOSER_STOPWORDS = {
+        'again','still','about','where','their','those','these','would','could',
+        'should','might','first','small','great','every','until','while','being',
+        'there','which','other','after','before','around','always','never'
+    }
+
+    @classmethod
+    def _extract_stems(cls, text):
+        return {w for w in re.findall(r'[a-z]{5,}', text.lower())
+                if w not in cls._CLOSER_STOPWORDS}
+
+    # Strip parenthetical with digits, take first sentence, cap 120 chars.
     @staticmethod
     def _fact_snippet(answer):
         if not answer: return ''
-        m = re.match(r'^[^.!?]+[.!?]', answer)
-        if m: return m.group(0).strip()
-        return (answer[:180].strip() + '...') if len(answer) > 180 else answer.strip()
+        cleaned = re.sub(r'\s*\([^)]*\d[^)]*\)', '', answer)
+        cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+        m = re.match(r'^[^.!?]+[.!?]', cleaned)
+        first = m.group(0).strip() if m else cleaned
+        if len(first) > 120:
+            cut = first[:120]
+            last_space = cut.rfind(' ')
+            first = (cut[:last_space] if last_space > 0 else cut).strip() + '...'
+        return first
 
     def _fill_template(self, text, opts):
         bindings = {}
@@ -446,16 +500,24 @@ class MonkeyJoe:
             bindings.setdefault('NOUN:character', opts['subject'])
         fact_text = self._fact_snippet(opts.get('fact'))
 
+        # Trailing `s` (followed by a word boundary) after a NOUN slot is a
+        # plural marker — pluralize() instead of leaving a literal `s`.
         def repl(m):
             slot = m.group(1)
-            if slot == 'FACT': return fact_text
+            suffix = m.group(2) or ''
+            if slot == 'FACT':
+                return fact_text + suffix
             is_noun = slot.startswith('NOUN')
-            if is_noun and slot in bindings: return bindings[slot]
-            word = self._pick_word(slot, opts.get('tone'))
-            if is_noun: bindings[slot] = word
-            return word
+            if is_noun and slot in bindings:
+                word = bindings[slot]
+            else:
+                word = self._pick_word(slot, opts.get('tone'))
+                if is_noun: bindings[slot] = word
+            if suffix and is_noun:
+                return self._pluralize(word)
+            return word + suffix
 
-        out = re.sub(r'\{([^}]+)\}', repl, text)
+        out = re.sub(r'\{([^}]+)\}(s\b)?', repl, text)
         return out, bindings
 
     @staticmethod
@@ -478,7 +540,23 @@ class MonkeyJoe:
         if tone:
             toned = [c for c in pool if tone in (c.get('tone') or [])]
             if toned: pool = toned
-        return self._pick(pool)['text']
+        # Drop closers sharing a stem with anything in the recent window.
+        recent_union = set()
+        for s in self._recent_closer_stems: recent_union |= s
+        drop_stems = ([c for c in pool
+                       if not (self._extract_stems(c['text']) & recent_union)]
+                      if recent_union else pool)
+        drop_texts = [c for c in drop_stems
+                      if c['text'] not in self._recent_closer_texts]
+        pool = drop_texts if drop_texts else (drop_stems if drop_stems else pool)
+        chosen = self._pick(pool)
+        self._recent_closer_stems.append(self._extract_stems(chosen['text']))
+        self._recent_closer_texts.append(chosen['text'])
+        if len(self._recent_closer_stems) > self._closer_stem_history:
+            self._recent_closer_stems.pop(0)
+        if len(self._recent_closer_texts) > self._closer_stem_history:
+            self._recent_closer_texts.pop(0)
+        return chosen['text']
 
     def _pick_pacing(self):
         p = (self.templates or {}).get('pacingBeats') or []
@@ -511,16 +589,23 @@ class MonkeyJoe:
             t = [b for b in lst if tone in (b.get('tone') or [])]
             return t if t else lst
 
-        openings = match_tone(by_type('opening'))
+        used_beat_ids = set()
+        def drop_blocked(lst):
+            fresh = [b for b in lst
+                     if b['id'] not in used_beat_ids
+                     and b['id'] not in self._recent_beat_ids]
+            return fresh if fresh else lst
+
+        openings = drop_blocked(match_tone(by_type('opening')))
         if not openings:
             return self.generate_story({**opts, 'mode': 'regular'})
         current = self._pick(openings)
 
-        visited, chain = set(), []
+        chain = []
         target_len = 4 + random.randint(0, 2)  # 4..6
         for i in range(target_len + 2):
             chain.append(current)
-            visited.add(current['id'])
+            used_beat_ids.add(current['id'])
             if current.get('type') == 'closing': break
             nexts = current.get('next_beats') or []
             if not nexts: break
@@ -530,13 +615,18 @@ class MonkeyJoe:
                 endish = [b for b in cands if b.get('type') in ('closing', 'resolution')]
                 if endish: cands = endish
             cands = match_tone(cands)
-            unv = [b for b in cands if b['id'] not in visited]
-            if unv: cands = unv
+            cands = drop_blocked(cands)
             current = self._pick(cands)
 
         if chain[-1].get('type') != 'closing':
-            cl = match_tone(by_type('closing'))
+            cl = drop_blocked(match_tone(by_type('closing')))
             if cl: chain.append(self._pick(cl))
+
+        # Record this chain so the next story avoids these beats.
+        for b in chain:
+            self._recent_beat_ids.append(b['id'])
+            if len(self._recent_beat_ids) > self._beat_history:
+                self._recent_beat_ids.pop(0)
 
         character = opts.get('character')
         place     = opts.get('place')

@@ -8,6 +8,17 @@ const Generator = (() => {
   const recentWords = {};
   const RECENT_LIMIT = 30;
 
+  // Beat-level dedup: in-chain (`usedBeatIds`) plus cross-story ring buffer.
+  const recentBeatIds = [];
+  const BEAT_HISTORY = 20;
+
+  // Closer dedup: ring of stem-sets so the same metaphor (e.g. "heart")
+  // doesn't fire twice within a few stories. recentCloserTexts catches
+  // verbatim repeats of closers whose every word is too short to be a stem.
+  const recentCloserStems = [];
+  const recentCloserTexts = [];
+  const CLOSER_STEM_HISTORY = 5;
+
   function init(t, d, b) {
     templates = t;
     dictionary = d;
@@ -16,6 +27,48 @@ const Generator = (() => {
 
   function pick(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  // ── English pluralization ──────────────────────────────────
+  const IRREGULAR_PLURALS = {
+    'jellyfish': 'jellyfish', 'octopus': 'octopuses', 'equinox': 'equinoxes',
+    'ox': 'oxen', 'mouse': 'mice', 'goose': 'geese',
+    'wolf': 'wolves', 'leaf': 'leaves', 'half': 'halves',
+    'knife': 'knives', 'life': 'lives', 'self': 'selves', 'thief': 'thieves',
+    'child': 'children', 'person': 'people',
+    'foot': 'feet', 'tooth': 'teeth',
+    'cactus': 'cacti', 'fungus': 'fungi', 'nucleus': 'nuclei', 'alumnus': 'alumni',
+    'criterion': 'criteria', 'phenomenon': 'phenomena',
+    'index': 'indices', 'matrix': 'matrices', 'vertex': 'vertices'
+  };
+  // -f / -fe words that keep the f (don't take -ves).
+  const F_EXCEPTIONS = new Set(['roof', 'chief', 'belief', 'cliff', 'cuff',
+    'gulf', 'reef', 'safe', 'cafe', 'proof', 'staff']);
+
+  function pluralize(word) {
+    if (!word) return word;
+    const lw = word.toLowerCase();
+    if (IRREGULAR_PLURALS[lw] !== undefined) return IRREGULAR_PLURALS[lw];
+    if (/[^aeiou]y$/i.test(word)) return word.slice(0, -1) + 'ies';
+    if (/(?:s|x|z|ch|sh)$/i.test(word)) return word + 'es';
+    if (/fe$/i.test(word) && !F_EXCEPTIONS.has(lw)) return word.slice(0, -2) + 'ves';
+    if (/f$/i.test(word) && !F_EXCEPTIONS.has(lw)) return word.slice(0, -1) + 'ves';
+    return word + 's';
+  }
+
+  // Words ≥ 5 chars in closers usually carry the metaphor. Skip common
+  // function words so the stem-check focuses on content words.
+  const CLOSER_STOPWORDS = new Set([
+    'again','still','about','where','their','those','these','would','could',
+    'should','might','first','small','great','every','until','while','being',
+    'there','which','other','after','before','around','always','never'
+  ]);
+
+  function extractStems(text) {
+    const out = new Set();
+    const matches = text.toLowerCase().match(/[a-z]{5,}/g) || [];
+    for (const w of matches) if (!CLOSER_STOPWORDS.has(w)) out.add(w);
+    return out;
   }
 
   const posMap = {
@@ -71,15 +124,26 @@ const Generator = (() => {
     return dictionary.words.some(d => d.pos === 'noun' && d.word.toLowerCase() === w);
   }
 
+  // Strip parentheticals containing digits ("(~15 plates moving 1-15 cm/year)"),
+  // keep first sentence, cap at 120 chars on word boundary.
   function factSnippet(answer) {
     if (!answer) return '';
-    const m = answer.match(/^[^.!?]+[.!?]/);
-    if (m) return m[0].trim();
-    return (answer.length > 180 ? answer.slice(0, 180).trim() + '...' : answer.trim());
+    let cleaned = answer.replace(/\s*\([^)]*\d[^)]*\)/g, '');
+    cleaned = cleaned.replace(/\s+/g, ' ').trim();
+    const m = cleaned.match(/^[^.!?]+[.!?]/);
+    let first = m ? m[0].trim() : cleaned;
+    if (first.length > 120) {
+      const cut = first.slice(0, 120);
+      const lastSpace = cut.lastIndexOf(' ');
+      first = (lastSpace > 0 ? cut.slice(0, lastSpace) : cut).trim() + '...';
+    }
+    return first;
   }
 
   // Fill a single template + return what nouns bound to (so callers can
-  // persist them across turns for continuation mode).
+  // persist them across turns for continuation mode). Trailing `s` immediately
+  // after a NOUN slot is treated as a plural marker and routed through
+  // pluralize() instead of being a literal `s`.
   function fillTemplate(text, opts) {
     const bindings = {};
     if (opts.character) bindings['NOUN:character'] = opts.character;
@@ -89,13 +153,18 @@ const Generator = (() => {
     }
     const factText = opts.fact ? factSnippet(opts.fact) : '';
 
-    const filled = text.replace(/\{([^}]+)\}/g, (match, slot) => {
-      if (slot === 'FACT') return factText;
+    const filled = text.replace(/\{([^}]+)\}(s\b)?/g, (match, slot, suffix) => {
+      if (slot === 'FACT') return factText + (suffix || '');
       const isNoun = slot.startsWith('NOUN');
-      if (isNoun && bindings[slot]) return bindings[slot];
-      const word = pickWord(slot, opts.tone);
-      if (isNoun) bindings[slot] = word;
-      return word;
+      let word;
+      if (isNoun && bindings[slot]) {
+        word = bindings[slot];
+      } else {
+        word = pickWord(slot, opts.tone);
+        if (isNoun) bindings[slot] = word;
+      }
+      if (suffix && isNoun) return pluralize(word);
+      return word + (suffix || '');
     });
     return { text: filled, bindings };
   }
@@ -143,7 +212,23 @@ const Generator = (() => {
       const toned = pool.filter(c => c.tone && c.tone.includes(tone));
       if (toned.length) pool = toned;
     }
-    return pick(pool).text;
+    // Drop closers that share a stem with anything in the recent window.
+    const recentUnion = new Set();
+    for (const s of recentCloserStems) for (const w of s) recentUnion.add(w);
+    const dropByStems = recentUnion.size
+      ? pool.filter(c => {
+          for (const w of extractStems(c.text)) if (recentUnion.has(w)) return false;
+          return true;
+        })
+      : pool;
+    const dropByText = dropByStems.filter(c => !recentCloserTexts.includes(c.text));
+    pool = dropByText.length ? dropByText : (dropByStems.length ? dropByStems : pool);
+    const chosen = pick(pool);
+    recentCloserStems.push(extractStems(chosen.text));
+    recentCloserTexts.push(chosen.text);
+    if (recentCloserStems.length > CLOSER_STEM_HISTORY) recentCloserStems.shift();
+    if (recentCloserTexts.length > CLOSER_STEM_HISTORY) recentCloserTexts.shift();
+    return chosen.text;
   }
 
   function pickPacingBeat() {
@@ -170,17 +255,23 @@ const Generator = (() => {
       const t = list.filter(b => b.tone && b.tone.includes(tone));
       return t.length ? t : list;
     };
+    // Combined blocklist: this-chain visits + cross-story recent ring.
+    const usedBeatIds = new Set();
+    const dropBlocked = (list) => {
+      const fresh = list.filter(b => !usedBeatIds.has(b.id)
+                                  && !recentBeatIds.includes(b.id));
+      return fresh.length ? fresh : list;
+    };
 
-    let current = pick(matchTone(byType('opening')));
+    let current = pick(dropBlocked(matchTone(byType('opening'))));
     if (!current) return generateStory({ ...opts, mode: 'regular' });
 
-    const visited = new Set();
     const chain = [];
     const targetLen = 4 + Math.floor(Math.random() * 3); // 4–6 beats
 
     for (let i = 0; i < targetLen + 2; i++) {
       chain.push(current);
-      visited.add(current.id);
+      usedBeatIds.add(current.id);
       if (current.type === 'closing') break;
       if (!current.next_beats || !current.next_beats.length) break;
 
@@ -192,18 +283,21 @@ const Generator = (() => {
         const endish = cands.filter(b => b.type === 'closing' || b.type === 'resolution');
         if (endish.length) cands = endish;
       }
-      // Prefer same-tone candidates.
       cands = matchTone(cands);
-      // Prefer not-yet-visited to avoid loops.
-      const unvisited = cands.filter(b => !visited.has(b.id));
-      if (unvisited.length) cands = unvisited;
+      cands = dropBlocked(cands);
       current = pick(cands);
     }
 
     // Force a closing if we ran out of hops without hitting one.
     if (chain[chain.length - 1].type !== 'closing') {
-      const closings = matchTone(byType('closing'));
+      const closings = dropBlocked(matchTone(byType('closing')));
       if (closings.length) chain.push(pick(closings));
+    }
+
+    // Record this chain's beats so the next story avoids them.
+    for (const b of chain) {
+      recentBeatIds.push(b.id);
+      if (recentBeatIds.length > BEAT_HISTORY) recentBeatIds.shift();
     }
 
     let character = opts.character || null;
