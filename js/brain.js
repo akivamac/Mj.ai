@@ -1100,18 +1100,18 @@ const Brain = (() => {
     const openers = [
       `${noun}! I love that.`,
       `A ${noun}! Best choice.`,
-      `${noun}! Tell me more about it.`,
       `Oh, ${noun} — that fits the colors perfectly.`,
-      `${noun}! That's such a good one to draw.`
+      `${noun}! That's such a good one to draw.`,
+      `A ${noun}! Nice.`
     ];
-    const followUps = [
-      `Where does it live?`,
-      `What's it doing?`,
-      `Does it have a name?`,
-      `What happens next in the story?`,
-      `Want me to spin a tiny story about it?`
+    // Always a clean, unambiguous yes/no offer — never presume a story
+    // already exists (that confuses kids).
+    const offers = [
+      `Want me to make up a tiny story about your ${noun}?`,
+      `Should I spin a little story about your ${noun}?`,
+      `Want a tiny tale starring your ${noun}? Just say yes! 🐒`
     ];
-    return pick(openers) + ' ' + pick(followUps);
+    return pick(openers) + ' ' + pick(offers);
   }
 
   function _drawingStoryToneFromMood(mood) {
@@ -1158,24 +1158,42 @@ const Brain = (() => {
       const noun = _drawingExtractNoun(input);
       _drawingContext.describedAs = noun;
       _drawingContext.awaitingDescription = false;
+      _drawingContext.awaitingStoryDecision = true;
       return _drawingReact(noun, _drawingContext.analysis);
     }
 
-    // ── Drawing turn 3 (story payoff) ──────────────────
-    if (_drawingContext && _drawingContext.describedAs && _isDrawingStoryAccept(input.toLowerCase())
-        && typeof Generator !== 'undefined') {
+    // ── Drawing turn 3 (story decision) ────────────────
+    // Joe just offered a yes/no story. Handle decline, confusion, and
+    // accept — never let a non-yes fall through to the generic chain
+    // (that's the bug where "What story?" hit the greedy `what` rule).
+    if (_drawingContext && _drawingContext.awaitingStoryDecision) {
+      const lower3 = input.toLowerCase().trim();
       const subj = _drawingContext.describedAs;
-      const tone = _drawingStoryToneFromMood(_drawingContext.analysis.mood);
-      const r = Generator.generateStory({ subject: subj, mode: 'micro', tone });
-      // Graduate drawing context into a story session so "another" continues
-      // with the same subject.
-      _storySession = {
-        tone: r.tone || tone, subject: subj,
-        character: r.character, place: r.place,
-        chapter: 1, chapterMode: false, mode: 'micro'
-      };
+      // Decline → release gracefully.
+      if (/^(no|nope|nah|no thanks?|not now|maybe later|not really)\b/i.test(lower3)) {
+        _drawingContext = null;
+        return "No worries! 🐒 I'm here whenever you want one.";
+      }
+      // Confusion about the offer → clarify, stay open to a yes.
+      if (/\b(what|which|huh|mean)\b/i.test(lower3) || /^\s*\?+\s*$/.test(input)) {
+        return `A little made-up story starring your ${subj}! Want one? Just say "yes". 🐒`;
+      }
+      // Accept (or any clear affirmative) → spin the story.
+      if (_isDrawingStoryAccept(lower3) && typeof Generator !== 'undefined') {
+        const tone = _drawingStoryToneFromMood(_drawingContext.analysis.mood);
+        const r = Generator.generateStory({ subject: subj, mode: 'micro', tone });
+        // Graduate into a story session so "another" continues the subject.
+        _storySession = {
+          tone: r.tone || tone, subject: subj,
+          character: r.character, place: r.place,
+          chapter: 1, chapterMode: false, mode: 'micro'
+        };
+        _drawingContext = null;
+        return r.text;
+      }
+      // Anything else (a new topic, an off-hand remark) → release the
+      // drawing context and let the normal dispatch chain handle it.
       _drawingContext = null;
-      return r.text;
     }
 
     // Memory commands win early — pure command surface, no chance of
