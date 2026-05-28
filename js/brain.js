@@ -1,9 +1,13 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '57'; // bump when brain JSON files change
+  const BRAIN_VERSION = '58'; // bump when brain JSON files change
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
   let _forgetEverythingPending = false;
+
+  // Drawing-context state (v58). Set when the user submits a drawing;
+  // turn 2 collects the description, turn 3 spins a story.
+  let _drawingContext = null;
 
   let knowledge = null;
   let rules = null;
@@ -1049,10 +1053,130 @@ const Brain = (() => {
     return null;
   }
 
+  // ── Drawing handler (v58) ───────────────────────────────
+  //
+  // Three-turn flow:
+  //   turn 1: drawing arrives via Chat.processResponse('__DRAWING__:' + json)
+  //           → analysis-to-warm-observation + "what is it?" question
+  //   turn 2: user describes ("it's my dog") → noun extracted, reacted to,
+  //           offered a story
+  //   turn 3: user says yes / tell me a story → fact-woven or mood-toned
+  //           micro story spun via the existing Generator
+
+  function _drawingExtractNoun(input) {
+    // Strip lead-ins, take the meatiest noun-ish token sequence.
+    let s = input.trim().replace(/[?.!]+$/, '').toLowerCase();
+    s = s.replace(/^(it'?s|its|that'?s|i drew|i made|this is|a|an|the|my|some|just)\s+/g, '');
+    s = s.replace(/^(it'?s|its|that'?s|a|an|the|my|some|just)\s+/g, ''); // second pass
+    return s.trim() || input.trim();
+  }
+
+  function _drawingOpener(a) {
+    if (a.empty) return "I see the canvas but it looks empty — did you mean to draw more, or was that the whole idea?";
+    const colors = a.topColors && a.topColors.length
+      ? (a.topColors.length === 1
+          ? `just ${a.topColors[0]}`
+          : `${a.topColors.slice(0, -1).join(', ')} and ${a.topColors.slice(-1)[0]}`)
+      : 'a mix of colors';
+    const bits = [];
+    bits.push(`I see it! Lots of ${colors}`);
+    if (a.colorTemp && !a.colorTemp.startsWith('one color')) bits.push(`(${a.colorTemp})`);
+    if (a.position && a.position !== 'right in the middle') bits.push(`— ${a.position}`);
+    else bits.push(`— sitting nicely in the middle`);
+    if (a.symmetryLabel && a.symmetryLabel === 'very symmetric left-to-right') bits.push(', and very symmetric');
+    let observation = bits.join(' ') + '.';
+    // Add intensity if notable.
+    if (a.intensity === 'busy')       observation += ` Lots of detail packed in there.`;
+    else if (a.intensity === 'tiny')  observation += ` Just a tiny mark.`;
+    else if (a.intensity === 'sparse') observation += ` Light and airy.`;
+    if (a.strokeStats && a.strokeStats.strokeCount >= 8) {
+      observation += ` You really took your time (${a.strokeStats.strokeCount} strokes).`;
+    }
+    observation += '\n\nWhat is it? 🐒';
+    return observation;
+  }
+
+  function _drawingReact(noun, analysis) {
+    const openers = [
+      `${noun}! I love that.`,
+      `A ${noun}! Best choice.`,
+      `${noun}! Tell me more about it.`,
+      `Oh, ${noun} — that fits the colors perfectly.`,
+      `${noun}! That's such a good one to draw.`
+    ];
+    const followUps = [
+      `Where does it live?`,
+      `What's it doing?`,
+      `Does it have a name?`,
+      `What happens next in the story?`,
+      `Want me to spin a tiny story about it?`
+    ];
+    return pick(openers) + ' ' + pick(followUps);
+  }
+
+  function _drawingStoryToneFromMood(mood) {
+    return mood || null;  // mood already maps to tone names
+  }
+
+  function _isDrawingStoryAccept(lower) {
+    return /^(yes|yeah|sure|ok|okay|yep|yup|please|do it|go on|tell me a story(?: about it)?|story|tell me one|spin one|yes please)[\s!.?]*$/i.test(lower.trim());
+  }
+
+  function _maybeClearDrawingContext() {
+    if (_drawingContext && Date.now() - _drawingContext.sentAt > 5 * 60 * 1000) {
+      _drawingContext = null;
+    }
+  }
+
   function respond(input, history = []) {
     // Tick flavoring counters once per respond() call.
     _recentFlavorAge++;
     _storyHookAge++;
+    _maybeClearDrawingContext();
+
+    // ── Drawing envelope (turn 1) ───────────────────────
+    if (input && input.startsWith('__DRAWING__:')) {
+      let analysis = { empty: true };
+      try { analysis = JSON.parse(input.slice('__DRAWING__:'.length)); } catch (_) {}
+      _drawingContext = {
+        sentAt: Date.now(),
+        analysis,
+        awaitingDescription: !analysis.empty,
+        describedAs: null
+      };
+      return _drawingOpener(analysis);
+    }
+
+    // ── Drawing turn 2 (user describes) ────────────────
+    if (_drawingContext && _drawingContext.awaitingDescription && !input.startsWith('__')) {
+      const lower2 = input.toLowerCase().trim();
+      // If they say "i don't know" or shrug it off, gracefully release context.
+      if (/^(i don'?t know|idk|nothing|nothin'?|just a doodle|just doodling|just scribbling)/i.test(lower2)) {
+        _drawingContext = null;
+        return "All good — sometimes drawing is just drawing. 🐒";
+      }
+      const noun = _drawingExtractNoun(input);
+      _drawingContext.describedAs = noun;
+      _drawingContext.awaitingDescription = false;
+      return _drawingReact(noun, _drawingContext.analysis);
+    }
+
+    // ── Drawing turn 3 (story payoff) ──────────────────
+    if (_drawingContext && _drawingContext.describedAs && _isDrawingStoryAccept(input.toLowerCase())
+        && typeof Generator !== 'undefined') {
+      const subj = _drawingContext.describedAs;
+      const tone = _drawingStoryToneFromMood(_drawingContext.analysis.mood);
+      const r = Generator.generateStory({ subject: subj, mode: 'micro', tone });
+      // Graduate drawing context into a story session so "another" continues
+      // with the same subject.
+      _storySession = {
+        tone: r.tone || tone, subject: subj,
+        character: r.character, place: r.place,
+        chapter: 1, chapterMode: false, mode: 'micro'
+      };
+      _drawingContext = null;
+      return r.text;
+    }
 
     // Memory commands win early — pure command surface, no chance of
     // misrouting to other dispatchers.

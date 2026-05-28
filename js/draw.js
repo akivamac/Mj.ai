@@ -1,6 +1,8 @@
 const Draw = (() => {
   let canvas, ctx, drawing = false;
   let onSubmit = null;
+  // Stroke-tracking for drawAnalyzer.
+  let strokeCount = 0, totalPoints = 0, startTime = 0;
 
   function init() {
     canvas = document.getElementById('draw-canvas');
@@ -32,10 +34,20 @@ const Draw = (() => {
     };
   }
 
-  function start(e) { drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }
-  function move(e)  { if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }
+  function start(e) {
+    drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y);
+    if (!startTime) startTime = Date.now();
+    strokeCount++;
+  }
+  function move(e)  {
+    if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke();
+    totalPoints++;
+  }
   function stop()   { drawing = false; }
-  function clear()  { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+  function clear()  {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    strokeCount = 0; totalPoints = 0; startTime = 0;
+  }
 
   function open(callback) {
     clear();
@@ -46,11 +58,22 @@ const Draw = (() => {
   function submit() {
     const dataUrl = canvas.toDataURL('image/png');
     document.getElementById('draw-modal').classList.add('hidden');
-    if (onSubmit) onSubmit(dataUrl);
-    else {
-      Chat.addMessage('user', '<img src="' + dataUrl + '" style="max-width:200px;border-radius:6px;display:block;" />', true);
-      Chat.processResponse('the user sent a drawing');
-    }
+    if (onSubmit) { onSubmit(dataUrl); return; }
+    // Quantitative analysis to seed Joe's response.
+    let analysis = { empty: true };
+    try {
+      const strokeStats = {
+        strokeCount,
+        totalPoints,
+        durationMs: startTime ? Date.now() - startTime : 0
+      };
+      analysis = (typeof DrawAnalyzer !== 'undefined')
+        ? DrawAnalyzer.analyze(canvas, strokeStats)
+        : { empty: false };
+    } catch (e) { /* keep empty fallback */ }
+    Chat.addMessage('user', '<img src="' + dataUrl + '" style="max-width:200px;border-radius:6px;display:block;" />', true);
+    // Encode as a JSON envelope so brain.js can route it.
+    Chat.processResponse('__DRAWING__:' + JSON.stringify(analysis));
   }
 
   return { init, open };
