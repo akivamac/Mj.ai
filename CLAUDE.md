@@ -146,6 +146,15 @@ State is module-level (JS) / instance-level (Python): `_recentFlavorAge`, `_stor
 Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file changes.
 Currently: `'58'`
 
+## Cache-busting (important)
+`index.html` loads every local `js/*.js` with a `?v=NN` query string that
+must match `BRAIN_VERSION`. GitHub Pages + browsers cache JS aggressively;
+without the bump, users get **stale JavaScript** (e.g. a drawing falling
+through to a random knowledge fact because the cached `brain.js` predates
+the `__DRAWING__:` handler). When you bump `BRAIN_VERSION`, also bump every
+`?v=` in `index.html` (one sed: `s/\.js?v=[0-9]*/.js?v=NN/`). Tell the user
+to hard-refresh (Cmd/Ctrl+Shift+R) after a deploy if they see old behavior.
+
 ## Deploy workflow
 ```bash
 git add <files>
