@@ -12,6 +12,7 @@ const Brain = (() => {
   let recipes = null;
   let debugging = null;
   let responseFlavors = null;
+  let mathTutorials   = null;
 
   // Phase 3: response flavoring + story hook
   const FLAVOR_CHANCE      = 0.25;
@@ -38,6 +39,7 @@ const Brain = (() => {
       localStorage.removeItem('mj_brain_recipes');
       localStorage.removeItem('mj_brain_debugging');
       localStorage.removeItem('mj_brain_responseFlavors');
+      localStorage.removeItem('mj_brain_mathTutorials');
       localStorage.setItem('mj_brain_version', BRAIN_VERSION);
     }
 
@@ -52,6 +54,7 @@ const Brain = (() => {
     recipes         = Storage.getBrain('recipes');
     debugging       = Storage.getBrain('debugging');
     responseFlavors = Storage.getBrain('responseFlavors');
+    mathTutorials   = Storage.getBrain('mathTutorials');
 
     if (!knowledge)       { knowledge       = await fetchJSON('brain/knowledge.json');       Storage.setBrain('knowledge', knowledge); }
     if (!rules)           { rules           = await fetchJSON('brain/rules.json');           Storage.setBrain('rules', rules); }
@@ -64,6 +67,7 @@ const Brain = (() => {
     if (!recipes)         { recipes         = await fetchJSON('brain/recipes.json');         Storage.setBrain('recipes', recipes); }
     if (!debugging)       { debugging       = await fetchJSON('brain/debugging.json');       Storage.setBrain('debugging', debugging); }
     if (!responseFlavors) { responseFlavors = await fetchJSON('brain/responseFlavors.json'); Storage.setBrain('responseFlavors', responseFlavors); }
+    if (!mathTutorials)   { mathTutorials   = await fetchJSON('brain/mathTutorials.json');   Storage.setBrain('mathTutorials', mathTutorials); }
 
     if (typeof Generator !== 'undefined' && Generator.init) {
       Generator.init(templates, dictionary, storyBeats);
@@ -574,8 +578,15 @@ const Brain = (() => {
     'eigenvalue','slope','quadratic','linear','polynomial','factor','divisor',
     'multiple','prob','probability','combination','permutation','pythagoras',
     'pythagorean','trig','sine','cosine','tangent','log','logarithm','radian',
-    'degree','pi','number','digit'];
-  const TEACH_RE  = /\b(how (?:do|does) .+ work|explain|teach me|i (?:don't|do not) (?:get|understand)|confused about|why is|why does|what does it mean|walk me through|help me with)\b/i;
+    'degree','number','digit',
+    'arithmetic','division','multiplication','addition','subtraction',
+    'modular','modulo','set','logic','induction','recurrence','big-o',
+    'normal distribution','z-score','central limit','confidence interval',
+    'p-value','hypothesis','standard deviation','correlation','histogram',
+    'long division','order of operations','pemdas','negative number',
+    'square root','cube root','exponential','factorial','sequence',
+    'theorem','formula','calculus','statistics','stats'];
+  const TEACH_RE  = /\b(how (?:do|does|to) .+|explain|teach me|i (?:don't|do not|dont) (?:get|understand)|confused about|why (?:is|does|do)|what does it mean|walk me through|help me with|show me)\b/i;
   const DEFINE_RE = /^(what is (?:a |an |the )?|what's (?:a |an |the )?|whats (?:a |an |the )?|define )/i;
   const WORKED_RE = /\b(show (?:your |the )?work|step by step|show me how|show me|walk me through|how do I solve|why is .* equal|with work|with steps)\b/i;
   const MATH_SKIP_RE = /\b(just|quick|briefly|short|tldr|tl;dr)\b/i;
@@ -603,6 +614,10 @@ const Brain = (() => {
     // Teaching paths require a math keyword to avoid hijacking general chat.
     if (TEACH_RE.test(input) && hasMathKeyword(lower)) return 'TEACH';
     if (DEFINE_RE.test(input) && hasMathKeyword(lower) && input.length < 80) return 'DEFINE';
+    // Bare math noun phrase ("pythagorean theorem", "quadratic formula") with
+    // no question words — treat as DEFINE so the tutorial bank can answer.
+    if (input.length < 40 && hasMathKeyword(lower)
+        && !/\?$/.test(input) && /^[a-z' \-]+$/i.test(input.trim())) return 'DEFINE';
     return null;
   }
 
@@ -654,8 +669,38 @@ const Brain = (() => {
     return `No — ${n} = ${f.join(' × ')}.\n\nWork: trial-divided by 2, 3, 5, 7, ... until we found ${f[0]} divides ${n}, then continued on the quotient.`;
   }
 
+  function _extractNumbers(s) {
+    return (String(s).match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+  }
+
+  function _handleTutorial(intent, input, lower) {
+    if (!mathTutorials || !mathTutorials.tutorials) return null;
+    // Reuse the same trigger scorer as recipes/debugging.
+    const tut = findByTriggers(mathTutorials.tutorials, lower, 1);
+    if (!tut) return null;
+    let out = `**${tut.title}**`;
+    if (tut.formula) out += `   _${tut.formula}_`;
+    out += '\n\n' + tut.body;
+    // If the user supplied numbers AND the tutorial has a walker, run it.
+    if (intent === 'TEACH' && tut.walker
+        && typeof MathWalkers !== 'undefined' && MathWalkers[tut.walker]) {
+      const nums = _extractNumbers(input);
+      if (nums.length) {
+        try {
+          const walked = MathWalkers[tut.walker](nums);
+          if (walked) out += '\n\n_For your numbers:_\n' + MathWalkers.formatSteps(walked);
+        } catch (_) { /* swallow walker errors — tutorial body still ships */ }
+      }
+    }
+    if (tut.tryIt) out += '\n\n' + tut.tryIt;
+    return out;
+  }
+
   function handleMathIntent(intent, input, lower) {
     if (typeof MathEngine === 'undefined') return null;
+    if (intent === 'TEACH' || intent === 'DEFINE') {
+      return _handleTutorial(intent, input, lower);
+    }
     const worked = intent === 'WORKED';
 
     // 1. Unit conversion (highest specificity)

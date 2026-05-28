@@ -188,7 +188,7 @@ def update_brain(brain_dir):
     files = ['knowledge.json', 'rules.json', 'terminal.json', 'coding.json',
              'templates.json', 'dictionary.json', 'storyBeats.json',
              'errors.json', 'recipes.json', 'debugging.json',
-             'responseFlavors.json']
+             'responseFlavors.json', 'mathTutorials.json']
     ctx = ssl.create_default_context()
     for f in files:
         try:
@@ -767,6 +767,239 @@ class MathEngine:
         return {'type':'unique','x':(c1*b2-c2*b1)/d,'y':(a1*c2-a2*c1)/d}
 
 
+class MathWalkers:
+    """Step-walkers for the TEACH/WORKED math paths. Pure functions that
+    return { 'answer': ..., 'steps': [ {label, calc, [result]} ] }. Mirror
+    of js/mathWalkers.js."""
+
+    @staticmethod
+    def _f(n): return MathEngine.format_number(n)
+
+    @staticmethod
+    def walkArithmetic(nums, op='+'):
+        if not nums or len(nums) < 2: return None
+        a, b = nums[0], nums[1]
+        ans = {'+': a+b, '-': a-b, '*': a*b, '×': a*b, '/': a/b if b else None, '÷': a/b if b else None}.get(op)
+        return {'answer': ans,
+                'steps': [{'label': 'Operation', 'calc': f'{a} {op} {b}', 'result': MathWalkers._f(ans)}]}
+
+    @staticmethod
+    def walkPercent(nums):
+        if not nums or len(nums) < 2: return None
+        pct, of = nums[0], nums[1]
+        dec = pct / 100
+        ans = dec * of
+        return {'answer': ans,
+                'steps': [
+                    {'label': 'Convert percent', 'calc': f'{pct}% = {pct}/100 = {MathWalkers._f(dec)}'},
+                    {'label': 'Multiply',        'calc': f'{MathWalkers._f(dec)} × {of}', 'result': MathWalkers._f(ans)}
+                ]}
+
+    @staticmethod
+    def walkLinearEq(nums):
+        if not nums or len(nums) < 3: return None
+        a, b, c = nums[0], nums[1], nums[2]
+        rhs = c - b
+        x = rhs / a
+        return {'answer': x,
+                'steps': [
+                    {'label': 'Start',    'calc': f'{a}x + {b} = {c}'},
+                    {'label': 'Subtract', 'calc': f'{a}x = {c} - {b} = {MathWalkers._f(rhs)}'},
+                    {'label': 'Divide',   'calc': f'x = {MathWalkers._f(rhs)} / {a} = {MathWalkers._f(x)}'}
+                ]}
+
+    @staticmethod
+    def walkQuadratic(nums):
+        if not nums or len(nums) < 3: return None
+        a, b, c = nums
+        d = b*b - 4*a*c
+        steps = [
+            {'label': 'Start',        'calc': f'{a}x² + {b}x + {c} = 0'},
+            {'label': 'Discriminant', 'calc': f'b² - 4ac = {b*b} - {4*a*c} = {MathWalkers._f(d)}'}
+        ]
+        if d < 0:
+            steps.append({'label': 'No real roots', 'calc': 'discriminant < 0'})
+            return {'answer': None, 'steps': steps}
+        sd = math.sqrt(d)
+        x1, x2 = (-b + sd) / (2*a), (-b - sd) / (2*a)
+        steps.append({'label': 'Apply formula', 'calc': f'x = (-{b} ± √{MathWalkers._f(d)}) / {2*a}'})
+        steps.append({'label': 'Two roots',     'calc': f'x = {MathWalkers._f(x1)} or x = {MathWalkers._f(x2)}'})
+        return {'answer': [x1, x2], 'steps': steps}
+
+    @staticmethod
+    def walkFractionOp(nums, op='+'):
+        if not nums or len(nums) < 4: return None
+        a, b, c, d = nums[:4]
+        steps = []
+        if op in ('+', '-'):
+            lcd = MathEngine.lcm(b, d)
+            aN = a * (lcd // b)
+            cN = c * (lcd // d)
+            nNum = aN + cN if op == '+' else aN - cN
+            nDen = lcd
+            steps.append({'label': 'Find LCD', 'calc': f'lcm({b}, {d}) = {lcd}'})
+            steps.append({'label': 'Rewrite',  'calc': f'{a}/{b} = {aN}/{lcd},  {c}/{d} = {cN}/{lcd}'})
+            steps.append({'label': 'Add' if op == '+' else 'Subtract',
+                          'calc': f'({aN} {op} {cN}) / {lcd} = {nNum}/{nDen}'})
+        elif op in ('*', '×'):
+            nNum, nDen = a * c, b * d
+            steps.append({'label': 'Multiply tops', 'calc': f'{a} × {c} = {nNum}'})
+            steps.append({'label': 'Multiply bots', 'calc': f'{b} × {d} = {nDen}'})
+        else:
+            nNum, nDen = a * d, b * c
+            steps.append({'label': 'Flip second', 'calc': f'{c}/{d} → {d}/{c}'})
+            steps.append({'label': 'Multiply',    'calc': f'{a}/{b} × {d}/{c} = {nNum}/{nDen}'})
+        g = MathEngine.gcd(abs(int(nNum)), abs(int(nDen))) or 1
+        if g > 1:
+            steps.append({'label': 'Simplify', 'calc': f'{nNum}/{nDen} ÷ {g}/{g} = {nNum//g}/{nDen//g}'})
+            nNum, nDen = nNum // g, nDen // g
+        return {'answer': f'{nNum}/{nDen}', 'steps': steps}
+
+    @staticmethod
+    def walkPrimeFactor(nums):
+        if not nums: return None
+        n = abs(int(nums[0]))
+        if n < 2:
+            return {'answer': '(none)', 'steps': [{'label': 'Too small', 'calc': f'{nums[0]} has no prime factors'}]}
+        factors, steps = [], [{'label': 'Start', 'calc': f'n = {n}'}]
+        p = 2
+        while p * p <= n:
+            while n % p == 0:
+                steps.append({'label': f'÷ {p}', 'calc': f'{n} / {p} = {n//p}'})
+                n //= p
+                factors.append(p)
+            p += 1
+        if n > 1:
+            factors.append(n)
+            steps.append({'label': 'Remaining', 'calc': f'{n} is prime'})
+        return {'answer': ' × '.join(map(str, factors)), 'steps': steps}
+
+    @staticmethod
+    def walkLongDivision(nums):
+        if not nums or len(nums) < 2: return None
+        dividend, divisor = abs(int(nums[0])), abs(int(nums[1]))
+        if divisor == 0: return None
+        q = dividend // divisor
+        r = dividend - q * divisor
+        steps = [{'label': 'Quotient', 'calc': f'{dividend} ÷ {divisor} = {q}'}]
+        if r:
+            steps.append({'label': 'Remainder', 'calc': f'{q} × {divisor} = {q*divisor}, {dividend} - {q*divisor} = {r}'})
+        return {'answer': str(q) if r == 0 else f'{q} remainder {r}', 'steps': steps}
+
+    @staticmethod
+    def walkUnitConvert(nums, from_unit='', to_unit='', factor=1):
+        if not nums: return None
+        v = nums[0]
+        ans = v * factor
+        return {'answer': ans,
+                'steps': [
+                    {'label': 'Conversion factor', 'calc': f'1 {from_unit} = {factor} {to_unit}'},
+                    {'label': 'Multiply',          'calc': f'{v} {from_unit} × {factor} = {MathWalkers._f(ans)} {to_unit}'}
+                ]}
+
+    @staticmethod
+    def walkPolyDerivative(poly_str):
+        d = MathEngine.poly_derivative(poly_str)
+        if not d: return None
+        steps = [{'label': 'Start', 'calc': f'd/dx [ {d["originalText"]} ]'}]
+        for p in sorted(d['original'].keys(), reverse=True):
+            c = d['original'][p]
+            if c == 0: continue
+            if p == 0:
+                steps.append({'label': 'Constant', 'calc': f'd/dx[{c}] = 0'})
+                continue
+            nc, np = c * p, p - 1
+            term = f'{c}x' if p == 1 else f'{c}x^{p}'
+            dterm = f'{nc}' if np == 0 else (f'{nc}x' if np == 1 else f'{nc}x^{np}')
+            steps.append({'label': 'Power rule', 'calc': f'd/dx[{term}] = {dterm}'})
+        steps.append({'label': 'Result', 'calc': d['text']})
+        return {'answer': d['text'], 'steps': steps}
+
+    @staticmethod
+    def walkPolyIntegral(poly_str, a=None, b=None):
+        d = MathEngine.poly_integral(poly_str, a, b)
+        if not d: return None
+        steps = [{'label': 'Start', 'calc': f'∫ {d["originalText"]} dx'}]
+        for p in sorted(d['original'].keys(), reverse=True):
+            c = d['original'][p]
+            nc, np = c / (p + 1), p + 1
+            term = f'{c}' if p == 0 else (f'{c}x' if p == 1 else f'{c}x^{p}')
+            iterm = f'{nc}x' if np == 1 else f'{nc}x^{np}'
+            steps.append({'label': 'Reverse power', 'calc': f'∫ {term} dx = {iterm}'})
+        steps.append({'label': 'Result', 'calc': d['text']})
+        if d.get('definite') is not None:
+            steps.append({'label': 'Evaluate', 'calc': f'F({b}) - F({a}) = {MathWalkers._f(d["definite"])}'})
+            return {'answer': MathWalkers._f(d['definite']), 'steps': steps}
+        return {'answer': d['text'], 'steps': steps}
+
+    @staticmethod
+    def walkMatrix2x2(op, A, B=None):
+        if not A: return None
+        fmt = lambda M: f'[[{M[0][0]}, {M[0][1]}], [{M[1][0]}, {M[1][1]}]]'
+        if op == 'det':
+            d = A[0][0]*A[1][1] - A[0][1]*A[1][0]
+            return {'answer': d,
+                    'steps': [
+                        {'label': 'Matrix',      'calc': fmt(A)},
+                        {'label': 'Determinant', 'calc': f'ad - bc = ({A[0][0]})({A[1][1]}) - ({A[0][1]})({A[1][0]}) = {d}'}
+                    ]}
+        if op == 'inv':
+            d = A[0][0]*A[1][1] - A[0][1]*A[1][0]
+            if abs(d) < 1e-12:
+                return {'answer': None, 'steps': [{'label': 'Singular', 'calc': 'det = 0; no inverse'}]}
+            inv = [[A[1][1]/d, -A[0][1]/d], [-A[1][0]/d, A[0][0]/d]]
+            return {'answer': inv,
+                    'steps': [
+                        {'label': 'Matrix',      'calc': fmt(A)},
+                        {'label': 'Determinant', 'calc': f'{d}'},
+                        {'label': 'Inverse',     'calc': fmt(inv)}
+                    ]}
+        if op == 'mul' and B:
+            C = MathEngine.mat2_mul(A, B)
+            return {'answer': C,
+                    'steps': [
+                        {'label': 'A',                  'calc': fmt(A)},
+                        {'label': 'B',                  'calc': fmt(B)},
+                        {'label': 'Product (rows·cols)','calc': fmt(C)}
+                    ]}
+        return None
+
+    @staticmethod
+    def walkLinearSystem2(nums):
+        if not nums or len(nums) < 6: return None
+        a1, b1, c1, a2, b2, c2 = nums[:6]
+        det = a1*b2 - a2*b1
+        if abs(det) < 1e-12:
+            return {'answer': None,
+                    'steps': [{'label': 'Parallel lines', 'calc': 'det = 0; no unique solution'}]}
+        x = (c1*b2 - c2*b1) / det
+        y = (a1*c2 - a2*c1) / det
+        return {'answer': {'x': x, 'y': y},
+                'steps': [
+                    {'label': 'System',        'calc': f'{a1}x + {b1}y = {c1};  {a2}x + {b2}y = {c2}'},
+                    {'label': "Cramer's det",  'calc': f'det = a1·b2 - a2·b1 = {a1*b2} - {a2*b1} = {det}'},
+                    {'label': 'x',             'calc': f'(c1·b2 - c2·b1) / det = {MathWalkers._f(x)}'},
+                    {'label': 'y',             'calc': f'(a1·c2 - a2·c1) / det = {MathWalkers._f(y)}'}
+                ]}
+
+    @staticmethod
+    def format_steps(walked):
+        if not walked: return None
+        lines = [
+            f"  {s['label']}: {s['calc']} = {s['result']}" if s.get('result') is not None
+            else f"  {s['label']}: {s['calc']}"
+            for s in walked['steps']
+        ]
+        ans = walked.get('answer')
+        ans_str = (str(ans) if not isinstance(ans, (dict, list)) else json.dumps(ans)) if ans is not None else '(see steps)'
+        return f"Answer: {ans_str}\n\nWork:\n" + '\n'.join(lines)
+
+    @staticmethod
+    def run(name, nums, *extra):
+        fn = getattr(MathWalkers, name, None)
+        return fn(nums, *extra) if fn else None
+
+
 class MonkeyJoe:
     def __init__(self):
         self.brain_dir = BRAIN_DIR
@@ -800,6 +1033,7 @@ class MonkeyJoe:
         self._closer_stem_history = 5
         # Phase 3: response flavoring + story-hook follow-up.
         self.response_flavors = {}
+        self.math_tutorials = {}
         self._recent_flavor_age = 99    # turns since last flavored response
         self._story_hook_subject = None
         self._story_hook_keywords = None
@@ -825,9 +1059,11 @@ class MonkeyJoe:
 
         # Storyteller + coding-helper files: keep full dict.
         for name in ['templates', 'dictionary', 'story_beats',
-                     'errors', 'recipes', 'debugging', 'response_flavors']:
+                     'errors', 'recipes', 'debugging', 'response_flavors',
+                     'math_tutorials']:
             fname = ('storyBeats.json'        if name == 'story_beats'      else
                      'responseFlavors.json'   if name == 'response_flavors' else
+                     'mathTutorials.json'     if name == 'math_tutorials'   else
                      f'{name}.json')
             path = os.path.join(self.brain_dir, fname)
             try:
@@ -1328,8 +1564,15 @@ class MonkeyJoe:
         'eigenvalue','slope','quadratic','linear','polynomial','factor','divisor',
         'multiple','prob','probability','combination','permutation','pythagoras',
         'pythagorean','trig','sine','cosine','tangent','log','logarithm','radian',
-        'degree','pi','number','digit']
-    _TEACH_RE  = re.compile(r"\b(how (?:do|does) .+ work|explain|teach me|i (?:don't|do not) (?:get|understand)|confused about|why is|why does|what does it mean|walk me through|help me with)\b", re.I)
+        'degree','number','digit',
+        'arithmetic','division','multiplication','addition','subtraction',
+        'modular','modulo','set','logic','induction','recurrence','big-o',
+        'normal distribution','z-score','central limit','confidence interval',
+        'p-value','hypothesis','standard deviation','correlation','histogram',
+        'long division','order of operations','pemdas','negative number',
+        'square root','cube root','exponential','factorial','sequence',
+        'theorem','formula','calculus','statistics','stats']
+    _TEACH_RE  = re.compile(r"\b(how (?:do|does|to) .+|explain|teach me|i (?:don't|do not|dont) (?:get|understand)|confused about|why (?:is|does|do)|what does it mean|walk me through|help me with|show me)\b", re.I)
     _DEFINE_RE = re.compile(r"^(what is (?:a |an |the )?|what's (?:a |an |the )?|whats (?:a |an |the )?|define )", re.I)
     _WORKED_RE = re.compile(r"\b(show (?:your |the )?work|step by step|show me how|show me|walk me through|how do I solve|why is .* equal|with work|with steps)\b", re.I)
 
@@ -1347,6 +1590,12 @@ class MonkeyJoe:
         if self._TEACH_RE.search(input_str) and any(k in lower for k in self._MATH_KEYWORDS):
             return 'TEACH'
         if self._DEFINE_RE.match(input_str) and any(k in lower for k in self._MATH_KEYWORDS) and len(input_str) < 80:
+            return 'DEFINE'
+        # Bare math noun phrase ("pythagorean theorem") with no question mark
+        # → DEFINE so the tutorial bank can answer.
+        if (len(input_str) < 40 and any(k in lower for k in self._MATH_KEYWORDS)
+            and not input_str.endswith('?')
+            and re.fullmatch(r"[a-z' \-]+", input_str.strip(), re.I)):
             return 'DEFINE'
         return None
 
@@ -1403,7 +1652,34 @@ class MonkeyJoe:
         fac = MathEngine.prime_factor(n)
         return f"No — {n} = {' × '.join(map(str, fac))}.\n\nWork: trial-divided by 2, 3, 5, ... until we found {fac[0]} divides {n}, then continued on the quotient."
 
+    @staticmethod
+    def _extract_numbers(s):
+        return [float(x) for x in re.findall(r'-?\d+(?:\.\d+)?', str(s))]
+
+    def _handle_tutorial(self, intent, input_str, lower):
+        tutorials = (self.math_tutorials or {}).get('tutorials') or []
+        if not tutorials: return None
+        tut = self._find_by_triggers(tutorials, lower, min_score=1)
+        if not tut: return None
+        out = f"**{tut['title']}**"
+        if tut.get('formula'): out += f"   _{tut['formula']}_"
+        out += '\n\n' + tut.get('body', '')
+        if intent == 'TEACH' and tut.get('walker'):
+            nums = self._extract_numbers(input_str)
+            if nums:
+                fn = getattr(MathWalkers, tut['walker'], None)
+                if fn:
+                    try:
+                        walked = fn(nums)
+                        if walked: out += '\n\n_For your numbers:_\n' + MathWalkers.format_steps(walked)
+                    except Exception:
+                        pass  # walker error — keep tutorial body only
+        if tut.get('tryIt'): out += '\n\n' + tut['tryIt']
+        return out
+
     def _handle_math_intent(self, intent, input_str, lower):
+        if intent in ('TEACH', 'DEFINE'):
+            return self._handle_tutorial(intent, input_str, lower)
         worked = intent == 'WORKED'
         f = self._math_fmt
         # 1. Conversion
