@@ -3,193 +3,282 @@
   "garnishes": [
     {
       "id": "answer_zero",
-      "triggers": ["0"],
+      "triggers": [
+        "0"
+      ],
       "match_type": "answer_equals",
       "text": "(zero — Indian mathematicians worked out the idea of nothing-as-a-number around 600 CE)"
     },
     {
       "id": "answer_one",
-      "triggers": ["1"],
+      "triggers": [
+        "1"
+      ],
       "match_type": "answer_equals",
       "text": "(one — the multiplicative identity, multiply anything by it and it stays itself)"
     },
     {
       "id": "answer_seven",
-      "triggers": ["7"],
+      "triggers": [
+        "7"
+      ],
       "match_type": "answer_equals",
       "text": "(seven — prime and indivisible, lucky in many cultures)"
     },
     {
       "id": "answer_twelve",
-      "triggers": ["12"],
+      "triggers": [
+        "12"
+      ],
       "match_type": "answer_equals",
       "text": "(twelve — a dozen, and divisible by 1, 2, 3, 4, 6, and 12)"
     },
     {
       "id": "answer_thirteen",
-      "triggers": ["13"],
+      "triggers": [
+        "13"
+      ],
       "match_type": "answer_equals",
       "text": "(thirteen — a baker's dozen, and prime)"
     },
     {
       "id": "answer_forty_two",
-      "triggers": ["42"],
+      "triggers": [
+        "42"
+      ],
       "match_type": "answer_equals",
       "text": "(forty-two — the answer to life, the universe, and everything, per Douglas Adams)"
     },
     {
       "id": "answer_sixty",
-      "triggers": ["60"],
+      "triggers": [
+        "60"
+      ],
       "match_type": "answer_equals",
       "text": "(sixty — minutes in an hour, seconds in a minute, base-60 inherited from the Sumerians)"
     },
     {
       "id": "answer_one_hundred",
-      "triggers": ["100"],
+      "triggers": [
+        "100"
+      ],
       "match_type": "answer_equals",
       "text": "(one hundred — a century, and a whole percent)"
     },
     {
       "id": "answer_144",
-      "triggers": ["144"],
+      "triggers": [
+        "144"
+      ],
       "match_type": "answer_equals",
       "text": "(144 — a gross, old word for twelve dozen)"
     },
     {
       "id": "answer_256",
-      "triggers": ["256"],
+      "triggers": [
+        "256"
+      ],
       "match_type": "answer_equals",
       "text": "(256 — two to the eighth, the number of values one byte can hold)"
     },
     {
       "id": "answer_512",
-      "triggers": ["512"],
+      "triggers": [
+        "512"
+      ],
       "match_type": "answer_equals",
       "text": "(512 — two to the ninth, half a kilobyte in the old reckoning)"
     },
     {
       "id": "answer_1024",
-      "triggers": ["1024"],
+      "triggers": [
+        "1024"
+      ],
       "match_type": "answer_equals",
       "text": "(1024 — two to the tenth, and that's why a kilobyte used to mean 1024 bytes)"
     },
     {
       "id": "answer_pi",
-      "triggers": ["3.14159", "3.1415"],
+      "triggers": [
+        "3.14159",
+        "3.1415"
+      ],
       "match_type": "answer_contains",
       "text": "(pi — the ratio of a circle's circumference to its diameter, never ending and never repeating)"
     },
     {
       "id": "answer_e",
-      "triggers": ["2.71828", "2.7182"],
+      "triggers": [
+        "2.71828",
+        "2.7182"
+      ],
       "match_type": "answer_contains",
       "text": "(e — the natural growth constant, shows up wherever things grow at a rate proportional to their size)"
     },
     {
       "id": "answer_phi",
-      "triggers": ["1.61803", "1.6180"],
+      "triggers": [
+        "1.61803",
+        "1.6180"
+      ],
       "match_type": "answer_contains",
       "text": "(phi — the golden ratio, found in spirals from seashells to sunflowers)"
     },
     {
       "id": "answer_infinity",
-      "triggers": ["Infinity", "inf"],
+      "triggers": [
+        "Infinity",
+        "inf"
+      ],
       "match_type": "answer_contains",
       "text": "(infinity — not a number but a direction, and some infinities are bigger than others)"
     },
     {
       "id": "input_25_percent",
-      "triggers": ["25%", "0.25", "1/4", "twenty-five percent"],
+      "triggers": [
+        "25%",
+        "0.25",
+        "1/4",
+        "twenty-five percent"
+      ],
       "match_type": "input_contains",
       "text": "(handy that 25% is just a quarter — divide by 4)"
     },
     {
       "id": "input_50_percent",
-      "triggers": ["50%", "0.5", "1/2", "fifty percent"],
+      "triggers": [
+        "50%",
+        "0.5",
+        "1/2",
+        "fifty percent"
+      ],
       "match_type": "input_contains",
       "text": "(50% is half — divide by 2)"
     },
     {
       "id": "input_75_percent",
-      "triggers": ["75%", "0.75", "3/4", "seventy-five percent"],
+      "triggers": [
+        "75%",
+        "0.75",
+        "3/4",
+        "seventy-five percent"
+      ],
       "match_type": "input_contains",
       "text": "(75% is three-quarters — multiply by 3, divide by 4)"
     },
     {
       "id": "input_10_percent",
-      "triggers": ["10%", "ten percent"],
+      "triggers": [
+        "10%",
+        "ten percent"
+      ],
       "match_type": "input_contains",
       "text": "(10% is just shift the decimal point left one place — sneaky shortcut)"
     },
     {
       "id": "input_sqrt",
-      "triggers": ["sqrt", "square root"],
+      "triggers": [
+        "sqrt",
+        "square root"
+      ],
       "match_type": "input_contains",
       "text": "(square root means 'what number times itself gives this')"
     },
     {
       "id": "input_log",
-      "triggers": ["log"],
+      "triggers": [
+        "log"
+      ],
       "match_type": "input_contains",
       "text": "(logs ask 'what power of 10 makes this?')"
     },
     {
       "id": "input_ln",
-      "triggers": ["ln "],
+      "triggers": [
+        "ln "
+      ],
       "match_type": "input_contains",
       "text": "(ln is the natural log — base e, the calculus-friendly one)"
     },
     {
       "id": "input_factorial",
-      "triggers": ["factorial", "!"],
+      "triggers": [
+        "factorial",
+        "!"
+      ],
       "match_type": "input_contains",
       "text": "(factorial: each step multiplies by one more)"
     },
     {
       "id": "input_trig",
-      "triggers": ["sin", "cos", "tan"],
+      "triggers": [
+        "sin",
+        "cos",
+        "tan"
+      ],
       "match_type": "input_contains",
       "text": "(trig: ratios of sides in a right triangle)"
     },
     {
       "id": "input_squared",
-      "triggers": ["^2", "squared"],
+      "triggers": [
+        "^2",
+        "squared"
+      ],
       "match_type": "input_contains",
       "text": "(squaring makes positives bigger and negatives positive)"
     },
     {
       "id": "input_cubed",
-      "triggers": ["^3", "cubed"],
+      "triggers": [
+        "^3",
+        "cubed"
+      ],
       "match_type": "input_contains",
       "text": "(cubing keeps the sign — negatives stay negative)"
     },
     {
       "id": "input_speed",
-      "triggers": ["mph", "kph", "km/h"],
+      "triggers": [
+        "mph",
+        "kph",
+        "km/h"
+      ],
       "match_type": "input_contains",
       "text": "(speed is just distance divided by time)"
     },
     {
       "id": "input_prime",
-      "triggers": ["prime"],
+      "triggers": [
+        "prime"
+      ],
       "match_type": "input_contains",
       "text": "(primes are the atoms of numbers — every whole number breaks down into them)"
     },
     {
       "id": "input_gcd",
-      "triggers": ["gcd", "greatest common"],
+      "triggers": [
+        "gcd",
+        "greatest common"
+      ],
       "match_type": "input_contains",
       "text": "(GCD — the biggest number that divides both cleanly)"
     },
     {
       "id": "input_lcm",
-      "triggers": ["lcm", "least common"],
+      "triggers": [
+        "lcm",
+        "least common"
+      ],
       "match_type": "input_contains",
       "text": "(LCM — the smallest number both divide into cleanly)"
     },
     {
       "id": "input_divide",
-      "triggers": ["divided by", " / "],
+      "triggers": [
+        "divided by",
+        " / "
+      ],
       "match_type": "input_contains",
       "text": "(division is just asking how many times one number fits inside another)"
     },
@@ -255,45 +344,484 @@
     },
     {
       "id": "input_feet_to_meters",
-      "triggers": ["feet to meters", "ft to m"],
+      "triggers": [
+        "feet to meters",
+        "ft to m"
+      ],
       "match_type": "input_contains",
       "text": "(1 ft is about 0.3048 m — a foot is roughly a third of a meter)"
     },
     {
       "id": "input_celsius_to_fahrenheit",
-      "triggers": ["c to f", "celsius to fahrenheit"],
+      "triggers": [
+        "c to f",
+        "celsius to fahrenheit"
+      ],
       "match_type": "input_contains",
       "text": "(F = C times 9/5 plus 32. 0 C is 32 F, 100 C is 212 F)"
     },
     {
       "id": "input_fahrenheit_to_celsius",
-      "triggers": ["f to c", "fahrenheit to celsius"],
+      "triggers": [
+        "f to c",
+        "fahrenheit to celsius"
+      ],
       "match_type": "input_contains",
       "text": "(C = (F minus 32) times 5/9 — subtract 32 first, then scale)"
     },
     {
       "id": "input_mile",
-      "triggers": ["mile"],
+      "triggers": [
+        "mile"
+      ],
       "match_type": "input_contains",
       "text": "(the mile comes from Roman 'mille passus' — a thousand paces)"
     },
     {
       "id": "input_meters",
-      "triggers": ["meter", "metre"],
+      "triggers": [
+        "meter",
+        "metre"
+      ],
       "match_type": "input_contains",
       "text": "(the meter was originally defined as one ten-millionth of the distance from the equator to the north pole)"
     },
     {
       "id": "input_inch",
-      "triggers": ["inch"],
+      "triggers": [
+        "inch"
+      ],
       "match_type": "input_contains",
       "text": "(an inch was historically the width of a thumb)"
     },
     {
       "id": "input_kilogram",
-      "triggers": ["kilogram", "kg to", "to kg"],
+      "triggers": [
+        "kilogram",
+        "kg to",
+        "to kg"
+      ],
       "match_type": "input_contains",
       "text": "(a kilogram was once defined by a single metal cylinder in a vault near Paris)"
+    },
+    {
+      "id": "gen_two_the_only_even_prime_the_lone",
+      "triggers": [
+        "2"
+      ],
+      "match_type": "answer_equals",
+      "text": "(two — the only even prime, the loneliest of its kind)"
+    },
+    {
+      "id": "gen_three_the_smallest_number_you_ca",
+      "triggers": [
+        "3"
+      ],
+      "match_type": "answer_equals",
+      "text": "(three — the smallest number you can draw a polygon with)"
+    },
+    {
+      "id": "gen_six_the_first_perfect_number_its",
+      "triggers": [
+        "6"
+      ],
+      "match_type": "answer_equals",
+      "text": "(six — the first perfect number: its divisors 1, 2, and 3 add right back up to it)"
+    },
+    {
+      "id": "gen_nine_multiply_it_by_anything_and",
+      "triggers": [
+        "9"
+      ],
+      "match_type": "answer_equals",
+      "text": "(nine — multiply it by anything and the digits of the answer add back to a multiple of nine)"
+    },
+    {
+      "id": "gen_ten_we_count_in_tens_almost_cert",
+      "triggers": [
+        "10"
+      ],
+      "match_type": "answer_equals",
+      "text": "(ten — we count in tens almost certainly because we have ten fingers)"
+    },
+    {
+      "id": "gen_eleven_the_smallest_twodigit_pri",
+      "triggers": [
+        "11"
+      ],
+      "match_type": "answer_equals",
+      "text": "(eleven — the smallest two-digit prime, and a palindrome to boot)"
+    },
+    {
+      "id": "gen_sixteen_two_to_the_fourth_and_th",
+      "triggers": [
+        "16"
+      ],
+      "match_type": "answer_equals",
+      "text": "(sixteen — two to the fourth, and the number of digits in hexadecimal)"
+    },
+    {
+      "id": "gen_twentyone_a_triangular_number_st",
+      "triggers": [
+        "21"
+      ],
+      "match_type": "answer_equals",
+      "text": "(twenty-one — a triangular number: stack 1+2+3+4+5+6 and you get it)"
+    },
+    {
+      "id": "gen_twentyeight_the_second_perfect_n",
+      "triggers": [
+        "28"
+      ],
+      "match_type": "answer_equals",
+      "text": "(twenty-eight — the second perfect number, equal to the sum of its proper divisors)"
+    },
+    {
+      "id": "gen_360_degrees_in_a_circle_a_count_",
+      "triggers": [
+        "360"
+      ],
+      "match_type": "answer_equals",
+      "text": "(360 — degrees in a circle, a count we inherited from Babylonian base-60 math)"
+    },
+    {
+      "id": "gen_365_days_in_a_year_give_or_take_",
+      "triggers": [
+        "365"
+      ],
+      "match_type": "answer_equals",
+      "text": "(365 — days in a year, give or take the quarter-day we save up for leap years)"
+    },
+    {
+      "id": "gen_666_its_the_sum_of_all_the_numbe",
+      "triggers": [
+        "666"
+      ],
+      "match_type": "answer_equals",
+      "text": "(666 — it's the sum of all the numbers on a roulette wheel, 0 through 36)"
+    },
+    {
+      "id": "gen_one_thousand_kilo_comes_from_the",
+      "triggers": [
+        "1000"
+      ],
+      "match_type": "answer_equals",
+      "text": "(one thousand — 'kilo' comes from the Greek 'khilioi' meaning exactly this)"
+    },
+    {
+      "id": "gen_the_square_root_of_two_proving_i",
+      "triggers": [
+        "1.41421",
+        "1.4142"
+      ],
+      "match_type": "answer_contains",
+      "text": "(the square root of two — proving it can't be a fraction supposedly upset the ancient Greeks)"
+    },
+    {
+      "id": "gen_the_square_root_of_three_it_show",
+      "triggers": [
+        "1.73205",
+        "1.7320"
+      ],
+      "match_type": "answer_contains",
+      "text": "(the square root of three — it shows up in the height of an equilateral triangle)"
+    },
+    {
+      "id": "gen_the_eulermascheroni_constant_and",
+      "triggers": [
+        "0.57721",
+        "0.5772"
+      ],
+      "match_type": "answer_contains",
+      "text": "(the Euler-Mascheroni constant — and to this day nobody knows if it's even irrational)"
+    },
+    {
+      "id": "gen_modulo_gives_the_leftover_after_",
+      "triggers": [
+        "modulo",
+        "mod ",
+        "remainder"
+      ],
+      "match_type": "input_contains",
+      "text": "(modulo gives the leftover after division — it's how clocks wrap around at 12)"
+    },
+    {
+      "id": "gen_fibonacci_each_number_is_the_sum",
+      "triggers": [
+        "fibonacci"
+      ],
+      "match_type": "input_contains",
+      "text": "(Fibonacci: each number is the sum of the two before it, and the ratios creep toward the golden ratio)"
+    },
+    {
+      "id": "gen_the_mean_adds_everything_up_and_",
+      "triggers": [
+        "average",
+        "mean"
+      ],
+      "match_type": "input_contains",
+      "text": "(the mean adds everything up and shares it out evenly)"
+    },
+    {
+      "id": "gen_the_median_is_the_middle_value_o",
+      "triggers": [
+        "median"
+      ],
+      "match_type": "input_contains",
+      "text": "(the median is the middle value — outliers can't drag it around like they do the mean)"
+    },
+    {
+      "id": "gen_combinations_count_groups_where_",
+      "triggers": [
+        "combination",
+        "choose"
+      ],
+      "match_type": "input_contains",
+      "text": "(combinations count groups where order doesn't matter — picking the same friends in any order is one group)"
+    },
+    {
+      "id": "gen_permutations_care_about_order_ab",
+      "triggers": [
+        "permutation"
+      ],
+      "match_type": "input_contains",
+      "text": "(permutations care about order — ABC and CBA count as different arrangements)"
+    },
+    {
+      "id": "gen_rounding_five_and_up_rounds_up_f",
+      "triggers": [
+        "round",
+        "rounding"
+      ],
+      "match_type": "input_contains",
+      "text": "(rounding: five and up rounds up, four and down rounds down)"
+    },
+    {
+      "id": "gen_two_negatives_multiplied_make_a_",
+      "triggers": [
+        "negative",
+        "minus"
+      ],
+      "match_type": "input_contains",
+      "text": "(two negatives multiplied make a positive — turning around twice points you forward again)"
+    },
+    {
+      "id": "gen_a_derivative_measures_how_fast_s",
+      "triggers": [
+        "derivative"
+      ],
+      "match_type": "input_contains",
+      "text": "(a derivative measures how fast something is changing right at one instant)"
+    },
+    {
+      "id": "gen_an_integral_adds_up_infinitely_m",
+      "triggers": [
+        "integral",
+        "integrate"
+      ],
+      "match_type": "input_contains",
+      "text": "(an integral adds up infinitely many tiny slices to find a total area)"
+    },
+    {
+      "id": "gen_zero_infinity_and_the_rest_every",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(zero, infinity, and the rest — every number has a tiny story)"
+    },
+    {
+      "id": "gen_the_answer_doesnt_change_no_matt",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the answer doesn't change no matter how many times you check it — that's the comfort of math)"
+    },
+    {
+      "id": "gen_want_it_in_a_different_unit_just",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(want it in a different unit? just ask)"
+    },
+    {
+      "id": "gen_i_never_get_tired_of_a_clean_cal",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I never get tired of a clean calculation)"
+    },
+    {
+      "id": "gen_pi_is_irrational_so_its_digits_n",
+      "triggers": [
+        "3.14159",
+        "pi",
+        "π"
+      ],
+      "match_type": "answer_contains",
+      "text": "(pi is irrational, so its digits never repeat and never end — they just keep going 🐒)"
+    },
+    {
+      "id": "gen_thats_the_golden_ratio_it_shows_",
+      "triggers": [
+        "1.618",
+        "golden ratio",
+        "phi"
+      ],
+      "match_type": "answer_contains",
+      "text": "(that's the golden ratio — it shows up in sunflower spirals and pinecones)"
+    },
+    {
+      "id": "gen_6_is_a_perfect_number_its_diviso",
+      "triggers": [
+        "6"
+      ],
+      "match_type": "answer_equals",
+      "text": "(6 is a perfect number — its divisors 1, 2, and 3 add right back up to 6)"
+    },
+    {
+      "id": "gen_28_is_the_second_perfect_number_",
+      "triggers": [
+        "28"
+      ],
+      "match_type": "answer_equals",
+      "text": "(28 is the second perfect number: 1+2+4+7+14 = 28)"
+    },
+    {
+      "id": "gen_360_has_24_divisors_which_is_why",
+      "triggers": [
+        "360"
+      ],
+      "match_type": "answer_equals",
+      "text": "(360 has 24 divisors, which is why ancient folks loved it for splitting a circle)"
+    },
+    {
+      "id": "gen_fun_fact_the_mean_can_be_yanked_",
+      "triggers": [
+        "mean",
+        "median",
+        "mode"
+      ],
+      "match_type": "input_contains",
+      "text": "(fun fact: the mean can be yanked around by one outlier, but the median shrugs it off)"
+    },
+    {
+      "id": "gen_in_a_bell_curve_about_68_of_the_",
+      "triggers": [
+        "standard deviation",
+        "std dev",
+        "variance"
+      ],
+      "match_type": "input_contains",
+      "text": "(in a bell curve, about 68% of the data lands within one standard deviation of the mean)"
+    },
+    {
+      "id": "gen_the_median_is_just_the_middle_va",
+      "triggers": [
+        "median"
+      ],
+      "match_type": "input_contains",
+      "text": "(the median is just the middle value once you line everything up in order)"
+    },
+    {
+      "id": "gen_2_is_the_only_even_prime_every_o",
+      "triggers": [
+        "prime"
+      ],
+      "match_type": "input_contains",
+      "text": "(2 is the only even prime — every other even number has 2 as a factor 🐒)"
+    },
+    {
+      "id": "gen_1_isnt_prime_primes_need_exactly",
+      "triggers": [
+        "1"
+      ],
+      "match_type": "answer_equals",
+      "text": "(1 isn't prime — primes need exactly two divisors, and 1 only has itself)"
+    },
+    {
+      "id": "gen_a_triangles_three_angles_always_",
+      "triggers": [
+        "triangle",
+        "area of a triangle"
+      ],
+      "match_type": "input_contains",
+      "text": "(a triangle's three angles always add up to 180 degrees on a flat surface)"
+    },
+    {
+      "id": "gen_every_circles_circumference_divi",
+      "triggers": [
+        "circle",
+        "area of a circle",
+        "circumference"
+      ],
+      "match_type": "input_contains",
+      "text": "(every circle's circumference divided by its diameter equals pi — every single one)"
+    },
+    {
+      "id": "gen_bees_build_hexagons_because_they",
+      "triggers": [
+        "hexagon",
+        "hexagonal"
+      ],
+      "match_type": "input_contains",
+      "text": "(bees build hexagons because they tile a wall with the least wax for the most space)"
+    },
+    {
+      "id": "gen_345_is_the_friendliest_right_tri",
+      "triggers": [
+        "pythagorean",
+        "hypotenuse",
+        "a^2 + b^2"
+      ],
+      "match_type": "input_contains",
+      "text": "(3-4-5 is the friendliest right triangle: 9 + 16 = 25, exactly)"
+    },
+    {
+      "id": "gen_a_sphere_holds_the_most_volume_f",
+      "triggers": [
+        "sphere",
+        "volume of a sphere"
+      ],
+      "match_type": "input_contains",
+      "text": "(a sphere holds the most volume for its surface area — that's why bubbles are round)"
+    },
+    {
+      "id": "gen_7_is_the_only_number_from_110_yo",
+      "triggers": [
+        "7"
+      ],
+      "match_type": "answer_equals",
+      "text": "(7 is the only number from 1–10 you can't make a regular polygon's angle land on neatly... and people just love it)"
+    },
+    {
+      "id": "gen_12_is_a_highly_composite_number_",
+      "triggers": [
+        "12"
+      ],
+      "match_type": "answer_equals",
+      "text": "(12 is a 'highly composite' number — it has more divisors than any smaller number)"
+    },
+    {
+      "id": "gen_100_is_a_perfect_square_10_times",
+      "triggers": [
+        "100"
+      ],
+      "match_type": "answer_equals",
+      "text": "(100 is a perfect square: 10 times 10 🐒)"
+    },
+    {
+      "id": "gen_in_fibonacci_each_number_is_the_",
+      "triggers": [
+        "fibonacci"
+      ],
+      "match_type": "input_contains",
+      "text": "(in Fibonacci, each number is the sum of the two before it — and their ratios creep toward the golden ratio)"
+    },
+    {
+      "id": "gen_all_the_probabilities_of_every_p",
+      "triggers": [
+        "probability",
+        "odds",
+        "chance"
+      ],
+      "match_type": "input_contains",
+      "text": "(all the probabilities of every possible outcome always add up to exactly 1)"
     }
   ]
 }

@@ -197,7 +197,10 @@ const Generator = (() => {
       // When a subject is given, prefer micro templates with a character slot
       // so the subject actually lands in the story. v59 fix.
       if (opts.subject) {
-        const withChar = pool.filter(s => (s.text || '').includes('{NOUN:character}'));
+        // Templates are plain strings (some legacy ones may be {text}) — handle
+        // both so the character-slot preference actually fires (v62 fix; the
+        // old `s.text` check was a no-op for string templates).
+        const withChar = pool.filter(s => (typeof s === 'string' ? s : (s.text || '')).includes('{NOUN:character}'));
         if (withChar.length) pool = withChar;
       }
     } else if (opts.continuation && templates.continuations && templates.continuations.length) {

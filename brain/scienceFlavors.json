@@ -3,319 +3,481 @@
   "garnishes": [
     {
       "id": "speed_of_light_factoid",
-      "triggers": ["speed of light", "299792458", "299,792,458", "c ="],
+      "triggers": [
+        "speed of light",
+        "299792458",
+        "299,792,458",
+        "c ="
+      ],
       "match_type": "input_contains",
       "text": "(light circles Earth 7.5 times every second — that's how fast c is)"
     },
     {
       "id": "absolute_zero",
-      "triggers": ["absolute zero", "kelvin", "0 k"],
+      "triggers": [
+        "absolute zero",
+        "kelvin",
+        "0 k"
+      ],
       "match_type": "input_contains",
       "text": "(no one has ever reached absolute zero — only gotten within a billionth of a degree)"
     },
     {
       "id": "black_hole_sun",
-      "triggers": ["black hole"],
+      "triggers": [
+        "black hole"
+      ],
       "match_type": "input_contains",
       "text": "(if the Sun became a black hole, Earth's orbit would not change — gravity only cares about mass)"
     },
     {
       "id": "quantum_intuition",
-      "triggers": ["quantum", "superposition", "entanglement"],
+      "triggers": [
+        "quantum",
+        "superposition",
+        "entanglement"
+      ],
       "match_type": "input_contains",
       "text": "(the math works perfectly; the intuition does not)"
     },
     {
       "id": "newton_calculus",
-      "triggers": ["newton", "newton's laws", "f=ma", "f = ma"],
+      "triggers": [
+        "newton",
+        "newton's laws",
+        "f=ma",
+        "f = ma"
+      ],
       "match_type": "input_contains",
       "text": "(Newton invented calculus to do this physics — he was 24)"
     },
     {
       "id": "einstein_miracle_year",
-      "triggers": ["einstein"],
+      "triggers": [
+        "einstein"
+      ],
       "match_type": "input_contains",
       "text": "(1905 was Einstein's 'miracle year' — four papers, any one a Nobel)"
     },
     {
       "id": "entropy_time_arrow",
-      "triggers": ["entropy", "second law", "thermodynamics"],
+      "triggers": [
+        "entropy",
+        "second law",
+        "thermodynamics"
+      ],
       "match_type": "input_contains",
       "text": "(entropy is the only law of physics that knows which way time flows)"
     },
     {
       "id": "photon_massless",
-      "triggers": ["photon"],
+      "triggers": [
+        "photon"
+      ],
       "match_type": "input_contains",
       "text": "(photons have zero mass, but they push solar sails)"
     },
     {
       "id": "gravity_mars_weight",
-      "triggers": ["gravity", "gravitational"],
+      "triggers": [
+        "gravity",
+        "gravitational"
+      ],
       "match_type": "input_contains",
       "text": "(on Mars you'd weigh about 38% of what you weigh on Earth)"
     },
     {
       "id": "wave_particle_duality",
-      "triggers": ["wave-particle", "duality", "wavelength"],
+      "triggers": [
+        "wave-particle",
+        "duality",
+        "wavelength"
+      ],
       "match_type": "input_contains",
       "text": "(everything is a wave; everything is a particle; live with it)"
     },
     {
       "id": "relativity_gps",
-      "triggers": ["relativity", "general relativity", "special relativity"],
+      "triggers": [
+        "relativity",
+        "general relativity",
+        "special relativity"
+      ],
       "match_type": "input_contains",
       "text": "(GPS would drift about 11 km per day without relativistic correction)"
     },
     {
       "id": "pendulum_galileo",
-      "triggers": ["pendulum"],
+      "triggers": [
+        "pendulum"
+      ],
       "match_type": "input_contains",
       "text": "(Galileo timed his pendulum with his pulse — there were no clocks accurate enough)"
     },
     {
       "id": "magnetism_relativity",
-      "triggers": ["magnetic", "magnetism", "magnet"],
+      "triggers": [
+        "magnetic",
+        "magnetism",
+        "magnet"
+      ],
       "match_type": "input_contains",
       "text": "(magnetism IS relativity — moving electric charges look magnetic to a stationary observer)"
     },
     {
       "id": "friction_essential",
-      "triggers": ["friction"],
+      "triggers": [
+        "friction"
+      ],
       "match_type": "input_contains",
       "text": "(without friction you couldn't walk, drive, or hold a cup)"
     },
     {
       "id": "lightning_temperature",
-      "triggers": ["lightning"],
+      "triggers": [
+        "lightning"
+      ],
       "match_type": "input_contains",
       "text": "(a lightning bolt heats air to ~30,000 K — five times the Sun's surface)"
     },
     {
       "id": "periodic_table_count",
-      "triggers": ["periodic table"],
+      "triggers": [
+        "periodic table"
+      ],
       "match_type": "input_contains",
       "text": "(118 confirmed elements; 94 occur naturally; the rest are made in labs)"
     },
     {
       "id": "carbon_bonds",
-      "triggers": ["carbon"],
+      "triggers": [
+        "carbon"
+      ],
       "match_type": "input_contains",
       "text": "(life is carbon-based because carbon makes four stable bonds and chains beautifully)"
     },
     {
       "id": "water_expands",
-      "triggers": ["water", "h2o", "h₂o"],
+      "triggers": [
+        "water",
+        "h2o",
+        "h₂o"
+      ],
       "match_type": "input_contains",
       "text": "(water expands when it freezes — one of the few liquids that does)"
     },
     {
       "id": "ph_log_scale",
-      "triggers": ["ph", "p h", "acidic", "alkaline"],
+      "triggers": [
+        "ph",
+        "p h",
+        "acidic",
+        "alkaline"
+      ],
       "match_type": "input_contains",
       "text": "(pH is a log scale: pH 4 is 10× more acidic than pH 5)"
     },
     {
       "id": "noble_gas_inert",
-      "triggers": ["noble gas", "helium", "neon", "argon"],
+      "triggers": [
+        "noble gas",
+        "helium",
+        "neon",
+        "argon"
+      ],
       "match_type": "input_contains",
       "text": "(noble gases are inert because their outer electron shells are full — perfectly content)"
     },
     {
       "id": "catalyst_unconsumed",
-      "triggers": ["catalyst", "enzyme"],
+      "triggers": [
+        "catalyst",
+        "enzyme"
+      ],
       "match_type": "input_contains",
       "text": "(catalysts speed reactions without being consumed — they show up, work, leave)"
     },
     {
       "id": "mole_avogadro",
-      "triggers": ["avogadro", "mole of", "one mole"],
+      "triggers": [
+        "avogadro",
+        "mole of",
+        "one mole"
+      ],
       "match_type": "input_contains",
       "text": "(one mole = 6.022 × 10²³ particles — Avogadro's number)"
     },
     {
       "id": "isotope_neutrons",
-      "triggers": ["isotope"],
+      "triggers": [
+        "isotope"
+      ],
       "match_type": "input_contains",
       "text": "(same element, different number of neutrons — same chemistry, different mass)"
     },
     {
       "id": "polymer_chains",
-      "triggers": ["polymer", "plastic"],
+      "triggers": [
+        "polymer",
+        "plastic"
+      ],
       "match_type": "input_contains",
       "text": "(your DNA, plastic bottles, and rubber bands are all polymers — long repeating chains)"
     },
     {
       "id": "diamond_carbon",
-      "triggers": ["diamond", "graphite"],
+      "triggers": [
+        "diamond",
+        "graphite"
+      ],
       "match_type": "input_contains",
       "text": "(diamond is just carbon — same element as pencil graphite, very different arrangement)"
     },
     {
       "id": "dna_length",
-      "triggers": ["dna"],
+      "triggers": [
+        "dna"
+      ],
       "match_type": "input_contains",
       "text": "(if you stretched out all the DNA in your body, it would reach the Sun and back ~600 times)"
     },
     {
       "id": "cell_count",
-      "triggers": ["cell", "cells"],
+      "triggers": [
+        "cell",
+        "cells"
+      ],
       "match_type": "input_contains",
       "text": "(your body has ~37 trillion cells, working in shifts)"
     },
     {
       "id": "mitochondria_bacteria",
-      "triggers": ["mitochondria", "mitochondrion"],
+      "triggers": [
+        "mitochondria",
+        "mitochondrion"
+      ],
       "match_type": "input_contains",
       "text": "(the powerhouse of the cell, as you knew, was once a free-living bacterium)"
     },
     {
       "id": "evolution_simple",
-      "triggers": ["evolution", "natural selection"],
+      "triggers": [
+        "evolution",
+        "natural selection"
+      ],
       "match_type": "input_contains",
       "text": "(natural selection is brutally simple: more babies than survive, the survivors had something useful)"
     },
     {
       "id": "virus_alive",
-      "triggers": ["virus", "viruses"],
+      "triggers": [
+        "virus",
+        "viruses"
+      ],
       "match_type": "input_contains",
       "text": "(viruses aren't technically alive — they need a host to do anything at all)"
     },
     {
       "id": "brain_wattage",
-      "triggers": ["brain"],
+      "triggers": [
+        "brain"
+      ],
       "match_type": "input_contains",
       "text": "(your brain runs on about 20 watts — a dim lightbulb's worth of power)"
     },
     {
       "id": "neuron_count",
-      "triggers": ["neuron", "neurons", "synapse"],
+      "triggers": [
+        "neuron",
+        "neurons",
+        "synapse"
+      ],
       "match_type": "input_contains",
       "text": "(your brain has ~86 billion neurons, with ~100 trillion connections between them)"
     },
     {
       "id": "bacteria_ratio",
-      "triggers": ["bacteria", "microbiome"],
+      "triggers": [
+        "bacteria",
+        "microbiome"
+      ],
       "match_type": "input_contains",
       "text": "(you have more bacterial cells than human cells, by a ratio of about 1.3 to 1)"
     },
     {
       "id": "genome_size",
-      "triggers": ["genome", "genetic code"],
+      "triggers": [
+        "genome",
+        "genetic code"
+      ],
       "match_type": "input_contains",
       "text": "(the human genome is 3 billion base pairs — about 750 megabytes if you wrote it as data)"
     },
     {
       "id": "photosynthesis_oxygen",
-      "triggers": ["photosynthesis", "chlorophyll"],
+      "triggers": [
+        "photosynthesis",
+        "chlorophyll"
+      ],
       "match_type": "input_contains",
       "text": "(every oxygen molecule you breathe was made by a plant or an algae splitting water)"
     },
     {
       "id": "sun_mass",
-      "triggers": ["sun", "solar"],
+      "triggers": [
+        "sun",
+        "solar"
+      ],
       "match_type": "input_contains",
       "text": "(the Sun is 99.86% of the solar system's mass — everything else is a rounding error)"
     },
     {
       "id": "moon_drift",
-      "triggers": ["moon", "lunar"],
+      "triggers": [
+        "moon",
+        "lunar"
+      ],
       "match_type": "input_contains",
       "text": "(the Moon is slowly drifting away — about 3.8 cm per year)"
     },
     {
       "id": "mars_sky",
-      "triggers": ["mars", "martian"],
+      "triggers": [
+        "mars",
+        "martian"
+      ],
       "match_type": "input_contains",
       "text": "(Mars's sky is butterscotch because of suspended iron dust)"
     },
     {
       "id": "galaxy_count",
-      "triggers": ["galaxy", "galaxies"],
+      "triggers": [
+        "galaxy",
+        "galaxies"
+      ],
       "match_type": "input_contains",
       "text": "(there are more galaxies in the observable universe than there are stars in the Milky Way)"
     },
     {
       "id": "milky_way_center",
-      "triggers": ["milky way"],
+      "triggers": [
+        "milky way"
+      ],
       "match_type": "input_contains",
       "text": "(at the center is Sagittarius A*, a supermassive black hole about 4 million solar masses)"
     },
     {
       "id": "neutron_star_density",
-      "triggers": ["neutron star"],
+      "triggers": [
+        "neutron star"
+      ],
       "match_type": "input_contains",
       "text": "(one teaspoon of neutron star material would weigh about 6 billion tons)"
     },
     {
       "id": "black_hole_spacetime",
-      "triggers": ["event horizon", "singularity"],
+      "triggers": [
+        "event horizon",
+        "singularity"
+      ],
       "match_type": "input_contains",
       "text": "(inside a black hole, the math says space and time swap roles — falling in becomes inevitable like the future)"
     },
     {
       "id": "big_bang_cmb",
-      "triggers": ["big bang", "cosmic microwave", "cmb"],
+      "triggers": [
+        "big bang",
+        "cosmic microwave",
+        "cmb"
+      ],
       "match_type": "input_contains",
       "text": "(the cosmic microwave background is the afterglow — light from when the universe was 380,000 years old)"
     },
     {
       "id": "exoplanet_count",
-      "triggers": ["exoplanet", "exoplanets"],
+      "triggers": [
+        "exoplanet",
+        "exoplanets"
+      ],
       "match_type": "input_contains",
       "text": "(we've confirmed over 5,500 planets around other stars — most via the transit method)"
     },
     {
       "id": "voyager_distance",
-      "triggers": ["voyager"],
+      "triggers": [
+        "voyager"
+      ],
       "match_type": "input_contains",
       "text": "(Voyager 1 left the solar system in 2012 and is still phoning home — 22 hours each way)"
     },
     {
       "id": "ocean_mapping",
-      "triggers": ["ocean", "seafloor"],
+      "triggers": [
+        "ocean",
+        "seafloor"
+      ],
       "match_type": "input_contains",
       "text": "(we've mapped Mars and the Moon better than our own ocean floor)"
     },
     {
       "id": "atmosphere_composition",
-      "triggers": ["atmosphere"],
+      "triggers": [
+        "atmosphere"
+      ],
       "match_type": "input_contains",
       "text": "(78% nitrogen, 21% oxygen, 1% argon and trace — basically nitrogen with some breathing gas mixed in)"
     },
     {
       "id": "volcano_mauna_loa",
-      "triggers": ["volcano", "volcanoes", "magma"],
+      "triggers": [
+        "volcano",
+        "volcanoes",
+        "magma"
+      ],
       "match_type": "input_contains",
       "text": "(Mauna Loa is the largest volcano on Earth by volume — most of it is underwater)"
     },
     {
       "id": "earthquake_richter",
-      "triggers": ["earthquake", "richter", "magnitude"],
+      "triggers": [
+        "earthquake",
+        "richter",
+        "magnitude"
+      ],
       "match_type": "input_contains",
       "text": "(the Richter scale is logarithmic: a 7 is 10× the shaking of a 6, but releases ~32× the energy)"
     },
     {
       "id": "ice_age_now",
-      "triggers": ["ice age", "glacial"],
+      "triggers": [
+        "ice age",
+        "glacial"
+      ],
       "match_type": "input_contains",
       "text": "(we are technically still IN an ice age — anytime there are permanent ice sheets, it counts)"
     },
     {
       "id": "answer_proton_count",
-      "triggers": ["proton"],
+      "triggers": [
+        "proton"
+      ],
       "match_type": "answer_contains",
       "text": "(the atomic number IS the proton count — that's the only thing that defines which element it is)"
     },
     {
       "id": "answer_electron_orbit",
-      "triggers": ["electron"],
+      "triggers": [
+        "electron"
+      ],
       "match_type": "answer_contains",
       "text": "(electrons don't really orbit — they exist as probability clouds around the nucleus)"
     },
     {
       "id": "answer_speed_kmps",
-      "triggers": ["km/s", "kilometers per second"],
+      "triggers": [
+        "km/s",
+        "kilometers per second"
+      ],
       "match_type": "answer_contains",
       "text": "(for scale: a rifle bullet does about 1 km/s — astronomy moves a lot faster than that)"
     },
@@ -348,6 +510,494 @@
       "triggers": [],
       "match_type": "any",
       "text": "(scientists were arguing about this less than a century ago)"
+    },
+    {
+      "id": "gen_gravity_is_the_weakest_of_the_fo",
+      "triggers": [
+        "gravity"
+      ],
+      "match_type": "input_contains",
+      "text": "(gravity is the weakest of the four fundamental forces by a mile — a fridge magnet beats the whole Earth)"
+    },
+    {
+      "id": "gen_a_photon_has_no_mass_and_always_",
+      "triggers": [
+        "photon",
+        "light"
+      ],
+      "match_type": "input_contains",
+      "text": "(a photon has no mass and always travels at exactly c — it never speeds up or slows down in a vacuum)"
+    },
+    {
+      "id": "gen_stretched_out_the_dna_in_one_of_",
+      "triggers": [
+        "dna"
+      ],
+      "match_type": "input_contains",
+      "text": "(stretched out, the DNA in one of your cells is about two meters long — coiled into a nucleus you can't even see)"
+    },
+    {
+      "id": "gen_electrons_dont_really_orbit_like",
+      "triggers": [
+        "electron"
+      ],
+      "match_type": "input_contains",
+      "text": "(electrons don't really orbit like planets — they're smeared into fuzzy probability clouds around the nucleus)"
+    },
+    {
+      "id": "gen_atoms_are_mostly_empty_space_if_",
+      "triggers": [
+        "atom"
+      ],
+      "match_type": "input_contains",
+      "text": "(atoms are mostly empty space — if the nucleus were a marble, the atom would be a sports stadium)"
+    },
+    {
+      "id": "gen_light_takes_about_13_seconds_to_",
+      "triggers": [
+        "speed of light"
+      ],
+      "match_type": "input_contains",
+      "text": "(light takes about 1.3 seconds to reach us from the Moon and 8 minutes from the Sun)"
+    },
+    {
+      "id": "gen_energy_is_never_created_or_destr",
+      "triggers": [
+        "energy"
+      ],
+      "match_type": "input_contains",
+      "text": "(energy is never created or destroyed — it just keeps changing costume)"
+    },
+    {
+      "id": "gen_entropy_is_why_your_room_messes_",
+      "triggers": [
+        "entropy"
+      ],
+      "match_type": "input_contains",
+      "text": "(entropy is why your room messes up on its own but never tidies itself — the second law has opinions)"
+    },
+    {
+      "id": "gen_water_is_one_of_the_few_things_t",
+      "triggers": [
+        "water",
+        "h2o"
+      ],
+      "match_type": "input_contains",
+      "text": "(water is one of the few things that expands when it freezes, which is why ice floats and ponds don't freeze solid)"
+    },
+    {
+      "id": "gen_most_of_earths_oxygen_comes_from",
+      "triggers": [
+        "oxygen"
+      ],
+      "match_type": "input_contains",
+      "text": "(most of Earth's oxygen comes from ocean plankton, not forests)"
+    },
+    {
+      "id": "gen_carbon_bonds_with_itself_so_happ",
+      "triggers": [
+        "carbon"
+      ],
+      "match_type": "input_contains",
+      "text": "(carbon bonds with itself so happily it's the backbone of every known form of life)"
+    },
+    {
+      "id": "gen_hydrogen_is_the_most_abundant_el",
+      "triggers": [
+        "hydrogen"
+      ],
+      "match_type": "input_contains",
+      "text": "(hydrogen is the most abundant element in the universe — about 90% of all atoms)"
+    },
+    {
+      "id": "gen_helium_was_found_on_the_sun_befo",
+      "triggers": [
+        "helium"
+      ],
+      "match_type": "input_contains",
+      "text": "(helium was found on the Sun before it was found on Earth — that's why it's named after Helios)"
+    },
+    {
+      "id": "gen_sound_cant_travel_through_space_",
+      "triggers": [
+        "sound"
+      ],
+      "match_type": "input_contains",
+      "text": "(sound can't travel through space — there's no air to carry the wave, so the vacuum is truly silent)"
+    },
+    {
+      "id": "gen_you_can_never_get_a_single_magne",
+      "triggers": [
+        "magnet",
+        "magnetic"
+      ],
+      "match_type": "input_contains",
+      "text": "(you can never get a single magnetic pole — cut a magnet in half and each piece grows a new north and south)"
+    },
+    {
+      "id": "gen_temperature_is_really_just_how_f",
+      "triggers": [
+        "temperature",
+        "heat"
+      ],
+      "match_type": "input_contains",
+      "text": "(temperature is really just how fast atoms are jiggling — heat is motion in disguise)"
+    },
+    {
+      "id": "gen_the_ph_scale_is_logarithmic_each",
+      "triggers": [
+        "acid",
+        "ph"
+      ],
+      "match_type": "input_contains",
+      "text": "(the pH scale is logarithmic — each step is a 10x change, so pH 3 is a hundred times more acidic than pH 5)"
+    },
+    {
+      "id": "gen_electrons_in_a_wire_drift_slower",
+      "triggers": [
+        "electricity",
+        "current"
+      ],
+      "match_type": "input_contains",
+      "text": "(electrons in a wire drift slower than a snail — it's the electric field that travels near light speed)"
+    },
+    {
+      "id": "gen_without_friction_you_couldnt_wal",
+      "triggers": [
+        "friction"
+      ],
+      "match_type": "input_contains",
+      "text": "(without friction you couldn't walk, hold anything, or even strike a match)"
+    },
+    {
+      "id": "gen_the_air_is_pressing_on_you_with_",
+      "triggers": [
+        "pressure"
+      ],
+      "match_type": "input_contains",
+      "text": "(the air is pressing on you with about 14.7 pounds per square inch — you just grew up pushing back)"
+    },
+    {
+      "id": "gen_a_single_glass_of_water_holds_mo",
+      "triggers": [
+        "molecule"
+      ],
+      "match_type": "input_contains",
+      "text": "(a single glass of water holds more molecules than there are glasses of water in all Earth's oceans)"
+    },
+    {
+      "id": "gen_a_proton_is_nearly_1836_times_he",
+      "triggers": [
+        "proton"
+      ],
+      "match_type": "input_contains",
+      "text": "(a proton is nearly 1,836 times heavier than an electron, yet they carry equal and opposite charge)"
+    },
+    {
+      "id": "gen_a_free_neutron_is_unstable_and_d",
+      "triggers": [
+        "neutron"
+      ],
+      "match_type": "input_contains",
+      "text": "(a free neutron is unstable and decays in about 15 minutes, but inside a nucleus it can live forever)"
+    },
+    {
+      "id": "gen_bananas_are_faintly_radioactive_",
+      "triggers": [
+        "radiation",
+        "radioactive"
+      ],
+      "match_type": "input_contains",
+      "text": "(bananas are faintly radioactive thanks to potassium-40 — the dose even has a nickname, the banana equivalent)"
+    },
+    {
+      "id": "gen_plasma_is_the_most_common_state_",
+      "triggers": [
+        "plasma"
+      ],
+      "match_type": "input_contains",
+      "text": "(plasma is the most common state of matter in the universe — stars are giant balls of it)"
+    },
+    {
+      "id": "gen_in_the_quantum_world_a_particle_",
+      "triggers": [
+        "quantum"
+      ],
+      "match_type": "input_contains",
+      "text": "(in the quantum world a particle can be in many places at once until you look — then it picks one)"
+    },
+    {
+      "id": "gen_in_a_chemical_reaction_atoms_are",
+      "triggers": [
+        "chemical reaction",
+        "reaction"
+      ],
+      "match_type": "input_contains",
+      "text": "(in a chemical reaction atoms are never destroyed, just rearranged — the bookkeeping always balances)"
+    },
+    {
+      "id": "gen_table_salt_is_made_from_sodium_w",
+      "triggers": [
+        "salt",
+        "sodium"
+      ],
+      "match_type": "input_contains",
+      "text": "(table salt is made from sodium, which explodes in water, and chlorine, a poison gas — together they season your fries)"
+    },
+    {
+      "id": "gen_metals_conduct_electricity_becau",
+      "triggers": [
+        "metal"
+      ],
+      "match_type": "input_contains",
+      "text": "(metals conduct electricity because their outer electrons roam free in a shared sea)"
+    },
+    {
+      "id": "gen_gas_molecules_zip_around_at_hund",
+      "triggers": [
+        "gas"
+      ],
+      "match_type": "input_contains",
+      "text": "(gas molecules zip around at hundreds of meters per second, bouncing off each other billions of times a second)"
+    },
+    {
+      "id": "gen_a_teaspoon_of_neutron_star_mater",
+      "triggers": [
+        "density"
+      ],
+      "match_type": "input_contains",
+      "text": "(a teaspoon of neutron star material would weigh about a billion tons — density taken to the extreme)"
+    },
+    {
+      "id": "gen_mass_and_weight_arent_the_same_y",
+      "triggers": [
+        "mass",
+        "weight"
+      ],
+      "match_type": "input_contains",
+      "text": "(mass and weight aren't the same — your mass stays put, but you'd weigh six times less on the Moon)"
+    },
+    {
+      "id": "gen_science_doesnt_prove_things_abso",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(science doesn't prove things absolutely — it just builds the best-tested explanation we have so far)"
+    },
+    {
+      "id": "gen_every_atom_in_your_body_heavier_",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(every atom in your body heavier than hydrogen was forged inside a star — you're made of stardust, literally)"
+    },
+    {
+      "id": "gen_the_same_physics_that_makes_an_a",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the same physics that makes an apple fall keeps the Moon in orbit — Newton's quiet genius)"
+    },
+    {
+      "id": "gen_your_heart_beats_about_100000_ti",
+      "triggers": [
+        "heart",
+        "cardiac"
+      ],
+      "match_type": "input_contains",
+      "text": "(your heart beats about 100,000 times a day and never once gets a coffee break)"
+    },
+    {
+      "id": "gen_your_brain_has_roughly_86_billio",
+      "triggers": [
+        "brain",
+        "neuron"
+      ],
+      "match_type": "input_contains",
+      "text": "(your brain has roughly 86 billion neurons — fewer than once thought, but still more than there are stars in the Milky Way)"
+    },
+    {
+      "id": "gen_youre_born_with_about_300_bones_",
+      "triggers": [
+        "bone",
+        "skeleton"
+      ],
+      "match_type": "input_contains",
+      "text": "(you're born with about 300 bones, but many fuse — adults end up with 206)"
+    },
+    {
+      "id": "gen_your_blood_vessels_laid_end_to_e",
+      "triggers": [
+        "blood"
+      ],
+      "match_type": "input_contains",
+      "text": "(your blood vessels laid end to end would wrap around the Earth more than twice)"
+    },
+    {
+      "id": "gen_your_body_makes_about_38_million",
+      "triggers": [
+        "cell"
+      ],
+      "match_type": "input_contains",
+      "text": "(your body makes about 3.8 million new cells every second just to replace the ones that wear out)"
+    },
+    {
+      "id": "gen_your_body_carries_about_as_many_",
+      "triggers": [
+        "bacteria",
+        "microbe"
+      ],
+      "match_type": "input_contains",
+      "text": "(your body carries about as many bacterial cells as human ones — you're more of a walking ecosystem than a single creature)"
+    },
+    {
+      "id": "gen_a_virus_isnt_quite_alive_on_its_",
+      "triggers": [
+        "virus"
+      ],
+      "match_type": "input_contains",
+      "text": "(a virus isn't quite alive on its own — it can't do anything until it hijacks a living cell's machinery)"
+    },
+    {
+      "id": "gen_evolution_has_no_goal_and_no_pla",
+      "triggers": [
+        "evolution",
+        "natural selection"
+      ],
+      "match_type": "input_contains",
+      "text": "(evolution has no goal and no plan — it just keeps whatever happens to survive long enough to copy itself)"
+    },
+    {
+      "id": "gen_photosynthesis_builds_plants_mos",
+      "triggers": [
+        "photosynthesis"
+      ],
+      "match_type": "input_contains",
+      "text": "(photosynthesis builds plants mostly out of thin air — most of a tree's mass comes from carbon pulled from the sky, not the soil)"
+    },
+    {
+      "id": "gen_mitochondria_were_once_freelivin",
+      "triggers": [
+        "mitochondria"
+      ],
+      "match_type": "input_contains",
+      "text": "(mitochondria were once free-living bacteria — they still carry their own separate DNA inside your cells)"
+    },
+    {
+      "id": "gen_an_enzyme_can_speed_up_a_reactio",
+      "triggers": [
+        "protein",
+        "enzyme"
+      ],
+      "match_type": "input_contains",
+      "text": "(an enzyme can speed up a reaction by millions of times, doing in a second what would otherwise take years)"
+    },
+    {
+      "id": "gen_your_immune_system_can_recognize",
+      "triggers": [
+        "immune",
+        "antibody"
+      ],
+      "match_type": "input_contains",
+      "text": "(your immune system can recognize billions of different invaders — it keeps a molecular wanted-poster for each one)"
+    },
+    {
+      "id": "gen_jellyfish_have_no_brain_no_heart",
+      "triggers": [
+        "jellyfish"
+      ],
+      "match_type": "input_contains",
+      "text": "(jellyfish have no brain, no heart, and no bones — they've been drifting along just fine for over 500 million years)"
+    },
+    {
+      "id": "gen_an_octopus_has_three_hearts_and_",
+      "triggers": [
+        "octopus"
+      ],
+      "match_type": "input_contains",
+      "text": "(an octopus has three hearts and blue blood, and two-thirds of its neurons live in its arms)"
+    },
+    {
+      "id": "gen_tardigrades_can_survive_boiling_",
+      "triggers": [
+        "tardigrade",
+        "water bear"
+      ],
+      "match_type": "input_contains",
+      "text": "(tardigrades can survive boiling, freezing, the vacuum of space, and radiation that would flatten almost anything else)"
+    },
+    {
+      "id": "gen_the_sun_is_so_big_you_could_fit_",
+      "triggers": [
+        "sun",
+        "solar"
+      ],
+      "match_type": "input_contains",
+      "text": "(the Sun is so big you could fit about 1.3 million Earths inside it — and it's still just an average star)"
+    },
+    {
+      "id": "gen_the_moon_is_drifting_away_from_e",
+      "triggers": [
+        "moon",
+        "lunar"
+      ],
+      "match_type": "input_contains",
+      "text": "(the Moon is drifting away from Earth about 3.8 cm a year — roughly as fast as your fingernails grow)"
+    },
+    {
+      "id": "gen_mars_is_home_to_olympus_mons_a_v",
+      "triggers": [
+        "mars"
+      ],
+      "match_type": "input_contains",
+      "text": "(Mars is home to Olympus Mons, a volcano nearly three times the height of Everest)"
+    },
+    {
+      "id": "gen_jupiters_great_red_spot_is_a_sto",
+      "triggers": [
+        "jupiter"
+      ],
+      "match_type": "input_contains",
+      "text": "(Jupiter's Great Red Spot is a storm so big it could swallow the whole Earth)"
+    },
+    {
+      "id": "gen_saturn_is_so_light_for_its_size_",
+      "triggers": [
+        "saturn"
+      ],
+      "match_type": "input_contains",
+      "text": "(Saturn is so light for its size it would actually float if you found a bathtub big enough)"
+    },
+    {
+      "id": "gen_a_day_on_venus_lasts_longer_than",
+      "triggers": [
+        "venus"
+      ],
+      "match_type": "input_contains",
+      "text": "(a day on Venus lasts longer than its year — it spins slower than it orbits the Sun)"
+    },
+    {
+      "id": "gen_the_milky_way_and_andromeda_are_",
+      "triggers": [
+        "galaxy",
+        "milky way"
+      ],
+      "match_type": "input_contains",
+      "text": "(the Milky Way and Andromeda are heading for a collision — but in about 4 billion years, so don't panic)"
+    },
+    {
+      "id": "gen_when_you_look_at_distant_stars_y",
+      "triggers": [
+        "star",
+        "stellar"
+      ],
+      "match_type": "input_contains",
+      "text": "(when you look at distant stars you're seeing the past — some of that light left before humans existed)"
+    },
+    {
+      "id": "gen_a_comets_tail_always_points_away",
+      "triggers": [
+        "comet"
+      ],
+      "match_type": "input_contains",
+      "text": "(a comet's tail always points away from the Sun, not behind its motion — the solar wind blows it back)"
     }
   ]
 }

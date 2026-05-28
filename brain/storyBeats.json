@@ -3884,6 +3884,3784 @@
         "close_warm_quiet",
         "close_two_friends"
       ]
+    },
+    {
+      "id": "g0_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "{ADV} one {NOUN:time}, a {ADJ} {NOUN:character} woke to find the whole {NOUN:place} wrapped in {ADJ:color} {NOUN:weather}. Something out past the {NOUN:forest} was calling, soft as a {NOUN:sound}.",
+      "next_beats": [
+        "g0_disc_glinting_path",
+        "g0_enc_old_traveler"
+      ]
+    },
+    {
+      "id": "g0_open_lantern_attic",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "whimsical"
+      ],
+      "text": "High in a {ADJ} {NOUN:structure}, a {ADJ} {NOUN:character} lit one small {NOUN:object} and listened to the {NOUN:weather} tap the roof. Tonight, the {ADV} dusty boxes seemed to be whispering.",
+      "next_beats": [
+        "g0_disc_secret_door",
+        "g0_disc_glinting_path"
+      ]
+    },
+    {
+      "id": "g0_open_tide_pool",
+      "type": "opening",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "Where the {NOUN:body_of_water} kissed the {ADJ:color} shore, a {ADJ} {NOUN:character} crouched over a glittering {NOUN:object}. A curious {NOUN:sea_creature} blinked up at them, {ADV} unafraid.",
+      "next_beats": [
+        "g0_enc_old_traveler",
+        "g0_disc_secret_door"
+      ]
+    },
+    {
+      "id": "g0_disc_glinting_path",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "magical"
+      ],
+      "text": "Pushing past the {ADJ} {NOUN:plant}, the {NOUN:character} found a path paved in {NOUN:mineral} that shimmered like a fallen {NOUN:celestial}. {CONN}, every stone hummed a {ADJ} tune underfoot.",
+      "next_beats": [
+        "g0_enc_old_traveler",
+        "g0_twist_path_alive"
+      ]
+    },
+    {
+      "id": "g0_disc_secret_door",
+      "type": "discovery",
+      "tone": [
+        "mysterious",
+        "whimsical"
+      ],
+      "text": "Behind a curtain of {NOUN:plant}, the {NOUN:character} uncovered a tiny {NOUN:structure} no taller than a {NOUN:food}. A {ADJ:color} key was already turning in the lock, all by itself.",
+      "next_beats": [
+        "g0_enc_chatty_guardian",
+        "g0_twist_door_lies"
+      ]
+    },
+    {
+      "id": "g0_enc_old_traveler",
+      "type": "encounter",
+      "tone": [
+        "wistful",
+        "adventure"
+      ],
+      "text": "A weathered {NOUN:profession} sat by a fire that smelled of {NOUN:smell}, mending a {ADJ} {NOUN:vehicle}. \"You're late, {NOUN:character},\" they grinned, \"the {NOUN:sky} has been waiting.\"",
+      "next_beats": [
+        "g0_conf_river_crossing",
+        "g0_twist_path_alive"
+      ]
+    },
+    {
+      "id": "g0_enc_chatty_guardian",
+      "type": "encounter",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "A round {NOUN:mythical_creature} barred the way, juggling three {ADJ:color} {NOUN:object}s and humming. \"No one passes,\" it said, \"unless they can tell me a riddle sillier than a sneezing {NOUN:animal}.\"",
+      "next_beats": [
+        "g0_conf_river_crossing",
+        "g0_res_warm_welcome"
+      ]
+    },
+    {
+      "id": "g0_conf_river_crossing",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "A roaring {NOUN:body_of_water} blocked the way, its {ADJ:color} current swallowing every stepping {NOUN:mineral}. The {NOUN:character} had only a fraying rope and a heart pounding like a {NOUN:sound} to get across.",
+      "next_beats": [
+        "g0_res_quiet_homeward",
+        "g0_res_warm_welcome"
+      ]
+    },
+    {
+      "id": "g0_twist_path_alive",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "{CONN} the path itself stood up and stretched, for it was no road at all but the long {ADJ} back of a sleeping {NOUN:mythical_creature}. It yawned a gust of {NOUN:weather} and asked where the {NOUN:character} wished to go.",
+      "next_beats": [
+        "g0_res_warm_welcome",
+        "g0_close_starlit_promise"
+      ]
+    },
+    {
+      "id": "g0_twist_door_lies",
+      "type": "twist",
+      "tone": [
+        "spooky",
+        "bittersweet"
+      ],
+      "text": "Through the door was not a {NOUN:place} at all, but a mirror of the {NOUN:character}'s own {ADJ} {NOUN:structure}, every {NOUN:object} turned {ADJ:color} and silent. A {ADV} familiar voice murmured, \"You never left.\"",
+      "next_beats": [
+        "g0_res_quiet_homeward",
+        "g0_close_dawn_remembers"
+      ]
+    },
+    {
+      "id": "g0_res_warm_welcome",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "At journey's end, the {NOUN:character} was pulled into a circle of {ADJ} friends, a steaming {NOUN:food} pressed into their hands. The {NOUN:weather} cleared, and the whole {NOUN:place} glowed {ADJ:color} and kind.",
+      "next_beats": [
+        "g0_close_starlit_promise"
+      ]
+    },
+    {
+      "id": "g0_res_quiet_homeward",
+      "type": "resolution",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "With the river behind them and the riddle solved, the {NOUN:character} turned for home beneath a slow {ADJ:color} {NOUN:sky}. Each tired step felt {ADV} lighter than the last.",
+      "next_beats": [
+        "g0_close_dawn_remembers"
+      ]
+    },
+    {
+      "id": "g0_close_starlit_promise",
+      "type": "closing",
+      "tone": [
+        "magical",
+        "triumphant"
+      ],
+      "text": "And so the {NOUN:character} curled up under a blanket of {NOUN:celestial}s, promising the {NOUN:mythical_creature} to return when the {NOUN:season} came again. The {NOUN:place} kept the secret {ADV}, and slept.",
+      "next_beats": []
+    },
+    {
+      "id": "g0_close_dawn_remembers",
+      "type": "closing",
+      "tone": [
+        "bittersweet",
+        "wistful"
+      ],
+      "text": "By the time the {NOUN:sky} turned {ADJ:color} again, only a single {ADJ} {NOUN:object} remained to prove it had ever happened. The {NOUN:character} smiled, tucked it close, and {ADV} carried the whole adventure home in their heart.",
+      "next_beats": []
+    },
+    {
+      "id": "g1_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "At the first blush of {NOUN:time}, {NOUN:character} laced up worn boots and slipped past the sleeping {NOUN:structure}. A {ADJ} fog curled along the {NOUN:place}, hiding everything but the next {ADJ} step.",
+      "next_beats": [
+        "g1_disc_hidden_door",
+        "g1_enc_river_keeper",
+        "g1_disc_singing_stones"
+      ]
+    },
+    {
+      "id": "g1_open_attic_map",
+      "type": "opening",
+      "tone": [
+        "whimsical",
+        "cozy"
+      ],
+      "text": "{NOUN:character} found a {ADJ} {NOUN:object} wedged behind the attic {NOUN:structure}, and inside was a map drawn in {ADJ:color} ink. Every line on it seemed to {VERB:movement} when nobody was looking.",
+      "next_beats": [
+        "g1_disc_hidden_door",
+        "g1_enc_lantern_fox",
+        "g1_disc_singing_stones"
+      ]
+    },
+    {
+      "id": "g1_open_starlit_promise",
+      "type": "opening",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "Under a sky stitched with {NOUN:celestial}, {NOUN:character} made a quiet promise to the {ADJ} {NOUN:plant} that grew by the window. {CONN} the promise was kept, the night began to hum a {ADJ} tune.",
+      "next_beats": [
+        "g1_enc_river_keeper",
+        "g1_enc_lantern_fox",
+        "g1_disc_hidden_door"
+      ]
+    },
+    {
+      "id": "g1_disc_hidden_door",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "magical"
+      ],
+      "text": "Behind a curtain of {NOUN:plant}, {NOUN:character} uncovered a {ADJ} door no taller than a {NOUN:animal}. It glowed faintly, as if the {NOUN:mineral} in its handle remembered an old secret.",
+      "next_beats": [
+        "g1_enc_river_keeper",
+        "g1_twist_door_lies",
+        "g1_conf_locked_tight"
+      ]
+    },
+    {
+      "id": "g1_disc_singing_stones",
+      "type": "discovery",
+      "tone": [
+        "whimsical",
+        "cozy"
+      ],
+      "text": "{ADV}, {NOUN:character} noticed that the {NOUN:mineral} along the path gave off a soft {NOUN:sound} when touched. Each one held a different {ADJ} note, like a chorus waiting to be played.",
+      "next_beats": [
+        "g1_res_warm_hearth",
+        "g1_twist_door_lies",
+        "g1_enc_river_keeper"
+      ]
+    },
+    {
+      "id": "g1_enc_river_keeper",
+      "type": "encounter",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "A {ADJ} {NOUN:sea_creature} rose from the {NOUN:body_of_water} and studied {NOUN:character} with patient eyes. \"Few come this far,\" it murmured, voice like a {ADJ} {NOUN:sound}.",
+      "next_beats": [
+        "g1_conf_locked_tight",
+        "g1_twist_keeper_riddle",
+        "g1_res_warm_hearth"
+      ]
+    },
+    {
+      "id": "g1_enc_lantern_fox",
+      "type": "encounter",
+      "tone": [
+        "spooky",
+        "whimsical"
+      ],
+      "text": "From the {ADJ} dark trotted a {NOUN:animal} carrying a {NOUN:object} that flickered with {ADJ:color} flame. It tilted its head at {NOUN:character} as if deciding whether to lead or to {VERB:movement} away.",
+      "next_beats": [
+        "g1_conf_locked_tight",
+        "g1_disc_singing_stones",
+        "g1_res_long_walk_home"
+      ]
+    },
+    {
+      "id": "g1_conf_locked_tight",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "The way forward was sealed by a tangle of {ADJ} {NOUN:plant}, and a cold {NOUN:weather} began to press in. {NOUN:character} had only a {NOUN:object} and a {ADJ} idea to get through.",
+      "next_beats": [
+        "g1_res_long_walk_home",
+        "g1_twist_keeper_riddle",
+        "g1_enc_lantern_fox"
+      ]
+    },
+    {
+      "id": "g1_twist_door_lies",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "{CONN} {NOUN:character} stepped through, the door opened not onto a {NOUN:place} but onto the very same attic, only now everything was {ADJ:color} and humming. The map had never shown a road; it had shown a mirror.",
+      "next_beats": [
+        "g1_res_warm_hearth",
+        "g1_close_dawn_returns",
+        "g1_disc_singing_stones"
+      ]
+    },
+    {
+      "id": "g1_twist_keeper_riddle",
+      "type": "twist",
+      "tone": [
+        "bittersweet",
+        "magical"
+      ],
+      "text": "The riddle's answer, {NOUN:character} realized, was the {NOUN:object} that had been in a pocket all along. The {ADJ} {NOUN:sea_creature} smiled, sad and proud, for the journey had only ever been about finding what was already there.",
+      "next_beats": [
+        "g1_res_long_walk_home",
+        "g1_close_quiet_glow",
+        "g1_conf_locked_tight"
+      ]
+    },
+    {
+      "id": "g1_res_warm_hearth",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "By a crackling {NOUN:structure}, {NOUN:character} set down the {NOUN:object} and let the {ADJ} warmth soak in. The {NOUN:place} that had felt so vast now felt exactly the right size.",
+      "next_beats": [
+        "g1_close_dawn_returns",
+        "g1_close_quiet_glow"
+      ]
+    },
+    {
+      "id": "g1_res_long_walk_home",
+      "type": "resolution",
+      "tone": [
+        "wistful",
+        "triumphant"
+      ],
+      "text": "{ADV}, {NOUN:character} turned toward home as the {NOUN:weather} finally lifted. Each step felt lighter, the {ADJ} adventure folding itself into a story to keep.",
+      "next_beats": [
+        "g1_close_quiet_glow",
+        "g1_close_dawn_returns"
+      ]
+    },
+    {
+      "id": "g1_close_dawn_returns",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "And so {NOUN:character} slept until the new {NOUN:time}, the {ADJ} map tucked safe beneath the pillow. Some doors, it turns out, only open for those brave enough to knock. 🐒",
+      "next_beats": []
+    },
+    {
+      "id": "g1_close_quiet_glow",
+      "type": "closing",
+      "tone": [
+        "wistful",
+        "magical"
+      ],
+      "text": "The {NOUN:celestial} dimmed, the {NOUN:plant} stopped humming, and {NOUN:character} smiled into the {ADJ} dark. Wherever the next morning led, this one would always glow softly in memory. 🐒",
+      "next_beats": []
+    },
+    {
+      "id": "g10_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "mysterious",
+        "cozy"
+      ],
+      "text": "At the first {ADJ} blush of {NOUN:time}, {NOUN:character} pushed open the {NOUN:structure} and breathed in the {NOUN:smell} drifting off the {NOUN:body_of_water}.",
+      "next_beats": [
+        "g10_disc_humming_stone",
+        "g10_enc_river_creature"
+      ]
+    },
+    {
+      "id": "g10_open_tinkerbell_market",
+      "type": "opening",
+      "tone": [
+        "whimsical",
+        "silly"
+      ],
+      "text": "{NOUN:character} skipped into the {ADJ} {NOUN:place} where every {NOUN:profession} was selling {ADJ:color} {NOUN:food} that giggled when you poked it.",
+      "next_beats": [
+        "g10_enc_grumpy_merchant",
+        "g10_disc_humming_stone"
+      ]
+    },
+    {
+      "id": "g10_open_starlit_climb",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "magical"
+      ],
+      "text": "With a {NOUN:object} strapped to {ADJ} shoulders, {NOUN:character} began the long climb up the {NOUN:structure} toward a single {VERB:movement} {NOUN:celestial}.",
+      "next_beats": [
+        "g10_disc_hidden_door",
+        "g10_enc_grumpy_merchant"
+      ]
+    },
+    {
+      "id": "g10_disc_humming_stone",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "Half-buried in the {NOUN:forest}, {NOUN:character} found a {ADJ:color} {NOUN:mineral} that hummed a {ADJ} tune whenever the {NOUN:weather} drew near.",
+      "next_beats": [
+        "g10_twist_stone_speaks",
+        "g10_res_quiet_promise"
+      ]
+    },
+    {
+      "id": "g10_disc_hidden_door",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "cozy"
+      ],
+      "text": "{CONN} {NOUN:character} traced the wall, a {ADJ} {NOUN:structure} swung loose, revealing a tunnel that smelled of {NOUN:smell} and warm {NOUN:food}.",
+      "next_beats": [
+        "g10_conf_collapsing_path",
+        "g10_res_quiet_promise"
+      ]
+    },
+    {
+      "id": "g10_enc_grumpy_merchant",
+      "type": "encounter",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:profession} blocked the path, demanding one {NOUN:object} in trade before {NOUN:character} could pass the {NOUN:structure}.",
+      "next_beats": [
+        "g10_conf_collapsing_path",
+        "g10_disc_hidden_door"
+      ]
+    },
+    {
+      "id": "g10_enc_river_creature",
+      "type": "encounter",
+      "tone": [
+        "wistful",
+        "magical"
+      ],
+      "text": "Out of the {NOUN:body_of_water} rose a {ADJ} {NOUN:sea_creature}, who blinked at {NOUN:character} and asked, {ADV}, for help finding its way home.",
+      "next_beats": [
+        "g10_twist_creature_guide",
+        "g10_res_bright_return"
+      ]
+    },
+    {
+      "id": "g10_conf_collapsing_path",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "The {NOUN:structure} groaned and the floor began to {VERB:movement}, leaving {NOUN:character} only a few {NOUN:object}-lengths of safe ground.",
+      "next_beats": [
+        "g10_res_bright_return",
+        "g10_enc_river_creature"
+      ]
+    },
+    {
+      "id": "g10_twist_stone_speaks",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "{CONN} the {NOUN:mineral} cracked open, and a voice as soft as {NOUN:weather} told {NOUN:character} the {NOUN:place} had been waiting a hundred {NOUN:time}.",
+      "next_beats": [
+        "g10_res_bright_return",
+        "g10_close_dawn_keeper"
+      ]
+    },
+    {
+      "id": "g10_twist_creature_guide",
+      "type": "twist",
+      "tone": [
+        "whimsical",
+        "wistful"
+      ],
+      "text": "The {NOUN:sea_creature} was no lost stranger at all but a {ADJ} guide, and it offered to carry {NOUN:character} across to the far {NOUN:forest}.",
+      "next_beats": [
+        "g10_res_quiet_promise",
+        "g10_close_lantern_song"
+      ]
+    },
+    {
+      "id": "g10_res_bright_return",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "adventure"
+      ],
+      "text": "{ADV}, {NOUN:character} found solid {NOUN:structure} again and climbed back toward the {ADJ:color} {NOUN:sky}, heart pounding like a happy drum.",
+      "next_beats": [
+        "g10_close_dawn_keeper",
+        "g10_enc_river_creature"
+      ]
+    },
+    {
+      "id": "g10_res_quiet_promise",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "bittersweet"
+      ],
+      "text": "{NOUN:character} tucked the {NOUN:object} safely away and whispered a {ADJ} promise to return when the {NOUN:season} came around again.",
+      "next_beats": [
+        "g10_close_lantern_song",
+        "g10_close_dawn_keeper"
+      ]
+    },
+    {
+      "id": "g10_close_dawn_keeper",
+      "type": "closing",
+      "tone": [
+        "triumphant",
+        "cozy"
+      ],
+      "text": "And so {NOUN:character} became the {ADJ} keeper of the {NOUN:place}, greeting each new {NOUN:time} with a smile and a {NOUN:sound}.",
+      "next_beats": []
+    },
+    {
+      "id": "g10_close_lantern_song",
+      "type": "closing",
+      "tone": [
+        "wistful",
+        "magical"
+      ],
+      "text": "{CONN} the {NOUN:celestial} dimmed, {NOUN:character} hummed the {ADJ} song home, and the whole {NOUN:forest} glowed {ADV} in reply.",
+      "next_beats": []
+    },
+    {
+      "id": "g11_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "mysterious",
+        "cozy"
+      ],
+      "text": "At the edge of the {ADJ} {NOUN:forest}, a {NOUN:character} woke to find {ADJ:color} {NOUN:weather} curling between the trees. Somewhere off in the {ADJ} hush, a faint {NOUN:sound} kept calling.",
+      "next_beats": [
+        "g11_disc_hidden_door",
+        "g11_enc_tide_singer"
+      ]
+    },
+    {
+      "id": "g11_open_market_bustle",
+      "type": "opening",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "The {NOUN:character} squeezed through the busiest {NOUN:structure} in town, where merchants sold {ADJ} {NOUN:food} and a runaway {NOUN:animal} scrambled across three rooftops. {CONN} the whole square burst out laughing at once.",
+      "next_beats": [
+        "g11_enc_grumpy_keeper",
+        "g11_disc_hidden_door"
+      ]
+    },
+    {
+      "id": "g11_open_starlit_shore",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "magical"
+      ],
+      "text": "By the {ADJ} {NOUN:body_of_water}, a {NOUN:character} watched the {NOUN:celestial} climb over the waves and felt the night turn {ADJ}. A small {NOUN:vehicle} waited on the sand, ready to carry one brave traveler out past the dark.",
+      "next_beats": [
+        "g11_enc_tide_singer",
+        "g11_disc_buried_chest"
+      ]
+    },
+    {
+      "id": "g11_disc_hidden_door",
+      "type": "discovery",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "Behind a curtain of {NOUN:plant}, the {NOUN:character} found a tiny {NOUN:structure} with a door no taller than a {NOUN:animal}. It smelled of {NOUN:smell} and glowed a soft {ADJ:color}.",
+      "next_beats": [
+        "g11_twist_door_speaks",
+        "g11_enc_tide_singer"
+      ]
+    },
+    {
+      "id": "g11_disc_buried_chest",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "triumphant"
+      ],
+      "text": "Under a heap of {ADJ} {NOUN:mineral}, the {NOUN:character} uncovered a {NOUN:object} wrapped in {ADJ} {NOUN:texture}. {CONN} it hummed the moment {ADJ} fingers brushed the lid.",
+      "next_beats": [
+        "g11_twist_friend_all_along",
+        "g11_res_quiet_morning"
+      ]
+    },
+    {
+      "id": "g11_enc_grumpy_keeper",
+      "type": "encounter",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "A wrinkled old {NOUN:profession} blocked the path, grumbling that no {NOUN:character} could pass without trading a riddle for a {NOUN:food}. {ADV} the keeper's stomach answered with a {NOUN:sound}.",
+      "next_beats": [
+        "g11_conf_locked_tight",
+        "g11_disc_buried_chest"
+      ]
+    },
+    {
+      "id": "g11_enc_tide_singer",
+      "type": "encounter",
+      "tone": [
+        "wistful",
+        "magical"
+      ],
+      "text": "Out on the {ADJ} water a great {NOUN:sea_creature} surfaced and sang a tune older than the {NOUN:structure} on the hill. The {NOUN:character} listened, and the song seemed to know a secret name.",
+      "next_beats": [
+        "g11_twist_door_speaks",
+        "g11_res_warm_hearth"
+      ]
+    },
+    {
+      "id": "g11_conf_locked_tight",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "The way ahead slammed shut, and a cold {NOUN:weather} swept through as the {NOUN:character} hunted for any {NOUN:object} that might pry it open. Time was thin, and the {NOUN:sound} grew louder behind the wall.",
+      "next_beats": [
+        "g11_twist_friend_all_along",
+        "g11_res_quiet_morning"
+      ]
+    },
+    {
+      "id": "g11_twist_door_speaks",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "whimsical"
+      ],
+      "text": "Then the {NOUN:structure} itself blinked awake and spoke, calling the {NOUN:character} by a name nobody had used since the last {NOUN:season}. {CONN} every {NOUN:plant} in the room leaned in to hear the reply.",
+      "next_beats": [
+        "g11_res_warm_hearth",
+        "g11_close_lantern_glow"
+      ]
+    },
+    {
+      "id": "g11_twist_friend_all_along",
+      "type": "twist",
+      "tone": [
+        "bittersweet",
+        "wistful"
+      ],
+      "text": "The shadow that had trailed the {NOUN:character} all day turned out to be a long-lost {NOUN:animal}, only braver and a little {ADJ}. It had been guarding the {NOUN:object} the whole time, waiting to be remembered.",
+      "next_beats": [
+        "g11_res_warm_hearth",
+        "g11_close_soft_goodbye"
+      ]
+    },
+    {
+      "id": "g11_res_quiet_morning",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "By {NOUN:time} the trouble had settled, and the {NOUN:character} carried the {NOUN:object} home through fields of {ADJ} {NOUN:plant}. Everything felt {ADJ}, the way a finished adventure should.",
+      "next_beats": [
+        "g11_close_lantern_glow",
+        "g11_close_soft_goodbye"
+      ]
+    },
+    {
+      "id": "g11_res_warm_hearth",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "Back beside a crackling {NOUN:structure}, the {NOUN:character} shared {ADJ} {NOUN:food} with every new friend the journey had made. {CONN} the {NOUN:weather} outside no longer felt the least bit frightening.",
+      "next_beats": [
+        "g11_close_soft_goodbye",
+        "g11_close_lantern_glow"
+      ]
+    },
+    {
+      "id": "g11_close_lantern_glow",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "And so the {NOUN:character} hung a {ADJ:color} lantern in the window, so that any traveler lost in the {NOUN:weather} would always find the way back. The {NOUN:sky} above settled into a {ADJ} calm.",
+      "next_beats": []
+    },
+    {
+      "id": "g11_close_soft_goodbye",
+      "type": "closing",
+      "tone": [
+        "bittersweet",
+        "triumphant"
+      ],
+      "text": "When {NOUN:time} came at last, the {NOUN:character} waved one final goodbye and tucked the day's {NOUN:object} close, knowing the {NOUN:forest} would keep the rest of the story safe. Some tales end {ADV}, like a held breath finally let go.",
+      "next_beats": []
+    },
+    {
+      "id": "g12_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "mysterious"
+      ],
+      "text": "On a {ADJ} morning, {NOUN:character} woke to {ADJ:color} {NOUN:weather} drifting past the window of the little {NOUN:structure}. Something about the {NOUN:time} felt {ADJ}, like the whole {NOUN:place} was holding its breath.",
+      "next_beats": [
+        "g12_disc_hidden_door",
+        "g12_disc_glowing_shells",
+        "g12_enc_traveling_fox"
+      ]
+    },
+    {
+      "id": "g12_open_attic_map",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "whimsical"
+      ],
+      "text": "{NOUN:character} climbed into the dusty {NOUN:structure} and found a {ADJ} {NOUN:object} wrapped in {ADJ:color} cloth. Folded inside was a map that {ADV} pointed toward the far {NOUN:place}.",
+      "next_beats": [
+        "g12_disc_hidden_door",
+        "g12_enc_traveling_fox"
+      ]
+    },
+    {
+      "id": "g12_open_starlit_shore",
+      "type": "opening",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "Down by the {NOUN:body_of_water}, {NOUN:character} watched a single {NOUN:celestial} blink awake above the {ADJ} waves. The {NOUN:smell} of {NOUN:season} hung in the air, soft and {ADJ}.",
+      "next_beats": [
+        "g12_disc_glowing_shells",
+        "g12_enc_traveling_fox"
+      ]
+    },
+    {
+      "id": "g12_disc_hidden_door",
+      "type": "discovery",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "Behind a curtain of {NOUN:plant}, {NOUN:character} discovered a tiny door no taller than a {NOUN:object}. {CONN} it swung open on its own, breathing out a gust of {ADJ:color} {NOUN:weather}.",
+      "next_beats": [
+        "g12_twist_door_lies",
+        "g12_enc_traveling_fox",
+        "g12_res_quiet_homecoming"
+      ]
+    },
+    {
+      "id": "g12_disc_glowing_shells",
+      "type": "discovery",
+      "tone": [
+        "whimsical",
+        "cozy"
+      ],
+      "text": "{NOUN:character} dug a hand into the cool sand and pulled up a fistful of {ADJ} shells that glowed like tiny {NOUN:celestial}. Each one carried the faint {NOUN:sound} of a {NOUN:sea_creature} far below.",
+      "next_beats": [
+        "g12_enc_traveling_fox",
+        "g12_twist_shells_sing",
+        "g12_res_brave_promise"
+      ]
+    },
+    {
+      "id": "g12_enc_traveling_fox",
+      "type": "encounter",
+      "tone": [
+        "adventure",
+        "silly"
+      ],
+      "text": "A {ADJ} {NOUN:animal} hopped onto the path, wearing a hat far too big for it. \"Going to the {NOUN:place}?\" it asked {NOUN:character}, twitching its {ADJ:color} nose. \"Then you'll be needing this {NOUN:object}.\"",
+      "next_beats": [
+        "g12_conf_river_blocks",
+        "g12_disc_glowing_shells",
+        "g12_res_brave_promise",
+        "g12_twist_shells_sing"
+      ]
+    },
+    {
+      "id": "g12_enc_stone_keeper",
+      "type": "encounter",
+      "tone": [
+        "spooky",
+        "mysterious"
+      ],
+      "text": "At the edge of the {NOUN:forest}, a {NOUN:profession} carved of {NOUN:mineral} blocked the way and spoke in a {ADJ} voice. \"Only those who answer my riddle may pass,\" it told {NOUN:character}, and the {NOUN:weather} grew {ADV} colder.",
+      "next_beats": [
+        "g12_conf_river_blocks",
+        "g12_twist_door_lies",
+        "g12_res_quiet_homecoming"
+      ]
+    },
+    {
+      "id": "g12_conf_river_blocks",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "triumphant"
+      ],
+      "text": "A roaring {NOUN:body_of_water} cut across the trail, too wide and too {ADJ} to cross. {NOUN:character} clutched the {NOUN:object} tight and searched the bank for any {ADJ:color} stepping stone.",
+      "next_beats": [
+        "g12_res_brave_promise",
+        "g12_twist_shells_sing",
+        "g12_enc_stone_keeper"
+      ]
+    },
+    {
+      "id": "g12_twist_door_lies",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "bittersweet"
+      ],
+      "text": "But the door did not lead outside at all. {CONN} {NOUN:character} stepped through into the very same {NOUN:structure}, only now everything wore a {ADJ:color} shimmer and the {NOUN:object} had vanished.",
+      "next_beats": [
+        "g12_res_quiet_homecoming",
+        "g12_close_lantern_glow",
+        "g12_disc_glowing_shells"
+      ]
+    },
+    {
+      "id": "g12_twist_shells_sing",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "All at once the shells began to sing, and the {ADJ} song was {NOUN:character}'s own name. The {NOUN:body_of_water} parted {ADV}, revealing a bridge of pale {NOUN:mineral} that had waited there all along.",
+      "next_beats": [
+        "g12_res_brave_promise",
+        "g12_close_warm_fire",
+        "g12_conf_river_blocks"
+      ]
+    },
+    {
+      "id": "g12_res_quiet_homecoming",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "{NOUN:character} found the way back as the {NOUN:celestial} dipped low over the {NOUN:place}. The little {NOUN:structure} glowed warm, smelling of {NOUN:food} and safe, {ADJ} {NOUN:time}.",
+      "next_beats": [
+        "g12_close_lantern_glow",
+        "g12_enc_stone_keeper"
+      ]
+    },
+    {
+      "id": "g12_res_brave_promise",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "adventure"
+      ],
+      "text": "With the bridge crossed, {NOUN:character} stood tall on the far shore and let out a {ADJ} laugh. The {NOUN:animal} cheered, and together they promised to remember this {ADJ} {NOUN:time} forever.",
+      "next_beats": [
+        "g12_close_warm_fire",
+        "g12_enc_traveling_fox"
+      ]
+    },
+    {
+      "id": "g12_close_lantern_glow",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "And so {NOUN:character} hung a tiny {NOUN:object} by the window, where its {ADJ:color} glow kept the {NOUN:weather} at bay. {CONN} every {NOUN:time} after, the {NOUN:place} felt a little more like home.",
+      "next_beats": []
+    },
+    {
+      "id": "g12_close_warm_fire",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "By a crackling fire that smelled of {NOUN:food} and {NOUN:plant}, {NOUN:character} drifted into a {ADJ} sleep. Outside the {ADJ:color} {NOUN:sky} turned soft, and the brave day folded gently shut.",
+      "next_beats": []
+    },
+    {
+      "id": "g13_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "magical"
+      ],
+      "text": "At the {ADJ} edge of the {NOUN:forest}, a young {NOUN:character} woke before the {NOUN:celestial} had finished rising. The {NOUN:weather} smelled of {NOUN:smell}, and {ADV} the whole world felt brand new.",
+      "next_beats": [
+        "g13_disc_glowing_path",
+        "g13_enc_river_traveler"
+      ]
+    },
+    {
+      "id": "g13_open_attic_lantern",
+      "type": "opening",
+      "tone": [
+        "mysterious",
+        "cozy"
+      ],
+      "text": "In a {ADJ} attic at the top of the old {NOUN:structure}, a {NOUN:character} found a dusty {NOUN:object} that hummed when touched. {CONN} the lantern beside it flickered, casting {ADJ:color} shadows on the wall.",
+      "next_beats": [
+        "g13_disc_hidden_pool",
+        "g13_enc_shy_creature"
+      ]
+    },
+    {
+      "id": "g13_open_silly_kitchen",
+      "type": "opening",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "A clumsy {NOUN:character} had promised to bake the world's most {ADJ} {NOUN:food}, but the recipe called for one feather from a {NOUN:mythical_creature}. {ADV}, that meant leaving the warm kitchen behind.",
+      "next_beats": [
+        "g13_enc_river_traveler",
+        "g13_disc_glowing_path"
+      ]
+    },
+    {
+      "id": "g13_disc_glowing_path",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "adventure"
+      ],
+      "text": "Past the {NOUN:plant}, the {NOUN:character} discovered a trail of {ADJ:color} stones that glowed {ADV} underfoot. Each one chimed a tiny {NOUN:sound} when stepped upon.",
+      "next_beats": [
+        "g13_twist_stones_speak",
+        "g13_conf_locked_gate",
+        "g13_res_quiet_understanding"
+      ]
+    },
+    {
+      "id": "g13_disc_hidden_pool",
+      "type": "discovery",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "Down a {ADJ} slope the {NOUN:character} found a still {NOUN:body_of_water} where a single {NOUN:sea_creature} drifted in lazy circles. The water held the reflection of every {NOUN:celestial} in the {NOUN:sky}.",
+      "next_beats": [
+        "g13_res_quiet_understanding",
+        "g13_enc_river_traveler",
+        "g13_twist_stones_speak"
+      ]
+    },
+    {
+      "id": "g13_enc_river_traveler",
+      "type": "encounter",
+      "tone": [
+        "adventure",
+        "whimsical"
+      ],
+      "text": "By the bank, a weathered {NOUN:profession} steered a creaky {NOUN:vehicle} loaded with {NOUN:object}s. \"Lost, little {NOUN:character}?\" they asked, {ADV} offering a ride across.",
+      "next_beats": [
+        "g13_conf_locked_gate",
+        "g13_disc_hidden_pool",
+        "g13_res_warm_welcome"
+      ]
+    },
+    {
+      "id": "g13_enc_shy_creature",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "Something {ADJ} rustled, and out crept a frightened {NOUN:animal} with eyes like {ADJ:color} {NOUN:mineral}. The {NOUN:character} knelt {ADV} and held out an open hand.",
+      "next_beats": [
+        "g13_conf_locked_gate",
+        "g13_res_warm_welcome",
+        "g13_twist_friend_was_guide"
+      ]
+    },
+    {
+      "id": "g13_conf_locked_gate",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "A towering {NOUN:structure} of cold {NOUN:mineral} blocked the way, its gate sealed by a riddle carved in {ADJ} letters. The {NOUN:character} felt the {NOUN:weather} grow {ADJ} and uneasy.",
+      "next_beats": [
+        "g13_res_quiet_understanding",
+        "g13_twist_stones_speak",
+        "g13_enc_shy_creature"
+      ]
+    },
+    {
+      "id": "g13_twist_stones_speak",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "{CONN} the glowing path rearranged itself into a giant {NOUN:animal} that had been sleeping all along. \"You walked across my back,\" it rumbled, not {ADJ} at all, just {ADJ}.",
+      "next_beats": [
+        "g13_res_warm_welcome",
+        "g13_close_gentle_dusk",
+        "g13_disc_hidden_pool"
+      ]
+    },
+    {
+      "id": "g13_twist_friend_was_guide",
+      "type": "twist",
+      "tone": [
+        "whimsical",
+        "triumphant"
+      ],
+      "text": "Then the {NOUN:character} realized the {NOUN:animal} had been leading them home the whole time, paw by {ADJ} paw. {ADV}, the riddle and the gate had never mattered at all.",
+      "next_beats": [
+        "g13_res_warm_welcome",
+        "g13_close_starlit_promise",
+        "g13_conf_locked_gate"
+      ]
+    },
+    {
+      "id": "g13_res_quiet_understanding",
+      "type": "resolution",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "The {NOUN:character} breathed in the {NOUN:smell} of {NOUN:season} and finally understood: the journey itself had been the gift. {CONN} a calm {NOUN:sound} settled over the {NOUN:place}.",
+      "next_beats": [
+        "g13_close_gentle_dusk",
+        "g13_close_starlit_promise",
+        "g13_enc_shy_creature"
+      ]
+    },
+    {
+      "id": "g13_res_warm_welcome",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "cozy"
+      ],
+      "text": "With the {NOUN:animal} at their side, the {NOUN:character} crossed back into the bright {NOUN:place} where friends waited with steaming {NOUN:food}. {ADV} everyone cheered.",
+      "next_beats": [
+        "g13_close_starlit_promise",
+        "g13_close_gentle_dusk",
+        "g13_enc_shy_creature"
+      ]
+    },
+    {
+      "id": "g13_close_gentle_dusk",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "bittersweet"
+      ],
+      "text": "As the {NOUN:celestial} dipped below the {NOUN:place}, the {NOUN:character} curled up beneath a {ADJ} blanket of {NOUN:weather}. And so, {ADV}, the day folded shut like a well-loved book.",
+      "next_beats": []
+    },
+    {
+      "id": "g13_close_starlit_promise",
+      "type": "closing",
+      "tone": [
+        "magical",
+        "triumphant"
+      ],
+      "text": "Under a {NOUN:sky} stitched with {ADJ:color} {NOUN:celestial}s, the {NOUN:character} whispered a promise to return. {CONN} the {NOUN:forest} whispered {ADV} back, and the tale was done.",
+      "next_beats": []
+    },
+    {
+      "id": "g14_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "cozy"
+      ],
+      "text": "When the {NOUN:time} broke {ADJ} over the {NOUN:place}, a {ADJ} {NOUN:character} laced up their boots and {VERB:movement} toward the far edge of the {NOUN:forest}.",
+      "next_beats": [
+        "g14_disc_humming_stone",
+        "g14_enc_river_keeper",
+        "g14_enc_masked_animal"
+      ]
+    },
+    {
+      "id": "g14_open_attic_letter",
+      "type": "opening",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "High in the dusty {NOUN:structure}, the {NOUN:character} found a {ADJ} {NOUN:object} that smelled of {NOUN:smell} and old {NOUN:season}.",
+      "next_beats": [
+        "g14_disc_humming_stone",
+        "g14_disc_secret_map",
+        "g14_enc_masked_animal"
+      ]
+    },
+    {
+      "id": "g14_open_carnival_night",
+      "type": "opening",
+      "tone": [
+        "whimsical",
+        "magical"
+      ],
+      "text": "Under a sky the color of {ADJ:color} {NOUN:celestial}, the {ADJ} {NOUN:character} slipped past the gates of a {ADJ} {NOUN:structure} where the {NOUN:sound} never stopped.",
+      "next_beats": [
+        "g14_enc_river_keeper",
+        "g14_disc_secret_map",
+        "g14_enc_masked_animal"
+      ]
+    },
+    {
+      "id": "g14_disc_humming_stone",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "Half-buried in the path lay a {ADJ} {NOUN:mineral} that hummed a {ADJ} {NOUN:sound} whenever the {NOUN:character} drew near.",
+      "next_beats": [
+        "g14_twist_stone_speaks",
+        "g14_enc_river_keeper",
+        "g14_res_gentle_gift"
+      ]
+    },
+    {
+      "id": "g14_disc_secret_map",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "whimsical"
+      ],
+      "text": "Tucked inside was a {ADJ} map, and {ADV} the {NOUN:character} traced a winking line straight across the {NOUN:body_of_water} to a hidden {NOUN:place}.",
+      "next_beats": [
+        "g14_conf_locked_gate",
+        "g14_twist_stone_speaks",
+        "g14_res_long_way_home"
+      ]
+    },
+    {
+      "id": "g14_enc_river_keeper",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "By the bank waited a {ADJ} {NOUN:profession} feeding crumbs to a {ADJ} {NOUN:sea_creature}, {CONN} they offered the {NOUN:character} a warm {NOUN:food} and a riddle.",
+      "next_beats": [
+        "g14_conf_locked_gate",
+        "g14_disc_humming_stone",
+        "g14_res_gentle_gift"
+      ]
+    },
+    {
+      "id": "g14_enc_masked_animal",
+      "type": "encounter",
+      "tone": [
+        "spooky",
+        "mysterious"
+      ],
+      "text": "Out of a {ADJ} {NOUN:weather} stepped a {ADJ} {NOUN:animal} in a strange mask, and it asked the {NOUN:character} a question in a hushed {NOUN:sound}.",
+      "next_beats": [
+        "g14_disc_secret_map",
+        "g14_twist_friend_unmasked",
+        "g14_res_long_way_home"
+      ]
+    },
+    {
+      "id": "g14_conf_locked_gate",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "A {ADJ} gate of cold {NOUN:mineral} barred the way, {CONN} a {ADJ} {NOUN:mythical_creature} guarded it with eyes like burning {NOUN:celestial}.",
+      "next_beats": [
+        "g14_twist_stone_speaks",
+        "g14_res_long_way_home",
+        "g14_enc_river_keeper"
+      ]
+    },
+    {
+      "id": "g14_twist_stone_speaks",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "triumphant"
+      ],
+      "text": "Then the {NOUN:mineral} cracked open and spoke: the {NOUN:character} had been carrying the true {NOUN:object} all along, glowing {ADJ:color} in the dark.",
+      "next_beats": [
+        "g14_res_gentle_gift",
+        "g14_close_dawn_returns",
+        "g14_disc_secret_map"
+      ]
+    },
+    {
+      "id": "g14_twist_friend_unmasked",
+      "type": "twist",
+      "tone": [
+        "whimsical",
+        "bittersweet"
+      ],
+      "text": "{CONN} the {ADJ} {NOUN:animal} shed its disguise, the {NOUN:character} gasped: it was an old friend, lost since the last {NOUN:season}.",
+      "next_beats": [
+        "g14_res_long_way_home",
+        "g14_close_quiet_hearth",
+        "g14_conf_locked_gate"
+      ]
+    },
+    {
+      "id": "g14_res_gentle_gift",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "{ADV} the {NOUN:character} shared the {ADJ} prize with everyone, and the {NOUN:place} rang with a {ADJ} {NOUN:sound} of thanks.",
+      "next_beats": [
+        "g14_close_dawn_returns",
+        "g14_close_quiet_hearth"
+      ]
+    },
+    {
+      "id": "g14_res_long_way_home",
+      "type": "resolution",
+      "tone": [
+        "adventure",
+        "wistful"
+      ],
+      "text": "With the riddle solved, the {NOUN:character} turned for home across the {ADJ} {NOUN:body_of_water}, lighter than when they had set out.",
+      "next_beats": [
+        "g14_close_quiet_hearth",
+        "g14_enc_river_keeper"
+      ]
+    },
+    {
+      "id": "g14_close_dawn_returns",
+      "type": "closing",
+      "tone": [
+        "triumphant",
+        "cozy"
+      ],
+      "text": "By the time the next {NOUN:time} rose {ADJ} over the {NOUN:forest}, the {NOUN:character} was already dreaming of the next adventure.",
+      "next_beats": []
+    },
+    {
+      "id": "g14_close_quiet_hearth",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "Back home at last, the {NOUN:character} curled up by the {ADJ} fire, the {NOUN:object} safe on the shelf and the {NOUN:smell} of {NOUN:food} drifting through the {NOUN:structure}.",
+      "next_beats": []
+    },
+    {
+      "id": "g15_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "whimsical"
+      ],
+      "text": "On a {ADJ} morning, {NOUN:character} woke up in a {NOUN:structure} wrapped in {NOUN:weather}. The whole {NOUN:place} smelled of {NOUN:smell} and fresh {NOUN:food}.",
+      "next_beats": [
+        "g15_disc_secret_garden",
+        "g15_enc_curious_fox"
+      ]
+    },
+    {
+      "id": "g15_open_lantern_cave",
+      "type": "opening",
+      "tone": [
+        "spooky",
+        "mysterious"
+      ],
+      "text": "{NOUN:character} crept toward the {ADJ} mouth of a {NOUN:structure} where a single {NOUN:object} glowed {ADJ:color}. Somewhere deep inside, a {NOUN:sound} echoed back.",
+      "next_beats": [
+        "g15_disc_glowing_marks",
+        "g15_enc_curious_fox"
+      ]
+    },
+    {
+      "id": "g15_open_high_seas",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "triumphant"
+      ],
+      "text": "With the {NOUN:weather} at their back, {NOUN:character} climbed aboard a {ADJ} {NOUN:vehicle} bound for the far {NOUN:body_of_water}. The {NOUN:sky} above turned {ADJ:color} as the journey began.",
+      "next_beats": [
+        "g15_enc_storm_rider",
+        "g15_disc_glowing_marks"
+      ]
+    },
+    {
+      "id": "g15_disc_secret_garden",
+      "type": "discovery",
+      "tone": [
+        "whimsical",
+        "magical"
+      ],
+      "text": "Behind a {ADJ} hedge, {NOUN:character} found a hidden garden where every {NOUN:plant} hummed a {NOUN:sound}. A tiny door in an old {NOUN:object} stood {ADV} open.",
+      "next_beats": [
+        "g15_enc_curious_fox",
+        "g15_twist_mirror_grove",
+        "g15_res_warm_welcome"
+      ]
+    },
+    {
+      "id": "g15_disc_glowing_marks",
+      "type": "discovery",
+      "tone": [
+        "mysterious",
+        "adventure"
+      ],
+      "text": "On the wall {NOUN:character} traced strange {NOUN:object} carvings that shimmered with {NOUN:mineral} dust. {CONN}, the marks rearranged themselves into a map.",
+      "next_beats": [
+        "g15_conf_locked_path",
+        "g15_twist_mirror_grove"
+      ]
+    },
+    {
+      "id": "g15_enc_curious_fox",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "silly"
+      ],
+      "text": "A {ADJ} {NOUN:animal} trotted up to {NOUN:character}, juggling a piece of {NOUN:food} on its nose. \"{ADV} now,\" it grinned, \"follow me past the {NOUN:plant}.\"",
+      "next_beats": [
+        "g15_conf_locked_path",
+        "g15_twist_mirror_grove",
+        "g15_res_warm_welcome"
+      ]
+    },
+    {
+      "id": "g15_enc_storm_rider",
+      "type": "encounter",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "Out of the {NOUN:weather} rose a {ADJ} {NOUN:mythical_creature} riding the {NOUN:body_of_water}. It fixed {NOUN:character} with eyes like {ADJ:color} {NOUN:celestial}.",
+      "next_beats": [
+        "g15_conf_locked_path",
+        "g15_twist_kind_storm",
+        "g15_res_calm_harbor"
+      ]
+    },
+    {
+      "id": "g15_conf_locked_path",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "The only way onward was barred by a {ADJ} {NOUN:structure} guarded by {NOUN:weather}. {NOUN:character} had nothing but a {NOUN:object} and a {ADJ} idea.",
+      "next_beats": [
+        "g15_res_warm_welcome",
+        "g15_twist_kind_storm",
+        "g15_enc_curious_fox"
+      ]
+    },
+    {
+      "id": "g15_twist_mirror_grove",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "whimsical"
+      ],
+      "text": "{CONN}, every {NOUN:plant} turned to {NOUN:mineral} glass, and {NOUN:character} saw a hundred reflections all waving back. One of them whispered a {NOUN:sound} that wasn't an echo.",
+      "next_beats": [
+        "g15_res_warm_welcome",
+        "g15_close_glass_dream"
+      ]
+    },
+    {
+      "id": "g15_twist_kind_storm",
+      "type": "twist",
+      "tone": [
+        "triumphant",
+        "bittersweet"
+      ],
+      "text": "The roaring {NOUN:weather} {ADV} softened, and the {NOUN:mythical_creature} only wanted to share its {NOUN:food}. {NOUN:character} laughed, surprised the danger had been a friend all along.",
+      "next_beats": [
+        "g15_res_calm_harbor",
+        "g15_close_glass_dream"
+      ]
+    },
+    {
+      "id": "g15_res_warm_welcome",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "{NOUN:character} pushed through and found a {ADJ} hall where the {NOUN:animal} and old friends waited with warm {NOUN:food}. {CONN}, the long worry melted into laughter.",
+      "next_beats": [
+        "g15_close_lantern_low",
+        "g15_close_glass_dream"
+      ]
+    },
+    {
+      "id": "g15_res_calm_harbor",
+      "type": "resolution",
+      "tone": [
+        "wistful",
+        "triumphant"
+      ],
+      "text": "By the time the {NOUN:celestial} rose, the {NOUN:vehicle} slid {ADV} into a quiet {NOUN:body_of_water}. {NOUN:character} breathed in the {NOUN:smell} of home and felt the whole {NOUN:place} go still.",
+      "next_beats": [
+        "g15_close_lantern_low",
+        "g15_close_glass_dream"
+      ]
+    },
+    {
+      "id": "g15_close_lantern_low",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "bittersweet"
+      ],
+      "text": "{NOUN:character} blew out the {NOUN:object} and curled up as the {NOUN:weather} sang outside. {ADV}, the {NOUN:place} drifted off to sleep, and so did they.",
+      "next_beats": []
+    },
+    {
+      "id": "g15_close_glass_dream",
+      "type": "closing",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "When {NOUN:character} finally looked back, the whole adventure shimmered like {NOUN:mineral} caught in the {NOUN:celestial} light. {CONN}, it folded itself away into a single {ADJ} dream.",
+      "next_beats": []
+    },
+    {
+      "id": "g16_open_lantern_festival",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "On the first {NOUN:time} of {NOUN:season}, {NOUN:character} carried a paper lantern down to the {NOUN:body_of_water}, where the whole village had gathered. The {NOUN:sky} above was {ADJ:color}, and every {NOUN:structure} glowed with a {ADJ} light.",
+      "next_beats": [
+        "g16_disc_floating_message",
+        "g16_enc_river_keeper",
+        "g16_atm_hush_over_water"
+      ]
+    },
+    {
+      "id": "g16_open_deep_forest_call",
+      "type": "opening",
+      "tone": [
+        "mysterious",
+        "adventure"
+      ],
+      "text": "{NOUN:character} stepped into the {ADJ} {NOUN:forest} just as a far-off {NOUN:sound} drifted between the trees. Each {NOUN:plant} seemed to lean a little closer, as if the whole {NOUN:place} wanted to whisper a secret.",
+      "next_beats": [
+        "g16_disc_floating_message",
+        "g16_enc_river_keeper",
+        "g16_atm_hush_over_water"
+      ]
+    },
+    {
+      "id": "g16_open_clockwork_morning",
+      "type": "opening",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "{NOUN:character} woke up to find that every clock in the {NOUN:structure} was ticking {ADV} backwards. A {ADJ} {NOUN:object} bounced down the stairs all on its own, beeping a {ADJ} little tune.",
+      "next_beats": [
+        "g16_disc_runaway_gadget",
+        "g16_enc_river_keeper",
+        "g16_atm_hush_over_water"
+      ]
+    },
+    {
+      "id": "g16_disc_floating_message",
+      "type": "discovery",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "Bobbing on the {NOUN:body_of_water} was a tiny {NOUN:object}, sealed tight and dusted with {ADJ:color} {NOUN:mineral}. Inside, a folded note carried three {ADJ} words and the sketch of a faraway {NOUN:place}.",
+      "next_beats": [
+        "g16_twist_note_is_old",
+        "g16_conf_current_pulls",
+        "g16_res_message_answered"
+      ]
+    },
+    {
+      "id": "g16_disc_runaway_gadget",
+      "type": "discovery",
+      "tone": [
+        "silly",
+        "adventure"
+      ],
+      "text": "Chasing the beeping {NOUN:object} into the garden, {NOUN:character} discovered it had built itself a wobbly little {NOUN:vehicle} out of spoons and a {NOUN:plant}. It wanted, very {ADV}, to go somewhere.",
+      "next_beats": [
+        "g16_twist_gadget_helps",
+        "g16_conf_current_pulls",
+        "g16_res_message_answered"
+      ]
+    },
+    {
+      "id": "g16_enc_river_keeper",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "An old {NOUN:profession} sat mending nets where the water turned {ADJ}, humming to a sleepy {NOUN:sea_creature} curled in the shallows. \"I have been waiting,\" the {NOUN:profession} said, eyes as {ADJ:color} as the {NOUN:weather}.",
+      "next_beats": [
+        "g16_conf_current_pulls",
+        "g16_twist_note_is_old",
+        "g16_res_quiet_promise"
+      ]
+    },
+    {
+      "id": "g16_conf_current_pulls",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "The {NOUN:body_of_water} suddenly churned {ADJ} and cold, and the {ADJ} current tried to drag the little {NOUN:vehicle} out past the rocks. {NOUN:character} gripped the rope as the {NOUN:weather} howled overhead.",
+      "next_beats": [
+        "g16_res_message_answered",
+        "g16_twist_gadget_helps",
+        "g16_enc_river_keeper"
+      ]
+    },
+    {
+      "id": "g16_twist_note_is_old",
+      "type": "twist",
+      "tone": [
+        "bittersweet",
+        "mysterious"
+      ],
+      "text": "The note was older than anyone alive, written by a {NOUN:character} who had loved this very {NOUN:place} long, long ago. {CONN} the ink was faded, the kindness in it still felt warm and {ADJ}.",
+      "next_beats": [
+        "g16_res_message_answered",
+        "g16_close_lanterns_drift",
+        "g16_disc_runaway_gadget"
+      ]
+    },
+    {
+      "id": "g16_twist_gadget_helps",
+      "type": "twist",
+      "tone": [
+        "triumphant",
+        "whimsical"
+      ],
+      "text": "Just when all seemed lost, the silly little {NOUN:object} unfolded a {ADJ} sail and whirred to life, towing everyone {ADV} back to shore. It beeped, very pleased with its {ADJ} self.",
+      "next_beats": [
+        "g16_res_message_answered",
+        "g16_close_warm_kitchen",
+        "g16_conf_current_pulls"
+      ]
+    },
+    {
+      "id": "g16_res_message_answered",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "Together they wrote a new note and set it {ADV} adrift on the {NOUN:body_of_water}, a {ADJ} answer to a question from a {NOUN:time} long past. The {NOUN:sky} turned soft and {ADJ:color}.",
+      "next_beats": [
+        "g16_close_lanterns_drift",
+        "g16_close_warm_kitchen"
+      ]
+    },
+    {
+      "id": "g16_atm_hush_over_water",
+      "type": "atmosphere",
+      "tone": [
+        "wistful",
+        "magical"
+      ],
+      "text": "For one long {NOUN:time}, nothing moved at all. The {NOUN:smell} of {NOUN:plant} and far-off {NOUN:food} hung in the {ADJ} air, and even the {NOUN:celestial} seemed to hold still.",
+      "next_beats": [
+        "g16_disc_floating_message",
+        "g16_disc_runaway_gadget",
+        "g16_enc_river_keeper"
+      ]
+    },
+    {
+      "id": "g16_res_quiet_promise",
+      "type": "resolution",
+      "tone": [
+        "bittersweet",
+        "cozy"
+      ],
+      "text": "{NOUN:character} promised the old {NOUN:profession} to return next {NOUN:season}, and the promise felt as {ADJ} and solid as {NOUN:mineral}. Somewhere a {NOUN:sea_creature} blew a single, happy bubble.",
+      "next_beats": [
+        "g16_close_lanterns_drift",
+        "g16_close_warm_kitchen"
+      ]
+    },
+    {
+      "id": "g16_close_lanterns_drift",
+      "type": "closing",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "One by one the lanterns lifted off the {NOUN:body_of_water} and drifted up to join the {ADJ:color} {NOUN:celestial}, and {NOUN:character} watched until the last {ADJ} glow winked out. And that, little friend, is how the {NOUN:season} began.",
+      "next_beats": []
+    },
+    {
+      "id": "g16_close_warm_kitchen",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "Back home in the {ADJ} {NOUN:structure}, everyone shared warm {NOUN:food} while the funny little {NOUN:object} hummed by the fire. Outside the {NOUN:weather} settled soft and slow, and {NOUN:character} slept the {ADJ} sleep of the brave.",
+      "next_beats": []
+    },
+    {
+      "id": "g17_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "On a {ADJ} morning a small {NOUN:character} woke beneath a {ADJ:color} {NOUN:plant}, where the {NOUN:weather} still clung to the grass. {CONN} the {NOUN:time} felt as if it were holding its breath.",
+      "next_beats": [
+        "g17_disc_hidden_door",
+        "g17_enc_singing_seal"
+      ]
+    },
+    {
+      "id": "g17_open_forest_dusk",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "When the {NOUN:sky} turned {ADJ:color}, a brave {NOUN:character} stepped past the last {NOUN:structure} and into the {ADJ} {NOUN:forest}. Somewhere ahead a strange {NOUN:sound} echoed back.",
+      "next_beats": [
+        "g17_enc_lantern_stranger",
+        "g17_disc_hidden_door"
+      ]
+    },
+    {
+      "id": "g17_open_tide_pool",
+      "type": "opening",
+      "tone": [
+        "whimsical",
+        "mysterious"
+      ],
+      "text": "Down where the {NOUN:body_of_water} met the {ADJ} shore, a curious {NOUN:character} crouched over a glittering {NOUN:object}. The {NOUN:smell} of salt drifted {ADV} on the breeze.",
+      "next_beats": [
+        "g17_disc_glass_shell",
+        "g17_enc_singing_seal"
+      ]
+    },
+    {
+      "id": "g17_disc_hidden_door",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "cozy"
+      ],
+      "text": "Behind the {ADJ:color} {NOUN:plant} the {NOUN:character} found a tiny {NOUN:structure} no taller than a {NOUN:food}. A warm {NOUN:sound} hummed {ADV} from inside.",
+      "next_beats": [
+        "g17_twist_door_speaks",
+        "g17_res_warm_welcome"
+      ]
+    },
+    {
+      "id": "g17_disc_glass_shell",
+      "type": "discovery",
+      "tone": [
+        "mysterious",
+        "whimsical"
+      ],
+      "text": "The {NOUN:object} was really a {ADJ} {NOUN:object} of spun glass, and inside it spun a single {NOUN:celestial}. The {NOUN:character} held it {ADV} up to the light.",
+      "next_beats": [
+        "g17_twist_shell_wish",
+        "g17_enc_singing_seal"
+      ]
+    },
+    {
+      "id": "g17_enc_lantern_stranger",
+      "type": "encounter",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "A cloaked {NOUN:character} stood between the trees, swinging a {ADJ:color} {NOUN:object} that threw {ADJ} shadows. \"You are far from home,\" it said in a {ADJ} voice.",
+      "next_beats": [
+        "g17_conf_tangled_path",
+        "g17_twist_door_speaks"
+      ]
+    },
+    {
+      "id": "g17_enc_singing_seal",
+      "type": "encounter",
+      "tone": [
+        "whimsical",
+        "cozy"
+      ],
+      "text": "A round {NOUN:sea_creature} popped from the {NOUN:body_of_water} and {ADV} hummed a {ADJ} tune. It nudged a smooth {NOUN:mineral} toward the {NOUN:character}'s feet.",
+      "next_beats": [
+        "g17_res_warm_welcome",
+        "g17_twist_shell_wish"
+      ]
+    },
+    {
+      "id": "g17_conf_tangled_path",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "The path knotted into a {ADJ} tangle of {NOUN:plant} and there was no way back. The {NOUN:character} had to choose {ADV}, with the {NOUN:weather} closing in.",
+      "next_beats": [
+        "g17_res_brave_choice",
+        "g17_twist_door_speaks"
+      ]
+    },
+    {
+      "id": "g17_twist_door_speaks",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "{CONN} the little {NOUN:structure} blinked open two {ADJ:color} eyes and spoke the {NOUN:character}'s own name. \"I have waited a whole {NOUN:season},\" it whispered.",
+      "next_beats": [
+        "g17_res_warm_welcome",
+        "g17_close_door_home"
+      ]
+    },
+    {
+      "id": "g17_twist_shell_wish",
+      "type": "twist",
+      "tone": [
+        "whimsical",
+        "triumphant"
+      ],
+      "text": "The trapped {NOUN:celestial} burst free and spelled a {ADJ} wish across the {NOUN:sky}. Suddenly the {NOUN:character} understood every {NOUN:sound} the sea had ever made.",
+      "next_beats": [
+        "g17_res_brave_choice",
+        "g17_close_tide_returns"
+      ]
+    },
+    {
+      "id": "g17_res_warm_welcome",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "Inside, a {ADJ} fire crackled and a kindly {NOUN:profession} set out warm {NOUN:food} for the weary {NOUN:character}. {CONN} the long day melted into comfort.",
+      "next_beats": [
+        "g17_close_door_home",
+        "g17_close_tide_returns"
+      ]
+    },
+    {
+      "id": "g17_res_brave_choice",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "adventure"
+      ],
+      "text": "Taking a {ADJ} breath, the {NOUN:character} stepped {ADV} forward and the tangle opened like a curtain. Beyond it lay a {ADJ:color} {NOUN:place} bathed in gentle {NOUN:weather}.",
+      "next_beats": [
+        "g17_close_door_home",
+        "g17_close_tide_returns"
+      ]
+    },
+    {
+      "id": "g17_close_door_home",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "And so the {NOUN:character} curled up in the tiny {NOUN:structure}, safe and {ADJ}, as the {NOUN:time} faded soft and warm. {CONN} every dream that {NOUN:season} smelled faintly of {NOUN:food}.",
+      "next_beats": []
+    },
+    {
+      "id": "g17_close_tide_returns",
+      "type": "closing",
+      "tone": [
+        "triumphant",
+        "magical"
+      ],
+      "text": "The {NOUN:character} carried the glittering {NOUN:object} home beneath a {ADJ:color} {NOUN:sky}, and the {NOUN:body_of_water} sang {ADV} all the way. Some {NOUN:time} stay golden forever.",
+      "next_beats": []
+    },
+    {
+      "id": "g18_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "magical"
+      ],
+      "text": "At the {ADJ} edge of dawn, {NOUN:character} laced up tight boots and set off toward the {ADJ} {NOUN:place} that glittered under a {ADJ:color} sky. The {NOUN:weather} smelled of {NOUN:smell}, and adventure tugged at every step.",
+      "next_beats": [
+        "g18_disc_humming_stone",
+        "g18_enc_river_ferryman"
+      ]
+    },
+    {
+      "id": "g18_open_attic_dust",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "On a {ADJ} afternoon, {NOUN:character} climbed into the dusty attic and found a {ADJ:color} {NOUN:object} resting beneath a soft beam of {NOUN:sky}. It hummed with a {ADJ} secret, {ADV} waiting to be opened.",
+      "next_beats": [
+        "g18_disc_old_letters",
+        "g18_enc_river_ferryman"
+      ]
+    },
+    {
+      "id": "g18_open_forest_night",
+      "type": "opening",
+      "tone": [
+        "spooky",
+        "mysterious"
+      ],
+      "text": "When the last {NOUN:celestial} blinked out, {NOUN:character} stepped {ADV} into the {ADJ} {NOUN:forest} where every {NOUN:plant} seemed to lean closer. A faint {NOUN:sound} drifted between the trees like a whispered dare.",
+      "next_beats": [
+        "g18_enc_lantern_creature",
+        "g18_disc_humming_stone"
+      ]
+    },
+    {
+      "id": "g18_disc_humming_stone",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "Half-buried in the path, {NOUN:character} uncovered a {ADJ} {NOUN:mineral} that glowed a gentle {ADJ:color}. When fingers brushed it, the whole {NOUN:place} seemed to hold its breath.",
+      "next_beats": [
+        "g18_twist_stone_door",
+        "g18_res_morning_gift"
+      ]
+    },
+    {
+      "id": "g18_disc_old_letters",
+      "type": "discovery",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "Inside the {NOUN:object}, {NOUN:character} found a bundle of {ADJ} letters tied with {ADJ:color} ribbon. Each page told of a {NOUN:place} that no living {NOUN:character} could quite remember.",
+      "next_beats": [
+        "g18_twist_stone_door",
+        "g18_res_kept_promise"
+      ]
+    },
+    {
+      "id": "g18_enc_river_ferryman",
+      "type": "encounter",
+      "tone": [
+        "adventure",
+        "whimsical"
+      ],
+      "text": "At the {NOUN:body_of_water}, a cheerful {NOUN:profession} waited beside a {ADJ} {NOUN:vehicle} and offered {NOUN:character} a ride for the price of one good riddle. The current chuckled {ADV} against the bank.",
+      "next_beats": [
+        "g18_conf_rising_tide",
+        "g18_twist_stone_door"
+      ]
+    },
+    {
+      "id": "g18_enc_lantern_creature",
+      "type": "encounter",
+      "tone": [
+        "spooky",
+        "magical"
+      ],
+      "text": "From the shadows padded a {ADJ} {NOUN:mythical_creature} carrying a swinging {NOUN:object} that burned a cold {ADJ:color}. It studied {NOUN:character} with eyes like two tiny {NOUN:celestial}.",
+      "next_beats": [
+        "g18_conf_rising_tide",
+        "g18_twist_friendly_foe"
+      ]
+    },
+    {
+      "id": "g18_conf_rising_tide",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "The {NOUN:body_of_water} swelled {ADV} and the {NOUN:weather} turned mean, trapping {NOUN:character} on a shrinking patch of {NOUN:place}. There was no time to be {ADJ} now.",
+      "next_beats": [
+        "g18_res_morning_gift",
+        "g18_twist_friendly_foe"
+      ]
+    },
+    {
+      "id": "g18_twist_stone_door",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "{ADV}, the {NOUN:structure} swung open where no door had been, revealing a staircase spiraling into a {ADJ} hush. {NOUN:character} realized the whole journey had been pointing here all along.",
+      "next_beats": [
+        "g18_res_kept_promise",
+        "g18_close_dawn_circle"
+      ]
+    },
+    {
+      "id": "g18_twist_friendly_foe",
+      "type": "twist",
+      "tone": [
+        "whimsical",
+        "bittersweet"
+      ],
+      "text": "The thing {NOUN:character} had feared was only a lonely {NOUN:animal} guarding a {ADJ} {NOUN:food} it had no one to share. {CONN} the danger melted into an unexpected friendship.",
+      "next_beats": [
+        "g18_res_kept_promise",
+        "g18_close_quiet_hearth"
+      ]
+    },
+    {
+      "id": "g18_res_morning_gift",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "cozy"
+      ],
+      "text": "With a {ADJ} grin, {NOUN:character} carried the day's prize home as the {NOUN:sky} brightened over the {NOUN:place}. Every worry from the morning felt {ADV} small now.",
+      "next_beats": [
+        "g18_close_dawn_circle",
+        "g18_close_quiet_hearth"
+      ]
+    },
+    {
+      "id": "g18_res_kept_promise",
+      "type": "resolution",
+      "tone": [
+        "wistful",
+        "triumphant"
+      ],
+      "text": "{NOUN:character} did the {ADJ} thing the old letters had asked, and somewhere a long-kept promise finally settled like dust in still {NOUN:weather}. A warm {NOUN:sound} answered from far away.",
+      "next_beats": [
+        "g18_close_quiet_hearth",
+        "g18_close_dawn_circle"
+      ]
+    },
+    {
+      "id": "g18_close_dawn_circle",
+      "type": "closing",
+      "tone": [
+        "triumphant",
+        "cozy"
+      ],
+      "text": "And so {NOUN:character} stood once more at the {ADJ} {NOUN:place} where it all began, but everything looked brighter now. The end, for now, with the next {NOUN:time} already winking on the horizon.",
+      "next_beats": []
+    },
+    {
+      "id": "g18_close_quiet_hearth",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "bittersweet"
+      ],
+      "text": "Back home, {NOUN:character} curled beside the {ADJ} hearth with a mug of warm {NOUN:food} and let the day's wonder settle into a {ADJ} dream. Goodnight, little wanderer, goodnight.",
+      "next_beats": []
+    },
+    {
+      "id": "g19_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "mysterious",
+        "cozy"
+      ],
+      "text": "{ADV} on a {ADJ} {NOUN:time}, {NOUN:character} woke to find the {NOUN:place} wrapped in a quilt of {NOUN:weather}. Something out past the {NOUN:structure} was humming a tune nobody had taught it.",
+      "next_beats": [
+        "g19_disc_glowing_track",
+        "g19_enc_river_keeper",
+        "g19_atmo_silver_hush"
+      ]
+    },
+    {
+      "id": "g19_open_market_bustle",
+      "type": "opening",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "Down in the {ADJ} {NOUN:place}, {NOUN:character} was supposed to be selling {NOUN:food}, but a runaway {NOUN:vehicle} had other plans. {CONN} the whole {NOUN:structure} smelled like {NOUN:smell} and giggles.",
+      "next_beats": [
+        "g19_enc_river_keeper",
+        "g19_disc_glowing_track",
+        "g19_atmo_silver_hush"
+      ]
+    },
+    {
+      "id": "g19_open_attic_chest",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "magical"
+      ],
+      "text": "{NOUN:character} found a {ADJ} chest of {NOUN:mineral} tucked under the old {NOUN:structure}, its lid still warm. {CONN} when it creaked open, a single {NOUN:celestial} drifted out and bobbed like a curious {NOUN:animal}.",
+      "next_beats": [
+        "g19_disc_glowing_track",
+        "g19_enc_river_keeper",
+        "g19_atmo_silver_hush"
+      ]
+    },
+    {
+      "id": "g19_disc_glowing_track",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "{NOUN:character} followed a trail of {ADJ:color} footprints that glowed {ADV} into the {NOUN:forest}. Each one smelled faintly of {NOUN:smell}, as if the path itself were dreaming.",
+      "next_beats": [
+        "g19_enc_river_keeper",
+        "g19_twist_path_lies",
+        "g19_conf_locked_gate",
+        "g19_res_quiet_promise"
+      ]
+    },
+    {
+      "id": "g19_disc_humming_stone",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "Half-buried in the {NOUN:body_of_water}, {NOUN:character} found a {NOUN:mineral} that hummed back whenever you sang to it. Its surface was {ADJ} and cool, like a held-breath {NOUN:sound}.",
+      "next_beats": [
+        "g19_enc_river_keeper",
+        "g19_twist_stone_remembers",
+        "g19_res_quiet_promise",
+        "g19_voice_old_telling"
+      ]
+    },
+    {
+      "id": "g19_enc_river_keeper",
+      "type": "encounter",
+      "tone": [
+        "whimsical",
+        "cozy"
+      ],
+      "text": "A {ADJ} {NOUN:sea_creature} rose from the {NOUN:body_of_water} wearing a hat of {NOUN:plant} and introduced itself as the keeper of {ADJ} questions. \"{NOUN:character},\" it bubbled, \"every traveler owes me one good riddle.\"",
+      "next_beats": [
+        "g19_conf_locked_gate",
+        "g19_twist_path_lies",
+        "g19_disc_humming_stone",
+        "g19_res_quiet_promise"
+      ]
+    },
+    {
+      "id": "g19_enc_lantern_fox",
+      "type": "encounter",
+      "tone": [
+        "spooky",
+        "magical"
+      ],
+      "text": "Out of the {NOUN:weather} stepped a {ADJ} {NOUN:mythical_creature}, a swinging lantern of {NOUN:celestial} held in its teeth. It tilted its head at {NOUN:character} {ADV}, deciding whether to lead or to lose them.",
+      "next_beats": [
+        "g19_conf_locked_gate",
+        "g19_twist_stone_remembers",
+        "g19_disc_humming_stone",
+        "g19_res_lantern_home"
+      ]
+    },
+    {
+      "id": "g19_conf_locked_gate",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "The way forward was a {ADJ} gate of {NOUN:mineral}, sealed by a knot no fingers could undo. {NOUN:character} tugged and the {NOUN:weather} thickened, {CONN} the {NOUN:structure} behind began to groan.",
+      "next_beats": [
+        "g19_res_quiet_promise",
+        "g19_twist_stone_remembers",
+        "g19_enc_lantern_fox"
+      ]
+    },
+    {
+      "id": "g19_twist_path_lies",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "bittersweet"
+      ],
+      "text": "Then {NOUN:character} noticed the glowing footprints were their own, looping back on a {ADJ} {NOUN:season} morning long gone. The {NOUN:forest} hadn't been leading them onward at all, but home.",
+      "next_beats": [
+        "g19_res_quiet_promise",
+        "g19_conf_locked_gate",
+        "g19_disc_humming_stone",
+        "g19_close_warm_hearth"
+      ]
+    },
+    {
+      "id": "g19_twist_stone_remembers",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "The {NOUN:mineral} cracked gently and poured out a {ADJ} memory: a {NOUN:character} who had walked this {NOUN:place} a hundred {NOUN:season}s before. {CONN} {NOUN:character} understood the humming had been a greeting, not a warning.",
+      "next_beats": [
+        "g19_res_lantern_home",
+        "g19_conf_locked_gate",
+        "g19_disc_glowing_track",
+        "g19_close_starlit_vow"
+      ]
+    },
+    {
+      "id": "g19_res_quiet_promise",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "{NOUN:character} answered with a riddle so {ADJ} that the {NOUN:sea_creature} laughed itself into ripples and the gate sprang open. The {NOUN:weather} lifted, and the whole {NOUN:place} smelled of {NOUN:smell} and morning.",
+      "next_beats": [
+        "g19_close_warm_hearth",
+        "g19_enc_lantern_fox"
+      ]
+    },
+    {
+      "id": "g19_res_lantern_home",
+      "type": "resolution",
+      "tone": [
+        "magical",
+        "triumphant"
+      ],
+      "text": "With the {NOUN:mythical_creature} lighting the way, {NOUN:character} carried the singing {NOUN:mineral} back over the {NOUN:body_of_water} as the {NOUN:celestial} climbed the {NOUN:sky}. Every footprint behind them glowed {ADJ:color}, then {ADV} went out, one by one.",
+      "next_beats": [
+        "g19_close_starlit_vow",
+        "g19_enc_river_keeper"
+      ]
+    },
+    {
+      "id": "g19_atmo_silver_hush",
+      "type": "atmosphere",
+      "tone": [
+        "spooky",
+        "mysterious"
+      ],
+      "text": "For a long while there was only the {ADJ} {NOUN:sound} of the {NOUN:weather} and the slow blink of a far {NOUN:celestial}. The {NOUN:forest} held its breath, {ADV}, the way a {NOUN:place} does before something true happens.",
+      "next_beats": [
+        "g19_disc_glowing_track",
+        "g19_enc_lantern_fox",
+        "g19_voice_old_telling"
+      ]
+    },
+    {
+      "id": "g19_voice_old_telling",
+      "type": "voice",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "Now, the old ones tell it {ADV}: that a {ADJ} {NOUN:character} once traded a riddle for a road, and the {NOUN:place} never forgot the trade. Listen close, and you can still hear the {NOUN:mineral} hum it back.",
+      "next_beats": [
+        "g19_conf_locked_gate",
+        "g19_enc_river_keeper",
+        "g19_disc_humming_stone"
+      ]
+    },
+    {
+      "id": "g19_close_warm_hearth",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "bittersweet"
+      ],
+      "text": "{NOUN:character} curled up by the {ADJ} {NOUN:structure} with a bowl of warm {NOUN:food}, the riddle still grinning somewhere in the dark. {CONN} that, my friend, is how the {NOUN:season} learned to keep a secret.",
+      "next_beats": []
+    },
+    {
+      "id": "g19_close_starlit_vow",
+      "type": "closing",
+      "tone": [
+        "magical",
+        "triumphant"
+      ],
+      "text": "Under a {NOUN:sky} freckled with {NOUN:celestial}s, {NOUN:character} pressed the humming {NOUN:mineral} to their heart and promised to come back. And somewhere out past the {NOUN:body_of_water}, the {ADJ} road hummed {ADV} that it would wait.",
+      "next_beats": []
+    },
+    {
+      "id": "g2_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "Before the {NOUN:sky} had finished turning {ADJ:color}, a {ADJ} {NOUN:character} slipped past the sleeping {NOUN:structure} and into the misty {NOUN:place}. Something out there was {VERB:sound}, soft and far away.",
+      "next_beats": [
+        "g2_disc_buried_chime",
+        "g2_disc_floating_stair",
+        "g2_enc_clockwork_fox"
+      ]
+    },
+    {
+      "id": "g2_open_attic_whisper",
+      "type": "opening",
+      "tone": [
+        "spooky",
+        "cozy"
+      ],
+      "text": "Up in the dusty {NOUN:structure}, a {ADJ} {NOUN:character} found an old {NOUN:object} that smelled of {NOUN:smell}. {ADV}, it began to whisper.",
+      "next_beats": [
+        "g2_disc_buried_chime",
+        "g2_enc_humming_stone"
+      ]
+    },
+    {
+      "id": "g2_open_last_lantern",
+      "type": "opening",
+      "tone": [
+        "wistful",
+        "magical"
+      ],
+      "text": "On the night the last {NOUN:object} flickered low, a {ADJ} {NOUN:character} carried it out across the {NOUN:body_of_water}, following a {ADJ} {NOUN:celestial}. The {NOUN:time} felt {ADJ}, like the start of a goodbye.",
+      "next_beats": [
+        "g2_disc_floating_stair",
+        "g2_enc_clockwork_fox",
+        "g2_enc_humming_stone"
+      ]
+    },
+    {
+      "id": "g2_disc_buried_chime",
+      "type": "discovery",
+      "tone": [
+        "whimsical",
+        "mysterious"
+      ],
+      "text": "Half-buried under {NOUN:plant} and cool {NOUN:mineral}, the {NOUN:character} uncovered a {ADJ} chime that rang the color {ADJ:color}. Each note pointed somewhere {ADJ}.",
+      "next_beats": [
+        "g2_enc_humming_stone",
+        "g2_twist_mirror_self",
+        "g2_res_mended_song"
+      ]
+    },
+    {
+      "id": "g2_disc_floating_stair",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "adventure"
+      ],
+      "text": "{CONN}, a staircase of {NOUN:mineral} hung in the open {NOUN:sky}, each step shifting {ADV} when the {NOUN:character} looked away. It climbed toward a {ADJ} {NOUN:structure}.",
+      "next_beats": [
+        "g2_enc_clockwork_fox",
+        "g2_conf_river_blocks",
+        "g2_res_shared_gift"
+      ]
+    },
+    {
+      "id": "g2_enc_clockwork_fox",
+      "type": "encounter",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:animal} made all of ticking gears trotted up, bowed {ADV}, and asked the {NOUN:character} to help wind its tail of {NOUN:mineral}.",
+      "next_beats": [
+        "g2_conf_river_blocks",
+        "g2_twist_map_alive",
+        "g2_res_shared_gift"
+      ]
+    },
+    {
+      "id": "g2_enc_humming_stone",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "Beside the quiet {NOUN:body_of_water} sat a {ADJ} stone that hummed like a {NOUN:sound}. {CONN} it told the {NOUN:character} a secret only the {NOUN:season} knew.",
+      "next_beats": [
+        "g2_twist_mirror_self",
+        "g2_disc_floating_stair",
+        "g2_res_mended_song"
+      ]
+    },
+    {
+      "id": "g2_conf_river_blocks",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "triumphant"
+      ],
+      "text": "A wild {NOUN:body_of_water} roared across the path, too {ADJ} to cross. The {NOUN:character} gripped the {NOUN:object} tight and searched for a {ADJ} way through.",
+      "next_beats": [
+        "g2_twist_map_alive",
+        "g2_res_shared_gift",
+        "g2_enc_humming_stone"
+      ]
+    },
+    {
+      "id": "g2_twist_mirror_self",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "bittersweet"
+      ],
+      "text": "In the still water the {NOUN:character} saw not a face but a {ADJ} {NOUN:mythical_creature} smiling back. {CONN}, it had been guiding the whole journey.",
+      "next_beats": [
+        "g2_res_mended_song",
+        "g2_close_stars_settle",
+        "g2_disc_buried_chime"
+      ]
+    },
+    {
+      "id": "g2_twist_map_alive",
+      "type": "twist",
+      "tone": [
+        "whimsical",
+        "adventure"
+      ],
+      "text": "The crumpled {NOUN:object} unfolded itself and grew {ADJ} {NOUN:plant} along its edges; the map was alive, and it pulled the {NOUN:character} {ADV} toward home.",
+      "next_beats": [
+        "g2_res_shared_gift",
+        "g2_conf_river_blocks",
+        "g2_close_lantern_home"
+      ]
+    },
+    {
+      "id": "g2_res_mended_song",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "cozy"
+      ],
+      "text": "{CONN} the {NOUN:character} fit every glowing note back together, and the broken chime sang one {ADJ} song that warmed the whole {NOUN:place}.",
+      "next_beats": [
+        "g2_close_lantern_home",
+        "g2_close_stars_settle"
+      ]
+    },
+    {
+      "id": "g2_res_shared_gift",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} gave the {ADJ} {NOUN:object} away to a new friend, {ADV} keeping only the memory of the {NOUN:weather}. It felt {ADJ}, and exactly right.",
+      "next_beats": [
+        "g2_close_stars_settle",
+        "g2_close_lantern_home"
+      ]
+    },
+    {
+      "id": "g2_close_lantern_home",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "By the time the {NOUN:celestial} dipped low, the {NOUN:character} was home again, the {ADJ} {NOUN:object} glowing soft on the windowsill. And that, little one, is where the {NOUN:place} keeps its quiet.",
+      "next_beats": []
+    },
+    {
+      "id": "g2_close_stars_settle",
+      "type": "closing",
+      "tone": [
+        "magical",
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} watched the {ADJ:color} {NOUN:celestial} settle over the hushed {NOUN:body_of_water}, every secret tucked safely away. {CONN}, the story breathed out and went to sleep.",
+      "next_beats": []
+    },
+    {
+      "id": "g20_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "magical"
+      ],
+      "text": "{ADV} one {ADJ:time}, {NOUN:character} laced up worn boots and set off across the {ADJ} {NOUN:place} while the {NOUN:sky} still glowed {ADJ:color}.",
+      "next_beats": [
+        "g20_disc_hidden_door",
+        "g20_enc_riverside_stranger",
+        "g20_enc_shadow_in_fog"
+      ]
+    },
+    {
+      "id": "g20_open_attic_lantern",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "mysterious"
+      ],
+      "text": "{NOUN:character} found a dusty {NOUN:object} in the attic, and when the {NOUN:weather} rattled the window, a {ADJ:color} light spilled out of it.",
+      "next_beats": [
+        "g20_disc_hidden_door",
+        "g20_enc_shadow_in_fog"
+      ]
+    },
+    {
+      "id": "g20_open_market_morning",
+      "type": "opening",
+      "tone": [
+        "whimsical",
+        "silly"
+      ],
+      "text": "On the busiest {NOUN:time} of the year, {NOUN:character} sold {ADJ} {NOUN:food} from a tiny stall until a {NOUN:animal} swiped the whole basket and bolted.",
+      "next_beats": [
+        "g20_enc_riverside_stranger",
+        "g20_disc_hidden_door"
+      ]
+    },
+    {
+      "id": "g20_disc_hidden_door",
+      "type": "discovery",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "Behind a curtain of {NOUN:plant}, {NOUN:character} uncovered a {ADJ} door carved from cold {NOUN:mineral}, humming with a {ADJ} secret.",
+      "next_beats": [
+        "g20_twist_door_speaks",
+        "g20_enc_riverside_stranger",
+        "g20_res_quiet_return"
+      ]
+    },
+    {
+      "id": "g20_disc_river_map",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "wistful"
+      ],
+      "text": "Tucked inside the {NOUN:object} was a faded map showing a {NOUN:body_of_water} that {NOUN:character} had only ever dreamed about.",
+      "next_beats": [
+        "g20_conf_rising_tide",
+        "g20_twist_map_lies",
+        "g20_res_warm_hearth"
+      ]
+    },
+    {
+      "id": "g20_enc_riverside_stranger",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "whimsical"
+      ],
+      "text": "By the bank, {NOUN:character} met a kindly {NOUN:profession} mending a {NOUN:vehicle}, who offered a riddle and a warm {NOUN:food} in trade.",
+      "next_beats": [
+        "g20_disc_river_map",
+        "g20_conf_rising_tide",
+        "g20_res_warm_hearth"
+      ]
+    },
+    {
+      "id": "g20_enc_shadow_in_fog",
+      "type": "encounter",
+      "tone": [
+        "spooky",
+        "mysterious"
+      ],
+      "text": "A {ADJ} shape slid through the {NOUN:weather}, and {NOUN:character} froze as a low {NOUN:sound} rolled across the {NOUN:forest}.",
+      "next_beats": [
+        "g20_conf_rising_tide",
+        "g20_twist_map_lies",
+        "g20_disc_river_map"
+      ]
+    },
+    {
+      "id": "g20_conf_rising_tide",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "triumphant"
+      ],
+      "text": "The {NOUN:body_of_water} surged {ADV}, and {NOUN:character} had to scramble up the slick {NOUN:structure} before the {ADJ} current pulled the path away.",
+      "next_beats": [
+        "g20_res_warm_hearth",
+        "g20_twist_door_speaks",
+        "g20_enc_shadow_in_fog"
+      ]
+    },
+    {
+      "id": "g20_twist_door_speaks",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "whimsical"
+      ],
+      "text": "Then the door yawned open and a {ADJ} {NOUN:mythical_creature} blinked out, declaring that {NOUN:character} was the one it had waited for all this {NOUN:season}.",
+      "next_beats": [
+        "g20_res_quiet_return",
+        "g20_close_starlit_promise",
+        "g20_disc_river_map"
+      ]
+    },
+    {
+      "id": "g20_twist_map_lies",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "bittersweet"
+      ],
+      "text": "The map had been pointing home all along, and {NOUN:character} laughed {ADV} at how far the {ADJ:color} ink had led them.",
+      "next_beats": [
+        "g20_res_warm_hearth",
+        "g20_close_lantern_dims",
+        "g20_conf_rising_tide"
+      ]
+    },
+    {
+      "id": "g20_res_warm_hearth",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "{NOUN:character} carried the story back to the {NOUN:structure}, where friends gathered round a {ADJ} fire and a steaming pot of {NOUN:food}.",
+      "next_beats": [
+        "g20_close_starlit_promise",
+        "g20_close_lantern_dims"
+      ]
+    },
+    {
+      "id": "g20_res_quiet_return",
+      "type": "resolution",
+      "tone": [
+        "wistful",
+        "magical"
+      ],
+      "text": "With the {NOUN:mineral} key tucked safely away, {NOUN:character} wandered home beneath a sky full of slow {NOUN:celestial}, heart {ADJ} and full.",
+      "next_beats": [
+        "g20_close_starlit_promise",
+        "g20_close_lantern_dims"
+      ]
+    },
+    {
+      "id": "g20_close_starlit_promise",
+      "type": "closing",
+      "tone": [
+        "magical",
+        "triumphant"
+      ],
+      "text": "And so, under the first {ADJ:color} {NOUN:celestial} of evening, {NOUN:character} whispered a promise to wander again {ADV} when the next {NOUN:season} came around.",
+      "next_beats": []
+    },
+    {
+      "id": "g20_close_lantern_dims",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "bittersweet"
+      ],
+      "text": "The {NOUN:object} dimmed to a soft glow, and {NOUN:character} drifted off with the {NOUN:sound} of the {NOUN:weather} singing them to sleep.",
+      "next_beats": []
+    },
+    {
+      "id": "g21_open_cloud_harbor",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "magical"
+      ],
+      "text": "High above the world, a daring {NOUN:character} climbed aboard a creaking {NOUN:vehicle} moored to a {ADJ} {NOUN:sky}. {CONN} the ropes came loose and the whole {NOUN:structure} drifted {ADV} into the open blue.",
+      "next_beats": [
+        "g21_disc_floating_map",
+        "g21_enc_sky_pilot"
+      ]
+    },
+    {
+      "id": "g21_open_dune_dawn",
+      "type": "opening",
+      "tone": [
+        "mysterious",
+        "adventure"
+      ],
+      "text": "When the {NOUN:sky} blushed {ADJ:color}, a thirsty {NOUN:character} crested the last dune and saw a glint of {NOUN:mineral} half-buried in the {ADJ} sand. The {NOUN:weather} carried a strange {NOUN:smell} from somewhere {ADV} ahead.",
+      "next_beats": [
+        "g21_disc_buried_door",
+        "g21_enc_sky_pilot"
+      ]
+    },
+    {
+      "id": "g21_open_busy_kitchen",
+      "type": "opening",
+      "tone": [
+        "silly",
+        "cozy"
+      ],
+      "text": "One {NOUN:time}, a hungry {NOUN:character} tiptoed into the {ADJ} kitchen where a pot of {NOUN:food} bubbled all by itself. {CONN} a tiny {NOUN:sound} squeaked from inside the cupboard.",
+      "next_beats": [
+        "g21_enc_talking_spoon",
+        "g21_disc_buried_door"
+      ]
+    },
+    {
+      "id": "g21_disc_floating_map",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "Tucked under a bench the {NOUN:character} found a {ADJ:color} map that floated and turned by itself. It pointed {ADV} toward a single bright {NOUN:celestial} pinned to the {NOUN:sky}.",
+      "next_beats": [
+        "g21_twist_map_alive",
+        "g21_enc_sky_pilot",
+        "g21_res_safe_landing"
+      ]
+    },
+    {
+      "id": "g21_disc_buried_door",
+      "type": "discovery",
+      "tone": [
+        "mysterious",
+        "adventure"
+      ],
+      "text": "Brushing away the sand, the {NOUN:character} uncovered a {ADJ} door of solid {NOUN:mineral} set flat into the ground. A cool {NOUN:smell} of old {NOUN:plant} drifted up from the cracks.",
+      "next_beats": [
+        "g21_twist_door_sinks",
+        "g21_conf_shifting_sands",
+        "g21_res_safe_landing"
+      ]
+    },
+    {
+      "id": "g21_enc_sky_pilot",
+      "type": "encounter",
+      "tone": [
+        "adventure",
+        "whimsical"
+      ],
+      "text": "Another {NOUN:vehicle} pulled alongside, steered by a grinning {NOUN:profession} in a {ADJ:color} coat. \"Lost the wind, did you?\" they laughed, tossing over a coil of {ADJ} rope.",
+      "next_beats": [
+        "g21_conf_shifting_sands",
+        "g21_twist_map_alive",
+        "g21_res_safe_landing"
+      ]
+    },
+    {
+      "id": "g21_enc_talking_spoon",
+      "type": "encounter",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "The cupboard burst open and out hopped a {ADJ} wooden spoon that bowed {ADV} to the {NOUN:character}. \"At last, a helper!\" it cried, waving toward the pot of {NOUN:food}.",
+      "next_beats": [
+        "g21_twist_door_sinks",
+        "g21_disc_buried_door",
+        "g21_res_warm_feast"
+      ]
+    },
+    {
+      "id": "g21_conf_shifting_sands",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "Without warning the ground rolled like a {NOUN:body_of_water} and the {ADJ} sand began to swallow everything. The {NOUN:character} had to scramble {ADV} before the whole dune caved in.",
+      "next_beats": [
+        "g21_res_safe_landing",
+        "g21_twist_door_sinks",
+        "g21_enc_talking_spoon"
+      ]
+    },
+    {
+      "id": "g21_twist_map_alive",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "{CONN} the floating map blinked open a tiny painted eye and whispered the {NOUN:character}'s own name. \"I drew you here,\" it said, \"because only you can read the last {NOUN:celestial}.\"",
+      "next_beats": [
+        "g21_res_safe_landing",
+        "g21_close_sky_home",
+        "g21_disc_buried_door"
+      ]
+    },
+    {
+      "id": "g21_twist_door_sinks",
+      "type": "twist",
+      "tone": [
+        "whimsical",
+        "triumphant"
+      ],
+      "text": "The {NOUN:mineral} door swung wide and instead of a cellar there was a whole {ADJ:color} {NOUN:place} glowing below. Suddenly every {NOUN:sound} the {NOUN:character} feared turned to gentle music.",
+      "next_beats": [
+        "g21_res_warm_feast",
+        "g21_close_treasure_dawn"
+      ]
+    },
+    {
+      "id": "g21_res_safe_landing",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "cozy"
+      ],
+      "text": "With a {ADJ} tug on the rope the {NOUN:vehicle} settled {ADV} onto soft grass beside a quiet {NOUN:structure}. The {NOUN:character} laughed, dizzy and glad to feel the ground again.",
+      "next_beats": [
+        "g21_close_sky_home",
+        "g21_close_treasure_dawn"
+      ]
+    },
+    {
+      "id": "g21_res_warm_feast",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "silly"
+      ],
+      "text": "{CONN} the spoon ladled out steaming bowls of {NOUN:food}, and the {NOUN:character} ate until the {ADJ} kitchen filled with warm light. Even the shy cupboard mouse came out to share.",
+      "next_beats": [
+        "g21_close_sky_home",
+        "g21_close_treasure_dawn"
+      ]
+    },
+    {
+      "id": "g21_close_sky_home",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "And so the {NOUN:character} sailed home under a {ADJ:color} {NOUN:sky}, the {NOUN:vehicle} humming {ADV} like a lullaby. {CONN} some journeys end exactly where the heart began.",
+      "next_beats": []
+    },
+    {
+      "id": "g21_close_treasure_dawn",
+      "type": "closing",
+      "tone": [
+        "triumphant",
+        "magical"
+      ],
+      "text": "The {NOUN:character} carried one glowing {NOUN:mineral} back into the {ADJ} morning, and the whole {NOUN:place} sparkled in farewell. Some treasures, it turned out, were only ever a door away.",
+      "next_beats": []
+    },
+    {
+      "id": "g3_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "At the edge of a {ADJ} {NOUN:forest}, a {NOUN:character} set out before the {NOUN:celestial} had fully risen. The {NOUN:weather} hung {ADJ} and silver over every path.",
+      "next_beats": [
+        "g3_disc_buried_chest",
+        "g3_enc_river_keeper",
+        "g3_disc_secret_pond"
+      ]
+    },
+    {
+      "id": "g3_open_carnival_lights",
+      "type": "opening",
+      "tone": [
+        "whimsical",
+        "silly"
+      ],
+      "text": "When the {NOUN:season} fair rolled into town, a {ADJ} {NOUN:character} followed the smell of {NOUN:food} all the way to the {ADJ:color} tents. Somewhere a {NOUN:sound} kept time like a heartbeat.",
+      "next_beats": [
+        "g3_enc_clockwork_friend",
+        "g3_disc_buried_chest",
+        "g3_disc_secret_pond"
+      ]
+    },
+    {
+      "id": "g3_open_attic_letter",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "On a rainy {NOUN:time}, a {NOUN:character} found a {ADJ} letter folded inside an old {NOUN:object} in the attic. The handwriting was {ADJ}, as if written in a great hurry.",
+      "next_beats": [
+        "g3_disc_buried_chest",
+        "g3_enc_river_keeper",
+        "g3_enc_clockwork_friend"
+      ]
+    },
+    {
+      "id": "g3_disc_buried_chest",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "magical"
+      ],
+      "text": "Half-sunk in the {NOUN:place}, the {NOUN:character} uncovered a {ADJ} chest crusted with {NOUN:mineral}. {CONN}, it gave off the faint {NOUN:smell} of somewhere very far away.",
+      "next_beats": [
+        "g3_twist_chest_speaks",
+        "g3_conf_lock_jammed",
+        "g3_res_shared_treasure"
+      ]
+    },
+    {
+      "id": "g3_disc_secret_pond",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "cozy"
+      ],
+      "text": "Past the {ADJ} reeds lay a hidden {NOUN:body_of_water} where a single {NOUN:sea_creature} drifted in slow circles. The {NOUN:character} knelt at the {ADJ} bank and watched.",
+      "next_beats": [
+        "g3_twist_reflection_waves",
+        "g3_res_shared_treasure",
+        "g3_conf_lock_jammed"
+      ]
+    },
+    {
+      "id": "g3_enc_river_keeper",
+      "type": "encounter",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "A weathered {NOUN:profession} waited by the crossing, leaning on a {ADJ} staff. They told the {NOUN:character} that no one passed without trading a {NOUN:object} or a story.",
+      "next_beats": [
+        "g3_disc_secret_pond",
+        "g3_conf_lock_jammed",
+        "g3_twist_reflection_waves"
+      ]
+    },
+    {
+      "id": "g3_enc_clockwork_friend",
+      "type": "encounter",
+      "tone": [
+        "whimsical",
+        "silly"
+      ],
+      "text": "Out from behind a {NOUN:structure} clattered a tiny {ADJ} {NOUN:animal} made of gears and {NOUN:mineral}. It bowed to the {NOUN:character} and squeaked a cheerful {NOUN:sound}.",
+      "next_beats": [
+        "g3_disc_secret_pond",
+        "g3_twist_chest_speaks",
+        "g3_res_carnival_dance"
+      ]
+    },
+    {
+      "id": "g3_conf_lock_jammed",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "triumphant"
+      ],
+      "text": "The latch was rusted shut, and a sudden {ADJ} {NOUN:weather} rolled in to make matters worse. The {NOUN:character} braced against the {NOUN:structure} and refused to give up.",
+      "next_beats": [
+        "g3_res_shared_treasure",
+        "g3_twist_reflection_waves",
+        "g3_enc_clockwork_friend"
+      ]
+    },
+    {
+      "id": "g3_twist_chest_speaks",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "{CONN} the chest spoke, in a voice like wind through a {NOUN:plant}, and said it had been waiting for the {NOUN:character} a very long {NOUN:time}. Inside glimmered not gold, but a sleeping {NOUN:mythical_creature}.",
+      "next_beats": [
+        "g3_res_shared_treasure",
+        "g3_close_friends_forever",
+        "g3_disc_secret_pond"
+      ]
+    },
+    {
+      "id": "g3_twist_reflection_waves",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "In the water the {NOUN:character} saw not their own face but a {ADJ} {NOUN:place} from long ago. {CONN}, the reflection lifted a hand and waved.",
+      "next_beats": [
+        "g3_res_carnival_dance",
+        "g3_close_quiet_return",
+        "g3_conf_lock_jammed"
+      ]
+    },
+    {
+      "id": "g3_res_shared_treasure",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "cozy"
+      ],
+      "text": "Together they spread the treasure on the {ADJ} grass, and it turned out to be enough for everyone. The {NOUN:character} laughed until the {NOUN:celestial} climbed high.",
+      "next_beats": [
+        "g3_close_friends_forever",
+        "g3_close_quiet_return"
+      ]
+    },
+    {
+      "id": "g3_res_carnival_dance",
+      "type": "resolution",
+      "tone": [
+        "whimsical",
+        "triumphant"
+      ],
+      "text": "{ADV}, the whole fair joined hands and spun beneath the {ADJ:color} lanterns. The {NOUN:character} danced until their feet ached and their heart felt {ADJ}.",
+      "next_beats": [
+        "g3_close_friends_forever",
+        "g3_close_quiet_return"
+      ]
+    },
+    {
+      "id": "g3_close_friends_forever",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "And so the {NOUN:character} kept the {ADJ} memory tucked close, the way one keeps a favorite {NOUN:object}. {CONN}, every adventure since has started right there.",
+      "next_beats": []
+    },
+    {
+      "id": "g3_close_quiet_return",
+      "type": "closing",
+      "tone": [
+        "wistful",
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} walked home as the {NOUN:weather} softened to a {ADJ} hush. Behind them the {NOUN:place} settled into sleep, keeping its secrets {ADV} and well.",
+      "next_beats": []
+    },
+    {
+      "id": "g4_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "mysterious",
+        "cozy"
+      ],
+      "text": "At the first pale {NOUN:time}, a {ADJ} {NOUN:character} crept out across the {ADJ} {NOUN:place} while a soft {NOUN:weather} hung in the air. Something just past the {ADJ:color} {NOUN:structure} was waiting to be found.",
+      "next_beats": [
+        "g4_disc_humming_stone",
+        "g4_enc_lantern_keeper"
+      ]
+    },
+    {
+      "id": "g4_open_market_bustle",
+      "type": "opening",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "One bright {NOUN:time}, a {ADJ} {NOUN:character} skipped into the noisy {NOUN:place} where every {NOUN:profession} was shouting about their {ADJ} {NOUN:food}. {CONN} a {ADJ:color} {NOUN:animal} snatched a whole basket and bolted.",
+      "next_beats": [
+        "g4_enc_lantern_keeper",
+        "g4_disc_humming_stone"
+      ]
+    },
+    {
+      "id": "g4_open_storm_edge",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "When the {NOUN:weather} rolled black across the {NOUN:sky}, a {ADJ} {NOUN:character} stood at the edge of the {NOUN:body_of_water} and counted the {NOUN:sound} of the waves. {CONN} a {ADJ} shape rose from the deep.",
+      "next_beats": [
+        "g4_enc_tidewatcher",
+        "g4_disc_drifting_map"
+      ]
+    },
+    {
+      "id": "g4_disc_humming_stone",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "Half-buried in the {NOUN:plant}, the {NOUN:character} uncovered a {ADJ} {NOUN:mineral} that hummed a low, {ADJ} {NOUN:sound}. It glowed warmer the closer they leaned.",
+      "next_beats": [
+        "g4_twist_stone_speaks",
+        "g4_res_carried_home"
+      ]
+    },
+    {
+      "id": "g4_disc_drifting_map",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "wistful"
+      ],
+      "text": "Caught in the reeds bobbed a {ADJ} {NOUN:object}, and when the {NOUN:character} unrolled it the {ADJ:color} ink showed a path into the {NOUN:forest}. The edges still smelled of {NOUN:smell}.",
+      "next_beats": [
+        "g4_conf_locked_gate",
+        "g4_twist_map_lies",
+        "g4_res_carried_home"
+      ]
+    },
+    {
+      "id": "g4_enc_lantern_keeper",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "A kindly old {NOUN:profession} swung a {ADJ:color} {NOUN:object} and beckoned the {NOUN:character} toward a warm {NOUN:structure}. \"You look like you're chasing a {ADJ} {NOUN:sound},\" they chuckled.",
+      "next_beats": [
+        "g4_twist_stone_speaks",
+        "g4_res_warm_welcome"
+      ]
+    },
+    {
+      "id": "g4_enc_tidewatcher",
+      "type": "encounter",
+      "tone": [
+        "mysterious",
+        "adventure"
+      ],
+      "text": "Up from the foam slid a {ADJ} {NOUN:sea_creature}, its eyes like two {ADJ:color} {NOUN:celestial}. It studied the {NOUN:character} and tilted its head as if asking a {ADJ} question.",
+      "next_beats": [
+        "g4_twist_map_lies",
+        "g4_res_warm_welcome"
+      ]
+    },
+    {
+      "id": "g4_conf_locked_gate",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "The way forward was barred by a towering {ADJ} {NOUN:structure}, and a {ADJ} {NOUN:mythical_creature} coiled across the threshold. The {NOUN:character} had nothing but a {ADJ} {NOUN:object} and a racing heart.",
+      "next_beats": [
+        "g4_twist_stone_speaks",
+        "g4_res_warm_welcome"
+      ]
+    },
+    {
+      "id": "g4_twist_stone_speaks",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "whimsical"
+      ],
+      "text": "{CONN} the humming thing spoke in a {ADJ} voice: it had been a {NOUN:character} long ago, trapped inside the cold {NOUN:mineral}. \"Free me {ADV},\" it pleaded, \"and the {NOUN:place} is yours.\"",
+      "next_beats": [
+        "g4_close_dawn_returns",
+        "g4_close_quiet_glow"
+      ]
+    },
+    {
+      "id": "g4_twist_map_lies",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "bittersweet"
+      ],
+      "text": "But the path on the {NOUN:object} curved back on itself, and the {NOUN:character} realized the {ADJ} {NOUN:place} they sought had been the home left behind all along. The {NOUN:smell} of it ached in their chest.",
+      "next_beats": [
+        "g4_res_carried_home",
+        "g4_close_quiet_glow",
+        "g4_close_dawn_returns"
+      ]
+    },
+    {
+      "id": "g4_res_carried_home",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "So the {NOUN:character} tucked the {ADJ} prize close and turned for home as the {NOUN:sky} softened to {ADJ:color}. Every {NOUN:sound} along the way felt like a friend now.",
+      "next_beats": [
+        "g4_close_dawn_returns",
+        "g4_close_quiet_glow"
+      ]
+    },
+    {
+      "id": "g4_res_warm_welcome",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "cozy"
+      ],
+      "text": "With a {ADJ} grin the {NOUN:character} stepped through at last, and the whole {NOUN:place} cheered like a single warm {NOUN:sound}. Even the {ADJ} {NOUN:mythical_creature} dipped its head in respect.",
+      "next_beats": [
+        "g4_close_dawn_returns",
+        "g4_close_quiet_glow"
+      ]
+    },
+    {
+      "id": "g4_close_dawn_returns",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "By the time a fresh {NOUN:time} broke {ADJ:color} over the {NOUN:place}, the {NOUN:character} was already dreaming of the next adventure. And that, little one, is where this one rests.",
+      "next_beats": []
+    },
+    {
+      "id": "g4_close_quiet_glow",
+      "type": "closing",
+      "tone": [
+        "wistful",
+        "bittersweet"
+      ],
+      "text": "The {ADJ} {NOUN:mineral} kept glowing softly on the windowsill long after the {NOUN:character} fell asleep, like a tiny kept promise. Some {NOUN:sound} you carry forever, even after the story ends.",
+      "next_beats": []
+    },
+    {
+      "id": "g5_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "At {NOUN:time}, a {ADJ} {NOUN:character} slipped out into the {NOUN:place} while a {ADJ} {NOUN:weather} hung low over everything.",
+      "next_beats": [
+        "g5_disc_buried_map",
+        "g5_enc_river_guardian"
+      ]
+    },
+    {
+      "id": "g5_open_lantern_market",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "whimsical"
+      ],
+      "text": "One {ADJ} {NOUN:time}, a {ADJ} {NOUN:character} wandered through the {NOUN:structure} where every {NOUN:object} smelled of warm {NOUN:food}.",
+      "next_beats": [
+        "g5_disc_humming_crate",
+        "g5_enc_traveling_baker"
+      ]
+    },
+    {
+      "id": "g5_open_falling_star",
+      "type": "opening",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "When a {ADJ:color} {NOUN:celestial} fell behind the {NOUN:forest}, a {ADJ} {NOUN:character} {ADV} followed its light.",
+      "next_beats": [
+        "g5_disc_buried_map",
+        "g5_disc_humming_crate",
+        "g5_enc_river_guardian"
+      ]
+    },
+    {
+      "id": "g5_disc_buried_map",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "Half-sunk in the {NOUN:texture} dirt lay a {ADJ} {NOUN:object}, and on it was drawn a {ADJ} path toward the {NOUN:body_of_water}.",
+      "next_beats": [
+        "g5_twist_map_lies",
+        "g5_conf_locked_gate",
+        "g5_res_quiet_promise"
+      ]
+    },
+    {
+      "id": "g5_disc_humming_crate",
+      "type": "discovery",
+      "tone": [
+        "whimsical",
+        "magical"
+      ],
+      "text": "Behind the {NOUN:structure} the {NOUN:character} found a {ADJ} {NOUN:object} that hummed a {ADJ} {NOUN:sound} all on its own.",
+      "next_beats": [
+        "g5_enc_traveling_baker",
+        "g5_twist_map_lies",
+        "g5_res_warm_return"
+      ]
+    },
+    {
+      "id": "g5_enc_river_guardian",
+      "type": "encounter",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "By the {NOUN:body_of_water} stood a {ADJ} {NOUN:mythical_creature}, who eyed the {NOUN:character} and asked a {ADJ} question.",
+      "next_beats": [
+        "g5_conf_locked_gate",
+        "g5_twist_friend_in_disguise",
+        "g5_res_quiet_promise"
+      ]
+    },
+    {
+      "id": "g5_enc_traveling_baker",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "silly"
+      ],
+      "text": "A {ADJ} {NOUN:profession} rolled up with a cart of {NOUN:food} and grinned at the {NOUN:character} like an old friend.",
+      "next_beats": [
+        "g5_twist_friend_in_disguise",
+        "g5_res_warm_return",
+        "g5_disc_humming_crate"
+      ]
+    },
+    {
+      "id": "g5_conf_locked_gate",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "A {ADJ} {NOUN:structure} blocked the way, its {NOUN:object} cold and {ADJ}, and the {NOUN:character} had nowhere left to run.",
+      "next_beats": [
+        "g5_res_quiet_promise",
+        "g5_twist_friend_in_disguise",
+        "g5_enc_river_guardian"
+      ]
+    },
+    {
+      "id": "g5_twist_map_lies",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "triumphant"
+      ],
+      "text": "{CONN} the {NOUN:character} turned the {NOUN:object} over and saw the true path led not outward but back toward the {ADJ} {NOUN:place}.",
+      "next_beats": [
+        "g5_res_quiet_promise",
+        "g5_res_warm_return",
+        "g5_close_morning_glow"
+      ]
+    },
+    {
+      "id": "g5_twist_friend_in_disguise",
+      "type": "twist",
+      "tone": [
+        "whimsical",
+        "bittersweet"
+      ],
+      "text": "{ADV}, the {ADJ} stranger lifted a {NOUN:object} from their face, and the {NOUN:character} gasped, for it had been a {ADJ} friend all along.",
+      "next_beats": [
+        "g5_res_warm_return",
+        "g5_close_starlit_vow"
+      ]
+    },
+    {
+      "id": "g5_res_quiet_promise",
+      "type": "resolution",
+      "tone": [
+        "wistful",
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} tucked the {NOUN:object} away and whispered a {ADJ} promise to the {NOUN:body_of_water} before turning home.",
+      "next_beats": [
+        "g5_close_morning_glow",
+        "g5_close_starlit_vow"
+      ]
+    },
+    {
+      "id": "g5_res_warm_return",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "With pockets full of {NOUN:food} and a {ADJ} heart, the {NOUN:character} {ADV} headed back toward the glowing {NOUN:structure}.",
+      "next_beats": [
+        "g5_close_morning_glow",
+        "g5_close_starlit_vow"
+      ]
+    },
+    {
+      "id": "g5_close_morning_glow",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "By the time {NOUN:time} returned, the {NOUN:character} was {ADJ} and safe, and the {NOUN:place} kept their {ADJ} secret forever.",
+      "next_beats": []
+    },
+    {
+      "id": "g5_close_starlit_vow",
+      "type": "closing",
+      "tone": [
+        "magical",
+        "triumphant"
+      ],
+      "text": "Under a sky of {ADJ:color} {NOUN:celestial}, the {NOUN:character} smiled, {CONN} the best adventures always found their way home.",
+      "next_beats": []
+    },
+    {
+      "id": "g6_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "{ADV} one {ADJ} morning, {NOUN:character} stepped out into a {NOUN:place} where the {NOUN:weather} still hung low and {ADJ:color}. Something far off was calling, soft as a {NOUN:sound}.",
+      "next_beats": [
+        "g6_disc_hidden_door",
+        "g6_enc_kind_stranger",
+        "g6_enc_glowing_creature"
+      ]
+    },
+    {
+      "id": "g6_open_attic_box",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "On a {ADJ} {NOUN:time}, {NOUN:character} found a {ADJ} box tucked behind the old {NOUN:object} in the attic. It smelled of {NOUN:smell} and rattled with secrets.",
+      "next_beats": [
+        "g6_disc_map_inside",
+        "g6_disc_hidden_door"
+      ]
+    },
+    {
+      "id": "g6_open_carnival_lights",
+      "type": "opening",
+      "tone": [
+        "whimsical",
+        "silly"
+      ],
+      "text": "When the {ADJ:color} lights of the carnival blinked awake, {NOUN:character} skipped between the stalls, sniffing the warm {NOUN:food}. {CONN} a {ADJ} balloon drifted right into a waiting hand.",
+      "next_beats": [
+        "g6_enc_kind_stranger",
+        "g6_disc_map_inside"
+      ]
+    },
+    {
+      "id": "g6_disc_hidden_door",
+      "type": "discovery",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "Behind a curtain of {NOUN:plant}, {NOUN:character} uncovered a tiny door no taller than a {NOUN:animal}. It glowed with a {ADJ:color} shimmer that begged to be opened.",
+      "next_beats": [
+        "g6_enc_kind_stranger",
+        "g6_twist_door_speaks",
+        "g6_res_door_home"
+      ]
+    },
+    {
+      "id": "g6_disc_map_inside",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "cozy"
+      ],
+      "text": "Inside, {NOUN:character} pulled out a folded map dotted with a {NOUN:structure}, a {NOUN:body_of_water}, and one big {ADJ} X. {CONN} the journey suddenly felt real.",
+      "next_beats": [
+        "g6_enc_kind_stranger",
+        "g6_conf_river_blocks",
+        "g6_twist_map_alive"
+      ]
+    },
+    {
+      "id": "g6_enc_kind_stranger",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "A {ADJ} {NOUN:profession} appeared on the path, humming a {NOUN:sound} and offering a slice of {NOUN:food}. \"I have been waiting for you,\" the stranger told {NOUN:character} with a {ADJ} smile.",
+      "next_beats": [
+        "g6_conf_river_blocks",
+        "g6_twist_door_speaks",
+        "g6_res_door_home"
+      ]
+    },
+    {
+      "id": "g6_enc_glowing_creature",
+      "type": "encounter",
+      "tone": [
+        "magical",
+        "whimsical"
+      ],
+      "text": "Out of the {NOUN:forest} padded a {ADJ:color} {NOUN:mythical_creature}, its eyes bright as a {NOUN:celestial}. It bowed to {NOUN:character} and whispered a riddle made of {NOUN:sound}.",
+      "next_beats": [
+        "g6_conf_river_blocks",
+        "g6_disc_hidden_door",
+        "g6_res_creature_gift"
+      ]
+    },
+    {
+      "id": "g6_conf_river_blocks",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "triumphant"
+      ],
+      "text": "A {ADJ} {NOUN:body_of_water} roared across the path, far too wide to leap. {NOUN:character} gripped the {NOUN:object} tighter and searched the {ADJ:color} banks for a way across.",
+      "next_beats": [
+        "g6_res_creature_gift",
+        "g6_twist_door_speaks",
+        "g6_enc_glowing_creature"
+      ]
+    },
+    {
+      "id": "g6_twist_door_speaks",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "{CONN} the {NOUN:object} blinked open like an eye, and the whole {NOUN:place} turned out to be sleeping all along. \"You were the key the entire time,\" it told {NOUN:character} in a {ADJ} voice.",
+      "next_beats": [
+        "g6_res_door_home",
+        "g6_close_warm_hearth",
+        "g6_disc_hidden_door"
+      ]
+    },
+    {
+      "id": "g6_twist_map_alive",
+      "type": "twist",
+      "tone": [
+        "whimsical",
+        "silly"
+      ],
+      "text": "{ADV} the map sprouted tiny {ADJ:color} legs and scampered off, giggling like a {NOUN:animal}. {NOUN:character} chased it through a field of {NOUN:plant}, laughing too hard to be cross.",
+      "next_beats": [
+        "g6_res_creature_gift",
+        "g6_close_star_wish",
+        "g6_conf_river_blocks"
+      ]
+    },
+    {
+      "id": "g6_res_door_home",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "Through the little door lay a {ADJ} room exactly like home, only warmer and brighter. {NOUN:character} finally understood that the {NOUN:place} had only ever wanted to be found.",
+      "next_beats": [
+        "g6_close_warm_hearth",
+        "g6_enc_glowing_creature"
+      ]
+    },
+    {
+      "id": "g6_res_creature_gift",
+      "type": "resolution",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "With a gentle nod, the friend pressed a {ADJ:color} {NOUN:mineral} into the palm of {NOUN:character}, warm and humming with a quiet {NOUN:sound}. \"Carry this, and you are never truly lost,\" it said.",
+      "next_beats": [
+        "g6_close_star_wish",
+        "g6_enc_kind_stranger"
+      ]
+    },
+    {
+      "id": "g6_close_warm_hearth",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "bittersweet"
+      ],
+      "text": "Back beside the {ADJ} {NOUN:structure}, {NOUN:character} watched the {NOUN:weather} settle soft and slow. And though the adventure was over, the {NOUN:place} kept right on glowing in memory.",
+      "next_beats": []
+    },
+    {
+      "id": "g6_close_star_wish",
+      "type": "closing",
+      "tone": [
+        "magical",
+        "triumphant"
+      ],
+      "text": "Beneath a sky stitched with {ADJ:color} {NOUN:celestial}, {NOUN:character} made one last {ADJ} wish. {CONN} the night folded close like a blanket, and everything felt exactly right.",
+      "next_beats": []
+    },
+    {
+      "id": "g7_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "At {ADJ} dawn, {NOUN:character} buckled a {ADJ} pack and slipped out toward the {NOUN:forest}. The {NOUN:weather} hung low, and every {NOUN:sound} seemed to whisper that today would be different.",
+      "next_beats": [
+        "g7_disc_hidden_trail",
+        "g7_enc_the_traveler"
+      ]
+    },
+    {
+      "id": "g7_open_attic_lantern",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "On a {ADJ} {NOUN:season} evening, {NOUN:character} climbed into the attic with one flickering {NOUN:object}. Dust drifted like {NOUN:weather}, and a {ADJ:color} chest waited beneath the eaves.",
+      "next_beats": [
+        "g7_disc_old_chest",
+        "g7_enc_river_singer"
+      ]
+    },
+    {
+      "id": "g7_open_tide_gate",
+      "type": "opening",
+      "tone": [
+        "magical",
+        "whimsical"
+      ],
+      "text": "When the {NOUN:body_of_water} pulled back at low tide, {NOUN:character} found a {ADJ} gate of {NOUN:mineral} glinting in the sand. No one in the village remembered it ever being there before.",
+      "next_beats": [
+        "g7_enc_the_traveler",
+        "g7_disc_hidden_trail"
+      ]
+    },
+    {
+      "id": "g7_disc_hidden_trail",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "whimsical"
+      ],
+      "text": "Past a curtain of {NOUN:plant}, {NOUN:character} uncovered a {ADJ} trail paved with {NOUN:mineral}. It wound {ADV} upward toward a {NOUN:structure} no map had ever named.",
+      "next_beats": [
+        "g7_twist_trail_loops",
+        "g7_conf_stone_bridge",
+        "g7_res_summit_calm"
+      ]
+    },
+    {
+      "id": "g7_disc_old_chest",
+      "type": "discovery",
+      "tone": [
+        "wistful",
+        "magical"
+      ],
+      "text": "Inside the chest {NOUN:character} found a {ADJ} {NOUN:object} wrapped in faded cloth, smelling faintly of {NOUN:smell}. When fingers brushed it, the attic filled with the {NOUN:sound} of a far-off {NOUN:season}.",
+      "next_beats": [
+        "g7_twist_memory_wakes",
+        "g7_res_gentle_keepsake"
+      ]
+    },
+    {
+      "id": "g7_enc_the_traveler",
+      "type": "encounter",
+      "tone": [
+        "mysterious",
+        "cozy"
+      ],
+      "text": "A {ADJ} {NOUN:profession} sat beside the road, sharing roasted {NOUN:food} and a riddle. \"Follow the {NOUN:celestial},\" they told {NOUN:character}, \"and the {NOUN:place} will open to those who listen.\"",
+      "next_beats": [
+        "g7_conf_stone_bridge",
+        "g7_disc_hidden_trail",
+        "g7_res_summit_calm"
+      ]
+    },
+    {
+      "id": "g7_enc_river_singer",
+      "type": "encounter",
+      "tone": [
+        "magical",
+        "whimsical"
+      ],
+      "text": "A {NOUN:sea_creature} surfaced in the shallows and hummed a {ADJ} tune. It circled {NOUN:character} {ADV}, beckoning toward a glow beneath the {NOUN:body_of_water}.",
+      "next_beats": [
+        "g7_twist_memory_wakes",
+        "g7_conf_stone_bridge",
+        "g7_disc_old_chest"
+      ]
+    },
+    {
+      "id": "g7_conf_stone_bridge",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "A {ADJ} {NOUN:structure} spanned a gorge, but half its {NOUN:mineral} planks had crumbled into the {NOUN:weather} below. {NOUN:character} gripped the rope and weighed how {ADV} to step.",
+      "next_beats": [
+        "g7_res_summit_calm",
+        "g7_twist_trail_loops",
+        "g7_enc_river_singer"
+      ]
+    },
+    {
+      "id": "g7_twist_trail_loops",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "whimsical"
+      ],
+      "text": "The trail bent back on itself, and {NOUN:character} realized the {NOUN:structure} ahead was the very one left behind at {NOUN:time}. The {NOUN:place} had been folding the path into a {ADJ} loop all along.",
+      "next_beats": [
+        "g7_res_summit_calm",
+        "g7_close_dawn_returns",
+        "g7_disc_hidden_trail"
+      ]
+    },
+    {
+      "id": "g7_twist_memory_wakes",
+      "type": "twist",
+      "tone": [
+        "bittersweet",
+        "magical"
+      ],
+      "text": "The {NOUN:object} was no relic at all but a sleeping {NOUN:mythical_creature}, and it knew {NOUN:character} by name. \"You left me here a {ADJ} {NOUN:time} ago,\" it murmured, \"and you finally came back.\"",
+      "next_beats": [
+        "g7_res_gentle_keepsake",
+        "g7_close_lantern_dims",
+        "g7_disc_old_chest"
+      ]
+    },
+    {
+      "id": "g7_res_summit_calm",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "adventure"
+      ],
+      "text": "At the top, {NOUN:character} stood {ADV} as the {NOUN:sky} caught fire with color and the whole {NOUN:place} unrolled below. Every {ADJ} mile of the climb had led exactly here.",
+      "next_beats": [
+        "g7_close_dawn_returns",
+        "g7_enc_river_singer"
+      ]
+    },
+    {
+      "id": "g7_res_gentle_keepsake",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "{NOUN:character} cradled the {NOUN:object} and promised, this time, to keep it close. The attic glowed {ADJ} and warm, as though the house itself had let out a held {NOUN:sound}.",
+      "next_beats": [
+        "g7_close_lantern_dims",
+        "g7_enc_the_traveler"
+      ]
+    },
+    {
+      "id": "g7_close_dawn_returns",
+      "type": "closing",
+      "tone": [
+        "triumphant",
+        "cozy"
+      ],
+      "text": "By the time the {NOUN:celestial} climbed again, {NOUN:character} was already home, boots muddy and heart full. Some {NOUN:place} you visit once, but it stays with you {ADV} forever.",
+      "next_beats": []
+    },
+    {
+      "id": "g7_close_lantern_dims",
+      "type": "closing",
+      "tone": [
+        "bittersweet",
+        "wistful"
+      ],
+      "text": "The {NOUN:object} dimmed to a soft, sleepy {ADJ:color} glow, and {NOUN:character} pulled the blanket up high. Outside, the {NOUN:season} turned, {ADV} and kind, and the old attic kept its quiet secret.",
+      "next_beats": []
+    },
+    {
+      "id": "g8_open_misty_dawn",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "At {ADJ} dawn a {ADJ} {NOUN:character} pushed a {NOUN:vehicle} out across the {NOUN:body_of_water}, where the {NOUN:weather} hung low and {ADJ}. Something out there was waiting.",
+      "next_beats": [
+        "g8_disc_floating_lantern",
+        "g8_enc_river_guardian",
+        "g8_disc_dusty_map",
+        "disc_glowing_object",
+        "disc_garden_of_stars"
+      ]
+    },
+    {
+      "id": "g8_open_attic_whisper",
+      "type": "opening",
+      "tone": [
+        "spooky",
+        "cozy"
+      ],
+      "text": "The {NOUN:character} climbed to the {ADJ} {NOUN:structure} because a faint {NOUN:sound} kept calling from up there. The {NOUN:time} was late and the air smelled of {NOUN:smell}.",
+      "next_beats": [
+        "g8_disc_dusty_map",
+        "g8_enc_river_guardian",
+        "g8_enc_garden_sprite",
+        "disc_strange_track",
+        "disc_river_song"
+      ]
+    },
+    {
+      "id": "g8_open_seed_in_pocket",
+      "type": "opening",
+      "tone": [
+        "whimsical",
+        "magical"
+      ],
+      "text": "One {NOUN:season} morning the {NOUN:character} found a {ADJ} {NOUN:plant} seed in a coat pocket, still warm and faintly {ADJ}. It hummed, {ADV}, like it wanted to be planted.",
+      "next_beats": [
+        "g8_disc_floating_lantern",
+        "g8_disc_dusty_map",
+        "g8_enc_garden_sprite",
+        "disc_hidden_door",
+        "disc_smell_of_supper"
+      ]
+    },
+    {
+      "id": "g8_disc_floating_lantern",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "Bobbing on the current was a {ADJ:color} lantern, and inside it glowed a tiny {NOUN:celestial} no bigger than a {NOUN:food}. The {NOUN:character} reached out, {ADV}.",
+      "next_beats": [
+        "g8_enc_garden_sprite"
+      ]
+    },
+    {
+      "id": "g8_disc_dusty_map",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "cozy"
+      ],
+      "text": "Under a {ADJ} sheet the {NOUN:character} uncovered a {ADJ} map drawn on {NOUN:texture} cloth, marking a path through the {NOUN:forest} to a {NOUN:mineral} buried near the old {NOUN:structure}.",
+      "next_beats": [
+        "g8_conf_locked_gate"
+      ]
+    },
+    {
+      "id": "g8_enc_river_guardian",
+      "type": "encounter",
+      "tone": [
+        "mysterious",
+        "triumphant"
+      ],
+      "text": "A great {NOUN:sea_creature} rose from the {NOUN:body_of_water}, eyes like {ADJ:color} stones, and asked the {NOUN:character} one {ADJ} riddle. Answer wrong, it warned, and the {NOUN:weather} would turn.",
+      "next_beats": [
+        "g8_conf_locked_gate"
+      ]
+    },
+    {
+      "id": "g8_enc_garden_sprite",
+      "type": "encounter",
+      "tone": [
+        "whimsical",
+        "magical"
+      ],
+      "text": "Out of the {ADJ} {NOUN:plant} popped a {NOUN:mythical_creature} the size of a {NOUN:food}, who bowed {ADV} and offered to lead the {NOUN:character} somewhere {ADJ}.",
+      "next_beats": [
+        "g8_disc_dusty_map"
+      ]
+    },
+    {
+      "id": "g8_conf_locked_gate",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "The path ended at a {ADJ} gate of {NOUN:mineral}, sealed tight, and a {ADJ} {NOUN:weather} began to rise. The {NOUN:character} had to choose, {ADV}, between turning back and pushing through.",
+      "next_beats": [
+        "g8_enc_garden_sprite"
+      ]
     }
   ]
 }

@@ -1553,7 +1553,9 @@ class MonkeyJoe:
             # Prefer micro templates with a character slot when a subject is
             # given, so the subject lands in the story. v59 fix.
             if opts.get('subject'):
-                with_char = [s for s in pool if '{NOUN:character}' in (s.get('text') or '')]
+                # Templates are plain strings (legacy ones may be {text}) —
+                # handle both so the preference actually fires (v62 fix).
+                with_char = [s for s in pool if '{NOUN:character}' in (s if isinstance(s, str) else (s.get('text') or ''))]
                 if with_char: pool = with_char
         elif opts.get('continuation') and t.get('continuations'):
             pool = t['continuations']
