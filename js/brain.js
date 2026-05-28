@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '60'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '61'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1146,7 +1146,12 @@ const Brain = (() => {
   }
 
   function _isDrawingStoryAccept(lower) {
-    return /^(yes|yeah|sure|ok|okay|yep|yup|please|do it|go on|tell me a story(?: about it)?|story|tell me one|spin one|yes please)[\s!.?]*$/i.test(lower.trim());
+    // Affirmative, allowing a trailing vocative / politeness word so "yes joe",
+    // "yes please", "sure thing buddy", "ok then" all count (v60 — fixes the
+    // "Yes Joe" → idk → accidental web-search-for-"yes joe" cascade).
+    const AFFIRM = "yes|yeah|yea|yep|yup|sure|ok|okay|kay|k|please|pls|do it|go on|go ahead|sounds good|tell me a story(?: about it)?|story|tell me one|spin one|i guess|why not|let'?s (do it|go|hear it)|absolutely|definitely";
+    const TAIL = "(\\s+(joe|monkey joe|please|pls|thing|thanks|thank you|thx|sir|there|buddy|pal|friend|sure|ok|okay|now|then))*[\\s!.?]*$";
+    return new RegExp("^(" + AFFIRM + ")" + TAIL, "i").test(lower.trim());
   }
 
   function _maybeClearDrawingContext() {
@@ -1169,6 +1174,20 @@ const Brain = (() => {
     // single-word commands that were substring-matching inside sentences
     // ("you can help by…" → help rule). v59.
     'help', 'food', 'hungry', 'bored', 'draw'
+  ]);
+
+  // Stopwords that are never meaningful as a knowledge keyword. The scorer
+  // skips these so a junk keyword (e.g. the Euler-constant fact tagged "like")
+  // can't exact-match a common word in casual chat and dump the fact. (v60)
+  const KW_STOPWORDS = new Set([
+    'a','an','the','it','its','is','are','am','do','does','did','you','your','yours',
+    'i','me','my','mine','we','us','our','he','she','him','her','his','they','them','their',
+    'like','really','very','so','too','and','or','but','of','to','in','on','at','for','with',
+    'as','be','this','that','what','who','how','why','when','where','which','can','will',
+    'would','should','could','not','no','yes','ok','okay','just','also','then','than',
+    'was','were','has','have','had','get','got','one','some','any','all','more','most',
+    'such','only','into','out','up','down','by','from','about','good','bad','nice','cool',
+    'love','hate','want','need','make','made','thing','things','stuff','great','best'
   ]);
 
   function ruleMatches(ruleIf, lower) {
@@ -1519,6 +1538,24 @@ const Brain = (() => {
       if (affLead && askName) {
         return "Aw 🐒❤️ I love chatting with you too! And I'm Monkey Joe — a rules-based assistant built by Akiva with Claude's help. 🐒";
       }
+    }
+
+    // Positive feedback ("I like it", "that was great", "love it", "cool
+    // story") — respond warmly instead of falling into the knowledge scorer
+    // (the "i like it" → Euler's-number bug). If a story is live, offer more.
+    if (/^(i\s+(really\s+)?(like|love|loved|liked)\s+(it|that|this(\s+one|\s+story)?)|that('?s|\s+was)(\s+so|\s+really)?\s+(great|good|cool|awesome|nice|fun|lovely|sweet|amazing)|(so\s+|really\s+)?(good|great|cool|awesome|nice|lovely|fun)\s+(story|one|job)|love\s+it|loved\s+it|nice\s+one|well\s+done|good\s+job)[\s!.?]*$/i.test(lower)) {
+      if (_storySession) {
+        return pick([
+          "Yay, so glad you liked it! 🐒 Want another? Just say 'another'.",
+          "Aw, thank you! 🐒 I can spin another or make it longer — your call.",
+          "🐒💛 Happy you enjoyed it! Say 'another' for one more."
+        ]);
+      }
+      return pick([
+        "Aw, thank you! 🐒 What should we do next?",
+        "🐒💛 You're the best. What's next?",
+        "Glad you think so! 🐒 Ask me anything."
+      ]);
     }
 
     // Emoji-only or emoji-heavy check
@@ -1940,6 +1977,11 @@ const Brain = (() => {
         let score = 0;
         for (const k of fact.keywords) {
           const kl = k.toLowerCase();
+          // Junk-keyword guard (v60): a stray stopword keyword like "like" or
+          // "good" must never score — otherwise ANY sentence containing it
+          // ("i like it") exact-matches and dumps that fact (the Euler's-number
+          // "like" bug). Protects against bad data, including generated facts.
+          if (KW_STOPWORDS.has(kl)) continue;
           // exact substring match (word-boundary aware)
           let exactMatch = false;
           try {

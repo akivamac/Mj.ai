@@ -44,6 +44,18 @@ TOKEN_FILE = os.path.expanduser('~/.mj_token')
 FILES_LOG = os.path.expanduser('~/.mj_files.json')
 MEMORY_FILE = os.path.expanduser('~/.mj_memory.json')
 
+# Stopwords that are never meaningful as a knowledge keyword. The fact scorer
+# skips these so a junk keyword (e.g. the Euler-constant fact tagged "like")
+# can't exact-match a common word and dump the fact. (v60 parity with brain.js)
+KW_STOPWORDS = set((
+    "a an the it its is are am do does did you your yours i me my mine we us our "
+    "he she him her his they them their like really very so too and or but of to "
+    "in on at for with as be this that what who how why when where which can will "
+    "would should could not no yes ok okay just also then than was were has have "
+    "had get got one some any all more most such only into out up down by from "
+    "about good bad nice cool love hate want need make made thing things stuff great best"
+).split())
+
 def log_file(filepath):
     """Track created files in ~/.mj_files.json"""
     try:
@@ -2867,6 +2879,11 @@ class MonkeyJoe:
         for q in variants:
             score = 0.0
             for kw in fact['keywords']:
+                # Junk-keyword guard (v60 parity): a stray stopword keyword like
+                # "like"/"good" must never score, or any sentence containing it
+                # dumps the fact (the Euler's-number "like" bug).
+                if kw.lower().strip() in KW_STOPWORDS:
+                    continue
                 if self.keyword_matches(kw, q):
                     score += 2.0 if len(kw) > 2 else 1.0
                 elif len(kw) > 4:
@@ -3033,6 +3050,20 @@ class MonkeyJoe:
                 "Aw 🐒❤️ You're the best!",
                 "I like you too! 🐒",
                 "🐒❤️ Right back at you, friend!"])
+
+        # Positive feedback ("I like it", "that was great", "love it") — warm
+        # reply instead of falling into the knowledge scorer; offer more if a
+        # story is live. (v60 parity — the "i like it" Euler's-number bug.)
+        if re.match(r"^(i\s+(really\s+)?(like|love|loved|liked)\s+(it|that|this(\s+one|\s+story)?)|that('?s|\s+was)(\s+so|\s+really)?\s+(great|good|cool|awesome|nice|fun|lovely|sweet|amazing)|(so\s+|really\s+)?(good|great|cool|awesome|nice|lovely|fun)\s+(story|one|job)|love\s+it|loved\s+it|nice\s+one|well\s+done|good\s+job)[\s!.?]*$", lower):
+            if self.story_session:
+                return random.choice([
+                    "Yay, so glad you liked it! 🐒 Want another? Just say 'another'.",
+                    "Aw, thank you! 🐒 I can spin another or make it longer — your call.",
+                    "🐒💛 Happy you enjoyed it! Say 'another' for one more."])
+            return random.choice([
+                "Aw, thank you! 🐒 What should we do next?",
+                "🐒💛 You're the best. What's next?",
+                "Glad you think so! 🐒 Ask me anything."])
 
         # Check greetings first (from rules.json)
         if self.rules and 'greetings' in self.rules:
