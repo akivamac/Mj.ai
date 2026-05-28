@@ -1463,7 +1463,9 @@ class MonkeyJoe:
         bindings = {}
         if opts.get('character'): bindings['NOUN:character'] = opts['character']
         if opts.get('place'):     bindings['NOUN:place']     = opts['place']
-        if opts.get('subject') and self._is_known_noun(opts['subject']):
+        # Bind any given subject to the character slot (not just known nouns)
+        # so story subjects actually appear. v59 fix (mirror of generator.js).
+        if opts.get('subject'):
             bindings.setdefault('NOUN:character', opts['subject'])
         fact_text = self._fact_snippet(opts.get('fact'))
 
@@ -1536,6 +1538,11 @@ class MonkeyJoe:
         t = self.templates or {}
         if opts.get('mode') == 'micro' and t.get('microStories'):
             pool = t['microStories']
+            # Prefer micro templates with a character slot when a subject is
+            # given, so the subject lands in the story. v59 fix.
+            if opts.get('subject'):
+                with_char = [s for s in pool if '{NOUN:character}' in (s.get('text') or '')]
+                if with_char: pool = with_char
         elif opts.get('continuation') and t.get('continuations'):
             pool = t['continuations']
         elif opts.get('fact') and t.get('factStories'):
@@ -2126,6 +2133,23 @@ class MonkeyJoe:
                 self.story_session['character'] = r.get('character') or self.story_session.get('character')
                 self.story_session['place']     = r.get('place')     or self.story_session.get('place')
                 return r['text']
+
+        # "Make it longer" / "bigger" — upgrade the current story instead of
+        # treating it as a brand-new request (v60 parity with brain.js). Only
+        # fires when a session is live: micro grows to regular, regular to beats.
+        if self.story_session \
+           and re.search(r'\b(longer|bigger|not (big|long) enough|make it (longer|big|bigger)|too short|expand it|more detail)\b', lower) \
+           and not re.search(r'\bstory about\b|\btell me a story\b', lower):
+            next_mode = 'regular' if self.story_session.get('mode') == 'micro' else 'beats'
+            r = self.generate_story({'tone': self.story_session.get('tone'),
+                                     'subject': self.story_session.get('subject'),
+                                     'character': self.story_session.get('character'),
+                                     'place': self.story_session.get('place'),
+                                     'mode': next_mode})
+            self.story_session['character'] = r.get('character') or self.story_session.get('character')
+            self.story_session['place']     = r.get('place')     or self.story_session.get('place')
+            self.story_session['mode']      = r.get('mode') or next_mode
+            return r['text']
 
         about = self._detect_about_micro(lower)
         if about:
@@ -2824,8 +2848,13 @@ class MonkeyJoe:
             # Short keywords: must be surrounded by non-letter characters
             padded = ' ' + ql + ' '
             return ' ' + kl + ' ' in padded
-        # Longer keywords: word-boundary match on the left side
+        # Longer keywords: word-boundary match. Use BOTH-side boundaries for
+        # purely alphanumeric keywords so short ones ("act") don't match inside
+        # longer words ("actually"); keep left-only for keywords with
+        # punctuation ("c++", "c#") whose trailing \b wouldn't behave. (v60)
         try:
+            if re.fullmatch(r'[a-z0-9 ]+', kl):
+                return bool(re.search(r'\b' + re.escape(kl) + r'\b', ql))
             return bool(re.search(r'\b' + re.escape(kl), ql))
         except Exception:
             return kl in ql
@@ -2978,6 +3007,32 @@ class MonkeyJoe:
                 "Can't complain — no feelings to complain with! 😄 What's on your mind?",
                 "Fully operational and caffeinated on data. You?",
             ])
+
+        # Relational + affection (v60 parity with brain.js). Answer warmly
+        # instead of letting "do you love me" fall into the knowledge scorer,
+        # and acknowledge affection while still answering a bundled question
+        # ("I love you, what's your name?").
+        ask_name  = bool(re.search(r"\b(what'?s|what is|whats)\s+your\s+name\b|\bwho\s+(are|r)\s+(you|u)\b|\bwhat\s+are\s+you(\s+called)?\b", lower))
+        aff_lead  = bool(re.search(r'\bi\s+(love|like)\s+(you|u|ya)\b', lower))
+        loves_me  = (bool(re.search(r'\bdo\s+you\s+(really\s+|even\s+|still\s+)?love\s+me\b', lower))
+                     or bool(re.search(r"\byou\s+(don'?t|do\s+not|dont)\s+love\s+me\b", lower))
+                     or bool(re.search(r'\bdo\s+you\s+(really\s+|even\s+)?like\s+me\b', lower)))
+        friend_me = (bool(re.search(r'\b(are|will|would)\s+you\s+(be\s+|become\s+)?my\s+friend\b', lower))
+                     or bool(re.search(r'\bare\s+we\s+(friends|buddies|pals)\b', lower))
+                     or bool(re.search(r'\bdo\s+you\s+care\s+(about\s+)?me\b', lower)))
+        if loves_me or friend_me:
+            return random.choice([
+                "Of course I do! 🐒❤️ You're my favorite human to chat with.",
+                "You bet I do! 🐒 I'm always happy when you show up.",
+                "Always! 🐒❤️ You and me — best buddies.",
+                "100%! 🐒 I light right up every time you say hi."])
+        if aff_lead and ask_name:
+            return "Aw 🐒❤️ I love chatting with you too! And I'm Monkey Joe — a rules-based assistant built by Akiva with Claude's help. 🐒"
+        if aff_lead:
+            return random.choice([
+                "Aw 🐒❤️ You're the best!",
+                "I like you too! 🐒",
+                "🐒❤️ Right back at you, friend!"])
 
         # Check greetings first (from rules.json)
         if self.rules and 'greetings' in self.rules:

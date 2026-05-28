@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '59'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '60'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1064,11 +1064,18 @@ const Brain = (() => {
   //           micro story spun via the existing Generator
 
   function _drawingExtractNoun(input) {
-    // Strip lead-ins, take the meatiest noun-ish token sequence.
     let s = input.trim().replace(/[?.!]+$/, '').toLowerCase();
-    s = s.replace(/^(it'?s|its|that'?s|i drew|i made|this is|a|an|the|my|some|just)\s+/g, '');
-    s = s.replace(/^(it'?s|its|that'?s|a|an|the|my|some|just)\s+/g, ''); // second pass
-    return s.trim() || input.trim();
+    // Strip lead-ins (twice — "it's a", "this is a").
+    const lead = /^(it'?s|its|that'?s|thats|i drew|i made|this is|here'?s|looks like|a|an|the|my|some|just|kind of)\s+/;
+    s = s.replace(lead, '').replace(lead, '');
+    // Cut trailing modifier clauses ("…floating in the wind", "…with horns
+    // on a stick", "…that flies") so the subject stays a clean noun phrase.
+    s = s.split(/\s+(?:floating|flying|sitting|standing|with|that|which|who|on|in|under|over|near|by|made of|holding|wearing|doing|and)\b/)[0];
+    // Drop "top/part/picture of (a)" framing → keep the head noun.
+    s = s.replace(/^(top|bottom|side|part|picture|drawing|image|photo|sketch)\s+of\s+(?:a|an|the)?\s*/, '');
+    // Cap to 4 words.
+    s = s.trim().split(/\s+/).filter(Boolean).slice(0, 4).join(' ');
+    return s.trim() || input.trim().toLowerCase();
   }
 
   // Build the warm observation string (no trailing question). Shared by the
@@ -1158,7 +1165,10 @@ const Brain = (() => {
   const RULE_EXACT_WORDS = new Set([
     'what', 'why', 'really', 'seriously', 'wow', 'cool', 'nice',
     'interesting', 'okay', 'ok', 'lol', 'haha', 'lmao', 'omg', 'no way',
-    'sure', 'huh'
+    'sure', 'huh',
+    // single-word commands that were substring-matching inside sentences
+    // ("you can help by…" → help rule). v59.
+    'help', 'food', 'hungry', 'bored', 'draw'
   ]);
 
   function ruleMatches(ruleIf, lower) {
@@ -1212,12 +1222,17 @@ const Brain = (() => {
     // ── Drawing turn 2 (user describes) ────────────────
     if (_drawingContext && _drawingContext.awaitingDescription && !input.startsWith('__')) {
       const lower2 = input.toLowerCase().trim();
-      // If they say "i don't know" or shrug it off, gracefully release context.
-      if (/^(i don'?t know|idk|nothing|nothin'?|just a doodle|just doodling|just scribbling)/i.test(lower2)) {
+      // Release ONLY on a pure shrug (the whole message). A hedge with a real
+      // description after it ("I don't know, something with a big belly") must
+      // NOT release — strip the hedge and keep the description (v59 fix).
+      if (/^(i\s+don'?t\s+know|idk|dunno|not\s+sure|no\s+idea|nothing|nothin'?|just\s+(a\s+)?doodl\w*|just\s+scribbl\w*)[\s.!?]*$/i.test(lower2)) {
         _drawingContext = null;
         return "All good — sometimes drawing is just drawing. 🐒";
       }
-      const noun = _drawingExtractNoun(input);
+      let described = input;
+      const hedge = input.match(/^\s*(?:i\s+don'?t\s+know|idk|dunno|not\s+sure|hmm+|maybe|i\s+think(?:\s+it'?s)?|probably|it\s+might\s+be)\b[,:\s-]*(.+)$/i);
+      if (hedge && hedge[1] && hedge[1].trim()) described = hedge[1];
+      const noun = _drawingExtractNoun(described);
       _drawingContext.describedAs = noun;
       _drawingContext.awaitingDescription = false;
       _drawingContext.awaitingStoryDecision = true;
@@ -1231,10 +1246,12 @@ const Brain = (() => {
     if (_drawingContext && _drawingContext.awaitingStoryDecision) {
       const lower3 = input.toLowerCase().trim();
       const subj = _drawingContext.describedAs;
-      // Decline → release gracefully.
+      // Decline → step back but stay recoverable ("actually yes" within the
+      // 5-min window still works — don't nuke the subject). v59 fix.
       if (/^(no|nope|nah|no thanks?|not now|maybe later|not really)\b/i.test(lower3)) {
-        _drawingContext = null;
-        return "No worries! 🐒 I'm here whenever you want one.";
+        _drawingContext.awaitingStoryDecision = false;
+        _drawingContext.declined = true;
+        return "No worries! 🐒 Say 'yes' anytime if you change your mind.";
       }
       // Confusion about the offer → clarify, stay open to a yes.
       if (/\b(what|which|huh|mean)\b/i.test(lower3) || /^\s*\?+\s*$/.test(input)) {
@@ -1256,6 +1273,22 @@ const Brain = (() => {
       // Anything else (a new topic, an off-hand remark) → release the
       // drawing context and let the normal dispatch chain handle it.
       _drawingContext = null;
+    }
+
+    // Re-accept after a decline — "actually yes" / "wait, yes" within the
+    // window still spins the story (v59 fix for the dead-end decline).
+    if (_drawingContext && _drawingContext.declined && typeof Generator !== 'undefined'
+        && /^(actually\s+)?(yes|yeah|sure|ok|okay|go on|do it|fine|wait,?\s*yes|on second thought.*yes|i changed my mind)\b/i.test(input.toLowerCase().trim())) {
+      const subj = _drawingContext.describedAs;
+      const tone = _drawingStoryToneFromMood(_drawingContext.analysis.mood);
+      const r = Generator.generateStory({ subject: subj, mode: 'micro', tone });
+      _storySession = {
+        tone: r.tone || tone, subject: subj,
+        character: r.character, place: r.place,
+        chapter: 1, chapterMode: false, mode: 'micro'
+      };
+      _drawingContext = null;
+      return r.text;
     }
 
     // Memory commands win early — pure command surface, no chance of
@@ -1327,6 +1360,29 @@ const Brain = (() => {
         return prefix + r.text;
       }
       return NO_STORY_MSG;
+    }
+
+    // "Make it longer" / "bigger" — upgrade the CURRENT story instead of
+    // reading it as frustration (v60 — fixes the drawing-payoff dead end where
+    // "that's not big enough, make it longer" hit the emotion detector). Only
+    // fires when a session is live, so it can be liberal: a micro story grows
+    // to a regular one, a regular one grows to a beat-chain. Must sit ABOVE the
+    // emotion detector and the edit-intent block.
+    if (_storySession && typeof Generator !== 'undefined'
+        && /\b(longer|bigger|not (big|long) enough|make it (longer|big|bigger)|too short|expand it|more detail)\b/i.test(lower)
+        && !/\bstory about\b|\btell me a story\b/i.test(lower)) {
+      const nextMode = _storySession.mode === 'micro' ? 'regular' : 'beats';
+      const r = Generator.generateStory({
+        tone:      _storySession.tone,
+        subject:   _storySession.subject,
+        character: _storySession.character,
+        place:     _storySession.place,
+        mode:      nextMode
+      });
+      _storySession.character = r.character || _storySession.character;
+      _storySession.place     = r.place     || _storySession.place;
+      _storySession.mode      = r.mode || nextMode;
+      return r.text;
     }
 
     // Story-hook reply — if Joe recently offered a story-about-X, treat
@@ -1409,8 +1465,10 @@ const Brain = (() => {
       for (const g of rules.greetings) {
         const matched = g.if.some(w => {
           const escW = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          // Allow an optional comma before a vocative ("hi, friend") and a
+          // leading comma/space generally (v59 fix).
           const re = new RegExp(
-            '^' + escW + "(\\s+(joe|monkey joe|there|friend|buddy|pal))?[\\s,!.?]*$",
+            '^' + escW + "(\\s*,?\\s+(joe|monkey joe|there|friend|buddy|pal))?[\\s,!.?]*$",
             'i'
           );
           return re.test(lower);
@@ -1428,6 +1486,38 @@ const Brain = (() => {
           }
           return withProcedural(greeting);
         }
+      }
+    }
+
+    // ── Relational + compound-question handling (v60) ───────────
+    // Two linked bugs this fixes:
+    //  • "do you love me" / "are you my friend" used to fall through every
+    //    dispatcher into the knowledge scorer and dump a random wordy fact
+    //    (ACT therapy, Docker volumes…). Now answered warmly, here, before
+    //    emotion + knowledge.
+    //  • "I love you, what's your name?" used to hit the `i love you` reaction
+    //    rule, which swallowed the question. Now the affection is acknowledged
+    //    AND the question gets answered.
+    {
+      const askName = /\b(what'?s|what is|whats)\s+your\s+name\b|\bwho\s+(are|r)\s+(you|u)\b|\bwhat\s+are\s+you(\s+called)?\b/.test(lower);
+      const affLead = /\bi\s+(love|like)\s+(you|u|ya)\b/.test(lower);
+      const lovesMe = /\bdo\s+you\s+(really\s+|even\s+|still\s+)?love\s+me\b/.test(lower)
+                   || /\byou\s+(don'?t|do\s+not|dont)\s+love\s+me\b/.test(lower)
+                   || /\bdo\s+you\s+(really\s+|even\s+)?like\s+me\b/.test(lower);
+      const friendMe = /\b(are|will|would)\s+you\s+(be\s+|become\s+)?my\s+friend\b/.test(lower)
+                    || /\bare\s+we\s+(friends|buddies|pals)\b/.test(lower)
+                    || /\bdo\s+you\s+care\s+(about\s+)?me\b/.test(lower);
+      if (lovesMe || friendMe) {
+        return pick([
+          "Of course I do! 🐒❤️ You're my favorite human to chat with.",
+          "You bet I do! 🐒 I'm always happy when you show up.",
+          "Always! 🐒❤️ You and me — best buddies.",
+          "100%! 🐒 I light right up every time you say hi."
+        ]);
+      }
+      // Compound: affection AND a name/who question → acknowledge + answer.
+      if (affLead && askName) {
+        return "Aw 🐒❤️ I love chatting with you too! And I'm Monkey Joe — a rules-based assistant built by Akiva with Claude's help. 🐒";
       }
     }
 
@@ -1854,16 +1944,21 @@ const Brain = (() => {
           let exactMatch = false;
           try {
             const esc = kl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const re = /^[a-z0-9 ]+$/.test(kl) ? new RegExp('\\b' + esc) : new RegExp(esc);
+            // Word-boundary on BOTH sides for alphanumeric keywords, so short
+            // keywords like "act" don't match inside "actually" (v59 fix).
+            const re = /^[a-z0-9 ]+$/.test(kl) ? new RegExp('\\b' + esc + '\\b') : new RegExp(esc);
             exactMatch = re.test(q);
           } catch(e) { exactMatch = q.includes(kl); }
           if (exactMatch) { score += 2; continue; } // exact match worth 2
           // stem match
           if (kl.length > 4 && stemScore(kl, q)) { score += 1; continue; }
-          // partial: does the query contain any word that starts with the keyword (or vice versa)?
+          // partial: a query word and a keyword word share a prefix. BOTH must
+          // be >4 chars — otherwise short words like "do"/"me" prefix-match
+          // "docker"/"mentor" and dump unrelated facts on conversational input
+          // (v59 fix).
           const kWords = kl.split(/\s+/);
           const qWords = q.split(/\s+/);
-          if (kWords.some(kw => kw.length > 4 && qWords.some(qw => qw.startsWith(kw) || kw.startsWith(qw))) ) { score += 0.5; }
+          if (kWords.some(kw => kw.length > 4 && qWords.some(qw => qw.length > 4 && (qw.startsWith(kw) || kw.startsWith(qw))))) { score += 0.5; }
         }
         if (score > best) best = score;
       }
@@ -1939,10 +2034,26 @@ const Brain = (() => {
     if (!rules || !rules.emotions) return null;
     let best = null, bestScore = 0;
     for (const [emotion, data] of Object.entries(rules.emotions)) {
-      const score = data.signals.filter(s => original.includes(s) || lower.includes(s.toLowerCase())).length;
+      const score = data.signals.filter(s => emotionSignalHit(s, lower, original)).length;
       if (score > bestScore) { bestScore = score; best = emotion; }
     }
     return bestScore > 0 ? best : null;
+  }
+
+  // A signal hits if it's present. Two guards prevent over-firing (v59):
+  //  - Signals written in CAPS (e.g. "WHY", "WHY WON'T") are SHOUTING markers
+  //    — match case-sensitively against the original text only, so a normal
+  //    lowercase "why is the sky blue" doesn't read as anger.
+  //  - Short all-letter signals (≤3 chars, e.g. "ugh", "grr") must match as a
+  //    whole word, so they don't fire inside unrelated words.
+  function emotionSignalHit(signal, lower, original) {
+    const hasUpper = /[A-Z]/.test(signal);
+    if (hasUpper) return original.includes(signal);          // shouting: exact case
+    const s = signal.toLowerCase();
+    if (/^[a-z]+$/.test(s) && s.length <= 3) {
+      return new RegExp('\\b' + s + '\\b').test(lower);       // whole-word only
+    }
+    return lower.includes(s);
   }
 
   function needsSearch(input) {

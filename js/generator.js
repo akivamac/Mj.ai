@@ -148,7 +148,10 @@ const Generator = (() => {
     const bindings = {};
     if (opts.character) bindings['NOUN:character'] = opts.character;
     if (opts.place)     bindings['NOUN:place']     = opts.place;
-    if (opts.subject && isKnownNoun(opts.subject)) {
+    // Bind the subject to the character slot whenever one is given — not just
+    // known dictionary nouns — so drawing/payoff subjects ("table", "hot air
+    // balloon") actually appear in the story instead of a random character.
+    if (opts.subject) {
       bindings['NOUN:character'] = bindings['NOUN:character'] || opts.subject;
     }
     const factText = opts.fact ? factSnippet(opts.fact) : '';
@@ -191,6 +194,12 @@ const Generator = (() => {
     let pool;
     if (opts.mode === 'micro' && templates.microStories && templates.microStories.length) {
       pool = templates.microStories;
+      // When a subject is given, prefer micro templates with a character slot
+      // so the subject actually lands in the story. v59 fix.
+      if (opts.subject) {
+        const withChar = pool.filter(s => (s.text || '').includes('{NOUN:character}'));
+        if (withChar.length) pool = withChar;
+      }
     } else if (opts.continuation && templates.continuations && templates.continuations.length) {
       pool = templates.continuations;
     } else if (opts.fact && templates.factStories && templates.factStories.length) {
