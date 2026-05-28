@@ -13,6 +13,7 @@ const Brain = (() => {
   let debugging = null;
   let responseFlavors = null;
   let mathTutorials   = null;
+  let mathFlavors     = null;
 
   // Phase 3: response flavoring + story hook
   const FLAVOR_CHANCE      = 0.25;
@@ -40,6 +41,7 @@ const Brain = (() => {
       localStorage.removeItem('mj_brain_debugging');
       localStorage.removeItem('mj_brain_responseFlavors');
       localStorage.removeItem('mj_brain_mathTutorials');
+      localStorage.removeItem('mj_brain_mathFlavors');
       localStorage.setItem('mj_brain_version', BRAIN_VERSION);
     }
 
@@ -55,6 +57,7 @@ const Brain = (() => {
     debugging       = Storage.getBrain('debugging');
     responseFlavors = Storage.getBrain('responseFlavors');
     mathTutorials   = Storage.getBrain('mathTutorials');
+    mathFlavors     = Storage.getBrain('mathFlavors');
 
     if (!knowledge)       { knowledge       = await fetchJSON('brain/knowledge.json');       Storage.setBrain('knowledge', knowledge); }
     if (!rules)           { rules           = await fetchJSON('brain/rules.json');           Storage.setBrain('rules', rules); }
@@ -68,6 +71,7 @@ const Brain = (() => {
     if (!debugging)       { debugging       = await fetchJSON('brain/debugging.json');       Storage.setBrain('debugging', debugging); }
     if (!responseFlavors) { responseFlavors = await fetchJSON('brain/responseFlavors.json'); Storage.setBrain('responseFlavors', responseFlavors); }
     if (!mathTutorials)   { mathTutorials   = await fetchJSON('brain/mathTutorials.json');   Storage.setBrain('mathTutorials', mathTutorials); }
+    if (!mathFlavors)     { mathFlavors     = await fetchJSON('brain/mathFlavors.json');     Storage.setBrain('mathFlavors', mathFlavors); }
 
     if (typeof Generator !== 'undefined' && Generator.init) {
       Generator.init(templates, dictionary, storyBeats);
@@ -673,6 +677,42 @@ const Brain = (() => {
     return (String(s).match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
   }
 
+  // ── Math voice layer (v55 phase 3) ─────────────────────
+  // ~20% chance to append a one-line garnish to a math answer. Skips
+  // when the user's message has skip-words (just/quick/briefly/short
+  // /tldr/tl;dr) — same brevity gate as fact-flavoring. Tries to match
+  // a relevant garnish; if no relevant match, may use a generic
+  // "any"-matched one.
+  const MATH_GARNISH_CHANCE = 0.20;
+
+  function maybeGarnishMath(answer, input, lower) {
+    if (!mathFlavors || !mathFlavors.garnishes || !mathFlavors.garnishes.length) return answer;
+    if (!answer || typeof answer !== 'string') return answer;
+    if (MATH_SKIP_RE.test(lower)) return answer;
+    if (Math.random() >= MATH_GARNISH_CHANCE) return answer;
+    const answerStr = answer.trim();
+    const lowerInput = lower;
+    // Find candidates by match_type — collect all matches then pick one.
+    const candidates = [];
+    for (const g of mathFlavors.garnishes) {
+      const t = g.match_type, trigs = g.triggers || [];
+      if (t === 'any') { candidates.push(g); continue; }
+      if (t === 'input_contains' && trigs.some(s => lowerInput.includes(s.toLowerCase()))) {
+        candidates.push(g);
+      } else if (t === 'answer_equals' && trigs.some(s => answerStr === s)) {
+        candidates.push(g);
+      } else if (t === 'answer_contains' && trigs.some(s => answerStr.includes(s))) {
+        candidates.push(g);
+      }
+    }
+    if (!candidates.length) return answer;
+    // Prefer specific (non-'any') matches when available.
+    const specific = candidates.filter(g => g.match_type !== 'any');
+    const pick = (specific.length ? specific : candidates);
+    const g = pick[Math.floor(Math.random() * pick.length)];
+    return answer + '\n' + g.text;
+  }
+
   function _handleTutorial(intent, input, lower) {
     if (!mathTutorials || !mathTutorials.tutorials) return null;
     // Reuse the same trigger scorer as recipes/debugging.
@@ -1089,7 +1129,13 @@ const Brain = (() => {
     const mathIntent = classifyMathIntent(input, lower);
     if (mathIntent) {
       const mathOut = handleMathIntent(mathIntent, input, lower);
-      if (mathOut) return mathOut;
+      if (mathOut) {
+        // COMPUTE/WORKED answers may get a one-line voice garnish.
+        // TEACH/DEFINE already end on a tryIt prompt — don't double up.
+        return (mathIntent === 'COMPUTE' || mathIntent === 'WORKED')
+          ? maybeGarnishMath(mathOut, input, lower)
+          : mathOut;
+      }
     }
 
     // Terminal/command check — only if input looks like a command (starts with trigger or is short)

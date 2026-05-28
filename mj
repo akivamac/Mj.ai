@@ -188,7 +188,7 @@ def update_brain(brain_dir):
     files = ['knowledge.json', 'rules.json', 'terminal.json', 'coding.json',
              'templates.json', 'dictionary.json', 'storyBeats.json',
              'errors.json', 'recipes.json', 'debugging.json',
-             'responseFlavors.json', 'mathTutorials.json']
+             'responseFlavors.json', 'mathTutorials.json', 'mathFlavors.json']
     ctx = ssl.create_default_context()
     for f in files:
         try:
@@ -1034,6 +1034,7 @@ class MonkeyJoe:
         # Phase 3: response flavoring + story-hook follow-up.
         self.response_flavors = {}
         self.math_tutorials = {}
+        self.math_flavors = {}
         self._recent_flavor_age = 99    # turns since last flavored response
         self._story_hook_subject = None
         self._story_hook_keywords = None
@@ -1060,10 +1061,11 @@ class MonkeyJoe:
         # Storyteller + coding-helper files: keep full dict.
         for name in ['templates', 'dictionary', 'story_beats',
                      'errors', 'recipes', 'debugging', 'response_flavors',
-                     'math_tutorials']:
+                     'math_tutorials', 'math_flavors']:
             fname = ('storyBeats.json'        if name == 'story_beats'      else
                      'responseFlavors.json'   if name == 'response_flavors' else
                      'mathTutorials.json'     if name == 'math_tutorials'   else
+                     'mathFlavors.json'       if name == 'math_flavors'     else
                      f'{name}.json')
             path = os.path.join(self.brain_dir, fname)
             try:
@@ -1655,6 +1657,30 @@ class MonkeyJoe:
     @staticmethod
     def _extract_numbers(s):
         return [float(x) for x in re.findall(r'-?\d+(?:\.\d+)?', str(s))]
+
+    MATH_GARNISH_CHANCE = 0.20
+
+    def _maybe_garnish_math(self, answer, input_str, lower):
+        garnishes = (self.math_flavors or {}).get('garnishes') or []
+        if not garnishes or not answer or not isinstance(answer, str): return answer
+        if any(w in lower for w in self.SKIP_FLAVOR_WORDS): return answer
+        if random.random() >= self.MATH_GARNISH_CHANCE: return answer
+        ans = answer.strip()
+        candidates = []
+        for g in garnishes:
+            mt, trigs = g.get('match_type'), g.get('triggers', [])
+            if mt == 'any':
+                candidates.append(g); continue
+            if mt == 'input_contains' and any(s.lower() in lower for s in trigs):
+                candidates.append(g)
+            elif mt == 'answer_equals' and any(ans == s for s in trigs):
+                candidates.append(g)
+            elif mt == 'answer_contains' and any(s in ans for s in trigs):
+                candidates.append(g)
+        if not candidates: return answer
+        specific = [g for g in candidates if g.get('match_type') != 'any']
+        pool = specific if specific else candidates
+        return answer + '\n' + random.choice(pool)['text']
 
     def _handle_tutorial(self, intent, input_str, lower):
         tutorials = (self.math_tutorials or {}).get('tutorials') or []
@@ -2621,6 +2647,10 @@ class MonkeyJoe:
         if math_intent:
             math_resp = self._handle_math_intent(math_intent, user_input, lower)
             if math_resp is not None:
+                # COMPUTE/WORKED answers may get a one-line voice garnish.
+                # TEACH/DEFINE already end on a tryIt prompt.
+                if math_intent in ('COMPUTE', 'WORKED'):
+                    return self._maybe_garnish_math(math_resp, user_input, lower)
                 return math_resp
 
         # Check for casual statements (not questions)

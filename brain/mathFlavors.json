@@ -1,0 +1,299 @@
+{
+  "_comment": "Math response garnishes v1. One-line asides appended to COMPUTE answers ~20% of the time, when the answer matches the trigger pattern. Slot syntax {SLOT:theme} works if needed but most entries are pure plain text.",
+  "garnishes": [
+    {
+      "id": "answer_zero",
+      "triggers": ["0"],
+      "match_type": "answer_equals",
+      "text": "(zero — Indian mathematicians worked out the idea of nothing-as-a-number around 600 CE)"
+    },
+    {
+      "id": "answer_one",
+      "triggers": ["1"],
+      "match_type": "answer_equals",
+      "text": "(one — the multiplicative identity, multiply anything by it and it stays itself)"
+    },
+    {
+      "id": "answer_seven",
+      "triggers": ["7"],
+      "match_type": "answer_equals",
+      "text": "(seven — prime and indivisible, lucky in many cultures)"
+    },
+    {
+      "id": "answer_twelve",
+      "triggers": ["12"],
+      "match_type": "answer_equals",
+      "text": "(twelve — a dozen, and divisible by 1, 2, 3, 4, 6, and 12)"
+    },
+    {
+      "id": "answer_thirteen",
+      "triggers": ["13"],
+      "match_type": "answer_equals",
+      "text": "(thirteen — a baker's dozen, and prime)"
+    },
+    {
+      "id": "answer_forty_two",
+      "triggers": ["42"],
+      "match_type": "answer_equals",
+      "text": "(forty-two — the answer to life, the universe, and everything, per Douglas Adams)"
+    },
+    {
+      "id": "answer_sixty",
+      "triggers": ["60"],
+      "match_type": "answer_equals",
+      "text": "(sixty — minutes in an hour, seconds in a minute, base-60 inherited from the Sumerians)"
+    },
+    {
+      "id": "answer_one_hundred",
+      "triggers": ["100"],
+      "match_type": "answer_equals",
+      "text": "(one hundred — a century, and a whole percent)"
+    },
+    {
+      "id": "answer_144",
+      "triggers": ["144"],
+      "match_type": "answer_equals",
+      "text": "(144 — a gross, old word for twelve dozen)"
+    },
+    {
+      "id": "answer_256",
+      "triggers": ["256"],
+      "match_type": "answer_equals",
+      "text": "(256 — two to the eighth, the number of values one byte can hold)"
+    },
+    {
+      "id": "answer_512",
+      "triggers": ["512"],
+      "match_type": "answer_equals",
+      "text": "(512 — two to the ninth, half a kilobyte in the old reckoning)"
+    },
+    {
+      "id": "answer_1024",
+      "triggers": ["1024"],
+      "match_type": "answer_equals",
+      "text": "(1024 — two to the tenth, and that's why a kilobyte used to mean 1024 bytes)"
+    },
+    {
+      "id": "answer_pi",
+      "triggers": ["3.14159", "3.1415"],
+      "match_type": "answer_contains",
+      "text": "(pi — the ratio of a circle's circumference to its diameter, never ending and never repeating)"
+    },
+    {
+      "id": "answer_e",
+      "triggers": ["2.71828", "2.7182"],
+      "match_type": "answer_contains",
+      "text": "(e — the natural growth constant, shows up wherever things grow at a rate proportional to their size)"
+    },
+    {
+      "id": "answer_phi",
+      "triggers": ["1.61803", "1.6180"],
+      "match_type": "answer_contains",
+      "text": "(phi — the golden ratio, found in spirals from seashells to sunflowers)"
+    },
+    {
+      "id": "answer_infinity",
+      "triggers": ["Infinity", "inf"],
+      "match_type": "answer_contains",
+      "text": "(infinity — not a number but a direction, and some infinities are bigger than others)"
+    },
+    {
+      "id": "input_25_percent",
+      "triggers": ["25%", "0.25", "1/4", "twenty-five percent"],
+      "match_type": "input_contains",
+      "text": "(handy that 25% is just a quarter — divide by 4)"
+    },
+    {
+      "id": "input_50_percent",
+      "triggers": ["50%", "0.5", "1/2", "fifty percent"],
+      "match_type": "input_contains",
+      "text": "(50% is half — divide by 2)"
+    },
+    {
+      "id": "input_75_percent",
+      "triggers": ["75%", "0.75", "3/4", "seventy-five percent"],
+      "match_type": "input_contains",
+      "text": "(75% is three-quarters — multiply by 3, divide by 4)"
+    },
+    {
+      "id": "input_10_percent",
+      "triggers": ["10%", "ten percent"],
+      "match_type": "input_contains",
+      "text": "(10% is just shift the decimal point left one place — sneaky shortcut)"
+    },
+    {
+      "id": "input_sqrt",
+      "triggers": ["sqrt", "square root"],
+      "match_type": "input_contains",
+      "text": "(square root means 'what number times itself gives this')"
+    },
+    {
+      "id": "input_log",
+      "triggers": ["log"],
+      "match_type": "input_contains",
+      "text": "(logs ask 'what power of 10 makes this?')"
+    },
+    {
+      "id": "input_ln",
+      "triggers": ["ln "],
+      "match_type": "input_contains",
+      "text": "(ln is the natural log — base e, the calculus-friendly one)"
+    },
+    {
+      "id": "input_factorial",
+      "triggers": ["factorial", "!"],
+      "match_type": "input_contains",
+      "text": "(factorial: each step multiplies by one more)"
+    },
+    {
+      "id": "input_trig",
+      "triggers": ["sin", "cos", "tan"],
+      "match_type": "input_contains",
+      "text": "(trig: ratios of sides in a right triangle)"
+    },
+    {
+      "id": "input_squared",
+      "triggers": ["^2", "squared"],
+      "match_type": "input_contains",
+      "text": "(squaring makes positives bigger and negatives positive)"
+    },
+    {
+      "id": "input_cubed",
+      "triggers": ["^3", "cubed"],
+      "match_type": "input_contains",
+      "text": "(cubing keeps the sign — negatives stay negative)"
+    },
+    {
+      "id": "input_speed",
+      "triggers": ["mph", "kph", "km/h"],
+      "match_type": "input_contains",
+      "text": "(speed is just distance divided by time)"
+    },
+    {
+      "id": "input_prime",
+      "triggers": ["prime"],
+      "match_type": "input_contains",
+      "text": "(primes are the atoms of numbers — every whole number breaks down into them)"
+    },
+    {
+      "id": "input_gcd",
+      "triggers": ["gcd", "greatest common"],
+      "match_type": "input_contains",
+      "text": "(GCD — the biggest number that divides both cleanly)"
+    },
+    {
+      "id": "input_lcm",
+      "triggers": ["lcm", "least common"],
+      "match_type": "input_contains",
+      "text": "(LCM — the smallest number both divide into cleanly)"
+    },
+    {
+      "id": "input_divide",
+      "triggers": ["divided by", " / "],
+      "match_type": "input_contains",
+      "text": "(division is just asking how many times one number fits inside another)"
+    },
+    {
+      "id": "any_step_by_step",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(if you want the work shown, just add 'step by step')"
+    },
+    {
+      "id": "any_how_does_this_work",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(want me to explain the concept? type 'how does this work?')"
+    },
+    {
+      "id": "any_rounded",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(rounded to a couple of decimals — say so if you want more)"
+    },
+    {
+      "id": "any_exact_fraction",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(if you need exact, ask for the fraction)"
+    },
+    {
+      "id": "any_neat_number",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(neat little number, that one)"
+    },
+    {
+      "id": "any_satisfying",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(one of those satisfying answers)"
+    },
+    {
+      "id": "any_clean",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(answers don't get cleaner than that)"
+    },
+    {
+      "id": "any_number_story",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(want a story about a number that does this?)"
+    },
+    {
+      "id": "any_check_with_estimate",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(a quick estimate is always a good sanity check)"
+    },
+    {
+      "id": "any_math_is_patterns",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(math, when you squint, is just patterns waiting to be noticed)"
+    },
+    {
+      "id": "input_feet_to_meters",
+      "triggers": ["feet to meters", "ft to m"],
+      "match_type": "input_contains",
+      "text": "(1 ft is about 0.3048 m — a foot is roughly a third of a meter)"
+    },
+    {
+      "id": "input_celsius_to_fahrenheit",
+      "triggers": ["c to f", "celsius to fahrenheit"],
+      "match_type": "input_contains",
+      "text": "(F = C times 9/5 plus 32. 0 C is 32 F, 100 C is 212 F)"
+    },
+    {
+      "id": "input_fahrenheit_to_celsius",
+      "triggers": ["f to c", "fahrenheit to celsius"],
+      "match_type": "input_contains",
+      "text": "(C = (F minus 32) times 5/9 — subtract 32 first, then scale)"
+    },
+    {
+      "id": "input_mile",
+      "triggers": ["mile"],
+      "match_type": "input_contains",
+      "text": "(the mile comes from Roman 'mille passus' — a thousand paces)"
+    },
+    {
+      "id": "input_meters",
+      "triggers": ["meter", "metre"],
+      "match_type": "input_contains",
+      "text": "(the meter was originally defined as one ten-millionth of the distance from the equator to the north pole)"
+    },
+    {
+      "id": "input_inch",
+      "triggers": ["inch"],
+      "match_type": "input_contains",
+      "text": "(an inch was historically the width of a thumb)"
+    },
+    {
+      "id": "input_kilogram",
+      "triggers": ["kilogram", "kg to", "to kg"],
+      "match_type": "input_contains",
+      "text": "(a kilogram was once defined by a single metal cylinder in a vault near Paris)"
+    }
+  ]
+}
