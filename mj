@@ -188,7 +188,8 @@ def update_brain(brain_dir):
     files = ['knowledge.json', 'rules.json', 'terminal.json', 'coding.json',
              'templates.json', 'dictionary.json', 'storyBeats.json',
              'errors.json', 'recipes.json', 'debugging.json',
-             'responseFlavors.json', 'mathTutorials.json', 'mathFlavors.json']
+             'responseFlavors.json', 'mathTutorials.json', 'mathFlavors.json',
+             'scienceTutorials.json', 'scienceFlavors.json']
     ctx = ssl.create_default_context()
     for f in files:
         try:
@@ -1035,6 +1036,8 @@ class MonkeyJoe:
         self.response_flavors = {}
         self.math_tutorials = {}
         self.math_flavors = {}
+        self.science_tutorials = {}
+        self.science_flavors = {}
         self._recent_flavor_age = 99    # turns since last flavored response
         self._story_hook_subject = None
         self._story_hook_keywords = None
@@ -1061,11 +1064,14 @@ class MonkeyJoe:
         # Storyteller + coding-helper files: keep full dict.
         for name in ['templates', 'dictionary', 'story_beats',
                      'errors', 'recipes', 'debugging', 'response_flavors',
-                     'math_tutorials', 'math_flavors']:
-            fname = ('storyBeats.json'        if name == 'story_beats'      else
-                     'responseFlavors.json'   if name == 'response_flavors' else
-                     'mathTutorials.json'     if name == 'math_tutorials'   else
-                     'mathFlavors.json'       if name == 'math_flavors'     else
+                     'math_tutorials', 'math_flavors',
+                     'science_tutorials', 'science_flavors']:
+            fname = ('storyBeats.json'        if name == 'story_beats'        else
+                     'responseFlavors.json'   if name == 'response_flavors'   else
+                     'mathTutorials.json'     if name == 'math_tutorials'     else
+                     'mathFlavors.json'       if name == 'math_flavors'       else
+                     'scienceTutorials.json'  if name == 'science_tutorials'  else
+                     'scienceFlavors.json'    if name == 'science_flavors'    else
                      f'{name}.json')
             path = os.path.join(self.brain_dir, fname)
             try:
@@ -1660,6 +1666,128 @@ class MonkeyJoe:
 
     MATH_GARNISH_CHANCE = 0.20
 
+    # ── Science dispatcher (v55) ─────────────────────────
+    _SCI_KEYWORDS = [
+        'force','mass','velocity','acceleration','momentum','energy','work','power',
+        'friction','gravity','weight','motion','newton','einstein','photon','electron',
+        'proton','neutron','atom','nucleus','quantum','relativity','light','sound',
+        'wave','frequency','refraction','reflection','magnet','magnetic','electric','current',
+        'voltage','resistance','circuit','thermodynamics','entropy','temperature','heat',
+        'pressure','radioactive','radiation','isotope','spectrum','telescope',
+        'chemical','element','compound','molecule','bond','reaction','acid','base','ph',
+        'oxidation','reduction','catalyst','mole','periodic','organic','polymer',
+        'salt','ion','solution','solvent','solute','enzyme',
+        'cell','dna','rna','gene','chromosome','mitosis','meiosis','evolution','species',
+        'ecosystem','photosynthesis','respiration','mitochondria','neuron','blood','heart',
+        'lung','kidney','brain','muscle','organ','virus','bacteria','antibody','immune',
+        'hormone','protein','amino acid','vaccine','antibiotic','microbiome',
+        'planet','star','sun','moon','galaxy','universe','big bang','black hole','supernova',
+        'nebula','asteroid','comet','satellite','orbit','light year','parsec','redshift',
+        'cosmic','exoplanet','milky way','andromeda','pulsar','quasar','dark matter',
+        'dark energy','hubble','cmb',
+        'weather','climate','atmosphere','ocean','tide','earthquake','volcano','tectonic',
+        'continent','ice age','fossil','mineral','rock','soil','greenhouse',
+        'hypothesis','experiment','peer review','scientific method',
+        'doppler','snell','fission','fusion','radioactive decay','half-life',
+        'pendulum','centripetal','kepler','schwarzschild','horizon','tide',
+        'aurora','ozone','vaccine','antibody','catalysis','equilibrium',
+        'electromagnetic','spectrum'
+    ]
+    _SCI_TEACH_RE   = re.compile(r"\b(how (?:do|does|to) .+|explain|teach me|i (?:don't|do not|dont) (?:get|understand)|confused about|why (?:is|does|do)|walk me through|help me with)\b", re.I)
+    _SCI_DEFINE_RE  = re.compile(r"^(what is (?:a |an |the )?|what's (?:a |an |the )?|whats (?:a |an |the )?|define )", re.I)
+    _SCI_FORMULA_RE = re.compile(r"\b(plug in|with [a-z]+\s*=|using [a-z]+\s*=|where [a-z]+\s*=|=\s*\d|compute (?:the )?(?:force|energy|momentum|power|work|velocity|acceleration|pressure|wavelength|frequency))", re.I)
+    _SCI_FORMULA_SHORTHAND_RE = re.compile(r"([a-z]+\s*=\s*-?\d+(?:\.\d+)?[\s,]*){2,}", re.I)
+
+    def _classify_science_intent(self, input_str, lower):
+        if self._SCI_FORMULA_SHORTHAND_RE.search(input_str): return 'SCIENCE_FORMULA'
+        if not any(k in lower for k in self._SCI_KEYWORDS): return None
+        if self._SCI_FORMULA_RE.search(input_str): return 'SCIENCE_FORMULA'
+        if self._SCI_TEACH_RE.search(input_str):   return 'SCIENCE_TEACH'
+        if self._SCI_DEFINE_RE.match(input_str) and len(input_str) < 100:
+            return 'SCIENCE_DEFINE'
+        if (len(input_str) < 40 and not input_str.endswith('?')
+            and re.fullmatch(r"[a-z' \-]+", input_str.strip(), re.I)):
+            return 'SCIENCE_DEFINE'
+        return None
+
+    @staticmethod
+    def _extract_named_numbers(input_str, variables):
+        out = {}
+        if not variables: return out
+        lc = input_str.lower()
+        for v in variables:
+            name = v.get('name', '')
+            label = (v.get('label') or '').lower()
+            m = re.search(r'\b' + re.escape(name) + r'\s*=\s*(-?\d+(?:\.\d+)?)', input_str, re.I)
+            if not m and label:
+                m = re.search(r'\b' + re.escape(label).replace(r'\ ', r'\s+')
+                              + r'\s*(?:=|is|of)?\s*(-?\d+(?:\.\d+)?)', lc)
+            if m:
+                out[name] = float(m.group(1))
+                if label: out[label] = float(m.group(1))
+        return out
+
+    def _compute_formula(self, formula, input_str):
+        if not formula or not formula.get('compute'): return None
+        variables = formula.get('variables', [])
+        vals = self._extract_named_numbers(input_str, variables)
+        need = [v['name'] for v in variables]
+        missing = [n for n in need if vals.get(n) is None]
+        if missing: return {'missing': missing}
+        expr = formula['compute']
+        for v in variables:
+            expr = re.sub(r'\b' + re.escape(v['name']) + r'\b',
+                          '(' + str(vals[v['name']]) + ')', expr)
+        r = MathEngine.evaluate_expression(expr)
+        if not r or 'error' in r: return None
+        return {'value': r['value'], 'vars': vals, 'expr': expr}
+
+    def _handle_science_intent(self, intent, input_str, lower):
+        tutorials = (self.science_tutorials or {}).get('tutorials') or []
+        if not tutorials: return None
+        tut = self._find_by_triggers(tutorials, lower, min_score=1)
+        if not tut: return None
+        out = f"**{tut['title']}**"
+        if tut.get('formula') and tut['formula'].get('expression'):
+            out += f"   _{tut['formula']['expression']}_"
+        out += '\n\n' + tut.get('body', '')
+        if intent == 'SCIENCE_FORMULA' and tut.get('formula'):
+            r = self._compute_formula(tut['formula'], input_str)
+            if r and r.get('value') is not None:
+                lbl = tut['formula'].get('result_label', 'result')
+                unit = tut['formula'].get('result_unit', '')
+                out += f"\n\n_Computed:_ {lbl} = {MathEngine.format_number(r['value'])}"
+                if unit: out += f" {unit}"
+            elif r and r.get('missing'):
+                miss = ' '.join(f"{n}=…" for n in r['missing'])
+                out += f"\n\n_Tip:_ to compute, give me values like `{miss}`."
+        elif tut.get('example'):
+            out += f"\n\n_Example:_ {tut['example']}"
+        if tut.get('tryIt'): out += '\n\n' + tut['tryIt']
+        return out
+
+    def _maybe_garnish_science(self, answer, input_str, lower):
+        garnishes = (self.science_flavors or {}).get('garnishes') or []
+        if not garnishes or not answer or not isinstance(answer, str): return answer
+        if any(w in lower for w in self.SKIP_FLAVOR_WORDS): return answer
+        if random.random() >= self.MATH_GARNISH_CHANCE: return answer
+        ans = answer.strip()
+        cands = []
+        for g in garnishes:
+            mt, trigs = g.get('match_type'), g.get('triggers', [])
+            if mt == 'any':
+                cands.append(g); continue
+            if mt == 'input_contains' and any(s.lower() in lower for s in trigs):
+                cands.append(g)
+            elif mt == 'answer_equals' and any(ans == s for s in trigs):
+                cands.append(g)
+            elif mt == 'answer_contains' and any(s in ans for s in trigs):
+                cands.append(g)
+        if not cands: return answer
+        specific = [g for g in cands if g.get('match_type') != 'any']
+        pool = specific if specific else cands
+        return answer + '\n' + random.choice(pool)['text']
+
     def _maybe_garnish_math(self, answer, input_str, lower):
         garnishes = (self.math_flavors or {}).get('garnishes') or []
         if not garnishes or not answer or not isinstance(answer, str): return answer
@@ -1860,20 +1988,35 @@ class MonkeyJoe:
         return out
 
     @staticmethod
+    def _word_contains(haystack, needle):
+        """Substring match respecting word boundaries — `ph` in
+        `photosynthesis` must NOT match."""
+        i = 0
+        while i < len(haystack):
+            j = haystack.find(needle, i)
+            if j < 0: return False
+            before = haystack[j-1] if j > 0 else ' '
+            after  = haystack[j + len(needle)] if j + len(needle) < len(haystack) else ' '
+            if not before.isalpha() and not after.isalpha(): return True
+            i = j + 1
+        return False
+
+    @staticmethod
     def _find_by_triggers(entries, lower, min_score=2):
         if not entries: return None
         best, best_score = None, 0
+        wc_fn = MonkeyJoe._word_contains
         for e in entries:
             score = 0
             for trig in (e.get('triggers') or []):
                 t = trig.lower()
                 wc = len([w for w in t.split() if len(w) > 1])
-                if t in lower:
+                if wc_fn(lower, t):
                     score += 3 if wc >= 2 else 2
                     continue
                 if wc >= 2:
                     words = [w for w in t.split() if len(w) > 1]
-                    if all(w in lower for w in words):
+                    if all(wc_fn(lower, w) for w in words):
                         score += 1
             if score > best_score:
                 best_score, best = score, e
@@ -2652,6 +2795,15 @@ class MonkeyJoe:
                 if math_intent in ('COMPUTE', 'WORKED'):
                     return self._maybe_garnish_math(math_resp, user_input, lower)
                 return math_resp
+
+        # Science dispatcher (v55) — after math, before knowledge.
+        sci_intent = self._classify_science_intent(user_input, lower)
+        if sci_intent:
+            sci_resp = self._handle_science_intent(sci_intent, user_input, lower)
+            if sci_resp is not None:
+                if sci_intent == 'SCIENCE_FORMULA':
+                    return self._maybe_garnish_science(sci_resp, user_input, lower)
+                return sci_resp
 
         # Check for casual statements (not questions)
         if self.is_casual_statement(lower):

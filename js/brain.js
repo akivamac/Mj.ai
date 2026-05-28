@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '55'; // bump when brain JSON files change
+  const BRAIN_VERSION = '56'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -11,9 +11,11 @@ const Brain = (() => {
   let errors = null;
   let recipes = null;
   let debugging = null;
-  let responseFlavors = null;
-  let mathTutorials   = null;
-  let mathFlavors     = null;
+  let responseFlavors  = null;
+  let mathTutorials    = null;
+  let mathFlavors      = null;
+  let scienceTutorials = null;
+  let scienceFlavors   = null;
 
   // Phase 3: response flavoring + story hook
   const FLAVOR_CHANCE      = 0.25;
@@ -42,6 +44,8 @@ const Brain = (() => {
       localStorage.removeItem('mj_brain_responseFlavors');
       localStorage.removeItem('mj_brain_mathTutorials');
       localStorage.removeItem('mj_brain_mathFlavors');
+      localStorage.removeItem('mj_brain_scienceTutorials');
+      localStorage.removeItem('mj_brain_scienceFlavors');
       localStorage.setItem('mj_brain_version', BRAIN_VERSION);
     }
 
@@ -55,9 +59,11 @@ const Brain = (() => {
     errors          = Storage.getBrain('errors');
     recipes         = Storage.getBrain('recipes');
     debugging       = Storage.getBrain('debugging');
-    responseFlavors = Storage.getBrain('responseFlavors');
-    mathTutorials   = Storage.getBrain('mathTutorials');
-    mathFlavors     = Storage.getBrain('mathFlavors');
+    responseFlavors  = Storage.getBrain('responseFlavors');
+    mathTutorials    = Storage.getBrain('mathTutorials');
+    mathFlavors      = Storage.getBrain('mathFlavors');
+    scienceTutorials = Storage.getBrain('scienceTutorials');
+    scienceFlavors   = Storage.getBrain('scienceFlavors');
 
     if (!knowledge)       { knowledge       = await fetchJSON('brain/knowledge.json');       Storage.setBrain('knowledge', knowledge); }
     if (!rules)           { rules           = await fetchJSON('brain/rules.json');           Storage.setBrain('rules', rules); }
@@ -72,6 +78,8 @@ const Brain = (() => {
     if (!responseFlavors) { responseFlavors = await fetchJSON('brain/responseFlavors.json'); Storage.setBrain('responseFlavors', responseFlavors); }
     if (!mathTutorials)   { mathTutorials   = await fetchJSON('brain/mathTutorials.json');   Storage.setBrain('mathTutorials', mathTutorials); }
     if (!mathFlavors)     { mathFlavors     = await fetchJSON('brain/mathFlavors.json');     Storage.setBrain('mathFlavors', mathFlavors); }
+    if (!scienceTutorials){ scienceTutorials= await fetchJSON('brain/scienceTutorials.json');Storage.setBrain('scienceTutorials', scienceTutorials); }
+    if (!scienceFlavors)  { scienceFlavors  = await fetchJSON('brain/scienceFlavors.json');  Storage.setBrain('scienceFlavors', scienceFlavors); }
 
     if (typeof Generator !== 'undefined' && Generator.init) {
       Generator.init(templates, dictionary, storyBeats);
@@ -124,6 +132,21 @@ const Brain = (() => {
   //   all words of a 2+-word trigger present (any order) → 1
   // Single-word triggers can ONLY substring-match (otherwise "git" alone
   // would hit on every passing mention of git).
+  // Substring match that respects word boundaries — `ph` in `photosynthesis`
+  // should NOT match. Both surrounding chars must be non-letter.
+  function _wordContains(haystack, needle) {
+    let from = 0;
+    while (from < haystack.length) {
+      const i = haystack.indexOf(needle, from);
+      if (i < 0) return false;
+      const before = i === 0 ? ' ' : haystack[i - 1];
+      const after  = i + needle.length >= haystack.length ? ' ' : haystack[i + needle.length];
+      if (!/[a-z]/i.test(before) && !/[a-z]/i.test(after)) return true;
+      from = i + 1;
+    }
+    return false;
+  }
+
   function findByTriggers(entries, lower, minScore = 2) {
     if (!entries || !entries.length) return null;
     let best = null, bestScore = 0;
@@ -132,13 +155,13 @@ const Brain = (() => {
       for (const trig of (e.triggers || [])) {
         const t = trig.toLowerCase();
         const wordCount = t.split(/\s+/).filter(w => w.length > 1).length;
-        if (lower.includes(t)) {
+        if (_wordContains(lower, t)) {
           score += (wordCount >= 2) ? 3 : 2;
           continue;
         }
         if (wordCount >= 2) {
           const words = t.split(/\s+/).filter(w => w.length > 1);
-          if (words.every(w => lower.includes(w))) score += 1;
+          if (words.every(w => _wordContains(lower, w))) score += 1;
         }
       }
       if (score > bestScore) { bestScore = score; best = e; }
@@ -736,6 +759,155 @@ const Brain = (() => {
     return out;
   }
 
+  // ── Science dispatcher (v55 — sibling to math) ─────────
+  //
+  // Routes science TEACH/DEFINE/FORMULA. Same shape as the math
+  // dispatcher: a classifier returns one of three intents (or null),
+  // a handler dispatches to the tutorial bank or formula compute.
+  // Tutorials with a `formula` block accept variable values and
+  // plug them in via MathEngine.
+
+  const SCI_KEYWORDS = [
+    // physics
+    'force','mass','velocity','acceleration','momentum','energy','work','power',
+    'friction','gravity','weight','motion','newton','einstein','photon','electron',
+    'proton','neutron','atom','nucleus','quantum','relativity','light','sound',
+    'wave','frequency','refraction','reflection','magnet','magnetic','electric','current',
+    'voltage','resistance','circuit','thermodynamics','entropy','temperature','heat',
+    'pressure','radioactive','radiation','isotope','spectrum','telescope',
+    // chemistry
+    'chemical','element','compound','molecule','bond','reaction','acid','base','ph',
+    'oxidation','reduction','catalyst','mole','periodic','organic','polymer',
+    'salt','ion','solution','solvent','solute','enzyme',
+    // biology
+    'cell','dna','rna','gene','chromosome','mitosis','meiosis','evolution','species',
+    'ecosystem','photosynthesis','respiration','mitochondria','neuron','blood','heart',
+    'lung','kidney','brain','muscle','organ','virus','bacteria','antibody','immune',
+    'hormone','protein','amino acid','vaccine','antibiotic','microbiome',
+    // astronomy
+    'planet','star','sun','moon','galaxy','universe','big bang','black hole','supernova',
+    'nebula','asteroid','comet','satellite','orbit','light year','parsec','redshift',
+    'cosmic','exoplanet','milky way','andromeda','pulsar','quasar','dark matter',
+    'dark energy','hubble','cmb',
+    // earth science
+    'weather','climate','atmosphere','ocean','tide','earthquake','volcano','tectonic',
+    'continent','ice age','fossil','mineral','rock','soil','greenhouse',
+    // scientific method
+    'hypothesis','experiment','peer review','scientific method',
+    // additions for coverage
+    'doppler','snell','fission','fusion','radioactive decay','half-life',
+    'pendulum','centripetal','kepler','schwarzschild','horizon','tide',
+    'aurora','ozone','vaccine','antibody','catalysis','equilibrium',
+    'electromagnetic','spectrum'
+  ];
+
+  const SCI_TEACH_RE  = /\b(how (?:do|does|to) .+|explain|teach me|i (?:don't|do not|dont) (?:get|understand)|confused about|why (?:is|does|do)|walk me through|help me with)\b/i;
+  const SCI_DEFINE_RE = /^(what is (?:a |an |the )?|what's (?:a |an |the )?|whats (?:a |an |the )?|define )/i;
+  const SCI_FORMULA_RE = /\b(plug in|with [a-z]+\s*=|using [a-z]+\s*=|where [a-z]+\s*=|=\s*\d|compute (?:the )?(?:force|energy|momentum|power|work|velocity|acceleration|pressure|wavelength|frequency))/i;
+  // Formula shorthand: at least 2 `letter=number` clauses anywhere in input.
+  // E.g. "F=ma with m=5 a=3" or "PV=nRT P=101 V=2 n=0.5 T=300"
+  const SCI_FORMULA_SHORTHAND_RE = /([a-z]+\s*=\s*-?\d+(?:\.\d+)?[\s,]*){2,}/i;
+
+  function hasSciKeyword(lower) {
+    return SCI_KEYWORDS.some(k => lower.includes(k));
+  }
+
+  function classifyScienceIntent(input, lower) {
+    // Formula shorthand can fire without keyword matches (the formula
+    // name like "F=ma" is the keyword — the tutorial's triggers match it).
+    if (SCI_FORMULA_SHORTHAND_RE.test(input)) return 'SCIENCE_FORMULA';
+    if (!hasSciKeyword(lower)) return null;
+    if (SCI_FORMULA_RE.test(input)) return 'SCIENCE_FORMULA';
+    if (SCI_TEACH_RE.test(input))   return 'SCIENCE_TEACH';
+    if (SCI_DEFINE_RE.test(input) && input.length < 100) return 'SCIENCE_DEFINE';
+    // Bare science noun phrase ("photosynthesis", "newton's second law").
+    if (input.length < 40 && !/\?$/.test(input) && /^[a-z' \-]+$/i.test(input.trim())) {
+      return 'SCIENCE_DEFINE';
+    }
+    return null;
+  }
+
+  // Extract named-variable values from input. Recognizes:
+  //   "m=5 a=3", "m = 5, a = 3", "mass 5 acceleration 3",
+  //   "with mass 5 and acceleration 3", "mass=5kg acceleration=3 m/s²"
+  // Returns { [name]: value, [label]: value }.
+  function _extractNamedNumbers(input, variables) {
+    const lc = input.toLowerCase();
+    const out = {};
+    if (!variables) return out;
+    for (const v of variables) {
+      const name = v.name, label = (v.label || '').toLowerCase();
+      // Try `name = N` first
+      let m = new RegExp('\\b' + name + '\\s*=\\s*(-?\\d+(?:\\.\\d+)?)', 'i').exec(input);
+      if (!m && label) m = new RegExp('\\b' + label.replace(/\s+/g, '\\s+') + '\\s*(?:=|is|of)?\\s*(-?\\d+(?:\\.\\d+)?)', 'i').exec(lc);
+      if (m) { out[name] = parseFloat(m[1]); if (label) out[label] = parseFloat(m[1]); }
+    }
+    return out;
+  }
+
+  function _computeFormula(formula, input) {
+    if (!formula || !formula.compute || typeof MathEngine === 'undefined') return null;
+    const vars = _extractNamedNumbers(input, formula.variables);
+    const need = (formula.variables || []).map(v => v.name);
+    const missing = need.filter(n => vars[n] == null);
+    if (missing.length) return { missing };
+    // Substitute variable names with numeric values in the compute string,
+    // then evaluate via MathEngine.
+    let expr = formula.compute;
+    for (const v of formula.variables) {
+      // Replace whole-word occurrences of the variable name.
+      expr = expr.replace(new RegExp('\\b' + v.name + '\\b', 'g'), '(' + vars[v.name] + ')');
+    }
+    const r = MathEngine.evaluateExpression(expr);
+    if (!r || r.error) return null;
+    return { value: r.value, vars, expr };
+  }
+
+  function handleScienceIntent(intent, input, lower) {
+    if (!scienceTutorials || !scienceTutorials.tutorials) return null;
+    // Always look up a tutorial first (it has the explanatory body).
+    const tut = findByTriggers(scienceTutorials.tutorials, lower, 1);
+    if (!tut) return null;
+    let out = `**${tut.title}**`;
+    if (tut.formula && tut.formula.expression) out += `   _${tut.formula.expression}_`;
+    out += '\n\n' + (tut.body || '');
+    // If FORMULA intent and tutorial has a formula, try to compute.
+    if (intent === 'SCIENCE_FORMULA' && tut.formula) {
+      const r = _computeFormula(tut.formula, input);
+      if (r && r.value != null) {
+        out += `\n\n_Computed:_ ${tut.formula.result_label || 'result'} = ${_fmt(r.value)}` +
+               (tut.formula.result_unit ? ` ${tut.formula.result_unit}` : '');
+      } else if (r && r.missing) {
+        out += `\n\n_Tip:_ to compute, give me values like \`${r.missing.map(n=>`${n}=…`).join(' ')}\`.`;
+      }
+    } else if (tut.example) {
+      out += `\n\n_Example:_ ${tut.example}`;
+    }
+    if (tut.tryIt) out += '\n\n' + tut.tryIt;
+    return out;
+  }
+
+  // Reuses the same garnish mechanism as math, with the science pool.
+  function maybeGarnishScience(answer, input, lower) {
+    if (!scienceFlavors || !scienceFlavors.garnishes) return answer;
+    if (!answer || typeof answer !== 'string') return answer;
+    if (MATH_SKIP_RE.test(lower)) return answer;
+    if (Math.random() >= MATH_GARNISH_CHANCE) return answer;
+    const answerStr = answer.trim();
+    const cands = [];
+    for (const g of scienceFlavors.garnishes) {
+      const t = g.match_type, trigs = g.triggers || [];
+      if (t === 'any') { cands.push(g); continue; }
+      if (t === 'input_contains' && trigs.some(s => lower.includes(s.toLowerCase()))) cands.push(g);
+      else if (t === 'answer_equals' && trigs.some(s => answerStr === s)) cands.push(g);
+      else if (t === 'answer_contains' && trigs.some(s => answerStr.includes(s))) cands.push(g);
+    }
+    if (!cands.length) return answer;
+    const specific = cands.filter(g => g.match_type !== 'any');
+    const pool = specific.length ? specific : cands;
+    return answer + '\n' + pool[Math.floor(Math.random() * pool.length)].text;
+  }
+
   function handleMathIntent(intent, input, lower) {
     if (typeof MathEngine === 'undefined') return null;
     if (intent === 'TEACH' || intent === 'DEFINE') {
@@ -1135,6 +1307,20 @@ const Brain = (() => {
         return (mathIntent === 'COMPUTE' || mathIntent === 'WORKED')
           ? maybeGarnishMath(mathOut, input, lower)
           : mathOut;
+      }
+    }
+
+    // ── Science dispatcher (v55) ──────────────────────────
+    // After math, before terminal + knowledge. Routes TEACH/DEFINE/
+    // FORMULA intents to scienceTutorials.json. The formula path
+    // plugs user-supplied numbers into the tutorial's compute string.
+    const sciIntent = classifyScienceIntent(input, lower);
+    if (sciIntent) {
+      const sciOut = handleScienceIntent(sciIntent, input, lower);
+      if (sciOut) {
+        return (sciIntent === 'SCIENCE_FORMULA')
+          ? maybeGarnishScience(sciOut, input, lower)
+          : sciOut;
       }
     }
 

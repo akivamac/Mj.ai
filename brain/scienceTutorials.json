@@ -1,0 +1,2150 @@
+{
+  "_comment": "Science tutorials v1. 130+ entries. Matched via findByTriggers. Tutorials with a `formula` block let Joe plug numbers in and return a computed answer along with the explanation.",
+  "tutorials": [
+    {
+      "id": "newtons_first_law",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["newton's first law", "newtons first law", "law of inertia", "what is inertia", "object in motion stays in motion"],
+      "title": "Newton's First Law (Inertia)",
+      "body": "An object at rest stays at rest, and an object in motion stays in motion at the same speed and direction, unless a force acts on it. This is why you lurch forward when a car brakes suddenly — your body wants to keep moving even though the car has stopped.\n\nThe tendency to resist a change in motion is called inertia, and more massive objects have more of it.",
+      "formula": null,
+      "example": "A hockey puck on frictionless ice would slide forever — only friction and air resistance slow real objects down.",
+      "tryIt": "Try: 'what is Newton's second law?'"
+    },
+    {
+      "id": "newtons_second_law",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["newton's second law", "newtons second law", "f equals ma", "f=ma", "force mass acceleration", "how does force work"],
+      "title": "Newton's Second Law",
+      "body": "Force equals mass times acceleration. A heavier object needs more force to accelerate the same amount; a smaller object accelerates more from the same force. Push a shopping cart vs a car with the same force and you'll feel the difference.",
+      "formula": {
+        "expression": "F = m * a",
+        "compute": "m*a",
+        "variables": [
+          {"name": "m", "label": "mass", "unit": "kg"},
+          {"name": "a", "label": "acceleration", "unit": "m/s²"}
+        ],
+        "result_label": "force",
+        "result_unit": "N"
+      },
+      "example": "A 5 kg object accelerating at 3 m/s² needs 15 N of force.",
+      "tryIt": "Try: 'F=ma with mass 5 acceleration 3'."
+    },
+    {
+      "id": "newtons_third_law",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["newton's third law", "newtons third law", "action reaction", "equal and opposite", "every action has a reaction"],
+      "title": "Newton's Third Law",
+      "body": "For every action, there is an equal and opposite reaction. When you push on a wall, the wall pushes back on you with the same force. Rockets work this way: hot gas shoots down, and the rocket gets pushed up.\n\nThe two forces always act on different objects, which is why they don't just cancel out.",
+      "formula": null,
+      "example": "Jumping off a small boat pushes the boat backward as you jump forward.",
+      "tryIt": "Try: 'how does a rocket work?' or 'what is momentum?'"
+    },
+    {
+      "id": "kinetic_energy",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["kinetic energy", "ke formula", "energy of motion", "1/2 mv squared", "ke = 1/2 mv^2"],
+      "title": "Kinetic Energy",
+      "body": "Kinetic energy is the energy of motion. The faster something moves, the more energy it has — and doubling the speed quadruples the energy (it's squared). A car going 60 mph has four times the crash energy of one going 30 mph.",
+      "formula": {
+        "expression": "KE = 0.5 * m * v^2",
+        "compute": "0.5*m*v^2",
+        "variables": [
+          {"name": "m", "label": "mass", "unit": "kg"},
+          {"name": "v", "label": "velocity", "unit": "m/s"}
+        ],
+        "result_label": "kinetic energy",
+        "result_unit": "J"
+      },
+      "example": "A 2 kg ball at 10 m/s has 100 J of kinetic energy.",
+      "tryIt": "Try: 'kinetic energy mass 2 velocity 10'."
+    },
+    {
+      "id": "potential_energy_gravity",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["gravitational potential energy", "pe = mgh", "potential energy formula", "gpe", "energy of height"],
+      "title": "Gravitational Potential Energy",
+      "body": "When you lift something up, you store energy in it. That stored energy is gravitational potential energy, and it depends on mass, gravity, and height. Drop the object and that PE turns back into kinetic energy.",
+      "formula": {
+        "expression": "PE = m * g * h",
+        "compute": "m*9.81*h",
+        "variables": [
+          {"name": "m", "label": "mass", "unit": "kg"},
+          {"name": "h", "label": "height", "unit": "m"}
+        ],
+        "result_label": "potential energy",
+        "result_unit": "J"
+      },
+      "example": "A 1 kg book on a 2 m shelf has about 19.6 J of potential energy.",
+      "tryIt": "Try: 'potential energy mass 1 height 2'."
+    },
+    {
+      "id": "momentum",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["momentum", "p = mv", "what is momentum", "momentum formula"],
+      "title": "Momentum",
+      "body": "Momentum is mass in motion — how hard it is to stop something. A slow-moving truck and a fast-moving bike can have similar momentum. In any collision, total momentum stays the same (conservation of momentum), which is how Newton's cradle and billiards work.",
+      "formula": {
+        "expression": "p = m * v",
+        "compute": "m*v",
+        "variables": [
+          {"name": "m", "label": "mass", "unit": "kg"},
+          {"name": "v", "label": "velocity", "unit": "m/s"}
+        ],
+        "result_label": "momentum",
+        "result_unit": "kg·m/s"
+      },
+      "example": "A 1500 kg car at 20 m/s has 30,000 kg·m/s of momentum.",
+      "tryIt": "Try: 'momentum mass 1500 velocity 20'."
+    },
+    {
+      "id": "conservation_of_energy",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["conservation of energy", "energy is conserved", "law of conservation of energy", "first law of thermodynamics"],
+      "title": "Conservation of Energy",
+      "body": "Energy cannot be created or destroyed — only transformed from one form to another. A roller coaster trades potential energy at the top for kinetic energy at the bottom. Some always sneaks off as heat or sound, but the total is the same.\n\nThis is one of the most fundamental laws in all of physics.",
+      "formula": null,
+      "example": "A pendulum constantly swaps potential and kinetic energy as it swings.",
+      "tryIt": "Try: 'what is conservation of momentum?'"
+    },
+    {
+      "id": "conservation_of_momentum",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["conservation of momentum", "momentum is conserved", "law of conservation of momentum"],
+      "title": "Conservation of Momentum",
+      "body": "In a closed system with no outside forces, the total momentum before a collision equals the total after. This is why a cue ball stops when it hits another billiard ball dead-on — its momentum transfers to the other ball.\n\nRockets, jet engines, and recoil from a gun all follow this rule.",
+      "formula": null,
+      "example": "Two ice skaters pushing apart: lighter one slides away faster, but their momenta are equal and opposite.",
+      "tryIt": "Try: 'how does a rocket work?'"
+    },
+    {
+      "id": "work_energy",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["work formula", "w = fd", "work in physics", "work-energy theorem", "what is work physics"],
+      "title": "Work (Physics)",
+      "body": "In physics, work means force applied over a distance — and it equals the energy transferred. Pushing a box 3 meters with 10 N of force does 30 joules of work. Holding a heavy box still does zero physics-work, even though it feels exhausting.",
+      "formula": {
+        "expression": "W = F * d",
+        "compute": "F*d",
+        "variables": [
+          {"name": "F", "label": "force", "unit": "N"},
+          {"name": "d", "label": "distance", "unit": "m"}
+        ],
+        "result_label": "work",
+        "result_unit": "J"
+      },
+      "example": "A 50 N force over 4 m does 200 J of work.",
+      "tryIt": "Try: 'work force 50 distance 4'."
+    },
+    {
+      "id": "power",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["power formula", "p = w/t", "power in physics", "what is power physics", "watts physics"],
+      "title": "Power",
+      "body": "Power is how fast you do work — energy per unit time. Two engines might do the same total work, but the more powerful one finishes faster. A 100-watt bulb uses 100 joules of energy every second.",
+      "formula": {
+        "expression": "P = W / t",
+        "compute": "W/t",
+        "variables": [
+          {"name": "W", "label": "work", "unit": "J"},
+          {"name": "t", "label": "time", "unit": "s"}
+        ],
+        "result_label": "power",
+        "result_unit": "W"
+      },
+      "example": "500 J of work in 10 s is 50 watts.",
+      "tryIt": "Try: 'power work 500 time 10'."
+    },
+    {
+      "id": "centripetal_force",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["centripetal force", "circular motion", "f = mv^2/r", "force in a circle"],
+      "title": "Centripetal Force",
+      "body": "To keep something moving in a circle, you need a force pulling it inward — that's centripetal force. For a car turning a corner, it's friction; for the moon, it's gravity; for a yo-yo on a string, it's tension.",
+      "formula": {
+        "expression": "F = m * v^2 / r",
+        "compute": "m*v^2/r",
+        "variables": [
+          {"name": "m", "label": "mass", "unit": "kg"},
+          {"name": "v", "label": "velocity", "unit": "m/s"},
+          {"name": "r", "label": "radius", "unit": "m"}
+        ],
+        "result_label": "centripetal force",
+        "result_unit": "N"
+      },
+      "example": "A 0.5 kg ball at 4 m/s on a 1 m string needs 8 N of inward pull.",
+      "tryIt": "Try: 'centripetal force mass 0.5 velocity 4 radius 1'."
+    },
+    {
+      "id": "pendulum_period",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["pendulum period", "how long does a pendulum swing", "pendulum formula", "pendulum physics"],
+      "title": "Pendulum Period",
+      "body": "A pendulum's swing time depends almost entirely on its length, not on the weight at the end. A longer pendulum swings more slowly. This is why grandfather clocks are tall.",
+      "formula": {
+        "expression": "T = 2π * sqrt(L / g)",
+        "compute": "2*3.14159265*sqrt(L/9.81)",
+        "variables": [
+          {"name": "L", "label": "length", "unit": "m"}
+        ],
+        "result_label": "period",
+        "result_unit": "s"
+      },
+      "example": "A 1 m pendulum has a period of about 2.01 s.",
+      "tryIt": "Try: 'pendulum period length 1'."
+    },
+    {
+      "id": "friction_types",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["types of friction", "static friction", "kinetic friction", "rolling friction", "what is friction"],
+      "title": "Types of Friction",
+      "body": "Friction is a force that resists motion between surfaces. Static friction holds things in place until you push hard enough; kinetic friction slows things that are already sliding (and is usually weaker than static). Rolling friction — for wheels and balls — is much weaker than either.\n\nFluid friction (or drag) is what slows you down in water or air.",
+      "formula": null,
+      "example": "It takes more force to start pushing a heavy box than to keep it moving once it slides.",
+      "tryIt": "Try: 'what is terminal velocity?'"
+    },
+    {
+      "id": "terminal_velocity",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["terminal velocity", "why don't falling objects keep speeding up", "max falling speed", "air resistance"],
+      "title": "Terminal Velocity",
+      "body": "Falling objects accelerate until air resistance pushing up equals gravity pulling down. At that point they stop speeding up — that steady speed is terminal velocity. A skydiver hits about 53 m/s (120 mph) belly-down, or much higher if streamlined.",
+      "formula": null,
+      "example": "A feather and a bowling ball fall at the same speed in a vacuum because no air resistance acts on either.",
+      "tryIt": "Try: 'how does air resistance work?'"
+    },
+    {
+      "id": "figure_skater_spin",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["why does a figure skater spin faster", "conservation of angular momentum", "angular momentum", "skater pulls arms in"],
+      "title": "Why a Skater Spins Faster Pulling Arms In",
+      "body": "Angular momentum is conserved — it depends on how mass is distributed and how fast you're rotating. Pull your mass closer to the spin axis and you must spin faster to keep the same angular momentum.\n\nThis is also how a collapsing star can spin into a fast-rotating neutron star.",
+      "formula": null,
+      "example": "Sitting in a spinning office chair and pulling your legs in speeds your spin noticeably.",
+      "tryIt": "Try: 'what is a neutron star?'"
+    },
+    {
+      "id": "coulombs_law",
+      "topic": "physics_electromagnetism",
+      "intent": "teach",
+      "triggers": ["coulomb's law", "coulombs law", "electric force formula", "force between charges"],
+      "title": "Coulomb's Law",
+      "body": "The electric force between two charges is proportional to the charges and falls off with the square of the distance. Like charges repel, opposite charges attract. The constant k ≈ 8.99 × 10⁹ N·m²/C².",
+      "formula": {
+        "expression": "F = k * q1 * q2 / r^2",
+        "compute": "8.99e9*q1*q2/r^2",
+        "variables": [
+          {"name": "q1", "label": "charge 1", "unit": "C"},
+          {"name": "q2", "label": "charge 2", "unit": "C"},
+          {"name": "r", "label": "distance", "unit": "m"}
+        ],
+        "result_label": "force",
+        "result_unit": "N"
+      },
+      "example": "Two 1 μC charges 1 m apart push each other with about 0.009 N.",
+      "tryIt": "Try: 'what is an electric field?'"
+    },
+    {
+      "id": "ohms_law",
+      "topic": "physics_electromagnetism",
+      "intent": "teach",
+      "triggers": ["ohm's law", "ohms law", "v = ir", "voltage current resistance"],
+      "title": "Ohm's Law",
+      "body": "Voltage equals current times resistance. Push harder (more volts) and more current flows; add resistance and the current drops. This relationship works for most ordinary conductors.",
+      "formula": {
+        "expression": "V = I * R",
+        "compute": "I*R",
+        "variables": [
+          {"name": "I", "label": "current", "unit": "A"},
+          {"name": "R", "label": "resistance", "unit": "Ω"}
+        ],
+        "result_label": "voltage",
+        "result_unit": "V"
+      },
+      "example": "2 A through a 10 Ω resistor needs 20 V.",
+      "tryIt": "Try: 'V=IR current 2 resistance 10'."
+    },
+    {
+      "id": "power_dissipation",
+      "topic": "physics_electromagnetism",
+      "intent": "teach",
+      "triggers": ["power dissipation", "p = i^2 r", "electrical power", "joule heating", "resistive heating"],
+      "title": "Electrical Power Dissipation",
+      "body": "Current flowing through resistance produces heat — that's why toasters glow and laptops warm up. The power dissipated grows with the square of the current, which is why long-distance power lines use very high voltage (low current) to minimize losses.",
+      "formula": {
+        "expression": "P = I^2 * R",
+        "compute": "I^2*R",
+        "variables": [
+          {"name": "I", "label": "current", "unit": "A"},
+          {"name": "R", "label": "resistance", "unit": "Ω"}
+        ],
+        "result_label": "power",
+        "result_unit": "W"
+      },
+      "example": "3 A through 4 Ω dissipates 36 W of heat.",
+      "tryIt": "Try: 'power dissipation current 3 resistance 4'."
+    },
+    {
+      "id": "electric_field",
+      "topic": "physics_electromagnetism",
+      "intent": "define",
+      "triggers": ["what is an electric field", "electric field", "define electric field"],
+      "title": "Electric Field",
+      "body": "An electric field is the invisible region around an electric charge where another charge would feel a force. It points from positive to negative, and its strength falls off with distance squared. The unit is volts per meter (or newtons per coulomb).",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what is a magnetic field?'"
+    },
+    {
+      "id": "magnetic_field",
+      "topic": "physics_electromagnetism",
+      "intent": "define",
+      "triggers": ["what is a magnetic field", "magnetic field", "define magnetic field"],
+      "title": "Magnetic Field",
+      "body": "A magnetic field is the region around a magnet or moving charge where magnetic forces act. It loops from a magnet's north pole around to its south pole. The unit is the tesla (T); Earth's field at the surface is about 50 microtesla.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'how does electromagnetic induction work?'"
+    },
+    {
+      "id": "em_induction",
+      "topic": "physics_electromagnetism",
+      "intent": "teach",
+      "triggers": ["electromagnetic induction", "faraday's law", "faradays law", "induced current", "how does a generator work"],
+      "title": "Electromagnetic Induction",
+      "body": "A changing magnetic field through a wire loop creates a voltage — Faraday's discovery. Spin a magnet near a coil and current flows. This is how every electric generator works, from bicycle dynamos to gigawatt power plants.\n\nTransformers, electric motors (in reverse), and induction stoves all rely on it.",
+      "formula": null,
+      "example": "Pulling a magnet quickly through a coil briefly powers a small LED.",
+      "tryIt": "Try: 'what is the electromagnetic spectrum?'"
+    },
+    {
+      "id": "em_spectrum",
+      "topic": "physics_electromagnetism",
+      "intent": "teach",
+      "triggers": ["electromagnetic spectrum", "em spectrum", "types of light", "radio waves to gamma rays"],
+      "title": "Electromagnetic Spectrum",
+      "body": "All electromagnetic waves travel at the speed of light — what differs is wavelength (and energy). From longest to shortest: radio, microwave, infrared, visible light, ultraviolet, X-ray, gamma.\n\nVisible light is a thin slice in the middle, from about 400 nm (violet) to 700 nm (red).",
+      "formula": null,
+      "example": "Microwave ovens use waves about 12 cm long that water molecules absorb well.",
+      "tryIt": "Try: 'why is the sky blue?'"
+    },
+    {
+      "id": "wave_equation",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": ["wave equation", "v = f lambda", "wave speed formula", "frequency wavelength"],
+      "title": "Wave Equation (v = fλ)",
+      "body": "Wave speed equals frequency times wavelength. For a given medium, the speed is fixed — so if frequency goes up, wavelength must go down. This is true for sound, light, and water waves alike.",
+      "formula": {
+        "expression": "v = f * λ",
+        "compute": "f*l",
+        "variables": [
+          {"name": "f", "label": "frequency", "unit": "Hz"},
+          {"name": "l", "label": "wavelength", "unit": "m"}
+        ],
+        "result_label": "wave speed",
+        "result_unit": "m/s"
+      },
+      "example": "A 500 Hz sound wave with wavelength 0.68 m travels at 340 m/s — the speed of sound in air.",
+      "tryIt": "Try: 'wave speed frequency 500 wavelength 0.68'."
+    },
+    {
+      "id": "doppler_effect",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": ["doppler effect", "why does an ambulance change pitch", "redshift blueshift", "doppler shift"],
+      "title": "Doppler Effect",
+      "body": "When a source of waves moves toward you, the waves bunch up — higher frequency. When it moves away, they stretch out — lower frequency. That's why an ambulance siren drops in pitch as it passes.\n\nAstronomers use the same effect with light: galaxies moving away from us are redshifted, which is how we learned the universe is expanding.",
+      "formula": null,
+      "example": "Race cars seem to whine higher coming toward you and lower zooming past.",
+      "tryIt": "Try: 'what is Hubble's law?'"
+    },
+    {
+      "id": "snells_law",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": ["snell's law", "snells law", "refraction formula", "light bending"],
+      "title": "Snell's Law (Refraction)",
+      "body": "When light passes from one material to another, it bends. The amount depends on the materials' indices of refraction. This is why a straw looks broken in a glass of water.\n\nThe formula: n₁ sin(θ₁) = n₂ sin(θ₂).",
+      "formula": null,
+      "example": "Light entering water from air bends toward the normal because water's index (1.33) is higher than air's (~1).",
+      "tryIt": "Try: 'how do lenses work?'"
+    },
+    {
+      "id": "why_sky_blue",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": ["why is the sky blue", "rayleigh scattering", "what makes the sky blue"],
+      "title": "Why the Sky Is Blue",
+      "body": "Sunlight contains all colors. When it hits air molecules, the shorter (bluer) wavelengths scatter more than the longer (redder) ones — this is called Rayleigh scattering. The blue scatters in every direction, so the whole sky glows blue.\n\nAt sunset, light passes through more atmosphere, blue gets scattered away entirely, and only reds and oranges reach you.",
+      "formula": null,
+      "example": "Sunsets are red for the same reason the sky is blue — just from the other angle.",
+      "tryIt": "Try: 'what is the electromagnetic spectrum?'"
+    },
+    {
+      "id": "how_lenses_work",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": ["how do lenses work", "convex lens", "concave lens", "lens physics"],
+      "title": "How Lenses Work",
+      "body": "Lenses bend (refract) light to focus it. A convex (bulging) lens converges light to a point — used in magnifying glasses, cameras, and your eye. A concave (caved-in) lens spreads light out — used in glasses for nearsightedness.\n\nThe focal length tells you how strongly a lens bends light.",
+      "formula": null,
+      "example": "A magnifying glass can focus sunlight tight enough to burn paper.",
+      "tryIt": "Try: 'how does the eye work?'"
+    },
+    {
+      "id": "ideal_gas_law",
+      "topic": "physics_thermodynamics",
+      "intent": "teach",
+      "triggers": ["ideal gas law", "pv=nrt", "gas law formula", "boyle's law charles's law"],
+      "title": "Ideal Gas Law",
+      "body": "PV = nRT relates pressure, volume, amount of gas (in moles), and temperature. Squeeze a gas and pressure goes up; heat it and pressure or volume rises. R is the gas constant (8.314 J/mol·K).",
+      "formula": {
+        "expression": "P = n * R * T / V",
+        "compute": "n*8.314*T/V",
+        "variables": [
+          {"name": "n", "label": "moles", "unit": "mol"},
+          {"name": "T", "label": "temperature", "unit": "K"},
+          {"name": "V", "label": "volume", "unit": "m³"}
+        ],
+        "result_label": "pressure",
+        "result_unit": "Pa"
+      },
+      "example": "1 mol of gas at 300 K in 0.025 m³ is at about 100 kPa — roughly atmospheric pressure.",
+      "tryIt": "Try: 'gas pressure moles 1 temperature 300 volume 0.025'."
+    },
+    {
+      "id": "heat_capacity",
+      "topic": "physics_thermodynamics",
+      "intent": "teach",
+      "triggers": ["specific heat", "heat capacity", "q = mc delta t", "heating water formula"],
+      "title": "Specific Heat (Q = mcΔT)",
+      "body": "To raise the temperature of something, you have to add energy. The amount depends on mass, the specific heat (a property of the substance), and the temperature change. Water has an unusually high specific heat — that's why oceans moderate climate.",
+      "formula": {
+        "expression": "Q = m * c * ΔT",
+        "compute": "m*c*dT",
+        "variables": [
+          {"name": "m", "label": "mass", "unit": "kg"},
+          {"name": "c", "label": "specific heat", "unit": "J/kg·K"},
+          {"name": "dT", "label": "temperature change", "unit": "K"}
+        ],
+        "result_label": "heat energy",
+        "result_unit": "J"
+      },
+      "example": "Heating 1 kg of water (c=4186) by 10 K takes 41,860 J.",
+      "tryIt": "Try: 'heat energy mass 1 specific 4186 dT 10'."
+    },
+    {
+      "id": "laws_of_thermo",
+      "topic": "physics_thermodynamics",
+      "intent": "teach",
+      "triggers": ["laws of thermodynamics", "three laws of thermodynamics", "thermodynamics laws"],
+      "title": "The Three Laws of Thermodynamics",
+      "body": "First law: energy is conserved — you can change forms but you can't make new energy. Second law: entropy (disorder) of a closed system always increases — heat flows from hot to cold, not the other way. Third law: as temperature approaches absolute zero, entropy approaches a minimum.\n\nThere's also a zeroth law: if two systems are each in thermal equilibrium with a third, they're in equilibrium with each other.",
+      "formula": null,
+      "example": "You can never build a perfectly efficient engine — the second law forbids it.",
+      "tryIt": "Try: 'what is entropy?'"
+    },
+    {
+      "id": "entropy",
+      "topic": "physics_thermodynamics",
+      "intent": "teach",
+      "triggers": ["what is entropy", "entropy", "disorder physics", "second law explained"],
+      "title": "Entropy",
+      "body": "Entropy is a measure of disorder or the number of ways a system can be arranged. A shuffled deck has higher entropy than a sorted one. In nature, isolated systems tend toward higher entropy — ice cubes melt in warm rooms, perfume diffuses, hot coffee cools.\n\nThis is why time has a direction — entropy never spontaneously decreases.",
+      "formula": null,
+      "example": "Sand castles erode into flat beaches; flat beaches don't spontaneously become castles.",
+      "tryIt": "Try: 'what are the laws of thermodynamics?'"
+    },
+    {
+      "id": "photon_energy",
+      "topic": "physics_quantum",
+      "intent": "teach",
+      "triggers": ["photon energy", "e = hf", "planck formula", "photon energy formula"],
+      "title": "Photon Energy (E = hf)",
+      "body": "Light comes in packets called photons. Each photon carries energy proportional to its frequency — blue photons have more energy than red, X-rays much more, gamma rays even more. Planck's constant h ≈ 6.626 × 10⁻³⁴ J·s.",
+      "formula": {
+        "expression": "E = h * f",
+        "compute": "6.626e-34*f",
+        "variables": [
+          {"name": "f", "label": "frequency", "unit": "Hz"}
+        ],
+        "result_label": "photon energy",
+        "result_unit": "J"
+      },
+      "example": "Green light at 5.6 × 10¹⁴ Hz carries about 3.7 × 10⁻¹⁹ J per photon.",
+      "tryIt": "Try: 'photon energy frequency 5.6e14'."
+    },
+    {
+      "id": "what_is_a_photon",
+      "topic": "physics_quantum",
+      "intent": "define",
+      "triggers": ["what is a photon", "what's a photon", "define photon"],
+      "title": "Photon",
+      "body": "A photon is a particle (quantum) of light — the smallest packet of electromagnetic energy. Photons have no mass and always travel at c (299,792,458 m/s in vacuum). Their energy depends on frequency: E = h × f.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'how does the photoelectric effect work?'"
+    },
+    {
+      "id": "de_broglie",
+      "topic": "physics_quantum",
+      "intent": "teach",
+      "triggers": ["de broglie wavelength", "matter waves", "λ = h/p", "particle wavelength"],
+      "title": "De Broglie Wavelength",
+      "body": "Every particle has wave-like properties — the heavier and faster it moves, the shorter its wavelength. For everyday objects the wavelength is so tiny we never notice. For electrons, it's big enough to use in electron microscopes.",
+      "formula": {
+        "expression": "λ = h / p",
+        "compute": "6.626e-34/p",
+        "variables": [
+          {"name": "p", "label": "momentum", "unit": "kg·m/s"}
+        ],
+        "result_label": "wavelength",
+        "result_unit": "m"
+      },
+      "example": "A 1 g ball at 1 m/s has a wavelength of about 6.6 × 10⁻³¹ m — utterly undetectable.",
+      "tryIt": "Try: 'what is wave-particle duality?'"
+    },
+    {
+      "id": "wave_particle_duality",
+      "topic": "physics_quantum",
+      "intent": "teach",
+      "triggers": ["wave particle duality", "what is wave-particle duality", "double slit experiment", "is light a wave or particle"],
+      "title": "Wave-Particle Duality",
+      "body": "Light and matter both behave sometimes like waves, sometimes like particles. The famous double-slit experiment shows even single electrons or photons create an interference pattern — as if each one passed through both slits at once.\n\nQuantum mechanics says particles don't have definite paths; they have probabilities, and only measurement forces a single answer.",
+      "formula": null,
+      "example": "Photons going through a double slit one at a time still build up an interference pattern over time.",
+      "tryIt": "Try: 'what is Heisenberg's uncertainty principle?'"
+    },
+    {
+      "id": "uncertainty_principle",
+      "topic": "physics_quantum",
+      "intent": "teach",
+      "triggers": ["uncertainty principle", "heisenberg uncertainty", "position and momentum"],
+      "title": "Heisenberg's Uncertainty Principle",
+      "body": "You cannot know both the exact position and exact momentum of a particle at the same time. The more precisely you measure one, the fuzzier the other becomes. This isn't a measurement problem — it's a fundamental feature of nature.\n\nIt only matters at quantum scales; for baseballs the uncertainty is unimaginably small.",
+      "formula": null,
+      "example": "Pinning down an electron's location very precisely smears its possible velocities enormously.",
+      "tryIt": "Try: 'what is quantum entanglement?'"
+    },
+    {
+      "id": "quantum_entanglement",
+      "topic": "physics_quantum",
+      "intent": "define",
+      "triggers": ["quantum entanglement", "what is entanglement", "spooky action at a distance"],
+      "title": "Quantum Entanglement",
+      "body": "Two particles can become linked so that measuring one instantly determines the state of the other, no matter how far apart they are. Einstein called it 'spooky action at a distance.' It doesn't let us send messages faster than light, but it's real and now used in quantum computing.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what is a quantum computer?'"
+    },
+    {
+      "id": "time_dilation",
+      "topic": "physics_relativity",
+      "intent": "teach",
+      "triggers": ["time dilation", "special relativity", "moving clocks run slow", "twin paradox"],
+      "title": "Time Dilation",
+      "body": "Einstein showed that time runs slower for fast-moving objects. Astronauts on the ISS age microseconds less than people on Earth. At 90% the speed of light, a clock would tick at about 43% the normal rate.\n\nGPS satellites have to correct for both special and general relativity, or they'd drift kilometers off in a day.",
+      "formula": null,
+      "example": "A muon created in the upper atmosphere should decay before reaching the ground — but time dilation lets it survive the trip.",
+      "tryIt": "Try: 'what is length contraction?' or 'E=mc^2 explained'."
+    },
+    {
+      "id": "length_contraction",
+      "topic": "physics_relativity",
+      "intent": "teach",
+      "triggers": ["length contraction", "lorentz contraction", "moving objects shorter"],
+      "title": "Length Contraction",
+      "body": "From a stationary observer's view, a fast-moving object appears shorter in the direction of motion. At 0.87 c, lengths shrink to half. We never see this in daily life because nothing we encounter goes anywhere close to light speed.\n\nIt's the spatial counterpart to time dilation — both come from the constancy of the speed of light.",
+      "formula": null,
+      "example": "A spaceship at 99% c would look 14% as long to a stationary observer.",
+      "tryIt": "Try: 'what is time dilation?'"
+    },
+    {
+      "id": "mass_energy",
+      "topic": "physics_relativity",
+      "intent": "teach",
+      "triggers": ["e=mc^2", "e = mc2", "mass energy equivalence", "einstein famous equation"],
+      "title": "E = mc² (Mass-Energy Equivalence)",
+      "body": "Mass and energy are two forms of the same thing. A small amount of mass holds an enormous amount of energy because c² is huge (~9 × 10¹⁶ m²/s²). This is what powers stars and nuclear weapons.\n\n1 kg of matter holds about 9 × 10¹⁶ J — enough to power a city for a year.",
+      "formula": {
+        "expression": "E = m * c^2",
+        "compute": "m*(2.998e8)^2",
+        "variables": [
+          {"name": "m", "label": "mass", "unit": "kg"}
+        ],
+        "result_label": "energy",
+        "result_unit": "J"
+      },
+      "example": "Converting just 1 g of mass completely to energy yields about 9 × 10¹³ J.",
+      "tryIt": "Try: 'E=mc^2 mass 0.001'."
+    },
+    {
+      "id": "schwarzschild_radius",
+      "topic": "physics_relativity",
+      "intent": "teach",
+      "triggers": ["schwarzschild radius", "event horizon size", "black hole size", "how big is a black hole"],
+      "title": "Schwarzschild Radius",
+      "body": "If you compressed mass below this radius, it would form a black hole — the size of its event horizon. For the Sun it's about 3 km; for Earth, only about 9 mm.\n\nThe formula: r = 2GM/c², where G is the gravitational constant.",
+      "formula": {
+        "expression": "r = 2 * G * M / c^2",
+        "compute": "2*6.674e-11*M/(2.998e8)^2",
+        "variables": [
+          {"name": "M", "label": "mass", "unit": "kg"}
+        ],
+        "result_label": "Schwarzschild radius",
+        "result_unit": "m"
+      },
+      "example": "Earth's mass (5.97e24 kg) gives a Schwarzschild radius of about 8.87 mm.",
+      "tryIt": "Try: 'Schwarzschild radius mass 5.97e24'."
+    },
+    {
+      "id": "general_relativity",
+      "topic": "physics_relativity",
+      "intent": "teach",
+      "triggers": ["general relativity", "what is general relativity", "gravity is curved spacetime", "einstein gravity"],
+      "title": "General Relativity",
+      "body": "Einstein's theory of gravity says mass and energy curve spacetime, and objects move along the straightest paths through that curvature. The Sun warps spacetime, and Earth's orbit follows that warp.\n\nIt predicts time dilation in gravity (clocks tick slower at sea level than on a mountaintop), light bending around mass, and gravitational waves.",
+      "formula": null,
+      "example": "GPS satellites' clocks run about 38 microseconds per day faster than ground clocks — predicted exactly by general relativity.",
+      "tryIt": "Try: 'what are gravitational waves?'"
+    },
+    {
+      "id": "gravitational_waves",
+      "topic": "physics_relativity",
+      "intent": "define",
+      "triggers": ["gravitational waves", "what are gravitational waves", "ligo"],
+      "title": "Gravitational Waves",
+      "body": "Ripples in spacetime caused by massive accelerating objects, like merging black holes. They travel at the speed of light. LIGO first detected them in 2015 from two black holes merging over a billion light-years away, opening a new window onto the universe.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what is a black hole?'"
+    },
+    {
+      "id": "speed_of_sound",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": ["speed of sound", "how fast is sound", "sound speed in air"],
+      "title": "Speed of Sound",
+      "body": "Sound travels about 343 m/s in air at 20°C — roughly a kilometer in three seconds. It moves much faster in water (1500 m/s) and faster still in steel (5000 m/s), because the molecules are packed closer.\n\nIn a vacuum, sound can't travel at all — there's no medium to vibrate.",
+      "formula": null,
+      "example": "Lightning then thunder: count seconds, divide by 3, and that's the distance in km.",
+      "tryIt": "Try: 'what is the Doppler effect?'"
+    },
+    {
+      "id": "buoyancy",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["buoyancy", "archimedes principle", "why do things float", "how does floating work"],
+      "title": "Buoyancy (Archimedes' Principle)",
+      "body": "The upward force on an object in a fluid equals the weight of the fluid it displaces. If that's more than the object weighs, it floats. Steel ships float because their hull shape displaces a huge volume of water — enough to outweigh the steel.",
+      "formula": null,
+      "example": "An ice cube floats because ice is slightly less dense than liquid water.",
+      "tryIt": "Try: 'why does ice float?'"
+    },
+    {
+      "id": "pressure",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["pressure formula", "p = f/a", "what is pressure", "pressure physics"],
+      "title": "Pressure",
+      "body": "Pressure is force spread over area. The same force on a small area creates higher pressure — that's why snowshoes work (spread weight) and knives cut (concentrate force).",
+      "formula": {
+        "expression": "P = F / A",
+        "compute": "F/A",
+        "variables": [
+          {"name": "F", "label": "force", "unit": "N"},
+          {"name": "A", "label": "area", "unit": "m²"}
+        ],
+        "result_label": "pressure",
+        "result_unit": "Pa"
+      },
+      "example": "100 N over 0.01 m² is 10,000 Pa.",
+      "tryIt": "Try: 'pressure force 100 area 0.01'."
+    },
+    {
+      "id": "density",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["density formula", "density = mass / volume", "what is density", "ρ = m/v"],
+      "title": "Density",
+      "body": "Density is mass packed into volume. A bowling ball and a beach ball have similar size but very different densities. Whether something floats in water depends on whether its density is less than water's (1000 kg/m³).",
+      "formula": {
+        "expression": "ρ = m / V",
+        "compute": "m/V",
+        "variables": [
+          {"name": "m", "label": "mass", "unit": "kg"},
+          {"name": "V", "label": "volume", "unit": "m³"}
+        ],
+        "result_label": "density",
+        "result_unit": "kg/m³"
+      },
+      "example": "A 2 kg object taking up 0.001 m³ has density 2000 kg/m³.",
+      "tryIt": "Try: 'density mass 2 volume 0.001'."
+    },
+    {
+      "id": "moles_avogadro",
+      "topic": "chemistry_stoichiometry",
+      "intent": "teach",
+      "triggers": ["what is a mole chemistry", "avogadro's number", "avogadros number", "mole definition"],
+      "title": "Moles and Avogadro's Number",
+      "body": "A mole is just a count, like a dozen — except a mole is 6.022 × 10²³ things. Chemists use it because atoms are so small that gram-amounts of any substance contain trillions of trillions of atoms.\n\nOne mole of carbon-12 weighs exactly 12 grams. The same logic gives you the molar mass for every element on the periodic table.",
+      "formula": null,
+      "example": "12 g of carbon is 1 mole — 6.022 × 10²³ atoms.",
+      "tryIt": "Try: 'what is molarity?'"
+    },
+    {
+      "id": "molarity",
+      "topic": "chemistry_solutions",
+      "intent": "teach",
+      "triggers": ["molarity", "m = mol/l", "concentration formula", "what is molarity"],
+      "title": "Molarity (M = mol/L)",
+      "body": "Molarity is the concentration of a solution — how many moles of solute per liter of solution. A 1 M (one-molar) saltwater solution has 1 mole of NaCl in every liter.",
+      "formula": {
+        "expression": "M = mol / V",
+        "compute": "n/V",
+        "variables": [
+          {"name": "n", "label": "moles of solute", "unit": "mol"},
+          {"name": "V", "label": "volume of solution", "unit": "L"}
+        ],
+        "result_label": "molarity",
+        "result_unit": "mol/L"
+      },
+      "example": "0.5 mol in 2 L is 0.25 M.",
+      "tryIt": "Try: 'molarity moles 0.5 volume 2'."
+    },
+    {
+      "id": "dilution",
+      "topic": "chemistry_solutions",
+      "intent": "teach",
+      "triggers": ["dilution formula", "m1v1 = m2v2", "how to dilute a solution", "diluting concentration"],
+      "title": "Dilution (M₁V₁ = M₂V₂)",
+      "body": "When you dilute a solution, the moles of solute don't change — only the volume. So the starting concentration times starting volume equals the ending concentration times ending volume.",
+      "formula": {
+        "expression": "V2 = M1 * V1 / M2",
+        "compute": "M1*V1/M2",
+        "variables": [
+          {"name": "M1", "label": "starting molarity", "unit": "mol/L"},
+          {"name": "V1", "label": "starting volume", "unit": "L"},
+          {"name": "M2", "label": "final molarity", "unit": "mol/L"}
+        ],
+        "result_label": "final volume",
+        "result_unit": "L"
+      },
+      "example": "To dilute 100 mL of 2 M HCl down to 0.5 M, dilute to 400 mL total.",
+      "tryIt": "Try: 'dilution M1 2 V1 0.1 M2 0.5'."
+    },
+    {
+      "id": "ph",
+      "topic": "chemistry_acids_bases",
+      "intent": "teach",
+      "triggers": ["what is ph", "ph scale", "ph formula", "how is ph measured"],
+      "title": "pH",
+      "body": "pH measures how acidic or basic a solution is: pH = -log[H⁺]. A pH of 7 is neutral; lower is acidic, higher is basic. Each step is 10×: pH 4 is ten times more acidic than pH 5.\n\nThe log scale exists because hydrogen ion concentrations span an enormous range — from about 1 M in strong acid to 10⁻¹⁴ M in strong base.",
+      "formula": {
+        "expression": "pH = -log(H+)",
+        "compute": "-log(H)/log(10)",
+        "variables": [
+          {"name": "H", "label": "H+ concentration", "unit": "mol/L"}
+        ],
+        "result_label": "pH",
+        "result_unit": ""
+      },
+      "example": "An H⁺ concentration of 0.001 mol/L gives pH = 3.",
+      "tryIt": "Try: 'pH H 0.001' or 'what are acids and bases?'"
+    },
+    {
+      "id": "poh",
+      "topic": "chemistry_acids_bases",
+      "intent": "teach",
+      "triggers": ["poh", "what is poh", "ph + poh = 14"],
+      "title": "pOH",
+      "body": "pOH is the basic-side cousin of pH, measuring hydroxide ion concentration: pOH = -log[OH⁻]. In water at 25°C, pH + pOH = 14, so they're always linked.",
+      "formula": {
+        "expression": "pOH = -log(OH-)",
+        "compute": "-log(OH)/log(10)",
+        "variables": [
+          {"name": "OH", "label": "OH- concentration", "unit": "mol/L"}
+        ],
+        "result_label": "pOH",
+        "result_unit": ""
+      },
+      "example": "If pH is 9, then pOH is 5.",
+      "tryIt": "Try: 'what is pH?'"
+    },
+    {
+      "id": "acids_bases_definitions",
+      "topic": "chemistry_acids_bases",
+      "intent": "teach",
+      "triggers": ["acids vs bases", "arrhenius bronsted lewis", "definition of acid", "definition of base"],
+      "title": "Acids and Bases (Three Definitions)",
+      "body": "Arrhenius: acids release H⁺ in water, bases release OH⁻. Brønsted-Lowry: acids donate protons, bases accept them — broader and more useful. Lewis: acids accept electron pairs, bases donate them — most general of all.\n\nEach definition covers more cases than the last, but Brønsted-Lowry is the everyday workhorse.",
+      "formula": null,
+      "example": "Ammonia (NH₃) is a base in Brønsted-Lowry terms because it accepts protons, even though it has no OH⁻.",
+      "tryIt": "Try: 'what is pH?'"
+    },
+    {
+      "id": "periodic_trends",
+      "topic": "chemistry_periodic",
+      "intent": "teach",
+      "triggers": ["periodic trends", "electronegativity trend", "atomic radius trend", "ionization energy trend"],
+      "title": "Periodic Trends",
+      "body": "Across a period (left to right), atoms get smaller, electronegativity rises, and ionization energy rises — nuclear charge pulls electrons in tighter. Down a group, atoms get larger and these properties weaken — electrons sit in outer shells, farther from the nucleus.\n\nFluorine is the most electronegative element; cesium has one of the lowest ionization energies.",
+      "formula": null,
+      "example": "Sodium gives up an electron easily; chlorine grabs one greedily — that's why they form NaCl.",
+      "tryIt": "Try: 'what are bond types?'"
+    },
+    {
+      "id": "bond_types",
+      "topic": "chemistry_bonding",
+      "intent": "teach",
+      "triggers": ["types of chemical bonds", "ionic vs covalent", "hydrogen bond", "metallic bond"],
+      "title": "Types of Chemical Bonds",
+      "body": "Ionic bonds form when atoms transfer electrons — usually a metal and a nonmetal (like Na⁺Cl⁻). Covalent bonds share electrons — usually between nonmetals (H₂O, CO₂). Metallic bonds let electrons flow freely through a lattice — that's why metals conduct.\n\nHydrogen bonds are weaker attractions between molecules (think water sticking to itself, or DNA strands holding together).",
+      "formula": null,
+      "example": "Diamond is one giant covalent network — every carbon bonded to four others.",
+      "tryIt": "Try: 'what is a hydrogen bond?'"
+    },
+    {
+      "id": "hydrogen_bond",
+      "topic": "chemistry_bonding",
+      "intent": "define",
+      "triggers": ["what is a hydrogen bond", "hydrogen bonding", "h-bond"],
+      "title": "Hydrogen Bond",
+      "body": "A weak attraction between a hydrogen attached to an electronegative atom (N, O, or F) and another electronegative atom nearby. Hydrogen bonds give water its surface tension and high boiling point, hold DNA's two strands together, and shape proteins.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'why is water special?'"
+    },
+    {
+      "id": "reaction_types",
+      "topic": "chemistry_reactions",
+      "intent": "teach",
+      "triggers": ["types of chemical reactions", "synthesis decomposition", "combustion reaction", "redox reaction"],
+      "title": "Types of Chemical Reactions",
+      "body": "The main categories: synthesis (A + B → AB), decomposition (AB → A + B), single replacement (A + BC → AC + B), double replacement (AB + CD → AD + CB), combustion (fuel + O₂ → CO₂ + H₂O), and redox (electrons transfer between species).\n\nMost reactions fit more than one category — combustion is also a redox reaction, for example.",
+      "formula": null,
+      "example": "Burning methane (CH₄ + 2 O₂ → CO₂ + 2 H₂O) is both combustion and redox.",
+      "tryIt": "Try: 'what are oxidation and reduction?'"
+    },
+    {
+      "id": "states_of_matter",
+      "topic": "chemistry_phase",
+      "intent": "teach",
+      "triggers": ["states of matter", "phase changes", "solid liquid gas plasma", "melting freezing"],
+      "title": "States of Matter and Phase Changes",
+      "body": "Solid, liquid, gas, plasma — and exotic ones like Bose-Einstein condensates. As you add energy, particles move faster: melting (solid→liquid), vaporization (liquid→gas), and ionization (gas→plasma). Cooling reverses each step.\n\nSublimation skips the liquid phase entirely (dry ice does this).",
+      "formula": null,
+      "example": "Water can exist as ice, water, and steam, all on a cold sidewalk after a freezing rain.",
+      "tryIt": "Try: 'why does ice float?'"
+    },
+    {
+      "id": "why_ice_floats",
+      "topic": "chemistry_phase",
+      "intent": "teach",
+      "triggers": ["why does ice float", "why is ice less dense than water", "water density"],
+      "title": "Why Ice Floats",
+      "body": "Water is one of the few substances where the solid form is less dense than the liquid. Hydrogen bonds force water molecules into an open, hexagonal crystal when they freeze — taking up more space than liquid water.\n\nIf ice sank, lakes would freeze from the bottom up, and aquatic life couldn't survive winter.",
+      "formula": null,
+      "example": "Pipes burst in winter because the water inside expands as it freezes.",
+      "tryIt": "Try: 'what is a hydrogen bond?'"
+    },
+    {
+      "id": "half_life",
+      "topic": "chemistry_nuclear",
+      "intent": "teach",
+      "triggers": ["half life", "half-life formula", "radioactive decay", "what is half-life"],
+      "title": "Half-Life and Radioactive Decay",
+      "body": "Radioactive isotopes decay at a steady statistical rate. After one half-life, half of the original sample remains; after two half-lives, a quarter; and so on. Carbon-14 has a half-life of 5,730 years, which is how we date organic artifacts.",
+      "formula": {
+        "expression": "N = N0 * (1/2)^(t/h)",
+        "compute": "N0*(0.5)^(t/h)",
+        "variables": [
+          {"name": "N0", "label": "starting amount", "unit": "any"},
+          {"name": "t", "label": "elapsed time", "unit": "same as h"},
+          {"name": "h", "label": "half-life", "unit": "same as t"}
+        ],
+        "result_label": "amount remaining",
+        "result_unit": "same as N0"
+      },
+      "example": "100 g of an isotope with a 10-year half-life leaves 25 g after 20 years.",
+      "tryIt": "Try: 'half life N0 100 t 20 h 10'."
+    },
+    {
+      "id": "balancing_equations",
+      "topic": "chemistry_stoichiometry",
+      "intent": "teach",
+      "triggers": ["balancing chemical equations", "how to balance equations", "conservation of mass chemistry"],
+      "title": "Balancing Chemical Equations",
+      "body": "Atoms aren't created or destroyed in a chemical reaction, so the same number of each element must appear on both sides. You balance by adjusting the coefficients (the big numbers in front of formulas), never the subscripts inside formulas.\n\nStart with the element that appears in the fewest compounds, and save free elements (like O₂ or H₂) for last.",
+      "formula": null,
+      "example": "2 H₂ + O₂ → 2 H₂O balances four H and two O on each side.",
+      "tryIt": "Try: 'what are reaction types?'"
+    },
+    {
+      "id": "oxidation_reduction",
+      "topic": "chemistry_reactions",
+      "intent": "teach",
+      "triggers": ["oxidation and reduction", "redox", "what is oxidation", "what is reduction", "leo says ger"],
+      "title": "Oxidation and Reduction (Redox)",
+      "body": "Oxidation is losing electrons; reduction is gaining them. They always happen together — what one species loses, another gains. Mnemonic: 'LEO says GER' — Lose Electrons, Oxidation; Gain Electrons, Reduction.\n\nRusting iron, burning wood, and batteries all involve redox reactions.",
+      "formula": null,
+      "example": "In 2 Fe + 3/2 O₂ → Fe₂O₃, iron is oxidized (loses electrons) and oxygen is reduced (gains them).",
+      "tryIt": "Try: 'how does a battery work?'"
+    },
+    {
+      "id": "catalysts",
+      "topic": "chemistry_reactions",
+      "intent": "teach",
+      "triggers": ["what is a catalyst", "catalysts", "enzymes catalyst", "how catalysts work"],
+      "title": "Catalysts",
+      "body": "A catalyst speeds up a reaction by giving it an easier pathway — lower activation energy — without being used up itself. Catalytic converters in cars use platinum, palladium, and rhodium to turn toxic exhaust into less harmful gases.\n\nLiving things use enzymes (protein catalysts) for essentially every reaction in the body.",
+      "formula": null,
+      "example": "Saliva contains amylase, an enzyme that starts breaking down starch the moment food enters your mouth.",
+      "tryIt": "Try: 'what are enzymes?'"
+    },
+    {
+      "id": "le_chatelier",
+      "topic": "chemistry_equilibrium",
+      "intent": "teach",
+      "triggers": ["le chatelier's principle", "le chatelier", "chemical equilibrium", "shift equilibrium"],
+      "title": "Le Chatelier's Principle",
+      "body": "When you disturb a chemical equilibrium — by changing concentration, pressure, or temperature — the reaction shifts to partly undo the change. Add more reactant, and the reaction makes more product. Cool an exothermic reaction, and it makes more product (releasing more heat).",
+      "formula": null,
+      "example": "Squeezing a gas-producing equilibrium pushes it toward whichever side has fewer gas molecules.",
+      "tryIt": "Try: 'what is a catalyst?'"
+    },
+    {
+      "id": "cell_types",
+      "topic": "biology_cell",
+      "intent": "teach",
+      "triggers": ["prokaryote vs eukaryote", "cell types", "what is a prokaryote", "what is a eukaryote"],
+      "title": "Prokaryotes vs Eukaryotes",
+      "body": "Prokaryotes (bacteria and archaea) are small, simple cells with no nucleus — their DNA floats free in the cell. Eukaryotes (plants, animals, fungi, protists) have a nucleus and membrane-bound organelles like mitochondria.\n\nEukaryotes likely evolved when ancient cells engulfed bacteria that became mitochondria and chloroplasts.",
+      "formula": null,
+      "example": "An E. coli is a prokaryote; one of your skin cells is a eukaryote.",
+      "tryIt": "Try: 'what are organelles?'"
+    },
+    {
+      "id": "organelles",
+      "topic": "biology_cell",
+      "intent": "teach",
+      "triggers": ["what are organelles", "organelles", "parts of a cell", "mitochondria nucleus"],
+      "title": "Cell Organelles",
+      "body": "The nucleus holds DNA. Mitochondria make ATP (energy). Ribosomes build proteins. The endoplasmic reticulum and Golgi apparatus assemble and package molecules. Lysosomes break down waste. In plants, chloroplasts do photosynthesis and the central vacuole stores fluid.\n\nEach organelle is specialized — like organs in a body, but for the cell.",
+      "formula": null,
+      "example": "Mitochondria have their own DNA, hinting they were once free-living bacteria.",
+      "tryIt": "Try: 'what is the mitochondrion?'"
+    },
+    {
+      "id": "mitochondria",
+      "topic": "biology_cell",
+      "intent": "define",
+      "triggers": ["what is a mitochondrion", "mitochondria", "powerhouse of the cell"],
+      "title": "Mitochondrion",
+      "body": "The mitochondrion is the organelle that produces most of a cell's ATP — its energy currency — by oxidizing glucose. Each cell has dozens to thousands. They have their own circular DNA, inherited only from your mother.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'how does cellular respiration work?'"
+    },
+    {
+      "id": "cellular_respiration",
+      "topic": "biology_cell",
+      "intent": "teach",
+      "triggers": ["cellular respiration", "how do cells make energy", "atp production", "glycolysis krebs"],
+      "title": "Cellular Respiration",
+      "body": "Cells break down glucose with oxygen to make ATP, the energy molecule. Three main stages: glycolysis (in cytoplasm), the Krebs cycle (in the mitochondrial matrix), and the electron transport chain (on the inner mitochondrial membrane).\n\nOne glucose yields about 30-32 ATP. Without oxygen, cells fall back on fermentation (much less efficient).",
+      "formula": null,
+      "example": "C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O + ATP — the opposite of photosynthesis.",
+      "tryIt": "Try: 'what is photosynthesis?'"
+    },
+    {
+      "id": "photosynthesis",
+      "topic": "biology_plant",
+      "intent": "teach",
+      "triggers": ["how does photosynthesis work", "what is photosynthesis", "explain photosynthesis", "how do plants make food"],
+      "title": "Photosynthesis",
+      "body": "Plants take in CO₂ from air and water from soil, and use sunlight to combine them into sugar (glucose) and oxygen.\n\n6 CO₂ + 6 H₂O + light → C₆H₁₂O₆ + 6 O₂\n\nThe light-dependent reactions happen in the thylakoid membranes (capturing light, splitting water). The Calvin cycle in the stroma builds sugar from CO₂.",
+      "formula": null,
+      "example": "Nearly all the oxygen in Earth's atmosphere comes from photosynthesis.",
+      "tryIt": "Try: 'what is the Calvin cycle?' or 'C3 vs C4 vs CAM photosynthesis'."
+    },
+    {
+      "id": "dna_structure",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": ["dna structure", "what is dna", "double helix", "base pairs"],
+      "title": "DNA Structure",
+      "body": "DNA is a double helix — two strands twisted together, held by base pairs. The four bases are A, T, C, G. A always pairs with T, and C with G. Each strand is built from a sugar-phosphate backbone with the bases sticking inward.\n\nThe order of bases is the genetic code — a 3-billion-letter manual in every human cell.",
+      "formula": null,
+      "example": "Watson, Crick, Wilkins, and Franklin worked out the structure in 1953 using X-ray diffraction images.",
+      "tryIt": "Try: 'what is RNA?' or 'how does transcription work?'"
+    },
+    {
+      "id": "rna",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": ["what is rna", "rna vs dna", "messenger rna", "types of rna"],
+      "title": "RNA",
+      "body": "RNA is DNA's single-stranded cousin. It uses uracil (U) instead of thymine (T) and has a slightly different sugar. Three main types: messenger RNA (carries the gene's instructions out of the nucleus), transfer RNA (brings amino acids), and ribosomal RNA (makes up ribosomes).\n\nThere are also many regulatory RNAs that control gene expression.",
+      "formula": null,
+      "example": "mRNA vaccines work by giving your cells a recipe for a viral protein so your immune system learns to fight it.",
+      "tryIt": "Try: 'how does transcription work?'"
+    },
+    {
+      "id": "transcription",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": ["transcription biology", "how does transcription work", "dna to rna", "rna polymerase"],
+      "title": "Transcription (DNA to RNA)",
+      "body": "Transcription copies a gene's DNA sequence into messenger RNA. RNA polymerase unzips a small stretch of DNA, reads one strand, and assembles complementary RNA. The mRNA then leaves the nucleus to be translated into protein.\n\nOnly the bits of DNA being used at the moment get transcribed — that's why different cell types make different proteins.",
+      "formula": null,
+      "example": "A liver cell and a brain cell have identical DNA, but transcribe very different genes.",
+      "tryIt": "Try: 'how does translation work?'"
+    },
+    {
+      "id": "translation",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": ["translation biology", "how does translation work", "rna to protein", "ribosome"],
+      "title": "Translation (RNA to Protein)",
+      "body": "Ribosomes read mRNA in triplets called codons. Each codon (like AUG, GCU, UAA) specifies one amino acid. Transfer RNAs bring matching amino acids, and the ribosome links them into a growing protein chain.\n\nA start codon (AUG) kicks things off; one of three stop codons ends it.",
+      "formula": null,
+      "example": "There are 64 possible codons specifying 20 amino acids — so the code is redundant.",
+      "tryIt": "Try: 'what are proteins?'"
+    },
+    {
+      "id": "proteins",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": ["what are proteins", "protein structure", "amino acids", "protein folding"],
+      "title": "Proteins",
+      "body": "Proteins are long chains of amino acids that fold into 3D shapes. Their shape determines their job — enzymes catalyze reactions, structural proteins build hair and muscle, antibodies fight infection, hemoglobin carries oxygen.\n\nThere are 20 standard amino acids; combinations create essentially infinite possible proteins.",
+      "formula": null,
+      "example": "Insulin is a small protein (51 amino acids) that signals cells to take up glucose.",
+      "tryIt": "Try: 'what are enzymes?'"
+    },
+    {
+      "id": "enzymes",
+      "topic": "biology_genetics",
+      "intent": "define",
+      "triggers": ["what are enzymes", "enzymes", "biological catalyst"],
+      "title": "Enzymes",
+      "body": "Enzymes are protein catalysts that speed up specific biochemical reactions, usually by huge factors. Each enzyme has an active site shaped to fit a particular substrate, like a lock and key. Without enzymes, most of life's reactions would be far too slow to sustain you.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what are catalysts?'"
+    },
+    {
+      "id": "mitosis_vs_meiosis",
+      "topic": "biology_cell",
+      "intent": "teach",
+      "triggers": ["mitosis vs meiosis", "what is mitosis", "what is meiosis", "cell division"],
+      "title": "Mitosis vs Meiosis",
+      "body": "Mitosis makes two genetically identical daughter cells — used for growth and repair. Meiosis makes four genetically unique sex cells (gametes) with half the chromosomes, ready to combine with another gamete at fertilization.\n\nMeiosis includes two rounds of division and a chromosome-shuffling step (crossing over) that creates genetic diversity.",
+      "formula": null,
+      "example": "Skin cells dividing to heal a cut use mitosis; making sperm or eggs uses meiosis.",
+      "tryIt": "Try: 'what is Mendelian inheritance?'"
+    },
+    {
+      "id": "mendelian_inheritance",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": ["mendelian inheritance", "punnett square", "dominant recessive", "what is mendelian genetics"],
+      "title": "Mendelian Inheritance",
+      "body": "Gregor Mendel showed that traits come in pairs of alleles (one from each parent), and dominant alleles mask recessive ones. A Punnett square tracks how alleles combine: cross two heterozygous (Aa) parents and you get 25% AA, 50% Aa, 25% aa.\n\nMany human traits don't follow simple Mendelian rules, but it's still the foundation of genetics.",
+      "formula": null,
+      "example": "Eye color is more complex, but pea plant flower color is a classic Mendelian trait.",
+      "tryIt": "Try: 'what is a gene?' or 'what is DNA?'"
+    },
+    {
+      "id": "natural_selection",
+      "topic": "biology_evolution",
+      "intent": "teach",
+      "triggers": ["natural selection", "how does evolution work", "darwin natural selection", "survival of the fittest"],
+      "title": "Natural Selection",
+      "body": "In any population, individuals vary. Some variations help survival or reproduction in a given environment. Those traits get passed to more offspring, so over generations the population shifts. Darwin's great insight.\n\nIt's the mechanism behind evolution — not a goal, just a statistical filter.",
+      "formula": null,
+      "example": "Antibiotic-resistant bacteria evolve when sensitive strains die and resistant ones reproduce.",
+      "tryIt": "Try: 'what is evidence for evolution?'"
+    },
+    {
+      "id": "evolution_evidence",
+      "topic": "biology_evolution",
+      "intent": "teach",
+      "triggers": ["evidence for evolution", "proof of evolution", "evolutionary evidence", "fossils and dna"],
+      "title": "Evidence for Evolution",
+      "body": "Multiple independent lines point the same way: fossil sequences showing gradual change; DNA similarity matching evolutionary relationships; vestigial structures (whale leg bones, our appendix); biogeography (similar species on neighboring islands); direct observation in fast-reproducing species like bacteria and finches.\n\nThe theory of evolution by natural selection is one of the most thoroughly confirmed ideas in science.",
+      "formula": null,
+      "example": "Whales have tiny hip and leg bones buried in their bodies — leftovers from land-dwelling ancestors.",
+      "tryIt": "Try: 'what is natural selection?'"
+    },
+    {
+      "id": "trophic_levels",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": ["trophic levels", "food chain", "food web", "producers consumers decomposers"],
+      "title": "Trophic Levels and Food Chains",
+      "body": "Energy flows through ecosystems in steps. Producers (plants) make food from sunlight. Primary consumers (herbivores) eat producers. Secondary consumers (carnivores) eat them, and so on. Decomposers recycle everything.\n\nOnly about 10% of energy passes to each next level — that's why apex predators are rare.",
+      "formula": null,
+      "example": "Grass → grasshopper → frog → snake → hawk is a 5-level food chain.",
+      "tryIt": "Try: 'what is a biome?'"
+    },
+    {
+      "id": "biomes",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": ["what is a biome", "biomes", "types of biomes", "ecosystem types"],
+      "title": "Biomes",
+      "body": "A biome is a large region with characteristic climate and life. Major biomes include tropical rainforest, savanna, desert, temperate forest, taiga (boreal forest), tundra, grassland, and various aquatic biomes (freshwater, marine, coral reef).\n\nClimate (temperature and rainfall) mostly determines which biome a region becomes.",
+      "formula": null,
+      "example": "The Amazon rainforest and Congo rainforest are continents apart but have similar climates and similar biome structure.",
+      "tryIt": "Try: 'what are trophic levels?'"
+    },
+    {
+      "id": "heart",
+      "topic": "biology_physiology",
+      "intent": "teach",
+      "triggers": ["how does the heart work", "heart anatomy", "four chambers of heart", "circulation"],
+      "title": "How the Heart Works",
+      "body": "The heart is a four-chambered pump. The right side receives oxygen-poor blood and pumps it to the lungs. The left side receives oxygen-rich blood from the lungs and pumps it to the rest of the body. Valves keep blood flowing one way only.\n\nA pacemaker region called the SA node sets the beat — about 60-100 times a minute at rest.",
+      "formula": null,
+      "example": "Your heart pumps about 5 liters of blood every minute at rest, more when you exercise.",
+      "tryIt": "Try: 'how do blood vessels work?'"
+    },
+    {
+      "id": "action_potential",
+      "topic": "biology_physiology",
+      "intent": "teach",
+      "triggers": ["action potential", "how do neurons fire", "neuron signal", "nerve impulse"],
+      "title": "Action Potential",
+      "body": "Neurons signal each other with electrical pulses called action potentials. At rest, the inside of a neuron is negatively charged. When stimulated, sodium ions rush in and the voltage flips positive, then potassium ions flow out and it resets.\n\nThe pulse races down the axon and triggers the release of neurotransmitters at the other end.",
+      "formula": null,
+      "example": "Touching a hot stove fires a pain action potential that reaches your brain in milliseconds.",
+      "tryIt": "Try: 'how does the brain work?'"
+    },
+    {
+      "id": "vision",
+      "topic": "biology_physiology",
+      "intent": "teach",
+      "triggers": ["how does vision work", "how does the eye work", "rods and cones", "vision biology"],
+      "title": "How Vision Works",
+      "body": "Light enters through the cornea and pupil, gets focused by the lens onto the retina at the back of the eye. The retina has rod cells (for low light, no color) and cone cells (for color, in three types: red, green, blue). They convert light into electrical signals that travel along the optic nerve to the brain.\n\nYour brain does most of the work — flipping the upside-down image, filling in gaps, and interpreting depth.",
+      "formula": null,
+      "example": "You have a blind spot where the optic nerve exits the retina, but your brain hides it from you.",
+      "tryIt": "Try: 'how does hearing work?'"
+    },
+    {
+      "id": "hearing",
+      "topic": "biology_physiology",
+      "intent": "teach",
+      "triggers": ["how does hearing work", "how does the ear work", "cochlea", "hearing biology"],
+      "title": "How Hearing Works",
+      "body": "Sound waves vibrate the eardrum, which moves three tiny bones (the smallest in your body) that transmit the vibration to the fluid-filled cochlea. Hair cells in the cochlea bend with the fluid and fire signals to the brain. Different frequencies bend different parts of the cochlea — that's how you tell pitch.\n\nLoud noise damages hair cells permanently — they don't grow back.",
+      "formula": null,
+      "example": "Bats and dolphins use echolocation — high-pitched calls and the returning echoes.",
+      "tryIt": "Try: 'how does vision work?'"
+    },
+    {
+      "id": "immune_system",
+      "topic": "biology_immunology",
+      "intent": "teach",
+      "triggers": ["how does the immune system work", "immune response", "innate vs adaptive immunity", "antibodies"],
+      "title": "Immune Response",
+      "body": "You have two immune systems. The innate one (skin, mucus, inflammation, certain white blood cells) attacks anything foreign immediately. The adaptive one (B and T cells, antibodies) learns specific pathogens and remembers them.\n\nVaccines work by training the adaptive immune system with a safe version of a pathogen so it's ready for the real thing.",
+      "formula": null,
+      "example": "Once you've had chickenpox or its vaccine, memory cells protect you for decades.",
+      "tryIt": "Try: 'viruses vs bacteria'."
+    },
+    {
+      "id": "viruses_vs_bacteria",
+      "topic": "biology_microbiology",
+      "intent": "teach",
+      "triggers": ["viruses vs bacteria", "what is a virus", "what is a bacteria", "virus bacteria difference"],
+      "title": "Viruses vs Bacteria",
+      "body": "Bacteria are tiny single-celled organisms — alive in every meaningful sense. They eat, grow, and reproduce on their own. Viruses are much smaller — really just genetic material in a protein coat. They can't reproduce alone; they hijack a host cell to make more of themselves.\n\nAntibiotics kill bacteria but do nothing against viruses.",
+      "formula": null,
+      "example": "Strep throat is bacterial (antibiotics help). The flu is viral (antibiotics don't).",
+      "tryIt": "Try: 'how does the immune system work?'"
+    },
+    {
+      "id": "crispr",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": ["what is crispr", "crispr cas9", "gene editing", "how does crispr work"],
+      "title": "CRISPR",
+      "body": "CRISPR-Cas9 is a precise gene-editing tool, originally a bacterial immune system against viruses. Scientists program a short guide RNA to match a target DNA sequence, and the Cas9 protein cuts the DNA at that exact spot. The cell's repair can then knock out a gene or insert a new one.\n\nIt's already used to treat sickle cell disease and is being trialed for many other genetic conditions.",
+      "formula": null,
+      "example": "CRISPR can turn off a single gene in a mouse to study what that gene does.",
+      "tryIt": "Try: 'what is DNA?'"
+    },
+    {
+      "id": "homeostasis",
+      "topic": "biology_physiology",
+      "intent": "teach",
+      "triggers": ["what is homeostasis", "homeostasis", "body temperature regulation", "feedback loops biology"],
+      "title": "Homeostasis",
+      "body": "Living things keep internal conditions steady — temperature, pH, blood sugar — even when the environment changes. This is homeostasis, achieved mostly by negative feedback loops: a sensor detects deviation, signals trigger correction, levels return to set point.\n\nYou sweat when hot, shiver when cold; your pancreas releases insulin to lower high blood sugar.",
+      "formula": null,
+      "example": "A thermostat is a man-made homeostatic system; your body has dozens of biological ones running constantly.",
+      "tryIt": "Try: 'how does the heart work?'"
+    },
+    {
+      "id": "ecosystem",
+      "topic": "biology_ecology",
+      "intent": "define",
+      "triggers": ["what is an ecosystem", "ecosystem definition", "ecosystem"],
+      "title": "Ecosystem",
+      "body": "An ecosystem is all the living things in a place plus the nonliving environment they interact with — soil, water, sunlight, climate. Ecosystems can be tiny (a tide pool) or vast (the Amazon basin). Energy flows through them; matter cycles within them.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what is a biome?'"
+    },
+    {
+      "id": "genes",
+      "topic": "biology_genetics",
+      "intent": "define",
+      "triggers": ["what is a gene", "gene definition", "genes"],
+      "title": "Gene",
+      "body": "A gene is a stretch of DNA that codes for a protein (or a functional RNA). Humans have about 20,000 protein-coding genes scattered across 23 pairs of chromosomes. Many genes have multiple versions (alleles) that produce slightly different traits.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what is DNA?' or 'what is Mendelian inheritance?'"
+    },
+    {
+      "id": "chromosome",
+      "topic": "biology_genetics",
+      "intent": "define",
+      "triggers": ["what is a chromosome", "chromosomes", "chromosome definition"],
+      "title": "Chromosome",
+      "body": "A chromosome is a long, tightly coiled molecule of DNA wrapped around proteins. Humans have 46 — 23 from each parent. They become visible when cells divide. Sex chromosomes (XX or XY in humans) determine biological sex.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what is a gene?'"
+    },
+    {
+      "id": "ecosystem_services",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": ["ecosystem services", "what do ecosystems do for us", "pollination value"],
+      "title": "Ecosystem Services",
+      "body": "Healthy ecosystems quietly do work that humans depend on: bees pollinate crops, forests filter water and store carbon, wetlands buffer floods, soil microbes recycle nutrients. Economists estimate the value at tens of trillions of dollars per year worldwide.\n\nWhen ecosystems collapse, these services have to be replaced expensively (or not at all).",
+      "formula": null,
+      "example": "Without insect pollinators, we'd lose most fruits, nuts, and many vegetables.",
+      "tryIt": "Try: 'what is an ecosystem?'"
+    },
+    {
+      "id": "respiration_vs_photosynthesis",
+      "topic": "biology_plant",
+      "intent": "teach",
+      "triggers": ["respiration vs photosynthesis", "do plants breathe", "plants and oxygen"],
+      "title": "Respiration vs Photosynthesis",
+      "body": "Photosynthesis takes CO₂ and water, uses light energy, and makes sugar and oxygen. Cellular respiration takes sugar and oxygen and breaks them down to release energy (ATP), producing CO₂ and water. Plants do both — they photosynthesize during the day and respire 24/7.\n\nNet effect: plants are oxygen producers, but only when there's enough light.",
+      "formula": null,
+      "example": "At night, a plant in a sealed room would slightly increase the CO₂ as it respires without offsetting photosynthesis.",
+      "tryIt": "Try: 'what is photosynthesis?'"
+    },
+    {
+      "id": "human_genome",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": ["human genome", "how big is the genome", "human genome project", "how many genes do humans have"],
+      "title": "The Human Genome",
+      "body": "The human genome has about 3.2 billion base pairs and roughly 20,000 protein-coding genes — fewer than scientists expected. Only about 1-2% of the genome codes for proteins; the rest regulates genes or has functions we're still figuring out.\n\nThe Human Genome Project completed a draft in 2003 and a truly complete sequence in 2022.",
+      "formula": null,
+      "example": "Any two humans share about 99.9% of their DNA.",
+      "tryIt": "Try: 'what is a gene?'"
+    },
+    {
+      "id": "cancer_basics",
+      "topic": "medicine_oncology",
+      "intent": "teach",
+      "triggers": ["what is cancer", "how does cancer work", "cancer basics"],
+      "title": "What Cancer Is",
+      "body": "Cancer is uncontrolled cell growth. Normally cells divide on a tight schedule and die when they're supposed to. When key genes get damaged (oncogenes, tumor suppressors, DNA repair genes), cells can keep dividing, ignore stop signals, and invade other tissues.\n\nIt's not one disease but hundreds — defined by which cells went rogue and which mutations drove them.",
+      "formula": null,
+      "example": "Most cancer treatments target what makes cancer cells different from normal ones — fast division, specific surface markers, or broken repair systems.",
+      "tryIt": "Try: 'what is CRISPR?'"
+    },
+    {
+      "id": "vaccines",
+      "topic": "medicine_immunology",
+      "intent": "teach",
+      "triggers": ["how do vaccines work", "what is a vaccine", "vaccine biology"],
+      "title": "How Vaccines Work",
+      "body": "Vaccines train your immune system to recognize a pathogen without making you sick. Some use weakened or killed germs; some use just a piece of the germ (like a protein); newer ones (mRNA) give your cells the recipe to make that piece. Either way, your body builds memory cells and antibodies that respond fast if you meet the real thing.\n\nWhen enough people are vaccinated, even unvaccinated ones get protection from herd immunity.",
+      "formula": null,
+      "example": "Smallpox was eradicated worldwide by vaccination in 1980.",
+      "tryIt": "Try: 'how does the immune system work?'"
+    },
+    {
+      "id": "antibiotics",
+      "topic": "medicine_pharmacology",
+      "intent": "teach",
+      "triggers": ["how do antibiotics work", "antibiotics", "antibiotic resistance"],
+      "title": "How Antibiotics Work",
+      "body": "Antibiotics target structures or processes unique to bacteria — like their cell wall or their distinct ribosomes — so they kill bacteria without harming your cells. They do nothing for viruses, which use your own cellular machinery.\n\nOveruse breeds resistant bacteria, because sensitive ones die and the survivors reproduce. That's why doctors are careful with prescriptions.",
+      "formula": null,
+      "example": "Penicillin, discovered in 1928, works by punching holes in bacterial cell walls.",
+      "tryIt": "Try: 'viruses vs bacteria'."
+    },
+    {
+      "id": "solar_system",
+      "topic": "astronomy_solar",
+      "intent": "teach",
+      "triggers": ["solar system", "planets of the solar system", "how many planets"],
+      "title": "The Solar System",
+      "body": "Our solar system has the Sun at the center, eight planets, several dwarf planets (like Pluto, Eris, Ceres), about 200 moons, plus asteroids and comets. The four inner planets (Mercury, Venus, Earth, Mars) are rocky; the four outer ones (Jupiter, Saturn, Uranus, Neptune) are gas or ice giants.\n\nThe Sun holds 99.86% of the system's mass.",
+      "formula": null,
+      "example": "Light from the Sun takes about 8 minutes to reach Earth and 5.5 hours to reach Pluto.",
+      "tryIt": "Try: 'how big is the Sun?' or 'what is a black hole?'"
+    },
+    {
+      "id": "stellar_life_cycle",
+      "topic": "astronomy_stars",
+      "intent": "teach",
+      "triggers": ["stellar life cycle", "how stars are born", "star life cycle", "supernova"],
+      "title": "Life Cycle of a Star",
+      "body": "Stars form when clouds of gas and dust collapse under gravity. A main-sequence star (like the Sun) spends most of its life fusing hydrogen into helium. When the hydrogen runs out, it swells into a red giant.\n\nSmall stars end as white dwarfs. Bigger ones explode as supernovae, leaving neutron stars or black holes behind.",
+      "formula": null,
+      "example": "Our Sun is about 4.6 billion years old and will become a red giant in about 5 billion years.",
+      "tryIt": "Try: 'what is a neutron star?' or 'what is a black hole?'"
+    },
+    {
+      "id": "black_hole",
+      "topic": "astronomy_compact",
+      "intent": "teach",
+      "triggers": ["what is a black hole", "how do black holes work", "black hole basics", "event horizon"],
+      "title": "Black Holes",
+      "body": "A black hole is a region of space where gravity is so strong that nothing — not even light — can escape once inside the event horizon. They form when massive stars collapse, or by other extreme processes.\n\nThe singularity at the center is where our physics breaks down; we don't really know what's there.",
+      "formula": null,
+      "example": "The supermassive black hole at the center of our galaxy (Sgr A*) has about 4 million times the mass of the Sun.",
+      "tryIt": "Try: 'Schwarzschild radius'."
+    },
+    {
+      "id": "neutron_star",
+      "topic": "astronomy_compact",
+      "intent": "define",
+      "triggers": ["what is a neutron star", "neutron star", "pulsar"],
+      "title": "Neutron Star",
+      "body": "What's left after a massive star explodes as a supernova — a city-sized ball with more mass than the Sun. A teaspoon of neutron star material would weigh billions of tons. Some spin rapidly and beam radio waves we detect as pulsars.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'stellar life cycle'."
+    },
+    {
+      "id": "galaxy_types",
+      "topic": "astronomy_galaxies",
+      "intent": "teach",
+      "triggers": ["types of galaxies", "spiral galaxy", "elliptical galaxy", "what is a galaxy"],
+      "title": "Galaxies and Their Types",
+      "body": "Galaxies are huge gravitationally bound systems of stars, gas, dust, and dark matter. Main types: spiral (like our Milky Way, with arms and a flat disk), elliptical (egg-shaped, mostly old stars), and irregular (no clear shape, often after collisions).\n\nThe observable universe holds an estimated 200 billion to 2 trillion galaxies.",
+      "formula": null,
+      "example": "Andromeda is the spiral galaxy nearest to us, and it'll collide with the Milky Way in about 4.5 billion years.",
+      "tryIt": "Try: 'what is the Big Bang?'"
+    },
+    {
+      "id": "big_bang",
+      "topic": "astronomy_cosmology",
+      "intent": "teach",
+      "triggers": ["big bang", "what is the big bang", "origin of the universe", "how did the universe start"],
+      "title": "The Big Bang",
+      "body": "About 13.8 billion years ago, the universe began as an extremely hot, dense state and has been expanding and cooling ever since. The Big Bang isn't an explosion in space — it's an expansion of space itself.\n\nKey evidence: the cosmic microwave background (leftover heat), the proportions of hydrogen and helium, and the redshift of distant galaxies.",
+      "formula": null,
+      "example": "Distant galaxies appear redshifted because space itself stretched their light during the journey.",
+      "tryIt": "Try: 'what is cosmic microwave background?' or 'Hubble's law'."
+    },
+    {
+      "id": "cmb",
+      "topic": "astronomy_cosmology",
+      "intent": "define",
+      "triggers": ["cosmic microwave background", "cmb", "what is the cosmic microwave background"],
+      "title": "Cosmic Microwave Background",
+      "body": "Faint microwave radiation filling the universe — the leftover heat from when the universe cooled enough for atoms to form, about 380,000 years after the Big Bang. It's nearly uniform at about 2.7 K, with tiny ripples that grew into today's galaxies.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what is the Big Bang?'"
+    },
+    {
+      "id": "hubbles_law",
+      "topic": "astronomy_cosmology",
+      "intent": "teach",
+      "triggers": ["hubble's law", "hubbles law", "v = h0 d", "expanding universe formula"],
+      "title": "Hubble's Law",
+      "body": "Distant galaxies are receding from us, and the farther away they are, the faster. Velocity equals Hubble's constant (H₀ ≈ 70 km/s per megaparsec) times distance. This is the observational basis for the Big Bang and an expanding universe.",
+      "formula": {
+        "expression": "v = H0 * d",
+        "compute": "70*d",
+        "variables": [
+          {"name": "d", "label": "distance", "unit": "Mpc"}
+        ],
+        "result_label": "recession velocity",
+        "result_unit": "km/s"
+      },
+      "example": "A galaxy 100 Mpc away recedes at about 7,000 km/s.",
+      "tryIt": "Try: 'Hubbles law distance 100' or 'what is the Big Bang?'"
+    },
+    {
+      "id": "exoplanet_detection",
+      "topic": "astronomy_exoplanets",
+      "intent": "teach",
+      "triggers": ["how do we find exoplanets", "exoplanet detection", "transit method", "radial velocity method"],
+      "title": "Exoplanet Detection Methods",
+      "body": "We rarely see exoplanets directly. Two main methods: transit (the planet briefly dims its star as it passes in front), and radial velocity (the star wobbles slightly from the planet's gravity, shifting its spectral lines). Other methods include direct imaging, gravitational microlensing, and astrometry.\n\nKepler and TESS missions used transits to find thousands of planets.",
+      "formula": null,
+      "example": "An Earth-sized planet crossing a sun-like star dims it by only 0.01%, but Kepler could measure that.",
+      "tryIt": "Try: 'what is the Drake equation?'"
+    },
+    {
+      "id": "drake_equation",
+      "topic": "astronomy_exoplanets",
+      "intent": "teach",
+      "triggers": ["drake equation", "what is the drake equation", "how many alien civilizations"],
+      "title": "Drake Equation",
+      "body": "A 1961 formula estimating the number of communicating civilizations in our galaxy. It multiplies factors like the rate of star formation, fraction with planets, fraction habitable, fraction that develop life, fraction that develop intelligence, fraction that broadcast, and how long they last.\n\nMost terms have huge uncertainties, so estimates range from one civilization (just us) to millions.",
+      "formula": null,
+      "example": "The point isn't the answer — it's the framework for breaking a giant question into measurable pieces.",
+      "tryIt": "Try: 'what are exoplanets?' or 'Fermi paradox'."
+    },
+    {
+      "id": "fermi_paradox",
+      "topic": "astronomy_exoplanets",
+      "intent": "teach",
+      "triggers": ["fermi paradox", "where are all the aliens", "why haven't we found aliens"],
+      "title": "Fermi Paradox",
+      "body": "If the universe is so vast and old, and many planets could host life, why haven't we found anyone? That's the Fermi paradox. Possible answers: intelligence is rare, civilizations destroy themselves, they don't broadcast, we haven't looked long enough, or they're avoiding us.\n\nNo answer is settled — but it's one of the best questions in science.",
+      "formula": null,
+      "example": "Even at 1% the speed of light, a civilization could colonize the whole galaxy in 10 million years — yet space looks empty.",
+      "tryIt": "Try: 'Drake equation'."
+    },
+    {
+      "id": "dark_matter",
+      "topic": "astronomy_cosmology",
+      "intent": "teach",
+      "triggers": ["what is dark matter", "dark matter", "missing mass"],
+      "title": "Dark Matter",
+      "body": "Galaxies rotate faster than the visible matter can explain — something invisible holds them together. That something is dark matter, roughly 5 times more abundant than ordinary matter. It doesn't emit, absorb, or reflect light. We've never directly detected a dark matter particle, only its gravitational effects.",
+      "formula": null,
+      "example": "Bullet Cluster observations show dark matter passing right through colliding galaxy clusters while gas slows down.",
+      "tryIt": "Try: 'what is dark energy?'"
+    },
+    {
+      "id": "dark_energy",
+      "topic": "astronomy_cosmology",
+      "intent": "teach",
+      "triggers": ["what is dark energy", "dark energy", "accelerating universe"],
+      "title": "Dark Energy",
+      "body": "The expansion of the universe isn't just continuing — it's speeding up. The mysterious cause is called dark energy, and it makes up about 68% of the universe's total energy content. Best guess so far: it's a property of space itself, possibly related to Einstein's cosmological constant.",
+      "formula": null,
+      "example": "Supernova measurements in the late 1990s revealed the acceleration, winning the 2011 Nobel Prize.",
+      "tryIt": "Try: 'what is dark matter?'"
+    },
+    {
+      "id": "habitable_zone",
+      "topic": "astronomy_exoplanets",
+      "intent": "define",
+      "triggers": ["habitable zone", "what is the habitable zone", "goldilocks zone"],
+      "title": "Habitable Zone",
+      "body": "Sometimes called the Goldilocks zone — the range of distances from a star where temperatures could allow liquid water on a planet's surface. Too close and water boils; too far and it freezes. Earth sits comfortably inside the Sun's habitable zone.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'how do we find exoplanets?'"
+    },
+    {
+      "id": "greenhouse_effect",
+      "topic": "earth_climate",
+      "intent": "teach",
+      "triggers": ["greenhouse effect", "how does the greenhouse effect work", "global warming mechanism", "co2 greenhouse"],
+      "title": "Greenhouse Effect",
+      "body": "Sunlight passes through the atmosphere and warms Earth's surface. The surface re-emits energy as infrared. Greenhouse gases (CO₂, methane, water vapor) absorb that infrared and re-radiate some back down, trapping heat.\n\nWithout greenhouse gases, Earth would average about -18°C (0°F). Adding more is shifting climate quickly.",
+      "formula": null,
+      "example": "Venus has a runaway greenhouse atmosphere and a surface hot enough to melt lead.",
+      "tryIt": "Try: 'climate vs weather'."
+    },
+    {
+      "id": "plate_tectonics",
+      "topic": "earth_geology",
+      "intent": "teach",
+      "triggers": ["plate tectonics", "how do tectonic plates work", "continental drift", "earthquakes plates"],
+      "title": "Plate Tectonics",
+      "body": "Earth's outer shell is broken into about a dozen large plates that drift on the partly molten mantle below. Where they push together you get mountains and earthquakes (Himalayas, Andes). Where they pull apart, new crust forms (mid-ocean ridges). Where they slide past, you get faults (San Andreas).\n\nMovement is slow — about as fast as your fingernails grow.",
+      "formula": null,
+      "example": "South America and Africa fit together because they were once a single continent (Pangaea), now split by sea-floor spreading.",
+      "tryIt": "Try: 'what is the rock cycle?'"
+    },
+    {
+      "id": "rock_cycle",
+      "topic": "earth_geology",
+      "intent": "teach",
+      "triggers": ["rock cycle", "types of rocks", "igneous sedimentary metamorphic"],
+      "title": "The Rock Cycle",
+      "body": "Rocks change form over geologic time. Igneous rocks form from cooled magma or lava. Weathering breaks them into sediment, which compacts into sedimentary rock. Heat and pressure transform any rock into metamorphic rock. Deep burial and melting return it to magma — and the cycle repeats.",
+      "formula": null,
+      "example": "Marble is metamorphosed limestone; slate is metamorphosed shale.",
+      "tryIt": "Try: 'plate tectonics'."
+    },
+    {
+      "id": "atmospheric_layers",
+      "topic": "earth_atmosphere",
+      "intent": "teach",
+      "triggers": ["atmospheric layers", "layers of the atmosphere", "troposphere stratosphere", "where is the ozone layer"],
+      "title": "Layers of the Atmosphere",
+      "body": "From the surface up: troposphere (weather happens here, 0-12 km), stratosphere (ozone layer, 12-50 km), mesosphere (where meteors burn up, 50-85 km), thermosphere (auroras, ISS orbits here, 85-600 km), exosphere (fades into space).\n\nTemperature doesn't simply drop with altitude — it dips, rises in the stratosphere (UV-warming ozone), dips again, then rises in the thermosphere.",
+      "formula": null,
+      "example": "Commercial jets fly in the lower stratosphere to avoid most weather.",
+      "tryIt": "Try: 'how is weather formed?'"
+    },
+    {
+      "id": "weather_formation",
+      "topic": "earth_atmosphere",
+      "intent": "teach",
+      "triggers": ["how is weather formed", "weather formation", "what causes weather", "high and low pressure"],
+      "title": "How Weather Forms",
+      "body": "Weather comes from uneven heating of Earth's surface by the Sun. Warm air rises, creating low pressure; cool air sinks, creating high pressure. Wind flows from high to low pressure, and Earth's rotation curves the path (Coriolis effect). Where warm wet air rises and cools, water condenses into clouds and falls as rain.\n\nFronts — boundaries between air masses — drive most storms.",
+      "formula": null,
+      "example": "Hurricanes form over warm ocean water where rising moist air spins under the Coriolis effect.",
+      "tryIt": "Try: 'climate vs weather'."
+    },
+    {
+      "id": "climate_vs_weather",
+      "topic": "earth_climate",
+      "intent": "teach",
+      "triggers": ["climate vs weather", "difference between climate and weather", "what is climate"],
+      "title": "Climate vs Weather",
+      "body": "Weather is what's happening in the atmosphere right now — today's rain, tomorrow's wind. Climate is the long-term average over decades. A cold day doesn't disprove warming any more than a hot day proves it.\n\nClimate is what you expect; weather is what you get.",
+      "formula": null,
+      "example": "Phoenix has a desert climate, but it can still have an unusually wet week.",
+      "tryIt": "Try: 'greenhouse effect'."
+    },
+    {
+      "id": "earth_magnetic_field",
+      "topic": "earth_geophysics",
+      "intent": "teach",
+      "triggers": ["earth's magnetic field", "earths magnetic field", "how does earth's magnetic field work", "magnetic poles"],
+      "title": "Earth's Magnetic Field",
+      "body": "Earth's outer core is liquid iron flowing in complex patterns; that moving conductor generates the planet's magnetic field (the geodynamo). The field protects us from much of the solar wind and channels charged particles toward the poles, where they make auroras.\n\nThe magnetic poles drift, and the whole field flips polarity every few hundred thousand years on average.",
+      "formula": null,
+      "example": "Auroras happen when solar wind particles funnel along magnetic field lines and excite atmospheric atoms.",
+      "tryIt": "Try: 'what is the solar wind?'"
+    },
+    {
+      "id": "water_cycle",
+      "topic": "earth_atmosphere",
+      "intent": "teach",
+      "triggers": ["water cycle", "hydrologic cycle", "how does the water cycle work"],
+      "title": "The Water Cycle",
+      "body": "Water evaporates from oceans, lakes, and plants (transpiration). It condenses in the cooler upper air into clouds. It falls as rain or snow (precipitation), runs off into rivers or sinks underground, and eventually returns to the ocean. The Sun powers the whole loop.\n\nEvery drop of water you drink has cycled through the planet many times.",
+      "formula": null,
+      "example": "Some water in Earth's atmosphere replaces itself roughly every 10 days.",
+      "tryIt": "Try: 'how is weather formed?'"
+    },
+    {
+      "id": "scientific_method",
+      "topic": "science_method",
+      "intent": "teach",
+      "triggers": ["scientific method", "what is the scientific method", "steps of the scientific method"],
+      "title": "The Scientific Method",
+      "body": "A loop, not a checklist: observe something, ask a question, form a testable hypothesis, design an experiment to test it, analyze the results, draw conclusions, repeat. Other scientists try to reproduce your work; if they can't, your finding doesn't survive.\n\nReal science is messier — it includes intuition, luck, dead ends, and arguments — but the loop is the core.",
+      "formula": null,
+      "example": "Penicillin was discovered when Fleming noticed mold killing bacteria on a forgotten plate — then tested the idea systematically.",
+      "tryIt": "Try: 'hypothesis vs theory vs law'."
+    },
+    {
+      "id": "hypothesis_theory_law",
+      "topic": "science_method",
+      "intent": "teach",
+      "triggers": ["hypothesis vs theory vs law", "difference between theory and law", "what is a scientific theory"],
+      "title": "Hypothesis vs Theory vs Law",
+      "body": "A hypothesis is a specific, testable guess. A scientific law is a concise description of what happens (often a formula) — like Newton's law of gravity. A scientific theory is a well-tested explanation for why things happen — like the theory of evolution or general relativity.\n\nIn science, a theory is the strongest kind of statement, not 'just a guess.'",
+      "formula": null,
+      "example": "Gravity is a law (how things fall) and a theory (Einstein's explanation involving curved spacetime).",
+      "tryIt": "Try: 'what is the scientific method?'"
+    },
+    {
+      "id": "peer_review",
+      "topic": "science_method",
+      "intent": "teach",
+      "triggers": ["peer review", "what is peer review", "replication crisis", "scientific replication"],
+      "title": "Peer Review and Replication",
+      "body": "Before research is published in a reputable journal, other experts in the field review it for errors and weaknesses — that's peer review. After publication, independent labs try to reproduce the results. A finding nobody can reproduce is not yet knowledge.\n\nMany fields face a replication crisis: published results that don't hold up. This is uncomfortable but it's also science working — slowly self-correcting.",
+      "formula": null,
+      "example": "A claimed psychology effect might be retracted years later when bigger, better-designed studies fail to find it.",
+      "tryIt": "Try: 'why does blinding matter in experiments?'"
+    },
+    {
+      "id": "correlation_causation",
+      "topic": "science_method",
+      "intent": "teach",
+      "triggers": ["correlation vs causation", "correlation does not imply causation", "spurious correlation"],
+      "title": "Correlation vs Causation",
+      "body": "Two things going up together doesn't mean one causes the other. Ice cream sales and drowning both rise in summer — but ice cream doesn't cause drowning. Heat causes both. Correlation suggests a relationship; only careful experiments (or natural experiments) can establish causation.\n\nAlways ask: could a third factor cause both? Could the direction of causation be reversed?",
+      "formula": null,
+      "example": "Cities with more firefighters have more fires — but firefighters don't cause fires; bigger cities have more of both.",
+      "tryIt": "Try: 'why does blinding matter?'"
+    },
+    {
+      "id": "blinding",
+      "topic": "science_method",
+      "intent": "teach",
+      "triggers": ["why does blinding matter", "double blind", "blinding in experiments", "placebo effect"],
+      "title": "Why Blinding Matters",
+      "body": "In a single-blind study, participants don't know which treatment they got. In a double-blind study, the researchers measuring outcomes don't know either. Blinding controls for the placebo effect and for unconscious bias in scoring outcomes.\n\nWithout blinding, both patients and researchers tend to find improvement where their hopes lie — even when no real effect exists.",
+      "formula": null,
+      "example": "Drug trials always include placebos; many treatments that seemed effective in small open-label studies vanished under double-blind testing.",
+      "tryIt": "Try: 'correlation vs causation'."
+    },
+    {
+      "id": "what_is_an_atom",
+      "topic": "chemistry_periodic",
+      "intent": "define",
+      "triggers": ["what is an atom", "atom definition", "parts of an atom"],
+      "title": "Atom",
+      "body": "An atom is the smallest unit of an element with that element's chemical properties. It has a tiny dense nucleus of protons (positive) and neutrons (neutral), surrounded by a cloud of electrons (negative). The number of protons defines the element.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what is a molecule?' or 'periodic trends'."
+    },
+    {
+      "id": "what_is_a_molecule",
+      "topic": "chemistry_bonding",
+      "intent": "define",
+      "triggers": ["what is a molecule", "molecule definition", "atoms vs molecules"],
+      "title": "Molecule",
+      "body": "A molecule is two or more atoms held together by chemical bonds. Water (H₂O), oxygen gas (O₂), and DNA are all molecules. Some molecules contain just two atoms; biological molecules can contain millions.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what is an atom?'"
+    },
+    {
+      "id": "what_is_an_element",
+      "topic": "chemistry_periodic",
+      "intent": "define",
+      "triggers": ["what is an element", "element definition", "chemical element"],
+      "title": "Element",
+      "body": "An element is a pure substance made of one kind of atom — defined by its number of protons. There are 118 known elements; 94 occur naturally on Earth and the rest have only been made in labs. The periodic table organizes them by atomic number and chemical behavior.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'periodic trends'."
+    },
+    {
+      "id": "isotopes",
+      "topic": "chemistry_nuclear",
+      "intent": "define",
+      "triggers": ["what is an isotope", "isotopes", "carbon-14", "isotope definition"],
+      "title": "Isotopes",
+      "body": "Isotopes are variants of an element with the same number of protons but different numbers of neutrons. Carbon-12 and carbon-14 are both carbon, but carbon-14 has two extra neutrons. Some isotopes are stable; others are radioactive and decay over time.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what is half-life?'"
+    },
+    {
+      "id": "what_is_gravity",
+      "topic": "physics_relativity",
+      "intent": "teach",
+      "triggers": ["what is gravity", "how does gravity work", "explain gravity"],
+      "title": "Gravity",
+      "body": "Newton described gravity as a force pulling masses together — stronger with bigger masses and weaker with distance squared. Einstein went deeper: mass and energy bend spacetime, and objects move along the straightest paths through that bend. Both descriptions agree wonderfully for everyday situations.\n\nNear black holes or very fast motion, you need Einstein's version.",
+      "formula": null,
+      "example": "An apple falls to Earth and the Moon orbits Earth for the same reason — both are following curved spacetime.",
+      "tryIt": "Try: 'what is general relativity?'"
+    },
+    {
+      "id": "gravitation_formula",
+      "topic": "physics_relativity",
+      "intent": "teach",
+      "triggers": ["newton's law of gravitation", "f = gmm/r^2", "gravitational force formula"],
+      "title": "Newton's Law of Universal Gravitation",
+      "body": "Every mass attracts every other mass with a force proportional to both masses and inversely proportional to their distance squared. G is the gravitational constant (6.674 × 10⁻¹¹ N·m²/kg²) — one of the hardest-to-measure constants in physics.",
+      "formula": {
+        "expression": "F = G * m1 * m2 / r^2",
+        "compute": "6.674e-11*m1*m2/r^2",
+        "variables": [
+          {"name": "m1", "label": "mass 1", "unit": "kg"},
+          {"name": "m2", "label": "mass 2", "unit": "kg"},
+          {"name": "r", "label": "distance", "unit": "m"}
+        ],
+        "result_label": "gravitational force",
+        "result_unit": "N"
+      },
+      "example": "Earth and Moon: ~2 × 10²⁰ N pulling them together.",
+      "tryIt": "Try: 'gravity m1 5.97e24 m2 7.35e22 r 3.84e8'."
+    },
+    {
+      "id": "speed_of_light",
+      "topic": "physics_relativity",
+      "intent": "teach",
+      "triggers": ["speed of light", "how fast is light", "why is c the speed limit"],
+      "title": "The Speed of Light",
+      "body": "Light in a vacuum travels at exactly 299,792,458 meters per second — that's c. It's the same in every reference frame, no matter how fast you're moving. Nothing with mass can reach c, because the energy required becomes infinite.\n\nThe meter is actually defined by c: it's the distance light travels in 1/299,792,458 of a second.",
+      "formula": null,
+      "example": "Light takes about 1.3 seconds to travel from the Moon to Earth.",
+      "tryIt": "Try: 'time dilation' or 'E=mc^2'."
+    },
+    {
+      "id": "battery",
+      "topic": "chemistry_electrochem",
+      "intent": "teach",
+      "triggers": ["how does a battery work", "battery chemistry", "what is a battery"],
+      "title": "How a Battery Works",
+      "body": "A battery uses two different materials (electrodes) separated by an electrolyte. A chemical reaction at one electrode releases electrons (oxidation); the other electrode absorbs them (reduction). The electrons can only get from one to the other through an external circuit — and that's the current that powers your phone.\n\nRechargeable batteries reverse the reaction when you plug them in.",
+      "formula": null,
+      "example": "A lithium-ion battery shuttles lithium ions between the electrodes during charge and discharge.",
+      "tryIt": "Try: 'oxidation and reduction'."
+    },
+    {
+      "id": "tides",
+      "topic": "earth_geophysics",
+      "intent": "teach",
+      "triggers": ["how do tides work", "what causes tides", "tides explained"],
+      "title": "Tides",
+      "body": "The Moon's gravity pulls Earth's oceans, raising a bulge on the near side. Surprisingly, there's also a bulge on the far side — because Earth itself gets pulled slightly toward the Moon, leaving the far ocean behind. The Sun adds a smaller effect.\n\nAs Earth rotates, any spot passes through both bulges per day — two high tides and two low tides.",
+      "formula": null,
+      "example": "Spring tides (largest range) happen at full and new moons, when Sun and Moon align.",
+      "tryIt": "Try: 'how does gravity work?'"
+    },
+    {
+      "id": "moon_phases",
+      "topic": "astronomy_solar",
+      "intent": "teach",
+      "triggers": ["moon phases", "why does the moon change shape", "phases of the moon"],
+      "title": "Moon Phases",
+      "body": "The Moon is always half-lit by the Sun. We see different fractions of that lit side depending on the Moon's position in its orbit around Earth. New moon: the lit side faces away from us. Full moon: it faces toward us. Quarters and crescents are in between.\n\nThe cycle takes about 29.5 days.",
+      "formula": null,
+      "example": "A waxing crescent grows toward full; a waning crescent shrinks toward new.",
+      "tryIt": "Try: 'what causes tides?'"
+    },
+    {
+      "id": "seasons",
+      "topic": "astronomy_solar",
+      "intent": "teach",
+      "triggers": ["why do we have seasons", "what causes the seasons", "earth's tilt seasons"],
+      "title": "Why We Have Seasons",
+      "body": "Earth's axis is tilted 23.5° from vertical relative to its orbit. When your hemisphere tilts toward the Sun, sunlight hits more directly and days are longer — summer. When it tilts away, sunlight comes in at a shallow angle and days are shorter — winter.\n\nSeasons aren't caused by distance to the Sun (Earth is actually closest in January).",
+      "formula": null,
+      "example": "Summer in the Northern Hemisphere is winter in the Southern Hemisphere — same time, opposite tilts.",
+      "tryIt": "Try: 'how long is a year?'"
+    },
+    {
+      "id": "eclipses",
+      "topic": "astronomy_solar",
+      "intent": "teach",
+      "triggers": ["solar eclipse", "lunar eclipse", "how does an eclipse work", "types of eclipses"],
+      "title": "Eclipses",
+      "body": "A solar eclipse: the Moon passes between Sun and Earth, blocking the Sun. A lunar eclipse: Earth passes between Sun and Moon, throwing a shadow on the Moon. Solar eclipses are rarer for any given spot because the Moon's shadow on Earth is small.\n\nThe coincidence that the Moon and Sun look the same size in our sky is what makes total solar eclipses possible — and it's just a coincidence.",
+      "formula": null,
+      "example": "During a total lunar eclipse, the Moon often turns reddish — sunlight bent through Earth's atmosphere reaches it.",
+      "tryIt": "Try: 'moon phases'."
+    },
+    {
+      "id": "chemical_equilibrium",
+      "topic": "chemistry_equilibrium",
+      "intent": "define",
+      "triggers": ["what is chemical equilibrium", "chemical equilibrium", "dynamic equilibrium"],
+      "title": "Chemical Equilibrium",
+      "body": "A state where a forward and reverse reaction happen at equal rates, so the concentrations of reactants and products stop changing. It's dynamic — both reactions keep happening, just balanced. Equilibrium can be shifted by changing concentration, pressure, or temperature.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'Le Chateliers principle'."
+    },
+    {
+      "id": "polymer",
+      "topic": "chemistry_bonding",
+      "intent": "define",
+      "triggers": ["what is a polymer", "polymer", "plastic chemistry"],
+      "title": "Polymer",
+      "body": "A polymer is a long chain made of many repeating smaller units (monomers). Polymers can be natural (DNA, proteins, cellulose, rubber) or synthetic (polyethylene, nylon, PVC). Their properties depend on the monomer and the chain length.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what are proteins?'"
+    },
+    {
+      "id": "fission_vs_fusion",
+      "topic": "chemistry_nuclear",
+      "intent": "teach",
+      "triggers": ["nuclear fission vs fusion", "fission vs fusion", "what is fission", "what is fusion"],
+      "title": "Fission vs Fusion",
+      "body": "Fission splits a heavy nucleus (like uranium-235) into lighter ones, releasing energy. Used in nuclear power plants and atomic bombs. Fusion joins light nuclei (like hydrogen isotopes) into a heavier one (helium), releasing far more energy. It powers the Sun and stars — but it's been very hard to harness on Earth.\n\nBoth release energy because intermediate-mass nuclei (around iron) are the most tightly bound.",
+      "formula": null,
+      "example": "1 g of uranium fissioned yields about as much energy as 2.5 tons of coal burned.",
+      "tryIt": "Try: 'stellar life cycle' or 'E=mc^2'."
+    },
+    {
+      "id": "ph_indicators",
+      "topic": "chemistry_acids_bases",
+      "intent": "teach",
+      "triggers": ["ph indicators", "litmus paper", "phenolphthalein", "universal indicator"],
+      "title": "pH Indicators",
+      "body": "Indicators are dyes that change color depending on pH. Litmus turns red in acid, blue in base. Phenolphthalein is colorless in acid, pink in base. Universal indicator shifts through a rainbow across the whole pH range — handy for quick measurement.\n\nMany natural dyes (red cabbage, hibiscus, beet juice) work too.",
+      "formula": null,
+      "example": "Stirring red cabbage juice into vinegar turns it pink; into baking soda solution, blue-green.",
+      "tryIt": "Try: 'what is pH?'"
+    },
+    {
+      "id": "metabolism",
+      "topic": "biology_physiology",
+      "intent": "teach",
+      "triggers": ["what is metabolism", "metabolism", "anabolism catabolism"],
+      "title": "Metabolism",
+      "body": "Metabolism is all the chemical reactions that keep you alive — breaking down nutrients (catabolism) to release energy, and using that energy to build the molecules you need (anabolism). Enzymes catalyze nearly every step. Basal metabolic rate is how much energy you burn at rest.",
+      "formula": null,
+      "example": "Even sleeping, an average adult burns about 70 calories per hour to keep cells running.",
+      "tryIt": "Try: 'how does cellular respiration work?'"
+    },
+    {
+      "id": "respiratory_system",
+      "topic": "biology_physiology",
+      "intent": "teach",
+      "triggers": ["how does breathing work", "respiratory system", "alveoli", "lungs biology"],
+      "title": "How Breathing Works",
+      "body": "Your diaphragm contracts and flattens, pulling air into the lungs. Air reaches tiny sacs (alveoli) surrounded by blood vessels. Oxygen diffuses into the blood; carbon dioxide diffuses out. Then the diaphragm relaxes and you exhale.\n\nThe drive to breathe comes mostly from rising CO₂, not falling oxygen.",
+      "formula": null,
+      "example": "Adults take about 12-20 breaths per minute at rest, ~6 liters of air each minute.",
+      "tryIt": "Try: 'how does the heart work?'"
+    },
+    {
+      "id": "digestion",
+      "topic": "biology_physiology",
+      "intent": "teach",
+      "triggers": ["how does digestion work", "digestion", "digestive system"],
+      "title": "Digestion",
+      "body": "Food gets mechanically broken in your mouth and stomach, and chemically broken by enzymes and acid. The small intestine absorbs nutrients into the blood. The large intestine reabsorbs water and houses huge populations of helpful bacteria. Waste leaves at the end.\n\nThe whole journey takes 24-72 hours.",
+      "formula": null,
+      "example": "Stomach acid is so corrosive that your stomach lining replaces itself every few days.",
+      "tryIt": "Try: 'what are enzymes?'"
+    },
+    {
+      "id": "brain",
+      "topic": "biology_physiology",
+      "intent": "teach",
+      "triggers": ["how does the brain work", "brain biology", "cerebrum cerebellum"],
+      "title": "How the Brain Works",
+      "body": "About 86 billion neurons form the brain, communicating across trillions of synapses. The cerebrum (with two hemispheres) handles thought and voluntary movement. The cerebellum coordinates balance and fine motor control. The brainstem manages automatic functions like breathing and heartbeat.\n\nDifferent regions specialize, but no thought happens in just one place — it's all networks.",
+      "formula": null,
+      "example": "Your brain uses about 20% of your body's energy despite being only 2% of its weight.",
+      "tryIt": "Try: 'what is an action potential?'"
+    },
+    {
+      "id": "muscle_contraction",
+      "topic": "biology_physiology",
+      "intent": "teach",
+      "triggers": ["how do muscles contract", "muscle contraction", "actin and myosin"],
+      "title": "How Muscles Contract",
+      "body": "Skeletal muscles are bundles of fibers containing parallel filaments of two proteins: actin and myosin. When a nerve signal arrives, calcium floods in and myosin grabs actin and pulls — like ropes ratcheting past each other. ATP supplies the energy.\n\nMany tiny contractions add up to a strong pull.",
+      "formula": null,
+      "example": "Rigor mortis happens because dead muscles run out of ATP and can't release actin and myosin.",
+      "tryIt": "Try: 'how do neurons fire?'"
+    },
+    {
+      "id": "convection_conduction_radiation",
+      "topic": "physics_thermodynamics",
+      "intent": "teach",
+      "triggers": ["conduction convection radiation", "heat transfer modes", "how does heat travel"],
+      "title": "Three Ways Heat Travels",
+      "body": "Conduction: heat moves through a material by atomic collisions — a metal spoon heating up in soup. Convection: heat moves through a fluid as warm parts rise and cool parts sink — boiling water, atmospheric circulation. Radiation: heat travels as electromagnetic waves, needing no medium — sunlight crossing space.\n\nMost real situations involve all three.",
+      "formula": null,
+      "example": "A thermos uses a vacuum (no conduction or convection) and silvered walls (low radiation) to keep coffee hot.",
+      "tryIt": "Try: 'what is heat capacity?'"
+    },
+    {
+      "id": "light_color",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": ["why are things colored", "what makes color", "how do we see color"],
+      "title": "Why Things Have Color",
+      "body": "An object's color comes from which wavelengths of light it absorbs and which it reflects (or transmits). A red apple absorbs most wavelengths and reflects red. Pigments and dyes work by selectively absorbing parts of the visible spectrum.\n\nSome colors come from structure instead of pigment — peacock feathers and soap bubbles use interference, not dyes.",
+      "formula": null,
+      "example": "A black object absorbs all visible wavelengths; a white one reflects them all.",
+      "tryIt": "Try: 'why is the sky blue?'"
+    },
+    {
+      "id": "echo_ultrasound",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": ["how does echolocation work", "ultrasound", "sonar"],
+      "title": "Echolocation and Ultrasound",
+      "body": "Bats, dolphins, and submarines all send out sound pulses and time the echoes to map their surroundings. The shorter the pulse and higher the frequency, the finer the detail. Medical ultrasound uses the same idea — pulses above human hearing reflect off tissues and build an image.",
+      "formula": null,
+      "example": "A bat can detect a thin wire just from the timing and shape of its echo.",
+      "tryIt": "Try: 'speed of sound'."
+    },
+    {
+      "id": "renewable_energy",
+      "topic": "earth_climate",
+      "intent": "teach",
+      "triggers": ["renewable energy", "solar wind hydro", "how does a solar panel work"],
+      "title": "Renewable Energy",
+      "body": "Renewable sources replenish themselves on human timescales: solar (photovoltaic cells turn sunlight into electricity directly), wind (turbines convert moving air into rotation, then electricity), hydroelectric (falling water spins turbines), geothermal (heat from Earth's interior), and biomass.\n\nThey replace fossil fuels because they don't release stored ancient carbon into the atmosphere.",
+      "formula": null,
+      "example": "A 1 m² solar panel in good sunlight generates about 150-200 watts.",
+      "tryIt": "Try: 'greenhouse effect'."
+    },
+    {
+      "id": "carbon_cycle",
+      "topic": "earth_climate",
+      "intent": "teach",
+      "triggers": ["carbon cycle", "how does carbon cycle through earth", "carbon biology earth"],
+      "title": "The Carbon Cycle",
+      "body": "Carbon moves between atmosphere, oceans, land, and life. Plants pull CO₂ from the air; animals exhale it back. Decomposers release carbon from dead organisms. Oceans absorb and release CO₂. Over long timescales, rocks store carbon and volcanoes release it.\n\nBurning fossil fuels adds ancient stored carbon to today's cycle faster than natural sinks can absorb it.",
+      "formula": null,
+      "example": "About a quarter of the CO₂ humans emit ends up dissolved in the oceans — which makes them more acidic.",
+      "tryIt": "Try: 'greenhouse effect'."
+    },
+    {
+      "id": "what_is_dna_short",
+      "topic": "biology_genetics",
+      "intent": "define",
+      "triggers": ["what is dna", "dna definition", "deoxyribonucleic acid"],
+      "title": "DNA",
+      "body": "Deoxyribonucleic acid — a long, double-helix molecule that stores the genetic instructions for every known living organism. Built from four bases (A, T, C, G) whose sequence encodes everything from eye color to enzyme structure.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'DNA structure' or 'what is a gene?'"
+    },
+    {
+      "id": "what_is_evolution",
+      "topic": "biology_evolution",
+      "intent": "define",
+      "triggers": ["what is evolution", "evolution definition"],
+      "title": "Evolution",
+      "body": "Change in the heritable traits of biological populations across generations. Driven mainly by natural selection, plus mutation, migration, and chance. It explains both the diversity of life and the unity (we all share ancestors and biochemistry).",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'natural selection' or 'evidence for evolution'."
+    },
+    {
+      "id": "centrifugal_vs_centripetal",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["centrifugal vs centripetal", "is centrifugal force real", "centrifugal force"],
+      "title": "Centrifugal vs Centripetal Force",
+      "body": "Centripetal force is the real, inward force keeping something moving in a circle. Centrifugal force is the apparent outward push you feel when you're inside the rotating frame — your inertia trying to keep you going straight while something pulls you in.\n\nFrom a non-rotating viewpoint, there's no centrifugal force; from the rotating viewpoint, it's a useful fiction.",
+      "formula": null,
+      "example": "Spin a bucket of water in a circle: the bottom of the bucket pushes the water inward (centripetal); the water feels pressed outward (centrifugal).",
+      "tryIt": "Try: 'centripetal force'."
+    },
+    {
+      "id": "magnetism_basics",
+      "topic": "physics_electromagnetism",
+      "intent": "teach",
+      "triggers": ["how do magnets work", "what makes something magnetic", "ferromagnetism"],
+      "title": "How Magnets Work",
+      "body": "Magnetism comes from moving electric charges — including the spin of electrons inside atoms. In most materials, electron spins cancel out. In iron, nickel, and cobalt, they can align in regions called domains. When most domains point the same way, the material is magnetized.\n\nHeating a magnet jumbles the domains and weakens (or kills) the magnetism.",
+      "formula": null,
+      "example": "Stroking an iron nail with a magnet aligns enough domains to make the nail itself a weak magnet.",
+      "tryIt": "Try: 'what is a magnetic field?'"
+    },
+    {
+      "id": "evolution_speciation",
+      "topic": "biology_evolution",
+      "intent": "teach",
+      "triggers": ["speciation", "how do new species form", "what is a species"],
+      "title": "Speciation",
+      "body": "Speciation happens when one population splits into two that can no longer interbreed. The most common path: geographic separation, then independent evolution, until the two groups have diverged enough to be reproductively isolated even if they meet again.\n\nIt usually takes thousands to millions of years, but some plant species can form in a single generation through chromosome doubling.",
+      "formula": null,
+      "example": "Darwin's finches diversified across the Galapagos as different islands favored different beak shapes.",
+      "tryIt": "Try: 'natural selection'."
+    },
+    {
+      "id": "phylogeny",
+      "topic": "biology_evolution",
+      "intent": "teach",
+      "triggers": ["what is a phylogenetic tree", "phylogeny", "tree of life"],
+      "title": "Phylogenetic Trees",
+      "body": "A phylogenetic tree shows evolutionary relationships among species. Branches that share a recent common ancestor are close cousins; ones that diverged long ago are distant relatives. Modern trees are built mostly from DNA comparisons, sometimes combined with fossils.\n\nAll life appears to share a single common ancestor, deep in the past.",
+      "formula": null,
+      "example": "Humans and chimps share about 98.7% of their DNA — we diverged maybe 6-7 million years ago.",
+      "tryIt": "Try: 'what is evolution?'"
+    },
+    {
+      "id": "stem_cells",
+      "topic": "biology_cell",
+      "intent": "teach",
+      "triggers": ["what are stem cells", "stem cells", "embryonic stem cells", "induced pluripotent"],
+      "title": "Stem Cells",
+      "body": "Stem cells can divide and turn into other cell types. Embryonic stem cells are pluripotent — they can become almost any cell. Adult stem cells in tissues like bone marrow and skin are multipotent — they make a limited range of cell types. Induced pluripotent stem cells (iPSCs) are adult cells reprogrammed back to pluripotency.\n\nThey're a major hope for regenerative medicine.",
+      "formula": null,
+      "example": "Bone marrow stem cells continuously generate new red and white blood cells throughout your life.",
+      "tryIt": "Try: 'what is cancer?'"
+    },
+    {
+      "id": "blood_types",
+      "topic": "biology_physiology",
+      "intent": "teach",
+      "triggers": ["blood types", "abo blood group", "rh factor", "blood type compatibility"],
+      "title": "Blood Types",
+      "body": "Red blood cells have surface markers (antigens) — A, B, both (AB), or neither (O). You also have antibodies against any antigens you lack. Give someone the wrong type and their antibodies attack the donated cells. O-negative is the universal donor; AB-positive is the universal recipient.\n\nThe Rh factor (positive or negative) adds another layer of compatibility.",
+      "formula": null,
+      "example": "Type O-negative blood is in highest demand for emergency rooms because it works for any patient.",
+      "tryIt": "Try: 'how does the immune system work?'"
+    },
+    {
+      "id": "renewable_vs_nonrenewable",
+      "topic": "earth_climate",
+      "intent": "teach",
+      "triggers": ["renewable vs nonrenewable", "nonrenewable energy", "fossil fuels"],
+      "title": "Renewable vs Nonrenewable Energy",
+      "body": "Renewable resources (sun, wind, water, geothermal) replenish themselves on human timescales. Nonrenewable resources (coal, oil, natural gas, uranium) formed over millions of years and we're using them up far faster than they re-form. Burning fossil fuels also releases carbon that had been stored for ages, driving climate change.",
+      "formula": null,
+      "example": "A tank of gasoline took millions of years to form and is gone in a single drive.",
+      "tryIt": "Try: 'greenhouse effect' or 'renewable energy'."
+    },
+    {
+      "id": "minerals_vs_rocks",
+      "topic": "earth_geology",
+      "intent": "teach",
+      "triggers": ["minerals vs rocks", "what is a mineral", "what is a rock"],
+      "title": "Minerals vs Rocks",
+      "body": "A mineral is a naturally occurring solid with a specific chemical composition and crystal structure — like quartz or halite. A rock is a mixture of one or more minerals. Granite, for example, is a mix of quartz, feldspar, and mica.",
+      "formula": null,
+      "example": "Diamond and graphite are both minerals made entirely of carbon, but their crystal structures couldn't be more different.",
+      "tryIt": "Try: 'what is the rock cycle?'"
+    },
+    {
+      "id": "ocean_currents",
+      "topic": "earth_atmosphere",
+      "intent": "teach",
+      "triggers": ["ocean currents", "how do ocean currents work", "thermohaline circulation"],
+      "title": "Ocean Currents",
+      "body": "Surface currents are driven mostly by wind, deflected by Earth's rotation. Deeper currents are driven by differences in temperature and salinity — cold, salty water sinks and slowly moves around the globe in the thermohaline circulation, which takes centuries to complete a cycle.\n\nOcean currents redistribute huge amounts of heat, shaping climates.",
+      "formula": null,
+      "example": "The Gulf Stream carries warm water from the Caribbean toward Europe, keeping northwest Europe mild.",
+      "tryIt": "Try: 'climate vs weather' or 'water cycle'."
+    },
+    {
+      "id": "what_is_a_cell",
+      "topic": "biology_cell",
+      "intent": "define",
+      "triggers": ["what is a cell", "cell definition", "cell biology"],
+      "title": "Cell",
+      "body": "The smallest unit of life that can function on its own — bounded by a membrane, filled with cytoplasm, and (in most cells) containing genetic material. Some organisms are single cells; you're made of about 30 trillion of them.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'what are organelles?' or 'prokaryote vs eukaryote'."
+    },
+    {
+      "id": "stress_strain",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": ["stress and strain", "youngs modulus", "elasticity physics", "hookes law"],
+      "title": "Stress, Strain, and Hooke's Law",
+      "body": "Stress is force per area applied to a material; strain is the fractional deformation that results. For small deformations, they're proportional — that's Hooke's law. The constant (Young's modulus) measures stiffness: steel is high, rubber is low.\n\nGo too far and materials yield permanently, or break.",
+      "formula": null,
+      "example": "A spring follows Hooke's law over its working range — double the force, double the stretch.",
+      "tryIt": "Try: 'what is pressure?'"
+    },
+    {
+      "id": "what_is_a_galaxy",
+      "topic": "astronomy_galaxies",
+      "intent": "define",
+      "triggers": ["what is a galaxy", "galaxy definition"],
+      "title": "Galaxy",
+      "body": "A huge collection of stars, gas, dust, and dark matter bound by gravity. Galaxies range from dwarf systems with millions of stars to giants with hundreds of billions. The Milky Way, our galaxy, has 100-400 billion stars.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'types of galaxies'."
+    },
+    {
+      "id": "what_is_a_planet",
+      "topic": "astronomy_solar",
+      "intent": "define",
+      "triggers": ["what is a planet", "planet definition", "what makes a planet a planet"],
+      "title": "Planet",
+      "body": "By the IAU's definition: a body that orbits the Sun, is round under its own gravity, and has cleared its orbital neighborhood of other debris. Pluto fails the third test, which is why it was reclassified as a dwarf planet in 2006.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'solar system'."
+    },
+    {
+      "id": "comet_vs_asteroid",
+      "topic": "astronomy_solar",
+      "intent": "teach",
+      "triggers": ["comet vs asteroid", "what is a comet", "what is an asteroid", "meteor meteorite"],
+      "title": "Comets, Asteroids, Meteors",
+      "body": "Asteroids are mostly rocky/metallic bodies, most living between Mars and Jupiter. Comets are mostly ice and dust — when they swing close to the Sun, the ice vaporizes and forms the famous tail. A meteor is a streak of light from a small body burning in the atmosphere; if a chunk survives to the ground, it's a meteorite.",
+      "formula": null,
+      "example": "Halley's Comet visits us every 76 years; its tail can stretch tens of millions of kilometers.",
+      "tryIt": "Try: 'solar system'."
+    },
+    {
+      "id": "what_is_a_star",
+      "topic": "astronomy_stars",
+      "intent": "define",
+      "triggers": ["what is a star", "star definition"],
+      "title": "Star",
+      "body": "A massive ball of plasma held together by its own gravity, hot enough at the core to fuse hydrogen into helium and release energy. Stars range from dim red dwarfs lasting trillions of years to brilliant blue giants that burn out in millions.",
+      "formula": null,
+      "example": null,
+      "tryIt": "Try: 'stellar life cycle'."
+    },
+    {
+      "id": "redshift_blueshift",
+      "topic": "astronomy_cosmology",
+      "intent": "teach",
+      "triggers": ["redshift blueshift", "what is redshift", "doppler astronomy"],
+      "title": "Redshift and Blueshift",
+      "body": "When something emitting light moves away from us, its light stretches to longer (redder) wavelengths — redshift. Coming toward us, it compresses to shorter (bluer) wavelengths — blueshift. Astronomers measure these shifts to figure out how fast stars and galaxies move, and to confirm the universe is expanding.\n\nCosmological redshift is slightly different: it comes from space itself stretching while light is in transit.",
+      "formula": null,
+      "example": "Almost all distant galaxies are redshifted — they're moving away as space expands.",
+      "tryIt": "Try: 'Hubbles law' or 'Doppler effect'."
+    },
+    {
+      "id": "telescopes",
+      "topic": "astronomy_solar",
+      "intent": "teach",
+      "triggers": ["how do telescopes work", "refractor vs reflector", "what is a telescope"],
+      "title": "How Telescopes Work",
+      "body": "Telescopes collect light from a wide area and concentrate it. Refractors use lenses; reflectors use a curved mirror (most large telescopes are reflectors because mirrors are easier to make big). Space telescopes like Hubble and JWST avoid the blurring effects of Earth's atmosphere.\n\nRadio telescopes use big dishes to collect radio waves instead of visible light.",
+      "formula": null,
+      "example": "JWST's 6.5 m segmented mirror collects about 6 times more light than Hubble's 2.4 m mirror.",
+      "tryIt": "Try: 'electromagnetic spectrum' or 'how do lenses work?'"
+    },
+    {
+      "id": "fundamental_forces",
+      "topic": "physics_quantum",
+      "intent": "teach",
+      "triggers": ["four fundamental forces", "fundamental forces of nature", "strong force weak force"],
+      "title": "The Four Fundamental Forces",
+      "body": "Everything in the universe interacts through four forces: gravity (weakest but acts on everything over huge distances), electromagnetism (binds atoms together), the strong nuclear force (holds quarks and atomic nuclei together — strongest at short range), and the weak nuclear force (responsible for some radioactive decay).\n\nPhysicists have unified electromagnetism with the weak force; combining all four into one theory is still an open quest.",
+      "formula": null,
+      "example": "Without the strong force, no atomic nuclei could exist; without gravity, no stars or planets.",
+      "tryIt": "Try: 'what is general relativity?'"
+    },
+    {
+      "id": "subatomic_particles",
+      "topic": "physics_quantum",
+      "intent": "teach",
+      "triggers": ["subatomic particles", "quarks", "what is a quark", "standard model"],
+      "title": "Subatomic Particles",
+      "body": "Protons and neutrons aren't fundamental — they're made of quarks (three each, of two flavors). The Standard Model of physics lists 17 fundamental particles: 6 quarks, 6 leptons (including the electron and neutrinos), 4 force-carrying bosons, and the Higgs boson.\n\nIt's spectacularly accurate but doesn't include gravity, dark matter, or dark energy.",
+      "formula": null,
+      "example": "The Higgs boson, discovered in 2012, gives other particles their mass.",
+      "tryIt": "Try: 'four fundamental forces'."
+    },
+    {
+      "id": "what_is_an_orbit",
+      "topic": "astronomy_solar",
+      "intent": "teach",
+      "triggers": ["what is an orbit", "how does an orbit work", "orbital mechanics intro"],
+      "title": "Orbits",
+      "body": "An orbit is a path of one object continuously falling around another. The orbiting object has enough sideways speed that it keeps missing the central body as it falls. Newton imagined a cannonball fired hard enough horizontally to never hit the ground — that's an orbit.\n\nKepler showed orbits are ellipses (not perfect circles) with the central body at one focus.",
+      "formula": null,
+      "example": "The ISS orbits Earth at about 7.66 km/s, completing a lap every 90 minutes.",
+      "tryIt": "Try: 'what is gravity?'"
+    }
+  ]
+}
