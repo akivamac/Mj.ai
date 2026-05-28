@@ -5551,6 +5551,1754 @@
         "monolith first"
       ],
       "answer": "Monolith: one deployable, one codebase, one DB. Simpler to develop, deploy, debug; harder to scale teams independently. Microservices: many deployables, independent teams, polyglot, scale parts independently — but network failures, distributed tracing, schema versioning, eventual consistency, ops overhead. Sam Newman / Martin Fowler advice: monolith first, extract services when you have a clear seam AND organizational pain. 'Distributed monolith' is the worst of both worlds."
+    },
+    {
+      "keywords": [
+        "bun runtime",
+        "bun js",
+        "bun vs node"
+      ],
+      "answer": "Bun (Jarred Sumner, 2021) is a JavaScript/TypeScript runtime written in Zig, designed as a faster Node.js replacement. Built on JavaScriptCore (Safari's engine) rather than V8. Includes a package manager, bundler, transpiler, and test runner in one binary. Notable: `bun install` is ~10-100x faster than npm; native TypeScript and JSX execution without a build step; `Bun.serve()` HTTP server competitive with frameworks like Hono. Released 1.0 in September 2023."
+    },
+    {
+      "keywords": [
+        "bun install",
+        "bun package manager",
+        "bun lockfile"
+      ],
+      "answer": "`bun install` is a drop-in npm replacement that reads package.json and writes a binary `bun.lockb` lockfile. It uses a global cache and hardlinks (or copies on filesystems that don't support them) to avoid duplicating files across projects. Common commands: `bun add react`, `bun add -d typescript`, `bun remove lodash`, `bun update`. The `--frozen-lockfile` flag enforces CI reproducibility."
+    },
+    {
+      "keywords": [
+        "bun test",
+        "bun test runner",
+        "jest replacement"
+      ],
+      "answer": "`bun test` is a Jest-compatible test runner built into Bun. It supports `describe`, `test`, `expect`, snapshots, mocks, and lifecycle hooks (`beforeAll`/`afterEach`). Runs TypeScript and JSX natively with no config. Typically 10-30x faster than Jest because there's no transpile step and no spawn overhead per test file. Filter tests with `bun test --watch` or `bun test name-pattern`."
+    },
+    {
+      "keywords": [
+        "deno 2",
+        "deno 2.0",
+        "deno changes"
+      ],
+      "answer": "Deno 2.0 (October 2024) added full npm compatibility — you can `import express from 'npm:express'` directly and most npm packages just work. It also introduced workspaces, long-term backward compatibility guarantees, and stable `deno install`/`deno add` package commands. Deno 2 reads package.json and node_modules when present, removing the biggest friction with the Node ecosystem. The default permission model (`--allow-read`, `--allow-net`) is unchanged."
+    },
+    {
+      "keywords": [
+        "jsr",
+        "jsr.io",
+        "javascript registry"
+      ],
+      "answer": "JSR (jsr.io) is an open-source JavaScript registry launched in 2024 by the Deno team. Unlike npm, it's TypeScript-first — packages publish source `.ts` files and JSR generates type declarations and JS bundles for every runtime (Node, Deno, Bun, browsers). Imports look like `import { foo } from 'jsr:@scope/pkg'`. Scores packages on docs coverage, runtime compatibility, and provenance. Works alongside npm; many packages dual-publish."
+    },
+    {
+      "keywords": [
+        "biome",
+        "biome js",
+        "biome formatter linter"
+      ],
+      "answer": "Biome is a Rust-based formatter and linter for JavaScript/TypeScript/JSON, forked from Rome in 2023. One tool replaces both Prettier and ESLint with ~25x faster performance — formats and lints a typical project in under a second. `biome.json` config; `biome check --write .` formats and fixes in one pass. Doesn't yet support every ESLint plugin (e.g. some React-specific rules), but covers most common rules out of the box."
+    },
+    {
+      "keywords": [
+        "oxlint",
+        "oxc linter",
+        "oxc"
+      ],
+      "answer": "Oxlint is a Rust-based JavaScript/TypeScript linter from the Oxc (Oxidation Compiler) project, designed as a fast ESLint alternative. Roughly 50-100x faster than ESLint because it parses with its own SWC-style parser and avoids the plugin VM. Ships with ~500 rules ported from ESLint, typescript-eslint, and eslint-plugin-react. Often used as a pre-commit gate alongside ESLint for slower deep rules."
+    },
+    {
+      "keywords": [
+        "turbopack",
+        "next turbopack",
+        "vercel bundler"
+      ],
+      "answer": "Turbopack is Vercel's Rust-based incremental bundler, built as the successor to Webpack. Powers `next dev --turbo` in Next.js 13+ and became default for `next dev` in Next.js 15 (October 2024). Uses function-level caching so a tiny edit only recomputes affected modules. Production `next build --turbo` is still in beta as of late 2024 but rapidly approaching stable."
+    },
+    {
+      "keywords": [
+        "uv python",
+        "uv astral",
+        "uv package manager"
+      ],
+      "answer": "uv (Astral, 2024) is a Rust-based Python package and project manager. Replaces pip, pip-tools, pipx, poetry, pyenv, and virtualenv with one binary. `uv pip install` is ~10-100x faster than pip due to parallel downloads and a global cache. `uv add requests` updates pyproject.toml and uv.lock; `uv run script.py` auto-creates and activates a venv. Can also manage Python interpreter installs with `uv python install 3.12`."
+    },
+    {
+      "keywords": [
+        "ruff",
+        "ruff python",
+        "ruff linter"
+      ],
+      "answer": "Ruff (Astral, 2022) is a Rust-based Python linter and formatter that replaces Flake8, isort, pyupgrade, and (since 2024) Black. Implements 800+ rules from popular plugins, runs ~100x faster than Flake8. `ruff check .` lints, `ruff format .` formats. Config in pyproject.toml under `[tool.ruff]`. Now the default linter in most new Python projects and shipped by tools like Hatch."
+    },
+    {
+      "keywords": [
+        "mise",
+        "mise version manager",
+        "rtx"
+      ],
+      "answer": "Mise (formerly rtx) is a polyglot runtime version manager that replaces asdf, nvm, pyenv, and rbenv. Reads a `.mise.toml` or `.tool-versions` file and auto-switches Node/Python/Ruby/Go/etc versions per directory. `mise install` grabs everything listed; `mise use node@20` pins a version. Faster than asdf (written in Rust) and supports tasks, env vars, and hooks like direnv."
+    },
+    {
+      "keywords": [
+        "pnpm",
+        "pnpm vs npm",
+        "pnpm store"
+      ],
+      "answer": "pnpm (Zoltan Kochan, 2017) is a Node package manager that uses a content-addressed global store at `~/.local/share/pnpm/store`. Each package version is stored exactly once on disk; `node_modules` contains hardlinks (or reflinks on APFS/btrfs) pointing into the store. Saves gigabytes across projects and installs ~2x faster than npm. Strict by default: a package can only import dependencies it declares, catching phantom dependency bugs."
+    },
+    {
+      "keywords": [
+        "esbuild",
+        "esbuild bundler",
+        "evan wallace bundler"
+      ],
+      "answer": "esbuild (Evan Wallace, 2020) is a JavaScript/TypeScript bundler and minifier written in Go. Famous for being 10-100x faster than Webpack or Rollup — bundles the entire Three.js library in ~50ms. Uses Go's goroutines for parallel parsing and aggressive bytewise optimization. Lacks some Webpack features (HMR, complex plugin ecosystem) so often used inside larger tools like Vite, Snowpack, or for pure production builds."
+    },
+    {
+      "keywords": [
+        "rspack",
+        "rust webpack",
+        "rspack bundler"
+      ],
+      "answer": "Rspack (ByteDance, 2023) is a Rust-based bundler that's API-compatible with Webpack — most webpack configs work with minor changes. 5-10x faster than Webpack on large projects, with full support for loaders, plugins (most), code splitting, and HMR. Used in production by ByteDance for apps like Lark and Douyin. Pairs with Rsbuild (an opinionated wrapper) similar to how Webpack pairs with Next.js."
+    },
+    {
+      "keywords": [
+        "vite",
+        "vite dev server",
+        "vite build"
+      ],
+      "answer": "Vite (Evan You, 2020) is a frontend build tool that combines esbuild for dev (instant cold start via native ES modules) and Rollup for production builds. The dev server serves source files unbundled — the browser fetches modules as needed, with HMR updates in <50ms regardless of project size. `npm create vite@latest` scaffolds React/Vue/Svelte/Solid/Preact templates. Now the default for most modern frontend frameworks."
+    },
+    {
+      "keywords": [
+        "vitest",
+        "vite test",
+        "vitest runner"
+      ],
+      "answer": "Vitest is a Vite-native test runner with a Jest-compatible API. Reuses your Vite config and plugins, so TS/JSX/CSS handling Just Works without separate setup. Features: watch mode that only reruns affected tests via the dev server's module graph, built-in coverage (c8 or istanbul), in-source testing, and snapshot testing. Typically 2-5x faster than Jest on Vite projects."
+    },
+    {
+      "keywords": [
+        "astro",
+        "astro framework",
+        "islands architecture"
+      ],
+      "answer": "Astro (Fred K. Schott, 2021) is a static-site framework using the islands architecture: pages ship as zero-JS HTML by default, with interactive components (React/Vue/Svelte/Solid) hydrated as isolated 'islands'. Result is dramatically smaller bundles than SPA frameworks. `client:load`/`client:idle`/`client:visible` directives control when each island hydrates. Astro 4 (2024) added view transitions and a Dev Toolbar."
+    },
+    {
+      "keywords": [
+        "tauri",
+        "tauri desktop",
+        "rust desktop"
+      ],
+      "answer": "Tauri is a framework for building desktop apps with a web frontend and a Rust backend. Unlike Electron (which bundles Chromium ~120MB), Tauri uses the OS's native webview (WebKit on macOS, WebView2 on Windows, WebKitGTK on Linux) — final app sizes are typically 3-10MB. Frontend can be any JS framework; backend invokable from JS via `invoke('command_name', args)`. Tauri 2.0 (October 2024) added mobile (iOS/Android) support."
+    },
+    {
+      "keywords": [
+        "sst",
+        "serverless stack",
+        "sst framework"
+      ],
+      "answer": "SST (Serverless Stack) is a TypeScript framework for deploying full-stack apps to AWS. v3 (2024, codename Ion) rewrote on top of Pulumi instead of CDK, dropping the CloudFormation dependency for faster deploys. Define infrastructure as code in `sst.config.ts`: `new sst.aws.Function('api', { handler: 'index.handler' })`. Includes live Lambda development that proxies invocations to your local machine for instant iteration."
+    },
+    {
+      "keywords": [
+        "opentofu",
+        "terraform fork",
+        "opentofu vs terraform"
+      ],
+      "answer": "OpenTofu is a Linux Foundation fork of Terraform created in 2023 after HashiCorp relicensed Terraform under the BUSL (Business Source License). State files and HCL syntax are compatible — most projects can swap `terraform` for `tofu` with no changes. Adds state encryption and dynamic provider functions ahead of Terraform. Maintained by an independent steering committee with contributors from Spacelift, Harness, and others."
+    },
+    {
+      "keywords": [
+        "pulumi",
+        "pulumi iac",
+        "infrastructure as code"
+      ],
+      "answer": "Pulumi is an infrastructure-as-code tool that lets you define cloud resources in TypeScript, Python, Go, C#, or Java instead of a DSL like HCL. Same providers as Terraform (AWS/Azure/GCP/K8s) but with real programming language features: loops, conditionals, classes, npm packages. State stored in Pulumi Cloud by default; can self-host with S3 backend. Trade-off vs Terraform: more flexibility, but easier to write convoluted code."
+    },
+    {
+      "keywords": [
+        "bazel",
+        "bazel build",
+        "monorepo build"
+      ],
+      "answer": "Bazel is Google's open-source build system, designed for huge monorepos. Builds are hermetic (no system dependencies leak in) and incremental — a rebuild only redoes work whose inputs changed. Uses BUILD files with Starlark (a Python subset) to declare targets. Famous for its remote cache: a CI build can complete in seconds if another machine already built the same inputs. Used at Google, Uber, Stripe, Pinterest."
+    },
+    {
+      "keywords": [
+        "parcel",
+        "parcel bundler",
+        "zero config bundler"
+      ],
+      "answer": "Parcel is a zero-configuration web bundler — point it at an HTML file and it figures out the rest (TypeScript, Sass, images, asset hashing). Parcel 2 (2021) rewrote the core in Rust for ~10x speedups. Less popular than Vite for modern apps but still excellent for quick prototypes, multi-page sites, or browser extensions where its file-detection magic shines."
+    },
+    {
+      "keywords": [
+        "wrangler",
+        "cloudflare wrangler",
+        "workers cli"
+      ],
+      "answer": "Wrangler is Cloudflare's CLI for developing and deploying Workers (edge functions). `wrangler dev` runs your worker locally on the workerd runtime (the same one Cloudflare uses in production). `wrangler deploy` ships it. Config in `wrangler.toml` declares routes, KV namespaces, R2 buckets, D1 databases, and Durable Objects. v3 (2023) made local mode the default and added Miniflare 3 for accurate emulation."
+    },
+    {
+      "keywords": [
+        "bun bundler",
+        "bun build",
+        "bun.build"
+      ],
+      "answer": "`bun build` is Bun's built-in bundler, competitive with esbuild on speed and bundle size. Supports tree shaking, code splitting, JSX, TypeScript, CSS imports, and the `--compile` flag which produces a single executable embedding the Bun runtime + your app (~50MB). Useful for shipping CLIs without requiring users to install Node or Bun. API also exposed as `Bun.build({ entrypoints, outdir })`."
+    },
+    {
+      "keywords": [
+        "swc",
+        "swc compiler",
+        "speedy web compiler"
+      ],
+      "answer": "SWC (Speedy Web Compiler) is a Rust-based JS/TS compiler that replaces Babel. ~20x faster than Babel on single-thread, ~70x on multi-core because Rust has no GIL. Used by Next.js (since v12), Parcel 2, Deno (originally), and Vercel's bundler. Implements TypeScript stripping, JSX transform, modern JS down-leveling, and a Babel-compatible plugin system (Wasm-based)."
+    },
+    {
+      "keywords": [
+        "nx",
+        "nx monorepo",
+        "nrwl nx"
+      ],
+      "answer": "Nx is a monorepo build system from Nrwl, focused on JavaScript ecosystems (with plugins for Go, Rust, .NET). Provides `nx affected -- test` which only runs tasks for projects affected by your git diff — saves huge time on CI. Includes generators (`nx g app my-app`), a task graph, distributed caching (Nx Cloud), and integrations for React/Angular/Vue/Next/Express/NestJS. Competes with Turborepo and Bazel."
+    },
+    {
+      "keywords": [
+        "turborepo",
+        "turbo monorepo",
+        "vercel turborepo"
+      ],
+      "answer": "Turborepo is a JavaScript monorepo build orchestrator from Vercel. Uses a `turbo.json` task pipeline definition and content-hashes inputs to skip re-running unchanged tasks. Remote cache (free with Vercel account) lets a teammate's CI build populate your local cache. Lighter than Nx — orchestrates existing tools (npm scripts, tsc, vitest) rather than wrapping them. Pairs naturally with pnpm workspaces."
+    },
+    {
+      "keywords": [
+        "zod",
+        "zod schema",
+        "ts validation"
+      ],
+      "answer": "Zod is a TypeScript-first schema validation library. `z.object({ name: z.string(), age: z.number().min(0) })` validates at runtime AND produces a TypeScript type via `z.infer<typeof Schema>`. Used heavily in tRPC, Next.js server actions, and form libraries. Common pattern: parse `process.env` through a Zod schema at startup so missing env vars fail loudly instead of becoming `undefined` deep in your code."
+    },
+    {
+      "keywords": [
+        "drizzle orm",
+        "drizzle",
+        "ts orm"
+      ],
+      "answer": "Drizzle is a TypeScript ORM with a SQL-like query builder — you write `db.select().from(users).where(eq(users.id, 1))` instead of finding the right method name. Generates type-safe results from your schema definitions. Migrations via `drizzle-kit generate` produce plain SQL files you can review. Lighter and faster than Prisma (no Rust query engine binary), with first-class support for Postgres, MySQL, SQLite, and edge runtimes."
+    },
+    {
+      "keywords": [
+        "transformer attention",
+        "self-attention",
+        "how attention works"
+      ],
+      "answer": "Transformer attention lets each token in a sequence look at every other token and decide which ones matter. For each token, the model computes three vectors: Query (what am I looking for?), Key (what do I have?), Value (what do I give if matched?). The attention score is softmax(Q·Kᵀ / √d), which weights how much each token's Value contributes to the output. This replaces the strict left-to-right pass of RNNs with a fully parallel operation — the breakthrough that made GPT possible."
+    },
+    {
+      "keywords": [
+        "multi-head attention",
+        "attention heads",
+        "transformer heads"
+      ],
+      "answer": "Multi-head attention runs the Q/K/V attention mechanism several times in parallel with different learned projections, then concatenates the results. GPT-3 uses 96 heads per layer; each head can specialize in a different pattern (one might track syntactic agreement, another long-range coreference). Splitting into heads means each head operates on a smaller dimension (e.g. 128) which is cheaper than one giant attention. Output is `Concat(head_1, ..., head_n) · W_O`."
+    },
+    {
+      "keywords": [
+        "backpropagation",
+        "backprop",
+        "neural network training"
+      ],
+      "answer": "Backpropagation trains neural networks by computing the gradient of the loss with respect to every weight, layer by layer, working backwards from the output. Forward pass: input → predicted output → loss. Backward pass: apply the chain rule to push gradients back through each layer (∂loss/∂w = ∂loss/∂y · ∂y/∂w). Then the optimizer (SGD, Adam) nudges each weight in the direction that lowers the loss. Modern frameworks (PyTorch, JAX) build a computation graph and run backprop automatically."
+    },
+    {
+      "keywords": [
+        "gpu vs cpu",
+        "why gpu ml",
+        "gpu matrix math"
+      ],
+      "answer": "GPUs beat CPUs at neural network math because matrix multiplication is embarrassingly parallel — every output cell can be computed independently. A modern CPU has ~32 high-clock cores; an H100 GPU has ~17,000 CUDA cores plus dedicated tensor cores doing 4x4 matrix mults per cycle. GPUs also have ~10x the memory bandwidth (3 TB/s on H100 vs 100 GB/s on a desktop CPU) which matters because matrix mult is bandwidth-bound. CPUs win on branchy single-thread code; GPUs win on uniform dense math."
+    },
+    {
+      "keywords": [
+        "quantization",
+        "fp16 int8",
+        "model quantization"
+      ],
+      "answer": "Quantization shrinks model weights from FP32 (32-bit float) to lower precision: FP16/BF16 (half memory, near-zero accuracy loss), INT8 (quarter memory, small loss), INT4 (eighth memory, larger loss). A 70B-parameter model needs 280GB at FP32 but only 35GB at INT4 — fitting on a single consumer GPU. Modern formats like GPTQ, AWQ, and GGUF (used by llama.cpp) use clever per-group scaling to minimize accuracy drop. Inference is also faster because more weights fit in cache."
+    },
+    {
+      "keywords": [
+        "lora",
+        "low rank adaptation",
+        "lora fine-tuning"
+      ],
+      "answer": "LoRA (Low-Rank Adaptation, Hu et al. 2021) fine-tunes a large model by freezing the original weights and training small rank-decomposed update matrices alongside them. Instead of updating a 4096×4096 weight matrix (16M params), LoRA trains A (4096×8) and B (8×4096) totaling 64K params — a 250x reduction. At inference you compute `W·x + B·A·x`. Multiple LoRA adapters can be swapped at runtime, enabling per-user personalization without storing copies of the base model."
+    },
+    {
+      "keywords": [
+        "rag",
+        "retrieval augmented generation",
+        "how rag works"
+      ],
+      "answer": "RAG (Retrieval-Augmented Generation) feeds relevant documents into an LLM's context so it can answer using your data without fine-tuning. Pipeline: (1) chunk your docs into 200-1000 token passages, (2) embed each chunk with a model like text-embedding-3-small, (3) store vectors in a database (Pinecone, pgvector, Qdrant), (4) at query time, embed the question and find top-k similar chunks via cosine similarity, (5) stuff those chunks into the prompt before the question. Cheaper than fine-tuning and lets you cite sources."
+    },
+    {
+      "keywords": [
+        "vector similarity",
+        "cosine similarity",
+        "vector search metrics"
+      ],
+      "answer": "Vector similarity measures how 'close' two embeddings are. Cosine similarity (1 - cos angle, range -1 to 1) ignores magnitude and is the default for text embeddings. Dot product is faster but biased toward longer vectors. Euclidean (L2) distance treats embeddings as points in space. Most production embedding models (OpenAI, Cohere) normalize outputs to unit length, which makes cosine and dot product equivalent."
+    },
+    {
+      "keywords": [
+        "ann search",
+        "hnsw",
+        "approximate nearest neighbor"
+      ],
+      "answer": "Approximate Nearest Neighbor (ANN) search finds similar vectors fast without scanning the entire dataset. HNSW (Hierarchical Navigable Small World) builds a multi-layer graph where upper layers have fewer long-range links; queries greedy-walk down for ~log N lookups. IVF (Inverted File Index) clusters vectors with k-means and only searches the nearest clusters. Used by FAISS, Qdrant, Pinecone, pgvector's `vector_cosine_ops`. Trades a small accuracy hit (recall@10 ~99%) for huge speedups vs brute force."
+    },
+    {
+      "keywords": [
+        "embeddings",
+        "what are embeddings",
+        "text embeddings"
+      ],
+      "answer": "Embeddings are dense numerical vectors that represent the meaning of text (or images, audio) so semantically similar items have similar vectors. OpenAI's text-embedding-3-small outputs 1536 dimensions; text-embedding-3-large outputs 3072. Sentence-BERT and Cohere embeddings are alternatives. The model learns these during training so 'dog' and 'puppy' end up close in vector space while 'dog' and 'algorithm' end up far apart. Used for search, clustering, classification, and RAG retrieval."
+    },
+    {
+      "keywords": [
+        "tokenization",
+        "bpe",
+        "byte pair encoding"
+      ],
+      "answer": "Tokenization splits text into the units an LLM actually sees. Modern models use Byte-Pair Encoding (BPE) or SentencePiece, which build a vocabulary of common subword pieces. 'tokenization' might become ['token', 'ization']; 'gpt' might be ['g', 'pt'] if 'gpt' isn't common in training data. GPT-4 uses a ~100K token vocab. Why subwords? They handle unseen words ('un' + 'fudg' + 'able') without an out-of-vocabulary problem, and keep the embedding table manageable."
+    },
+    {
+      "keywords": [
+        "wordpiece sentencepiece",
+        "tokenizers compared",
+        "wordpiece",
+        "sentencepiece"
+      ],
+      "answer": "Three common subword tokenizers: BPE (GPT, Llama) merges the most frequent adjacent pairs iteratively. WordPiece (BERT) is similar but picks merges that maximize likelihood, not just frequency. SentencePiece (T5, Llama, Mistral) treats input as raw bytes and learns merges without pre-splitting on whitespace, so it handles Chinese/Japanese cleanly. All three produce a fixed-size vocabulary (~30K-256K tokens) that balances coverage with embedding table size."
+    },
+    {
+      "keywords": [
+        "temperature sampling",
+        "top-k top-p",
+        "llm sampling"
+      ],
+      "answer": "When an LLM generates text, the final layer produces a probability for every token in the vocabulary. Temperature scales the logits before softmax: T<1 sharpens (more deterministic), T>1 flattens (more random), T=0 is greedy. Top-k samples only from the k highest-probability tokens (typically k=40). Top-p (nucleus) samples from the smallest set of tokens whose probabilities sum to p (typically p=0.9). Top-p adapts to the distribution shape; top-k is fixed."
+    },
+    {
+      "keywords": [
+        "beam search",
+        "beam search vs sampling",
+        "beam search llm"
+      ],
+      "answer": "Beam search keeps the top-k most likely sequences at each step instead of just one (greedy) — at the end it returns the highest-scoring complete sequence. Used in translation and summarization where you want the best output. Drawback: produces bland, repetitive text for open-ended generation because the highest-probability sequences are often generic ('I don't know, I don't know...'). Chatbots use sampling (top-p + temperature) for diversity; structured tasks use beam search."
+    },
+    {
+      "keywords": [
+        "cross attention",
+        "encoder decoder attention",
+        "self-attention vs cross"
+      ],
+      "answer": "Self-attention has Q, K, V all coming from the same sequence — a token attends to other tokens in its own sequence. Cross-attention has Q from one sequence and K, V from another — used in encoder-decoder models (T5, original Transformer) where the decoder attends to the encoder's output. In vision-language models like LLaVA, cross-attention lets text tokens attend to image patch features. Standard decoder-only LLMs (GPT, Llama) use only self-attention."
+    },
+    {
+      "keywords": [
+        "layer normalization",
+        "layer norm vs batch norm",
+        "layernorm rmsnorm"
+      ],
+      "answer": "Layer Normalization (Ba et al. 2016) normalizes activations across the feature dimension within a single example: subtract the example's mean, divide by its standard deviation, then apply learned scale and shift. Batch Norm normalizes across the batch dimension. Transformers use LayerNorm (or its variant RMSNorm in Llama) because it works with any batch size and any sequence length, and doesn't break in inference when batch size = 1. RMSNorm skips the mean subtraction for ~10% speedup."
+    },
+    {
+      "keywords": [
+        "adam optimizer",
+        "adam vs sgd",
+        "neural network optimizer"
+      ],
+      "answer": "Adam (Kingma & Ba, 2014) maintains a running average of past gradients (momentum) and past squared gradients (adaptive learning rate per parameter). Each weight gets its own effective learning rate scaled by 1/√(avg squared gradient). Converges faster than plain SGD on most deep nets and is far less sensitive to learning rate choice. AdamW (Loshchilov, 2017) fixes Adam's weight decay to behave like true L2 regularization — the standard for training transformers."
+    },
+    {
+      "keywords": [
+        "cross entropy loss",
+        "ce loss",
+        "classification loss"
+      ],
+      "answer": "Cross-entropy loss measures how far a predicted probability distribution is from the true distribution: -Σ y·log(ŷ). For a classifier predicting class probabilities, only the true class's log probability contributes, so the loss is -log(p_true). It's the standard loss for LLMs (next-token prediction = classification over the vocabulary) and image classifiers. Pairs naturally with softmax outputs because the gradients simplify to (predicted - true)."
+    },
+    {
+      "keywords": [
+        "mixture of experts",
+        "moe",
+        "sparse activation"
+      ],
+      "answer": "Mixture of Experts (MoE) replaces each feedforward layer with N parallel 'experts' (each a smaller FFN) and a router that picks the top-k experts (usually k=1 or 2) per token. A model can have 100B total parameters but only activate ~10B per token — combining the capacity of a huge model with the inference cost of a small one. Used in Mixtral 8x7B (8 experts, top-2), DeepSeek V3, and rumored in GPT-4. Trade-off: more memory bandwidth and tricky load balancing during training."
+    },
+    {
+      "keywords": [
+        "kv cache",
+        "key value cache",
+        "llm inference speedup"
+      ],
+      "answer": "KV cache stores the Key and Value vectors computed for previous tokens during LLM inference, so generating each new token only requires computing K/V for that one token instead of the entire sequence. Without it, generating the 1000th token would redo work for the first 999 every step — quadratic cost. With it, generation is linear per token. Memory cost is significant: ~2 · layers · hidden_dim · seq_len · bytes per request, which is why long-context inference needs lots of GPU memory."
+    },
+    {
+      "keywords": [
+        "flash attention",
+        "memory efficient attention",
+        "flashattention"
+      ],
+      "answer": "Flash Attention (Tri Dao, 2022) computes attention without materializing the full N×N attention matrix in memory. It tiles Q, K, V into blocks that fit in fast SRAM and computes attention block by block, recomputing during the backward pass instead of storing. Memory drops from O(N²) to O(N), enabling much longer context windows. Standard since 2023; Flash Attention 2 added better parallelism, Flash Attention 3 (2024) added FP8 support on H100."
+    },
+    {
+      "keywords": [
+        "context window",
+        "token limit",
+        "llm context length"
+      ],
+      "answer": "Context window is the maximum number of tokens (prompt + response) an LLM can process at once. GPT-4o has 128K tokens (~96K English words), Claude 3.5 Sonnet has 200K, Gemini 1.5 Pro has up to 2M. Cost and latency scale with context length: doubling context doubles KV cache memory and (with standard attention) quadruples compute. Long-context retrieval accuracy isn't uniform — middle-of-context information is often recalled worse than start/end ('lost in the middle' effect)."
+    },
+    {
+      "keywords": [
+        "hallucination",
+        "llm hallucination",
+        "grounding"
+      ],
+      "answer": "A hallucination is when an LLM produces fluent but factually wrong output — invented citations, made-up function signatures, wrong historical dates. Caused by the model interpolating from training patterns when it lacks specific knowledge. Grounding techniques reduce it: RAG (retrieve real documents), tool use (call a calculator/search/database), structured output with validation, and chain-of-thought + verification steps. Fundamentally an LLM has no built-in notion of 'I don't know'."
+    },
+    {
+      "keywords": [
+        "prompt engineering",
+        "prompt design basics",
+        "llm prompting"
+      ],
+      "answer": "Prompt engineering means crafting the input to an LLM to get reliable, useful output. Reliable patterns: (1) specify the role ('You are an expert Python reviewer'), (2) give examples (few-shot), (3) ask for step-by-step reasoning before the final answer (chain-of-thought), (4) constrain output format ('respond in JSON matching this schema'), (5) put critical info at the start or end of long prompts (the middle is often skimmed). Modern reasoning models (o1, o3) reduce the need for explicit CoT prompting."
+    },
+    {
+      "keywords": [
+        "fine tuning vs rag",
+        "when to fine-tune",
+        "finetune vs retrieval"
+      ],
+      "answer": "Fine-tuning adjusts model weights on your data — best for teaching style, format, or new tasks. RAG injects retrieved data into the prompt — best for facts, recent info, or large knowledge bases. Rule of thumb: if you'd want the model to memorize it, fine-tune. If you'd want the model to look it up, RAG. They combine well: fine-tune for output style and tone, RAG for the underlying facts. Fine-tuning costs $$ upfront; RAG costs $$ at inference (longer prompts)."
+    },
+    {
+      "keywords": [
+        "huggingface transformers",
+        "hf library",
+        "huggingface python"
+      ],
+      "answer": "Hugging Face Transformers is the de facto Python library for using and fine-tuning open LLMs. `from transformers import AutoModelForCausalLM, AutoTokenizer; model = AutoModelForCausalLM.from_pretrained('meta-llama/Llama-3.1-8B')` downloads and loads a model from the HF Hub. Wraps PyTorch (default), TensorFlow, and JAX. Companion libraries: Datasets (data loading), Accelerate (multi-GPU), PEFT (LoRA), TRL (RLHF/DPO training), Tokenizers (Rust tokenizer impls)."
+    },
+    {
+      "keywords": [
+        "llama.cpp",
+        "gguf",
+        "cpu inference"
+      ],
+      "answer": "llama.cpp (Georgi Gerganov, 2023) runs Llama-family models on CPU (and GPU) using highly-optimized C++ with AVX/AVX-512/ARM NEON SIMD. Uses the GGUF format which packs quantized weights + tokenizer + chat template into one file. Q4_K_M quantization is the popular sweet spot (~4.5 bits/param, ~5% perplexity hit). Powers Ollama, LM Studio, and most local-LLM apps. Makes a 7B model run at ~20 tokens/sec on a MacBook."
+    },
+    {
+      "keywords": [
+        "onnx",
+        "onnx runtime",
+        "model interchange"
+      ],
+      "answer": "ONNX (Open Neural Network Exchange) is a model file format that lets you train in one framework (PyTorch) and run in another runtime (ONNX Runtime, TensorRT, CoreML, web). `torch.onnx.export()` converts a PyTorch model to .onnx. ONNX Runtime then runs it on CPU/GPU/NPU with framework-independent optimizations. Common pipeline: train in PyTorch → export to ONNX → run on mobile via ONNX Runtime Mobile or in-browser via onnxruntime-web."
+    },
+    {
+      "keywords": [
+        "diffusion models",
+        "stable diffusion basics",
+        "diffusion image generation"
+      ],
+      "answer": "Diffusion models generate images by learning to reverse a noising process. Training: take an image, add Gaussian noise in T steps until it's pure noise, train a U-Net to predict the noise at each step. Generation: start from pure noise, predict and subtract noise iteratively to recover an image. Text-to-image (Stable Diffusion, DALL·E 3) conditions the denoiser on a text embedding from CLIP or T5. Latent diffusion (Stable Diffusion) operates in a compressed VAE latent space for speed."
+    },
+    {
+      "keywords": [
+        "chain of thought",
+        "cot prompting",
+        "step by step reasoning"
+      ],
+      "answer": "Chain-of-Thought prompting (Wei et al. 2022) asks an LLM to reason step-by-step before answering. Adding 'Let's think step by step' or showing few-shot examples with reasoning steps dramatically improves math, logic, and multi-step questions. Reasoning models like o1/o3 internalize this — they generate hidden 'thinking tokens' before the visible answer. CoT trades latency and tokens for accuracy: a problem that takes 50 tokens with direct answering might take 2000 with CoT."
+    },
+    {
+      "keywords": [
+        "linux process scheduling",
+        "cfs scheduler",
+        "completely fair"
+      ],
+      "answer": "Linux's default scheduler is CFS (Completely Fair Scheduler), introduced in 2.6.23 (2007). It tracks each task's 'vruntime' (virtual runtime) and always runs the task with the smallest vruntime, stored in a red-black tree for O(log N) lookups. Nice values (-20 to 19) weight vruntime — niceness 19 accumulates vruntime 1024x faster than -20. In kernel 6.6 (late 2023), EEVDF (Earliest Eligible Virtual Deadline First) replaced CFS as the default."
+    },
+    {
+      "keywords": [
+        "context switch cost",
+        "context switch overhead",
+        "cpu context switch"
+      ],
+      "answer": "A context switch — saving one process's state and loading another's — takes ~1-10 microseconds of direct kernel work. The hidden cost is cache pollution: the new process's working set isn't in L1/L2 cache, so it stalls on memory until caches warm up. Total real-world cost can hit ~50 μs on heavily multitasked systems. Why threading-heavy workloads spend time profiling shows `sched_switch` overhead, and why async I/O (one thread, many sockets) often beats thread-per-connection."
+    },
+    {
+      "keywords": [
+        "tcp congestion control",
+        "tcp slow start",
+        "aimd"
+      ],
+      "answer": "TCP congestion control prevents a sender from overwhelming the network. Slow start: start with a small congestion window (cwnd), double it each RTT until packet loss. AIMD (Additive Increase Multiplicative Decrease): grow cwnd by 1 MSS per RTT, halve it on loss — the classic 'sawtooth' pattern. Modern variants: CUBIC (default on Linux, cubic function for faster recovery), BBR (Google, models bandwidth-delay product instead of reacting to loss, much better on lossy links)."
+    },
+    {
+      "keywords": [
+        "dns lookup",
+        "dns resolution steps",
+        "how dns works"
+      ],
+      "answer": "DNS resolution converts a hostname like example.com to an IP. (1) App asks the OS resolver, which checks `/etc/hosts` and the local cache. (2) Miss → query the configured recursive resolver (e.g. 1.1.1.1). (3) Recursive resolver checks its cache, otherwise asks a root server (a.root-servers.net) for .com's TLD servers. (4) Asks the .com TLD server for example.com's authoritative servers. (5) Asks the authoritative server for the A record. Results are cached at every hop based on TTL."
+    },
+    {
+      "keywords": [
+        "tls handshake",
+        "ssl handshake",
+        "https setup"
+      ],
+      "answer": "TLS handshake (TLS 1.3): (1) ClientHello — client sends supported cipher suites, random bytes, and key share. (2) ServerHello — server picks a cipher, sends its key share, certificate, and a 'Finished' message, all encrypted from this point. (3) Client verifies the cert against trusted CAs, derives the shared session key via ECDHE, sends its 'Finished'. Total: 1 round trip (vs 2 for TLS 1.2). With 0-RTT resumption, repeat connections send application data in the first packet."
+    },
+    {
+      "keywords": [
+        "http2 vs http3",
+        "quic",
+        "multiplexing"
+      ],
+      "answer": "HTTP/2 (2015) runs multiple requests over one TCP connection (multiplexing), eliminating head-of-line blocking at the HTTP layer — but a single lost TCP packet still stalls all streams. HTTP/3 (2022) replaces TCP with QUIC, which runs over UDP and handles streams independently — one lost packet only stalls its own stream. QUIC also integrates TLS 1.3 (0-RTT handshake) and supports connection migration (your mobile keeps the connection when switching from WiFi to LTE)."
+    },
+    {
+      "keywords": [
+        "file descriptor",
+        "fd",
+        "inode"
+      ],
+      "answer": "A file descriptor (fd) is a small integer the kernel gives a process to identify an open file/socket/pipe. 0=stdin, 1=stdout, 2=stderr; the next `open()` returns 3. Each process has its own fd table. An inode is the on-disk structure that stores a file's metadata (permissions, size, timestamps, block pointers) — distinct from the filename, which lives in a directory entry. `stat` shows the inode number; hard links share an inode."
+    },
+    {
+      "keywords": [
+        "mmap",
+        "memory mapped file",
+        "mmap usage"
+      ],
+      "answer": "mmap maps a file into a process's virtual address space — you read/write memory and the kernel handles disk I/O on demand via page faults. Benefits: no read()/write() syscall overhead, automatic page cache sharing between processes, lazy loading (only touched pages get read). Used by databases (SQLite, LMDB), language runtimes for loading shared libraries, and tools like `ripgrep`. Downsides: page faults can be unpredictable latency, and writes don't sync until `msync()` or unmap."
+    },
+    {
+      "keywords": [
+        "epoll select poll",
+        "epoll vs select",
+        "io readiness multiplexing"
+      ],
+      "answer": "select/poll/epoll let one thread monitor many file descriptors for I/O readiness. select (1983) takes a fixed-size bitmap (max 1024 fds) and scans all of them — O(N) per call. poll (1986) uses an array, no fd limit, still O(N). epoll (Linux 2.5, 2002) registers fds once via `epoll_ctl` and returns only the ready ones — O(1) per ready fd. epoll is what makes nginx/Node/Redis handle 100K+ concurrent connections per process. macOS/BSD use kqueue, which is equivalent."
+    },
+    {
+      "keywords": [
+        "io_uring",
+        "iouring",
+        "async io linux"
+      ],
+      "answer": "io_uring (Jens Axboe, Linux 5.1 in 2019) is a shared-memory ring buffer interface for async I/O. Userspace puts requests in the submission queue; the kernel processes them and posts results in the completion queue — both visible to both sides without syscalls. Supports almost every syscall (read, write, accept, recv, fsync, openat). Massively faster than epoll + threads for high-throughput I/O — used by ScyllaDB, modern Postgres, and increasingly in Rust async runtimes."
+    },
+    {
+      "keywords": [
+        "cgroups namespaces",
+        "container building blocks",
+        "linux containers"
+      ],
+      "answer": "Containers are built from two Linux kernel features. Namespaces isolate what a process can see: PID namespace (own process tree), mount (own filesystem view), network (own interfaces/IP), UTS (hostname), user (own UIDs), IPC. cgroups limit what a process can use: CPU shares, memory limits, block I/O bandwidth, PIDs count. Docker/podman/containerd combine these with an overlay filesystem and an OCI image to give the 'container' abstraction."
+    },
+    {
+      "keywords": [
+        "oci image",
+        "oci spec",
+        "container image format"
+      ],
+      "answer": "OCI (Open Container Initiative) standardized container image format and runtime spec in 2017, derived from Docker's original formats. An OCI image is a tarball-of-tarballs: a manifest pointing to a config JSON and a list of layer tarballs. Each layer represents filesystem changes (overlayfs-style). The runtime spec (runc, crun) describes how to launch a container from an unpacked image. Means images built by Docker run on podman, containerd, CRI-O, Kubernetes, etc."
+    },
+    {
+      "keywords": [
+        "systemd",
+        "systemd units",
+        "journalctl"
+      ],
+      "answer": "systemd is the init system on most Linux distros (since ~2015). Manages services (called 'units') defined by `.service` files in `/etc/systemd/system/`. Common commands: `systemctl start nginx`, `systemctl enable nginx` (start on boot), `systemctl status nginx`. Logs go to the journal — view with `journalctl -u nginx -f`. Other unit types: `.timer` (cron replacement), `.socket` (socket activation), `.mount`, `.target` (groups, like runlevels)."
+    },
+    {
+      "keywords": [
+        "fork exec",
+        "process creation linux",
+        "fork system call"
+      ],
+      "answer": "Unix creates new processes via fork + exec. `fork()` clones the current process — child gets a copy of the parent's memory (copy-on-write so it's cheap) and a return value of 0; parent gets the child's PID. The child usually then calls `exec()` to replace its memory with a new program. Shell command execution is fork-then-exec. Modern alternative: `posix_spawn()` combines them and avoids the COW setup, useful when forking a huge process."
+    },
+    {
+      "keywords": [
+        "pipes fifos",
+        "named pipes",
+        "unix pipes"
+      ],
+      "answer": "A pipe is a kernel buffer connecting two file descriptors — written bytes appear on the read end. Created with `pipe()` syscall, returning [read_fd, write_fd]. Anonymous pipes only work between related processes (parent/child) — the shell's `|` operator creates one and forks both sides. A FIFO (named pipe) is a pipe with a filesystem name (created with `mkfifo foo`); any process that opens it can read or write. Pipes typically buffer 64KB before blocking."
+    },
+    {
+      "keywords": [
+        "shared memory ipc",
+        "shm",
+        "shared memory"
+      ],
+      "answer": "Shared memory IPC lets multiple processes map the same physical pages into their address spaces — the fastest IPC because no kernel copy is involved. POSIX API: `shm_open()` + `mmap()`. System V API: `shmget()` + `shmat()`. Used by Postgres (shared buffers), Chrome (renderer-GPU process), and any high-throughput app. Needs explicit synchronization (mutexes, atomics) since multiple processes write concurrently. /dev/shm is a tmpfs convention on Linux for backing files."
+    },
+    {
+      "keywords": [
+        "signals",
+        "sigterm sigkill",
+        "unix signals"
+      ],
+      "answer": "Signals are short messages the kernel delivers to processes. Common ones: SIGINT (Ctrl-C, polite stop), SIGTERM (default `kill`, request shutdown — process can clean up), SIGKILL (force kill, cannot be caught or ignored), SIGHUP (terminal closed, often used as 'reload config'), SIGSEGV (invalid memory access), SIGCHLD (child exited). Handle with `signal()` or `sigaction()` in C, or `signal` module in Python. Always run cleanup in a SIGTERM handler so containers shut down cleanly."
+    },
+    {
+      "keywords": [
+        "gil",
+        "python gil",
+        "threading vs multiprocessing"
+      ],
+      "answer": "The GIL (Global Interpreter Lock) is a CPython lock that allows only one thread to execute Python bytecode at a time. Threading still helps for I/O-bound work (the lock is released during blocking syscalls) but not for CPU-bound work — two threads doing math run no faster than one. Workarounds: multiprocessing (real processes, no shared GIL but expensive IPC), or use C extensions (NumPy, Polars) that release the GIL during heavy computation. Python 3.13 (October 2024) added experimental free-threaded build (--disable-gil)."
+    },
+    {
+      "keywords": [
+        "stack vs heap",
+        "memory regions",
+        "stack heap"
+      ],
+      "answer": "Stack memory is fast LIFO storage allocated per function call — local variables, function args, return addresses. Auto-freed when the function returns. Limited size (~8MB default per thread on Linux); deep recursion causes stack overflow. Heap is general-purpose memory allocated explicitly (malloc/new) and freed explicitly or by GC. Slower allocation but flexible lifetimes. In Rust, the borrow checker tracks which references point into the stack to prevent dangling pointers when functions return."
+    },
+    {
+      "keywords": [
+        "cache line",
+        "false sharing",
+        "cpu cache"
+      ],
+      "answer": "A cache line is the unit of transfer between CPU cache and RAM, typically 64 bytes. When you read one byte, the CPU pulls the surrounding 64. False sharing happens when two CPU cores write to different variables that happen to share a cache line — each write forces the other core to invalidate its cache, killing performance even though nothing is logically shared. Fix: pad hot per-thread data to 64+ bytes, or use thread-local storage."
+    },
+    {
+      "keywords": [
+        "memory hierarchy",
+        "registers l1 l2 cache",
+        "ram disk"
+      ],
+      "answer": "Modern memory hierarchy, from fastest to slowest: CPU registers (~1 cycle), L1 cache (~4 cycles, ~32KB), L2 cache (~12 cycles, ~256KB), L3 cache (~40 cycles, ~16MB shared), RAM (~100 cycles, ~64ns), NVMe SSD (~100 μs), spinning disk (~10 ms), network (variable, ms). Each level is ~10-100x slower than the one above and 10x larger. Cache-friendly code (sequential access, small working set) can be 10-100x faster than cache-hostile code doing the same work."
+    },
+    {
+      "keywords": [
+        "arm vs x86",
+        "arm architecture",
+        "risc cisc"
+      ],
+      "answer": "x86 (Intel/AMD) is a CISC architecture with variable-length instructions, hundreds of opcodes, and rich addressing modes — designed when memory was scarce and instruction density mattered. ARM is RISC: fixed 32-bit instructions (or 16-bit Thumb), a smaller orthogonal instruction set, load/store separated from arithmetic. ARM's simpler decoder uses less power per op — why phones run ARM and Apple's M-series laptops get great battery life. Modern x86 chips internally translate to micro-ops, blurring the distinction at the execution level."
+    },
+    {
+      "keywords": [
+        "bios uefi",
+        "uefi vs bios",
+        "firmware boot"
+      ],
+      "answer": "BIOS (Basic Input/Output System) was the original IBM PC firmware — 16-bit real mode, loads the first 512 bytes of the boot disk (MBR) and jumps to it. UEFI (Unified Extensible Firmware Interface) is the modern replacement: 64-bit, loads .efi executables from a FAT32 EFI System Partition, supports disks >2TB via GPT, includes Secure Boot (signed bootloaders), and has a built-in shell. All x86 machines since ~2012 ship UEFI, with optional BIOS compatibility ('CSM')."
+    },
+    {
+      "keywords": [
+        "grub bootloader",
+        "boot stages",
+        "linux boot"
+      ],
+      "answer": "Linux boot stages with GRUB: (1) Firmware (UEFI/BIOS) loads GRUB from the boot partition. (2) GRUB shows the menu, loads the selected kernel + initramfs into memory. (3) Kernel decompresses itself and mounts initramfs as a temporary root, runs early userspace. (4) initramfs loads filesystem/storage drivers, finds the real root partition, switches root with `switch_root`. (5) PID 1 (systemd) starts, brings up services. Each stage is debuggable: `dmesg` for kernel messages, `journalctl -b` for systemd's boot log."
+    },
+    {
+      "keywords": [
+        "btree index",
+        "b-tree",
+        "database index structure"
+      ],
+      "answer": "A B-tree is a balanced multi-way search tree used by almost every relational database (Postgres, MySQL, SQLite) for indexes. Each node holds many keys (hundreds, sized to fit a disk page ~8KB) and pointers to child nodes. Lookups are O(log_n N) where n is the branching factor — finding a row in a billion-row table takes ~4 disk reads. B+ trees (the actual variant used) keep all data in leaf nodes and link leaves for fast range scans."
+    },
+    {
+      "keywords": [
+        "postgres mvcc",
+        "mvcc",
+        "snapshot isolation"
+      ],
+      "answer": "Postgres uses MVCC (Multi-Version Concurrency Control): every UPDATE creates a new row version instead of overwriting, and every transaction sees a snapshot of the database at its start time. Readers never block writers, writers never block readers. Cost: old row versions ('dead tuples') accumulate until VACUUM removes them. Each row has xmin/xmax columns (transaction IDs that created/deleted it) used to determine visibility for each snapshot."
+    },
+    {
+      "keywords": [
+        "write ahead log",
+        "wal",
+        "database durability"
+      ],
+      "answer": "Write-Ahead Logging (WAL) durability strategy: before modifying data pages, append the change to a sequential log file and fsync it. On crash recovery, replay the log to restore consistency. Used by Postgres (`pg_wal/`), SQLite (`-wal` file), MySQL (binlog + redo log), and most NoSQL stores. Bonus: streaming the WAL to a replica provides asynchronous replication for free. Sequential WAL writes are way faster than random data page writes."
+    },
+    {
+      "keywords": [
+        "pgbouncer",
+        "connection pooling",
+        "postgres pool"
+      ],
+      "answer": "PgBouncer is a lightweight Postgres connection pooler. Why it matters: Postgres allocates ~10MB per connection and uses a backend process per session, so 1000 idle connections cost ~10GB RAM. PgBouncer accepts many client connections and multiplexes them onto a small pool of real Postgres connections (often <100). Three modes: session (1:1, only the auth differs), transaction (clients share a backend between transactions — most common), statement (per query, breaks prepared statements). Critical for serverless apps that spawn many short-lived clients."
+    },
+    {
+      "keywords": [
+        "vacuum",
+        "autovacuum",
+        "postgres vacuum"
+      ],
+      "answer": "Postgres VACUUM reclaims space from dead tuples (rows left behind by UPDATE/DELETE in MVCC) and updates the visibility map. Autovacuum runs automatically when ~20% of a table's rows are dead. VACUUM ANALYZE also updates statistics for the query planner. VACUUM FULL rewrites the table to compact it but takes an exclusive lock — use `pg_repack` for online equivalent. Skipping vacuum eventually causes transaction ID wraparound, which forces emergency vacuum and can stall writes."
+    },
+    {
+      "keywords": [
+        "wiredtiger",
+        "mongodb storage",
+        "mongo engine"
+      ],
+      "answer": "WiredTiger has been MongoDB's default storage engine since 3.2 (2015). It supports both B-tree and LSM-tree formats per collection (B-tree by default). Provides document-level locking (vs the original MMAPv1's collection-level lock), per-collection compression (snappy/zstd/zlib), and a journaling write-ahead log. Uses MVCC internally for snapshot isolation. Acquired by MongoDB Inc in 2014; originally built by the BerkeleyDB team."
+    },
+    {
+      "keywords": [
+        "lsm tree",
+        "log structured merge",
+        "rocksdb cassandra"
+      ],
+      "answer": "LSM (Log-Structured Merge) trees optimize for write throughput. Writes go to an in-memory sorted buffer (memtable) and an append-only commit log. When memtable fills, it's flushed to disk as an immutable sorted file (SSTable). Background compaction merges SSTables into larger ones to maintain read performance. Used by RocksDB, Cassandra, ScyllaDB, LevelDB, BigTable, ClickHouse. Trade-off vs B-trees: faster writes but read amplification (may need to check several SSTables for a key)."
+    },
+    {
+      "keywords": [
+        "hash index",
+        "hash index database",
+        "hash lookup index"
+      ],
+      "answer": "Hash indexes provide O(1) point lookup by hashing the key to a bucket location. Used by Postgres's HASH index type, MySQL's MEMORY engine, and dict/map structures in memory. Trade-off vs B-trees: faster equality lookup, but no support for range scans (BETWEEN, <, >) or ordered iteration because the hash scrambles natural order. In Postgres, hash indexes only beat B-trees for very large tables where collision cost is worth it — usually B-tree is the safe default."
+    },
+    {
+      "keywords": [
+        "covering index",
+        "index only scan",
+        "covering index postgres"
+      ],
+      "answer": "A covering index includes all the columns a query needs, so the database can answer the query from the index alone without touching the heap (the actual table data). In Postgres: `CREATE INDEX idx ON users(email) INCLUDE (name, created_at)`. Triggers an 'Index Only Scan' in EXPLAIN. Saves random I/O — instead of 'find row via index, then fetch row from heap', it's just 'walk index'. Worth it for hot read paths; costs more disk and slower writes."
+    },
+    {
+      "keywords": [
+        "composite index",
+        "multi-column index order",
+        "composite key index"
+      ],
+      "answer": "A composite index on (a, b, c) can serve queries filtering on a, on (a, b), or on (a, b, c) — but NOT on b alone or c alone. The leftmost prefix rule: the index is sorted by a first, then b within each a, then c. So `WHERE a = 1 AND b > 5` uses the index efficiently; `WHERE b = 5` requires a full scan. Order columns by: equality filters first, then range filters, then sort columns. Selectivity matters — most-selective equality column first."
+    },
+    {
+      "keywords": [
+        "query planner",
+        "explain analyze",
+        "postgres explain"
+      ],
+      "answer": "The query planner estimates the cheapest way to execute a SQL query using table statistics. `EXPLAIN` shows the plan; `EXPLAIN ANALYZE` actually runs the query and shows real times. Read the plan bottom-up: leaf nodes (scans) feed into joins, which feed into aggregates, etc. Look for: 'Seq Scan' on large tables (might want an index), bad row estimates (stats are stale — run ANALYZE), nested loops over large result sets (a hash join might be faster). `pg_stat_statements` shows the slowest queries over time."
+    },
+    {
+      "keywords": [
+        "sequential scan vs index scan",
+        "seq scan postgres",
+        "scan plan choice"
+      ],
+      "answer": "A sequential scan reads every row in a table; an index scan walks an index to find specific rows. Indexes aren't always faster — if a query touches more than ~10% of the table, the random I/O of index lookups can be slower than a streaming sequential read. The planner uses statistics (pg_stats) to estimate row counts and decide. This is why a query can suddenly switch plans as table size grows or data distribution changes, and why outdated stats cause performance cliffs."
+    },
+    {
+      "keywords": [
+        "acid",
+        "acid properties",
+        "database transactions"
+      ],
+      "answer": "ACID describes the guarantees of a database transaction. Atomicity: all-or-nothing — partial updates never persist. Consistency: transactions move the DB from one valid state to another (constraints, foreign keys hold). Isolation: concurrent transactions don't see each other's intermediate state (isolation levels: read committed, repeatable read, serializable). Durability: once committed, data survives crashes (usually via WAL + fsync). Most relational DBs offer ACID; many NoSQL stores trade some of these for scale."
+    },
+    {
+      "keywords": [
+        "base consistency",
+        "eventual consistency",
+        "base vs acid"
+      ],
+      "answer": "BASE (Basically Available, Soft state, Eventually consistent) is the consistency model of many distributed NoSQL systems (DynamoDB, Cassandra, S3). Instead of immediate consistency, replicas converge over time — a read right after a write might return stale data. Trade-off: massive scale and availability vs strict consistency. Modern systems offer tunable consistency: DynamoDB has 'eventually consistent reads' (cheaper, faster) and 'strongly consistent reads' (more expensive, may not work cross-region)."
+    },
+    {
+      "keywords": [
+        "two phase commit",
+        "2pc",
+        "distributed transaction"
+      ],
+      "answer": "Two-phase commit coordinates a transaction across multiple databases/services. Phase 1 (prepare): coordinator asks each participant 'can you commit?' — each participant writes the transaction to durable storage and replies yes/no. Phase 2 (commit): if all said yes, coordinator tells everyone to commit; if any said no, tells everyone to abort. Problem: if the coordinator crashes mid-phase-2, participants are stuck holding locks. Used in XA transactions; modern distributed systems often prefer sagas (compensating actions) for this reason."
+    },
+    {
+      "keywords": [
+        "sharding",
+        "database sharding",
+        "horizontal partition"
+      ],
+      "answer": "Sharding splits a large table across multiple databases by some key (the shard key). Range sharding: rows 1-1M on shard A, 1M-2M on B — easy range scans, but hot shards if traffic isn't even. Hash sharding: hash(key) % N picks the shard — evenly distributed but hard to range scan. Directory sharding: a lookup service maps keys to shards — flexible but adds a hop. Choose the shard key to colocate related data (e.g. user_id) so common queries hit one shard."
+    },
+    {
+      "keywords": [
+        "replication",
+        "sync async replication",
+        "primary replica"
+      ],
+      "answer": "Replication keeps copies of data on multiple servers for availability and read scaling. Primary/replica (most common): writes go to one primary, replicate to read-only replicas. Synchronous replication waits for replica ack before confirming write — durable, but slow if a replica is laggy. Asynchronous: primary commits immediately, replicates in the background — fast but can lose recent writes on primary failure. Multi-primary (Galera, CockroachDB): writes accepted at any node, requires conflict resolution."
+    },
+    {
+      "keywords": [
+        "read replica",
+        "read your writes",
+        "replication lag"
+      ],
+      "answer": "Read replicas serve SELECT queries to offload work from the primary, but they lag by milliseconds-to-seconds behind. Common gotcha: user writes a comment, page reloads from a replica, comment isn't there yet. Fixes: route writes-followed-by-reads to the primary ('read your writes'), use causal consistency tokens (Postgres LSN, DynamoDB), or wait for replica catch-up. Modern Postgres can be queried `synchronous_commit = remote_apply` to wait for replica apply at write time."
+    },
+    {
+      "keywords": [
+        "materialized view",
+        "matview",
+        "postgres materialized"
+      ],
+      "answer": "A materialized view stores the result of a query as a real table that can be queried like any other. Unlike a regular view (always re-evaluated), it's pre-computed — great for expensive aggregations. Trade-off: data goes stale. Refresh manually with `REFRESH MATERIALIZED VIEW name` or `REFRESH MATERIALIZED VIEW CONCURRENTLY name` (no exclusive lock, requires a unique index). Common pattern: nightly refresh for analytics dashboards."
+    },
+    {
+      "keywords": [
+        "cte",
+        "common table expression",
+        "with clause"
+      ],
+      "answer": "A CTE (Common Table Expression) is a named temporary result you can reference within a single query: `WITH active_users AS (SELECT * FROM users WHERE active) SELECT * FROM active_users JOIN orders ON ...`. Improves readability and lets you reuse a subquery multiple times. Recursive CTEs (`WITH RECURSIVE`) traverse hierarchies — perfect for org charts, comment trees, graph walks. In Postgres 12+, CTEs are inlined by default (faster); pre-12 they were always optimization fences."
+    },
+    {
+      "keywords": [
+        "window functions",
+        "row_number over",
+        "sql window"
+      ],
+      "answer": "Window functions compute values across a 'window' of related rows without collapsing them like GROUP BY does. `ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at)` numbers each user's rows by date. Common functions: ROW_NUMBER, RANK, DENSE_RANK, LAG/LEAD (previous/next row), SUM/AVG OVER (running totals). Used for top-N-per-group, gaps-and-islands, deduplication, time-series differencing. Available in Postgres, MySQL 8+, SQL Server, BigQuery, Snowflake, SQLite."
+    },
+    {
+      "keywords": [
+        "jsonb postgres",
+        "postgres json",
+        "jsonb operators"
+      ],
+      "answer": "Postgres jsonb stores JSON as a parsed binary format — faster to query than text JSON, supports indexing. Operators: `->` extracts as jsonb (`data->'name'`), `->>` extracts as text (`data->>'name'`), `@>` 'contains' (`data @> '{\"active\": true}'`). GIN index speeds up containment queries: `CREATE INDEX ON users USING GIN (data jsonb_path_ops)`. Good for flexible/sparse fields; bad as a substitute for proper relational columns (no foreign keys, harder constraints)."
+    },
+    {
+      "keywords": [
+        "tsvector",
+        "full text search",
+        "postgres fts"
+      ],
+      "answer": "Postgres full-text search via tsvector (parsed document) and tsquery (parsed query). `to_tsvector('english', body)` converts text into normalized lexemes (stemmed, stopwords removed). Match with `@@`: `body_tsv @@ to_tsquery('english', 'cat & dog')`. Index with GIN for fast search. Rank results with `ts_rank()`. Solid for small-to-medium datasets; switch to dedicated search (Elasticsearch, Meilisearch, Typesense) when you need typo tolerance, faceting, or huge corpora."
+    },
+    {
+      "keywords": [
+        "pg_stat_statements",
+        "slow query log postgres",
+        "postgres slow queries"
+      ],
+      "answer": "pg_stat_statements is a Postgres extension that tracks execution stats for every normalized query — total time, call count, mean time, rows returned. Enable in `postgresql.conf` (`shared_preload_libraries = 'pg_stat_statements'`) and `CREATE EXTENSION pg_stat_statements`. Query `SELECT query, mean_exec_time, calls FROM pg_stat_statements ORDER BY mean_exec_time DESC LIMIT 10` to find slow queries. Essential for production performance debugging."
+    },
+    {
+      "keywords": [
+        "clickhouse",
+        "olap database",
+        "columnar database"
+      ],
+      "answer": "ClickHouse (Yandex, 2016) is an open-source columnar OLAP database optimized for analytical queries over huge tables (billions of rows). Stores each column separately and compresses heavily — analytical queries that touch a few columns out of hundreds run very fast. Uses LSM-style 'parts' for writes, merged in background. SQL-compatible with some extensions. Outperforms row-oriented databases on aggregations by 10-1000x; not designed for high-concurrency point updates."
+    },
+    {
+      "keywords": [
+        "snowflake bigquery",
+        "cloud data warehouse",
+        "snowflake",
+        "bigquery"
+      ],
+      "answer": "Snowflake and BigQuery are cloud data warehouses that separate storage from compute — store data in cheap object storage (S3/GCS), spin up compute on demand for queries. Both use columnar storage, automatic partitioning, and SQL. Snowflake's 'virtual warehouses' let teams isolate workloads at different sizes; BigQuery is serverless with pay-per-byte-scanned pricing. Common use: stream operational data via Fivetran/Airbyte → transform with dbt → expose via BI tools."
+    },
+    {
+      "keywords": [
+        "strangler fig",
+        "legacy migration pattern",
+        "strangler pattern"
+      ],
+      "answer": "The Strangler Fig pattern (Martin Fowler) gradually replaces a legacy system by routing more traffic to a new system over time, eventually 'strangling' the old one. Steps: (1) put a proxy/facade in front of the legacy system, (2) build the new system for one feature, (3) route that feature's traffic to the new system via the proxy, (4) repeat until the legacy is decommissioned. Named after the strangler fig tree which grows around a host tree, eventually outliving it. Lower-risk than a big-bang rewrite."
+    },
+    {
+      "keywords": [
+        "cqrs",
+        "command query responsibility",
+        "cqrs pattern"
+      ],
+      "answer": "CQRS (Command Query Responsibility Segregation) separates the write model (commands that change state) from the read model (queries that read state). Writes go through domain logic into a normalized store; reads come from denormalized projections optimized for query shapes. Useful when read and write workloads differ massively (e.g. write a few events, read many dashboards). Overkill for most CRUD apps — adds complexity (two models to keep in sync). Often paired with Event Sourcing but not required."
+    },
+    {
+      "keywords": [
+        "event sourcing",
+        "event sourced",
+        "event store"
+      ],
+      "answer": "Event sourcing stores every change as an immutable event (UserRegistered, OrderShipped) — current state is derived by replaying events. Benefits: full audit trail, time travel, easy projections, natural fit for CQRS. Pitfalls: events become a public API (renaming them is hard — need versioning + upcasters), replaying years of events is slow (use snapshots every N events), and most business logic is now 'apply this event' which is awkward for some domains. Not a default — use when audit/temporal queries justify the complexity."
+    },
+    {
+      "keywords": [
+        "outbox pattern",
+        "transactional outbox",
+        "outbox events"
+      ],
+      "answer": "The Outbox pattern reliably publishes events when updating a database, avoiding the dual-write problem (DB write succeeds but message publish fails or vice versa). Solution: in the same DB transaction that updates business data, INSERT an event row into an `outbox` table. A separate worker polls the outbox (or tails the DB log via CDC) and publishes events to Kafka/RabbitMQ/etc, marking them sent. Guarantees at-least-once delivery and exactly-once if you also use idempotent consumers."
+    },
+    {
+      "keywords": [
+        "saga pattern",
+        "distributed transaction alternative",
+        "saga compensation"
+      ],
+      "answer": "A saga implements a long-running distributed transaction as a sequence of local transactions, each with a compensating action that undoes it. Order saga: reserve inventory → charge card → ship. If charge fails, run compensations (release inventory) instead of a 2PC rollback. Two flavors: orchestration (a central coordinator calls each step) and choreography (services react to each other's events). Trade-off: business logic must define compensations for every step, which can be tricky for irreversible actions (sending an email)."
+    },
+    {
+      "keywords": [
+        "bff",
+        "backend for frontend",
+        "bff pattern"
+      ],
+      "answer": "BFF (Backend For Frontend) is an architecture where each client type (mobile app, web app, partner API) has its own dedicated backend service that aggregates and shapes data from microservices. Avoids overloading one general-purpose API with conditionals for different clients. Mobile BFF can return smaller payloads optimized for cellular networks; web BFF can do server-side rendering. Trade-off: more services to maintain. GraphQL is sometimes used as a flexible alternative to a per-client BFF."
+    },
+    {
+      "keywords": [
+        "api gateway",
+        "gateway pattern",
+        "api gateway pattern"
+      ],
+      "answer": "An API gateway is a single entry point in front of multiple backend services. Handles cross-cutting concerns: authentication, rate limiting, request routing, response aggregation, protocol translation (REST→gRPC), caching. Popular options: AWS API Gateway, Kong, Tyk, Envoy, Apigee. Pairs naturally with microservices to give clients one address. Risk: becomes a bottleneck or god-object if too much logic accretes there — keep it focused on infrastructure concerns, not business logic."
+    },
+    {
+      "keywords": [
+        "circuit breaker",
+        "hystrix pattern",
+        "circuit breaker pattern"
+      ],
+      "answer": "The Circuit Breaker pattern protects a system from cascading failures when a downstream dependency is slow or failing. Three states: Closed (normal — requests pass through), Open (failing — fail fast without calling the dependency), Half-Open (probe — try one request to see if recovered). After N consecutive failures, trip Open for a cooldown period. Originally popularized by Netflix Hystrix; now built into resilience libraries like Resilience4j, Polly (.NET), and service mesh sidecars."
+    },
+    {
+      "keywords": [
+        "bulkhead pattern",
+        "bulkhead isolation",
+        "bulkhead resilience"
+      ],
+      "answer": "The Bulkhead pattern isolates resources so a failure in one area can't sink the whole system — named after ship hull compartments. Concretely: separate thread pools or connection pools per downstream service, so when service A is slow, its threads block but service B's pool is unaffected. Kubernetes namespaces and resource quotas are a form of bulkhead. Applied at many layers: networking (separate egress per tenant), CPU (cgroups), memory (per-process limits)."
+    },
+    {
+      "keywords": [
+        "rate limiting",
+        "token bucket",
+        "leaky bucket"
+      ],
+      "answer": "Three common rate-limit algorithms. Token bucket: tokens refill at rate R up to capacity C; each request consumes one — allows bursts up to C, sustained R. Leaky bucket: requests fill a queue that drains at rate R — smooths output but doesn't allow bursts. Sliding window: count requests in the past N seconds — accurate but more memory. Redis is the typical state store. For APIs, return `429 Too Many Requests` with `Retry-After` and `X-RateLimit-Remaining` headers so clients can back off."
+    },
+    {
+      "keywords": [
+        "idempotency key",
+        "idempotent api",
+        "idempotency http"
+      ],
+      "answer": "An idempotency key lets a client safely retry a request without causing duplicate side effects. Client generates a unique key (UUID) and sends it in a header (`Idempotency-Key`); server stores the key + response for ~24 hours. If the same key comes in again, server returns the cached response instead of re-processing. Stripe popularized this for payment APIs. Critical for any non-idempotent operation (charges, sends) that might be retried after a network timeout."
+    },
+    {
+      "keywords": [
+        "event driven vs request response",
+        "event driven architecture",
+        "async vs sync"
+      ],
+      "answer": "Request/response: client calls server, waits for answer — simple, tightly coupled, fails fast. Event-driven: producer publishes an event, any number of consumers react asynchronously — loosely coupled, scales independently, harder to debug (no straightforward call stack). Use request/response for synchronous needs (user-facing reads, transactional writes). Use events for fan-out, audit trails, integration with systems that should react but aren't on the critical path."
+    },
+    {
+      "keywords": [
+        "pub sub vs message queue",
+        "queue vs topic",
+        "pubsub vs queue"
+      ],
+      "answer": "Message queue (RabbitMQ, SQS): one message goes to one consumer in a worker pool — load balancing. Pub/sub topic (Kafka, SNS, Redis pub/sub): one message goes to every subscriber — fan-out. Kafka blurs the line with consumer groups (each group gets the full stream; within a group, partitions distribute to consumers). Choose by your needs: queue for distributing work, pub/sub for notifying many systems of an event."
+    },
+    {
+      "keywords": [
+        "choreography vs orchestration",
+        "saga choreography",
+        "workflow orchestration"
+      ],
+      "answer": "In distributed workflows: orchestration uses a central coordinator that calls each step in order (think workflow engine like Temporal, Step Functions). Choreography has each service react to events others publish — no central brain. Orchestration is easier to monitor and debug (one place sees the whole flow) but creates coupling to the coordinator. Choreography scales independently but the workflow is implicit, scattered across services — hard to understand at a glance."
+    },
+    {
+      "keywords": [
+        "service mesh",
+        "istio linkerd",
+        "sidecar pattern"
+      ],
+      "answer": "A service mesh moves service-to-service concerns (mTLS, retries, observability, traffic splitting) out of app code and into a sidecar proxy (Envoy) deployed next to each service. The control plane (Istio, Linkerd) configures all sidecars. Benefits: language-agnostic, zero app code change for canary deploys or encryption. Costs: extra latency (~1ms), operational complexity, more infrastructure to manage. Linkerd is simpler; Istio is more featured."
+    },
+    {
+      "keywords": [
+        "hexagonal architecture",
+        "ports and adapters",
+        "clean architecture"
+      ],
+      "answer": "Hexagonal architecture (Alistair Cockburn, 2005) — aka ports and adapters — puts business logic at the center with no dependency on infrastructure. The core defines 'ports' (interfaces) for what it needs; 'adapters' on the outside implement these for specific tech (Postgres adapter, REST adapter, RabbitMQ adapter). Swap a DB by swapping an adapter without touching domain code. Aligns with Clean Architecture and Onion Architecture; the diagram is a hexagon to emphasize multiple equivalent sides."
+    },
+    {
+      "keywords": [
+        "ddd bounded context",
+        "domain driven design",
+        "bounded context ddd"
+      ],
+      "answer": "A bounded context (Eric Evans, DDD) is a boundary within which a domain model has consistent meaning. 'Customer' in Sales might mean a paying user; 'Customer' in Support might mean any contact — same word, different model, different code. Each bounded context owns its own database, language (ubiquitous language), and team. Maps roughly to microservice boundaries when done well. Without explicit contexts, models grow ambiguous and entangled — the hallmark of a 'big ball of mud'."
+    },
+    {
+      "keywords": [
+        "anti corruption layer",
+        "acl pattern",
+        "anti-corruption layer"
+      ],
+      "answer": "An Anti-Corruption Layer (ACL) translates between your domain model and a legacy or external system with a different model, preventing the foreign concepts from polluting your code. Implemented as a thin adapter that maps incoming data to your domain types and outgoing calls back to their format. Critical when integrating with vendor APIs, legacy mainframes, or another team's bounded context whose model you don't want to inherit. The translation layer absorbs the messiness."
+    },
+    {
+      "keywords": [
+        "feature flags",
+        "feature toggles",
+        "feature flag toggle"
+      ],
+      "answer": "Feature flags decouple deploy from release — ship code disabled, turn it on for a subset of users at runtime. Enables canary launches, A/B tests, kill switches, and trunk-based development with incomplete features. Common categories (Pete Hodgson): release toggles (temporary, remove after launch), experiment toggles (A/B), ops toggles (kill switches), permission toggles (per-user features). Tools: LaunchDarkly, Unleash, PostHog, Flagsmith, or a homegrown table. Discipline: clean up stale flags or your codebase becomes a maze."
+    },
+    {
+      "keywords": [
+        "blue green deployment",
+        "canary deployment",
+        "canary release"
+      ],
+      "answer": "Blue/green: run two identical environments (blue=current, green=new). Deploy to green, switch the load balancer when ready. Instant rollback by switching back. Doubles infrastructure cost during deploys. Canary: deploy new version to a small percentage of servers/users first (e.g. 5%), monitor metrics, gradually ramp up if healthy. Catches problems before full rollout but requires good metrics and traffic-splitting infra. Most modern setups use canary for big services and blue/green for stateless apps with database compatibility."
+    },
+    {
+      "keywords": [
+        "sql injection",
+        "sqli",
+        "parameterized queries"
+      ],
+      "answer": "SQL injection happens when user input is concatenated into a SQL query: `\"SELECT * FROM users WHERE name='\" + name + \"'\"`. If `name` is `' OR '1'='1`, the query returns all users — or worse with `'; DROP TABLE users; --`. Defense: parameterized queries (prepared statements) where the driver sends SQL and values separately so values can never be interpreted as SQL. Every modern DB driver supports them (`?` or `$1` placeholders). String concatenation in queries is the single biggest source of SQL injection."
+    },
+    {
+      "keywords": [
+        "timing attack",
+        "constant time compare",
+        "timing safe equal"
+      ],
+      "answer": "A timing attack exploits the fact that naive string/secret comparison short-circuits at the first mismatched byte — the function takes longer for inputs with more correct prefix bytes. Attackers measure microsecond differences over many requests to learn the secret byte by byte. Defense: constant-time comparison that always examines every byte. Use `crypto.timingSafeEqual` in Node, `hmac.compare_digest` in Python, `secrets_eq` in Rust. Critical for comparing API tokens, password hashes, HMAC signatures."
+    },
+    {
+      "keywords": [
+        "bcrypt",
+        "bcrypt cost factor",
+        "password hashing"
+      ],
+      "answer": "bcrypt is a password-hashing function that's deliberately slow — by design, you can't compute many hashes per second. The cost factor (rounds) controls slowness: each +1 doubles the time. Typical cost in 2025: 12-14 (~250ms-1s per hash on modern hardware). As hardware gets faster, bump the cost. bcrypt also salts automatically — the same password hashes differently every time. Resistant to GPU acceleration vs unsalted SHA-256, but modern best practice is Argon2id."
+    },
+    {
+      "keywords": [
+        "argon2 vs bcrypt",
+        "argon2id",
+        "password hash modern"
+      ],
+      "answer": "Argon2 (2015, winner of the Password Hashing Competition) is the current best password hash. Argon2id is the recommended variant — combines Argon2i (side-channel resistant) and Argon2d (GPU-resistant). Three tunables: memory (MB), iterations, parallelism. Memory-hard: forces attackers to spend RAM, not just compute — kills GPU/ASIC advantage. Recommended params: 19 MiB memory, 2 iterations, 1 thread (OWASP 2024). Use `argon2-cffi` in Python, `argon2` in Node, `argon2` crate in Rust."
+    },
+    {
+      "keywords": [
+        "scrypt",
+        "scrypt vs bcrypt",
+        "scrypt password hash"
+      ],
+      "answer": "scrypt (Colin Percival, 2009) is a memory-hard password hash designed before Argon2 — used by LiteCoin and some password systems. Like Argon2, makes GPU/ASIC attacks expensive by requiring lots of RAM. Tunables: N (cost), r (block size), p (parallelism). Recommended N=2^17, r=8, p=1 for interactive logins (~~100MB RAM, ~~100ms). Still solid, but Argon2id is preferred for new systems."
+    },
+    {
+      "keywords": [
+        "certificate transparency",
+        "ct logs",
+        "certificate transparency log"
+      ],
+      "answer": "Certificate Transparency logs are public append-only records of every TLS certificate issued by participating CAs. Browsers (Chrome, Safari) require certs to appear in at least 2 logs or they're rejected. Lets anyone detect mis-issued or rogue certs for domains they own — Google originally built CT after rogue Symantec certs went undetected for years. Search public CT logs at crt.sh. As an operator: monitor for certs you didn't issue for your domain."
+    },
+    {
+      "keywords": [
+        "oauth pkce",
+        "pkce flow",
+        "auth code pkce"
+      ],
+      "answer": "OAuth PKCE (Proof Key for Code Exchange, RFC 7636) protects the Authorization Code flow against code-interception attacks in public clients (mobile apps, SPAs). Client generates a random code_verifier and sends its SHA-256 hash (code_challenge) when starting auth. When exchanging the code for a token, client sends the original code_verifier — the auth server verifies the hash matches. If an attacker steals the auth code, they can't redeem it without the original verifier. Now required for all OAuth public clients (was optional)."
+    },
+    {
+      "keywords": [
+        "cors",
+        "cors preflight",
+        "cross origin"
+      ],
+      "answer": "CORS (Cross-Origin Resource Sharing) is the browser mechanism that lets a server allow cross-origin requests, bypassing the same-origin policy. Simple requests (GET/POST with safe headers) include an `Origin` header; the server responds with `Access-Control-Allow-Origin`. Complex requests (custom headers, PUT/DELETE, JSON content-type) trigger a preflight OPTIONS request first — the browser asks 'can I send this?' and only proceeds if the server allows. CORS is enforced by the browser, not the server — curl ignores it."
+    },
+    {
+      "keywords": [
+        "csrf",
+        "cross site request forgery",
+        "samesite cookie"
+      ],
+      "answer": "CSRF (Cross-Site Request Forgery) tricks a logged-in user's browser into making an unintended request to a site they're authenticated on — a malicious image tag could trigger a money transfer if cookies auto-attach. Defenses: (1) `SameSite=Lax` (default in modern browsers) — cookies only sent on top-level navigations to your site, (2) CSRF synchronizer tokens — server-generated random token submitted with each form, (3) custom request headers (CSRF can't set them cross-origin without preflight). SameSite=Lax mitigates most CSRF in modern browsers."
+    },
+    {
+      "keywords": [
+        "xss",
+        "cross site scripting",
+        "csp"
+      ],
+      "answer": "XSS (Cross-Site Scripting) injects attacker-controlled JavaScript into a page that other users view. Three types: stored (script saved in DB, served to every viewer), reflected (script in URL, executed when victim clicks the link), DOM-based (JS reads attacker-controlled input and inserts it unsafely). Defense: contextual output escaping (HTML, JS, CSS, URL all need different rules — frameworks like React do it automatically), avoid `innerHTML`/`eval`, set a strict Content Security Policy (CSP) to block inline scripts as defense in depth."
+    },
+    {
+      "keywords": [
+        "jwt vs session",
+        "jwt cookies tradeoff",
+        "session vs token"
+      ],
+      "answer": "Session cookies: server stores session state, cookie holds just a session ID — easy to revoke (delete from DB), stateful (requires session store). JWTs: token contains user info, signed by server — stateless (no DB lookup), but can't revoke until it expires unless you maintain a denylist (which defeats the statelessness). Use sessions for typical web apps (revocation matters); use JWTs for short-lived tokens between services or as access tokens paired with a separate revocable refresh token."
+    },
+    {
+      "keywords": [
+        "hsts",
+        "strict transport security",
+        "hsts header"
+      ],
+      "answer": "HSTS (HTTP Strict Transport Security) is a response header (`Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`) that tells browsers to always use HTTPS for your site, even if a user types http:// or clicks an http link. Prevents downgrade attacks where a network adversary strips TLS. The `preload` flag lets you submit your domain to a list baked into Chrome/Firefox/Safari, so browsers never connect over HTTP even on first visit. Once preloaded, hard to undo — be sure HTTPS works."
+    },
+    {
+      "keywords": [
+        "subresource integrity",
+        "sri hash",
+        "sri attribute"
+      ],
+      "answer": "Subresource Integrity (SRI) lets you specify a hash of a script or stylesheet you load from a CDN: `<script src=\"https://cdn.com/lib.js\" integrity=\"sha384-...\" crossorigin=\"anonymous\">`. The browser refuses to execute the file if its hash doesn't match. Protects against compromised CDNs serving tampered code — a real risk after several CDN supply-chain attacks. Generate hashes with `openssl dgst -sha384 -binary file.js | openssl base64 -A`."
+    },
+    {
+      "keywords": [
+        "same origin policy",
+        "sop browser",
+        "same-origin browser"
+      ],
+      "answer": "Same-Origin Policy is the foundational browser security rule: a document from one origin (scheme + host + port) can't read responses from another origin by default. Origin = `https://example.com:443`; `https://api.example.com` is a different origin. Without SOP, any site you visit could read your Gmail. Exceptions exist: scripts, images, and CSS can load cross-origin (but not be read), and CORS lets servers explicitly opt in to letting other origins read responses."
+    },
+    {
+      "keywords": [
+        "public key private key",
+        "rsa ecdsa",
+        "asymmetric crypto"
+      ],
+      "answer": "Asymmetric (public-key) cryptography uses a key pair: the public key encrypts/verifies, the private key decrypts/signs. You can share the public key freely. RSA (1977) bases security on factoring large primes — keys are 2048-4096 bits. ECDSA / Ed25519 use elliptic curves — equivalent security at much smaller key sizes (256 bits ≈ 3072-bit RSA), faster operations. Modern systems prefer Ed25519 for new keys (SSH, signing); RSA still common for compatibility."
+    },
+    {
+      "keywords": [
+        "diffie hellman",
+        "dh key exchange",
+        "diffie-hellman exchange"
+      ],
+      "answer": "Diffie-Hellman key exchange lets two parties agree on a shared secret over an open channel without ever transmitting it. Plain version: both agree on public numbers g and p. Alice picks secret a, sends g^a mod p. Bob picks secret b, sends g^b mod p. Both compute g^(ab) mod p as the shared key — an eavesdropper sees g, p, g^a, g^b but can't easily derive g^(ab) (the discrete log problem). Modern TLS uses Elliptic Curve Diffie-Hellman (ECDHE) for performance and forward secrecy."
+    },
+    {
+      "keywords": [
+        "websockets",
+        "ws protocol",
+        "websocket basics"
+      ],
+      "answer": "WebSocket (RFC 6455) is a bidirectional, persistent connection over TCP, upgraded from a normal HTTP request. The client sends `Upgrade: websocket`; the server responds with 101 Switching Protocols, after which both sides exchange frames freely with no per-message overhead. Used for chat, live dashboards, multiplayer games, collaborative editing. Browser API: `new WebSocket('wss://...')`. Server libraries: `ws` (Node), `websockets` (Python), Tokio Tungstenite (Rust). Use wss:// (TLS) in production."
+    },
+    {
+      "keywords": [
+        "server sent events",
+        "sse",
+        "eventsource"
+      ],
+      "answer": "Server-Sent Events (SSE) is a one-way streaming protocol over plain HTTP — server pushes text events to the client. Browser API: `new EventSource('/stream')`. Much simpler than WebSockets when you only need server-to-client streaming (notifications, log tails, LLM token streaming). Built-in reconnection with `Last-Event-ID` header. Works through proxies and CDNs that don't understand WebSocket. OpenAI/Anthropic streaming APIs use SSE."
+    },
+    {
+      "keywords": [
+        "grpc",
+        "grpc framework",
+        "protobuf grpc"
+      ],
+      "answer": "gRPC (Google, 2015) is an RPC framework using HTTP/2 for transport and Protocol Buffers for messages. Define services in `.proto` files; the compiler generates client+server stubs in Go, Java, Python, Rust, etc. Supports unary calls plus three streaming flavors (client-streaming, server-streaming, bidirectional). Much faster than JSON REST (binary, smaller payloads, HTTP/2 multiplexing) and strongly typed. Common for service-to-service inside data centers; less ideal for browsers (needs gRPC-Web)."
+    },
+    {
+      "keywords": [
+        "wasm",
+        "webassembly",
+        "wasm browser"
+      ],
+      "answer": "WebAssembly (Wasm) is a portable binary instruction format that runs in browsers and standalone runtimes (Wasmtime, Wasmer). Compile from C/C++/Rust/Go/AssemblyScript. Loads faster than JS (already parsed), runs at near-native speed for CPU-heavy work (codecs, image processing, games, crypto). In browsers: complements JS, not replaces it. Outside browsers: emerging as a fast, sandboxed plugin format — Envoy filters, Shopify Functions, Fastly Compute@Edge, eBPF userland."
+    },
+    {
+      "keywords": [
+        "service worker",
+        "pwa",
+        "progressive web app"
+      ],
+      "answer": "A service worker is a background JS script in the browser that can intercept network requests, cache responses, and run when the page is closed — enabling offline-first behavior. Registered with `navigator.serviceWorker.register('/sw.js')`. PWAs (Progressive Web Apps) combine a service worker + a Web App Manifest (icons, name, display mode) so the browser offers 'Install' and the app launches in a standalone window. Push notifications also flow through service workers."
+    },
+    {
+      "keywords": [
+        "web components",
+        "shadow dom",
+        "custom elements"
+      ],
+      "answer": "Web Components are a set of browser APIs for building reusable custom HTML elements. Three pieces: Custom Elements (`class MyEl extends HTMLElement; customElements.define('my-el', MyEl)`), Shadow DOM (encapsulated subtree with scoped CSS), and HTML Templates (`<template>` tag for inert markup). Used to build framework-agnostic UI libraries (Lit, Stencil, Ionic, GitHub's custom elements). Less popular than React/Vue but useful for design systems shared across apps with different frameworks."
+    },
+    {
+      "keywords": [
+        "cache control",
+        "etag",
+        "http caching"
+      ],
+      "answer": "Two HTTP caching mechanisms work together. `Cache-Control: max-age=3600` says 'fresh for an hour, no revalidation needed' — fastest, no network for cached resources. ETag is a content fingerprint; the client sends `If-None-Match: \"abc123\"` and the server returns 304 Not Modified if unchanged (saves bandwidth, not the roundtrip). Combine for assets: hash-named files (`/app.a1b2c3.js`) with `Cache-Control: max-age=31536000, immutable`; HTML with short max-age + ETag."
+    },
+    {
+      "keywords": [
+        "gzip brotli zstd",
+        "compression algorithms",
+        "brotli",
+        "zstd"
+      ],
+      "answer": "Three common compression algorithms for web/storage. gzip (1992): ubiquitous, ~3x compression, fast. Brotli (Google, 2015): ~20% smaller than gzip for text, slightly slower to compress but same speed to decompress — supported by all modern browsers via `Content-Encoding: br`. Zstd (Facebook, 2016): similar ratio to gzip with 3-5x speed, or matches brotli's ratio with a tunable level. Use brotli for HTTP text (HTML/JS/CSS), zstd for general-purpose storage and inter-service compression."
+    },
+    {
+      "keywords": [
+        "git objects",
+        "git internals",
+        "git plumbing"
+      ],
+      "answer": "Git stores everything as objects in `.git/objects/`, each identified by the SHA-1 of its contents. Four types: blob (file content), tree (directory listing — names + permissions + child object IDs), commit (tree ID + parent commit IDs + author + message), tag (annotated tag). A commit isn't a diff — it's a snapshot pointing to a complete tree. Branches and tags are just files in `.git/refs/` containing a commit SHA. `git cat-file -p <sha>` shows any object's contents."
+    },
+    {
+      "keywords": [
+        "git packfile",
+        "git pack",
+        "git gc"
+      ],
+      "answer": "Git starts with loose objects (one file per object in `.git/objects/ab/cdef...`). `git gc` repacks them into packfiles: zlib-compressed and delta-compressed (similar files stored as differences). A packfile pairs with an index for fast lookups. Massively reduces repo size — the Linux kernel is ~5GB loose but ~2GB packed. Happens automatically; `git gc --aggressive` does deeper delta search (slow but smaller)."
+    },
+    {
+      "keywords": [
+        "docker layer",
+        "container layers",
+        "copy on write fs"
+      ],
+      "answer": "Docker images are stacks of read-only layers, each representing one Dockerfile instruction (FROM, RUN, COPY, etc). At runtime, a thin writable layer is added on top using a copy-on-write filesystem (overlayfs on Linux). Files unchanged from layers below are read directly; writes copy the file to the writable layer first. Layers are shared between images and containers — pulling an image only downloads layers you don't have. Order Dockerfile instructions least-changing-first to maximize cache hits."
+    },
+    {
+      "keywords": [
+        "dockerfile best practices",
+        "multi stage build",
+        "dockerfile multistage"
+      ],
+      "answer": "Key Dockerfile patterns. Multi-stage builds: `FROM node:20 AS build` for compilation, then `FROM nginx:alpine` for runtime — copy only the build output across, drop the build toolchain. Order COPY by change frequency: package.json before source code so dependency install is cached. Use specific tags, not `latest`. Pin base image digests for reproducibility (`FROM node@sha256:...`). Run as non-root user (`USER node`). One process per container — let the orchestrator handle restarts and supervision."
+    },
+    {
+      "keywords": [
+        "http status codes",
+        "rest status codes",
+        "status code meanings"
+      ],
+      "answer": "HTTP status codes by class: 2xx success (200 OK, 201 Created, 204 No Content), 3xx redirect (301 permanent, 302/307 temporary, 304 Not Modified), 4xx client error (400 Bad Request, 401 needs auth, 403 forbidden even when authed, 404 not found, 409 conflict, 422 unprocessable, 429 too many requests), 5xx server error (500 internal, 502 bad gateway, 503 unavailable, 504 gateway timeout). Use 401 vs 403 correctly: 401 = 'I don't know who you are', 403 = 'I know who you are, you can't do this'."
+    },
+    {
+      "keywords": [
+        "rest vs graphql",
+        "graphql tradeoffs",
+        "rest graphql comparison"
+      ],
+      "answer": "REST: one URL per resource, standard HTTP verbs, multiple endpoints often needed for a single page (n+1 over the network). Easy to cache via HTTP, easy to debug. GraphQL: one endpoint, client specifies exact data shape, one round trip per page. Stronger typing via schema. Trade-offs: harder to cache (one URL for everything), N+1 query problem moves into your resolvers (need DataLoader), harder rate limiting. Many projects use REST for public APIs and GraphQL for in-house BFFs."
+    },
+    {
+      "keywords": [
+        "trpc",
+        "type safe rpc",
+        "trpc framework"
+      ],
+      "answer": "tRPC is a TypeScript-first RPC framework where the client gets full type inference from the server — no codegen step, no schema file. Define procedures on the server with Zod input schemas, call them from the client like local functions, with autocomplete and type errors at compile time. Best for full-stack TS apps (Next.js, Remix) where client and server are in the same monorepo. Not appropriate when clients aren't TypeScript or when you need a stable cross-language schema."
+    },
+    {
+      "keywords": [
+        "openapi",
+        "swagger",
+        "api spec"
+      ],
+      "answer": "OpenAPI (formerly Swagger) is a YAML/JSON spec format for REST APIs — describes endpoints, parameters, request/response schemas, auth. Tooling generates client SDKs (multiple languages), server stubs, documentation sites (Swagger UI, Redoc), and validation middleware. OpenAPI 3.1 (2021) aligned with JSON Schema. Annotate endpoints in code (FastAPI generates OpenAPI automatically; Express needs `swagger-jsdoc`) or write the spec first and code against it."
+    },
+    {
+      "keywords": [
+        "json schema",
+        "schema validation",
+        "json schema spec"
+      ],
+      "answer": "JSON Schema is a vocabulary for describing the structure of JSON documents — types, required fields, regex patterns, enums, nested schemas. Used by OpenAPI, JSON-RPC, configuration validators (Ajv in JS, jsonschema in Python). Draft 2020-12 is the latest version. Common keywords: `type`, `properties`, `required`, `enum`, `pattern`, `minimum`, `oneOf`/`anyOf`/`allOf`. Many TypeScript schema libraries (Zod, Valibot) can export to JSON Schema for interop."
+    },
+    {
+      "keywords": [
+        "protocol buffers",
+        "protobuf",
+        "proto schema"
+      ],
+      "answer": "Protocol Buffers (protobuf, Google) is a language-neutral binary serialization format defined by `.proto` schemas. `protoc` generates encoder/decoder code in Go/Java/Python/Rust/etc. Wire format uses tag numbers (not field names) so messages are small and forward-compatible — add new optional fields without breaking old clients. Used by gRPC by default. Trade-off vs JSON: smaller and faster but requires the schema to decode."
+    },
+    {
+      "keywords": [
+        "typescript generics",
+        "ts generic types",
+        "generic types ts"
+      ],
+      "answer": "TypeScript generics let functions and types operate on any type while preserving type info: `function identity<T>(x: T): T { return x }` — calling `identity(5)` returns a `number`, not `unknown`. Constraints with `extends`: `<T extends { id: string }>`. Common in collection types (`Array<T>`, `Map<K, V>`), API response types (`Response<UserData>`), and utility types (`Partial<T>`, `Pick<T, K>`). The compiler infers most type arguments — explicit `<T>` only when inference fails."
+    },
+    {
+      "keywords": [
+        "typescript utility types",
+        "partial pick omit",
+        "utility types typescript"
+      ],
+      "answer": "Built-in TS utility types for transforming existing types. `Partial<T>` makes all properties optional. `Required<T>` makes them required. `Readonly<T>` marks all readonly. `Pick<T, K>` keeps only listed keys; `Omit<T, K>` excludes them. `Record<K, V>` builds an object type. `ReturnType<F>` extracts a function's return type; `Parameters<F>` extracts its argument tuple. `Awaited<T>` unwraps a Promise. Reach for these instead of writing parallel type definitions by hand."
+    },
+    {
+      "keywords": [
+        "react server components",
+        "rsc",
+        "next app router"
+      ],
+      "answer": "React Server Components (RSC) run on the server, can directly access databases and the filesystem, and stream serialized output to the client — no client JS for that component. Marked with `'use server'` (server actions) or by default in Next.js app router. Client Components opt in with `'use client'`. RSCs can pass serializable props (not functions) to client components. Major benefit: tiny JS bundle for content-heavy pages while still using React's component model on the server."
+    },
+    {
+      "keywords": [
+        "edge runtime",
+        "edge functions",
+        "v8 isolates"
+      ],
+      "answer": "Edge runtimes (Cloudflare Workers, Vercel Edge, Deno Deploy) run serverless functions inside V8 isolates instead of Node containers — startup in ~5ms vs ~100-1000ms, geographically distributed to ~200+ cities. Trade-offs: no access to Node APIs (no `fs`, limited `net`), limited memory (~128MB) and CPU time. Best for short-lived JSON APIs, auth, redirects, A/B routing, geo-aware logic. Use a regular server for long compute or filesystem access."
+    },
+    {
+      "keywords": [
+        "htmx",
+        "htmx framework",
+        "hypermedia"
+      ],
+      "answer": "htmx is a small JS library (~14KB) that adds HTMX attributes to HTML so the server returns HTML fragments that swap into the page — no client framework, no virtual DOM, no JSON API. `<button hx-post=\"/cart\" hx-target=\"#count\">Add</button>` posts to /cart and replaces #count with the response HTML. Pairs well with server-rendered apps (Django, Rails, Phoenix, Go html/template). Best for traditional CRUD apps; less suited for highly interactive UIs."
+    },
+    {
+      "keywords": [
+        "solidjs",
+        "solid framework",
+        "fine grained reactivity"
+      ],
+      "answer": "SolidJS (Ryan Carniato) is a reactive UI framework that looks like React (JSX, components) but compiles to fine-grained DOM updates with no virtual DOM. Signals (`const [count, setCount] = createSignal(0)`) track exactly which DOM nodes depend on which values, so setCount(1) only updates the one text node showing count. Result: top performer in framework benchmarks, tiny runtime (~7KB). SolidStart is its full-stack meta-framework like Next.js."
+    },
+    {
+      "keywords": [
+        "svelte",
+        "sveltekit",
+        "svelte runes"
+      ],
+      "answer": "Svelte is a UI framework that compiles components to vanilla JS at build time — no virtual DOM, minimal runtime. Svelte 5 (October 2024) introduced 'runes' (`$state`, `$derived`, `$effect`) replacing the reactive `$:` syntax with explicit fine-grained signals (similar to Solid). SvelteKit is the full-stack meta-framework with file-based routing, server actions, and adapter-based deploys (Vercel, Cloudflare, Node)."
+    },
+    {
+      "keywords": [
+        "tanstack query",
+        "react query",
+        "data fetching"
+      ],
+      "answer": "TanStack Query (formerly React Query) handles async data fetching, caching, and revalidation for React/Solid/Vue/Svelte. `useQuery({ queryKey: ['user', id], queryFn: () => fetchUser(id) })` returns data + loading/error state, dedupes parallel calls, caches by key, and refetches on window focus. Mutations (`useMutation`) update the server and invalidate affected queries. Replaces hand-rolled `useEffect + setState` data fetching with predictable behavior — the de-facto standard for client-side data."
+    },
+    {
+      "keywords": [
+        "zustand",
+        "react state management",
+        "zustand store"
+      ],
+      "answer": "Zustand is a tiny (~1KB) state management library for React. Define a store with `create((set) => ({ count: 0, inc: () => set((s) => ({ count: s.count + 1 })) }))`. Components subscribe with selectors: `const count = useStore((s) => s.count)` — only re-render when their slice changes. No providers needed, works outside React, supports middleware (persist, devtools, immer). Simpler than Redux for most apps; less ceremony than Context for cross-component state."
+    },
+    {
+      "keywords": [
+        "valkey",
+        "redis fork",
+        "valkey vs redis"
+      ],
+      "answer": "Valkey is a Linux Foundation fork of Redis created in March 2024 after Redis Inc relicensed Redis under SSPL/RSAL. Maintained by AWS, Google Cloud, Oracle, Ericsson, and others. Wire-protocol compatible with Redis 7.2 — existing clients work unchanged. As of Valkey 8.0 (September 2024), it adds multi-threading improvements and dictionary memory optimizations that make it slightly faster than Redis on the same hardware. Most managed cache services (ElastiCache, MemoryDB) have switched to Valkey by default."
+    },
+    {
+      "keywords": [
+        "redis",
+        "redis basics",
+        "redis data types"
+      ],
+      "answer": "Redis is an in-memory key-value store with rich data types beyond strings: lists, sets, sorted sets (ordered by score, used for leaderboards), hashes (field-value within a key), streams (append-only logs like a lightweight Kafka), HyperLogLog (cardinality estimator), geospatial. Single-threaded for commands (atomic by design), persists to disk via snapshots (RDB) or append-only log (AOF). Common uses: cache, rate limiting, job queue (lists or streams), pub/sub, session store."
+    },
+    {
+      "keywords": [
+        "python asyncio",
+        "asyncio basics",
+        "async await python"
+      ],
+      "answer": "Python's asyncio runs concurrent I/O in a single thread via cooperative multitasking. `async def fetch(url)` defines a coroutine; `await` yields control back to the event loop while waiting on I/O. Run with `asyncio.run(main())`; combine with `asyncio.gather(*tasks)` for concurrent execution. Despite the GIL, async is great for I/O-bound code — handling thousands of network connections per process. Not for CPU-bound work (use multiprocessing or release the GIL via C extensions)."
+    },
+    {
+      "keywords": [
+        "python typing",
+        "type hints",
+        "mypy"
+      ],
+      "answer": "Python type hints (PEP 484, 2014) add optional static types: `def greet(name: str) -> str: return f'hi {name}'`. Checked with mypy, pyright (used by VS Code's Pylance), or ruff's type-check rules. Generic types via `list[int]`, `dict[str, User]` (3.9+). `Optional[X]` or `X | None` for nullable. `Protocol` for structural typing. Runtime is unaffected — Python ignores annotations at execution. Used heavily in modern libs (FastAPI, Pydantic, SQLAlchemy 2.0)."
+    },
+    {
+      "keywords": [
+        "pydantic",
+        "pydantic v2",
+        "data validation python"
+      ],
+      "answer": "Pydantic is a Python data validation library based on type hints. Define a model: `class User(BaseModel): name: str; age: int`. `User.model_validate({'name': 'Alice', 'age': 30})` validates and coerces. v2 (2023) rewrote the core in Rust for ~10x speedup. Used by FastAPI for request validation, by AWS Lambda Powertools, and as a settings manager (BaseSettings reads from env vars). Replaces dataclasses when you need validation, JSON serialization, or coercion."
+    },
+    {
+      "keywords": [
+        "polars",
+        "polars dataframe",
+        "polars vs pandas"
+      ],
+      "answer": "Polars is a Rust-based DataFrame library, with Python and Node bindings. Lazy evaluation by default — `pl.scan_csv('big.csv').filter(...).group_by(...).collect()` builds a query plan and executes it in parallel. Often 5-30x faster than pandas on large data, uses 2-5x less memory. API is more consistent (no `inplace=True` traps). Pandas still has a larger ecosystem (scikit-learn, statsmodels, plotting); Polars wins for ETL and analytics pipelines."
+    },
+    {
+      "keywords": [
+        "duckdb",
+        "duckdb sql",
+        "embedded olap"
+      ],
+      "answer": "DuckDB is an embedded analytical (OLAP) database — think SQLite for data science. Single file, no server, runs in-process from Python/R/Node/CLI. Columnar storage with vectorized execution; SQL queries on CSV/Parquet/Arrow files directly: `duckdb.sql(\"SELECT * FROM 'data.csv' WHERE x > 10\")`. Often faster than pandas for analytical SQL. Reached 1.0 in June 2024 (stable storage format guarantee)."
+    },
+    {
+      "keywords": [
+        "pyo3",
+        "rust python bindings",
+        "maturin"
+      ],
+      "answer": "PyO3 is a Rust library for writing Python extension modules in Rust. Build with maturin: `pip install maturin; maturin develop`. Annotate Rust functions with `#[pyfunction]` and modules with `#[pymodule]` — PyO3 generates the CPython glue. Used by Ruff, Polars, Pydantic core, Tokenizers, and many other 'fast Python library written in Rust' projects. Trade-off: distribute wheels for every platform you support (manylinux + macOS arm64/x64 + Windows)."
+    },
+    {
+      "keywords": [
+        "fastapi",
+        "fastapi framework",
+        "python api"
+      ],
+      "answer": "FastAPI is a modern Python web framework built on Starlette (ASGI) and Pydantic. Use type hints for request/response validation: `def create(item: Item) -> Item:` — FastAPI parses the body, validates against Item, and generates OpenAPI docs at /docs. Native async support. Auto-completion in editors via the type info. Performance is in the same league as Node.js for I/O-bound APIs. Replaced Flask as the default choice for new Python APIs."
+    },
+    {
+      "keywords": [
+        "uvicorn",
+        "asgi server",
+        "starlette"
+      ],
+      "answer": "Uvicorn is a fast ASGI server for Python (async-capable, the successor to WSGI). Runs FastAPI, Starlette, Django Channels, Quart. `uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4`. Production deploys often pair it with Gunicorn as a process manager: `gunicorn -k uvicorn.workers.UvicornWorker main:app`. Hypercorn and Granian are alternative ASGI servers; Granian (Rust) is the current speed leader."
+    },
+    {
+      "keywords": [
+        "go goroutines",
+        "go concurrency",
+        "goroutine"
+      ],
+      "answer": "Goroutines are Go's lightweight concurrent functions — `go fetch(url)` schedules fetch to run concurrently. Stack starts at 2KB and grows on demand (vs ~1MB for OS threads), so spawning millions is feasible. Go's runtime multiplexes goroutines onto OS threads via the M:N scheduler. Communicate via channels (`ch := make(chan int); ch <- 1; v := <-ch`) — 'don't communicate by sharing memory; share memory by communicating'. For bounded concurrency, use a buffered channel as a semaphore."
+    },
+    {
+      "keywords": [
+        "go context",
+        "context package",
+        "context cancellation"
+      ],
+      "answer": "Go's `context.Context` carries deadlines, cancellation signals, and request-scoped values across API boundaries. `ctx, cancel := context.WithTimeout(parent, 5*time.Second); defer cancel()`. Pass `ctx` as the first argument to every function that does I/O. Functions check `ctx.Done()` channel or use context-aware APIs (`http.NewRequestWithContext`) that return early when the context is cancelled. Critical for cleaning up resources when a client disconnects mid-request."
+    },
+    {
+      "keywords": [
+        "rust ownership",
+        "borrow checker",
+        "rust borrowing"
+      ],
+      "answer": "Rust's ownership model: each value has one owner, and when the owner goes out of scope the value is dropped. Move semantics by default (`let b = a` makes b the owner, a is invalid). Borrow with references: `&x` (immutable, multiple OK) or `&mut x` (mutable, exclusive). The borrow checker enforces at compile time: no dangling pointers, no data races, no use-after-free — without a garbage collector. The cost is the famous learning curve."
+    },
+    {
+      "keywords": [
+        "rust async",
+        "tokio runtime",
+        "rust async runtime"
+      ],
+      "answer": "Rust's async/await is futures-based — `async fn` returns a `Future` that's lazy (doesn't run until polled). The standard library provides the language features but not the runtime. Tokio is the dominant async runtime (multi-threaded scheduler, built-in TCP/UDP/timers, ecosystem of crates: hyper, tonic, axum). Alternatives: smol (minimal), async-std (deprecated), Glommio (thread-per-core). Choose the runtime once per binary; libraries should stay runtime-agnostic."
+    },
+    {
+      "keywords": [
+        "axum",
+        "axum web framework",
+        "rust web"
+      ],
+      "answer": "Axum is a Rust web framework built on Tokio and Hyper, by the Tokio team. Routes are plain functions whose argument types implement an `Extractor` trait — pull JSON bodies, path params, query strings, state via just changing function signatures: `async fn create(Json(input): Json<NewUser>) -> Json<User>`. Composable middleware via the Tower service abstraction (shared with tonic, hyper). De-facto default for new Rust web services as of 2024."
+    },
+    {
+      "keywords": [
+        "zig language",
+        "zig basics",
+        "zig programming"
+      ],
+      "answer": "Zig (Andrew Kelley, 2016) is a low-level systems language positioned as a 'better C'. Manual memory management with explicit allocators passed as arguments. Compile-time code execution (`comptime`) replaces both macros and generics with one mechanism. Errors are values: `!T` is 'returns T or an error'. C interop is first-class — `@cImport` brings in C headers directly. Used by Bun, TigerBeetle, and increasingly as a cross-compiler (`zig cc` is a drop-in C/C++ compiler that cross-compiles trivially)."
+    },
+    {
+      "keywords": [
+        "nix",
+        "nixos",
+        "nix package manager"
+      ],
+      "answer": "Nix is a purely functional package manager — every package lives in `/nix/store/<hash>-name/` where the hash captures all build inputs. Installing a package doesn't disturb existing ones; multiple versions coexist. `nix-shell -p python312 ruby_3_3` drops you into a temporary shell with those tools. NixOS extends this to the whole OS — config in a single `configuration.nix`, atomic rollback to any previous generation. Steep learning curve but unmatched reproducibility."
+    },
+    {
+      "keywords": [
+        "devcontainers",
+        "vscode devcontainer",
+        "containerized dev"
+      ],
+      "answer": "Dev Containers (devcontainer.json spec) define a development environment as a Docker container — language version, system deps, VS Code extensions, settings. `code .` in a devcontainer-enabled repo prompts to reopen inside the container. Same env for every contributor and for CI. GitHub Codespaces builds on this spec. Common files: `.devcontainer/devcontainer.json` + optional `Dockerfile` or `docker-compose.yml`. Replaces 'works on my machine' debugging."
+    },
+    {
+      "keywords": [
+        "github actions",
+        "ci workflows",
+        "actions yaml"
+      ],
+      "answer": "GitHub Actions runs CI/CD workflows defined in `.github/workflows/*.yml`. Triggers: `push`, `pull_request`, `schedule`, `workflow_dispatch`. A job runs on a `runs-on:` runner (ubuntu-latest, macos-latest, self-hosted). Steps either run shell commands or invoke reusable actions (`uses: actions/checkout@v4`). Matrix builds run the same job across versions: `strategy.matrix.node: [18, 20, 22]`. Cache deps with `actions/cache@v4` to speed up subsequent runs."
+    },
+    {
+      "keywords": [
+        "unicode utf8",
+        "utf-8 encoding",
+        "utf8 unicode"
+      ],
+      "answer": "UTF-8 is the dominant Unicode encoding on the web (~98% of sites). Variable-length: ASCII chars are 1 byte, most Latin extended 2 bytes, CJK 3 bytes, emoji and rare scripts 4 bytes. Self-synchronizing — you can start reading mid-string and find the next code point boundary without a header. Backwards compatible with ASCII. Common bug: confusing 'characters' with code points (an emoji like 👨‍👩‍👧‍👦 is several code points joined with zero-width joiners) or with grapheme clusters."
+    },
+    {
+      "keywords": [
+        "regex basics",
+        "regular expressions",
+        "regex syntax"
+      ],
+      "answer": "Regex syntax basics: `.` any char, `*` 0+, `+` 1+, `?` 0-1, `{n,m}` n-to-m. Character classes: `[a-z]`, `\\d` digit, `\\w` word, `\\s` whitespace. Anchors: `^` start, `$` end, `\\b` word boundary. Groups: `(abc)` capture, `(?:abc)` non-capture, `(?<name>abc)` named. Lookarounds: `(?=...)` ahead, `(?!...)` not-ahead. Greedy by default — append `?` for lazy (`.*?`). Test with regex101.com. Different flavors (PCRE, ECMAScript, RE2) support different features."
+    },
+    {
+      "keywords": [
+        "big o notation",
+        "time complexity",
+        "big-o",
+        "complexity analysis"
+      ],
+      "answer": "Big-O describes how runtime/memory scales with input size n. O(1) constant — array index, hash lookup. O(log n) — binary search, balanced tree lookup. O(n) — linear scan. O(n log n) — efficient sorts (mergesort, quicksort average, heapsort). O(n²) — nested loops, bubble sort. O(2^n) — exponential, brute-force subsets. O(n!) — permutations, traveling salesman brute force. The constants matter at small n; algorithm class dominates at large n."
+    },
+    {
+      "keywords": [
+        "sorting algorithms",
+        "quicksort mergesort",
+        "sort algorithm"
+      ],
+      "answer": "Common sorts. Quicksort: O(n log n) average, O(n²) worst, in-place, cache-friendly — the default for `qsort` in C, `sort.Slice` in Go. Mergesort: O(n log n) guaranteed, stable, needs O(n) extra space — used in Java's `Arrays.sort` for objects and Python's Timsort (a hybrid). Heapsort: O(n log n), in-place, not stable. Introsort (C++ STL): quicksort that falls back to heapsort if recursion gets too deep. For nearly-sorted data, Timsort is unbeatable (O(n) best case)."
+    },
+    {
+      "keywords": [
+        "dynamic programming",
+        "dp algorithm",
+        "memoization"
+      ],
+      "answer": "Dynamic programming solves problems by breaking them into overlapping subproblems and memoizing results. Two styles: top-down (recursive + cache) or bottom-up (build a table from base cases up). Classic problems: Fibonacci (O(2^n) naive → O(n) with memo), longest common subsequence, knapsack, edit distance (Levenshtein). The trick is recognizing the recurrence relation: `dp[i] = min(dp[i-1], dp[i-2]) + ...`. State design (what does dp[i] mean?) is the hard part."
+    },
+    {
+      "keywords": [
+        "graph traversal",
+        "bfs dfs",
+        "breadth depth first"
+      ],
+      "answer": "BFS (Breadth-First Search): use a queue, visit all nodes at depth d before depth d+1 — finds the shortest path in unweighted graphs. DFS (Depth-First Search): use a stack (or recursion), go deep first — used for topological sort, cycle detection, connected components. Both O(V + E). For weighted graphs use Dijkstra (non-negative weights, priority queue) or Bellman-Ford (handles negative weights, detects negative cycles)."
+    },
+    {
+      "keywords": [
+        "unit vs integration vs e2e",
+        "testing pyramid",
+        "test pyramid"
+      ],
+      "answer": "The testing pyramid: many unit tests (fast, isolated, test one function), fewer integration tests (test a few units together, real DB sometimes), few end-to-end tests (browser-driven, whole stack). Unit tests give fast feedback; e2e tests catch real-user bugs. Anti-pattern: ice-cream-cone shape (lots of slow flaky e2e tests). Modern adjustment: 'testing trophy' (Kent C. Dodds) emphasizes integration as the sweet spot for confidence vs speed."
+    },
+    {
+      "keywords": [
+        "playwright",
+        "browser testing",
+        "playwright basics"
+      ],
+      "answer": "Playwright (Microsoft, 2020) is a Node/Python/.NET/Java library for cross-browser end-to-end testing — drives Chromium, Firefox, and WebKit with one API. Auto-waits for elements to be actionable (no `sleep(500)` hacks). `await page.getByRole('button', { name: 'Submit' }).click()`. Built-in trace viewer shows screenshots + DOM + network per step, making failures debuggable. Replaced Cypress as the most popular new e2e framework in 2023-2024."
+    },
+    {
+      "keywords": [
+        "snapshot testing",
+        "snapshot tests",
+        "jest snapshot"
+      ],
+      "answer": "Snapshot testing records a serialized form of an output (HTML, JSON, text) on first run, then compares future runs against it. `expect(component).toMatchSnapshot()` in Jest/Vitest. Great for catching unexpected changes in UI markup or large data structures. Pitfall: developers can blindly update snapshots without reviewing diffs, making them noise instead of safety. Best for outputs that change rarely and intentionally."
+    },
+    {
+      "keywords": [
+        "property based testing",
+        "fuzz testing",
+        "quickcheck"
+      ],
+      "answer": "Property-based testing generates many random inputs and checks invariants instead of asserting specific outputs. Hypothesis (Python), fast-check (JS), proptest (Rust), Go's native fuzz support (`go test -fuzz`). Example: `forAll(strings, s => decode(encode(s)) === s)`. Frameworks shrink failing inputs to the smallest reproducing case. Catches edge cases (empty strings, unicode, huge numbers) that humans forget. Fuzzing is the security-flavored cousin — feed garbage and watch for crashes."
+    },
+    {
+      "keywords": [
+        "mocking stubs spies",
+        "test doubles",
+        "mocks vs stubs"
+      ],
+      "answer": "Test doubles (Gerard Meszaros): dummies (pass-through values), stubs (return canned responses), fakes (working implementations, e.g. in-memory DB), spies (record calls), mocks (verify expected calls). Modern frameworks blur these (`jest.fn()` is a spy + stub). Rule of thumb: mock external dependencies (network, time, randomness), not your own code — over-mocking creates tests that pass when the code is broken. For DB-dependent tests, prefer test containers or transaction rollback over mocking the DB."
+    },
+    {
+      "keywords": [
+        "coverage thresholds",
+        "code coverage",
+        "test coverage"
+      ],
+      "answer": "Code coverage measures what fraction of lines/branches your tests execute. Useful for finding obvious gaps; misleading as a quality goal — 100% coverage with weak assertions catches nothing. Branch coverage is stronger than line coverage (forces both arms of every if). Set a floor (e.g. 80%) to prevent regression, not a goal. Tools: c8/istanbul (JS), coverage.py (Python), tarpaulin/llvm-cov (Rust). 'Mutation testing' is a stronger signal — modifies the code and checks if tests fail."
+    },
+    {
+      "keywords": [
+        "observability",
+        "metrics logs traces",
+        "three pillars"
+      ],
+      "answer": "Observability is built on three pillars. Logs: timestamped text events — easy to grep, hard to query at scale (use structured JSON). Metrics: numeric time-series aggregates (request count, p99 latency) — cheap to store, great for dashboards/alerts but no individual-request detail. Traces: end-to-end record of a request across services with span timings — answers 'why was THIS request slow'. OpenTelemetry standardizes the data model and SDKs across vendors (Datadog, Honeycomb, Grafana stack, Jaeger)."
+    },
+    {
+      "keywords": [
+        "opentelemetry",
+        "otel",
+        "tracing standard"
+      ],
+      "answer": "OpenTelemetry (OTel) is a CNCF project providing vendor-neutral APIs, SDKs, and a collector for traces, metrics, and logs. Auto-instrumentation libraries exist for most languages (Java agent, Python opentelemetry-instrument, Node SDK). Instrument once, export anywhere — switch from Jaeger to Honeycomb by changing exporter config, no code change. Replaces older split tools (OpenTracing + OpenCensus merged in 2019). Now the de-facto standard for observability instrumentation."
+    },
+    {
+      "keywords": [
+        "prometheus",
+        "prometheus metrics",
+        "pull metrics"
+      ],
+      "answer": "Prometheus is the dominant open-source metrics system. Pull-based: Prometheus scrapes HTTP endpoints exposing metrics in its text format. Stores time-series in a custom TSDB on local disk. Four core metric types: counter (monotonic), gauge (up/down), histogram (distribution), summary (quantiles). PromQL is the query language: `rate(http_requests_total{job=\"api\"}[5m])`. Pair with Grafana for dashboards, Alertmanager for alerts. Long-term storage via Thanos, Mimir, or VictoriaMetrics."
+    },
+    {
+      "keywords": [
+        "kubernetes basics",
+        "k8s pods deployments",
+        "kubernetes pod deployment"
+      ],
+      "answer": "Kubernetes orchestrates containers across a cluster. Core objects: Pod (one+ containers sharing network and storage, the smallest deployable unit), Deployment (declares how many replica Pods of a template), Service (stable network endpoint that load-balances to a set of Pods), Ingress (routes external HTTP traffic to Services), ConfigMap/Secret (configuration). The control loop reconciles desired state (your YAML) to actual state — declarative, not imperative. `kubectl apply -f deploy.yaml`."
+    },
+    {
+      "keywords": [
+        "helm",
+        "k8s helm chart",
+        "helm chart"
+      ],
+      "answer": "Helm is the Kubernetes package manager. A 'chart' is a templated bundle of K8s YAML manifests plus a `values.yaml` for parameters. `helm install postgres bitnami/postgresql --set auth.password=...` deploys an entire database stack. Tracks releases (you can `helm rollback` to a previous version). Templates use Go's text/template syntax — can get hard to read for complex charts. Alternatives: Kustomize (overlay-based, no templating), Pulumi/CDK8s (real code)."
+    },
+    {
+      "keywords": [
+        "ebpf",
+        "ebpf basics",
+        "linux observability"
+      ],
+      "answer": "eBPF runs sandboxed programs in the Linux kernel without modifying kernel code or loading modules. Originally for packet filtering (BPF); now used for tracing (perf, bpftrace, BCC), networking (Cilium replaces kube-proxy), security (Falco), and observability (Pixie, Parca). Programs are verified at load time for safety (bounded loops, no random memory access). Hook into syscalls, network events, kprobes, tracepoints. Powerful: see what every process is doing, in production, with near-zero overhead."
+    },
+    {
+      "keywords": [
+        "wireguard",
+        "wireguard vpn",
+        "wireguard protocol"
+      ],
+      "answer": "WireGuard (Jason Donenfeld, 2016) is a modern VPN protocol — runs in the Linux kernel since 5.6, available as userspace daemon elsewhere. Tiny codebase (~4000 lines vs OpenVPN's ~100K), simple config (peer = public key + allowed IPs), uses modern cryptography (Curve25519, ChaCha20Poly1305, BLAKE2s). Faster and lower-latency than OpenVPN. Used by Tailscale (mesh on top of WireGuard) and Mullvad, NordVPN, etc."
+    },
+    {
+      "keywords": [
+        "sqlite wal",
+        "sqlite",
+        "sqlite advantages"
+      ],
+      "answer": "SQLite is a single-file embedded relational database — the world's most deployed DB (every phone, browser, OS). Zero config, no server process, ACID via a journal or WAL file. Excellent for: app local storage, edge databases (Cloudflare D1, Turso), test fixtures, single-writer workloads. WAL mode (`PRAGMA journal_mode = WAL`) allows readers while one writer is active. Limits: one writer at a time, no network access (use a wrapper like LiteFS or rqlite for distribution)."
+    },
+    {
+      "keywords": [
+        "nats",
+        "nats messaging",
+        "jetstream"
+      ],
+      "answer": "NATS is a high-performance messaging system focused on simplicity — single Go binary, no Zookeeper-style coordination. Core NATS: at-most-once pub/sub and request/reply with subject-based routing (`orders.us.>` is a wildcard). JetStream adds persistence, exactly-once delivery, KV store, and object store on top. Lower operational complexity than Kafka; lower throughput at the extreme high end. Popular for IoT, edge, and microservice messaging."
+    },
+    {
+      "keywords": [
+        "kafka",
+        "kafka basics",
+        "event streaming"
+      ],
+      "answer": "Apache Kafka is a distributed log designed for high-throughput event streaming. Producers append messages to topics, partitioned across brokers for parallelism. Consumers read at their own pace via offset; messages are retained for days/weeks regardless of consumption. Consumer groups partition work among instances. Trade-offs: powerful (millions msgs/sec) but operationally heavy (Zookeeper historically, KRaft now). Pair with Schema Registry (Avro/Protobuf) for forward/backward compatibility."
+    },
+    {
+      "keywords": [
+        "temporal workflow",
+        "temporal io",
+        "durable workflows"
+      ],
+      "answer": "Temporal is a durable execution framework — write workflow code that survives crashes, restarts, and process failures as if it were running on an infallible computer. The framework persists every function call's input and output to a database, so on resume it replays history and skips already-completed steps. Great for long-running business processes (order fulfillment, signup flows). SDKs in Go, Java, TypeScript, Python, .NET. Cadence is the Uber-originated predecessor."
+    },
+    {
+      "keywords": [
+        "chrome devtools",
+        "devtools panels",
+        "chrome dev tools"
+      ],
+      "answer": "Chrome DevTools panels worth knowing. Elements: inspect/edit DOM and CSS. Console: REPL with $0 (last selected element), monitorEvents(el). Sources: set breakpoints, conditional breakpoints, blackbox library code. Network: filter by type, throttle to 'Slow 3G', see waterfall. Performance: record CPU profile to find slow JS, frame drops. Memory: heap snapshots for leak hunting. Application: inspect localStorage/IndexedDB/cookies/service workers. Lighthouse: audit perf, accessibility, SEO. Coverage: see which CSS/JS is unused."
+    },
+    {
+      "keywords": [
+        "lighthouse audit",
+        "web performance audit",
+        "core web vitals"
+      ],
+      "answer": "Lighthouse (Google) audits web pages on performance, accessibility, best practices, SEO, and PWA. Runs in Chrome DevTools or as a CLI / CI tool. Performance score weighs Core Web Vitals: LCP (Largest Contentful Paint, <2.5s good), CLS (Cumulative Layout Shift, <0.1), INP (Interaction to Next Paint, <200ms, replaced FID in 2024). Also flags accessibility issues (missing alt text, low contrast), unused CSS, and image format suggestions (use WebP/AVIF). CrUX data feeds the same metrics from real users."
+    },
+    {
+      "keywords": [
+        "dns records",
+        "a aaaa cname mx txt",
+        "dns record types"
+      ],
+      "answer": "Common DNS record types. A: hostname → IPv4. AAAA: hostname → IPv6. CNAME: alias one name to another (can't coexist with A on the same name; can't be at the apex except via flattening). MX: mail server for a domain (with priority). TXT: arbitrary text — used for SPF, DKIM, domain ownership verification. NS: nameservers for the zone. SOA: zone metadata (serial, refresh times). CAA: which CAs may issue certs for the domain."
     }
   ]
 }
