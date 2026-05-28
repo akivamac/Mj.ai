@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '54'; // bump when brain JSON files change
+  const BRAIN_VERSION = '55'; // bump when brain JSON files change
 
   let knowledge = null;
   let rules = null;
@@ -559,6 +559,156 @@ const Brain = (() => {
     return /^(yes|yeah|sure|yep|yup|ok|okay|go on|do it|please do|tell me|tell me a story(?: about it)?|story please)[\s!.?]*$/i.test(lower);
   }
 
+  // ── Phase 6 (v55): math dispatcher ───────────────────────
+  //
+  // Routes math input by intent: COMPUTE (just answer), WORKED (answer +
+  // steps), TEACH (concept explainer), DEFINE (short definition). The
+  // four intents share a small classifier (regex/keyword, no NLP).
+  // Tutorials and flavors load lazily — if they're missing, TEACH and
+  // DEFINE silently fall through.
+
+  const MATH_KEYWORDS = ['percent','percentage','fraction','decimal','equation',
+    'variable','exponent','root','prime','average','mean','median','mode','ratio',
+    'proportion','algebra','geometry','area','perimeter','volume','conversion',
+    'unit','derivative','integral','limit','vector','matrix','determinant',
+    'eigenvalue','slope','quadratic','linear','polynomial','factor','divisor',
+    'multiple','prob','probability','combination','permutation','pythagoras',
+    'pythagorean','trig','sine','cosine','tangent','log','logarithm','radian',
+    'degree','pi','number','digit'];
+  const TEACH_RE  = /\b(how (?:do|does) .+ work|explain|teach me|i (?:don't|do not) (?:get|understand)|confused about|why is|why does|what does it mean|walk me through|help me with)\b/i;
+  const DEFINE_RE = /^(what is (?:a |an |the )?|what's (?:a |an |the )?|whats (?:a |an |the )?|define )/i;
+  const WORKED_RE = /\b(show (?:your |the )?work|step by step|show me how|show me|walk me through|how do I solve|why is .* equal|with work|with steps)\b/i;
+  const MATH_SKIP_RE = /\b(just|quick|briefly|short|tldr|tl;dr)\b/i;
+
+  function hasMathKeyword(lower) {
+    return MATH_KEYWORDS.some(k => lower.includes(k));
+  }
+
+  function classifyMathIntent(input, lower) {
+    if (typeof MathEngine === 'undefined') return null;
+    const conv = MathEngine.parseConversion(input);
+    const compute = conv || MathEngine.looksLikeMath(input);
+    // Match `x` as a variable: not glued to another letter. Allows `2x`,
+    // `x = 5`, `x+1`. Rejects `tax`, `fix`, `xy`.
+    const eqLike = /=/.test(input) && /(?<![a-z])x(?![a-z])/i.test(input);
+    const statsLike = /^(mean|median|mode|average|stats|stddev|stdev|variance|sum|range)\b/i.test(input.trim());
+    const primeLike = /\bis\s+\d+\s+prime\b/i.test(input);
+    const factorLike = /^(factor|prime factor|factorize|factorise|primes? of)\s+\d+/i.test(input.trim());
+    const isComputable = compute || eqLike || statsLike || primeLike || factorLike;
+
+    // WORKED beats COMPUTE when both apply.
+    if (isComputable && WORKED_RE.test(input)) return 'WORKED';
+    if (isComputable) return 'COMPUTE';
+
+    // Teaching paths require a math keyword to avoid hijacking general chat.
+    if (TEACH_RE.test(input) && hasMathKeyword(lower)) return 'TEACH';
+    if (DEFINE_RE.test(input) && hasMathKeyword(lower) && input.length < 80) return 'DEFINE';
+    return null;
+  }
+
+  function _fmt(n) {
+    return (typeof MathEngine !== 'undefined' && MathEngine.formatNumber)
+      ? MathEngine.formatNumber(n) : String(n);
+  }
+
+  function _formatEquationAnswer(eq, worked) {
+    if (!eq) return null;
+    if (eq.type === 'identity' || eq.type === 'inconsistent') return eq.text;
+    if (eq.type === 'linear') {
+      if (!worked) return `x = ${_fmt(eq.x)}`;
+      return `x = ${_fmt(eq.x)}\n\nWork:\n  ${eq.lhs} = ${eq.rhs}\n  ${eq.a}x = ${_fmt(-eq.b)}\n  x = ${_fmt(-eq.b)} / ${eq.a}\n  x = ${_fmt(eq.x)}`;
+    }
+    if (eq.type === 'quadratic') {
+      if (eq.complex) {
+        const head = `No real solutions (discriminant = ${_fmt(eq.discriminant)} < 0).`;
+        if (!worked) return head;
+        return head + `\n\nWork:\n  ${eq.lhs} = ${eq.rhs}\n  → ${eq.a}x² + ${_fmt(eq.b)}x + ${_fmt(eq.c)} = 0\n  discriminant = b² - 4ac = ${eq.b}² - 4(${eq.a})(${eq.c}) = ${_fmt(eq.discriminant)}\n  Negative → no real roots.`;
+      }
+      const roots = eq.x !== undefined ? `x = ${_fmt(eq.x)} (double root)`
+                  : `x = ${_fmt(eq.x1)} or x = ${_fmt(eq.x2)}`;
+      if (!worked) return roots;
+      const sd = Math.sqrt(eq.discriminant);
+      return `${roots}\n\nWork:\n  ${eq.lhs} = ${eq.rhs}\n  → ${eq.a}x² + ${_fmt(eq.b)}x + ${_fmt(eq.c)} = 0\n  discriminant = b² - 4ac = ${eq.b * eq.b} - ${4 * eq.a * eq.c} = ${_fmt(eq.discriminant)}\n  x = (-b ± √d) / 2a = (${_fmt(-eq.b)} ± ${_fmt(sd)}) / ${_fmt(2 * eq.a)}\n  → ${roots}`;
+    }
+    return null;
+  }
+
+  function _formatStats(s, worked) {
+    if (!s) return null;
+    if (!worked) {
+      return `mean ${_fmt(s.mean)}, median ${_fmt(s.median)}, stdev ${_fmt(s.stdev)} (n=${s.n})`;
+    }
+    return `mean ${_fmt(s.mean)}, median ${_fmt(s.median)}, mode ${s.mode != null ? _fmt(s.mode) : '—'}, stdev ${_fmt(s.stdev)} (n=${s.n})\n\nDetail:\n  sum = ${_fmt(s.sum)}\n  min = ${_fmt(s.min)}, max = ${_fmt(s.max)}, range = ${_fmt(s.range)}\n  variance = ${_fmt(s.variance)}`;
+  }
+
+  function _formatConversion(c) {
+    if (!c) return null;
+    return `${_fmt(c.input)} ${c.from} = ${_fmt(c.value)} ${c.to}`;
+  }
+
+  function _formatPrime(n, worked) {
+    const p = MathEngine.isPrime(n);
+    if (!worked) return p ? `Yes — ${n} is prime.` : `No — ${n} = ${MathEngine.primeFactor(n).join(' × ')}.`;
+    if (p) return `Yes — ${n} is prime.\n\n(Checked: no divisor between 2 and √${n} = ${_fmt(Math.sqrt(n))} divides it cleanly.)`;
+    const f = MathEngine.primeFactor(n);
+    return `No — ${n} = ${f.join(' × ')}.\n\nWork: trial-divided by 2, 3, 5, 7, ... until we found ${f[0]} divides ${n}, then continued on the quotient.`;
+  }
+
+  function handleMathIntent(intent, input, lower) {
+    if (typeof MathEngine === 'undefined') return null;
+    const worked = intent === 'WORKED';
+
+    // 1. Unit conversion (highest specificity)
+    const conv = MathEngine.parseConversion(input);
+    if (conv) {
+      const c = MathEngine.convertUnit(input);
+      return c ? _formatConversion(c) : null;
+    }
+
+    // 2. Equation solving (always show work — equations benefit from it)
+    if (/=/.test(input) && /(?<![a-z])x(?![a-z])/i.test(input)) {
+      const eq = MathEngine.solveEquation(input);
+      if (eq) return _formatEquationAnswer(eq, true);
+    }
+
+    // 3. Is X prime / prime factor
+    const primeM = lower.match(/\bis\s+(\d+)\s+prime\b/);
+    if (primeM) return _formatPrime(parseInt(primeM[1], 10), worked);
+    const factorM = lower.match(/^(?:factor|prime factor|factorize|factorise|primes? of)\s+(\d+)/);
+    if (factorM) {
+      const n = parseInt(factorM[1], 10);
+      const f = MathEngine.primeFactor(n);
+      return f.length ? `${n} = ${f.join(' × ')}` : `${n} has no prime factors (≤ 1).`;
+    }
+
+    // 4. Stats — "mean of 4 7 9 12 15"
+    if (/^(mean|median|mode|average|stats|stddev|stdev|variance|sum|range)\b/i.test(input.trim())) {
+      const nums = MathEngine.parseNumberList(input);
+      if (nums && nums.length) {
+        const s = MathEngine.summarize(nums);
+        const which = input.trim().toLowerCase().split(/\s+/)[0];
+        if (which === 'mean' || which === 'average') return worked
+          ? `mean = ${_fmt(s.mean)}\n\nWork: (${nums.join(' + ')}) / ${s.n} = ${_fmt(s.sum)} / ${s.n} = ${_fmt(s.mean)}`
+          : _fmt(s.mean);
+        if (which === 'median')   return _fmt(s.median);
+        if (which === 'mode')     return s.mode != null ? _fmt(s.mode) : 'No mode — all values unique.';
+        if (which === 'stddev' || which === 'stdev') return _fmt(s.stdev);
+        if (which === 'variance') return _fmt(s.variance);
+        if (which === 'sum')      return _fmt(s.sum);
+        if (which === 'range')    return _fmt(s.range);
+        return _formatStats(s, worked);
+      }
+    }
+
+    // 5. Plain expression evaluation (fallback)
+    if (MathEngine.looksLikeMath(input)) {
+      const r = MathEngine.evaluateExpression(input);
+      if (r && !r.error) return _fmt(r.value);
+      if (r && r.error) return null; // silently fall through on parse error
+    }
+    return null;
+  }
+
   function respond(input, history = []) {
     // Tick flavoring counters once per respond() call.
     _recentFlavorAge++;
@@ -885,6 +1035,16 @@ const Brain = (() => {
     if (recipes && recipes.recipes) {
       const recipe = findByTriggers(recipes.recipes, lower, 1);
       if (recipe) return formatRecipeResponse(recipe);
+    }
+
+    // ── Math dispatcher (v55) ─────────────────────────────
+    // Slot: after coding (so pasted tracebacks containing `1/0` still
+    // route to the error matcher) and before terminal + knowledge (so
+    // `is 91 prime` doesn't get hijacked by a wikipedia-style fact).
+    const mathIntent = classifyMathIntent(input, lower);
+    if (mathIntent) {
+      const mathOut = handleMathIntent(mathIntent, input, lower);
+      if (mathOut) return mathOut;
     }
 
     // Terminal/command check — only if input looks like a command (starts with trigger or is short)

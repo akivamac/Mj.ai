@@ -5,7 +5,9 @@ Runs in Termux on Android, macOS, and Linux, with full GitHub integration.
 """
 
 import json
+import math
 import os
+import statistics as _statistics
 import sys
 import re
 import random
@@ -256,6 +258,514 @@ body {
 ''',
     'txt': '',
 }
+
+# ── Math engine (v55, Python mirror of js/math.js) ─────────
+#
+# Pure stdlib — math, statistics, re, fractions. Safe expression eval
+# (no eval()) via tokenize + recursive descent. Unit conversion via
+# factor + offset table. Equation solver via 3-point sampling trick.
+
+class MathEngine:
+
+    # ---------- expression evaluator ----------
+    _FUNCS = {
+        'sqrt': math.sqrt, 'abs': abs,
+        'sin': lambda x: math.sin(math.radians(x)),
+        'cos': lambda x: math.cos(math.radians(x)),
+        'tan': lambda x: math.tan(math.radians(x)),
+        'asin': lambda x: math.degrees(math.asin(x)),
+        'acos': lambda x: math.degrees(math.acos(x)),
+        'atan': lambda x: math.degrees(math.atan(x)),
+        'sinh': math.sinh, 'cosh': math.cosh, 'tanh': math.tanh,
+        'log10': math.log10, 'log': math.log10, 'ln': math.log,
+        'floor': math.floor, 'ceil': math.ceil, 'round': lambda x: round(x),
+        'exp': math.exp, 'min': min, 'max': max,
+        'factorial': lambda n: math.factorial(int(n)) if n == int(n) and n >= 0 else (_ for _ in ()).throw(ValueError('factorial needs a non-negative integer'))
+    }
+
+    @staticmethod
+    def _preprocess(s):
+        t = s.lower()
+        t = re.sub(r'\bdivided by\b', '/', t)
+        t = re.sub(r'\bmultiplied by\b', '*', t)
+        t = re.sub(r'\btimes\b', '*', t)
+        t = re.sub(r'\bplus\b', '+', t)
+        t = re.sub(r'\bminus\b', '-', t)
+        t = re.sub(r'\bover\b', '/', t)
+        t = re.sub(r'\bmod(?:ulo)?\b', '%', t)
+        t = re.sub(r'\bto the power of\b', '^', t)
+        t = re.sub(r'\bsquared\b', '^2', t)
+        t = re.sub(r'\bcubed\b', '^3', t)
+        t = re.sub(r'(\d+(?:\.\d+)?)\s*%\s*of\s+', r'(\1/100)*', t)
+        t = re.sub(r'(\d+(?:\.\d+)?)\s*%(?!\s*\d)', r'(\1/100)', t)
+        t = re.sub(r"^(what\s+is|what's|whats|calculate|compute|evaluate|solve|how much is|how much)\s+", '', t, flags=re.I)
+        t = re.sub(r'[?.]+$', '', t).strip()
+        t = re.sub(r'\bpi\b', '(' + str(math.pi) + ')', t)
+        t = re.sub(r"\beuler('s)?\s+number\b", '(' + str(math.e) + ')', t)
+        return t
+
+    @staticmethod
+    def looks_like_math(input_str):
+        t = MathEngine._preprocess(input_str)
+        if not t: return False
+        if not re.search(r'\d', t): return False
+        if not re.search(r'[+\-*/%^()]|sqrt|abs|sin|cos|tan|asin|acos|atan|log|ln|floor|ceil|round|factorial|exp', t):
+            return False
+        stripped = re.sub(r'sqrt|abs|sinh|cosh|tanh|asin|acos|atan|sin|cos|tan|log10|log|ln|floor|ceil|round|factorial|exp|min|max', '', t)
+        stripped = re.sub(r'[\d.\s+\-*/%^()!,]', '', stripped)
+        return len(stripped) == 0
+
+    @staticmethod
+    def _tokenize(s):
+        tokens, i = [], 0
+        while i < len(s):
+            c = s[i]
+            if c.isspace(): i += 1; continue
+            if c.isdigit() or (c == '.' and i+1 < len(s) and s[i+1].isdigit()):
+                j = i
+                while j < len(s) and (s[j].isdigit() or s[j] == '.'): j += 1
+                tokens.append(('num', float(s[i:j])))
+                i = j; continue
+            if c.isalpha():
+                j = i
+                while j < len(s) and (s[j].isalnum()): j += 1
+                tokens.append(('ident', s[i:j].lower()))
+                i = j; continue
+            if c in '+-*/%^()!,':
+                tokens.append(('op', c)); i += 1; continue
+            raise ValueError('unexpected character: ' + c)
+        return tokens
+
+    class _Parser:
+        def __init__(self, tokens):
+            self.tokens = tokens; self.pos = 0
+        def peek(self): return self.tokens[self.pos] if self.pos < len(self.tokens) else None
+        def eat(self, type_, value=None):
+            t = self.peek()
+            if t is None: raise ValueError('unexpected end of expression')
+            if t[0] != type_ or (value is not None and t[1] != value):
+                raise ValueError(f'expected {value or type_}, got {t[1]}')
+            self.pos += 1; return t
+        def expr(self): return self.addsub()
+        def addsub(self):
+            left = self.muldiv()
+            while self.peek() and self.peek()[0] == 'op' and self.peek()[1] in '+-':
+                op = self.eat('op')[1]
+                right = self.muldiv()
+                left = left + right if op == '+' else left - right
+            return left
+        def muldiv(self):
+            left = self.power()
+            while self.peek() and self.peek()[0] == 'op' and self.peek()[1] in '*/%':
+                op = self.eat('op')[1]
+                right = self.power()
+                if op == '*': left = left * right
+                elif op == '/':
+                    if right == 0: raise ZeroDivisionError('division by zero')
+                    left = left / right
+                else: left = left % right
+            return left
+        def power(self):
+            base = self.unary()
+            if self.peek() and self.peek()[0] == 'op' and self.peek()[1] == '^':
+                self.eat('op')
+                exp = self.power()
+                return math.pow(base, exp)
+            return base
+        def unary(self):
+            if self.peek() and self.peek()[0] == 'op' and self.peek()[1] in '+-':
+                op = self.eat('op')[1]
+                v = self.unary()
+                return v if op == '+' else -v
+            return self.postfix()
+        def postfix(self):
+            v = self.atom()
+            while self.peek() and self.peek()[0] == 'op' and self.peek()[1] == '!':
+                self.eat('op')
+                v = MathEngine._FUNCS['factorial'](v)
+            return v
+        def atom(self):
+            t = self.peek()
+            if t is None: raise ValueError('unexpected end of expression')
+            if t[0] == 'num':
+                self.eat('num'); return t[1]
+            if t[0] == 'op' and t[1] == '(':
+                self.eat('op', '(')
+                v = self.expr()
+                self.eat('op', ')')
+                return v
+            if t[0] == 'ident':
+                self.eat('ident')
+                name = t[1]
+                if self.peek() and self.peek()[0] == 'op' and self.peek()[1] == '(':
+                    if name not in MathEngine._FUNCS:
+                        raise ValueError(f'unknown function: {name}')
+                    self.eat('op', '(')
+                    args = [self.expr()]
+                    while self.peek() and self.peek()[0] == 'op' and self.peek()[1] == ',':
+                        self.eat('op', ','); args.append(self.expr())
+                    self.eat('op', ')')
+                    return MathEngine._FUNCS[name](*args)
+                if name == 'pi': return math.pi
+                if name == 'e':  return math.e
+                raise ValueError(f'unknown identifier: {name}')
+            raise ValueError(f'unexpected token: {t}')
+
+    @staticmethod
+    def evaluate_expression(input_str):
+        try:
+            cleaned = MathEngine._preprocess(input_str)
+            if not cleaned: return None
+            tokens = MathEngine._tokenize(cleaned)
+            if not tokens: return None
+            parser = MathEngine._Parser(tokens)
+            value = parser.expr()
+            if parser.pos < len(tokens): raise ValueError('trailing tokens after expression')
+            return {'value': value, 'cleaned': cleaned}
+        except Exception as e:
+            return {'error': str(e)}
+
+    @staticmethod
+    def format_number(n):
+        if n != n or n == float('inf') or n == float('-inf'): return str(n)
+        if abs(n) >= 1e15 or (0 < abs(n) < 1e-4):
+            return f'{n:.6e}'
+        rounded = round(n * 1e10) / 1e10
+        if rounded == int(rounded): return str(int(rounded))
+        return str(rounded)
+
+    # ---------- unit conversion ----------
+    _UNITS = {
+        'length': {'m':{'factor':1}, 'cm':{'factor':0.01}, 'mm':{'factor':0.001},
+                   'km':{'factor':1000}, 'in':{'factor':0.0254}, 'ft':{'factor':0.3048},
+                   'yd':{'factor':0.9144}, 'mi':{'factor':1609.344},
+                   'nm':{'factor':1852}, 'ly':{'factor':9.461e15}},
+        'weight': {'g':{'factor':1}, 'mg':{'factor':0.001}, 'kg':{'factor':1000},
+                   'lb':{'factor':453.592}, 'oz':{'factor':28.3495},
+                   'ton':{'factor':1000000}},
+        'temperature': {'k':{'factor':1,'offset':0}, 'c':{'factor':1,'offset':273.15},
+                        'f':{'factor':5/9,'offset':459.67}},
+        'time': {'s':{'factor':1}, 'ms':{'factor':0.001}, 'us':{'factor':1e-6},
+                 'ns':{'factor':1e-9}, 'min':{'factor':60}, 'hr':{'factor':3600},
+                 'day':{'factor':86400}, 'week':{'factor':604800},
+                 'year':{'factor':31557600}},
+        'volume': {'l':{'factor':1}, 'ml':{'factor':0.001}, 'gal':{'factor':3.78541},
+                   'qt':{'factor':0.946353}, 'pt':{'factor':0.473176},
+                   'cup':{'factor':0.24}, 'tbsp':{'factor':0.0147868},
+                   'tsp':{'factor':0.00492892}, 'floz':{'factor':0.0295735},
+                   'm3':{'factor':1000}, 'ft3':{'factor':28.3168}},
+        'speed': {'mps':{'factor':1}, 'kph':{'factor':0.277778},
+                  'mph':{'factor':0.44704}, 'knot':{'factor':0.514444}},
+        'data': {'b':{'factor':1}, 'kb':{'factor':1000}, 'mb':{'factor':1e6},
+                 'gb':{'factor':1e9}, 'tb':{'factor':1e12},
+                 'kib':{'factor':1024}, 'mib':{'factor':1024**2},
+                 'gib':{'factor':1024**3}, 'tib':{'factor':1024**4}}
+    }
+    _UNIT_ALIASES = {
+        'meter':('length','m'),'meters':('length','m'),'metre':('length','m'),'metres':('length','m'),'m':('length','m'),
+        'centimeter':('length','cm'),'centimeters':('length','cm'),'cm':('length','cm'),
+        'millimeter':('length','mm'),'millimeters':('length','mm'),'mm':('length','mm'),
+        'kilometer':('length','km'),'kilometers':('length','km'),'km':('length','km'),
+        'inch':('length','in'),'inches':('length','in'),'in':('length','in'),
+        'foot':('length','ft'),'feet':('length','ft'),'ft':('length','ft'),
+        'yard':('length','yd'),'yards':('length','yd'),'yd':('length','yd'),
+        'mile':('length','mi'),'miles':('length','mi'),'mi':('length','mi'),
+        'lightyear':('length','ly'),'ly':('length','ly'),
+        'gram':('weight','g'),'grams':('weight','g'),'g':('weight','g'),
+        'milligram':('weight','mg'),'milligrams':('weight','mg'),'mg':('weight','mg'),
+        'kilogram':('weight','kg'),'kilograms':('weight','kg'),'kg':('weight','kg'),'kilo':('weight','kg'),
+        'pound':('weight','lb'),'pounds':('weight','lb'),'lb':('weight','lb'),'lbs':('weight','lb'),
+        'ounce':('weight','oz'),'ounces':('weight','oz'),'oz':('weight','oz'),
+        'ton':('weight','ton'),'tons':('weight','ton'),'tonne':('weight','ton'),'tonnes':('weight','ton'),
+        'celsius':('temperature','c'),'c':('temperature','c'),
+        'fahrenheit':('temperature','f'),'f':('temperature','f'),
+        'kelvin':('temperature','k'),'k':('temperature','k'),
+        'second':('time','s'),'seconds':('time','s'),'s':('time','s'),'sec':('time','s'),
+        'minute':('time','min'),'minutes':('time','min'),'min':('time','min'),'mins':('time','min'),
+        'hour':('time','hr'),'hours':('time','hr'),'hr':('time','hr'),'hrs':('time','hr'),
+        'day':('time','day'),'days':('time','day'),
+        'week':('time','week'),'weeks':('time','week'),
+        'year':('time','year'),'years':('time','year'),'yr':('time','year'),
+        'liter':('volume','l'),'liters':('volume','l'),'l':('volume','l'),
+        'milliliter':('volume','ml'),'milliliters':('volume','ml'),'ml':('volume','ml'),
+        'gallon':('volume','gal'),'gallons':('volume','gal'),'gal':('volume','gal'),
+        'cup':('volume','cup'),'cups':('volume','cup'),
+        'mps':('speed','mps'),'kph':('speed','kph'),'kmh':('speed','kph'),'mph':('speed','mph'),
+        'knot':('speed','knot'),'knots':('speed','knot'),
+        'byte':('data','b'),'bytes':('data','b'),'b':('data','b'),
+        'kilobyte':('data','kb'),'kb':('data','kb'),
+        'megabyte':('data','mb'),'mb':('data','mb'),
+        'gigabyte':('data','gb'),'gb':('data','gb'),
+        'terabyte':('data','tb'),'tb':('data','tb'),
+    }
+
+    @staticmethod
+    def _normalize_unit(raw):
+        if not raw: return None
+        t = raw.lower().replace(' ', '').replace('.', '').replace('-', '')
+        return MathEngine._UNIT_ALIASES.get(t)
+
+    @staticmethod
+    def parse_conversion(input_str):
+        t = input_str.strip()
+        m = re.match(
+            r'^(?:convert\s+|how\s+(?:much|many)\s+is\s+)?(-?\d+(?:\.\d+)?)\s*([a-z°"\'³]+(?:\s+[a-z]+)?)\s+(?:to|in|into)\s+([a-z°"\'³]+(?:\s+[a-z]+)?)[\s?.!]*$',
+            t, re.I)
+        if not m: return None
+        value = float(m.group(1))
+        frm = MathEngine._normalize_unit(m.group(2).replace(' ', ''))
+        to  = MathEngine._normalize_unit(m.group(3).replace(' ', ''))
+        if not frm or not to: return None
+        if frm[0] != to[0]: return None
+        return {'value': value, 'from': frm, 'to': to}
+
+    @staticmethod
+    def convert_unit(input_str):
+        p = MathEngine.parse_conversion(input_str)
+        if not p: return None
+        cat = p['from'][0]
+        from_u = MathEngine._UNITS[cat][p['from'][1]]
+        to_u   = MathEngine._UNITS[cat][p['to'][1]]
+        if cat == 'temperature':
+            base = (p['value'] + from_u.get('offset', 0)) * from_u['factor']
+            out = base / to_u['factor'] - to_u.get('offset', 0)
+        else:
+            out = p['value'] * from_u['factor'] / to_u['factor']
+        return {'value': out, 'from': p['from'][1], 'to': p['to'][1],
+                'category': cat, 'input': p['value']}
+
+    # ---------- equation solver ----------
+    @staticmethod
+    def _eval_at_x(expr_str, x_value):
+        s = re.sub(r'(\d)(?=[a-zA-Z])', r'\1*', expr_str)
+        s = re.sub(r'\bx\b', '(' + str(x_value) + ')', s)
+        r = MathEngine.evaluate_expression(s)
+        return r['value'] if r and 'error' not in r else float('nan')
+
+    @staticmethod
+    def solve_equation(input_str):
+        s = str(input_str or '').lower().strip()
+        s = re.sub(r'^(solve|find x|find the value of x|find x in|for x[:,]?)\s+', '', s, flags=re.I)
+        s = re.sub(r'[?.!]+$', '', s).strip()
+        if '=' not in s: return None
+        parts = s.split('=')
+        if len(parts) != 2: return None
+        lhs, rhs = parts[0].strip(), parts[1].strip()
+        if not lhs or not rhs: return None
+        try:
+            f0   = MathEngine._eval_at_x(lhs, 0)  - MathEngine._eval_at_x(rhs, 0)
+            f1   = MathEngine._eval_at_x(lhs, 1)  - MathEngine._eval_at_x(rhs, 1)
+            fNeg = MathEngine._eval_at_x(lhs, -1) - MathEngine._eval_at_x(rhs, -1)
+        except Exception:
+            return None
+        if any(v != v for v in (f0, f1, fNeg)): return None
+        a = (f1 + fNeg - 2 * f0) / 2
+        b = (f1 - fNeg) / 2
+        c = f0
+        EPS = 1e-9
+        def snap(v):
+            if abs(v) < EPS: return 0
+            r = round(v)
+            return r if abs(v - r) < EPS else v
+        aa, bb, cc = snap(a), snap(b), snap(c)
+        if aa == 0:
+            if bb == 0:
+                return {'type': 'identity', 'text': 'Any x works — both sides are equal.'} if cc == 0 \
+                  else {'type': 'inconsistent', 'text': 'No solution — sides never match.'}
+            return {'type':'linear','a':bb,'b':cc,'x':snap(-cc/bb),'lhs':lhs,'rhs':rhs}
+        d = bb*bb - 4*aa*cc
+        if abs(d) < EPS:
+            return {'type':'quadratic','a':aa,'b':bb,'c':cc,'discriminant':0,
+                    'x':snap(-bb/(2*aa)),'lhs':lhs,'rhs':rhs}
+        if d > 0:
+            sd = math.sqrt(d)
+            return {'type':'quadratic','a':aa,'b':bb,'c':cc,'discriminant':d,
+                    'x1':snap((-bb+sd)/(2*aa)),'x2':snap((-bb-sd)/(2*aa)),
+                    'lhs':lhs,'rhs':rhs}
+        return {'type':'quadratic','a':aa,'b':bb,'c':cc,'discriminant':d,
+                'complex':True,'lhs':lhs,'rhs':rhs}
+
+    # ---------- statistics ----------
+    @staticmethod
+    def parse_number_list(input_str):
+        s = str(input_str or '').lower()
+        s = re.sub(r'^(mean|median|mode|average|stats|stats for|summary|summarize|stddev|stdev|variance|sum|range)\s*(of|for)?\s*', '', s)
+        s = re.sub(r'[,;]', ' ', s)
+        s = re.sub(r'\band\b', ' ', s)
+        nums = [float(x) for x in re.findall(r'-?\d+(?:\.\d+)?', s)]
+        return nums or None
+
+    @staticmethod
+    def summarize(nums):
+        if not nums: return None
+        n = len(nums)
+        s = sum(nums)
+        mean = s / n
+        sorted_n = sorted(nums)
+        median = sorted_n[n//2] if n % 2 else (sorted_n[n//2 - 1] + sorted_n[n//2]) / 2
+        freq = {}
+        for v in nums: freq[v] = freq.get(v, 0) + 1
+        mode = max(freq, key=freq.get) if max(freq.values()) > 1 else None
+        var = _statistics.variance(nums) if n > 1 else 0
+        return {'n': n, 'sum': s, 'mean': mean, 'median': median, 'mode': mode,
+                'min': min(nums), 'max': max(nums), 'range': max(nums) - min(nums),
+                'variance': var, 'stdev': math.sqrt(var)}
+
+    # ---------- number theory ----------
+    @staticmethod
+    def gcd(a, b):
+        return math.gcd(int(abs(a)), int(abs(b)))
+
+    @staticmethod
+    def lcm(a, b):
+        if not a or not b: return 0
+        return abs(a * b) // MathEngine.gcd(a, b)
+
+    @staticmethod
+    def prime_factor(n):
+        n = abs(int(n))
+        if n < 2: return []
+        out = []
+        p = 2
+        while p * p <= n:
+            while n % p == 0: out.append(p); n //= p
+            p += 1
+        if n > 1: out.append(n)
+        return out
+
+    @staticmethod
+    def is_prime(n):
+        n = abs(int(n))
+        if n < 2: return False
+        small = [2,3,5,7,11,13,17,19,23,29,31,37]
+        for p in small:
+            if n == p: return True
+            if n % p == 0: return False
+        # Trial division to sqrt(n) — Python ints are arbitrary precision.
+        i = 41
+        while i * i <= n:
+            if n % i == 0: return False
+            i += 2
+        return True
+
+    @staticmethod
+    def choose(n, k):
+        return math.comb(int(n), int(k)) if 0 <= k <= n else 0
+
+    @staticmethod
+    def permute(n, k):
+        return math.perm(int(n), int(k)) if 0 <= k <= n else 0
+
+    # ---------- finance ----------
+    @staticmethod
+    def tip(amount, pct, split=1):
+        t = amount * pct / 100
+        total = amount + t
+        return {'tip': t, 'total': total, 'perPerson': total/split, 'split': split}
+
+    @staticmethod
+    def discount(price, pct):
+        sav = price * pct / 100
+        return {'original': price, 'savings': sav, 'final': price - sav}
+
+    @staticmethod
+    def percent_change(old, new):
+        if old == 0: return None
+        return (new - old) / abs(old) * 100
+
+    # ---------- polynomial calculus ----------
+    @staticmethod
+    def parse_poly(input_str):
+        s = str(input_str or '').lower().replace(' ', '').replace('-', '+-')
+        if s.startswith('+'): s = s[1:]
+        if not s: return None
+        terms = [t for t in s.split('+') if t]
+        out = {}
+        for term in terms:
+            m = re.match(r'^(-?\d*\.?\d*)(x(?:\^(-?\d+))?)?$', term)
+            if not m: return None
+            coef_str, has_x, pow_str = m.group(1), bool(m.group(2)), m.group(3)
+            power = int(pow_str) if pow_str else (1 if has_x else 0)
+            if has_x:
+                if coef_str in ('', '+'): coef = 1
+                elif coef_str == '-': coef = -1
+                else: coef = float(coef_str)
+            else:
+                if coef_str in ('', '+', '-'): return None
+                coef = float(coef_str)
+            out[power] = out.get(power, 0) + coef
+        return out
+
+    @staticmethod
+    def format_poly(coefs):
+        powers = sorted([p for p in coefs if abs(coefs[p]) > 1e-12], reverse=True)
+        if not powers: return '0'
+        parts = []
+        for p in powers:
+            c = coefs[p]
+            neg = c < 0
+            cabs = abs(c)
+            if p == 0: cstr = str(int(cabs)) if cabs == int(cabs) else str(cabs)
+            elif cabs == 1: cstr = ''
+            else: cstr = str(int(cabs)) if cabs == int(cabs) else str(cabs)
+            v = '' if p == 0 else 'x' if p == 1 else f'x^{p}'
+            sign = ('-' if neg else '') if not parts else (' - ' if neg else ' + ')
+            parts.append(sign + cstr + v)
+        return ''.join(parts)
+
+    @staticmethod
+    def poly_derivative(input_str):
+        coefs = MathEngine.parse_poly(input_str)
+        if coefs is None: return None
+        out = {}
+        for p, c in coefs.items():
+            if p == 0: continue
+            out[p-1] = c * p
+        return {'coefs': out, 'text': MathEngine.format_poly(out),
+                'original': coefs, 'originalText': MathEngine.format_poly(coefs)}
+
+    @staticmethod
+    def poly_integral(input_str, a=None, b=None):
+        coefs = MathEngine.parse_poly(input_str)
+        if coefs is None: return None
+        out = {}
+        for p, c in coefs.items():
+            out[p+1] = c / (p+1)
+        text = MathEngine.format_poly(out) + ' + C'
+        if a is None or b is None:
+            return {'coefs': out, 'text': text, 'original': coefs,
+                    'originalText': MathEngine.format_poly(coefs)}
+        def eval_poly(cs, x):
+            return sum(c * (x ** p) for p, c in cs.items())
+        return {'coefs': out, 'text': text, 'definite': eval_poly(out, b) - eval_poly(out, a),
+                'a': a, 'b': b, 'original': coefs,
+                'originalText': MathEngine.format_poly(coefs)}
+
+    # ---------- 2x2 matrix ----------
+    @staticmethod
+    def mat2_det(A): return A[0][0]*A[1][1] - A[0][1]*A[1][0]
+    @staticmethod
+    def mat2_inv(A):
+        d = MathEngine.mat2_det(A)
+        if abs(d) < 1e-12: return None
+        return [[A[1][1]/d, -A[0][1]/d], [-A[1][0]/d, A[0][0]/d]]
+    @staticmethod
+    def mat2_mul(A, B):
+        return [[A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],
+                [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]]
+
+    # ---------- 2-var linear system ----------
+    @staticmethod
+    def solve_linear_system2(a1, b1, c1, a2, b2, c2):
+        d = a1*b2 - a2*b1
+        if abs(d) < 1e-12:
+            dx = c1*b2 - c2*b1
+            dy = a1*c2 - a2*c1
+            if abs(dx) < 1e-12 and abs(dy) < 1e-12:
+                return {'type':'identity','text':'Infinitely many solutions — same line.'}
+            return {'type':'inconsistent','text':'No solution — parallel lines.'}
+        return {'type':'unique','x':(c1*b2-c2*b1)/d,'y':(a1*c2-a2*c1)/d}
+
 
 class MonkeyJoe:
     def __init__(self):
@@ -809,6 +1319,130 @@ class MonkeyJoe:
         if self._story_hook_age > 2 or not self._story_hook_subject:
             return False
         return bool(self._STORY_HOOK_YES_RE.match(lower.strip()))
+
+    # ── Math dispatcher (v55) ────────────────────────────
+    _MATH_KEYWORDS = ['percent','percentage','fraction','decimal','equation',
+        'variable','exponent','root','prime','average','mean','median','mode','ratio',
+        'proportion','algebra','geometry','area','perimeter','volume','conversion',
+        'unit','derivative','integral','limit','vector','matrix','determinant',
+        'eigenvalue','slope','quadratic','linear','polynomial','factor','divisor',
+        'multiple','prob','probability','combination','permutation','pythagoras',
+        'pythagorean','trig','sine','cosine','tangent','log','logarithm','radian',
+        'degree','pi','number','digit']
+    _TEACH_RE  = re.compile(r"\b(how (?:do|does) .+ work|explain|teach me|i (?:don't|do not) (?:get|understand)|confused about|why is|why does|what does it mean|walk me through|help me with)\b", re.I)
+    _DEFINE_RE = re.compile(r"^(what is (?:a |an |the )?|what's (?:a |an |the )?|whats (?:a |an |the )?|define )", re.I)
+    _WORKED_RE = re.compile(r"\b(show (?:your |the )?work|step by step|show me how|show me|walk me through|how do I solve|why is .* equal|with work|with steps)\b", re.I)
+
+    def _classify_math_intent(self, input_str, lower):
+        conv = MathEngine.parse_conversion(input_str)
+        compute = bool(conv or MathEngine.looks_like_math(input_str))
+        # `x` as variable: not glued to another letter (allows `2x`).
+        eq_like = '=' in input_str and re.search(r'(?<![a-z])x(?![a-z])', input_str, re.I)
+        stats_like = bool(re.match(r'^(mean|median|mode|average|stats|stddev|stdev|variance|sum|range)\b', input_str.strip(), re.I))
+        prime_like = bool(re.search(r'\bis\s+\d+\s+prime\b', input_str, re.I))
+        factor_like = bool(re.match(r'^(factor|prime factor|factorize|factorise|primes? of)\s+\d+', input_str.strip(), re.I))
+        is_computable = compute or eq_like or stats_like or prime_like or factor_like
+        if is_computable and self._WORKED_RE.search(input_str): return 'WORKED'
+        if is_computable: return 'COMPUTE'
+        if self._TEACH_RE.search(input_str) and any(k in lower for k in self._MATH_KEYWORDS):
+            return 'TEACH'
+        if self._DEFINE_RE.match(input_str) and any(k in lower for k in self._MATH_KEYWORDS) and len(input_str) < 80:
+            return 'DEFINE'
+        return None
+
+    @staticmethod
+    def _math_fmt(n): return MathEngine.format_number(n)
+
+    def _format_equation_answer(self, eq, worked):
+        f = self._math_fmt
+        if eq.get('type') in ('identity', 'inconsistent'): return eq['text']
+        if eq['type'] == 'linear':
+            if not worked: return f"x = {f(eq['x'])}"
+            return (f"x = {f(eq['x'])}\n\nWork:\n"
+                    f"  {eq['lhs']} = {eq['rhs']}\n"
+                    f"  {eq['a']}x = {f(-eq['b'])}\n"
+                    f"  x = {f(-eq['b'])} / {eq['a']}\n"
+                    f"  x = {f(eq['x'])}")
+        if eq['type'] == 'quadratic':
+            if eq.get('complex'):
+                head = f"No real solutions (discriminant = {f(eq['discriminant'])} < 0)."
+                if not worked: return head
+                return head + (f"\n\nWork:\n  {eq['lhs']} = {eq['rhs']}\n"
+                               f"  → {eq['a']}x² + {f(eq['b'])}x + {f(eq['c'])} = 0\n"
+                               f"  discriminant = b² - 4ac = {eq['b']}² - 4({eq['a']})({eq['c']}) = {f(eq['discriminant'])}\n"
+                               f"  Negative → no real roots.")
+            roots = (f"x = {f(eq['x'])} (double root)"
+                     if 'x' in eq else f"x = {f(eq['x1'])} or x = {f(eq['x2'])}")
+            if not worked: return roots
+            sd = math.sqrt(eq['discriminant'])
+            return (f"{roots}\n\nWork:\n  {eq['lhs']} = {eq['rhs']}\n"
+                    f"  → {eq['a']}x² + {f(eq['b'])}x + {f(eq['c'])} = 0\n"
+                    f"  discriminant = b² - 4ac = {eq['b']*eq['b']} - {4*eq['a']*eq['c']} = {f(eq['discriminant'])}\n"
+                    f"  x = (-b ± √d) / 2a = ({f(-eq['b'])} ± {f(sd)}) / {f(2*eq['a'])}\n"
+                    f"  → {roots}")
+        return None
+
+    def _format_stats_summary(self, s, worked):
+        f = self._math_fmt
+        if not worked:
+            return f"mean {f(s['mean'])}, median {f(s['median'])}, stdev {f(s['stdev'])} (n={s['n']})"
+        mode_str = f(s['mode']) if s['mode'] is not None else '—'
+        return (f"mean {f(s['mean'])}, median {f(s['median'])}, mode {mode_str}, "
+                f"stdev {f(s['stdev'])} (n={s['n']})\n\n"
+                f"Detail:\n  sum = {f(s['sum'])}\n"
+                f"  min = {f(s['min'])}, max = {f(s['max'])}, range = {f(s['range'])}\n"
+                f"  variance = {f(s['variance'])}")
+
+    def _format_prime_check(self, n, worked):
+        f = self._math_fmt
+        p = MathEngine.is_prime(n)
+        if not worked:
+            return f"Yes — {n} is prime." if p else f"No — {n} = {' × '.join(map(str, MathEngine.prime_factor(n)))}."
+        if p:
+            return f"Yes — {n} is prime.\n\n(Checked: no divisor between 2 and √{n} = {f(math.sqrt(n))} divides it cleanly.)"
+        fac = MathEngine.prime_factor(n)
+        return f"No — {n} = {' × '.join(map(str, fac))}.\n\nWork: trial-divided by 2, 3, 5, ... until we found {fac[0]} divides {n}, then continued on the quotient."
+
+    def _handle_math_intent(self, intent, input_str, lower):
+        worked = intent == 'WORKED'
+        f = self._math_fmt
+        # 1. Conversion
+        if MathEngine.parse_conversion(input_str):
+            c = MathEngine.convert_unit(input_str)
+            if c: return f"{f(c['input'])} {c['from']} = {f(c['value'])} {c['to']}"
+        # 2. Equation solving (always show work — equations benefit from it)
+        if '=' in input_str and re.search(r'(?<![a-z])x(?![a-z])', input_str, re.I):
+            eq = MathEngine.solve_equation(input_str)
+            if eq: return self._format_equation_answer(eq, True)
+        # 3. Prime / prime factor
+        m = re.search(r'\bis\s+(\d+)\s+prime\b', lower)
+        if m: return self._format_prime_check(int(m.group(1)), worked)
+        m = re.match(r'^(?:factor|prime factor|factorize|factorise|primes? of)\s+(\d+)', lower)
+        if m:
+            n = int(m.group(1))
+            fac = MathEngine.prime_factor(n)
+            return f"{n} = {' × '.join(map(str, fac))}" if fac else f"{n} has no prime factors (≤ 1)."
+        # 4. Stats
+        if re.match(r'^(mean|median|mode|average|stats|stddev|stdev|variance|sum|range)\b', input_str.strip(), re.I):
+            nums = MathEngine.parse_number_list(input_str)
+            if nums:
+                s = MathEngine.summarize(nums)
+                which = input_str.strip().lower().split()[0]
+                if which in ('mean', 'average'):
+                    return (f"mean = {f(s['mean'])}\n\nWork: ({' + '.join(map(str, nums))}) / {s['n']} = {f(s['sum'])} / {s['n']} = {f(s['mean'])}"
+                            if worked else f(s['mean']))
+                if which == 'median':   return f(s['median'])
+                if which == 'mode':     return f(s['mode']) if s['mode'] is not None else 'No mode — all values unique.'
+                if which in ('stddev', 'stdev'): return f(s['stdev'])
+                if which == 'variance': return f(s['variance'])
+                if which == 'sum':      return f(s['sum'])
+                if which == 'range':    return f(s['range'])
+                return self._format_stats_summary(s, worked)
+        # 5. Plain expression
+        if MathEngine.looks_like_math(input_str):
+            r = MathEngine.evaluate_expression(input_str)
+            if r and 'error' not in r: return f(r['value'])
+        return None
 
     def handle_story_input(self, user_input, lower):
         """Returns response string if input is a story request/continuation/reset/another; else None."""
@@ -1704,6 +2338,14 @@ class MonkeyJoe:
         coding_resp = self.handle_coding_input(user_input, lower)
         if coding_resp is not None:
             return coding_resp
+
+        # Math dispatcher (v55) — slots between coding and knowledge so
+        # `is 91 prime` and `25% of 80` win over generic fact lookup.
+        math_intent = self._classify_math_intent(user_input, lower)
+        if math_intent:
+            math_resp = self._handle_math_intent(math_intent, user_input, lower)
+            if math_resp is not None:
+                return math_resp
 
         # Check for casual statements (not questions)
         if self.is_casual_statement(lower):
