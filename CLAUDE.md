@@ -19,6 +19,8 @@ Served as static files. Auth gate with invite codes, login, signup.
 - `brain/responseFlavors.json` — leadIns / signOffs / responseWraps for fact flavoring
 - `brain/mathTutorials.json` — 156 math concept explainers + walker bindings
 - `brain/mathFlavors.json` — one-line garnishes for math compute answers
+- `brain/scienceTutorials.json` — 173 science concept explainers, 27 with formula computers
+- `brain/scienceFlavors.json` — one-line garnishes for science answers
 - `js/math.js` — math engine (evaluator, equations, stats, prime, calculus, matrices)
 - `js/mathWalkers.js` — 12 step-walker pure functions for showing math work
 - `config.js` — admin password and config (not committed)
@@ -59,6 +61,18 @@ The `findByTriggers` scorer: substring-match of a multi-word trigger = 3, single
 
 `looksLikeCode` triggers on ```` ``` ```` fences, 3+ lines with code-token indicators, or a single line with strong-bash signals (`$(...)` + `do/done/then/fi/...` or shebang). `detectLanguage` scores against signature regexes for 10 languages. `critiqueCode` runs generic bracket-balance + per-language pattern checks (Py: mixed indent / missing colon / Py2 print / bare except. JS: == vs ===, var, await without async, stale-closure setState. Bash: unquoted `$X` in `[`, backticks, missing `set -e`, `for x in $(ls)`).
 
+## Science system (v56 — FREAKY good at science)
+Mirrors the v55 math system architecture: 3-intent dispatcher (SCIENCE_TEACH | SCIENCE_DEFINE | SCIENCE_FORMULA), tutorial bank, formula compute, voice layer. Slot order in `respond()`: greetings/story/coding/math/**science**/terminal/knowledge.
+
+- **SCIENCE_TEACH/DEFINE**: routes to `brain/scienceTutorials.json` (173 entries — physics 58, chemistry 26, biology 43, astronomy 24, earth 14, scientific method 5, medicine 3). Triggered by "how does X work" / "explain X" / "what is X" + a science keyword from a ~120-item curated list (force, mass, photon, cell, DNA, planet, etc.).
+- **SCIENCE_FORMULA**: 27 of the tutorials carry a `formula` block with a `compute` string + typed `variables` (name + label + unit) + `result_label` + `result_unit`. Triggered by formula-shorthand like `F=ma with m=5 a=3` or `kinetic energy with m=2 v=10`. `_extractNamedNumbers` maps user-supplied values to variable names, substitutes into the compute string, evaluates via `MathEngine.evaluateExpression`. Formulas covered: F=ma, KE, PE, momentum, work, power, centripetal, pendulum, Coulomb's law, Ohm's law, P=I²R, v=fλ, PV=nRT, Q=mcΔT, E=hf, λ=h/p, E=mc², Schwarzschild radius, pH/pOH, molarity, dilution, half-life, Hubble's law, pressure, density.
+- **Voice layer**: `brain/scienceFlavors.json` — 58 garnishes (15 physics, 10 chem, 10 bio, 10 astro, 5 earth, 5 generic, 3 bonus). Same match-type machinery as math flavors. 20% fire rate on SCIENCE_FORMULA responses; teach/define already end on their tryIt prompt.
+
+`findByTriggers` / `_find_by_triggers` fix (also v56): trigger matching now uses word-boundary checks (`_wordContains` / `_word_contains`) so short triggers like `ph` no longer match inside longer words like `photosynthesis`. Fixes a real false-positive caught during science smoke testing.
+
+## Knowledge base (v56)
+`brain/knowledge.json` holds 1486 facts (v56 added ~516 across science). Coverage: marine biology, geology, physics, astronomy, biology (CRISPR, chameleon color, monarch navigation, octopus hearts), history (Mesopotamia, Silk Road, Maya/Inca/Byzantine/Ottoman), culture (etymologies, music genre origins, pigment history), psychology (cognitive biases, mirror neurons), tech history (microwave, post-it, ENIAC, transistor, WWW), geography surprise facts, ~80 animal record-holders and superpowers, mathematics (Banach-Tarski, Monty Hall, Gödel, infinities), full-stack physics + chemistry + biology + astronomy + earth science added in v56.
+
 ## Knowledge base (v54 — Phase 4)
 `brain/knowledge.json` holds 970 facts (Phase 4 added ~472). Coverage: marine biology, geology, physics, astronomy, biology (CRISPR, chameleon color, monarch navigation, octopus hearts), history (Mesopotamia, Silk Road, Mongol Yam, printing press, Maya/Inca/Byzantine/Ottoman), culture (etymologies, music genre origins, pigment history), psychology (cognitive biases with concrete examples, rubber-hand illusion, mirror neurons), tech history (microwave, post-it, ENIAC, transistor, WWW), geography surprise facts, ~80 animal record-holders and superpowers, mathematics (Banach-Tarski, Monty Hall, Gödel, infinities), plus food/drink/inventions/body bonus.
 
@@ -94,7 +108,7 @@ State is module-level (JS) / instance-level (Python): `_recentFlavorAge`, `_stor
 
 ## Brain versioning
 Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file changes.
-Currently: `'55'`
+Currently: `'56'`
 
 ## Deploy workflow
 ```bash
