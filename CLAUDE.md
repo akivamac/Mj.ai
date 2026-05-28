@@ -95,6 +95,8 @@ Three-turn flow at the TOP of `respond()` (drawing wins over everything):
 
 5-minute context timeout; "i don't know" graceful release; empty-canvas branch.
 
+**Both image buttons share this flow (v59).** The ✏️ pad (`draw.js`) and the 📷 "Examine a photo" button (`photo.js`) both run `DrawAnalyzer.analyze` and send the `__DRAWING__:` envelope. The photo modal also has a description field; when the user types one, it rides along as `analysis.describedAs`, and turn 1 collapses 1+2 — Joe observes the drawing AND reacts to the description AND offers a story in one reply (skips "what is it?"). Description-only (no canvas marks) → `{empty:true, describedAs}` → react + offer with no observation. `_drawingReact` drops drawing-presuming openers ("fits the colors perfectly") when the analysis is empty.
+
 Browser-only — `mj` CLI has no canvas, so no Python mirror.
 
 ## Science system (v56 — FREAKY good at science)
@@ -143,8 +145,8 @@ Three mechanics make Joe feel less like a lookup table:
 State is module-level (JS) / instance-level (Python): `_recentFlavorAge`, `_storyHookSubject`, `_storyHookKeywords`, `_storyHookAge`. Both tick at the top of every `respond()`.
 
 ## Brain versioning
-Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file changes.
-Currently: `'58'`
+Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file OR any local `js/*.js` changes (it doubles as the asset cache-bust version — see below).
+Currently: `'59'`
 
 ## Cache-busting (important)
 `index.html` loads every local `js/*.js` with a `?v=NN` query string that

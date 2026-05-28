@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '58'; // bump when brain JSON files change
+  const BRAIN_VERSION = '59'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1071,8 +1071,9 @@ const Brain = (() => {
     return s.trim() || input.trim();
   }
 
-  function _drawingOpener(a) {
-    if (a.empty) return "I see the canvas but it looks empty — did you mean to draw more, or was that the whole idea?";
+  // Build the warm observation string (no trailing question). Shared by the
+  // turn-1 opener and the photo-feature "observe + react" path.
+  function _drawingObservation(a) {
     const colors = a.topColors && a.topColors.length
       ? (a.topColors.length === 1
           ? `just ${a.topColors[0]}`
@@ -1085,25 +1086,44 @@ const Brain = (() => {
     else bits.push(`— sitting nicely in the middle`);
     if (a.symmetryLabel && a.symmetryLabel === 'very symmetric left-to-right') bits.push(', and very symmetric');
     let observation = bits.join(' ') + '.';
-    // Add intensity if notable.
     if (a.intensity === 'busy')       observation += ` Lots of detail packed in there.`;
     else if (a.intensity === 'tiny')  observation += ` Just a tiny mark.`;
     else if (a.intensity === 'sparse') observation += ` Light and airy.`;
     if (a.strokeStats && a.strokeStats.strokeCount >= 8) {
       observation += ` You really took your time (${a.strokeStats.strokeCount} strokes).`;
     }
-    observation += '\n\nWhat is it? 🐒';
     return observation;
   }
 
+  function _drawingOpener(a) {
+    if (a.empty) return "I see the canvas but it looks empty — did you mean to draw more, or was that the whole idea?";
+    return _drawingObservation(a) + '\n\nWhat is it? 🐒';
+  }
+
+  // Photo feature: user drew AND/OR described in one submit. Observe the
+  // drawing (if any) and react to the description in a single reply,
+  // collapsing turns 1+2 — Joe shouldn't ask "what is it?" when he was
+  // already told.
+  function _drawingObserveAndReact(a, noun) {
+    const lead = a.empty ? '' : _drawingObservation(a) + '\n\n';
+    return lead + _drawingReact(noun, a);
+  }
+
   function _drawingReact(noun, analysis) {
-    const openers = [
+    // Base openers work whether or not there's a visible drawing.
+    const base = [
       `${noun}! I love that.`,
       `A ${noun}! Best choice.`,
-      `Oh, ${noun} — that fits the colors perfectly.`,
-      `${noun}! That's such a good one to draw.`,
-      `A ${noun}! Nice.`
+      `A ${noun}! Nice.`,
+      `${noun}! Love it.`
     ];
+    // These presume a visible drawing — skip them on the description-only
+    // path (photo feature with text but no canvas marks).
+    const drawn = [
+      `Oh, ${noun} — that fits the colors perfectly.`,
+      `${noun}! That's such a good one to draw.`
+    ];
+    const openers = (analysis && analysis.empty) ? base : base.concat(drawn);
     // Always a clean, unambiguous yes/no offer — never presume a story
     // already exists (that confuses kids).
     const offers = [
@@ -1167,6 +1187,19 @@ const Brain = (() => {
     if (input && input.startsWith('__DRAWING__:')) {
       let analysis = { empty: true };
       try { analysis = JSON.parse(input.slice('__DRAWING__:'.length)); } catch (_) {}
+      // Photo feature can bundle a description in the envelope — when present,
+      // observe + react + offer a story in one shot (skip "what is it?").
+      if (analysis.describedAs) {
+        const noun = _drawingExtractNoun(String(analysis.describedAs));
+        _drawingContext = {
+          sentAt: Date.now(),
+          analysis,
+          awaitingDescription: false,
+          describedAs: noun,
+          awaitingStoryDecision: true
+        };
+        return _drawingObserveAndReact(analysis, noun);
+      }
       _drawingContext = {
         sentAt: Date.now(),
         analysis,

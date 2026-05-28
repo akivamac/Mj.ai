@@ -1,5 +1,7 @@
 const Photo = (() => {
   let canvas, ctx, drawing = false;
+  // Stroke tracking for DrawAnalyzer (mirrors draw.js).
+  let strokeCount = 0, totalPoints = 0, startTime = 0;
 
   function init() {
     canvas = document.getElementById('photo-canvas');
@@ -31,10 +33,20 @@ const Photo = (() => {
     };
   }
 
-  function start(e) { drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }
-  function move(e)  { if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }
+  function start(e) {
+    drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y);
+    if (!startTime) startTime = Date.now();
+    strokeCount++;
+  }
+  function move(e)  {
+    if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke();
+    totalPoints++;
+  }
   function stop()   { drawing = false; }
-  function clear()  { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+  function clear()  {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    strokeCount = 0; totalPoints = 0; startTime = 0;
+  }
 
   function open() {
     clear();
@@ -54,10 +66,26 @@ const Photo = (() => {
     }
     if (desc) userMsg += desc;
     if (!userMsg) return;
-
     Chat.addMessage('user', userMsg, true);
-    const brainInput = desc || 'the user drew something';
-    Chat.processResponse(brainInput);
+
+    // Route through the same analyzer + conversational flow as the ✏️ pad.
+    // A bundled description (if typed) rides along in the envelope so Joe
+    // observes the drawing AND reacts to the description in one reply.
+    let analysis = { empty: true };
+    if (hasDrawing) {
+      try {
+        const strokeStats = {
+          strokeCount,
+          totalPoints,
+          durationMs: startTime ? Date.now() - startTime : 0
+        };
+        analysis = (typeof DrawAnalyzer !== 'undefined')
+          ? DrawAnalyzer.analyze(canvas, strokeStats)
+          : { empty: false };
+      } catch (e) { /* keep empty fallback */ }
+    }
+    if (desc) analysis.describedAs = desc;
+    Chat.processResponse('__DRAWING__:' + JSON.stringify(analysis));
   }
 
   function isCanvasUsed() {
