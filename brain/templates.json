@@ -1,5 +1,5 @@
 {
-  "_comment": "Story templates v3 (Phase 3 expansion). Each entry: { text, tone }. tone = [] means usable for any mood. Slots: {ADJ}, {ADV}, {CONN}, {NOUN:theme}, {VERB:theme}, {FACT}. Identical NOUN slots bind within one template. Arrays: stories, factStories, continuations, microStories, closers, pacingBeats.",
+  "_comment": "Story templates v4 (Phase 2 mega expansion). Each entry: { text, tone }. tone = [] means usable for any mood. Slots: {ADJ}, {ADV}, {CONN}, {NOUN:theme}, {VERB:theme}, {FACT}. Identical NOUN slots bind within one template. Trailing `s` after a NOUN slot is auto-pluralized. Arrays: stories, factStories, continuations, microStories, closers, pacingBeats.",
   "stories": [
     {
       "tone": [],
@@ -7,7 +7,7 @@
     },
     {
       "tone": [],
-      "text": "In a faraway {NOUN:place}, there lived a {ADJ} {NOUN:character}. The {NOUN:character} {VERB:action} all {NOUN:time}. {CONN} one {NOUN:time}, something {ADJ} happened \u2014 a tiny {NOUN:animal} appeared!"
+      "text": "In a faraway {NOUN:place}, there lived a {ADJ} {NOUN:character}. The {NOUN:character} {VERB:action} all {NOUN:time}. {CONN} one {NOUN:time}, something {ADJ} happened — a tiny {NOUN:animal} appeared!"
     },
     {
       "tone": [
@@ -61,7 +61,7 @@
       "tone": [
         "silly"
       ],
-      "text": "The {NOUN:time} was {ADJ}, and the {NOUN:character} was bored. So it did what any {NOUN:character} would do \u2014 it grabbed a {NOUN:object} and {VERB:action} into the {NOUN:place}. What it found there changed everything."
+      "text": "The {NOUN:time} was {ADJ}, and the {NOUN:character} was bored. So it did what any {NOUN:character} would do — it grabbed a {NOUN:object} and {VERB:action} into the {NOUN:place}. What it found there changed everything."
     },
     {
       "tone": [
@@ -191,7 +191,7 @@
       "tone": [
         "adventure"
       ],
-      "text": "When the storm came, every {NOUN:animal} ran for cover \u2014 except a {ADJ} {NOUN:character}. It stood tall, gripped its {NOUN:object}, and waited. The storm passed. The {NOUN:character} smiled."
+      "text": "When the storm came, every {NOUN:animal} ran for cover — except a {ADJ} {NOUN:character}. It stood tall, gripped its {NOUN:object}, and waited. The storm passed. The {NOUN:character} smiled."
     },
     {
       "tone": [
@@ -1001,7 +1001,7 @@
       "tone": [
         "adventure"
       ],
-      "text": "The {ADJ} {NOUN:character} stood at the harbor and looked at the {NOUN:vehicle}. Years of saving, lost {NOUN:season}s, a hundred small failures \u2014 all of it had led here. \"You ready?\" asked the {NOUN:profession}. The {NOUN:character} nodded. The wind picked up. The sail snapped open. The crew cheered. {ADV}, they {VERB:movement} out, the harbor shrinking behind them. The {NOUN:place} ahead was vast and unknown. The {NOUN:character} laughed and laughed. The journey had finally, finally begun."
+      "text": "The {ADJ} {NOUN:character} stood at the harbor and looked at the {NOUN:vehicle}. Years of saving, lost {NOUN:season}s, a hundred small failures — all of it had led here. \"You ready?\" asked the {NOUN:profession}. The {NOUN:character} nodded. The wind picked up. The sail snapped open. The crew cheered. {ADV}, they {VERB:movement} out, the harbor shrinking behind them. The {NOUN:place} ahead was vast and unknown. The {NOUN:character} laughed and laughed. The journey had finally, finally begun."
     },
     {
       "tone": [
@@ -1768,6 +1768,1428 @@
     {
       "tone": [],
       "text": "The {NOUN:character} and the {ADJ} {NOUN:profession} disagreed about almost everything except one thing: the small {NOUN:animal} that lived under the porch deserved the best of every meal. On that, they were a team."
+    },
+    {
+      "tone": [],
+      "text": "The whole {NOUN:place} smelled of {ADJ:smell} {NOUN:plant}. The {NOUN:character} arrived at {NOUN:time_period}, carrying nothing but questions."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "There was a {ADJ:smell} hush over the {NOUN:body_of_water}. A {ADJ} {NOUN:character} stepped onto the shore. It listened. It {VERB:feeling_verb}. It did not turn back."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The kitchen smelled of {ADJ:smell} {NOUN:food}. A {ADJ} {NOUN:character} sat by the window, watching the {NOUN:weather_event} pass. Some {NOUN:time_period}s are meant for staying still."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "A {ADJ:smell} wind crossed the {NOUN:forest}. The {NOUN:character} heard a branch snap. Then another. Then a voice that was not the wind."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The air tasted of {ADJ:smell} {NOUN:plant} and rain. A {ADJ} {NOUN:character} opened a door that had never been there before. Inside: a {ADJ} {NOUN:object} and a soft hum."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Everything in the {NOUN:meadow} smelled of {ADJ:smell} {NOUN:plant}. A {ADJ} {NOUN:character} laughed for no reason and meant it completely."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Salt and {ADJ:smell} smoke hung over the {NOUN:body_of_water}. The {NOUN:character} tightened its boots. The {NOUN:vehicle} was waiting."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "There was a {ADJ:smell} memory in the way the {NOUN:place} felt at {NOUN:time_period}. The {NOUN:character} stood very still and let it stay."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The room smelled of {ADJ:smell} {NOUN:plant}, the way it always had. The {NOUN:character} sat down. Some things do not need to be said out loud."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The cellar had a {ADJ:smell} chill. A {ADJ} {NOUN:character} held its lantern higher. Something {VERB:movement} just beyond the light."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Steam rose, {ADJ:smell} and warm. The {NOUN:character} cradled a mug. Outside, the {NOUN:weather_event} could do whatever it liked."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "A {ADJ:smell} mist rolled in across the {NOUN:body_of_water}. A {ADJ} {NOUN:mythical_creature} stepped through it as if through a curtain."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:structure} smelled of {ADJ:smell} stone and old paper. The {NOUN:character} {VERB:action} down the hallway and counted the doors. There was one more than there should have been."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:jungle} smelled of {ADJ:smell} earth after rain. The {NOUN:character} adjusted its pack and stepped off the path on purpose."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "The {NOUN:meadow} smelled of {ADJ:smell} {NOUN:plant} and warm bread. A {ADJ} {NOUN:character} declared it the official capital of nowhere in particular."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Dear {ADJ} friend, today I crossed the {NOUN:place} and found a {ADJ} {NOUN:object}. I am keeping it. I think it was meant for me."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "Dear {ADJ} friend, the {NOUN:season} ended without warning. I {VERB:feeling_verb} a little. I will write again when the light returns."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Day {NOUN:time}: crossed the {NOUN:body_of_water} by {NOUN:vehicle}. The {NOUN:character} we hired knew every star by name. Tomorrow we head inland."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Journal entry, {NOUN:time_period}: the {NOUN:structure} is not where it was yesterday. The {NOUN:character} insists it has always been here. I am writing this down so I remember."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Dear friend, the {NOUN:weather_event} kept me in today. I made {NOUN:food} and read by the window. It was a {ADJ} kind of {NOUN:time_period}."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Dear {ADJ} friend, the {NOUN:mythical_creature} came again last {NOUN:time_period}. It brought a {ADJ} {NOUN:object}. We did not speak. We did not need to."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Logbook, final entry: we reached the {NOUN:place}. The {NOUN:character} was right about everything. The {NOUN:object} is ours. Coming home."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Dear friend, the {NOUN:meadow} still smells of {ADJ:smell} {NOUN:plant}. I walked there at {NOUN:time_period} and thought of you. Nothing has changed and everything has."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Dear absolutely no one in particular: a {ADJ} {NOUN:character} {VERB:action} past my window today and waved. I waved back. Yours sincerely, me."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "Journal, {NOUN:time_period}: the {NOUN:structure} is humming again. The {NOUN:character} says not to listen. I am listening anyway. I will report back."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "To summon a {NOUN:mythical_creature}: gather one {NOUN:mineral}, one {NOUN:plant}, and a {ADJ} silence. Wait until {NOUN:time_period}. Say nothing. Wait longer."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "How to befriend a {NOUN:animal}: bring {NOUN:food}. Sit very still. Do not stare. Compliment its {ADJ} fur. Repeat for several {NOUN:time_period}s."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Recipe for a {ADJ} {NOUN:time_period}: one cup of {NOUN:food}, one {ADJ} blanket, one window with {NOUN:weather_event} outside. Stir gently. Do not rush."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Instructions for finding the {NOUN:structure}: walk north until the {NOUN:body_of_water} ends. Turn when the {NOUN:character} tells you to. Do not look behind you."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Packing list for the {NOUN:jungle}: one {NOUN:object}, two pairs of {ADJ} boots, a map you do not trust, and the courage to ignore it."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "How to wake a sleeping {NOUN:mythical_creature}: hum a {ADJ} tune. Offer a {NOUN:mineral}. Step back three paces. Hope you brought a friend."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Steps for becoming a {NOUN:profession}: collect {NOUN:object}s. Learn the names of the {NOUN:plant}s. Practice your {ADJ} bow. Wait for someone to ask."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "Rules for walking the {NOUN:forest} at {NOUN:time_period}: do not whistle. Do not answer if called. Do not, under any circumstance, take the second path."
+    },
+    {
+      "tone": [],
+      "text": "\"Do you know the way?\" asked the {NOUN:character}. \"I know a way,\" said the {NOUN:animal}. \"Whether it is the right one is another question entirely.\""
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "\"Why are you upside down?\" asked the {NOUN:character}. \"The view is better,\" said the {NOUN:animal}. \"You should try it sometime.\""
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "\"Tea?\" offered the {NOUN:character}. \"Always,\" said the {ADJ} {NOUN:animal}. They sat together until the {NOUN:weather_event} passed."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "\"We cannot cross the {NOUN:body_of_water},\" said the {NOUN:character}. \"Then we must fly,\" said the {ADJ} {NOUN:animal}. And somehow, they did."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "\"What is in the {NOUN:object}?\" whispered the {NOUN:character}. \"Better questions,\" said the {NOUN:mythical_creature}. \"And the answers to none of them.\""
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "\"Did you hear that?\" the {NOUN:character} asked. \"Hear what?\" said the {NOUN:animal}. \"Exactly,\" the {NOUN:character} answered, and {VERB:action} faster."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "\"Are you really a {NOUN:mythical_creature}?\" the {NOUN:character} asked. \"Are you really a {NOUN:character}?\" came the reply. They both laughed."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "\"Will you come back?\" the {NOUN:character} asked. \"I will try,\" said the {NOUN:animal}. \"Trying is sometimes enough,\" the {NOUN:character} agreed."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "\"Did we win?\" the {NOUN:character} panted. \"We finished,\" said the {NOUN:animal}. \"Today, that is the same thing.\""
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "\"Do you remember the {NOUN:season}?\" the {NOUN:character} asked. \"Every {NOUN:time_period} of it,\" said the {NOUN:animal}. Neither said anything for a while."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "\"Onward?\" asked the {NOUN:character}. \"Always,\" replied the {ADJ} {NOUN:animal}. The {NOUN:vehicle} {VERB:movement} into the unknown."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "\"That is the largest {NOUN:food} I have ever seen,\" said the {NOUN:character}. \"It is also the politest,\" said the {NOUN:animal}. The {NOUN:food} bowed."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "\"Stay a little longer?\" the {NOUN:character} asked. \"I cannot,\" said the {NOUN:animal}. \"But save me a seat.\" The {NOUN:character} always did."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "\"Who built the {NOUN:structure}?\" asked the {NOUN:character}. \"Someone who did not want it found,\" said the {NOUN:profession}. \"And here we are.\""
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "\"Is the door locked?\" the {NOUN:character} whispered. \"It was,\" said the {NOUN:animal}. The hinges {VERB:sound}. Neither of them moved."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "\"Can you really fly?\" the {NOUN:character} asked. \"Only when no one is watching,\" said the {NOUN:mythical_creature}. \"Close your eyes.\""
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "\"You said it was impossible,\" the {NOUN:character} grinned. \"I was wrong,\" said the {NOUN:profession}. \"And I have never been so glad of it.\""
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "\"Goodbye, {NOUN:place},\" said the {NOUN:character} softly. The wind {VERB:sound} an answer. It would have to be enough."
+    },
+    {
+      "tone": [],
+      "text": "\"What is that?\" the {NOUN:character} asked, pointing at the {NOUN:sky}. \"That,\" said the elder {NOUN:character}, \"is why we look up.\""
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "\"You are standing on my hat,\" said the {NOUN:character}. \"I thought it was a rug,\" said the {NOUN:animal}. \"It is an honest mistake.\""
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Things the {NOUN:character} carried: a {NOUN:object}, a {ADJ} {NOUN:mineral}, three questions with no answers, and enough {NOUN:food} for two. Just in case."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "What the {NOUN:character} left behind: a {ADJ} {NOUN:object}, a song nobody finished, the smell of {NOUN:plant}s after rain, and a door, slightly ajar."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Things found in the {NOUN:character}'s pocket: half a {NOUN:food}, a {NOUN:mineral} that hummed, a folded {NOUN:object}, and the time it last rained."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Items recovered from the {NOUN:structure}: one {ADJ} {NOUN:object}, three {NOUN:mineral}s, a note in no known language, and the smell of {ADJ:smell} {NOUN:plant}."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "On the {NOUN:character}'s windowsill: a {NOUN:plant} in a chipped pot, a {ADJ} mug, a feather from a {NOUN:animal}, and the last of the {NOUN:season} light."
+    },
+    {
+      "tone": [],
+      "text": "Once, in a {ADJ} {NOUN:place}, a {NOUN:character} {VERB:action} where no one had {VERB:action} before. The {NOUN:object} it found there changed everything."
+    },
+    {
+      "tone": [],
+      "text": "There was a {NOUN:character} who loved {NOUN:weather_event}s more than anything. Every {NOUN:season}, it would wait by the {NOUN:body_of_water} just to feel the first one arrive."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} climbed onto the {NOUN:vehicle} and waved goodbye to the {NOUN:place}. There was a {NOUN:body_of_water} to cross and no time to lose."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Long ago, when the {NOUN:season}s were younger, a {NOUN:mythical_creature} taught a {ADJ} {NOUN:character} the names of every star in the {NOUN:sky}."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "Past the {NOUN:forest}, beyond the {NOUN:body_of_water}, a {ADJ} {NOUN:structure} waited. The {NOUN:character} had been warned. It went anyway."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Every {NOUN:time_period}, the {NOUN:character} baked {NOUN:food}. The whole {NOUN:place} smelled wonderful. Even the {NOUN:animal}s came to say hello."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:character} once tried to braid the wind. It did not work. It was not entirely a failure either."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Nobody remembered who built the {NOUN:structure}. The {NOUN:character} thought maybe nobody had. Maybe it had built itself, very slowly, on purpose."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} had trained for {NOUN:season}s. The {NOUN:weather_event} did not stop it. The {NOUN:body_of_water} did not stop it. Nothing did."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} packed the {ADJ} {NOUN:object} carefully. It would not be needed where they were going. But it had been a good companion."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "When the {NOUN:season} ended, the {NOUN:character} walked to the {NOUN:meadow} one last time. The {NOUN:plant}s nodded as if they understood."
+    },
+    {
+      "tone": [],
+      "text": "A {ADJ} {NOUN:profession} once made a {NOUN:object} so {ADJ} that even the {NOUN:mythical_creature}s came to see it."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The map said \"here be {NOUN:mythical_creature}s.\" The {NOUN:character} grinned. That was exactly where it wanted to go."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} should not have opened the {NOUN:object}. It knew this. It opened the {NOUN:object} anyway. {ADV}, the {NOUN:place} grew very quiet."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "When the {NOUN:weather_event} ended, a {ADJ} {NOUN:mythical_creature} stood in the {NOUN:meadow}. It looked at the {NOUN:character}. It bowed."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} and the {NOUN:animal} had a tradition: every {NOUN:season}, they walked to the {NOUN:body_of_water} and named the clouds."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {NOUN:profession} once tried to teach a {NOUN:animal} how to whistle. The {NOUN:animal} taught the {NOUN:profession} how to listen instead."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} reached the top of the {NOUN:structure} and {VERB:feeling_verb}. Below, the whole {NOUN:place} looked small and possible."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Three things were certain about the {NOUN:character}: it always traveled at {NOUN:time_period}, it carried a {ADJ} {NOUN:object}, and nobody knew its name."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} found a {NOUN:mineral} that glowed faintly in the dark. It put the {NOUN:mineral} in its pocket. Strange things began to happen."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "A {ADJ} {NOUN:vehicle} appeared at the edge of the {NOUN:body_of_water}. The {NOUN:character} climbed aboard without asking. Some invitations are unspoken."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} grew older than it had planned. The {NOUN:place} did too. Together they got along just fine."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "On the longest {NOUN:time_period} of the {NOUN:season}, the {NOUN:character} saw a {ADJ} {NOUN:mythical_creature} cross the {NOUN:sky}. It made a wish. The wish came true, eventually."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The {NOUN:character} kept a {NOUN:object} from every {NOUN:season} of its life. The collection was {ADJ}. The collection was also enough."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Nobody asked the {NOUN:character} to organize the {NOUN:plant}s by mood. The {NOUN:character} did it anyway. It was a great success."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:weather_event} arrived without warning. The {NOUN:character} closed the shutters. Something on the porch {VERB:sound}. Nothing was supposed to be on the porch."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "It was a {ADJ} {NOUN:time_period}. The {NOUN:character} curled up with a {ADJ} {NOUN:object} and let the world keep spinning without it."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Everyone said the {NOUN:structure} could not be built. The {NOUN:profession} built it anyway. The {NOUN:character} cut the ribbon."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} followed the {NOUN:animal} into the {NOUN:forest}. They walked for a {NOUN:time_period}. Then the {NOUN:animal} was gone. Then the path was."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:profession} handed the {NOUN:character} a {ADJ} {NOUN:object}. \"You will need this,\" they said. \"Probably twice.\""
+    },
+    {
+      "tone": [],
+      "text": "Once a {NOUN:season}, the {NOUN:character} visited the {NOUN:meadow} to leave a {ADJ} {NOUN:object} under the largest {NOUN:plant}. It was a promise to no one in particular."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "When the {NOUN:character} sang, the {NOUN:weather_event} paused to listen. Even the {NOUN:mythical_creature}s in the {NOUN:forest} held their breath."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {NOUN:character} once mistook a {NOUN:mythical_creature} for a very tall friend. The {NOUN:mythical_creature} did not correct it. They became inseparable."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:structure} had been empty for {NOUN:season}s. Until the {NOUN:character} arrived. Until the lights came on, one by one, in rooms with no switches."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} returned to the {NOUN:place} after many {NOUN:season}s. It was smaller than remembered. The {NOUN:character} loved it more, not less."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} pulled the blanket up to its chin. Outside, the {NOUN:weather_event} did its work. Inside, all was {ADJ} and warm."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} had three rules for crossing the {NOUN:jungle}: trust the {NOUN:animal}s, drink from the {NOUN:body_of_water}, and never, ever count the {NOUN:plant}s."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Long after the {NOUN:character} had gone, the {NOUN:meadow} still grew the {ADJ} {NOUN:plant}s it had planted. Some things take root quietly."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:vehicle} broke down twice. The map was wrong. The {NOUN:weather_event} was {ADJ}. The {NOUN:character} arrived anyway."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "There was a room in the {NOUN:structure} that the {NOUN:character} could only find at {NOUN:time_period}. Inside: a single {ADJ} {NOUN:object}. Outside: someone waiting."
+    },
+    {
+      "tone": [],
+      "text": "A {ADJ} {NOUN:character} once raised a {NOUN:animal} from a tiny thing. They grew up together. Neither could remember which one was older."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:mineral} the {NOUN:character} found glowed only when held by someone who was telling the truth. It was used very rarely."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:character} built a tower out of {NOUN:food}. It was {ADJ}. It did not last. It was magnificent while it stood."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} {VERB:action} through the {NOUN:forest} at {NOUN:time_period}. The trees seemed taller than yesterday. The path narrower. The silence louder."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} taught the {NOUN:animal} a {ADJ} song. The {NOUN:animal} taught it back, almost the same. Close enough was perfect."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Three {NOUN:character}s and one very confused {NOUN:animal} set sail across the {NOUN:body_of_water}. They were not lost. They were not exactly found, either."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:profession} finished the {ADJ} {NOUN:object} on a {ADJ} {NOUN:time_period}. Then they set down their tools. It was time to do something new."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} was last across the {NOUN:body_of_water}. But it was the one who carried the {NOUN:object}. The crowd cheered the loudest for it."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Sometimes the {NOUN:character} dreamed of the {NOUN:place}. In the dream, the {NOUN:weather_event} never quite arrived. It was always almost about to."
+    },
+    {
+      "tone": [],
+      "text": "A {ADJ} {NOUN:character} once asked the {NOUN:mythical_creature} for advice. The advice was simple. The {NOUN:character} ignored it. It worked out anyway."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} could not remember arriving at the {NOUN:place}. The {NOUN:place} did not seem to remember either. They got along well, considering."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "On the night of the {ADJ} {NOUN:weather_event}, the {NOUN:character} planted a {NOUN:mineral} in the {NOUN:meadow}. By {NOUN:season}, it had grown into a {ADJ} {NOUN:plant} no one had ever seen."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {NOUN:character} entered the {NOUN:meadow} backwards on a {NOUN:vehicle} made of {NOUN:plant}s. Nobody asked why. Nobody needed to."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} hung the {ADJ} {NOUN:object} above the door. \"For luck,\" it said. The {NOUN:place} agreed. The luck arrived."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "\"This,\" said the {NOUN:profession}, holding up a {ADJ} {NOUN:object}, \"is your map.\" \"It is blank,\" said the {NOUN:character}. \"Exactly.\""
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} could see its breath, though the {NOUN:season} was warm. Something old was awake in the {NOUN:structure}. Something old, and patient."
+    },
+    {
+      "tone": [],
+      "text": "A {ADJ} {NOUN:character} once found a {NOUN:object} buried at the foot of an enormous {NOUN:plant}. It had a name carved on it. The name was its own."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} crossed the finish line {ADV}. The {NOUN:animal} crossed first. Both of them won. Both of them knew it."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} watched the {NOUN:vehicle} pull away. There would be other {NOUN:season}s. There would be other goodbyes. Each one a little easier. Each one not really easy at all."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:mythical_creature} placed a {ADJ} {NOUN:mineral} in the {NOUN:character}'s palm. \"Carry this until you forget you are carrying it,\" it said. \"Then you will be home.\""
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "There was a song the {NOUN:character} only sang at {NOUN:time_period}. Nobody else knew the words. That was the point."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "The {NOUN:character} declared every third {NOUN:time_period} to be \"backwards day.\" The {NOUN:animal}s agreed. The {NOUN:plant}s did not, but they were outvoted."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:profession} made the {NOUN:character} a {ADJ} bowl of {NOUN:food}. \"Eat,\" they said. \"Then we can talk about the {NOUN:weather_event}.\""
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} drew a circle in the dust. It sat in the middle. It waited. At {NOUN:time_period}, something arrived. The {NOUN:character} smiled."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} and the {NOUN:profession} argued for {NOUN:time_period}s about which way to go. In the end, they went both ways. They met in the middle. Both routes had been right."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "There was one window in the {NOUN:structure} that the {NOUN:character} would not look into. \"Not today,\" it would say. \"Not yet.\" It never did look. It is still standing."
+    },
+    {
+      "tone": [],
+      "text": "A {ADJ} {NOUN:character} taught itself to read by candlelight. By the time the {NOUN:season} ended, it had read every book in the {NOUN:structure}. Twice."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:character} carried a jar of {NOUN:weather_event}. Whenever someone needed rain, it opened the jar a little. It was very popular in dry {NOUN:season}s."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} was the smallest in the {NOUN:place}. It was also the bravest. These two facts were not unrelated."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The {NOUN:meadow} held the last warm {NOUN:time_period} of the {NOUN:season}. The {NOUN:character} stayed until the {NOUN:sky} turned the color of old letters."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:character} once entered a contest for the loudest sneeze. It did not win. It sneezed so hard the {NOUN:weather_event} started. So, in a way, it did."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:animal} did not understand goodbye. The {NOUN:character} did not try to explain. They just sat together until it was time."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "There was always a kettle on in the {NOUN:character}'s kitchen. There was always a chair pulled out. There was always {NOUN:food} left, even at {NOUN:time_period}."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Every {NOUN:season}, a {ADJ} {NOUN:object} washed up on the shore of the {NOUN:body_of_water}. The {NOUN:character} collected each one. None of them matched. All of them belonged."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:vehicle} could not go where the {NOUN:character} needed to go. So the {NOUN:character} got out and walked. The {NOUN:vehicle} watched it disappear, faithfully."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "Three {NOUN:character}s entered the {NOUN:forest} at {NOUN:time_period}. By dawn, only two returned. They will not say which one is missing. They will not say why."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "A {NOUN:mythical_creature} once granted the {NOUN:character} one wish. The {NOUN:character} wished for another {NOUN:time_period} with the {NOUN:animal}. The wish was granted. So was the next one."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} found a {ADJ} {NOUN:object} in the snow. It was warm. It hummed. The {NOUN:character} held it carefully all the way home."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:profession} had spent their whole life learning. On the day they finished the {ADJ} {NOUN:object}, they laughed and cried at the same time."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Some {NOUN:time_period}s, the {NOUN:character} just sat by the {NOUN:body_of_water}. It did not fish. It did not think much. It was, mostly, only there."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "The {NOUN:character} woke up convinced it was a {NOUN:animal}. It spent the whole day {VERB:movement} around the {NOUN:meadow}. By {NOUN:time_period}, it had decided to remain undecided."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} stitched a {ADJ} blanket for the {NOUN:animal}. The {NOUN:animal} slept on it for years. They were both very pleased."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Nobody had ever opened the {ADJ} {NOUN:object}. Nobody knew if it could be opened. The {NOUN:character} learned to be content with the wondering."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "A {NOUN:profession}, a {NOUN:character}, and a very confused {NOUN:animal} walked into the {NOUN:jungle}. They came out three {NOUN:season}s later, taller, wiser, and on time."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} kept the {ADJ} {NOUN:object} on a shelf. It no longer worked. It still mattered. Those are not the same thing."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} counted the {NOUN:plant}s in the {NOUN:meadow}. There were always one more than the {NOUN:time_period} before. {ADV}, it stopped counting."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "When the {NOUN:character} sneezed, {NOUN:plant}s bloomed wherever the sound landed. The {NOUN:meadow} loved it. The {NOUN:character} kept tissues just in case."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} {VERB:movement} along the edge of the {NOUN:body_of_water}, picking up {ADJ} {NOUN:mineral}s. By {NOUN:time_period}, its pockets glittered."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} stood up. The {NOUN:character} sat down. The {NOUN:character} stood up again. The third time was the one that counted."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "The {NOUN:character} made friends with the {NOUN:weather_event}. They would meet every {NOUN:season}. The {NOUN:character} brought snacks. The {NOUN:weather_event} brought drama."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "There was a {ADJ} bench in the {NOUN:meadow}. The {NOUN:character} sat on it every {NOUN:season}, in every {NOUN:weather_event}, until it could not anymore. The bench remembers."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "It rained for three {NOUN:time_period}s. The {NOUN:character} read three books, baked three {NOUN:food}s, and napped three times. It was a perfect week."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} followed footprints in the snow. They led to the {NOUN:structure}. Inside, the footprints continued. The {NOUN:character} took off its shoes and compared. The match was {ADJ}."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} promised the {NOUN:profession} it would return by the next {NOUN:season}. It crossed the {NOUN:body_of_water}, climbed the {NOUN:structure}, and got there only one {NOUN:time_period} late."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} hummed to keep the dark away. The dark did not mind. It hummed along. The {NOUN:character} {VERB:action} a little faster."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "A {ADJ} {NOUN:mineral} fell from the {NOUN:sky} one {NOUN:time_period}. The {NOUN:character} caught it. The {NOUN:mineral} was warm. The {NOUN:character} knew exactly what it was for."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} planted a {NOUN:plant} that was supposed to bloom once a century. It bloomed the next {NOUN:season}. Some {NOUN:plant}s do not read the rules."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:profession} fixed the {NOUN:vehicle} on the first try. The crowd cheered. The {NOUN:profession} bowed once, then went back to work."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} packed slowly. There was no rush. The {NOUN:place} would still be here when it came back. If it came back. Both were true."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:character} once tried to teach the {NOUN:body_of_water} to spell. It learned three letters and forgot the rest. They were happy with the progress."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The {NOUN:character} kept the {ADJ} letters in a box under the bed. It did not reread them. It just liked knowing they were there."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Everyone in the {NOUN:place} brought one {ADJ} thing to the table. The {NOUN:character} brought the {NOUN:food}. The {NOUN:animal} brought the laughter."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} woke at {NOUN:time_period} with a word it had never heard before. By morning, it was gone. The {NOUN:character} still listens for it."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} jumped from the {NOUN:vehicle} onto the {NOUN:structure}. It rolled. It stood. It bowed. The audience, a single {NOUN:animal}, applauded."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:structure} had thirteen rooms. The {NOUN:character} counted them every {NOUN:time_period}. Some {NOUN:time_period}s, there were fourteen. The {NOUN:character} never went into the extra one."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "A {NOUN:mythical_creature} taught the {NOUN:character} to listen to the {NOUN:plant}s. \"They have opinions,\" it warned. The {NOUN:character} discovered this was true and politely overruled them."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} learned to make {NOUN:food} from its grandmother. The recipe had no measurements. It worked anyway. It always worked."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Against all odds, despite the {NOUN:weather_event}, in spite of the {ADJ} {NOUN:object} breaking twice, the {NOUN:character} finished. And smiled."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Long after, the {NOUN:character} would remember the {NOUN:meadow} the way it had been that one {NOUN:season}. Light, mostly. Light and the buzzing of small things."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:character} wore mismatched boots on purpose. \"They balance each other,\" it explained. Nobody understood. Everybody nodded politely."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} fed the {NOUN:animal}s every {NOUN:time_period}. The {NOUN:animal}s fed it back in their own way: chirps, purrs, a feather, a presence."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} found a door in the {NOUN:forest} that opened onto another {NOUN:forest}. The two {NOUN:forest}s were almost the same. Almost."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} kept a list of every {NOUN:place} it had ever been. By the time it stopped traveling, the list was {ADJ}, and not yet finished."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} taught the {NOUN:animal} how to find its own food. It was proud. It was also a little lonely. Both feelings stayed."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "There were footsteps in the hallway. The {NOUN:character} was alone in the {NOUN:structure}. The {NOUN:character} did not get up. The footsteps stopped just outside the door."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:character} planted a wish. The wish grew into a {ADJ} {NOUN:plant} that bloomed only at {NOUN:time_period}. People came from every {NOUN:place} to see it."
+    },
+    {
+      "tone": [],
+      "text": "A {ADJ} {NOUN:character} once apologized to a {NOUN:plant} for stepping on it. The {NOUN:plant} grew back twice as tall. Manners matter, apparently."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} stood at the top of the {NOUN:structure}, the {NOUN:weather_event} in its face, and grinned like it had invented the {NOUN:season}."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "The {NOUN:character} carried a tiny chair everywhere it went. \"In case I need to sit somewhere unexpected,\" it said. It was correct surprisingly often."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The {NOUN:character} hung the {ADJ} {NOUN:object} on the wall. It had not been used in years. It would not be used again. It was still the right place for it."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} and the {NOUN:profession} shared a quiet {NOUN:time_period} by the fire. Neither said much. Both said enough."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} found a tooth in the meadow. It was {ADJ}. It was not from any animal it knew. It is in a drawer now. The {NOUN:character} checks on it sometimes."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} crossed the {NOUN:body_of_water} on the back of a sea creature it had only read about. They have stayed in touch."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "There is a {NOUN:place} where the {NOUN:character} will not go. It will not say why. The {NOUN:place} is patient. It can wait."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:character} learned a {ADJ} word from a {NOUN:mythical_creature}. The word did nothing on its own. Spoken at the right {NOUN:time_period}, it did everything."
+    },
+    {
+      "tone": [],
+      "text": "A {ADJ} {NOUN:character} discovered the {NOUN:structure} had a basement. The basement had a basement. The {NOUN:character} stopped counting after the fourth one."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "It took the {NOUN:character} {NOUN:season}s to build the {NOUN:vehicle}. When it finally lifted off, the whole {NOUN:place} held its breath. Then it cheered."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} returned to find the {NOUN:meadow} replaced with a {NOUN:structure}. It walked the new halls slowly. Some of the old wildness was still there, if you looked."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:character} put up a sign in the {NOUN:meadow} that said \"under new management.\" Nobody had ever managed the {NOUN:meadow} before. It seemed delighted."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The {NOUN:character} replayed the {NOUN:season} in its head, slowly. There was nothing it would change. There were things it wished had lasted longer."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:profession} brought a {ADJ} {NOUN:food} to the door. \"For no reason,\" they said. The {NOUN:character} accepted it like it was the only reason."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} kept finding the same {ADJ} {NOUN:object} in different places. It never moved it. Someone, or something, was leaving it for a reason."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} sailed past the edge of the map. The map updated itself. It does that sometimes, when someone is brave enough."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} heard its own name from the {NOUN:forest}. It did not answer. It went inside. It locked the door. Names are not to be given freely."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:weather_event} arrived in colors the {NOUN:character} had never seen. The {NOUN:mythical_creature}s came out to watch. So did everyone else, for once."
+    },
+    {
+      "tone": [],
+      "text": "A {NOUN:character} once gave a {ADJ} {NOUN:object} to a stranger. The stranger turned out to be a friend later. Sometimes that is how it works."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} finished last. It finished smiling. It finished with the {NOUN:animal} that had been left behind tucked under its arm. That was the win."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "There was a {ADJ} song the {NOUN:character} hummed without meaning to. Nobody had taught it. Nobody could name it. It just lived there."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {NOUN:character} declared war on its own shadow. The war lasted one {NOUN:time_period}. They made up. They were rarely apart again."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} put a small lamp in the window so travelers could find the {NOUN:place} at {NOUN:time_period}. They always did."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} dreamed the same {ADJ} dream every {NOUN:season}. In it, a {NOUN:mythical_creature} handed it a {NOUN:object}. The {NOUN:character} woke up holding nothing. Or almost nothing."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} packed the {NOUN:vehicle} with everything it might need. Then it took half of it out. \"Less is faster,\" it said, and left."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} found a mirror in the attic. The {NOUN:character} in the mirror waved first. The {NOUN:character} did not wave back."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:mythical_creature} only came when the {NOUN:character} sang the {ADJ} song correctly. The {NOUN:character} practiced for {NOUN:season}s. One day, it sang. One day, the {NOUN:mythical_creature} came."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} watched the {NOUN:season} end from the same window every year. Each one was different. Each one was the same."
+    },
+    {
+      "tone": [],
+      "text": "A {ADJ} {NOUN:profession} once built a {NOUN:vehicle} out of the wreckage of three others. It flew further than any of them had. The {NOUN:profession} called it \"hopeful.\""
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} did the {ADJ} thing first. Then it taught the {NOUN:animal}. Then the {NOUN:animal} taught the {NOUN:place}. By {NOUN:season}, everyone was doing it."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "The {NOUN:character} put on a play. The cast was three {NOUN:plant}s, two {NOUN:mineral}s, and one very dignified {NOUN:animal}. It got rave reviews from no one in particular."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The {NOUN:character} put pebbles in the {NOUN:body_of_water}, one for each {NOUN:season} that had passed. The {NOUN:body_of_water} accepted them all."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} kept the door open for whoever needed it. Sometimes it was the {NOUN:animal}. Sometimes it was the {NOUN:weather_event}. Sometimes nobody. The door did not mind."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Once a {NOUN:season}, a {ADJ} fog rolled over the {NOUN:meadow}. When it cleared, the {NOUN:plant}s had moved. The {NOUN:character} pretended not to notice."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} climbed a {NOUN:structure} that had no top. It just kept going. The {NOUN:character} eventually decided it had climbed enough and considered itself successful."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} found a door in the {NOUN:body_of_water}. It was {ADJ}. The {NOUN:character} did not knock. The {NOUN:character} did not open it. The {NOUN:character} did, however, remember exactly where it was."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "A {ADJ} {NOUN:character} once swallowed a star by accident. It glowed gently from inside for the rest of its days. It rarely needed a lamp."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} and the {NOUN:profession} disagreed about the best way to brew {NOUN:food}. Both were correct. The arguments went on for years and kept everyone warm."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "After the {NOUN:weather_event}, the {NOUN:character} rebuilt the {NOUN:structure} stone by stone. It took {NOUN:season}s. It was, in the end, even better than before."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} had two {NOUN:vehicle}s in its life: one that broke down constantly and the one it loved. They were the same {NOUN:vehicle}."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {NOUN:character} won the {ADJ} contest by being the only entrant. It still gave a {ADJ} acceptance speech. The {NOUN:animal}s clapped."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The {NOUN:character} kept the last {NOUN:plant} from its grandmother's garden alive for {NOUN:season}s. The {NOUN:plant} bloomed once. That was enough."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "There was a {ADJ} window seat in the {NOUN:structure} that everyone fought over. The {NOUN:character} would simply wait. The seat always came back around."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} could read the {NOUN:weather_event} like a letter. It rarely shared what it learned. People asked anyway. It told them only the kind parts."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "A {NOUN:character}, a {NOUN:profession}, and a {NOUN:mythical_creature} set off across the {NOUN:jungle}. By {NOUN:season}'s end, only the story remained. The story was enormous."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} kept hearing piano music in the {NOUN:structure}. There was no piano. There never had been. The music stopped when asked about politely."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:character} found a {ADJ} feather that hummed when held against the heart. It tucked the feather into the {NOUN:object} for safekeeping. It still hums, sometimes."
+    },
+    {
+      "tone": [],
+      "text": "A {ADJ} {NOUN:character} once raced a {NOUN:weather_event} home. It lost. It arrived drenched and laughing. The {NOUN:weather_event} apologized politely."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} threw open the doors of the {NOUN:structure} and shouted welcome. People had been waiting outside for a long time. They came in. They stayed."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "When the {NOUN:season} turned, the {NOUN:character} folded the {ADJ} clothes away. There was a smell of {ADJ:smell} {NOUN:plant} on them. There always was."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "The {NOUN:character} wore a hat shaped like a {NOUN:mythical_creature}. Children loved it. Adults pretended not to. The hat was clearly winning."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} read the same {ADJ} book every {NOUN:season}. It knew how it ended. It read it anyway. Some endings are worth visiting again."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} drew the same {ADJ} {NOUN:object} every day. The drawing was never quite finished. The {NOUN:character} was never quite sure what it was drawing."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} found the {NOUN:place} on no map. It went there anyway. The {NOUN:place} now appears on its own map, with the {NOUN:character}'s name beside it."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} blew out the candle. The candle came back on. The {NOUN:character} blew it out again. The candle waited politely until the {NOUN:character} fell asleep."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:character} learned the names of every {NOUN:plant} in the {NOUN:meadow}. The {NOUN:plant}s began to greet it as it passed. The greetings were small. They were real."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:profession} hung up the {ADJ} {NOUN:object} for the last time. The shop closed at {NOUN:time_period}. Outside, the {NOUN:character}s waited to thank them. It took a while."
+    },
+    {
+      "tone": [],
+      "text": "A {NOUN:character} and a {NOUN:mythical_creature} traded gifts every {NOUN:season}. The gifts were small. The friendship was not."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} crossed the {NOUN:body_of_water} on foot, because the bridge was gone. It built a new bridge on the way. Now there are two."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:character} invented a sport that could only be played in the {NOUN:meadow} at {NOUN:time_period}. The rules were unclear. Everyone won."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The {NOUN:character} sat where it used to sit with the {NOUN:animal}. The seat was warm. The {NOUN:character} stayed a long time."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} hung a string of lights along the porch. The {NOUN:animal}s came to see. The {NOUN:weather_event} held off. It was a good {NOUN:time_period}."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} learned a riddle from a {NOUN:profession} long ago. It still does not know the answer. It is content with the asking."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "There was a tunnel through the {NOUN:structure} that nobody had mapped. The {NOUN:character} mapped it. It led, eventually, home. As tunnels often do."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:character} found a {ADJ} {NOUN:mineral} that whispered the names of {NOUN:plant}s. It became a {ADJ} gardener overnight. The {NOUN:mineral} was very patient."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} closed the book. The book opened again on its own. The {NOUN:character} closed it again, gently this time. The book stayed shut. For now."
+    },
+    {
+      "tone": [],
+      "text": "A {ADJ} {NOUN:character} once gave its only {NOUN:object} away to a stranger in the rain. The stranger was a {NOUN:mythical_creature}. The next {NOUN:season}, the {NOUN:object} came back, polished and new."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} did not believe it could. It tried anyway. It did. It was as surprised as anyone, which was the best part."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} folded the {ADJ} letter and put it back in the drawer. Some words you write only to yourself. Some words are enough that way."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "When the {NOUN:animal} grew old, the {NOUN:character} carried it to the {NOUN:meadow} for one more {NOUN:time_period} in the sun. The {NOUN:animal} purred. The {NOUN:character} stayed."
     }
   ],
   "factStories": [
@@ -2004,6 +3426,228 @@
         "adventure"
       ],
       "text": "Listen up, future explorer: {FACT} A {ADJ} {NOUN:character} put that knowledge to use crossing the {NOUN:place}. It was the difference between getting home and not."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} loved to learn. \"Did you know?\" it asked the {NOUN:animal}. \"{FACT}\" The {NOUN:animal} blinked, impressed."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "By the fire, the {NOUN:character} shared a {ADJ} fact with everyone gathered. \"{FACT}\" Nobody had heard that one before. It made the {NOUN:time_period} better."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:profession} stood on a {NOUN:vehicle} and announced to the {NOUN:meadow}: \"{FACT}\" The {NOUN:plant}s, as always, kept their opinions to themselves."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Halfway across the {NOUN:body_of_water}, the {NOUN:character} remembered something important. \"{FACT}\" The {NOUN:profession} at the wheel nodded once. It mattered, actually."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} opened the {ADJ} book. The page read: \"{FACT}\" The {NOUN:character} closed the book slowly. It would think about that for a long time."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:mythical_creature} leaned close and whispered to the {NOUN:character}: \"{FACT}\" The {NOUN:character} did not know what to do with this, so it simply remembered it forever."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "At {NOUN:time_period}, the {NOUN:character} found a note pinned to the {NOUN:structure}. It read: \"{FACT}\" The {NOUN:character} took the note home and put it in a drawer."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} stood up at the contest and said, loudly: \"{FACT}\" The judges conferred. They had to agree. The trophy was the {NOUN:character}'s."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:profession} taught the {NOUN:character} one last thing before saying goodbye. \"{FACT}\" The {NOUN:character} carried it for the rest of its days."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The {NOUN:character} sat by the {NOUN:body_of_water} and thought about something it had learned long ago. \"{FACT}\" Funny, the things that come back."
+    },
+    {
+      "tone": [],
+      "text": "A {ADJ} {NOUN:character} found a fact written on a wall in the {NOUN:structure}: \"{FACT}\" It traced the letters with one finger and walked on."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "The {NOUN:animal} insisted it knew a {ADJ} secret. The {NOUN:character} listened. The secret was: \"{FACT}\" They both giggled. Nobody would believe them."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Tucked into bed, the {NOUN:character} heard the {NOUN:profession} say, soft: \"{FACT}\" The {NOUN:character} smiled. It would dream well."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The map flapped in the {NOUN:weather_event}. The {NOUN:character} read aloud from the back of it: \"{FACT}\" Useful. Maybe even crucial. They headed east."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:character} held the {ADJ} {NOUN:mineral} up to the light. A voice came from it. The voice said only: \"{FACT}\" Then it was quiet."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} heard a whisper in the {NOUN:forest}. It listened. The whisper said: \"{FACT}\" The {NOUN:character} {VERB:action} home and locked the door."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "On the bottom of the {ADJ} {NOUN:object}, in tiny letters: \"{FACT}\" The {NOUN:character} read it three times. Each time it felt different."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} won the contest with a single fact. \"{FACT}\" The crowd went quiet. Then they applauded. The {NOUN:character} bowed."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {NOUN:mythical_creature} wandered into the {NOUN:meadow} and announced: \"{FACT}\" Then it wandered off. The {NOUN:character} wrote it down, just in case."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} and the {NOUN:animal} were sharing {NOUN:food}. \"You know what I just remembered?\" the {NOUN:character} said. \"{FACT}\" The {NOUN:animal} hummed agreement."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Halfway up the {NOUN:structure}, the {NOUN:profession} called out: \"{FACT}\" The {NOUN:character} laughed and kept climbing. Some facts only land when you are out of breath."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "An old letter arrived for the {NOUN:character}. It said only: \"{FACT}\" The {NOUN:character} sat with it for a long while. It felt like a gift."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "On their last walk together, the {NOUN:character} told the {NOUN:animal}: \"{FACT}\" The {NOUN:animal} did not understand the words. It understood everything else."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:mineral} glowed and a soft voice spoke: \"{FACT}\" The {NOUN:character} pressed it to its heart. The {NOUN:mineral} stayed warm for {NOUN:time_period}s."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The wind through the {NOUN:forest} carried words. The {NOUN:character} listened. \"{FACT}\" The {NOUN:character} did not look back."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} found a folded paper inside the {ADJ} {NOUN:object}. It said: \"{FACT}\" There was no signature. There were no questions to ask."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "The {NOUN:character} stood on a stump and addressed the {NOUN:meadow}: \"{FACT}\" The {NOUN:plant}s applauded by swaying. It was a good day to be a {NOUN:character}."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "When everyone said it could not be true, the {NOUN:character} produced the proof. \"{FACT}\" The room was silent. Then it was loud. The {NOUN:character} grinned."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} kept a notebook of facts. The latest entry read: \"{FACT}\" It underlined it twice. The notebook was almost full."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Around the table, everyone shared something they had learned. When it was the {NOUN:character}'s turn, it said: \"{FACT}\" The {NOUN:profession} nodded, pleased."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Out beyond the {NOUN:body_of_water}, the {NOUN:character} found something it had only read about. It thought of the fact often: \"{FACT}\""
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:mythical_creature} drew a circle in the air. Inside it, words appeared: \"{FACT}\" The {NOUN:character} read them. The circle closed."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} could not say why it remembered the line. \"{FACT}\" It had been told to it once, long ago, by someone it cannot quite picture anymore."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Some {NOUN:time_period}s, the {NOUN:character} thinks of a thing it once read: \"{FACT}\" It does not know why. The {NOUN:season} just leans that way."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Carved into the {ADJ} stone above the door: \"{FACT}\" The {NOUN:character} traced the letters. They were older than the {NOUN:structure} itself."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:character} ran into the {NOUN:meadow}, breathless. \"You will not believe this!\" it gasped. \"{FACT}\" Nobody did. It did not mind."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} taught the children of the {NOUN:place} one true thing every {NOUN:season}. This year's was: \"{FACT}\" They wrote it on the wall."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} opened the old letter from the {NOUN:profession}. It contained only one sentence: \"{FACT}\" The {NOUN:character} kept it close after that."
     }
   ],
   "continuations": [
@@ -2031,7 +3675,7 @@
       "tone": [
         "silly"
       ],
-      "text": "And then \u2014 the {NOUN:character} sneezed! A {NOUN:object} flew across the {NOUN:place}! The {NOUN:character} laughed and chased after it."
+      "text": "And then — the {NOUN:character} sneezed! A {NOUN:object} flew across the {NOUN:place}! The {NOUN:character} laughed and chased after it."
     },
     {
       "tone": [
@@ -2055,7 +3699,7 @@
       "tone": [
         "adventure"
       ],
-      "text": "The {NOUN:character} climbed higher. Each step was harder than the last. {ADV}, it reached the top \u2014 and what it saw there took its breath away."
+      "text": "The {NOUN:character} climbed higher. Each step was harder than the last. {ADV}, it reached the top — and what it saw there took its breath away."
     },
     {
       "tone": [
@@ -2079,7 +3723,7 @@
       "tone": [
         "magical"
       ],
-      "text": "The {NOUN:object} began to glow. Symbols danced in the air. The {NOUN:character} spoke a word it did not know \u2014 and the world shifted."
+      "text": "The {NOUN:object} began to glow. Symbols danced in the air. The {NOUN:character} spoke a word it did not know — and the world shifted."
     },
     {
       "tone": [
@@ -2227,7 +3871,7 @@
       "tone": [
         "magical"
       ],
-      "text": "The {NOUN:character} spoke an old word \u2014 one it did not remember learning. The {NOUN:place} shifted. A door, gleaming, opened in the air. The {NOUN:character} stepped through."
+      "text": "The {NOUN:character} spoke an old word — one it did not remember learning. The {NOUN:place} shifted. A door, gleaming, opened in the air. The {NOUN:character} stepped through."
     },
     {
       "tone": [
@@ -2293,7 +3937,7 @@
       "tone": [
         "wistful"
       ],
-      "text": "A song came back to the {NOUN:character} \u2014 one its grandmother used to sing. The {NOUN:character} hummed as it walked. The {NOUN:place} listened, kindly."
+      "text": "A song came back to the {NOUN:character} — one its grandmother used to sing. The {NOUN:character} hummed as it walked. The {NOUN:place} listened, kindly."
     },
     {
       "tone": [],
@@ -2315,7 +3959,7 @@
       "tone": [
         "adventure"
       ],
-      "text": "A {ADJ} {NOUN:animal} bounded out of the {NOUN:place}. It carried something in its mouth \u2014 a small {NOUN:object} the {NOUN:character} had lost years ago. The {NOUN:character} laughed in wonder. Some things find their way back."
+      "text": "A {ADJ} {NOUN:animal} bounded out of the {NOUN:place}. It carried something in its mouth — a small {NOUN:object} the {NOUN:character} had lost years ago. The {NOUN:character} laughed in wonder. Some things find their way back."
     },
     {
       "tone": [
@@ -2352,6 +3996,220 @@
         "magical"
       ],
       "text": "The path glowed faintly under the {NOUN:character}'s feet. Each step left a little light behind. The {NOUN:character} looked back. A trail of stars marked the way home."
+    },
+    {
+      "tone": [],
+      "text": "Just when it seemed quiet, a {ADJ} {NOUN:object} rolled out of the {NOUN:place}. The {NOUN:character} picked it up. It was warm to the touch."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The path forked. One way led to the {NOUN:body_of_water}, the other into the {NOUN:forest}. The {NOUN:character} chose the harder one, naturally."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Then the {NOUN:weather_event} stopped, all at once, as if someone had turned a knob. Even the {NOUN:animal}s noticed."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "A door slammed somewhere deep in the {NOUN:structure}. The {NOUN:character} froze. There were no other doors that could slam."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:mineral} the {NOUN:character} carried began to glow. It had never done that before. It meant the {NOUN:mythical_creature} was close."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The kettle began to sing. The {NOUN:character} smiled. The next part of the {NOUN:time_period} would be slow and good."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Just then, a {ADJ} {NOUN:animal} {VERB:movement} past wearing a tiny hat. Nobody could agree on whether to acknowledge this."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} could see the finish now. Its legs hurt. Its lungs hurt. It did not care."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:vehicle} pulled away slowly. The {NOUN:character} waved until the dust settled. Then it kept standing there a moment longer."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "A breeze carried the smell of {ADJ:smell} {NOUN:plant}s through the {NOUN:meadow}. The {NOUN:character} closed its eyes. It was that kind of {NOUN:time_period}."
+    },
+    {
+      "tone": [],
+      "text": "{ADV}, the {NOUN:character} noticed the {ADJ} {NOUN:object} was glowing. \"That is new,\" it said, to no one in particular."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} broke into a run. The {NOUN:vehicle} was already moving. There would be one chance to catch it."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "Then the lights flickered. Then they went out. Then the {NOUN:character} heard footsteps it knew were not its own."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:mythical_creature} stepped out of the {NOUN:forest} on silent feet. It held out one paw. In its paw: a small, perfect {NOUN:object}."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The fire crackled. The {NOUN:animal} curled tighter. The {NOUN:character} pulled the blanket up. Outside, the world could wait."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Just then, an upside-down {NOUN:character} {VERB:movement} past. It waved. The right-side-up {NOUN:character} waved back. It seemed only polite."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} found a footprint. It was {ADJ}. It was much, much larger than its own. And it was very fresh."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The crowd held its breath. The {NOUN:character} took aim. The {NOUN:object} flew. It landed exactly where it needed to."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} took one last look at the {NOUN:meadow}. The {NOUN:plant}s nodded in the wind. They would still be here. That helped a little."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Somewhere far off, a {NOUN:animal} called the way it used to. The {NOUN:character} stopped walking. It listened until the sound was gone."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} picked up the {NOUN:object} and turned it over in its hands. There was writing on the back. There had not been before."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Around the bend, the {NOUN:body_of_water} opened up wider than the map said. The {NOUN:character} checked the map again. The map looked sheepish."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} held its breath. The hallway was empty. The hallway had been empty a moment ago, too. It was still somehow more empty now."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Sparks spilled from the {NOUN:character}'s fingertips. They had never done that before. The {NOUN:mythical_creature} laughed kindly. \"Right on schedule,\" it said."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Someone knocked at the door, soft. The {NOUN:character} got up to answer. It was the {NOUN:animal}, just visiting. It always was."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "And then the {NOUN:plant}s began to hum. Not a tune anyone knew. But it was clearly a tune. The {NOUN:character} hummed along, in a sort of way."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} arrived at the spot the map had marked. There was nothing there. The nothing was very deliberate. Someone had arranged it carefully."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The doors of the {NOUN:structure} swung open. Inside, the {NOUN:character}'s name was already on the wall. They had been expected."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} took the {ADJ} {NOUN:object} down from the shelf one last time. It still worked. It just was not needed anymore."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The {NOUN:weather_event} passed slowly over the {NOUN:body_of_water}. The {NOUN:character} let it. It was not in a hurry to be anywhere."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:vehicle} groaned. The {NOUN:character} patted it gently. \"Just a little farther,\" it promised. The {NOUN:vehicle} sighed and obliged."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Suddenly, the {NOUN:character} could understand the {NOUN:animal}s. They had a great deal to say. Most of it was about {NOUN:food}."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "There was a shape in the corner of the room. The {NOUN:character} did not look at it directly. Sometimes that helps. Sometimes it does not."
+    },
+    {
+      "tone": [],
+      "text": "The {NOUN:character} reached into its pocket. The {NOUN:mineral} was warm. That meant it was working. That meant they were close."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:profession} brought out the {ADJ} {NOUN:food}. The {NOUN:character} clapped its hands. This was the best part of every visit."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Then a tiny voice from the {NOUN:character}'s shoe said: \"Excuse me.\" The {NOUN:character} sat down. They had a lot to talk about."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The last knot came undone. The {NOUN:character} held the {NOUN:object} up. After all those {NOUN:season}s, it was finally free."
     }
   ],
   "microStories": [
@@ -2437,7 +4295,7 @@
       "tone": [
         "cozy"
       ],
-      "text": "A {ADJ:texture} blanket, a {ADJ} {NOUN:animal}, and a story half-remembered \u2014 that was the whole evening."
+      "text": "A {ADJ:texture} blanket, a {ADJ} {NOUN:animal}, and a story half-remembered — that was the whole evening."
     },
     {
       "tone": [
@@ -2530,12 +4388,192 @@
     {
       "tone": [],
       "text": "A {NOUN:profession} once told a {NOUN:character} the only thing it needed to know, and the {NOUN:character} has, mostly, remembered it."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:character} once {VERB:action} all the way to the {NOUN:place} just to see if it was real. It was."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:mythical_creature} bowed to the {NOUN:character}, and the {NOUN:weather_event} bowed too."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} fell asleep counting {NOUN:plant}s in the {NOUN:meadow}, and the {NOUN:plant}s counted back."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "Every {NOUN:time_period}, a {ADJ} door appeared in the {NOUN:forest}, and every {NOUN:time_period}, the {NOUN:character} did not open it."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} crossed the {NOUN:body_of_water} on the back of a {NOUN:sea_creature}, and the sky never quite stopped clapping."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The {NOUN:character} kept one {ADJ} {NOUN:object} from every {NOUN:season}, and the box grew heavy in the best way."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} climbed the {NOUN:structure} alone, and at the top, the whole {NOUN:place} was waving."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} left a {ADJ} note in the {NOUN:meadow}, and the wind took it carefully, the way wind sometimes does."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "There is a {NOUN:structure} on no map, and the {NOUN:character} is the only one who knows the way back."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:character} once challenged the moon to a staring contest and refuses to admit who won."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "There was tea, and a {ADJ} blanket, and a {NOUN:animal} on the rug, and that was the whole story."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:character} swallowed a wish by mistake and has been quietly granting it ever since."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} hears its own footsteps a moment late, and prefers not to think about it."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} sailed past the edge of the {NOUN:body_of_water} and waved at the things that lived there."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The {NOUN:character} thinks of the {NOUN:season} sometimes, the one with the {ADJ:smell} {NOUN:plant}s, and smiles."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} did the impossible thing, and then ate a sandwich, because that is how you celebrate."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "A {ADJ} {NOUN:object} keeps appearing on the {NOUN:character}'s doorstep, and the {NOUN:character} keeps thanking the wind."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:character} once filed a complaint with the {NOUN:weather_event} and got a polite reply by morning."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} taught the {NOUN:animal} the way home, and the {NOUN:animal} took it, and that was right."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:profession} baked {NOUN:food}, the {NOUN:character} ate {NOUN:food}, and the {NOUN:season} did the rest."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "A {ADJ} {NOUN:mineral} fell from the sky, and the {NOUN:character} caught it without knowing why it could."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "The {NOUN:character} has a key it does not remember finding, and a lock it does not remember leaving."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "The {NOUN:character} and a borrowed {NOUN:vehicle} made it across the {NOUN:body_of_water} on three half-truths and one good map."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "A {ADJ} song lives in the {NOUN:character}'s pocket, and only comes out at {NOUN:time_period}."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} fell three times and got up four, which is the only math that matters."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} found a clock that runs backwards, and is, against all odds, on time more often."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A {ADJ} {NOUN:character} put a hat on a {NOUN:plant}, and the {NOUN:plant} grew taller out of sheer pride."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} closed the book gently, the way you do when the ending was honest."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} pulled the chair closer to the fire and let the {NOUN:weather_event} do its work."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:character} blew out the candle, and a {ADJ} {NOUN:mythical_creature} appeared to thank it for the wish."
     }
   ],
   "closers": [
     {
       "tone": [],
-      "text": "The end. \ud83d\udc12"
+      "text": "The end. 🐒"
     },
     {
       "tone": [],
@@ -2553,7 +4591,7 @@
       "tone": [
         "cozy"
       ],
-      "text": "Sleep well now. \ud83d\udc12"
+      "text": "Sleep well now. 🐒"
     },
     {
       "tone": [
@@ -2571,7 +4609,7 @@
       "tone": [
         "silly"
       ],
-      "text": "Tell me another? \ud83d\udc12"
+      "text": "Tell me another? 🐒"
     },
     {
       "tone": [
@@ -2583,7 +4621,7 @@
       "tone": [
         "silly"
       ],
-      "text": "The end. Probably. \ud83d\udc12"
+      "text": "The end. Probably. 🐒"
     },
     {
       "tone": [
@@ -2637,7 +4675,7 @@
       "tone": [
         "magical"
       ],
-      "text": "And the door is still open. \ud83d\udc12"
+      "text": "And the door is still open. 🐒"
     },
     {
       "tone": [
@@ -2698,6 +4736,128 @@
         "wistful"
       ],
       "text": "And the place remembers, even if no one else does."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "And that, friends, is how it was done."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The trophy goes on the mantel. The story goes everywhere."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Some endings are doors left open just a crack."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "And the {NOUN:season} kept going, the way {NOUN:season}s do."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "Not all goodbyes are forever. Some are just for now."
+    },
+    {
+      "tone": [
+        "bittersweet"
+      ],
+      "text": "And that was that, mostly."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Some questions are not meant to be answered. This was one of them."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "...and somewhere, the door is still open."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Anyway. That happened."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "And nobody has been quite the same since, in the best possible way."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Sleep well, friend. The story will keep."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The kettle is on. The chair is yours."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "And the stars, as always, took notes."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Magic kept its promise. It usually does, if you let it."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "Lock your doors. Or don't. It will not matter."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "Listen. Do you hear it? Good."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Onward, then. There is more map than time."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Pack light. Travel far. Come back changed."
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "The end! Probably. I think. Yes."
+    },
+    {
+      "tone": [],
+      "text": "And that is exactly how it happened. Mostly."
+    },
+    {
+      "tone": [],
+      "text": "Stories like this keep happening. Look for one."
     }
   ],
   "pacingBeats": [
@@ -2756,6 +4916,66 @@
     {
       "tone": [],
       "text": "A little later..."
+    },
+    {
+      "tone": [],
+      "text": "Then, quietly..."
+    },
+    {
+      "tone": [],
+      "text": "But here is the thing..."
+    },
+    {
+      "tone": [],
+      "text": "And so it went."
+    },
+    {
+      "tone": [
+        "spooky"
+      ],
+      "text": "Then the silence got louder."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "No time to lose."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "And then, the air shimmered."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Something was about to change."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Slowly, gently..."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Naturally."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "And then, finally..."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "A pause. A breath. A long, soft moment."
     }
   ]
 }

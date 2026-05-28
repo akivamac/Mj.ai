@@ -1,5 +1,5 @@
 {
-  "_comment": "Story beats v1. Beat-chain mode: pick opening matching tone, follow next_beats 3-6 hops, end on closing. Types: opening/discovery/encounter/conflict/twist/resolution/closing. IDs use prefix per type: open_/disc_/enc_/conf_/twist_/res_/close_.",
+  "_comment": "Story beats v2 (Phase 2 mega expansion). Beat-chain mode: pick opening matching tone, follow next_beats 4-6 hops, end on closing. Types: opening / discovery / encounter / conflict / twist / resolution / closing / atmosphere / voice. IDs use prefix per type: open_/disc_/enc_/conf_/twist_/res_/close_/atm_/voice_.",
   "beats": [
     {
       "id": "open_wandered_in",
@@ -99,7 +99,7 @@
         "silly",
         "whimsical"
       ],
-      "text": "It all started when the {NOUN:character} tripped over a {ADJ} {NOUN:object} and landed nose-first in the {NOUN:place}. \ud83d\udc12 Oh dear.",
+      "text": "It all started when the {NOUN:character} tripped over a {ADJ} {NOUN:object} and landed nose-first in the {NOUN:place}. 🐒 Oh dear.",
       "next_beats": [
         "disc_glowing_object",
         "enc_friendly_animal",
@@ -310,7 +310,7 @@
         "spooky",
         "mysterious"
       ],
-      "text": "A {ADJ} shadow slid across the wall \u2014 too {ADJ} to be a {NOUN:animal}, too quiet to be the {NOUN:weather}.",
+      "text": "A {ADJ} shadow slid across the wall — too {ADJ} to be a {NOUN:animal}, too quiet to be the {NOUN:weather}.",
       "next_beats": [
         "enc_shy_creature",
         "enc_mysterious_visitor",
@@ -520,7 +520,7 @@
         "silly",
         "whimsical"
       ],
-      "text": "Round the bend came a person wearing seven hats and pulling a tiny {NOUN:vehicle} full of {NOUN:food}. \ud83d\udc12 The {NOUN:character} blinked.",
+      "text": "Round the bend came a person wearing seven hats and pulling a tiny {NOUN:vehicle} full of {NOUN:food}. 🐒 The {NOUN:character} blinked.",
       "next_beats": [
         "res_shared_meal",
         "twist_hats_alive",
@@ -565,7 +565,7 @@
         "mysterious",
         "bittersweet"
       ],
-      "text": "On the path stood someone who looked very much like the {NOUN:character} \u2014 but {ADJ}er, and a step slower.",
+      "text": "On the path stood someone who looked very much like the {NOUN:character} — but {ADJ}er, and a step slower.",
       "next_beats": [
         "twist_mirror_kind",
         "conf_apologize",
@@ -640,7 +640,7 @@
         "mysterious",
         "spooky"
       ],
-      "text": "The tracks led right to the edge of the {NOUN:place} \u2014 and then simply stopped, as if whatever made them had stepped into the {NOUN:sky}.",
+      "text": "The tracks led right to the edge of the {NOUN:place} — and then simply stopped, as if whatever made them had stepped into the {NOUN:sky}.",
       "next_beats": [
         "twist_tracks_circle",
         "res_listen_carefully",
@@ -700,7 +700,7 @@
         "silly",
         "whimsical"
       ],
-      "text": "A small {NOUN:animal} darted past and made off with one of the stranger's seven hats. \ud83d\udc12 \"Hey!\" said the stranger.",
+      "text": "A small {NOUN:animal} darted past and made off with one of the stranger's seven hats. 🐒 \"Hey!\" said the stranger.",
       "next_beats": [
         "res_chase_and_return",
         "twist_hats_alive",
@@ -745,7 +745,7 @@
         "magical",
         "whimsical"
       ],
-      "text": "Then \u2014 to the {NOUN:character}'s great surprise \u2014 the {NOUN:object} spoke. \"You're holding me wrong,\" it said.",
+      "text": "Then — to the {NOUN:character}'s great surprise — the {NOUN:object} spoke. \"You're holding me wrong,\" it said.",
       "next_beats": [
         "res_object_lesson",
         "conf_apologize",
@@ -775,7 +775,7 @@
         "whimsical",
         "magical"
       ],
-      "text": "When the door finally opened, it opened the wrong way \u2014 the inside was {ADJ}er than the outside, and full of {NOUN:plant}s.",
+      "text": "When the door finally opened, it opened the wrong way — the inside was {ADJ}er than the outside, and full of {NOUN:plant}s.",
       "next_beats": [
         "disc_garden_of_stars",
         "enc_grand_creature",
@@ -790,7 +790,7 @@
         "cozy",
         "wistful"
       ],
-      "text": "The stranger pulled back their hood \u2014 and it turned out the {NOUN:character} had known them all along, long ago.",
+      "text": "The stranger pulled back their hood — and it turned out the {NOUN:character} had known them all along, long ago.",
       "next_beats": [
         "res_share_a_path",
         "res_remember_a_name",
@@ -835,7 +835,7 @@
         "spooky",
         "cozy"
       ],
-      "text": "The shadow paused, then waved \u2014 a tiny, polite wave. \"Sorry,\" it whispered. \"I didn't mean to startle you.\"",
+      "text": "The shadow paused, then waved — a tiny, polite wave. \"Sorry,\" it whispered. \"I didn't mean to startle you.\"",
       "next_beats": [
         "res_offer_kindness",
         "res_share_a_path",
@@ -865,7 +865,7 @@
         "mysterious",
         "silly"
       ],
-      "text": "Following the tracks long enough, the {NOUN:character} realized \u2014 with a small laugh \u2014 that the tracks were their own, from the {NOUN:time} before.",
+      "text": "Following the tracks long enough, the {NOUN:character} realized — with a small laugh — that the tracks were their own, from the {NOUN:time} before.",
       "next_beats": [
         "res_walk_on_warmer",
         "close_laugh_together",
@@ -880,7 +880,7 @@
         "mysterious",
         "whimsical"
       ],
-      "text": "When the {NOUN:character} unfolded the letter, the words had vanished \u2014 except for one line at the bottom, in fresh ink: \"Look up.\"",
+      "text": "When the {NOUN:character} unfolded the letter, the words had vanished — except for one line at the bottom, in fresh ink: \"Look up.\"",
       "next_beats": [
         "disc_garden_of_stars",
         "enc_grand_creature",
@@ -895,7 +895,7 @@
         "wistful",
         "magical"
       ],
-      "text": "When the {NOUN:character} laid a hand on the marker, the stone was warm \u2014 warmer than the {NOUN:weather} could possibly explain.",
+      "text": "When the {NOUN:character} laid a hand on the marker, the stone was warm — warmer than the {NOUN:weather} could possibly explain.",
       "next_beats": [
         "res_remember_a_name",
         "close_warm_quiet",
@@ -940,7 +940,7 @@
         "mysterious",
         "cozy"
       ],
-      "text": "The kitchen was empty \u2014 but two bowls of {NOUN:food} sat steaming on the table, and one of them was the {NOUN:character}'s favorite.",
+      "text": "The kitchen was empty — but two bowls of {NOUN:food} sat steaming on the table, and one of them was the {NOUN:character}'s favorite.",
       "next_beats": [
         "res_shared_meal",
         "enc_shy_creature",
@@ -970,7 +970,7 @@
         "whimsical",
         "magical"
       ],
-      "text": "It turned out the carnival had not set up overnight \u2014 it had been there a hundred {NOUN:time}s, and only the {NOUN:character} could see it today.",
+      "text": "It turned out the carnival had not set up overnight — it had been there a hundred {NOUN:time}s, and only the {NOUN:character} could see it today.",
       "next_beats": [
         "enc_silly_stranger",
         "res_listen_carefully",
@@ -985,7 +985,7 @@
         "silly",
         "whimsical"
       ],
-      "text": "All seven hats opened their tiny eyes at once. \ud83d\udc12 \"We were wondering when someone would notice,\" the top one said.",
+      "text": "All seven hats opened their tiny eyes at once. 🐒 \"We were wondering when someone would notice,\" the top one said.",
       "next_beats": [
         "res_chase_and_return",
         "res_offer_kindness",
@@ -1000,7 +1000,7 @@
         "bittersweet",
         "wistful"
       ],
-      "text": "The lost traveler looked up \u2014 and the {NOUN:character} realized, with a quiet thump in the chest, that they had met before, very long ago.",
+      "text": "The lost traveler looked up — and the {NOUN:character} realized, with a quiet thump in the chest, that they had met before, very long ago.",
       "next_beats": [
         "res_share_a_path",
         "res_remember_a_name",
@@ -1045,7 +1045,7 @@
         "whimsical",
         "magical"
       ],
-      "text": "Then, all at once, the {NOUN:object} was suddenly light as a {NOUN:plant} leaf \u2014 as if it had decided to trust the {NOUN:character}.",
+      "text": "Then, all at once, the {NOUN:object} was suddenly light as a {NOUN:plant} leaf — as if it had decided to trust the {NOUN:character}.",
       "next_beats": [
         "res_pocket_object",
         "res_walk_on_warmer",
@@ -1075,7 +1075,7 @@
         "magical",
         "spooky"
       ],
-      "text": "Inside the howl of the {NOUN:weather}, the {NOUN:character} heard it \u2014 a tune. The storm was singing, and not unkindly.",
+      "text": "Inside the howl of the {NOUN:weather}, the {NOUN:character} heard it — a tune. The storm was singing, and not unkindly.",
       "next_beats": [
         "res_listen_carefully",
         "res_find_shelter",
@@ -1135,7 +1135,7 @@
         "wistful",
         "magical"
       ],
-      "text": "As the {NOUN:profession} finished the secret, the {NOUN:character} realized \u2014 with a small jolt \u2014 that they had known a piece of it all along.",
+      "text": "As the {NOUN:profession} finished the secret, the {NOUN:character} realized — with a small jolt — that they had known a piece of it all along.",
       "next_beats": [
         "res_remember_a_name",
         "res_walk_on_warmer",
@@ -1165,7 +1165,7 @@
         "cozy",
         "bittersweet"
       ],
-      "text": "{ADV}, the {NOUN:character} simply offered a kind word \u2014 and then another \u2014 and the air in the {NOUN:place} seemed to ease.",
+      "text": "{ADV}, the {NOUN:character} simply offered a kind word — and then another — and the air in the {NOUN:place} seemed to ease.",
       "next_beats": [
         "close_friendly_parting",
         "close_warm_quiet",
@@ -1180,7 +1180,7 @@
         "triumphant",
         "magical"
       ],
-      "text": "The {NOUN:character} thought, and thought, and {ADV} answered \u2014 and the figure stepped aside with a small bow.",
+      "text": "The {NOUN:character} thought, and thought, and {ADV} answered — and the figure stepped aside with a small bow.",
       "next_beats": [
         "close_passage_granted",
         "close_bow_and_thanks",
@@ -1225,7 +1225,7 @@
         "wistful",
         "magical"
       ],
-      "text": "The {NOUN:character} grew very still, and listened \u2014 really listened \u2014 and heard what they had been missing.",
+      "text": "The {NOUN:character} grew very still, and listened — really listened — and heard what they had been missing.",
       "next_beats": [
         "close_warm_quiet",
         "close_under_stars",
@@ -1255,7 +1255,7 @@
         "bittersweet",
         "wistful"
       ],
-      "text": "Then it came to the {NOUN:character} \u2014 the name, the one they had nearly forgotten \u2014 and they said it aloud, softly, into the {NOUN:place}.",
+      "text": "Then it came to the {NOUN:character} — the name, the one they had nearly forgotten — and they said it aloud, softly, into the {NOUN:place}.",
       "next_beats": [
         "close_warm_quiet",
         "close_return_home",
@@ -1285,7 +1285,7 @@
         "whimsical",
         "cozy"
       ],
-      "text": "The {NOUN:character} apologized and tried again \u2014 the right way, this time \u2014 and the {NOUN:object} hummed approval.",
+      "text": "The {NOUN:character} apologized and tried again — the right way, this time — and the {NOUN:object} hummed approval.",
       "next_beats": [
         "close_friendly_parting",
         "close_warm_quiet",
@@ -1375,7 +1375,7 @@
         "triumphant",
         "adventure"
       ],
-      "text": "At the top of the ridge, the {NOUN:character} planted a small {NOUN:object} \u2014 not a flag, exactly, but close enough \u2014 and grinned.",
+      "text": "At the top of the ridge, the {NOUN:character} planted a small {NOUN:object} — not a flag, exactly, but close enough — and grinned.",
       "next_beats": [
         "close_summit_quiet",
         "close_return_home",
@@ -1420,7 +1420,7 @@
         "cozy",
         "bittersweet"
       ],
-      "text": "They said goodbye like old friends do \u2014 soft, unhurried \u2014 and the {NOUN:character} carried the warmth of it the rest of the way.",
+      "text": "They said goodbye like old friends do — soft, unhurried — and the {NOUN:character} carried the warmth of it the rest of the way.",
       "next_beats": []
     },
     {
@@ -1470,7 +1470,7 @@
         "silly",
         "whimsical"
       ],
-      "text": "They laughed until they couldn't, and then a little more, and the {NOUN:place} kept the sound of it tucked away for later. \ud83d\udc12",
+      "text": "They laughed until they couldn't, and then a little more, and the {NOUN:place} kept the sound of it tucked away for later. 🐒",
       "next_beats": []
     },
     {
@@ -1480,7 +1480,7 @@
         "triumphant",
         "magical"
       ],
-      "text": "The great {NOUN:mythical_creature} bowed, low and slow, and the {NOUN:character} bowed back, and that was the whole of it \u2014 and it was enough.",
+      "text": "The great {NOUN:mythical_creature} bowed, low and slow, and the {NOUN:character} bowed back, and that was the whole of it — and it was enough.",
       "next_beats": []
     },
     {
@@ -1492,6 +1492,2398 @@
       ],
       "text": "Some questions, the {NOUN:character} decided, were nicer to keep than to answer. And with that, they turned for home.",
       "next_beats": []
+    },
+    {
+      "id": "open_blue_hour_walk",
+      "type": "opening",
+      "tone": [
+        "wistful",
+        "bittersweet"
+      ],
+      "text": "In the blue hour before {NOUN:time_period}, the {NOUN:character} pulled on a {ADJ} coat and stepped out into the hush of the {NOUN:place}.",
+      "next_beats": [
+        "atm_mist_remembers",
+        "disc_pebble_warm",
+        "enc_lamplighter",
+        "voice_about_to_change",
+        "disc_strange_track"
+      ]
+    },
+    {
+      "id": "open_kite_string_pulled",
+      "type": "opening",
+      "tone": [
+        "whimsical",
+        "adventure"
+      ],
+      "text": "The {NOUN:character} was minding a kite when the string tugged the {ADJ} way — hard, then patient — as if something on the other end wanted to be met.",
+      "next_beats": [
+        "disc_kite_carried",
+        "enc_friendly_animal",
+        "twist_creature_polite",
+        "atm_wind_changed",
+        "res_let_the_kite_lead"
+      ]
+    },
+    {
+      "id": "open_kettle_whistle_wrong",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "mysterious"
+      ],
+      "text": "The kettle whistled a tune the {NOUN:character} did not teach it. The {NOUN:place} held its breath, polite, waiting to see what would happen next.",
+      "next_beats": [
+        "disc_song_in_cupboard",
+        "voice_kettle_aside",
+        "enc_porch_neighbor",
+        "atm_house_listening",
+        "disc_glowing_object"
+      ]
+    },
+    {
+      "id": "open_one_boot_missing",
+      "type": "opening",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "The {NOUN:character} woke to find exactly one boot where two had been. The other, the {NOUN:place} insisted, had simply gone exploring.",
+      "next_beats": [
+        "disc_boot_tracks",
+        "enc_friendly_animal",
+        "twist_boot_returned_taller",
+        "voice_about_boots",
+        "conf_boot_negotiation"
+      ]
+    },
+    {
+      "id": "open_letter_addressed_to_no_one",
+      "type": "opening",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "A letter sat on the table, addressed to no one in particular. The {NOUN:character} considered it the way one considers a {ADJ} guest.",
+      "next_beats": [
+        "disc_letter_blank",
+        "voice_letter_aside",
+        "enc_postal_friend",
+        "atm_house_listening",
+        "conf_who_to_open_for"
+      ]
+    },
+    {
+      "id": "open_summit_seen_from_below",
+      "type": "opening",
+      "tone": [
+        "triumphant",
+        "adventure"
+      ],
+      "text": "From down in the {NOUN:place}, the {NOUN:character} looked up at the {NOUN:structure} and decided, finally, that today was the day.",
+      "next_beats": [
+        "atm_path_unrolled",
+        "enc_road_companion",
+        "voice_today_is_the_day"
+      ]
+    },
+    {
+      "id": "open_song_in_the_well",
+      "type": "opening",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "There was a song coming from the {NOUN:body_of_water}, faint as a moth. The {NOUN:character} knelt at the edge and listened with their whole self.",
+      "next_beats": [
+        "disc_voice_in_water",
+        "atm_well_glowed",
+        "twist_song_was_yours",
+        "enc_water_keeper",
+        "res_sang_back"
+      ]
+    },
+    {
+      "id": "open_first_frost",
+      "type": "opening",
+      "tone": [
+        "bittersweet",
+        "cozy"
+      ],
+      "text": "The first frost of the {NOUN:season} laid a {ADJ:texture} hush over the {NOUN:place}, and the {NOUN:character} stepped out to greet it before anyone else could.",
+      "next_beats": [
+        "atm_breath_made_clouds",
+        "disc_pebble_warm",
+        "enc_porch_neighbor",
+        "voice_first_frost_aside",
+        "res_traced_a_pattern"
+      ]
+    },
+    {
+      "id": "open_door_appears_overnight",
+      "type": "opening",
+      "tone": [
+        "whimsical",
+        "magical"
+      ],
+      "text": "Overnight, a {ADJ} door had appeared on the side of the {NOUN:structure}. It had a {ADJ:color} handle and an air of having always been there.",
+      "next_beats": [
+        "disc_door_opens_inward",
+        "voice_door_aside",
+        "conf_door_stuck",
+        "enc_door_keeper",
+        "twist_door_was_invitation"
+      ]
+    },
+    {
+      "id": "open_storm_already_passed",
+      "type": "opening",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "The {NOUN:weather_event} had already passed when the {NOUN:character} woke, leaving the {NOUN:place} {ADJ:smell} and rearranged.",
+      "next_beats": [
+        "atm_after_the_storm",
+        "disc_lost_thing_returned",
+        "enc_drenched_friend",
+        "res_find_shelter",
+        "voice_first_frost_aside"
+      ]
+    },
+    {
+      "id": "open_balloon_in_the_kitchen",
+      "type": "opening",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "A single balloon bobbed against the kitchen ceiling, and the {NOUN:character} could not remember anyone bringing it home.",
+      "next_beats": [
+        "disc_string_leads_out",
+        "voice_about_letting_go",
+        "twist_balloon_was_a_gift",
+        "enc_balloon_owner",
+        "atm_house_listening"
+      ]
+    },
+    {
+      "id": "open_postcard_from_yourself",
+      "type": "opening",
+      "tone": [
+        "mysterious",
+        "bittersweet"
+      ],
+      "text": "The postcard was in the {NOUN:character}'s own handwriting. They did not remember writing it. They did not remember the {NOUN:place} on the front.",
+      "next_beats": [
+        "voice_postcard_aside",
+        "disc_place_on_postcard",
+        "conf_who_sent_it",
+        "enc_old_friend",
+        "twist_postcard_arrived_early"
+      ]
+    },
+    {
+      "id": "open_birthday_no_one_remembered",
+      "type": "opening",
+      "tone": [
+        "bittersweet",
+        "whimsical"
+      ],
+      "text": "It was the {NOUN:character}'s birthday and no one in the {NOUN:place} had remembered — not even, it seemed, the calendar.",
+      "next_beats": [
+        "atm_quiet_morning",
+        "voice_birthday_aside",
+        "enc_secret_planner",
+        "twist_party_was_hidden",
+        "res_made_their_own_cake"
+      ]
+    },
+    {
+      "id": "open_compass_spins",
+      "type": "opening",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "The {NOUN:character}'s compass spun like a {ADJ} top, refusing every direction. Wherever north was today, it was not where it had been yesterday.",
+      "next_beats": [
+        "atm_wind_changed",
+        "enc_road_companion",
+        "voice_today_is_the_day"
+      ]
+    },
+    {
+      "id": "open_quiet_garden_visit",
+      "type": "opening",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "The {NOUN:character} went out, {ADV}, to sit with the {NOUN:plant}s in the {NOUN:place}, the way one visits an old friend without needing to talk.",
+      "next_beats": [
+        "atm_garden_breathing",
+        "enc_talking_plant",
+        "disc_seed_in_pocket",
+        "voice_garden_aside",
+        "res_pressed_the_seed_in"
+      ]
+    },
+    {
+      "id": "disc_pebble_warm",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "cozy"
+      ],
+      "text": "Underfoot, a single {NOUN:mineral} was warm — warm the way a hand is warm — in the middle of the cold {NOUN:place}.",
+      "next_beats": [
+        "enc_friendly_animal",
+        "twist_pebble_was_listening",
+        "res_pocketed_warm_stone",
+        "atm_warmth_spreads"
+      ]
+    },
+    {
+      "id": "disc_kite_carried",
+      "type": "discovery",
+      "tone": [
+        "whimsical",
+        "adventure"
+      ],
+      "text": "Following the {ADJ} string, the {NOUN:character} found the kite snagged not in a tree but on the wing of a sleeping {NOUN:mythical_creature}.",
+      "next_beats": [
+        "enc_drowsy_creature",
+        "twist_creature_polite",
+        "res_freed_the_kite",
+        "voice_about_strangers"
+      ]
+    },
+    {
+      "id": "disc_song_in_cupboard",
+      "type": "discovery",
+      "tone": [
+        "cozy",
+        "mysterious"
+      ],
+      "text": "Opening the cupboard, the {NOUN:character} found a tiny choir of {NOUN:plant}s humming softly, every leaf in tune.",
+      "next_beats": [
+        "enc_choirmaster_moth",
+        "twist_song_was_yours",
+        "res_hummed_along",
+        "atm_house_listening",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "disc_boot_tracks",
+      "type": "discovery",
+      "tone": [
+        "silly",
+        "adventure"
+      ],
+      "text": "Outside, a line of solitary boot-prints headed off into the {NOUN:place}, neat and {ADJ}, as if the boot knew exactly where it was going.",
+      "next_beats": [
+        "enc_helpful_neighbor",
+        "twist_boot_returned_taller",
+        "atm_morning_glow",
+        "res_followed_the_prints",
+        "close_laugh_together"
+      ]
+    },
+    {
+      "id": "disc_letter_blank",
+      "type": "discovery",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "The {NOUN:character} opened the letter. Inside: nothing, or perhaps everything, written so faintly the {NOUN:celestial} could barely make it out.",
+      "next_beats": [
+        "enc_postal_friend",
+        "twist_letter_writes_back",
+        "res_wrote_a_reply",
+        "voice_letter_aside"
+      ]
+    },
+    {
+      "id": "disc_voice_in_water",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "In the {NOUN:body_of_water}, a small voice answered — not with words exactly, but with the {ADJ} feeling of having been heard.",
+      "next_beats": [
+        "enc_water_keeper",
+        "res_sang_back",
+        "twist_song_was_yours",
+        "atm_well_glowed",
+        "close_question_kept"
+      ]
+    },
+    {
+      "id": "disc_lost_thing_returned",
+      "type": "discovery",
+      "tone": [
+        "bittersweet",
+        "triumphant"
+      ],
+      "text": "There, on the doorstep, was the {ADJ} {NOUN:object} the {NOUN:character} had given up on years ago, looking only slightly the worse for wear.",
+      "next_beats": [
+        "voice_about_old_friends",
+        "res_thanked_the_finder",
+        "enc_porch_neighbor"
+      ]
+    },
+    {
+      "id": "disc_string_leads_out",
+      "type": "discovery",
+      "tone": [
+        "whimsical",
+        "silly"
+      ],
+      "text": "The balloon's string trailed out the back door, down the path, and across the {NOUN:place}, knotted with little notes at every turn.",
+      "next_beats": [
+        "enc_balloon_owner",
+        "res_followed_the_string",
+        "twist_balloon_was_a_gift",
+        "atm_path_unrolled"
+      ]
+    },
+    {
+      "id": "disc_place_on_postcard",
+      "type": "discovery",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "The {NOUN:character} rounded a bend and there it was — exactly the {NOUN:place} from the postcard, down to the {ADJ} light on the water.",
+      "next_beats": [
+        "enc_old_friend",
+        "atm_familiar_strangeness",
+        "voice_about_recognition",
+        "twist_postcard_arrived_early",
+        "res_sat_down_to_listen"
+      ]
+    },
+    {
+      "id": "disc_seed_in_pocket",
+      "type": "discovery",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "In an old pocket, the {NOUN:character} found a single {NOUN:plant} seed, paper-thin, waiting like it had been picked specifically for today.",
+      "next_beats": [
+        "res_pressed_the_seed_in",
+        "enc_talking_plant",
+        "twist_seed_grew_overnight",
+        "voice_pocket_aside",
+        "close_planted_and_left"
+      ]
+    },
+    {
+      "id": "disc_door_opens_inward",
+      "type": "discovery",
+      "tone": [
+        "magical",
+        "whimsical"
+      ],
+      "text": "The door opened {ADV}, the wrong way somehow, into a room that was much larger than the {NOUN:structure} that contained it.",
+      "next_beats": [
+        "enc_door_keeper",
+        "atm_house_listening",
+        "twist_door_was_invitation",
+        "res_stepped_through"
+      ]
+    },
+    {
+      "id": "disc_map_in_lining",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "Tucked into the lining of a borrowed coat, the {NOUN:character} found a {ADJ} map of the {NOUN:place} — with one X they did not recognise.",
+      "next_beats": [
+        "atm_path_unrolled",
+        "voice_pocket_aside",
+        "res_followed_the_x"
+      ]
+    },
+    {
+      "id": "disc_window_in_the_hill",
+      "type": "discovery",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "Halfway up the {NOUN:place}, the {NOUN:character} found a small window set into the slope, lit from within by a {ADJ:color} glow.",
+      "next_beats": [
+        "enc_hill_dweller",
+        "atm_well_glowed",
+        "twist_window_looked_back",
+        "res_offer_kindness",
+        "close_question_kept"
+      ]
+    },
+    {
+      "id": "disc_footprint_too_big",
+      "type": "discovery",
+      "tone": [
+        "adventure",
+        "spooky"
+      ],
+      "text": "The footprint in the mud was twice the size of the {NOUN:character}'s own. It was also, surprisingly, in the shape of a friendly shoe.",
+      "next_beats": [
+        "enc_grand_creature",
+        "twist_giant_polite",
+        "atm_listening_back",
+        "res_left_a_small_gift"
+      ]
+    },
+    {
+      "id": "enc_lamplighter",
+      "type": "encounter",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "An old {NOUN:profession} was working their way along the path, lighting one small lamp at a time, smiling when the {NOUN:character} came near.",
+      "next_beats": [
+        "res_helped_with_the_lamps",
+        "voice_about_old_friends",
+        "atm_lamps_one_by_one",
+        "twist_lamplighter_remembered",
+        "close_walked_them_home"
+      ]
+    },
+    {
+      "id": "enc_choirmaster_moth",
+      "type": "encounter",
+      "tone": [
+        "whimsical",
+        "magical"
+      ],
+      "text": "A small moth, wearing what could only be described as a tiny conductor's coat, bowed to the {NOUN:character} and pointed at the music with a wing.",
+      "next_beats": [
+        "res_hummed_along",
+        "twist_song_was_yours",
+        "atm_house_listening",
+        "voice_kettle_aside",
+        "close_laugh_together"
+      ]
+    },
+    {
+      "id": "enc_drowsy_creature",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "The {NOUN:mythical_creature} opened one enormous eye, considered the {NOUN:character} with great calm, and went back to sleep — but only halfway.",
+      "next_beats": [
+        "res_sat_quietly_beside",
+        "twist_creature_polite",
+        "voice_about_strangers",
+        "atm_garden_breathing",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "enc_postal_friend",
+      "type": "encounter",
+      "tone": [
+        "whimsical",
+        "cozy"
+      ],
+      "text": "A {NOUN:profession} came up the path on a creaky bicycle. \"I was hoping I'd find you,\" they said, holding out a second letter, this one quite full.",
+      "next_beats": [
+        "res_wrote_a_reply",
+        "twist_letter_writes_back",
+        "voice_letter_aside",
+        "atm_wind_changed"
+      ]
+    },
+    {
+      "id": "enc_water_keeper",
+      "type": "encounter",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "From the {NOUN:body_of_water} rose a quiet {NOUN:mythical_creature} with kind, ancient eyes. \"Few sing back,\" they said. \"Thank you.\"",
+      "next_beats": [
+        "res_sang_back",
+        "voice_about_silences",
+        "twist_song_was_yours",
+        "atm_well_glowed",
+        "close_starry_neighbors"
+      ]
+    },
+    {
+      "id": "enc_helpful_neighbor",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "silly"
+      ],
+      "text": "A {NOUN:profession} from down the lane caught sight of the lonely boot-prints. \"Oh, that one,\" they laughed. \"It does this every {NOUN:time_period}.\"",
+      "next_beats": [
+        "voice_about_boots",
+        "res_followed_the_prints",
+        "twist_boot_returned_taller",
+        "atm_morning_glow",
+        "close_laugh_together"
+      ]
+    },
+    {
+      "id": "enc_porch_neighbor",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "The {NOUN:character}'s neighbor was sitting on the step, watching the {NOUN:celestial} rise. They moved over, without a word, to make room.",
+      "next_beats": [
+        "res_sat_down_to_listen",
+        "atm_quiet_morning",
+        "voice_about_silences",
+        "close_warm_quiet",
+        "close_two_friends"
+      ]
+    },
+    {
+      "id": "enc_old_friend",
+      "type": "encounter",
+      "tone": [
+        "bittersweet",
+        "wistful"
+      ],
+      "text": "An old friend was already there, as if they had been waiting a long time — not impatiently, but the way the {NOUN:place} waits for a {NOUN:season}.",
+      "next_beats": [
+        "voice_about_old_friends",
+        "res_fell_into_step",
+        "twist_friend_was_younger",
+        "atm_familiar_strangeness",
+        "close_two_friends"
+      ]
+    },
+    {
+      "id": "enc_secret_planner",
+      "type": "encounter",
+      "tone": [
+        "whimsical",
+        "triumphant"
+      ],
+      "text": "A nervous {NOUN:animal} bustled up, very obviously pretending nothing was happening, while behind it twelve other creatures hid behind the {NOUN:plant}s.",
+      "next_beats": [
+        "twist_party_was_hidden",
+        "res_pretended_not_to_notice",
+        "atm_giggles_in_the_bushes",
+        "voice_birthday_aside",
+        "close_laugh_together"
+      ]
+    },
+    {
+      "id": "enc_road_companion",
+      "type": "encounter",
+      "tone": [
+        "adventure",
+        "cozy"
+      ],
+      "text": "Around the next bend was another walker, with a {ADJ} pack and an honest face. \"Going far?\" they asked, as if hoping the answer was yes.",
+      "next_beats": [
+        "res_fell_into_step",
+        "voice_about_strangers",
+        "atm_two_shadows_long",
+        "close_two_friends"
+      ]
+    },
+    {
+      "id": "enc_door_keeper",
+      "type": "encounter",
+      "tone": [
+        "magical",
+        "whimsical"
+      ],
+      "text": "Just inside the door, a {ADJ} keeper sat with a great book. \"Names are optional,\" they smiled. \"But kindness is requested.\"",
+      "next_beats": [
+        "res_did_the_kind_thing",
+        "twist_door_was_invitation",
+        "voice_door_aside",
+        "atm_house_listening"
+      ]
+    },
+    {
+      "id": "enc_hill_dweller",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "mysterious"
+      ],
+      "text": "A small, sleepy creature opened the hill-window from inside. \"You're early,\" they said, not unkindly, and put the kettle on.",
+      "next_beats": [
+        "atm_house_listening",
+        "res_shared_tea",
+        "voice_kettle_aside",
+        "twist_window_looked_back",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "enc_balloon_owner",
+      "type": "encounter",
+      "tone": [
+        "whimsical",
+        "silly"
+      ],
+      "text": "At the end of the string was a small {NOUN:character}, only a little out of breath. \"I let go,\" they said, \"and it found you. Thank you.\"",
+      "next_beats": [
+        "twist_balloon_was_a_gift",
+        "res_walked_them_back",
+        "voice_about_letting_go",
+        "atm_two_shadows_long",
+        "close_friendly_parting"
+      ]
+    },
+    {
+      "id": "conf_boot_negotiation",
+      "type": "conflict",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "The runaway boot, when caught at last, refused to be put on without an apology. The {NOUN:character} considered the matter, fairly.",
+      "next_beats": [
+        "res_apologized_to_boot",
+        "twist_boot_returned_taller",
+        "voice_about_apologies",
+        "res_did_the_kind_thing",
+        "close_laugh_together"
+      ]
+    },
+    {
+      "id": "conf_who_to_open_for",
+      "type": "conflict",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "The letter was for no one, which somehow felt like it might be for anyone. The {NOUN:character} weighed it for a long moment.",
+      "next_beats": [
+        "res_opened_it_anyway",
+        "twist_letter_writes_back",
+        "voice_today_is_the_day",
+        "res_left_it_for_later",
+        "close_question_kept"
+      ]
+    },
+    {
+      "id": "conf_who_sent_it",
+      "type": "conflict",
+      "tone": [
+        "bittersweet",
+        "mysterious"
+      ],
+      "text": "The handwriting was the {NOUN:character}'s own. The stamp was from a {NOUN:place} they had never been. Somewhere, somewhen, this had been written.",
+      "next_beats": [
+        "twist_postcard_arrived_early",
+        "voice_about_future_selves",
+        "res_wrote_a_reply",
+        "atm_clock_held_still",
+        "close_question_kept"
+      ]
+    },
+    {
+      "id": "conf_too_many_paths",
+      "type": "conflict",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "The path forked into seven, and every one of them looked equally inviting and equally suspect.",
+      "next_beats": [
+        "twist_paths_all_same",
+        "voice_today_is_the_day",
+        "enc_road_companion",
+        "res_chose_by_smell"
+      ]
+    },
+    {
+      "id": "conf_the_thing_was_heavy",
+      "type": "conflict",
+      "tone": [
+        "bittersweet",
+        "cozy"
+      ],
+      "text": "What the {NOUN:character} was carrying turned out to be heavier than it looked, and not all of it was the {NOUN:object}.",
+      "next_beats": [
+        "res_set_some_down",
+        "voice_about_carrying",
+        "twist_load_was_borrowed",
+        "enc_porch_neighbor",
+        "close_lighter_now"
+      ]
+    },
+    {
+      "id": "conf_a_word_forgotten",
+      "type": "conflict",
+      "tone": [
+        "wistful",
+        "bittersweet"
+      ],
+      "text": "There was a word the {NOUN:character} wanted, very much, and it would not come — it sat just behind the tongue, the way the {NOUN:celestial} sits behind a cloud.",
+      "next_beats": [
+        "res_sat_with_the_memory",
+        "twist_word_came_back",
+        "voice_about_recognition",
+        "atm_quiet_morning",
+        "close_named_at_last"
+      ]
+    },
+    {
+      "id": "conf_invitation_late",
+      "type": "conflict",
+      "tone": [
+        "bittersweet",
+        "triumphant"
+      ],
+      "text": "The invitation had arrived three days late. The {NOUN:character} weighed whether it was still worth crossing the {NOUN:place} for.",
+      "next_beats": [
+        "res_went_anyway",
+        "voice_about_promises",
+        "twist_party_still_waiting",
+        "atm_path_unrolled",
+        "close_arrived_just_in_time"
+      ]
+    },
+    {
+      "id": "conf_two_promises",
+      "type": "conflict",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "The {NOUN:character} had made two promises for the same {NOUN:time_period}, and neither of them could be kept halfway.",
+      "next_beats": [
+        "res_chose_kindly",
+        "voice_about_promises",
+        "enc_road_companion",
+        "close_kept_the_better_one"
+      ]
+    },
+    {
+      "id": "conf_gift_too_big",
+      "type": "conflict",
+      "tone": [
+        "whimsical",
+        "bittersweet"
+      ],
+      "text": "The gift, when unwrapped, turned out to be {ADJ}er than the room. The {NOUN:character} sat down to think.",
+      "next_beats": [
+        "res_built_a_bigger_room",
+        "twist_gift_was_for_sharing",
+        "voice_about_giving",
+        "res_shared_the_gift"
+      ]
+    },
+    {
+      "id": "conf_silence_too_loud",
+      "type": "conflict",
+      "tone": [
+        "mysterious",
+        "spooky"
+      ],
+      "text": "The {NOUN:place} had gone perfectly silent — not peaceful silent, but listening silent — and the {NOUN:character} found themselves listening back.",
+      "next_beats": [
+        "atm_listening_back",
+        "res_spoke_first",
+        "twist_silence_was_singing",
+        "voice_about_silences"
+      ]
+    },
+    {
+      "id": "twist_pebble_was_listening",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "whimsical"
+      ],
+      "text": "Then the warm {NOUN:mineral} pulsed gently in the {NOUN:character}'s palm — once, twice — the unmistakable rhythm of a small, polite heartbeat.",
+      "next_beats": [
+        "res_pocketed_warm_stone",
+        "voice_pocket_aside",
+        "atm_warmth_spreads"
+      ]
+    },
+    {
+      "id": "twist_creature_polite",
+      "type": "twist",
+      "tone": [
+        "whimsical",
+        "cozy"
+      ],
+      "text": "\"I'm terribly sorry about the kite,\" the {NOUN:mythical_creature} said, in a voice like distant bells. \"I was dreaming about flying.\"",
+      "next_beats": [
+        "res_freed_the_kite",
+        "res_did_the_kind_thing",
+        "atm_garden_breathing",
+        "close_friendly_parting"
+      ]
+    },
+    {
+      "id": "twist_song_was_yours",
+      "type": "twist",
+      "tone": [
+        "wistful",
+        "bittersweet"
+      ],
+      "text": "The song, when the {NOUN:character} finally caught the tune, was one they had made up themselves as a much smaller person, and forgotten.",
+      "next_beats": [
+        "res_sang_back",
+        "voice_kettle_aside",
+        "atm_house_listening",
+        "close_named_at_last",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "twist_boot_returned_taller",
+      "type": "twist",
+      "tone": [
+        "silly",
+        "magical"
+      ],
+      "text": "The boot came back of its own accord, slightly muddier and somehow a whole size larger, as if it had been on adventures the {NOUN:character} would never know.",
+      "next_beats": [
+        "res_grew_into_them",
+        "voice_about_boots",
+        "atm_morning_glow",
+        "close_laugh_together"
+      ]
+    },
+    {
+      "id": "twist_letter_writes_back",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "When the {NOUN:character} laid the letter down, more words appeared — patient, careful, in answer to a question they had not yet asked.",
+      "next_beats": [
+        "res_wrote_a_reply",
+        "voice_letter_aside",
+        "atm_house_listening",
+        "close_question_kept"
+      ]
+    },
+    {
+      "id": "twist_postcard_arrived_early",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "The {NOUN:character} understood, all at once, that the postcard was from a self yet to come — and that the trip was already, somehow, beginning.",
+      "next_beats": [
+        "voice_about_future_selves",
+        "res_packed_lightly",
+        "atm_clock_held_still"
+      ]
+    },
+    {
+      "id": "twist_party_was_hidden",
+      "type": "twist",
+      "tone": [
+        "triumphant",
+        "whimsical"
+      ],
+      "text": "Every {NOUN:plant} in the {NOUN:place} suddenly burst into singing, and out came every friend the {NOUN:character} had ever made.",
+      "next_beats": [
+        "res_laughed_until_crying",
+        "atm_garden_breathing",
+        "voice_about_giving",
+        "close_laugh_together"
+      ]
+    },
+    {
+      "id": "twist_balloon_was_a_gift",
+      "type": "twist",
+      "tone": [
+        "bittersweet",
+        "whimsical"
+      ],
+      "text": "The little {NOUN:character} had written a wish on the balloon and let it go, hoping. The wish had been about finding a friend.",
+      "next_beats": [
+        "res_walked_them_back",
+        "voice_about_letting_go",
+        "atm_two_shadows_long",
+        "close_two_friends"
+      ]
+    },
+    {
+      "id": "twist_seed_grew_overnight",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "cozy"
+      ],
+      "text": "By morning, the planted seed had become a tree, taller than the {NOUN:structure}, every leaf a different shade of {ADJ:color}.",
+      "next_beats": [
+        "res_climbed_it_carefully",
+        "atm_garden_breathing",
+        "voice_pocket_aside",
+        "close_planted_and_left"
+      ]
+    },
+    {
+      "id": "twist_door_was_invitation",
+      "type": "twist",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "Painted on the inside of the door, in handwriting the {NOUN:character} recognised, was a small word: WELCOME.",
+      "next_beats": [
+        "res_stepped_through",
+        "voice_door_aside",
+        "atm_house_listening"
+      ]
+    },
+    {
+      "id": "twist_window_looked_back",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "Through the hill-window, the {NOUN:character} saw another {NOUN:character} on the other side — same coat, same hands, looking equally surprised.",
+      "next_beats": [
+        "res_waved_at_themselves",
+        "voice_about_recognition",
+        "atm_familiar_strangeness",
+        "close_question_kept"
+      ]
+    },
+    {
+      "id": "twist_giant_polite",
+      "type": "twist",
+      "tone": [
+        "whimsical",
+        "cozy"
+      ],
+      "text": "The owner of the enormous footprint turned out to be even bigger than expected, and twice as gentle. They knelt down to be at eye-level.",
+      "next_beats": [
+        "res_did_the_kind_thing",
+        "voice_about_strangers",
+        "atm_listening_back",
+        "close_friendly_parting"
+      ]
+    },
+    {
+      "id": "twist_friend_was_younger",
+      "type": "twist",
+      "tone": [
+        "bittersweet",
+        "wistful"
+      ],
+      "text": "The old friend, when they turned, was younger than the {NOUN:character} remembered — the way memory sometimes refuses to let people age.",
+      "next_beats": [
+        "voice_about_old_friends",
+        "res_fell_into_step",
+        "atm_familiar_strangeness",
+        "close_two_friends"
+      ]
+    },
+    {
+      "id": "twist_paths_all_same",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "The {NOUN:character} understood, with a small laugh, that all seven paths led to the same place — the choosing had only ever been a kindness.",
+      "next_beats": [
+        "voice_today_is_the_day",
+        "res_picked_at_random",
+        "atm_path_unrolled"
+      ]
+    },
+    {
+      "id": "twist_load_was_borrowed",
+      "type": "twist",
+      "tone": [
+        "bittersweet",
+        "cozy"
+      ],
+      "text": "Half of what the {NOUN:character} was carrying turned out to belong to someone else — something they had quietly taken on, long ago, without meaning to.",
+      "next_beats": [
+        "res_set_some_down",
+        "voice_about_carrying",
+        "atm_morning_glow",
+        "close_lighter_now"
+      ]
+    },
+    {
+      "id": "twist_word_came_back",
+      "type": "twist",
+      "tone": [
+        "wistful",
+        "triumphant"
+      ],
+      "text": "The lost word arrived, suddenly, like a {NOUN:animal} returning home, and the {NOUN:character} said it aloud, slowly, savoring.",
+      "next_beats": [
+        "res_sat_with_the_memory",
+        "voice_about_recognition",
+        "atm_quiet_morning",
+        "close_named_at_last",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "twist_party_still_waiting",
+      "type": "twist",
+      "tone": [
+        "triumphant",
+        "whimsical"
+      ],
+      "text": "When the {NOUN:character} finally arrived, three days late, everyone was still there, candles relit. \"We thought you might,\" they said.",
+      "next_beats": [
+        "res_laughed_until_crying",
+        "voice_about_promises",
+        "atm_lamps_one_by_one",
+        "close_arrived_just_in_time",
+        "close_laugh_together"
+      ]
+    },
+    {
+      "id": "twist_gift_was_for_sharing",
+      "type": "twist",
+      "tone": [
+        "cozy",
+        "whimsical"
+      ],
+      "text": "The enormous gift was, on closer look, made up of small pieces — one for every friend in the {NOUN:place}. It had only ever needed sharing.",
+      "next_beats": [
+        "res_shared_the_gift",
+        "voice_about_giving",
+        "atm_giggles_in_the_bushes"
+      ]
+    },
+    {
+      "id": "twist_silence_was_singing",
+      "type": "twist",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "The silence, listened to long enough, turned out to be a kind of singing — too {ADJ} to catch in the usual way.",
+      "next_beats": [
+        "voice_about_silences",
+        "res_sang_with_it",
+        "atm_listening_back",
+        "close_starry_neighbors"
+      ]
+    },
+    {
+      "id": "twist_lamplighter_remembered",
+      "type": "twist",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "Halfway down the lane, the lamplighter looked over. \"I knew your grandmother,\" they said. \"She used to light these with me.\"",
+      "next_beats": [
+        "res_walk_on_warmer",
+        "voice_about_old_friends",
+        "atm_lamps_one_by_one",
+        "close_named_at_last"
+      ]
+    },
+    {
+      "id": "res_let_the_kite_lead",
+      "type": "resolution",
+      "tone": [
+        "whimsical",
+        "adventure"
+      ],
+      "text": "The {NOUN:character} loosened their grip and let the kite choose the way — over the {NOUN:place}, gentle as a {NOUN:animal} on a quiet errand.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_friendly_parting"
+      ]
+    },
+    {
+      "id": "res_pocketed_warm_stone",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "The {NOUN:character} slipped the warm {NOUN:mineral} into a pocket, where it kept their hand company for the rest of the walk.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_return_home"
+      ]
+    },
+    {
+      "id": "res_freed_the_kite",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "Together — careful, careful — the {NOUN:character} and the creature worked the string loose, and the kite sailed off on its own, waving.",
+      "next_beats": [
+        "close_friendly_parting",
+        "close_laugh_together",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "res_hummed_along",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "whimsical"
+      ],
+      "text": "The {NOUN:character} hummed the tune they remembered best, and every {NOUN:plant} in the cupboard joined in, gently, in different keys.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_laugh_together",
+        "close_starry_neighbors"
+      ]
+    },
+    {
+      "id": "res_sang_back",
+      "type": "resolution",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "The {NOUN:character} sang back — nothing fancy, only what they could — and the {NOUN:body_of_water} brightened, like a face that has been listened to.",
+      "next_beats": [
+        "close_starry_neighbors",
+        "close_warm_quiet",
+        "close_question_kept",
+        "close_named_at_last"
+      ]
+    },
+    {
+      "id": "res_thanked_the_finder",
+      "type": "resolution",
+      "tone": [
+        "bittersweet",
+        "cozy"
+      ],
+      "text": "The {NOUN:character} could not tell who had returned the lost {NOUN:object}, so they thanked the whole {NOUN:place} aloud, just to be safe.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_return_home"
+      ]
+    },
+    {
+      "id": "res_wrote_a_reply",
+      "type": "resolution",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "The {NOUN:character} sat down and wrote back — the slow way, with a {ADJ} pen — about everything they had not said yet.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_return_home"
+      ]
+    },
+    {
+      "id": "res_pressed_the_seed_in",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} pressed the seed into the earth of the {NOUN:place} and patted it down, the way you tuck in something you love.",
+      "next_beats": [
+        "close_planted_and_left",
+        "close_warm_quiet",
+        "close_return_home"
+      ]
+    },
+    {
+      "id": "res_sat_quietly_beside",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "The {NOUN:character} sat down beside the sleeping {NOUN:mythical_creature} and breathed slowly, in and out, until the {NOUN:celestial} began to set.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_starry_neighbors"
+      ]
+    },
+    {
+      "id": "res_apologized_to_boot",
+      "type": "resolution",
+      "tone": [
+        "silly",
+        "cozy"
+      ],
+      "text": "\"I'm sorry,\" said the {NOUN:character}, with great dignity, to a boot. The boot, satisfied, allowed itself to be put back on.",
+      "next_beats": [
+        "close_laugh_together",
+        "close_friendly_parting",
+        "close_warm_quiet",
+        "close_return_home"
+      ]
+    },
+    {
+      "id": "res_helped_with_the_lamps",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "The {NOUN:character} took a small light and worked the other side of the lane, and the {NOUN:place} grew brighter twice as quickly.",
+      "next_beats": [
+        "close_walked_them_home",
+        "close_warm_quiet",
+        "close_starry_neighbors"
+      ]
+    },
+    {
+      "id": "res_set_some_down",
+      "type": "resolution",
+      "tone": [
+        "bittersweet",
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} set down what was not theirs to carry, gently, by the side of the path, and went on without it.",
+      "next_beats": [
+        "close_lighter_now",
+        "close_warm_quiet",
+        "close_return_home"
+      ]
+    },
+    {
+      "id": "res_went_anyway",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "bittersweet"
+      ],
+      "text": "Three days late or no, the {NOUN:character} pulled on their coat and went — because some things are worth being late to.",
+      "next_beats": [
+        "close_arrived_just_in_time",
+        "close_laugh_together"
+      ]
+    },
+    {
+      "id": "res_shared_the_gift",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "One by one, the {NOUN:character} handed the pieces out to everyone in the {NOUN:place}, and the gift, somehow, only grew larger.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_two_friends"
+      ]
+    },
+    {
+      "id": "res_stepped_through",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "magical"
+      ],
+      "text": "The {NOUN:character} took a slow breath and stepped through the door, the way a small {NOUN:animal} steps onto thin ice — with respect, and trust.",
+      "next_beats": []
+    },
+    {
+      "id": "res_traced_a_pattern",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "The {NOUN:character} crouched and traced a small spiral in the frost, and the {NOUN:place} held the drawing like a held breath.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_return_home"
+      ]
+    },
+    {
+      "id": "res_followed_the_string",
+      "type": "resolution",
+      "tone": [
+        "whimsical",
+        "adventure"
+      ],
+      "text": "Knot by knot, note by note, the {NOUN:character} followed the string across the {NOUN:place}, reading as they went.",
+      "next_beats": [
+        "close_two_friends",
+        "close_warm_quiet",
+        "close_friendly_parting"
+      ]
+    },
+    {
+      "id": "res_chose_kindly",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} chose the harder of the two promises, the kinder one, and sent word to the other that they would come tomorrow.",
+      "next_beats": [
+        "close_kept_the_better_one",
+        "close_warm_quiet",
+        "close_return_home"
+      ]
+    },
+    {
+      "id": "atm_mist_remembers",
+      "type": "atmosphere",
+      "tone": [
+        "wistful",
+        "mysterious"
+      ],
+      "text": "Mist lay over the {NOUN:place} like a memory that had not decided yet whose it was.",
+      "next_beats": [
+        "disc_pebble_warm",
+        "enc_lamplighter",
+        "disc_strange_track",
+        "voice_about_to_change"
+      ]
+    },
+    {
+      "id": "atm_wind_changed",
+      "type": "atmosphere",
+      "tone": [
+        "adventure",
+        "magical"
+      ],
+      "text": "The wind shifted, suddenly, and the {NOUN:place} smelled {ADJ:smell} — like somewhere the {NOUN:character} had not yet been.",
+      "next_beats": [
+        "disc_strange_track",
+        "enc_road_companion",
+        "disc_map_in_lining",
+        "voice_today_is_the_day"
+      ]
+    },
+    {
+      "id": "atm_house_listening",
+      "type": "atmosphere",
+      "tone": [
+        "cozy",
+        "mysterious"
+      ],
+      "text": "The {NOUN:structure} felt, for one strange moment, as if it were holding very still on purpose.",
+      "next_beats": [
+        "disc_song_in_cupboard",
+        "disc_door_opens_inward",
+        "enc_door_keeper",
+        "voice_kettle_aside"
+      ]
+    },
+    {
+      "id": "atm_after_the_storm",
+      "type": "atmosphere",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "The {NOUN:weather_event} had passed and left the {NOUN:place} {ADJ:smell} and washed-bright, every {NOUN:plant} dripping.",
+      "next_beats": [
+        "disc_lost_thing_returned",
+        "enc_drenched_friend",
+        "atm_breath_made_clouds",
+        "voice_first_frost_aside"
+      ]
+    },
+    {
+      "id": "atm_quiet_morning",
+      "type": "atmosphere",
+      "tone": [
+        "bittersweet",
+        "cozy"
+      ],
+      "text": "The morning was very still, the {NOUN:place} {ADJ:texture} with frost, the {NOUN:celestial} only just thinking about rising.",
+      "next_beats": [
+        "enc_secret_planner",
+        "disc_pebble_warm",
+        "voice_birthday_aside",
+        "enc_porch_neighbor"
+      ]
+    },
+    {
+      "id": "atm_garden_breathing",
+      "type": "atmosphere",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "Every {NOUN:plant} in the garden was breathing in slow, contented time, as if the {NOUN:place} itself had finally relaxed.",
+      "next_beats": [
+        "enc_talking_plant",
+        "disc_seed_in_pocket",
+        "voice_garden_aside",
+        "res_pressed_the_seed_in"
+      ]
+    },
+    {
+      "id": "atm_breath_made_clouds",
+      "type": "atmosphere",
+      "tone": [
+        "bittersweet",
+        "cozy"
+      ],
+      "text": "Every breath the {NOUN:character} took made a small cloud, and the {NOUN:place} accepted them all without comment.",
+      "next_beats": [
+        "enc_porch_neighbor",
+        "disc_pebble_warm",
+        "voice_first_frost_aside",
+        "res_traced_a_pattern"
+      ]
+    },
+    {
+      "id": "atm_warmth_spreads",
+      "type": "atmosphere",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "The warmth from the {NOUN:mineral} crept up the {NOUN:character}'s arm, until even their shoulders felt friendlier toward the {NOUN:weather}.",
+      "next_beats": [
+        "enc_friendly_animal",
+        "res_pocketed_warm_stone",
+        "voice_pocket_aside"
+      ]
+    },
+    {
+      "id": "atm_well_glowed",
+      "type": "atmosphere",
+      "tone": [
+        "magical",
+        "mysterious"
+      ],
+      "text": "Down in the {NOUN:body_of_water}, a soft {ADJ:color} glow rose and fell, in time with something the {NOUN:character} could almost name.",
+      "next_beats": [
+        "enc_water_keeper",
+        "twist_song_was_yours",
+        "res_sang_back",
+        "voice_about_silences"
+      ]
+    },
+    {
+      "id": "atm_lamps_one_by_one",
+      "type": "atmosphere",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "Down the lane, the lamps came on one by one, each a small kept promise against the gathering {NOUN:time_period}.",
+      "next_beats": [
+        "enc_lamplighter",
+        "res_helped_with_the_lamps",
+        "voice_about_old_friends",
+        "close_walked_them_home"
+      ]
+    },
+    {
+      "id": "atm_listening_back",
+      "type": "atmosphere",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "The {NOUN:place} held very still, the way a {NOUN:animal} holds still when it is listening for you.",
+      "next_beats": [
+        "twist_silence_was_singing",
+        "res_spoke_first",
+        "voice_about_silences"
+      ]
+    },
+    {
+      "id": "atm_morning_glow",
+      "type": "atmosphere",
+      "tone": [
+        "cozy",
+        "whimsical"
+      ],
+      "text": "Morning came up slow and golden over the {NOUN:place}, the way warm honey comes off a spoon.",
+      "next_beats": [
+        "disc_boot_tracks",
+        "enc_helpful_neighbor",
+        "twist_boot_returned_taller",
+        "res_followed_the_prints"
+      ]
+    },
+    {
+      "id": "atm_path_unrolled",
+      "type": "atmosphere",
+      "tone": [
+        "adventure",
+        "triumphant"
+      ],
+      "text": "The path unrolled ahead like a long, patient ribbon, and the {NOUN:structure} at the top of the {NOUN:place} did not seem nearly so far away anymore.",
+      "next_beats": [
+        "enc_road_companion",
+        "voice_today_is_the_day"
+      ]
+    },
+    {
+      "id": "atm_familiar_strangeness",
+      "type": "atmosphere",
+      "tone": [
+        "wistful",
+        "bittersweet"
+      ],
+      "text": "Everything in the {NOUN:place} was exactly where the {NOUN:character} remembered, and yet somehow turned a quarter-step from where it ought to be.",
+      "next_beats": [
+        "enc_old_friend",
+        "voice_about_recognition",
+        "twist_postcard_arrived_early",
+        "res_sat_down_to_listen"
+      ]
+    },
+    {
+      "id": "atm_clock_held_still",
+      "type": "atmosphere",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "Every clock in the {NOUN:structure}, the {NOUN:character} noticed, was paused at the same {ADJ} hour.",
+      "next_beats": [
+        "twist_postcard_arrived_early",
+        "voice_about_future_selves",
+        "res_wrote_a_reply",
+        "close_question_kept"
+      ]
+    },
+    {
+      "id": "atm_two_shadows_long",
+      "type": "atmosphere",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "By the time the {NOUN:character} and their new companion walked on, two long shadows trailed behind them across the {NOUN:place}.",
+      "next_beats": [
+        "res_fell_into_step",
+        "voice_about_strangers",
+        "close_two_friends",
+        "close_starry_neighbors"
+      ]
+    },
+    {
+      "id": "atm_giggles_in_the_bushes",
+      "type": "atmosphere",
+      "tone": [
+        "whimsical",
+        "silly"
+      ],
+      "text": "Behind every {NOUN:plant} in the {NOUN:place}, a small giggle was trying very hard not to give itself away.",
+      "next_beats": [
+        "twist_party_was_hidden",
+        "res_pretended_not_to_notice",
+        "enc_secret_planner",
+        "close_laugh_together"
+      ]
+    },
+    {
+      "id": "voice_about_to_change",
+      "type": "voice",
+      "tone": [
+        "wistful",
+        "magical"
+      ],
+      "text": "I should tell you something about the {NOUN:character}: they had never once asked for help. This was about to change.",
+      "next_beats": [
+        "conf_too_many_paths",
+        "conf_a_word_forgotten",
+        "enc_road_companion"
+      ]
+    },
+    {
+      "id": "voice_kettle_aside",
+      "type": "voice",
+      "tone": [
+        "whimsical",
+        "cozy"
+      ],
+      "text": "Now, a word about kettles: they almost never whistle tunes. When they do, it is always worth paying attention.",
+      "next_beats": [
+        "disc_song_in_cupboard",
+        "twist_song_was_yours",
+        "conf_silence_too_loud",
+        "enc_choirmaster_moth"
+      ]
+    },
+    {
+      "id": "voice_about_boots",
+      "type": "voice",
+      "tone": [
+        "silly",
+        "whimsical"
+      ],
+      "text": "Between you and me, the {NOUN:character}'s boots had been planning this for weeks. Boots, you see, get ideas.",
+      "next_beats": [
+        "conf_boot_negotiation",
+        "twist_boot_returned_taller",
+        "disc_boot_tracks",
+        "enc_helpful_neighbor"
+      ]
+    },
+    {
+      "id": "voice_letter_aside",
+      "type": "voice",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "Here is something about letters addressed to no one: they are often addressed to whoever needs them most.",
+      "next_beats": [
+        "conf_who_to_open_for",
+        "twist_letter_writes_back",
+        "disc_letter_blank",
+        "enc_postal_friend"
+      ]
+    },
+    {
+      "id": "voice_today_is_the_day",
+      "type": "voice",
+      "tone": [
+        "triumphant",
+        "adventure"
+      ],
+      "text": "You and I both know how rare it is, deciding a thing is finally going to happen. The {NOUN:character} had decided. Today it would.",
+      "next_beats": [
+        "twist_paths_all_same",
+        "enc_road_companion",
+        "res_went_anyway"
+      ]
+    },
+    {
+      "id": "voice_about_recognition",
+      "type": "voice",
+      "tone": [
+        "bittersweet",
+        "wistful"
+      ],
+      "text": "There is a particular kind of knowing — the kind that arrives before the name does — and the {NOUN:character} was about to feel it.",
+      "next_beats": [
+        "twist_friend_was_younger",
+        "twist_postcard_arrived_early",
+        "enc_old_friend",
+        "res_sat_with_the_memory"
+      ]
+    },
+    {
+      "id": "voice_about_silences",
+      "type": "voice",
+      "tone": [
+        "mysterious",
+        "magical"
+      ],
+      "text": "Pay attention here: not all silences are empty. Some are waiting to be answered.",
+      "next_beats": [
+        "conf_silence_too_loud",
+        "twist_silence_was_singing",
+        "res_spoke_first",
+        "enc_porch_neighbor"
+      ]
+    },
+    {
+      "id": "voice_about_giving",
+      "type": "voice",
+      "tone": [
+        "cozy",
+        "triumphant"
+      ],
+      "text": "I will tell you what the {NOUN:character} was about to learn: a gift kept whole is half a gift; a gift broken into many is twice.",
+      "next_beats": [
+        "conf_gift_too_big",
+        "twist_gift_was_for_sharing",
+        "res_shared_the_gift",
+        "enc_secret_planner"
+      ]
+    },
+    {
+      "id": "voice_about_old_friends",
+      "type": "voice",
+      "tone": [
+        "wistful",
+        "bittersweet"
+      ],
+      "text": "Listen: old friends do not always arrive in the shape you expect. Sometimes they arrive in the shape you used to know.",
+      "next_beats": [
+        "twist_friend_was_younger",
+        "conf_a_word_forgotten",
+        "res_sat_with_the_memory",
+        "enc_old_friend"
+      ]
+    },
+    {
+      "id": "voice_about_carrying",
+      "type": "voice",
+      "tone": [
+        "bittersweet",
+        "cozy"
+      ],
+      "text": "Here is a quiet truth: we all carry things we did not pack. The {NOUN:character} was about to notice.",
+      "next_beats": [
+        "conf_the_thing_was_heavy",
+        "twist_load_was_borrowed",
+        "res_set_some_down",
+        "close_lighter_now"
+      ]
+    },
+    {
+      "id": "voice_about_apologies",
+      "type": "voice",
+      "tone": [
+        "silly",
+        "cozy"
+      ],
+      "text": "Apologies, in this {NOUN:place}, are taken seriously by everyone — boots included.",
+      "next_beats": [
+        "conf_boot_negotiation",
+        "res_apologized_to_boot",
+        "twist_boot_returned_taller",
+        "close_laugh_together"
+      ]
+    },
+    {
+      "id": "voice_about_future_selves",
+      "type": "voice",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "I will not spoil it for you, but: the {NOUN:character} you are meeting now is also the one who wrote the postcard.",
+      "next_beats": [
+        "twist_postcard_arrived_early",
+        "conf_who_sent_it",
+        "res_packed_lightly"
+      ]
+    },
+    {
+      "id": "close_named_at_last",
+      "type": "closing",
+      "tone": [
+        "wistful",
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} said the name into the {NOUN:place}, and the {NOUN:place}, after all this time, said it gently back.",
+      "next_beats": []
+    },
+    {
+      "id": "close_lighter_now",
+      "type": "closing",
+      "tone": [
+        "bittersweet",
+        "cozy"
+      ],
+      "text": "The {NOUN:character} went on, lighter by a little, the {NOUN:place} opening kindly ahead.",
+      "next_beats": []
+    },
+    {
+      "id": "close_arrived_just_in_time",
+      "type": "closing",
+      "tone": [
+        "triumphant",
+        "whimsical"
+      ],
+      "text": "Three days late, exactly on time, the {NOUN:character} stepped into the {NOUN:place} — and everyone, somehow, had known they would.",
+      "next_beats": []
+    },
+    {
+      "id": "close_planted_and_left",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "The {NOUN:character} walked away from the planted seed without looking back, trusting the {NOUN:place} the way old gardeners do.",
+      "next_beats": []
+    },
+    {
+      "id": "close_walked_them_home",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "When the last lamp was lit, the {NOUN:character} walked the lamplighter home, and neither of them needed to talk.",
+      "next_beats": []
+    },
+    {
+      "id": "close_kept_the_better_one",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} kept the kinder of the two promises, and slept that night easier in the {NOUN:place}.",
+      "next_beats": []
+    },
+    {
+      "id": "close_two_long_shadows",
+      "type": "closing",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "Two long shadows wandered off across the {NOUN:place}, side by side, the way friendships sometimes look when seen from far away.",
+      "next_beats": []
+    },
+    {
+      "id": "close_starry_neighbors",
+      "type": "closing",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "Above them, the {NOUN:celestial}s came out one by one, like neighbors lighting their windows for the night.",
+      "next_beats": []
+    },
+    {
+      "id": "close_rueful_smile",
+      "type": "closing",
+      "tone": [
+        "bittersweet",
+        "whimsical"
+      ],
+      "text": "The {NOUN:character} shook their head, slowly, at the whole {NOUN:place}, and could not help smiling about it.",
+      "next_beats": []
+    },
+    {
+      "id": "close_kettle_back_on",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "whimsical"
+      ],
+      "text": "Home again, the {NOUN:character} put the kettle on, and this time it whistled the way kettles ought to.",
+      "next_beats": []
+    },
+    {
+      "id": "close_seed_kept_growing",
+      "type": "closing",
+      "tone": [
+        "triumphant",
+        "magical"
+      ],
+      "text": "Long after the {NOUN:character} had gone, the seed kept growing, taller and taller, until it could see clear across the {NOUN:place}.",
+      "next_beats": []
+    },
+    {
+      "id": "close_pocket_warm",
+      "type": "closing",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "The {NOUN:character} walked the long way home, one hand in the pocket where the warm {NOUN:mineral} was quietly keeping time.",
+      "next_beats": []
+    },
+    {
+      "id": "close_window_left_lit",
+      "type": "closing",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "The {NOUN:character} left a single window lit in the {NOUN:structure}, in case any traveler in the {NOUN:place} needed a place to aim.",
+      "next_beats": []
+    },
+    {
+      "id": "close_postcard_sent",
+      "type": "closing",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "Some weeks later, the {NOUN:character} sat down and wrote a postcard — to a self yet to come — and dropped it carefully in the box.",
+      "next_beats": []
+    },
+    {
+      "id": "close_song_in_the_well",
+      "type": "closing",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "And ever after, when the {NOUN:character} walked past the {NOUN:body_of_water}, the song was waiting, polite, in case they wanted to sing.",
+      "next_beats": []
+    },
+    {
+      "id": "enc_drenched_friend",
+      "type": "encounter",
+      "tone": [
+        "cozy",
+        "whimsical"
+      ],
+      "text": "A {ADJ} friend stood on the doorstep, soaked through from the {NOUN:weather_event}, holding up a single dry {NOUN:object} with great pride.",
+      "next_beats": [
+        "res_did_the_kind_thing",
+        "res_shared_tea",
+        "atm_house_listening",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "voice_about_strangers",
+      "type": "voice",
+      "tone": [
+        "adventure",
+        "cozy"
+      ],
+      "text": "Let me say this about strangers on long roads: most are friends you simply have not started yet.",
+      "next_beats": [
+        "res_fell_into_step",
+        "atm_two_shadows_long",
+        "enc_road_companion",
+        "close_two_friends"
+      ]
+    },
+    {
+      "id": "voice_birthday_aside",
+      "type": "voice",
+      "tone": [
+        "bittersweet",
+        "whimsical"
+      ],
+      "text": "Here is the thing about being forgotten on your birthday: sometimes it is the loveliest surprise being saved up.",
+      "next_beats": [
+        "twist_party_was_hidden",
+        "enc_secret_planner",
+        "res_made_their_own_cake",
+        "close_laugh_together"
+      ]
+    },
+    {
+      "id": "voice_first_frost_aside",
+      "type": "voice",
+      "tone": [
+        "bittersweet",
+        "cozy"
+      ],
+      "text": "First frosts, the {NOUN:character} would tell you, only feel sad to people who have not learned to dress warmly.",
+      "next_beats": [
+        "res_traced_a_pattern",
+        "atm_breath_made_clouds",
+        "enc_porch_neighbor",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "voice_pocket_aside",
+      "type": "voice",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "A small lesson about pockets: they remember things on our behalf, and give them back when we are ready.",
+      "next_beats": [
+        "disc_seed_in_pocket",
+        "res_pressed_the_seed_in",
+        "twist_seed_grew_overnight",
+        "close_planted_and_left"
+      ]
+    },
+    {
+      "id": "voice_garden_aside",
+      "type": "voice",
+      "tone": [
+        "cozy",
+        "magical"
+      ],
+      "text": "Gardens, like {NOUN:profession}s and {NOUN:animal}s, prefer to be visited. The {NOUN:character} had finally come to understand this.",
+      "next_beats": [
+        "enc_talking_plant",
+        "disc_seed_in_pocket",
+        "atm_garden_breathing",
+        "res_pressed_the_seed_in"
+      ]
+    },
+    {
+      "id": "voice_about_letting_go",
+      "type": "voice",
+      "tone": [
+        "bittersweet",
+        "whimsical"
+      ],
+      "text": "A thing worth knowing: some balloons must be let go in order to be sent. The wish only travels if the string is loosed.",
+      "next_beats": [
+        "twist_balloon_was_a_gift",
+        "res_walked_them_back",
+        "enc_balloon_owner",
+        "close_two_friends"
+      ]
+    },
+    {
+      "id": "voice_postcard_aside",
+      "type": "voice",
+      "tone": [
+        "mysterious",
+        "wistful"
+      ],
+      "text": "Notice this carefully: handwriting is rarely a lie. If the postcard is in your hand, the postcard knows you.",
+      "next_beats": [
+        "conf_who_sent_it",
+        "twist_postcard_arrived_early",
+        "disc_place_on_postcard"
+      ]
+    },
+    {
+      "id": "voice_door_aside",
+      "type": "voice",
+      "tone": [
+        "whimsical",
+        "magical"
+      ],
+      "text": "A small note about doors that appear overnight: they almost always have a reason. The reason is almost always you.",
+      "next_beats": [
+        "disc_door_opens_inward",
+        "twist_door_was_invitation",
+        "enc_door_keeper",
+        "res_stepped_through"
+      ]
+    },
+    {
+      "id": "voice_about_promises",
+      "type": "voice",
+      "tone": [
+        "cozy",
+        "bittersweet"
+      ],
+      "text": "Two promises in the same {NOUN:time_period}, the {NOUN:character} was learning, are best honored by choosing the kinder and being honest about the other.",
+      "next_beats": [
+        "conf_two_promises",
+        "res_chose_kindly",
+        "close_kept_the_better_one"
+      ]
+    },
+    {
+      "id": "res_sat_down_to_listen",
+      "type": "resolution",
+      "tone": [
+        "wistful",
+        "cozy"
+      ],
+      "text": "The {NOUN:character} sat down on a {ADJ} stone and listened to the {NOUN:place} long enough for the {NOUN:place} to begin telling them things.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_question_kept",
+        "close_starry_neighbors"
+      ]
+    },
+    {
+      "id": "res_walked_them_back",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "whimsical"
+      ],
+      "text": "Balloon in hand, the {NOUN:character} walked the smaller {NOUN:character} back across the {NOUN:place}, the way you walk a borrowed thing home.",
+      "next_beats": [
+        "close_two_friends",
+        "close_friendly_parting",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "res_made_their_own_cake",
+      "type": "resolution",
+      "tone": [
+        "whimsical",
+        "cozy"
+      ],
+      "text": "Since no one else had, the {NOUN:character} made a small {ADJ} cake for themselves and ate it on the back step — which, it turned out, was lovely.",
+      "next_beats": [
+        "close_laugh_together",
+        "close_warm_quiet",
+        "close_return_home"
+      ]
+    },
+    {
+      "id": "res_picked_at_random",
+      "type": "resolution",
+      "tone": [
+        "whimsical",
+        "adventure"
+      ],
+      "text": "The {NOUN:character} closed their eyes, turned in a slow circle, and started walking. The {NOUN:place} did not seem to mind.",
+      "next_beats": [
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "res_sat_with_the_memory",
+      "type": "resolution",
+      "tone": [
+        "wistful",
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} sat with the memory, gently, without trying to make it anything but what it was.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_named_at_last",
+        "close_return_home",
+        "close_starry_neighbors"
+      ]
+    },
+    {
+      "id": "res_climbed_it_carefully",
+      "type": "resolution",
+      "tone": [
+        "adventure",
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} climbed the new tree branch by careful branch, until the whole {NOUN:place} unfurled beneath them.",
+      "next_beats": [
+        "close_seed_kept_growing",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "res_shared_tea",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "They sat across from each other with two cups of tea, and let the {NOUN:weather} go on without them for a while.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_friendly_parting",
+        "close_two_friends",
+        "close_kettle_back_on"
+      ]
+    },
+    {
+      "id": "res_waved_at_themselves",
+      "type": "resolution",
+      "tone": [
+        "whimsical",
+        "magical"
+      ],
+      "text": "Through the hill-window, the {NOUN:character} waved — slowly, foolishly, fondly — and the other them waved back the same way.",
+      "next_beats": [
+        "close_question_kept",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "res_grew_into_them",
+      "type": "resolution",
+      "tone": [
+        "whimsical",
+        "triumphant"
+      ],
+      "text": "The {NOUN:character} laced up the bigger boots, took a brave step, and found, to their surprise, that they fit.",
+      "next_beats": [
+        "close_laugh_together",
+        "close_warm_quiet",
+        "close_return_home"
+      ]
+    },
+    {
+      "id": "res_opened_it_anyway",
+      "type": "resolution",
+      "tone": [
+        "wistful",
+        "magical"
+      ],
+      "text": "After a long pause, the {NOUN:character} opened the letter — carefully, the way you open a door you are not sure leads somewhere familiar.",
+      "next_beats": [
+        "close_question_kept",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "res_left_it_for_later",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "The {NOUN:character} set the letter back down, gently. Some things, they had learned, are kinder when opened by a future self.",
+      "next_beats": [
+        "close_question_kept",
+        "close_warm_quiet",
+        "close_return_home"
+      ]
+    },
+    {
+      "id": "res_chose_by_smell",
+      "type": "resolution",
+      "tone": [
+        "whimsical",
+        "adventure"
+      ],
+      "text": "The {NOUN:character} sniffed the air at each path, considered solemnly, and picked the one that smelled most like {NOUN:food}.",
+      "next_beats": [
+        "close_laugh_together",
+        "close_warm_quiet",
+        "close_friendly_parting"
+      ]
+    },
+    {
+      "id": "res_did_the_kind_thing",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "wistful"
+      ],
+      "text": "The {NOUN:character} did the small kind thing — not because they had to, but because the {NOUN:place} seemed to be asking.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_friendly_parting",
+        "close_two_friends"
+      ]
+    },
+    {
+      "id": "res_packed_lightly",
+      "type": "resolution",
+      "tone": [
+        "adventure",
+        "wistful"
+      ],
+      "text": "The {NOUN:character} packed only what would fit in one bag, and left the rest of the {NOUN:place} where it was.",
+      "next_beats": [
+        "close_return_home",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "res_pretended_not_to_notice",
+      "type": "resolution",
+      "tone": [
+        "whimsical",
+        "cozy"
+      ],
+      "text": "The {NOUN:character} pretended, very loudly, that they had no idea anything unusual was happening in the {NOUN:place} today.",
+      "next_beats": [
+        "close_laugh_together",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "res_left_a_small_gift",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "bittersweet"
+      ],
+      "text": "The {NOUN:character} left a small {NOUN:object} on the path, where the next traveler in the {NOUN:place} would find it.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_return_home"
+      ]
+    },
+    {
+      "id": "res_fell_into_step",
+      "type": "resolution",
+      "tone": [
+        "cozy",
+        "adventure"
+      ],
+      "text": "The two of them walked on together, neither leading nor following, the {NOUN:place} kinder for the company.",
+      "next_beats": [
+        "close_two_friends",
+        "close_warm_quiet",
+        "close_starry_neighbors",
+        "close_friendly_parting"
+      ]
+    },
+    {
+      "id": "res_followed_the_x",
+      "type": "resolution",
+      "tone": [
+        "adventure",
+        "mysterious"
+      ],
+      "text": "The {NOUN:character} followed the unfamiliar X across the borrowed map, and found, where it pointed, exactly what they needed.",
+      "next_beats": [
+        "close_question_kept",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "res_followed_the_prints",
+      "type": "resolution",
+      "tone": [
+        "silly",
+        "adventure"
+      ],
+      "text": "The {NOUN:character} followed the runaway boot's tracks across the {NOUN:place} with the dignified gait of someone wearing exactly one shoe.",
+      "next_beats": [
+        "close_laugh_together",
+        "close_warm_quiet",
+        "close_return_home",
+        "close_friendly_parting"
+      ]
+    },
+    {
+      "id": "res_spoke_first",
+      "type": "resolution",
+      "tone": [
+        "mysterious",
+        "cozy"
+      ],
+      "text": "Into the listening silence, the {NOUN:character} said hello, quietly, and the {NOUN:place} seemed to settle, relieved.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_named_at_last",
+        "close_starry_neighbors"
+      ]
+    },
+    {
+      "id": "res_laughed_until_crying",
+      "type": "resolution",
+      "tone": [
+        "triumphant",
+        "whimsical"
+      ],
+      "text": "The {NOUN:character} laughed until tears came, and every friend in the {NOUN:place} laughed with them, no one quite sure why anymore.",
+      "next_beats": [
+        "close_laugh_together",
+        "close_warm_quiet"
+      ]
+    },
+    {
+      "id": "res_sang_with_it",
+      "type": "resolution",
+      "tone": [
+        "magical",
+        "wistful"
+      ],
+      "text": "The {NOUN:character} sang along with the silence — wordless, careful — and the {NOUN:place} thanked them in a language only places use.",
+      "next_beats": [
+        "close_starry_neighbors",
+        "close_warm_quiet",
+        "close_song_in_the_well"
+      ]
+    },
+    {
+      "id": "res_built_a_bigger_room",
+      "type": "resolution",
+      "tone": [
+        "whimsical",
+        "triumphant"
+      ],
+      "text": "With borrowed help from every neighbor, the {NOUN:character} built a room large enough for the gift, the {NOUN:place}, and everyone in it.",
+      "next_beats": [
+        "close_warm_quiet",
+        "close_two_friends"
+      ]
     }
   ]
 }
