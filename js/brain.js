@@ -1128,6 +1128,35 @@ const Brain = (() => {
     }
   }
 
+  // ── Rule matching (v58 fix) ─────────────────────────────
+  // The rules.json `rules` array is matched BEFORE the math/science/
+  // knowledge dispatchers, so a bare substring rule like "what" would
+  // shadow every "what is X" question ("what is a derivative" →
+  // "Yeah! Want me to explain more?"). Ambiguous reaction/interrogative
+  // words must therefore essentially BE the whole message; unambiguous
+  // stems ("thank", "good morning") keep substring matching.
+  const RULE_EXACT_WORDS = new Set([
+    'what', 'why', 'really', 'seriously', 'wow', 'cool', 'nice',
+    'interesting', 'okay', 'ok', 'lol', 'haha', 'lmao', 'omg', 'no way',
+    'sure', 'huh'
+  ]);
+
+  function ruleMatches(ruleIf, lower) {
+    const r = ruleIf.toLowerCase();
+    if (RULE_EXACT_WORDS.has(r)) {
+      // Strip punctuation + a trailing vocative; require the remainder to
+      // equal the trigger. "what?" matches; "what is a derivative" doesn't.
+      const stripped = lower
+        .replace(/[^a-z\s]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/\s+(joe|monkey joe|there|buddy|pal|man|bro|dude)$/, '')
+        .trim();
+      return stripped === r;
+    }
+    return lower.includes(r);
+  }
+
   function respond(input, history = []) {
     // Tick flavoring counters once per respond() call.
     _recentFlavorAge++;
@@ -1384,10 +1413,12 @@ const Brain = (() => {
       if (detected) return pick(rules.emotions[detected].responses);
     }
 
-    // Rules check (before terminal so "what are cats" doesn't hit `cat` command)
+    // Rules check (before terminal so "what are cats" doesn't hit `cat` command).
+    // ruleMatches() keeps ambiguous reaction words (what/why/cool/...) from
+    // shadowing real questions handled by later dispatchers.
     if (rules && rules.rules) {
       for (const rule of rules.rules) {
-        if (rule.if && lower.includes(rule.if.toLowerCase())) {
+        if (rule.if && ruleMatches(rule.if, lower)) {
           return rule.procedural ? withProcedural(rule.then) : rule.then;
         }
       }
