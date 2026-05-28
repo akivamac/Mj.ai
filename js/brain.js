@@ -1,5 +1,9 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '56'; // bump when brain JSON files change
+  const BRAIN_VERSION = '57'; // bump when brain JSON files change
+
+  // Confirmation state for "forget everything" — set when Joe asks, cleared
+  // on next turn.
+  let _forgetEverythingPending = false;
 
   let knowledge = null;
   let rules = null;
@@ -84,6 +88,8 @@ const Brain = (() => {
     if (typeof Generator !== 'undefined' && Generator.init) {
       Generator.init(templates, dictionary, storyBeats);
     }
+    // Tick a session for memory tracking.
+    if (typeof Memory !== 'undefined') Memory.tickSession();
   }
 
   // ── Coding dispatchers (v51) ──────────────────────────────
@@ -966,10 +972,94 @@ const Brain = (() => {
     return null;
   }
 
+  // ── Memory commands (v57) ───────────────────────────────
+  // Explicit memory dispatcher. Handles remember/recall/forget. Runs near
+  // the top of respond() so it beats the rest of the chain on a clear
+  // command. Returns string OR null (null = no command matched).
+  function handleMemoryCommand(input, lower) {
+    if (typeof Memory === 'undefined') return null;
+    const trimmed = input.trim().replace(/[?.!]+$/, '');
+
+    // Forget-everything confirmation flow.
+    if (_forgetEverythingPending) {
+      _forgetEverythingPending = false;
+      if (/^(yes|yep|yeah|sure|confirm|do it|forget everything|yes,? forget everything)\b/i.test(trimmed)) {
+        Memory.clear();
+        return "Done — fresh slate. I've cleared everything I knew. 🐒";
+      }
+      return "OK, I won't forget anything. What else?";
+    }
+    if (/^forget\s+(everything|all|all of it|me|what you know)\b/i.test(trimmed)) {
+      _forgetEverythingPending = true;
+      const facts = Memory.listFacts().length;
+      return `Want me to wipe everything I remember (${facts} fact${facts === 1 ? '' : 's'} you told me, plus all the conversation patterns I've tracked)? Say "yes" to confirm.`;
+    }
+
+    // Forget a single fact: "forget about my cat", "forget my cat"
+    let m = trimmed.match(/^forget\s+(?:about\s+)?(?:my\s+)?(.+)$/i);
+    if (m) {
+      const r = Memory.forgetFact(m[1]);
+      return r.removed
+        ? `Forgotten. I no longer know your ${m[1]}. 🐒`
+        : `I didn't have anything stored under "${m[1]}".`;
+    }
+
+    // Recall — full list
+    if (/^(what\s+do\s+you\s+(?:know|remember)(?:\s+about\s+me)?|tell\s+me\s+what\s+you\s+(?:know|remember)(?:\s+about\s+me)?|list\s+(?:your\s+)?memor(?:y|ies)|show\s+(?:your\s+)?memor(?:y|ies))$/i.test(trimmed)) {
+      return Memory.summary();
+    }
+
+    // Recall — specific subject
+    m = trimmed.match(/^(?:do\s+you\s+(?:remember|know)\s+(?:about\s+)?(?:my\s+)?(.+)|what(?:'s|\s+is)\s+my\s+(.+))$/i);
+    if (m) {
+      const subj = m[1] || m[2];
+      const v = Memory.getFact(subj);
+      return v
+        ? `Yes — you told me your ${subj} is ${v}. 🐒`
+        : `I don't know your ${subj} yet — tell me with "remember that my ${subj} is …" and I'll keep it safe.`;
+    }
+
+    // Store — "remember that my X is Y" / "remember my X is Y"
+    m = trimmed.match(/^(?:please\s+)?remember\s+(?:that\s+)?my\s+(.+?)\s+(?:is|=)\s+(.+)$/i);
+    if (m) {
+      const r = Memory.setFact(m[1], m[2]);
+      if (r.rejected) return "I don't store things like passwords or addresses — just names, favorites, that kind of thing. 🐒";
+      return `Got it — your ${m[1]} is ${m[2]}. I'll remember. 🐒`;
+    }
+
+    // Store — "remember that I love/like X" → about_me list
+    m = trimmed.match(/^(?:please\s+)?remember\s+(?:that\s+)?i\s+(?:love|like|enjoy|am into|am)\s+(.+)$/i);
+    if (m) {
+      const existing = Memory.getFact('about_me');
+      const next = existing ? existing + ', ' + m[1] : m[1];
+      const r = Memory.setFact('about_me', next);
+      if (r.rejected) return "Try something specific — like 'remember that I love dragons'!";
+      return `Locked in — you ${/^(love|like|enjoy)/i.test(m[0].slice(m[0].indexOf('i ')+2)) ? "like" : "are into"} ${m[1]}. 🐒`;
+    }
+
+    // Store — "remember this for later: X" / "make a note that X"
+    m = trimmed.match(/^(?:remember\s+this(?:\s+for\s+later)?[:,]?\s*|make\s+a\s+note(?:\s+that)?\s+|don'?t\s+forget(?:\s+that)?\s+)(.+)$/i);
+    if (m) {
+      const id = 'note_' + Date.now().toString(36).slice(-6);
+      const r = Memory.setFact(id, m[1]);
+      if (r.rejected) return "I don't store things like passwords or addresses.";
+      return `Noted: "${m[1]}". 🐒`;
+    }
+
+    return null;
+  }
+
   function respond(input, history = []) {
     // Tick flavoring counters once per respond() call.
     _recentFlavorAge++;
     _storyHookAge++;
+
+    // Memory commands win early — pure command surface, no chance of
+    // misrouting to other dispatchers.
+    if (typeof Memory !== 'undefined') {
+      const memOut = handleMemoryCommand(input, input.toLowerCase().trim());
+      if (memOut !== null) return memOut;
+    }
     let lower = input.toLowerCase().trim();
 
     // Get user account name for personalization
@@ -1122,9 +1212,15 @@ const Brain = (() => {
           return re.test(lower);
         });
         if (matched) {
-          let greeting = pick(g.responses);
-          if (userName && greeting.includes('Hi') && !greeting.includes(userName)) {
-            greeting = greeting.replace(/^Hi/, `Hi ${userName},`);
+          let greeting;
+          // Welcome-back wins when we have memory of prior sessions.
+          if (typeof Memory !== 'undefined' && Memory.shouldWelcomeBack()) {
+            greeting = Memory.formatWelcomeBack(userName);
+          } else {
+            greeting = pick(g.responses);
+            if (userName && greeting.includes('Hi') && !greeting.includes(userName)) {
+              greeting = greeting.replace(/^Hi/, `Hi ${userName},`);
+            }
           }
           return withProcedural(greeting);
         }
@@ -1609,6 +1705,7 @@ const Brain = (() => {
         _lastTopicKeywords = bestFact.keywords;
         _lastTopicLabel    = bestFact.keywords[0];
         _lastFactAnswer    = bestFact.answer;
+        if (typeof Memory !== 'undefined') Memory.recordTopic(bestFact.keywords[0]);
         let out = bestFact.answer;
         if (shouldFlavor(lower)) {
           out = flavorFact(out, null);
