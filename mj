@@ -3461,6 +3461,22 @@ class MonkeyJoe:
             word = re.sub(r'[^a-z]', '', spell_m.group(1), flags=re.I)
             if len(word) >= 2:
                 return f"{word} is spelled: {'-'.join(word.upper())} 🐒"
+        # Good news / achievements (v92)
+        if re.match(r"^(yay+|woo+|hooray|yippee|i did it|we did it|i won|we won|i passed|i aced|i finished|i made it|i got it|nailed it|i'?m proud)\b", lower):
+            return random.choice(["Woohoo! 🎉🐒 Way to go — I knew you could! Tell me about it!",
+                "YESSS 🙌🐒🍌 That's awesome! High five! ✋", "Amazing!! 🎉 So proud of you 🐒 What happened?"])
+        if re.match(r"^(i'?m|i am|im|feeling|feel)\s+(happy|excited|great|awesome|amazing|fantastic|good|wonderful|joyful|glad|pumped|stoked)\b", lower):
+            return random.choice(["Yay, that makes me happy too! 🐒🍌 What's the good news?",
+                "Love that energy! 🐒 What's got you feeling so good?"])
+        if re.match(r"^(oops|oh no|uh oh|uh-oh|whoops|my bad|yikes|darn|shoot)\b", lower):
+            return random.choice(["Uh oh 🙈 Everything okay? I'm here if you want to talk or need a hand.",
+                "Whoops! 🐒 No worries — what happened?"])
+        if re.search(r"\bhappy birthday\b|^(it'?s|its) my birthday\b|\bmy birthday\b", lower):
+            return random.choice(["A birthday?! 🎂🎉🐒 Happy birthday!! Hope it's full of cake and bananas 🍌",
+                "🎂🎈 HAPPY BIRTHDAY! 🐒 Make a wish — and save me a slice!"])
+        if re.search(r"\bmerry christmas\b|\bhappy (new year|halloween|thanksgiving|easter|holidays|hanukkah|diwali)\b|\bhappy holidays\b", lower):
+            return random.choice(["🎉🐒 Right back at you — hope it's a wonderful one! 🍌",
+                "Aw, thank you! 🐒 Wishing you a happy one too! 🎉"])
 
         # Positive feedback ("I like it", "that was great", "love it") — warm
         # reply instead of falling into the knowledge scorer; offer more if a

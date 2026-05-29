@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '91'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '92'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1944,6 +1944,23 @@ const Brain = (() => {
         const word = spellM[1].replace(/[^a-z]/gi, '');
         if (word.length >= 2) return `${word} is spelled: ${word.toUpperCase().split('').join('-')} 🐒`;
       }
+      // Good news / achievements (v92) — celebrate with them
+      if (/^(yay+|woo+|hooray|yippee|i did it|we did it|i won|we won|i passed|i aced|i finished|i made it|i got it|nailed it|i'?m proud)\b/i.test(lower))
+        return pick(["Woohoo! 🎉🐒 Way to go — I knew you could! Tell me about it!",
+          "YESSS 🙌🐒🍌 That's awesome! High five! ✋", "Amazing!! 🎉 So proud of you 🐒 What happened?"]);
+      if (/^(i'?m|i am|im|feeling|feel)\s+(happy|excited|great|awesome|amazing|fantastic|good|wonderful|joyful|glad|pumped|stoked)\b/i.test(lower))
+        return pick(["Yay, that makes me happy too! 🐒🍌 What's the good news?",
+          "Love that energy! 🐒 What's got you feeling so good?"]);
+      if (/^(oops|oh no|uh oh|uh-oh|whoops|my bad|yikes|darn|shoot)\b/i.test(lower))
+        return pick(["Uh oh 🙈 Everything okay? I'm here if you want to talk or need a hand.",
+          "Whoops! 🐒 No worries — what happened?"]);
+      // Celebrations / holidays (v92)
+      if (/\bhappy birthday\b|^(it'?s|its) my birthday\b|\bmy birthday\b/i.test(lower))
+        return pick(["A birthday?! 🎂🎉🐒 Happy birthday!! Hope it's full of cake and bananas 🍌",
+          "🎂🎈 HAPPY BIRTHDAY! 🐒 Make a wish — and save me a slice!"]);
+      if (/\bmerry christmas\b|\bhappy (new year|halloween|thanksgiving|easter|holidays|hanukkah|diwali)\b|\bhappy holidays\b/i.test(lower))
+        return pick(["🎉🐒 Right back at you — hope it's a wonderful one! 🍌",
+          "Aw, thank you! 🐒 Wishing you a happy one too! 🎉"]);
     }
 
     // Positive feedback ("I like it", "that was great", "love it", "cool
