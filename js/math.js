@@ -44,6 +44,17 @@ const MathEngine = (() => {
     // strip common request wrappers
     t = t.replace(/^(what\s+is|what'?s|whats|what about|how about|and what(?:'?s| is| about)?|calculate|compute|evaluate|work out|solve|how much is|how much)\s+/i, '');
     t = t.replace(/[?.]+$/, '').trim();
+    // natural-language binary ops: "(the) sum of A and B", "product of 3 and 4",
+    // "difference between 10 and 3", "quotient of 20 and 4". Operands get
+    // wrapped in parens so each is evaluated whole.
+    t = t.replace(/^(?:the\s+)?sum\s+of\s+(.+?)\s+and\s+(.+)$/, '($1)+($2)');
+    t = t.replace(/^(?:the\s+)?product\s+of\s+(.+?)\s+and\s+(.+)$/, '($1)*($2)');
+    t = t.replace(/^(?:the\s+)?difference\s+(?:of|between)\s+(.+?)\s+and\s+(.+)$/, '($1)-($2)');
+    t = t.replace(/^(?:the\s+)?quotient\s+of\s+(.+?)\s+and\s+(.+)$/, '($1)/($2)');
+    // "(the) sum/total of 2+3" — lead-in on an expression that already has an
+    // operator. The lookahead requires an operator before any comma, so stats
+    // lists ("sum of 2,3,4") fall through to the summarize path untouched.
+    t = t.replace(/^(?:the\s+)?(?:sum|total)\s+of\s+(?=[^,]*[-+*/^])/, '');
     // π and e
     t = t.replace(/\bpi\b/g, '(' + Math.PI + ')');
     t = t.replace(/\beuler('s)?\s+number\b/g, '(' + Math.E + ')');

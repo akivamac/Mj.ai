@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '73'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '74'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -35,6 +35,8 @@ const Brain = (() => {
   let _storyHookSubject = null;
   let _storyHookKeywords = null;
   let _storyHookAge = 99;     // turns since story hook offered
+  let _lastMathContext = null; // {cleaned, result} of the last computed answer
+  let _lastMathAge = 99;      // turns since that answer (for "how does this work?")
 
   async function load() {
     // If version changed, clear cache and reload from JSON
@@ -989,10 +991,44 @@ const Brain = (() => {
     // 5. Plain expression evaluation (fallback)
     if (MathEngine.looksLikeMath(input)) {
       const r = MathEngine.evaluateExpression(input);
-      if (r && !r.error) return _fmt(r.value);
+      if (r && !r.error) {
+        // Remember the calculation so a follow-up "how does this work?" (the
+        // garnish invites it) can explain the operation instead of falling
+        // through to the physics 'work' tutorial. (v74)
+        _lastMathContext = { cleaned: r.cleaned || '', result: _fmt(r.value) };
+        _lastMathAge = 0;
+        return _fmt(r.value);
+      }
       if (r && r.error) return null; // silently fall through on parse error
     }
     return null;
+  }
+
+  // "how does this/that work?", "how'd you do that?", "explain that" — generic
+  // follow-up phrasings (no new content of their own). Used only when a math
+  // answer is fresh, so it must NOT match topical "how does the heart work".
+  const MATH_FOLLOWUP_RE = /^(how (?:does|do|did|d)?\s*(?:this|that|it|you)?\s*(?:work|works|do that|get that|figure that out|work that out)|how'?d you (?:do|get) that|how come|explain (?:that|this|it|how)?|show me how|but how|what do you mean|how so)[\s?.!]*$/i;
+
+  function _isMathFollowUp(lower) {
+    return MATH_FOLLOWUP_RE.test(lower.trim());
+  }
+
+  // Kid-friendly explanation of the last computed expression. Tailors the
+  // wording to the dominant operation; falls back to PEMDAS for compound ones.
+  function _explainLastMath(ctx) {
+    if (!ctx || !ctx.cleaned) return null;
+    const expr = ctx.cleaned, res = ctx.result;
+    const bin = expr.match(/^\(?\s*(-?\d+(?:\.\d+)?)\s*\)?\s*([-+*/^])\s*\(?\s*(-?\d+(?:\.\d+)?)\s*\)?$/);
+    if (bin) {
+      const a = bin[1], op = bin[2], b = bin[3];
+      if (op === '+') return `Adding means putting amounts together. You combine ${a} and ${b} into one total, which gives ${res}. Want the long way? Say "show your work". 🐒`;
+      if (op === '-') return `Subtracting means taking away. You start with ${a} and remove ${b}, and what's left is ${res}. Want it broken down? Say "show your work". 🐒`;
+      if (op === '*') return `Multiplying is fast repeated adding — "${a}, ${b} times". So ${a} × ${b} stacks up to ${res}. Want the steps? Say "show your work". 🐒`;
+      if (op === '/') return `Dividing is splitting into equal groups. ${a} ÷ ${b} asks "how many ${b}s fit in ${a}?" — the answer is ${res}. Want it step by step? Say "show your work". 🐒`;
+      if (op === '^') return `An exponent is repeated multiplying. ${a}^${b} means ${a} multiplied by itself ${b} times, which comes to ${res}. 🐒`;
+    }
+    if (/%|\/100/.test(expr)) return `A percent is a piece out of 100. I turned the percent into a fraction over 100, then multiplied — that lands on ${res}. Want the steps? Say "show your work". 🐒`;
+    return `I worked it out left to right following order of operations (PEMDAS: parentheses, exponents, then ×/÷, then +/−), which gives ${res}. Want me to show each step? Say "show your work". 🐒`;
   }
 
   // ── Memory commands (v57) ───────────────────────────────
@@ -1267,6 +1303,7 @@ const Brain = (() => {
     // Tick flavoring counters once per respond() call.
     _recentFlavorAge++;
     _storyHookAge++;
+    _lastMathAge++;
     _maybeClearDrawingContext();
 
     // ── Drawing envelope (turn 1) ───────────────────────
@@ -1816,6 +1853,16 @@ const Brain = (() => {
     // Slot: after coding (so pasted tracebacks containing `1/0` still
     // route to the error matcher) and before terminal + knowledge (so
     // `is 91 prime` doesn't get hijacked by a wikipedia-style fact).
+    // Follow-up to a fresh calculation: "how does this work?" / "explain that".
+    // Must run before the science dispatcher, or "how does this work?" gets
+    // hijacked by the physics 'work' tutorial. Only fires when the input is a
+    // bare follow-up (no math of its own) and a recent answer is on record.
+    if (_lastMathContext && _lastMathAge <= 2 && _isMathFollowUp(lower)
+        && !classifyMathIntent(input, lower)) {
+      const exp = _explainLastMath(_lastMathContext);
+      if (exp) { _lastMathAge = 99; return exp; }
+    }
+
     const mathIntent = classifyMathIntent(input, lower);
     if (mathIntent) {
       const mathOut = handleMathIntent(mathIntent, input, lower);

@@ -324,6 +324,15 @@ class MathEngine:
         t = re.sub(r'(\d+(?:\.\d+)?)\s*%(?!\s*\d)', r'(\1/100)', t)
         t = re.sub(r"^(what\s+is|what'?s|whats|what about|how about|and what(?:'?s| is| about)?|calculate|compute|evaluate|work out|solve|how much is|how much)\s+", '', t, flags=re.I)
         t = re.sub(r'[?.]+$', '', t).strip()
+        # natural-language binary ops: "(the) sum of A and B", etc.
+        t = re.sub(r'^(?:the\s+)?sum\s+of\s+(.+?)\s+and\s+(.+)$', r'(\1)+(\2)', t)
+        t = re.sub(r'^(?:the\s+)?product\s+of\s+(.+?)\s+and\s+(.+)$', r'(\1)*(\2)', t)
+        t = re.sub(r'^(?:the\s+)?difference\s+(?:of|between)\s+(.+?)\s+and\s+(.+)$', r'(\1)-(\2)', t)
+        t = re.sub(r'^(?:the\s+)?quotient\s+of\s+(.+?)\s+and\s+(.+)$', r'(\1)/(\2)', t)
+        # "(the) sum/total of 2+3" — lead-in on an expression that already has
+        # an operator (lookahead needs the operator before any comma, so stats
+        # lists "sum of 2,3,4" stay intact).
+        t = re.sub(r'^(?:the\s+)?(?:sum|total)\s+of\s+(?=[^,]*[-+*/^])', '', t)
         t = re.sub(r'\bpi\b', '(' + str(math.pi) + ')', t)
         t = re.sub(r"\beuler('s)?\s+number\b", '(' + str(math.e) + ')', t)
         return t
@@ -1268,6 +1277,8 @@ class MonkeyJoe:
         self._story_hook_subject = None
         self._story_hook_keywords = None
         self._story_hook_age = 99       # turns since story-hook offered
+        self._last_math_context = None  # {cleaned, result} of last computation
+        self._last_math_age = 99        # turns since (for "how does this work?")
 
         self.load_brains()
 
@@ -2121,8 +2132,37 @@ class MonkeyJoe:
         # 5. Plain expression
         if MathEngine.looks_like_math(input_str):
             r = MathEngine.evaluate_expression(input_str)
-            if r and 'error' not in r: return f(r['value'])
+            if r and 'error' not in r:
+                # Remember it so a follow-up "how does this work?" explains the
+                # operation instead of hitting the physics 'work' tutorial.
+                self._last_math_context = {'cleaned': r.get('cleaned', ''), 'result': f(r['value'])}
+                self._last_math_age = 0
+                return f(r['value'])
         return None
+
+    _MATH_FOLLOWUP_RE = re.compile(
+        r"^(how (?:does|do|did|d)?\s*(?:this|that|it|you)?\s*(?:work|works|do that|get that|figure that out|work that out)"
+        r"|how'?d you (?:do|get) that|how come|explain (?:that|this|it|how)?|show me how|but how|what do you mean|how so)"
+        r"[\s?.!]*$", re.I)
+
+    def _is_math_followup(self, lower):
+        return bool(self._MATH_FOLLOWUP_RE.match(lower.strip()))
+
+    def _explain_last_math(self, ctx):
+        if not ctx or not ctx.get('cleaned'):
+            return None
+        expr, res = ctx['cleaned'], ctx['result']
+        bin_m = re.match(r'^\(?\s*(-?\d+(?:\.\d+)?)\s*\)?\s*([-+*/^])\s*\(?\s*(-?\d+(?:\.\d+)?)\s*\)?$', expr)
+        if bin_m:
+            a, op, b = bin_m.group(1), bin_m.group(2), bin_m.group(3)
+            if op == '+': return f'Adding means putting amounts together. You combine {a} and {b} into one total, which gives {res}. Want the long way? Say "show your work". 🐒'
+            if op == '-': return f"Subtracting means taking away. You start with {a} and remove {b}, and what's left is {res}. Want it broken down? Say \"show your work\". 🐒"
+            if op == '*': return f'Multiplying is fast repeated adding — "{a}, {b} times". So {a} × {b} stacks up to {res}. Want the steps? Say "show your work". 🐒'
+            if op == '/': return f'Dividing is splitting into equal groups. {a} ÷ {b} asks "how many {b}s fit in {a}?" — the answer is {res}. Want it step by step? Say "show your work". 🐒'
+            if op == '^': return f'An exponent is repeated multiplying. {a}^{b} means {a} multiplied by itself {b} times, which comes to {res}. 🐒'
+        if re.search(r'%|/100', expr):
+            return f'A percent is a piece out of 100. I turned the percent into a fraction over 100, then multiplied — that lands on {res}. Want the steps? Say "show your work". 🐒'
+        return f'I worked it out left to right following order of operations (PEMDAS: parentheses, exponents, then ×/÷, then +/−), which gives {res}. Want me to show each step? Say "show your work". 🐒'
 
     def handle_story_input(self, user_input, lower):
         """Returns response string if input is a story request/continuation/reset/another; else None."""
@@ -3022,6 +3062,7 @@ class MonkeyJoe:
         # Tick flavoring counters (Phase 3) once per respond() call.
         self._recent_flavor_age += 1
         self._story_hook_age    += 1
+        self._last_math_age     += 1
 
         # Story-hook reply — short affirmative within 2 turns of a hook
         # triggers a fact-woven story on the hooked subject.
@@ -3168,6 +3209,17 @@ class MonkeyJoe:
         coding_resp = self.handle_coding_input(user_input, lower)
         if coding_resp is not None:
             return coding_resp
+
+        # Follow-up to a fresh calculation ("how does this work?" / "explain
+        # that") — must beat the science dispatcher, or it hits the physics
+        # 'work' tutorial. Only fires on a bare follow-up with a recent answer.
+        if (self._last_math_context and self._last_math_age <= 2
+                and self._is_math_followup(lower)
+                and not self._classify_math_intent(user_input, lower)):
+            exp = self._explain_last_math(self._last_math_context)
+            if exp:
+                self._last_math_age = 99
+                return exp
 
         # Math dispatcher (v55) — slots between coding and knowledge so
         # `is 91 prime` and `25% of 80` win over generic fact lookup.
