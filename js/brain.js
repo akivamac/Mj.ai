@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '93'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '94'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1856,6 +1856,10 @@ const Brain = (() => {
           "Guilty 🙈🐒 A wild monkey's gotta be a little loco. What's up?"
         ]);
         if (/\b(hungry|starving|peckish)\b/.test(st)) return "Always — got a banana? 🍌🐒";
+        if (/\b(ai|a\.i\.|an ai|llm|chatgpt|gpt|a bot|a robot|a program|a computer)\b/.test(st))
+          return "I'm a rules-based program (not a big AI like Claude or ChatGPT) 🐒 — I match patterns in what you say. Built by Akiva with Claude's help.";
+        if (/\b(boy|girl|man|woman|male|female|he or she|a boy or)\b/.test(st))
+          return "I'm just a monkey — no boy or girl here, only bananas! 🐒 Call me 'he' or 'they', whatever you like.";
         if (/\b(ok|okay|alright|good|fine|well|doing (ok|good|well)|sure)\b/.test(st)) return "I'm great, thanks for asking! 🐒 How are YOU?";
         // generic fallback for any other "are you X"
         return pick([
@@ -1887,10 +1891,13 @@ const Brain = (() => {
         return "I live right here in this app — a cozy little jungle of code! 🐒 (Built by Akiva.)";
       if (/\bwho (made|created|built|coded|designed|programmed|owns) (you|u)\b|\bwho'?s your (creator|maker|owner|boss|developer)\b/i.test(lower))
         return "Akiva built me, with a lot of help from Claude (an AI)! 🐒 I'm Monkey Joe.";
-      if (/\bhow (were|are) (you|u) (made|built|created)\b|\bare (you|u) (an? )?(ai|a\.i\.|llm|chatgpt|gpt)\b/i.test(lower))
+      if (/\bhow (were|are) (you|u) (made|built|created)\b/i.test(lower))
         return "I'm a rules-based program (not a big AI like Claude or ChatGPT) 🐒 — I match patterns in what you say and pick a reply, backed by a huge brain of facts Akiva and Claude filled in.";
-      if (/\bare (you|u) a (boy|girl|man|woman|male|female)\b|\bare (you|u) a (boy|girl) or a? ?(boy|girl)\b/i.test(lower))
-        return "I'm just a monkey — no boy or girl here, only bananas and good vibes! 🐒 Call me 'he' or 'they', whatever you like.";
+      if (/^(what'?s|what is|whats)\s+your\s+name\b|^who\s+(are|r)\s+(you|u)\b|^what\s+are\s+(you|u)\b|^what\s+should\s+i\s+call\s+you\b/i.test(lower))
+        return "I'm Monkey Joe! 🐒 A friendly rules-based chatbot made by Akiva. Ask me facts, math, science, stories, jokes — you name it. 🍌";
+      // Time/date — Joe has no clock/calendar in his jungle (v94)
+      if (/\bwhat (time|day|date|year|month) is it\b|\bwhat'?s the (time|date|day)\b|\bwhat day of the week\b|\btoday'?s date\b|\bdo you know (what time|the time|the date)\b|\bwhat is the (time|date)\b/i.test(lower))
+        return "I don't have a clock or calendar here in my jungle 🐒 — peek at the corner of your device, it always knows! ⏰";
     }
 
     // Jokes (v86) — a kids' bot should have these. Fires on explicit asks;

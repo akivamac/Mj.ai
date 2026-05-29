@@ -3392,6 +3392,10 @@ class MonkeyJoe:
                 return random.choice(["A little! 🐒 Goofy's kind of my whole brand. 🍌", "Guilty 🙈🐒 A wild monkey's gotta be a little loco. What's up?"])
             if re.search(r'\b(hungry|starving|peckish)\b', st):
                 return "Always — got a banana? 🍌🐒"
+            if re.search(r'\b(ai|a\.i\.|an ai|llm|chatgpt|gpt|a bot|a robot|a program|a computer)\b', st):
+                return "I'm a rules-based program (not a big AI like Claude or ChatGPT) 🐒 — I match patterns in what you say. Built by Akiva with Claude's help."
+            if re.search(r'\b(boy|girl|man|woman|male|female|he or she|a boy or)\b', st):
+                return "I'm just a monkey — no boy or girl here, only bananas! 🐒 Call me 'he' or 'they', whatever you like."
             if re.search(r'\b(ok|okay|alright|good|fine|well|sure|doing (ok|good|well|fine))\b', st):
                 return "I'm great, thanks for asking! 🐒 How are YOU?"
             return random.choice(["Me? Just a happy monkey here to help 🐒 What's on your mind?", "Could be! 🐒 Hard to say — I'm mostly bananas and good intentions. What's up?"])
@@ -3413,10 +3417,13 @@ class MonkeyJoe:
             return "I live right here in this app — a cozy little jungle of code! 🐒 (Built by Akiva.)"
         if re.search(r"\bwho (made|created|built|coded|designed|programmed|owns) (you|u)\b|\bwho'?s your (creator|maker|owner|boss|developer)\b", lower):
             return "Akiva built me, with a lot of help from Claude (an AI)! 🐒 I'm Monkey Joe."
-        if re.search(r"\bhow (were|are) (you|u) (made|built|created)\b|\bare (you|u) (an? )?(ai|a\.i\.|llm|chatgpt|gpt)\b", lower):
+        if re.search(r"\bhow (were|are) (you|u) (made|built|created)\b", lower):
             return "I'm a rules-based program (not a big AI like Claude or ChatGPT) 🐒 — I match patterns in what you say and pick a reply, backed by a huge brain of facts Akiva and Claude filled in."
-        if re.search(r"\bare (you|u) a (boy|girl|man|woman|male|female)\b", lower):
-            return "I'm just a monkey — no boy or girl here, only bananas and good vibes! 🐒 Call me 'he' or 'they', whatever you like."
+        if re.search(r"^(what'?s|what is|whats)\s+your\s+name\b|^who\s+(are|r)\s+(you|u)\b|^what\s+are\s+(you|u)\b|^what\s+should\s+i\s+call\s+you\b", lower):
+            return "I'm Monkey Joe! 🐒 A friendly rules-based chatbot made by Akiva. Ask me facts, math, science, stories, jokes — you name it. 🍌"
+        # Time/date — no clock/calendar (v94)
+        if re.search(r"\bwhat (time|day|date|year|month) is it\b|\bwhat'?s the (time|date|day)\b|\bwhat day of the week\b|\btoday'?s date\b|\bdo you know (what time|the time|the date)\b|\bwhat is the (time|date)\b", lower):
+            return "I don't have a clock or calendar here in my jungle 🐒 — peek at the corner of your device, it always knows! ⏰"
 
         # Jokes (v86). "knock knock" plays along.
         if re.match(r'^\s*knock[\s,]+knock\b', lower):
