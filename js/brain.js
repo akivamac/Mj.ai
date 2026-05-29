@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '69'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '70'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1842,14 +1842,19 @@ const Brain = (() => {
       }
     }
 
-    // Terminal/command check — only if input looks like a command (starts with trigger or is short)
+    // Terminal/command check — fires when the input looks like a command OR
+    // is a question ABOUT a command. The "about a command" path is gated on an
+    // explicit command-context word (command/terminal/shell/cli/bash) so that
+    // "what is a cat" stays the animal, not the `cat` command. (v70)
     if (terminal && terminal.commands) {
+      const aboutCommand = /\b(command|terminal|cli|command line|shell|bash)\b/.test(lower);
       for (const entry of terminal.commands) {
-        if (entry.triggers && entry.triggers.some(t => {
-          return lower === t || lower.startsWith(t + ' ') || lower.startsWith(t + ':') || /^(run|execute|use|type)\s/.test(lower) && lower.includes(t);
-        })) {
-          return entry.response;
-        }
+        if (!entry.triggers) continue;
+        const direct = entry.triggers.some(t =>
+          lower === t || lower.startsWith(t + ' ') || lower.startsWith(t + ':') ||
+          (/^(run|execute|use|type)\s/.test(lower) && lower.includes(t)));
+        const asked = aboutCommand && entry.triggers.some(t => _wordContains(lower, t));
+        if (direct || asked) return entry.response;
       }
     }
 
