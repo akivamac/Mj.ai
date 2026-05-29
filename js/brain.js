@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '92'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '93'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1876,6 +1876,21 @@ const Brain = (() => {
           "No can do — I'd just get banana all over everything 🍌🐒 Want the recipe or a fun fact instead?"
         ]);
       }
+    }
+
+    // Identity questions about Joe (v93) — answer in character, not with a
+    // keyword-matched fact ("how old are you" used to dump the universe's age).
+    {
+      if (/\bhow old are (you|u)\b|\bwhat'?s your age\b|\bwhen were you (born|made|created)\b/i.test(lower))
+        return "I'm a young monkey in computer years! 🐒 No real birthday — Akiva and Claude just keep growing my brain bit by bit.";
+      if (/\bwhere do (you|u) live\b|\bwhere are (you|u)( from)?\b|\bwhere do (you|u) come from\b/i.test(lower))
+        return "I live right here in this app — a cozy little jungle of code! 🐒 (Built by Akiva.)";
+      if (/\bwho (made|created|built|coded|designed|programmed|owns) (you|u)\b|\bwho'?s your (creator|maker|owner|boss|developer)\b/i.test(lower))
+        return "Akiva built me, with a lot of help from Claude (an AI)! 🐒 I'm Monkey Joe.";
+      if (/\bhow (were|are) (you|u) (made|built|created)\b|\bare (you|u) (an? )?(ai|a\.i\.|llm|chatgpt|gpt)\b/i.test(lower))
+        return "I'm a rules-based program (not a big AI like Claude or ChatGPT) 🐒 — I match patterns in what you say and pick a reply, backed by a huge brain of facts Akiva and Claude filled in.";
+      if (/\bare (you|u) a (boy|girl|man|woman|male|female)\b|\bare (you|u) a (boy|girl) or a? ?(boy|girl)\b/i.test(lower))
+        return "I'm just a monkey — no boy or girl here, only bananas and good vibes! 🐒 Call me 'he' or 'they', whatever you like.";
     }
 
     // Jokes (v86) — a kids' bot should have these. Fires on explicit asks;
