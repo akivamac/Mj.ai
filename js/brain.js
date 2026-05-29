@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '90'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '91'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1342,6 +1342,37 @@ const Brain = (() => {
     "What is full of holes but still holds water? 🤔 (A sponge! 🧽)"
   ];
 
+  // Wordplay maps (v91). Antonyms checked both directions; synonyms one-way.
+  const ANTONYMS = {
+    hot:'cold', big:'small', up:'down', fast:'slow', happy:'sad', good:'bad',
+    light:'dark', day:'night', high:'low', left:'right', open:'closed', full:'empty',
+    hard:'easy', wet:'dry', new:'old', rich:'poor', strong:'weak', loud:'quiet',
+    clean:'dirty', true:'false', win:'lose', push:'pull', buy:'sell', give:'take',
+    love:'hate', start:'stop', first:'last', near:'far', tall:'short', wide:'narrow',
+    thick:'thin', heavy:'light', sharp:'dull', sweet:'sour', smooth:'rough',
+    brave:'scared', kind:'mean', smart:'silly', awake:'asleep', alive:'dead',
+    more:'less', many:'few', always:'never', early:'late', north:'south', east:'west',
+    summer:'winter', white:'black', deep:'shallow', front:'back', gentle:'rough',
+    healthy:'sick', inside:'outside', polite:'rude', safe:'dangerous', simple:'complex',
+    top:'bottom', wild:'tame', cheap:'expensive', ancient:'modern', calm:'nervous',
+    tight:'loose', increase:'decrease', accept:'reject', young:'old', float:'sink',
+    begin:'end', remember:'forget', success:'failure', war:'peace', question:'answer'
+  };
+  const SYNONYMS = {
+    happy:['glad','joyful','cheerful','content'], sad:['unhappy','down','blue','gloomy'],
+    big:['large','huge','enormous','giant'], small:['little','tiny','miniature'],
+    fast:['quick','speedy','swift','rapid'], slow:['sluggish','unhurried','leisurely'],
+    smart:['clever','bright','intelligent','sharp'], pretty:['beautiful','lovely','gorgeous'],
+    scared:['afraid','frightened','terrified','nervous'], angry:['mad','furious','cross'],
+    tired:['sleepy','exhausted','weary'], cold:['chilly','freezing','icy'],
+    hot:['warm','boiling','scorching'], good:['great','nice','fine','excellent'],
+    bad:['awful','terrible','poor','lousy'], funny:['hilarious','amusing','silly'],
+    nice:['kind','pleasant','friendly'], hard:['difficult','tough','tricky'],
+    easy:['simple','effortless','breezy'], loud:['noisy','deafening','booming'],
+    quiet:['silent','hushed','peaceful'], strong:['powerful','mighty','sturdy'],
+    weak:['feeble','frail','flimsy'], rich:['wealthy','well-off'], brave:['bold','fearless','courageous']
+  };
+
   // Kid-friendly joke bank (v86). Clean puns + animal/monkey jokes.
   const JOKES = [
     "Why did the banana go to the doctor? It wasn't peeling well! 🍌",
@@ -1862,6 +1893,18 @@ const Brain = (() => {
     }
     if (!_isDefQ && /\briddle\b|^(riddle me this|stump me|give me a brain teaser|brain teaser)/i.test(lower)) {
       return pick(RIDDLES);
+    }
+    // Wordplay: opposite / synonym (v91)
+    const oppM = lower.match(/(?:what'?s|what is|whats|name|tell me)?\s*(?:the\s+)?opposite of\s+([a-z]+)|antonym (?:of|for)\s+([a-z]+)/);
+    if (oppM) {
+      const w = (oppM[1] || oppM[2]);
+      const ant = ANTONYMS[w] || Object.keys(ANTONYMS).find(k => ANTONYMS[k] === w);
+      return ant ? `The opposite of "${w}" is ${ant}! 🐒` : `Hmm, I don't have a good opposite for "${w}" 🐒`;
+    }
+    const synM = lower.match(/(?:another word for|other words for|synonym(?:s)? (?:of|for)|word(?:s)? (?:like|similar to)|what'?s another way to say)\s+([a-z]+)/);
+    if (synM) {
+      const w = synM[1], syns = SYNONYMS[w];
+      return syns ? `A few words like "${w}": ${syns.slice(0, 4).join(', ')} 🐒` : `Hmm, I can't think of a good synonym for "${w}" right now 🐒`;
     }
 
     // Empathy + common-kid conversational gaps (v86) — these used to fall to

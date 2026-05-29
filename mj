@@ -2996,6 +2996,36 @@ class MonkeyJoe:
 
     # Sub-topic intent words (v77 parity, Bugs 3/5). Compact mirror of the
     # web intentMap — order matters (lifespan before habitat for "how long").
+    _ANTONYMS = {
+        'hot':'cold','big':'small','up':'down','fast':'slow','happy':'sad','good':'bad',
+        'light':'dark','day':'night','high':'low','left':'right','open':'closed','full':'empty',
+        'hard':'easy','wet':'dry','new':'old','rich':'poor','strong':'weak','loud':'quiet',
+        'clean':'dirty','true':'false','win':'lose','push':'pull','buy':'sell','give':'take',
+        'love':'hate','start':'stop','first':'last','near':'far','tall':'short','wide':'narrow',
+        'thick':'thin','heavy':'light','sharp':'dull','sweet':'sour','smooth':'rough',
+        'brave':'scared','kind':'mean','smart':'silly','awake':'asleep','alive':'dead',
+        'more':'less','many':'few','always':'never','early':'late','north':'south','east':'west',
+        'summer':'winter','white':'black','deep':'shallow','front':'back','gentle':'rough',
+        'healthy':'sick','inside':'outside','polite':'rude','safe':'dangerous','simple':'complex',
+        'top':'bottom','wild':'tame','cheap':'expensive','ancient':'modern','calm':'nervous',
+        'tight':'loose','increase':'decrease','accept':'reject','young':'old','float':'sink',
+        'begin':'end','remember':'forget','success':'failure','war':'peace','question':'answer',
+    }
+    _SYNONYMS = {
+        'happy':['glad','joyful','cheerful','content'],'sad':['unhappy','down','blue','gloomy'],
+        'big':['large','huge','enormous','giant'],'small':['little','tiny','miniature'],
+        'fast':['quick','speedy','swift','rapid'],'slow':['sluggish','unhurried','leisurely'],
+        'smart':['clever','bright','intelligent','sharp'],'pretty':['beautiful','lovely','gorgeous'],
+        'scared':['afraid','frightened','terrified','nervous'],'angry':['mad','furious','cross'],
+        'tired':['sleepy','exhausted','weary'],'cold':['chilly','freezing','icy'],
+        'hot':['warm','boiling','scorching'],'good':['great','nice','fine','excellent'],
+        'bad':['awful','terrible','poor','lousy'],'funny':['hilarious','amusing','silly'],
+        'nice':['kind','pleasant','friendly'],'hard':['difficult','tough','tricky'],
+        'easy':['simple','effortless','breezy'],'loud':['noisy','deafening','booming'],
+        'quiet':['silent','hushed','peaceful'],'strong':['powerful','mighty','sturdy'],
+        'weak':['feeble','frail','flimsy'],'rich':['wealthy','well-off'],'brave':['bold','fearless','courageous'],
+    }
+
     _RIDDLES = [
         "What has keys but can't open a single lock? 🤔 (A piano! 🎹)",
         "What has hands but cannot clap? 🤔 (A clock! 🕐)",
@@ -3386,6 +3416,16 @@ class MonkeyJoe:
             return random.choice(self._JOKES)
         if not _is_def_q and re.search(r'\briddle\b|^(riddle me this|stump me|give me a brain teaser|brain teaser)', lower):
             return random.choice(self._RIDDLES)
+        # Wordplay: opposite / synonym (v91)
+        opp_m = re.search(r'(?:what\'?s|what is|whats|name|tell me)?\s*(?:the\s+)?opposite of\s+([a-z]+)|antonym (?:of|for)\s+([a-z]+)', lower)
+        if opp_m:
+            w = opp_m.group(1) or opp_m.group(2)
+            ant = self._ANTONYMS.get(w) or next((k for k, v in self._ANTONYMS.items() if v == w), None)
+            return f'The opposite of \"{w}\" is {ant}! 🐒' if ant else f'Hmm, I don\'t have a good opposite for \"{w}\" 🐒'
+        syn_m = re.search(r'(?:another word for|other words for|synonyms? (?:of|for)|words? (?:like|similar to)|what\'?s another way to say)\s+([a-z]+)', lower)
+        if syn_m:
+            w = syn_m.group(1); syns = self._SYNONYMS.get(w)
+            return f'A few words like \"{w}\": {", ".join(syns[:4])} 🐒' if syns else f'Hmm, I can\'t think of a good synonym for \"{w}\" right now 🐒'
 
         # Empathy + common-kid conversational gaps (v86).
         if re.search(r"^(i'?m|i am|im|feeling|feel|so|really|getting)\b.*\bbored\b|^bored\b", lower):
