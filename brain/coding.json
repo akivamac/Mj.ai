@@ -5614,7 +5614,7 @@
         "next turbopack",
         "vercel bundler"
       ],
-      "answer": "Turbopack is Vercel's Rust-based incremental bundler, built as the successor to Webpack. Powers `next dev --turbo` in Next.js 13+ and became default for `next dev` in Next.js 15 (October 2024). Uses function-level caching so a tiny edit only recomputes affected modules. Production `next build --turbo` is still in beta as of late 2024 but rapidly approaching stable."
+      "answer": "Turbopack is Vercel's Rust-based incremental bundler, built as the successor to Webpack. Powers `next dev --turbo` in Next.js 13+ and became default for `next dev` in Next.js 15 (October 2024). Uses function-level caching so a tiny edit only recomputes affected modules. Production `next build --turbo` reached stable in 2025."
     },
     {
       "keywords": [

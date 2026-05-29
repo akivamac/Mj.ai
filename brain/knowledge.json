@@ -605,7 +605,7 @@
         "steve jobs",
         "apple silicon"
       ],
-      "answer": "Apple Inc. was founded April 1, 1976 by Steve Jobs, Steve Wozniak, and Ronald Wayne (Wayne sold his 10% share for $800 — worth hundreds of billions today). Apple II (1977): first mass-market personal computer with color graphics. Macintosh (Jan 24, 1984): first successful GUI (graphical user interface) personal computer — '1984' Super Bowl ad (directed by Ridley Scott) is considered the greatest commercial ever. Jobs ousted by the board in 1985, returned 1997 (Apple was 90 days from bankruptcy — acquired NeXT for its OS, which became macOS). iMac G3 (1998, colorful, 'Design is not just how it looks — it's how it works'). iPod (2001) + iTunes = music industry revolution. iPhone (June 29, 2007): 'Today, Apple is going to reinvent the phone' — combined iPod + phone + internet. App Store (2008). iPad (2010). Steve Jobs died Oct 5, 2011. Tim Cook became CEO. Apple Silicon M1 (2020): ARM-based chips that dramatically outperform Intel on performance/watt. AirPods (2016), Apple Watch, Apple Vision Pro (2024, spatial computing). Most valuable company in the world (alternates with Microsoft, Nvidia, Aramco) — ~$3 trillion market cap."
+      "answer": "Apple Inc. was founded April 1, 1976 by Steve Jobs, Steve Wozniak, and Ronald Wayne (Wayne sold his 10% share for $800 — worth hundreds of billions today). Apple II (1977): first mass-market personal computer with color graphics. Macintosh (Jan 24, 1984): first successful GUI (graphical user interface) personal computer — '1984' Super Bowl ad (directed by Ridley Scott) is considered the greatest commercial ever. Jobs ousted by the board in 1985, returned 1997 (Apple was 90 days from bankruptcy — acquired NeXT for its OS, which became macOS). iMac G3 (1998, colorful, 'Design is not just how it looks — it's how it works'). iPod (2001) + iTunes = music industry revolution. iPhone (June 29, 2007): 'Today, Apple is going to reinvent the phone' — combined iPod + phone + internet. App Store (2008). iPad (2010). Steve Jobs died Oct 5, 2011. Tim Cook became CEO. Apple Silicon M1 (2020): ARM-based chips that dramatically outperform Intel on performance/watt. AirPods (2016), Apple Watch, Apple Vision Pro (2024, spatial computing). One of the world's most valuable companies — a multi-trillion-dollar market cap that trades places near the top with Nvidia, Alphabet, and Microsoft."
     },
     {
       "keywords": [
@@ -1311,7 +1311,7 @@
         "arabic",
         "modern egypt"
       ],
-      "answer": "Modern Egypt (officially the Arab Republic of Egypt) has ~105 million people — the most populous Arab country and most populous in Africa. Capital: Cairo (~21 million metro — largest city in Africa and the Arab world). Official language: Arabic. Egypt sits at the crossroads of Africa, the Middle East, and the Mediterranean — the Suez Canal (opened 1869), connecting the Mediterranean and Red Sea, carries ~12% of world trade. GDP: ~$476 billion. The Nile River (world's longest, ~6,650 km) flows north through Egypt — virtually all of Egypt's population lives within a few kilometers of the Nile. Egypt has 7 UNESCO World Heritage Sites including the Pyramids of Giza (the only surviving ancient wonder). Modern Egypt became a republic in 1952. The Arab Spring (2011) triggered the Egyptian Revolution, ousting President Mubarak after 30 years. The Aswan High Dam (1970) controls flooding and generates hydroelectric power."
+      "answer": "Modern Egypt (officially the Arab Republic of Egypt) has ~118 million people — the most populous Arab country and most populous in Africa. Capital: Cairo (~21 million metro — largest city in Africa and the Arab world). Official language: Arabic. Egypt sits at the crossroads of Africa, the Middle East, and the Mediterranean — the Suez Canal (opened 1869), connecting the Mediterranean and Red Sea, carries ~12% of world trade. GDP: ~$476 billion. The Nile River (world's longest, ~6,650 km) flows north through Egypt — virtually all of Egypt's population lives within a few kilometers of the Nile. Egypt has 7 UNESCO World Heritage Sites including the Pyramids of Giza (the only surviving ancient wonder). Modern Egypt became a republic in 1952. The Arab Spring (2011) triggered the Egyptian Revolution, ousting President Mubarak after 30 years. The Aswan High Dam (1970) controls flooding and generates hydroelectric power."
     },
     {
       "keywords": [
@@ -1378,7 +1378,7 @@
         "alignment",
         "safety"
       ],
-      "answer": "Anthropic was founded in 2021 by Dario Amodei (CEO), Daniela Amodei (President), and others who left OpenAI. Mission: AI safety research and building safe, beneficial AI systems. Constitutional AI: a training approach where Claude learns from AI feedback guided by a 'constitution' — a set of principles — rather than relying solely on human feedback. This makes the process more scalable and consistent. Claude's model families: Haiku (fast, efficient), Sonnet (balanced), Opus (most capable). Context window: up to 1M tokens on the latest models (Claude Opus and Sonnet 4-series; earlier Claude models were 200K). Anthropic is known for publishing safety research (scaling laws, interpretability, red-teaming). Key investors: Google, Spark Capital, and others — valued at $18B+ as of 2024. Anthropic's 'responsible scaling policy' commits to safety evaluations before deploying more powerful models. Anthropic built me — through Claude, who helped Akiva design Monkey Joe! 🐒"
+      "answer": "Anthropic was founded in 2021 by Dario Amodei (CEO), Daniela Amodei (President), and others who left OpenAI. Mission: AI safety research and building safe, beneficial AI systems. Constitutional AI: a training approach where Claude learns from AI feedback guided by a 'constitution' — a set of principles — rather than relying solely on human feedback. This makes the process more scalable and consistent. Claude's model families: Haiku (fast, efficient), Sonnet (balanced), Opus (most capable). Context window: up to 1M tokens on the latest models (Claude Opus and Sonnet 4-series; earlier Claude models were 200K). Anthropic is known for publishing safety research (scaling laws, interpretability, red-teaming). Key investors: Google, Spark Capital, and others — valued in the hundreds of billions (2026) — one of the world's most valuable startups, and climbing fast. Anthropic's 'responsible scaling policy' commits to safety evaluations before deploying more powerful models. Anthropic built me — through Claude, who helped Akiva design Monkey Joe! 🐒"
     },
     {
       "keywords": [
@@ -1779,7 +1779,7 @@
         "olympic swimming",
         "freestyle"
       ],
-      "answer": "Michael Phelps is the most decorated Olympian in history: 28 Olympic medals (23 gold, 3 silver, 2 bronze) across 4 Olympics (2000-2016). He has a 193cm wingspan (taller than his 193cm height — unusual), double-jointed ankles that flex 15° further than average (giving flipper-like propulsion), and produces less lactic acid than average swimmers. Swimming strokes (in order of speed): butterfly (fastest, most demanding), backstroke, breaststroke (slowest), freestyle/front crawl. Competition pool: 50m (long course) or 25m (short course). World record 100m freestyle: ~46.8 seconds (~7.7 km/h). Open water swimming: 10km Olympic event, plus marathon swims across channels. The English Channel (34 km): Matthew Webb first swam it in 1875 (21 hours 45 minutes). Modern record: ~6.5 hours."
+      "answer": "Michael Phelps is the most decorated Olympian in history: 28 Olympic medals (23 gold, 3 silver, 2 bronze) across 4 Olympics (2000-2016). He has a 193cm wingspan (taller than his 193cm height — unusual), double-jointed ankles that flex 15° further than average (giving flipper-like propulsion), and produces less lactic acid than average swimmers. Swimming strokes (in order of speed): butterfly (fastest, most demanding), backstroke, breaststroke (slowest), freestyle/front crawl. Competition pool: 50m (long course) or 25m (short course). World record 100m freestyle: ~46.4 seconds (~7.7 km/h). Open water swimming: 10km Olympic event, plus marathon swims across channels. The English Channel (34 km): Matthew Webb first swam it in 1875 (21 hours 45 minutes). Modern record: ~6.5 hours."
     },
     {
       "keywords": [
@@ -2230,7 +2230,7 @@
         "wwf",
         "iucn"
       ],
-      "answer": "The IUCN Red List classifies species by extinction risk: Extinct (EX), Extinct in the Wild (EW), Critically Endangered (CR), Endangered (EN), Vulnerable (VU), Near Threatened (NT), Least Concern (LC). As of 2024: ~44,000+ species threatened with extinction out of ~150,000 assessed. The 6th mass extinction: current extinction rate is 100-1,000× higher than background rates — comparable to the 5 previous mass extinctions. Driven by: habitat destruction (primary driver — deforestation, agriculture, urbanization), overexploitation (hunting, fishing), invasive species, pollution, climate change, and disease. Most endangered: Amur leopard (~100 left), Javan rhino (~70), Sumatran orangutan (~14,000), mountain gorilla (~1,100). Conservation success stories: bald eagle (removed from endangered list 2007), humpback whale (populations recovering), Arabian oryx (returned from extinct in the wild). Edward O. Wilson estimated ~8 million species exist on Earth; only ~2 million have been named."
+      "answer": "The IUCN Red List classifies species by extinction risk: Extinct (EX), Extinct in the Wild (EW), Critically Endangered (CR), Endangered (EN), Vulnerable (VU), Near Threatened (NT), Least Concern (LC). As of 2025: ~48,000+ species threatened with extinction out of ~172,000 assessed. The 6th mass extinction: current extinction rate is 100-1,000× higher than background rates — comparable to the 5 previous mass extinctions. Driven by: habitat destruction (primary driver — deforestation, agriculture, urbanization), overexploitation (hunting, fishing), invasive species, pollution, climate change, and disease. Most endangered: Amur leopard (~100 left), Javan rhino (~70), Sumatran orangutan (~14,000), mountain gorilla (~1,100). Conservation success stories: bald eagle (removed from endangered list 2007), humpback whale (populations recovering), Arabian oryx (returned from extinct in the wild). Edward O. Wilson estimated ~8 million species exist on Earth; only ~2 million have been named."
     },
     {
       "keywords": [
@@ -2301,7 +2301,7 @@
         "border",
         "citizenship"
       ],
-      "answer": "Immigration: people moving permanently or semi-permanently to another country. Types: economic migrants (seeking better opportunities), refugees (fleeing persecution — protected by 1951 UN Refugee Convention), asylum seekers (applied for but haven't received refugee status), internally displaced people (IDPs — fled violence within own country). UNHCR: 110 million+ people forcibly displaced worldwide as of 2023 — highest ever. Top refugee-hosting countries: Iran, Turkey, Pakistan, Uganda (not wealthy Western nations). US immigration: ~1 million legal immigrants/year, ~10.5-11 million undocumented immigrants (declined from 12.2 million in 2007). DACA (Deferred Action for Childhood Arrivals, 2012): protected ~800,000 'Dreamers' brought to US as children. Ellis Island (1892-1954): processed ~12 million immigrants. Push/pull factors: push (war, poverty, climate change), pull (jobs, family, stability). Economic research consensus: immigration broadly benefits receiving economies — immigrants pay taxes, start businesses, and fill labor shortages."
+      "answer": "Immigration: people moving permanently or semi-permanently to another country. Types: economic migrants (seeking better opportunities), refugees (fleeing persecution — protected by 1951 UN Refugee Convention), asylum seekers (applied for but haven't received refugee status), internally displaced people (IDPs — fled violence within own country). UNHCR: ~120 million+ people forcibly displaced worldwide (peaked 2024, near record highs). Top refugee-hosting countries: Iran, Turkey, Pakistan, Uganda (not wealthy Western nations). US immigration: ~1 million legal immigrants/year, ~10.5-11 million undocumented immigrants (declined from 12.2 million in 2007). DACA (Deferred Action for Childhood Arrivals, 2012): protected ~800,000 'Dreamers' brought to US as children. Ellis Island (1892-1954): processed ~12 million immigrants. Push/pull factors: push (war, poverty, climate change), pull (jobs, family, stability). Economic research consensus: immigration broadly benefits receiving economies — immigrants pay taxes, start businesses, and fill labor shortages."
     },
     {
       "keywords": [
@@ -2837,7 +2837,7 @@
         "most populated",
         "largest population"
       ],
-      "answer": "World population: ~8.1 billion (2024). Most populous countries: 1. India (~1.45B, surpassed China in 2023), 2. China (~1.41B), 3. USA (~335M), 4. Indonesia (~278M), 5. Pakistan (~240M), 6. Brazil (~215M), 7. Nigeria (~220M), 8. Bangladesh (~170M), 9. Russia (~145M), 10. Ethiopia (~125M). Most populous cities (metro): Tokyo (~37M), Delhi (~33M), Shanghai (~29M), Dhaka (~23M), São Paulo (~22M), Mexico City (~22M), Cairo (~21M), Beijing (~21M), Mumbai (~21M). World population hit 8 billion on November 15, 2022. Projected to reach ~10 billion by 2050-2100 then stabilize or decline."
+      "answer": "World population: ~8.3 billion (2026). Most populous countries: 1. India (~1.45B, surpassed China in 2023), 2. China (~1.41B), 3. USA (~345M), 4. Indonesia (~278M), 5. Pakistan (~240M), 6. Nigeria (~225M), 7. Brazil (~212M), 8. Bangladesh (~170M), 9. Russia (~145M), 10. Ethiopia (~125M). Most populous cities (metro): Tokyo (~37M), Delhi (~33M), Shanghai (~29M), Dhaka (~23M), São Paulo (~22M), Mexico City (~22M), Cairo (~21M), Beijing (~21M), Mumbai (~21M). World population hit 8 billion on November 15, 2022. Projected to reach ~10 billion by 2050-2100 then stabilize or decline."
     },
     {
       "keywords": [
@@ -6666,7 +6666,7 @@
         "pi irrational",
         "lambert"
       ],
-      "answer": "π is irrational (Lambert, 1761) — it can't be written as a fraction of two integers. It's also transcendental (Lindemann, 1882) — it's not the root of any polynomial equation with integer coefficients. The transcendence of π proved that squaring the circle with compass and straightedge is impossible, settling a question that had occupied mathematicians for 2,000 years. As of recent computations, π has been calculated to over 100 trillion digits."
+      "answer": "π is irrational (Lambert, 1761) — it can't be written as a fraction of two integers. It's also transcendental (Lindemann, 1882) — it's not the root of any polynomial equation with integer coefficients. The transcendence of π proved that squaring the circle with compass and straightedge is impossible, settling a question that had occupied mathematicians for 2,000 years. As of recent computations, π has been calculated to over 300 trillion digits (2025)."
     },
     {
       "keywords": [
@@ -7160,7 +7160,7 @@
         "ev history",
         "henry"
       ],
-      "answer": "Electric vehicles aren't new — about a third of cars in 1900 were electric. They lost to gasoline cars because of cheap oil and Henry Ford's mass production. Modern EVs took off after Tesla's Roadster (2008) proved lithium-ion batteries could make EVs practical and desirable. As of 2024, EVs are around 18% of global new car sales. Norway is the leader with over 90% of new sales electric. The biggest remaining issues are charging infrastructure and battery recycling."
+      "answer": "Electric vehicles aren't new — about a third of cars in 1900 were electric. They lost to gasoline cars because of cheap oil and Henry Ford's mass production. Modern EVs took off after Tesla's Roadster (2008) proved lithium-ion batteries could make EVs practical and desirable. As of 2025, EVs are around 25% of global new car sales (about one in four). Norway is the leader with over 90% of new sales electric. The biggest remaining issues are charging infrastructure and battery recycling."
     },
     {
       "keywords": [
@@ -7622,7 +7622,7 @@
         "rubik cube",
         "hungarian"
       ],
-      "answer": "The Rubik's Cube was invented in 1974 by Hungarian architecture professor Ernő Rubik to help students think about three-dimensional space. It has 43 quintillion possible configurations. The minimum number of moves required to solve any scramble is 20 — proven by a 2010 brute-force computer analysis nicknamed 'God's Number.' The world record for solving a 3x3 by a human is currently 3.13 seconds (Max Park, 2023). Robots can do it in under a third of a second."
+      "answer": "The Rubik's Cube was invented in 1974 by Hungarian architecture professor Ernő Rubik to help students think about three-dimensional space. It has 43 quintillion possible configurations. The minimum number of moves required to solve any scramble is 20 — proven by a 2010 brute-force computer analysis nicknamed 'God's Number.' The world record for solving a 3x3 by a human is currently ~3.05 seconds (2025, down from Max Park's 3.13 in 2023). Robots can do it in under a third of a second."
     },
     {
       "keywords": [
