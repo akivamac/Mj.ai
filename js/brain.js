@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '68'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '69'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -483,6 +483,8 @@ const Brain = (() => {
     new RegExp('^(make|write|do|give me|create|start|add|spin|read)\\s+(me\\s+)?(the\\s+|a\\s+|another\\s+)?(next\\s+)?(chapter|part|page|section)' + TRAIL, 'i'),
     new RegExp('^(the\\s+)?next (chapter|part|page|section)' + TRAIL, 'i'),
     new RegExp('^(another|one more) (chapter|part|page|section|bit)' + TRAIL, 'i'),
+    // bare "next" / "next." / "next please" — shorthand for "next chapter" (v69)
+    new RegExp('^next' + TRAIL, 'i'),
     /^(the next part|then what|and then\??|and\?)[\s!.?]*$/i
   ];
   function detectStoryContinuation(input) {
@@ -1467,6 +1469,13 @@ const Brain = (() => {
       _storySession.character = r.character || _storySession.character;
       _storySession.place     = r.place     || _storySession.place;
       _storySession.mode      = r.mode || nextMode;
+      // "make that longer" expands the most recent chapter — replace it in the
+      // book so the saved file has the longer version, not both. (v69)
+      if (Array.isArray(_storySession.chapters) && _storySession.chapters.length) {
+        _storySession.chapters[_storySession.chapters.length - 1] = r.text;
+      } else {
+        _recordChapter(r.text);
+      }
       return r.text;
     }
 

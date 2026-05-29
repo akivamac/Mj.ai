@@ -1357,6 +1357,7 @@ class MonkeyJoe:
         r'^(make|write|do|give me|create|start|add|spin|read)\s+(me\s+)?(the\s+|a\s+|another\s+)?(next\s+)?(chapter|part|page|section)' + _CONT_TRAIL,
         r'^(the\s+)?next (chapter|part|page|section)' + _CONT_TRAIL,
         r'^(another|one more) (chapter|part|page|section|bit)' + _CONT_TRAIL,
+        r'^next' + _CONT_TRAIL,
         r'^(the next part|then what|and then\??|and\?)[\s!.?]*$'
     ]
     _RESET_PATTERNS = [
