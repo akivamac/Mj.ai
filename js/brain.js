@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '86'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '87'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1851,12 +1851,33 @@ const Brain = (() => {
         return "Sure, happy to help! 🐒 I'm best at math, science, and facts — what's the subject or question?";
       if (/^(sing|can you sing|will you sing)\b/i.test(lower))
         return "Monkeys aren't exactly songbirds 🙈🐒 — but I can spin you a story, tell a joke, or do some math!";
+      if (/^(i'?m|i am|im|feeling|feel|so|really|getting)\s+(tired|sleepy|exhausted|worn out)\b/i.test(lower))
+        return pick(["Sounds like you could use some rest 🐒 Want a cozy bedtime story to wind down?",
+          "Aw, get some rest 🐒💤 Want a calm little story first?"]);
+      if (/^(i'?m|i am|im|so|really|getting)\s+(hungry|starving|peckish)\b/i.test(lower))
+        return "Me too — always 🍌🐒 I'd split a banana with you if I could! Want a joke while you grab a snack?";
+      if (/^guess what\b/i.test(lower))
+        return pick(["Ooh, what?! 🐒 Tell me!", "What what what? 🐒 I'm all ears!"]);
+      if (/\b(play a game|let'?s play|lets play|wanna play|want to play|can we play|play with me)\b/i.test(lower))
+        return "I'd love to! 🐒 I can't run a full game, but I can do riddles, jokes, fun facts, or spin you a story — what sounds fun?";
+      if (/^(thanks|thank you|thank u|thanx|thx|ty|tysm|much appreciated|appreciate it)\b/i.test(lower))
+        return pick(["You're welcome! 🐒 Anything else I can help with?", "Anytime! 🐒🍌", "Happy to help! 🐒 What's next?"]);
+      if (/^(bye|goodbye|good\s?bye|good\s?night|goodnight|night night|nighty\s?night|see (you|ya)( later| soon| around)?|cya|c ya|later|laters|gtg|g2g|gotta go|i('?m| am) (leaving|going)|peace out|adios|farewell|catch you later|talk to you later)\b/i.test(lower))
+        return pick(["See you later! 🐒 Come back anytime — I'll be here swinging.",
+          "Bye for now! 🍌 It was fun chatting. 🐒", "Take care! 🐒 I'll save your bananas for you.",
+          "Catch you later, friend! 🐒"]);
+      // Spelling help: "how do you spell because" / "spell banana"
+      const spellM = lower.match(/^(?:how (?:do|to) (?:you|i) spell|how to spell|spell|what'?s the spelling of)\s+(?:the word\s+)?([a-z][a-z'-]{1,19})[\s!.?]*$/i);
+      if (spellM) {
+        const word = spellM[1].replace(/[^a-z]/gi, '');
+        if (word.length >= 2) return `${word} is spelled: ${word.toUpperCase().split('').join('-')} 🐒`;
+      }
     }
 
     // Positive feedback ("I like it", "that was great", "love it", "cool
     // story") — respond warmly instead of falling into the knowledge scorer
     // (the "i like it" → Euler's-number bug). If a story is live, offer more.
-    if (/^((i\s+)?(really\s+)?(like|love|loved|liked|loving|enjoy|enjoyed)\s+(it|that|this(\s+one|\s+story)?)|that('?s|\s+was)(\s+so|\s+really)?\s+(great|good|cool|awesome|nice|fun|lovely|sweet|amazing|perfect)|(so\s+|really\s+)?(good|great|cool|awesome|nice|lovely|fun)\s+(story|one|job|tale)|nice\s+one|well\s+done|good\s+job)[\s!.?]*$/i.test(lower)) {
+    if (/^((i\s+)?(really\s+)?(like|love|loved|liked|loving|enjoy|enjoyed)\s+(it|that|this(\s+one|\s+story)?)|that('?s|\s+was)(\s+so|\s+really)?\s+(great|good|cool|awesome|nice|fun|lovely|sweet|amazing|perfect)|(so\s+|really\s+)?(good|great|cool|awesome|nice|lovely|fun)\s+(story|one|job|tale)|nice\s+one|well\s+done|good\s+job)(\s+(joe|monkey joe|buddy|pal|friend|man|bro|dude|mj))?[\s!.?]*$/i.test(lower)) {
       if (_storySession) {
         return pick([
           "Yay, so glad you liked it! 🐒 Want another? Just say 'another'.",
@@ -2511,7 +2532,9 @@ const Brain = (() => {
       if (bestFact && bestScore >= 1.5) {
         // Bug 7: category question whose asserted type the fact contradicts —
         // don't dump the entry as if it answered; surface what we have + hedge.
-        const catQ = detectCategoryQ(lower);
+        // Skip on comparison questions ("which is faster, a cheetah or a horse")
+        // — those aren't "is there an X called Y" and the check misfired. (v87)
+        const catQ = /\b(or|than|vs|versus)\b/.test(lower) ? null : detectCategoryQ(lower);
         if (catQ && catQ.name.length >= 3 && catQ.category.length >= 3) {
           const hay = (bestFact.answer + ' ' + (bestFact.keywords || []).join(' ')).toLowerCase();
           const escCat = catQ.category.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

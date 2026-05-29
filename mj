@@ -3371,11 +3371,31 @@ class MonkeyJoe:
             return "Sure, happy to help! 🐒 I'm best at math, science, and facts — what's the subject or question?"
         if re.match(r"^(sing|can you sing|will you sing)\b", lower):
             return "Monkeys aren't exactly songbirds 🙈🐒 — but I can spin you a story, tell a joke, or do some math!"
+        if re.match(r"^(i'?m|i am|im|feeling|feel|so|really|getting)\s+(tired|sleepy|exhausted|worn out)\b", lower):
+            return random.choice(["Sounds like you could use some rest 🐒 Want a cozy bedtime story to wind down?",
+                "Aw, get some rest 🐒💤 Want a calm little story first?"])
+        if re.match(r"^(i'?m|i am|im|so|really|getting)\s+(hungry|starving|peckish)\b", lower):
+            return "Me too — always 🍌🐒 I'd split a banana with you if I could! Want a joke while you grab a snack?"
+        if re.match(r"^guess what\b", lower):
+            return random.choice(["Ooh, what?! 🐒 Tell me!", "What what what? 🐒 I'm all ears!"])
+        if re.search(r"\b(play a game|let'?s play|lets play|wanna play|want to play|can we play|play with me)\b", lower):
+            return "I'd love to! 🐒 I can't run a full game, but I can do riddles, jokes, fun facts, or spin you a story — what sounds fun?"
+        if re.match(r"^(thanks|thank you|thank u|thanx|thx|ty|tysm|much appreciated|appreciate it)\b", lower):
+            return random.choice(["You're welcome! 🐒 Anything else I can help with?", "Anytime! 🐒🍌", "Happy to help! 🐒 What's next?"])
+        if re.match(r"^(bye|goodbye|good\s?bye|good\s?night|goodnight|night night|nighty\s?night|see (you|ya)( later| soon| around)?|cya|c ya|later|laters|gtg|g2g|gotta go|i('?m| am) (leaving|going)|peace out|adios|farewell|catch you later|talk to you later)\b", lower):
+            return random.choice(["See you later! 🐒 Come back anytime — I'll be here swinging.",
+                "Bye for now! 🍌 It was fun chatting. 🐒", "Take care! 🐒 I'll save your bananas for you.",
+                "Catch you later, friend! 🐒"])
+        spell_m = re.match(r"^(?:how (?:do|to) (?:you|i) spell|how to spell|spell|what'?s the spelling of)\s+(?:the word\s+)?([a-z][a-z'-]{1,19})[\s!.?]*$", lower)
+        if spell_m:
+            word = re.sub(r'[^a-z]', '', spell_m.group(1), flags=re.I)
+            if len(word) >= 2:
+                return f"{word} is spelled: {'-'.join(word.upper())} 🐒"
 
         # Positive feedback ("I like it", "that was great", "love it") — warm
         # reply instead of falling into the knowledge scorer; offer more if a
         # story is live. (v60 parity — the "i like it" Euler's-number bug.)
-        if re.match(r"^((i\s+)?(really\s+)?(like|love|loved|liked|loving|enjoy|enjoyed)\s+(it|that|this(\s+one|\s+story)?)|that('?s|\s+was)(\s+so|\s+really)?\s+(great|good|cool|awesome|nice|fun|lovely|sweet|amazing|perfect)|(so\s+|really\s+)?(good|great|cool|awesome|nice|lovely|fun)\s+(story|one|job|tale)|nice\s+one|well\s+done|good\s+job)[\s!.?]*$", lower):
+        if re.match(r"^((i\s+)?(really\s+)?(like|love|loved|liked|loving|enjoy|enjoyed)\s+(it|that|this(\s+one|\s+story)?)|that('?s|\s+was)(\s+so|\s+really)?\s+(great|good|cool|awesome|nice|fun|lovely|sweet|amazing|perfect)|(so\s+|really\s+)?(good|great|cool|awesome|nice|lovely|fun)\s+(story|one|job|tale)|nice\s+one|well\s+done|good\s+job)(\s+(joe|monkey joe|buddy|pal|friend|man|bro|dude|mj))?[\s!.?]*$", lower):
             if self.story_session:
                 return random.choice([
                     "Yay, so glad you liked it! 🐒 Want another? Just say 'another'.",
@@ -3588,7 +3608,8 @@ class MonkeyJoe:
         # soft topic suggestion). (v77)
         if best_fact and best_score >= 1.5:
             # Bug 7: category question whose asserted type the fact contradicts.
-            cat_q = self._detect_category_q(lower)
+            # Skip on comparisons ("which is faster, a cheetah or a horse"). (v87)
+            cat_q = None if re.search(r'\b(or|than|vs|versus)\b', lower) else self._detect_category_q(lower)
             if cat_q and len(cat_q['name']) >= 3 and len(cat_q['category']) >= 3:
                 hay = (best_fact.get('answer', '') + ' ' + ' '.join(best_fact.get('keywords', []))).lower()
                 if not re.search(r'\b' + re.escape(cat_q['category']) + r's?\b', hay):
