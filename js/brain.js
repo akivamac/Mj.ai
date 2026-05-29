@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '98'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '99'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1949,6 +1949,32 @@ const Brain = (() => {
         if (rm) { lo = parseInt(rm[1], 10); hi = parseInt(rm[2], 10); if (lo > hi) [lo, hi] = [hi, lo]; }
         return `🐒 How about... ${rnd(lo, hi)}!`;
       }
+    }
+    // "How many X" common-knowledge quick answers (v99)
+    if (/^how many\b/i.test(lower)) {
+      const q = lower;
+      const sides = { triangle:3, square:4, rectangle:4, rhombus:4, pentagon:5, hexagon:6, heptagon:7, octagon:8, nonagon:9, decagon:10 };
+      let sm = q.match(/\bsides?\b.*\b(triangle|square|rectangle|rhombus|pentagon|hexagon|heptagon|octagon|nonagon|decagon)\b/);
+      if (sm) return `A ${sm[1]} has ${sides[sm[1]]} sides! 🐒`;
+      if (/\bsides?\b.*\bcircle\b/.test(q)) return "A circle has no sides — just one smooth curve! 🐒";
+      const legs = { spider:'8', scorpion:'8', insect:'6', ant:'6', bee:'6', fly:'6', beetle:'6', butterfly:'6',
+        dog:'4', cat:'4', horse:'4', cow:'4', lion:'4', elephant:'4', human:'2', person:'2', bird:'2',
+        chicken:'2', octopus:'8 (well — 8 arms!)', crab:'10', lobster:'10' };
+      let lm = q.match(/\blegs?\b.*?\b(spider|scorpion|insect|ant|bee|fly|beetle|butterfly|dog|cat|horse|cow|lion|elephant|human|person|bird|chicken|octopus|crab|lobster)\b/);
+      if (lm) return `A ${lm[1]} has ${legs[lm[1]]} legs! 🐒`;
+      const units = [
+        [/days?\b.*\byear/, '365 days (366 in a leap year)! 🐒'], [/days?\b.*\bweek/, '7 days! 🐒'],
+        [/hours?\b.*\bday/, '24 hours! 🐒'], [/minutes?\b.*\bhour/, '60 minutes! 🐒'],
+        [/seconds?\b.*\b(minute)/, '60 seconds! 🐒'], [/months?\b.*\byear/, '12 months! 🐒'],
+        [/weeks?\b.*\byear/, '52 weeks! 🐒'], [/\bcontinents?\b/, '7 continents: Africa, Antarctica, Asia, Europe, North America, Oceania, and South America! 🐒'],
+        [/\boceans?\b/, '5 oceans: the Pacific, Atlantic, Indian, Southern, and Arctic! 🐒'],
+        [/\bplanets?\b/, '8 planets in our solar system (Pluto became a dwarf planet in 2006). 🐒'],
+        [/colou?rs?\b.*\brainbow/, '7: red, orange, yellow, green, blue, indigo, and violet! 🌈'],
+        [/letters?\b.*\balphabet/, '26 letters in the English alphabet! 🐒'],
+        [/\bbones?\b.*\b(body|human|adult)/, '206 bones in an adult human body! 🦴'],
+        [/\bstates?\b.*\b(usa|us|america|united states)/, '50 states in the USA! 🇺🇸']
+      ];
+      for (const [re, ans] of units) if (re.test(q)) return ans;
     }
 
     // Empathy + common-kid conversational gaps (v86) — these used to fall to

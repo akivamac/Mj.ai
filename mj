@@ -3468,6 +3468,35 @@ class MonkeyJoe:
                 if lo > hi: lo, hi = hi, lo
             return f"🐒 How about... {random.randint(lo, hi)}!"
 
+        # "How many X" common-knowledge quick answers (v99)
+        if re.match(r'^how many\b', lower):
+            sides = {'triangle':3,'square':4,'rectangle':4,'rhombus':4,'pentagon':5,'hexagon':6,'heptagon':7,'octagon':8,'nonagon':9,'decagon':10}
+            sm = re.search(r'\bsides?\b.*\b(triangle|square|rectangle|rhombus|pentagon|hexagon|heptagon|octagon|nonagon|decagon)\b', lower)
+            if sm:
+                return f"A {sm.group(1)} has {sides[sm.group(1)]} sides! 🐒"
+            if re.search(r'\bsides?\b.*\bcircle\b', lower):
+                return "A circle has no sides — just one smooth curve! 🐒"
+            legs = {'spider':'8','scorpion':'8','insect':'6','ant':'6','bee':'6','fly':'6','beetle':'6','butterfly':'6','dog':'4','cat':'4','horse':'4','cow':'4','lion':'4','elephant':'4','human':'2','person':'2','bird':'2','chicken':'2','octopus':'8 (well — 8 arms!)','crab':'10','lobster':'10'}
+            lm = re.search(r'\blegs?\b.*?\b(spider|scorpion|insect|ant|bee|fly|beetle|butterfly|dog|cat|horse|cow|lion|elephant|human|person|bird|chicken|octopus|crab|lobster)\b', lower)
+            if lm:
+                return f"A {lm.group(1)} has {legs[lm.group(1)]} legs! 🐒"
+            units = [
+                (r'days?\b.*\byear', '365 days (366 in a leap year)! 🐒'), (r'days?\b.*\bweek', '7 days! 🐒'),
+                (r'hours?\b.*\bday', '24 hours! 🐒'), (r'minutes?\b.*\bhour', '60 minutes! 🐒'),
+                (r'seconds?\b.*\bminute', '60 seconds! 🐒'), (r'months?\b.*\byear', '12 months! 🐒'),
+                (r'weeks?\b.*\byear', '52 weeks! 🐒'),
+                (r'\bcontinents?\b', '7 continents: Africa, Antarctica, Asia, Europe, North America, Oceania, and South America! 🐒'),
+                (r'\boceans?\b', '5 oceans: the Pacific, Atlantic, Indian, Southern, and Arctic! 🐒'),
+                (r'\bplanets?\b', '8 planets in our solar system (Pluto became a dwarf planet in 2006). 🐒'),
+                (r'colou?rs?\b.*\brainbow', '7: red, orange, yellow, green, blue, indigo, and violet! 🌈'),
+                (r'letters?\b.*\balphabet', '26 letters in the English alphabet! 🐒'),
+                (r'\bbones?\b.*\b(body|human|adult)', '206 bones in an adult human body! 🦴'),
+                (r'\bstates?\b.*\b(usa|us|america|united states)', '50 states in the USA! 🇺🇸'),
+            ]
+            for pat, ans in units:
+                if re.search(pat, lower):
+                    return ans
+
         # Empathy + common-kid conversational gaps (v86).
         if re.search(r"^(i'?m|i am|im|feeling|feel|so|really|getting)\b.*\bbored\b|^bored\b", lower):
             return random.choice(["Let's fix that! 🐒 Want a story, a fun fact, a joke, or some math?",
