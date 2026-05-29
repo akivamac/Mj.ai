@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '97'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '98'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1898,6 +1898,12 @@ const Brain = (() => {
       // Time/date — Joe has no clock/calendar in his jungle (v94)
       if (/\bwhat (time|day|date|year|month) is it\b|\bwhat'?s the (time|date|day)\b|\bwhat day of the week\b|\btoday'?s date\b|\bdo you know (what time|the time|the date)\b|\bwhat is the (time|date)\b/i.test(lower))
         return "I don't have a clock or calendar here in my jungle 🐒 — peek at the corner of your device, it always knows! ⏰";
+      // Drawing — Joe reacts to YOUR drawings (the ✏️ pad), can't draw himself (v98)
+      if (/^(can|could|will|would)\s+(you|u)\s+draw\b|^draw\s+(me\s+)?(a|an|some|the)?\s*\w+|^(make|draw|create)\s+(me\s+)?a\s+(picture|drawing|painting|sketch)\b|^draw something\b|\bdraw me\b/i.test(lower))
+        return "I can't hold a crayon with these monkey paws 🐒 — but I'd LOVE to see YOUR art! Tap the ✏️ pad and draw something, and I'll guess what it is. 🎨";
+      // Capability / self-intro (v98)
+      if (/^(tell me about (yourself|you)|introduce yourself|who are you again|what'?s your (deal|story))\b/i.test(lower))
+        return "I'm Monkey Joe! 🐒 A rules-based chatbot Akiva built. I can answer facts, do math & science, spin stories, tell jokes & riddles, play word games, count, flip coins, and react to your drawings. What sounds fun? 🍌";
     }
 
     // Jokes (v86) — a kids' bot should have these. Fires on explicit asks;

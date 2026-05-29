@@ -3424,6 +3424,12 @@ class MonkeyJoe:
         # Time/date — no clock/calendar (v94)
         if re.search(r"\bwhat (time|day|date|year|month) is it\b|\bwhat'?s the (time|date|day)\b|\bwhat day of the week\b|\btoday'?s date\b|\bdo you know (what time|the time|the date)\b|\bwhat is the (time|date)\b", lower):
             return "I don't have a clock or calendar here in my jungle 🐒 — peek at the corner of your device, it always knows! ⏰"
+        # Drawing (v98) — CLI can't draw or show a pad
+        if re.search(r"^(can|could|will|would)\s+(you|u)\s+draw\b|^draw\s+(me\s+)?(a|an|some|the)?\s*\w+|^(make|draw|create)\s+(me\s+)?a\s+(picture|drawing|painting|sketch)\b|^draw something\b|\bdraw me\b", lower):
+            return "I can't draw with these monkey paws 🐒 — but I can describe one, spin a story about it, or tell you fun facts! 🍌"
+        # Capability / self-intro (v98)
+        if re.search(r"^(tell me about (yourself|you)|introduce yourself|who are you again|what'?s your (deal|story))\b", lower):
+            return "I'm Monkey Joe! 🐒 A rules-based chatbot Akiva built. I can answer facts, do math & science, spin stories, tell jokes & riddles, play word games, count, and flip coins. What sounds fun? 🍌"
 
         # Jokes (v86). "knock knock" plays along.
         if re.match(r'^\s*knock[\s,]+knock\b', lower):
