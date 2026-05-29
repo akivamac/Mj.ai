@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '79'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '80'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1208,6 +1208,30 @@ const Brain = (() => {
     return mood || null;  // mood already maps to tone names
   }
 
+  // An abstract drawing subject (a letter, number, shape, generic mark) makes a
+  // terrible story character — "a letter a who lives alone" reads as nonsense.
+  // For these, generate a generic tone-matched story and frame it as "inspired
+  // by" instead of binding the literal subject as the lead noun. (v80, Bug B)
+  function _isAbstractDrawingSubject(s) {
+    if (!s) return true;
+    const t = s.toLowerCase().trim();
+    if (t.replace(/[^a-z0-9]/g, '').length <= 1) return true;
+    return /^(the\s+)?(letter|number|digit|symbol|shape|line|dot|dots|squiggle|scribble|scribbles|doodle|doodles|mark|marks|spot|blob|smudge|circle|square|triangle|rectangle|oval|swirl|zigzag|stick figure|drawing|picture|sketch)\b/.test(t);
+  }
+
+  function _drawingPayoffStory(subj, analysis) {
+    const tone = _drawingStoryToneFromMood(analysis && analysis.mood);
+    const abstract = _isAbstractDrawingSubject(subj);
+    const r = Generator.generateStory(abstract ? { mode: 'micro', tone } : { subject: subj, mode: 'micro', tone });
+    _storySession = {
+      tone: r.tone || tone, subject: abstract ? (r.character || null) : subj,
+      character: r.character, place: r.place,
+      chapter: 1, chapterMode: false, mode: 'micro'
+    };
+    _drawingContext = null;
+    return abstract ? `Here's a tiny story your ${subj} inspired 🐒\n\n${r.text}` : r.text;
+  }
+
   function _isDrawingStoryAccept(lower) {
     // Affirmative, allowing a trailing vocative / politeness word so "yes joe",
     // "yes please", "sure thing buddy", "ok then" all count (v60 — fixes the
@@ -1381,18 +1405,10 @@ const Brain = (() => {
       if (/\b(what|which|huh|mean)\b/i.test(lower3) || /^\s*\?+\s*$/.test(input)) {
         return `A little made-up story starring your ${subj}! Want one? Just say "yes". 🐒`;
       }
-      // Accept (or any clear affirmative) → spin the story.
+      // Accept (or any clear affirmative) → spin the story. (Abstract subjects
+      // like "letter A" are handled by _drawingPayoffStory.)
       if (_isDrawingStoryAccept(lower3) && typeof Generator !== 'undefined') {
-        const tone = _drawingStoryToneFromMood(_drawingContext.analysis.mood);
-        const r = Generator.generateStory({ subject: subj, mode: 'micro', tone });
-        // Graduate into a story session so "another" continues the subject.
-        _storySession = {
-          tone: r.tone || tone, subject: subj,
-          character: r.character, place: r.place,
-          chapter: 1, chapterMode: false, mode: 'micro'
-        };
-        _drawingContext = null;
-        return r.text;
+        return _drawingPayoffStory(subj, _drawingContext.analysis);
       }
       // Anything else (a new topic, an off-hand remark) → release the
       // drawing context and let the normal dispatch chain handle it.
@@ -1403,16 +1419,7 @@ const Brain = (() => {
     // window still spins the story (v59 fix for the dead-end decline).
     if (_drawingContext && _drawingContext.declined && typeof Generator !== 'undefined'
         && /^(actually\s+)?(yes|yeah|sure|ok|okay|go on|do it|fine|wait,?\s*yes|on second thought.*yes|i changed my mind)\b/i.test(input.toLowerCase().trim())) {
-      const subj = _drawingContext.describedAs;
-      const tone = _drawingStoryToneFromMood(_drawingContext.analysis.mood);
-      const r = Generator.generateStory({ subject: subj, mode: 'micro', tone });
-      _storySession = {
-        tone: r.tone || tone, subject: subj,
-        character: r.character, place: r.place,
-        chapter: 1, chapterMode: false, mode: 'micro'
-      };
-      _drawingContext = null;
-      return r.text;
+      return _drawingPayoffStory(_drawingContext.describedAs, _drawingContext.analysis);
     }
 
     // Memory commands win early — pure command surface, no chance of
@@ -1792,6 +1799,24 @@ const Brain = (() => {
         "Aw, thank you! 🐒 What should we do next?",
         "🐒💛 You're the best. What's next?",
         "Glad you think so! 🐒 Ask me anything."
+      ]);
+    }
+
+    // Rejection of the previous answer/story — "that doesn't go with my
+    // drawing", "that story doesn't fit", "not what I drew", "wrong story".
+    // Catch it here so it doesn't fall to the keyword scorer ("match" →
+    // pattern-matching fact, "letter" → letter-frequency). Tailored when a
+    // story is live. (v80, Bug A)
+    if (/\b(does(n'?t| not)\s+(go\s+with|match|fit|relate|belong|sound\s+right)|(that|this|the)\s+(story|one|answer)\s+(does(n'?t| not)|is\s*n'?t|wasn'?t)|not\s+(what|how)\s+i\s+(drew|asked|wanted|meant|said|wrote)|that'?s\s+not\s+(the\s+)?(story|one|it)\b|wrong\s+(story|one))\b/i.test(lower)) {
+      if (_storySession) return pick([
+        "Oops, my story wandered off the trail 🐒 Want me to spin another? Just say 'another'.",
+        "Fair — that one didn't fit! 🙈 Say 'another' and I'll try a fresh story.",
+        "Yeah, my story brain got a little loopy 🐒 Want a different one? Say 'another'."
+      ]);
+      return pick([
+        "Whoops, that missed 🐒 Tell me what you're after and I'll try again.",
+        "My bad — that didn't fit! 🙈 What were you actually looking for?",
+        "Hmm, not quite right 🐒 Say it a different way and I'll have another go."
       ]);
     }
 

@@ -3417,6 +3417,20 @@ class MonkeyJoe:
                     return self._maybe_garnish_science(sci_resp, user_input, lower)
                 return sci_resp
 
+        # Rejection of the previous answer/story — "that doesn't go with my
+        # drawing", "that story doesn't fit", "not what I drew", "wrong story".
+        # Catch before the keyword scorer ("match"→pattern-matching fact). (v80 A)
+        if re.search(r"\b(does(n'?t| not)\s+(go\s+with|match|fit|relate|belong|sound\s+right)|(that|this|the)\s+(story|one|answer)\s+(does(n'?t| not)|is\s*n'?t|wasn'?t)|not\s+(what|how)\s+i\s+(drew|asked|wanted|meant|said|wrote)|that'?s\s+not\s+(the\s+)?(story|one|it)\b|wrong\s+(story|one))\b", lower):
+            if self.story_session:
+                return random.choice([
+                    "Oops, my story wandered off the trail 🐒 Want me to spin another? Just say 'another'.",
+                    "Fair — that one didn't fit! 🙈 Say 'another' and I'll try a fresh story.",
+                    "Yeah, my story brain got a little loopy 🐒 Want a different one? Say 'another'."])
+            return random.choice([
+                "Whoops, that missed 🐒 Tell me what you're after and I'll try again.",
+                "My bad — that didn't fit! 🙈 What were you actually looking for?",
+                "Hmm, not quite right 🐒 Say it a different way and I'll have another go."])
+
         # Meta / feedback ABOUT Joe ("you didn't answer", "that's wrong", "I'll
         # tell Claude to fix you") — respond humbly instead of dumping a fact
         # that merely shares a keyword like "Claude". (v61 parity)
