@@ -39,11 +39,14 @@ body {
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--border);
-  transition: transform 0.2s;
+  transition: margin-left 0.2s;
   height: 100%;
   min-height: 0;
+  flex-shrink: 0;
 }
-#sidebar.hidden { transform: translateX(calc(-1 * var(--sidebar-w))); }
+/* Negative margin (not transform) so the sidebar's footprint leaves the flex
+   row — #main's flex:1 then grows to fill the space instead of going blank. */
+#sidebar.hidden { margin-left: calc(-1 * var(--sidebar-w)); }
 
 #sidebar-header {
   display: flex;
