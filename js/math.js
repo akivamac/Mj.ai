@@ -21,6 +21,11 @@ const MathEngine = (() => {
     t = t.replace(/[×⋅∗•·]/g, '*').replace(/÷/g, '/').replace(/[−–—]/g, '-');
     // "300 x 7" / "6x4" — ascii x between two numbers means multiply
     t = t.replace(/(\d)\s*x\s*(?=\d)/g, '$1*');
+    // strip thousands separators inside numbers ("6,000" → "6000"). Only a
+    // comma followed by exactly 3 digits, so stats lists ("1,2,3") and small
+    // function args ("max(3,5)") are left alone. Looped for "1,000,000".
+    let _pc;
+    do { _pc = t; t = t.replace(/(\d),(\d{3})(?=\D|$)/g, '$1$2'); } while (t !== _pc);
     // word ops → symbols
     t = t.replace(/\bdivided by\b/g, '/');
     t = t.replace(/\bmultiplied by\b/g, '*');
