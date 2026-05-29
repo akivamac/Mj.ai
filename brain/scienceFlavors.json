@@ -998,6 +998,606 @@
       ],
       "match_type": "input_contains",
       "text": "(a comet's tail always points away from the Sun, not behind its motion — the solar wind blows it back)"
+    },
+    {
+      "id": "gen_sci_001",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Science is just curiosity that got organized! 🔬"
+    },
+    {
+      "id": "gen_sci_002",
+      "triggers": [],
+      "match_type": "any",
+      "text": "The best scientists ask way more questions than they answer."
+    },
+    {
+      "id": "gen_sci_003",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Every answer in science quietly hides three new questions inside it."
+    },
+    {
+      "id": "gen_sci_004",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A guess you can test is called a hypothesis — fancy word, simple idea."
+    },
+    {
+      "id": "gen_sci_005",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Being wrong in science still teaches you something, so it's never wasted!"
+    },
+    {
+      "id": "gen_sci_006",
+      "triggers": [],
+      "match_type": "any",
+      "text": "The word 'scientist' is only about 200 years old — pretty new!"
+    },
+    {
+      "id": "gen_sci_007",
+      "triggers": [],
+      "match_type": "any",
+      "text": "An experiment is just asking nature a question and watching it answer."
+    },
+    {
+      "id": "gen_sci_008",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A control group is the boring version you compare everything else to."
+    },
+    {
+      "id": "gen_sci_009",
+      "triggers": [],
+      "match_type": "any",
+      "text": "In science, 'I don't know yet' is a perfectly respectable answer."
+    },
+    {
+      "id": "gen_sci_010",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Repeating an experiment and getting the same answer is how we trust it."
+    },
+    {
+      "id": "gen_sci_011",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A theory in science isn't a wild guess — it's an idea that survived lots of testing."
+    },
+    {
+      "id": "gen_sci_012",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Measuring carefully is half the magic of any discovery."
+    },
+    {
+      "id": "gen_sci_013",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Tiny errors can sneak in, so scientists measure things more than once."
+    },
+    {
+      "id": "gen_sci_014",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A microscope lets you see a whole world hiding in a single drop of water."
+    },
+    {
+      "id": "gen_sci_015",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Telescopes are basically time machines — that starlight left ages ago!"
+    },
+    {
+      "id": "gen_sci_016",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Writing down what you observe turns a fun moment into real data."
+    },
+    {
+      "id": "gen_sci_017",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Lab notebooks get scribbled in pen so nobody can 'fix' a mistake later."
+    },
+    {
+      "id": "gen_sci_018",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A good question is often worth more than a quick answer."
+    },
+    {
+      "id": "gen_sci_019",
+      "triggers": [],
+      "match_type": "any",
+      "text": "The metric system was built so the whole world could share numbers easily."
+    },
+    {
+      "id": "gen_sci_020",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Scientists love patterns — finding one feels like cracking a secret code."
+    },
+    {
+      "id": "gen_sci_021",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A model is a tidy little stand-in for something too big or messy to hold."
+    },
+    {
+      "id": "gen_sci_022",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Curiosity is the only tool you can never run out of."
+    },
+    {
+      "id": "gen_sci_023",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Observing means really looking — not just glancing and moving on."
+    },
+    {
+      "id": "gen_sci_024",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Some of the biggest discoveries started with someone saying 'huh, that's weird.'"
+    },
+    {
+      "id": "gen_sci_025",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A variable is just the one thing you change on purpose to see what happens."
+    },
+    {
+      "id": "gen_sci_026",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Changing only one thing at a time keeps your experiment honest."
+    },
+    {
+      "id": "gen_sci_027",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Data is just a fancy word for 'stuff we noticed and wrote down.'"
+    },
+    {
+      "id": "gen_sci_028",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A graph turns a pile of numbers into a picture your eyes can read."
+    },
+    {
+      "id": "gen_sci_029",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Scientists share their work so others can check it — no secret answers allowed."
+    },
+    {
+      "id": "gen_sci_030",
+      "triggers": [],
+      "match_type": "any",
+      "text": "The word 'experiment' comes from a Latin word meaning 'to try.'"
+    },
+    {
+      "id": "gen_sci_031",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A prediction you can check is way more useful than a vague hunch."
+    },
+    {
+      "id": "gen_sci_032",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Even the smartest scientists double-check their math — so should we!"
+    },
+    {
+      "id": "gen_sci_033",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Estimating first helps you spot an answer that's way off."
+    },
+    {
+      "id": "gen_sci_034",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A unit tells you WHAT you measured — '5' alone doesn't mean much!"
+    },
+    {
+      "id": "gen_sci_035",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Science class is really just permission to take stuff apart and ask why."
+    },
+    {
+      "id": "gen_sci_036",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A hunch becomes science the moment you find a way to test it."
+    },
+    {
+      "id": "gen_sci_037",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Some discoveries took hundreds of years of small steps to add up."
+    },
+    {
+      "id": "gen_sci_038",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Nature doesn't read our rules — it just is, and we try to keep up!"
+    },
+    {
+      "id": "gen_sci_039",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A scientist's favorite phrase might be 'let's find out.'"
+    },
+    {
+      "id": "gen_sci_040",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Comparing two things is one of the oldest tricks in all of science."
+    },
+    {
+      "id": "gen_sci_041",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A ruler, a clock, and a scale can answer a surprising number of questions."
+    },
+    {
+      "id": "gen_sci_042",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Averaging lots of measurements smooths out the little wobbles."
+    },
+    {
+      "id": "gen_sci_043",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Some experiments fail loudly — and that's still useful information!"
+    },
+    {
+      "id": "gen_sci_044",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Sorting things into groups is how science starts making sense of a mess."
+    },
+    {
+      "id": "gen_sci_045",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A 'fair test' means everyone gets the same conditions except the one thing you're testing."
+    },
+    {
+      "id": "gen_sci_046",
+      "triggers": [],
+      "match_type": "any",
+      "text": "The fanciest lab in the world still relies on careful, patient looking."
+    },
+    {
+      "id": "gen_sci_047",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Writing 'because' after an answer turns it into real understanding."
+    },
+    {
+      "id": "gen_sci_048",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A scale model lets you study a whole mountain on a tabletop."
+    },
+    {
+      "id": "gen_sci_049",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Asking 'how do we know that?' is the most scientific thing you can do."
+    },
+    {
+      "id": "gen_sci_050",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Surprises are a scientist's favorite gift — they mean there's more to learn."
+    },
+    {
+      "id": "gen_sci_051",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A magnifying glass was once cutting-edge technology — wild, right?"
+    },
+    {
+      "id": "gen_sci_052",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Counting carefully is its own little superpower in the lab."
+    },
+    {
+      "id": "gen_sci_053",
+      "triggers": [],
+      "match_type": "any",
+      "text": "The smallest details often hide the biggest clues."
+    },
+    {
+      "id": "gen_sci_054",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A pattern that repeats is nature whispering one of its rules to you."
+    },
+    {
+      "id": "gen_sci_055",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Science keeps a habit of changing its mind when the evidence says so."
+    },
+    {
+      "id": "gen_sci_056",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A timer is one of the simplest yet sneakiest-useful science tools."
+    },
+    {
+      "id": "gen_sci_057",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Drawing what you see helps you notice things you'd otherwise miss."
+    },
+    {
+      "id": "gen_sci_058",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Two scientists getting the same result is way more convincing than one."
+    },
+    {
+      "id": "gen_sci_059",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A question with a 'maybe' answer is just an invitation to investigate."
+    },
+    {
+      "id": "gen_sci_060",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Labeling your jars saves future-you from a very confusing afternoon."
+    },
+    {
+      "id": "gen_sci_061",
+      "triggers": [],
+      "match_type": "any",
+      "text": "The word 'data' is actually plural — one piece is a 'datum'!"
+    },
+    {
+      "id": "gen_sci_062",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A good chart almost tells the story before you read a single number."
+    },
+    {
+      "id": "gen_sci_063",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Science doesn't care who's right — only what the evidence shows."
+    },
+    {
+      "id": "gen_sci_064",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Sometimes the slow, careful experiment beats the flashy quick one."
+    },
+    {
+      "id": "gen_sci_065",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A guess plus a test equals the beginning of an answer."
+    },
+    {
+      "id": "gen_sci_066",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Scientists name things in Latin so the whole planet can agree."
+    },
+    {
+      "id": "gen_sci_067",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Measuring the same thing twice and comparing is a sneaky-good habit."
+    },
+    {
+      "id": "gen_sci_068",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A messy desk and a curious mind have launched plenty of discoveries."
+    },
+    {
+      "id": "gen_sci_069",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Knowing what you DON'T know is the first step to learning it."
+    },
+    {
+      "id": "gen_sci_070",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A clear question is half a clear answer."
+    },
+    {
+      "id": "gen_sci_071",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Patience is a secret ingredient in almost every great experiment."
+    },
+    {
+      "id": "gen_sci_072",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Big ideas in science often start as one tiny, stubborn observation."
+    },
+    {
+      "id": "gen_sci_073",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A 'why' followed by another 'why' is how you dig down to the good stuff."
+    },
+    {
+      "id": "gen_sci_074",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Science is a team sport played across centuries."
+    },
+    {
+      "id": "gen_sci_075",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Even mistakes get written down — they're clues, not failures."
+    },
+    {
+      "id": "gen_sci_076",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A diagram can explain in one glance what a paragraph fumbles for."
+    },
+    {
+      "id": "gen_sci_077",
+      "triggers": [],
+      "match_type": "any",
+      "text": "The best experiment is the one anyone else could run and check."
+    },
+    {
+      "id": "gen_sci_078",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Asking 'compared to what?' makes almost any claim sharper."
+    },
+    {
+      "id": "gen_sci_079",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Tools just extend our senses — a microscope is a super-eye!"
+    },
+    {
+      "id": "gen_sci_080",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Science loves a good 'before and after' picture."
+    },
+    {
+      "id": "gen_sci_081",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A careful observer beats a fast guesser almost every time."
+    },
+    {
+      "id": "gen_sci_082",
+      "triggers": [],
+      "match_type": "any",
+      "text": "The universe seems to follow rules — and we get to go discover them!"
+    },
+    {
+      "id": "gen_sci_083",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A scientist's notebook is part diary, part treasure map."
+    },
+    {
+      "id": "gen_sci_084",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Testing your own idea fairly is harder — and braver — than it sounds."
+    },
+    {
+      "id": "gen_sci_085",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A good measurement always comes with how sure you are about it."
+    },
+    {
+      "id": "gen_sci_086",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Curiosity got us from campfires to spaceships — never lose it!"
+    },
+    {
+      "id": "gen_sci_087",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Some questions take a lifetime; that's why we pass them down."
+    },
+    {
+      "id": "gen_sci_088",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A simple yes/no test can settle a big argument fast."
+    },
+    {
+      "id": "gen_sci_089",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Looking closer almost always reveals something you didn't expect."
+    },
+    {
+      "id": "gen_sci_090",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Science is okay with 'we used to think that, but now we know more.'"
+    },
+    {
+      "id": "gen_sci_091",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A clever experiment can answer a giant question with a tiny test."
+    },
+    {
+      "id": "gen_sci_092",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Reading the question twice catches more errors than rushing ever will."
+    },
+    {
+      "id": "gen_sci_093",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Every expert was once a beginner asking 'wait, why?'"
+    },
+    {
+      "id": "gen_sci_094",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A pinch of doubt keeps scientists honest with themselves."
+    },
+    {
+      "id": "gen_sci_095",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Comparing notes with a friend often spots what you missed alone."
+    },
+    {
+      "id": "gen_sci_096",
+      "triggers": [],
+      "match_type": "any",
+      "text": "The simplest explanation that fits the facts is usually the best first guess."
+    },
+    {
+      "id": "gen_sci_097",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Measuring change over time turns a snapshot into a story."
+    },
+    {
+      "id": "gen_sci_098",
+      "triggers": [],
+      "match_type": "any",
+      "text": "A question you can't yet answer is just a future adventure."
+    },
+    {
+      "id": "gen_sci_099",
+      "triggers": [],
+      "match_type": "any",
+      "text": "Science rewards the people who keep looking after everyone else stopped."
+    },
+    {
+      "id": "gen_sci_100",
+      "triggers": [],
+      "match_type": "any",
+      "text": "The coolest part of an answer is that it sets you up to ask a better question. 🐒"
     }
   ]
 }

@@ -460,6 +460,600 @@
         "mysterious"
       ],
       "text": "A {ADJ} {NOUN:character} I encountered only in a {NOUN:place} that may not exist pressed this answer into my hand and vanished:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Pull up a chair by the fire, because here's a cozy little nugget for you:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A passing {NOUN:character} whispered this in my ear, so I'll pass it along:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Warm your hands and lend me an ear, because this one's a keeper:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Brace your brain for a happy little surprise, my friend:"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Hold onto your bananas, because this fact is a wild one:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "A firefly spelled this out for me in the dark, and now I share it:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Wiggle your toes and get ready, because here comes a good one:"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The wise old {NOUN:profession} only tells this to the curious, so listen:"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Drumroll, please, because the answer marches in proud and true:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "I waved a little imaginary wand and out floated this truth:"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Strap on your boots, explorer, because the answer is just ahead:"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Few have heard what I'm about to tell you, so treasure it:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Let me wrap this fact in a soft blanket and hand it right to you:"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Trumpet at the ready, because here comes a fact worth cheering for:"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "I tracked this fact across the {NOUN:place} just to bring it to you:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Here's a fact as comfy as your favorite pair of socks:"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "I almost fell off my branch when I learned this:"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Ta-daaa! The answer steps onto the stage and takes a bow:"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Past the waterfall and over the ridge, I found this for you:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Settle in with a warm cup of something, and let me tell you:"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Buckle your seatbelt, your brain is about to do a happy little flip:"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Victory lap time, because the answer is shiny and sure:"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "My compass spun, then pointed straight at this answer:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Tuck this one beside your pillow for good dreams:"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Honk honk, the fact bus has arrived and it's wonderfully weird:"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Hooray, the answer has arrived in shining armor:"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Through the misty {NOUN:place} I came, holding this answer high:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Here's a fact as gentle as candlelight on a quiet evening:"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "My ears are flapping with excitement, so here goes:"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Confetti, please, because we found exactly what you wanted:"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "I climbed the tallest tree in the {NOUN:place} to spot this for you:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Curl up like a cat in a sunbeam, because here's the answer:"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Whoopsie, my brain just sneezed out a fantastic fact:"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Cue the fanfare, the answer struts in looking grand:"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "I followed the trail of clues all the way to this answer:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Here's the kind of fact you'd share over warm cocoa:"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Get ready to do a tiny happy dance, because look at this:"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "The answer crosses the finish line first, arms raised high:"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Deep in the cave of curiosity, this answer was glowing:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Let me hand you this fact like a warm slice of toast:"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Beep boop, my fact machine made a goofy and true thing:"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Raise the flag, because we have found the answer at last:"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "I sailed past the {NOUN:place} and reeled in this catch of a fact:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Picture us by the window watching rain, and I tell you this:"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Ooh ooh, I've been bursting to tell you this one:"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "And the winner of your question is this magnificent fact:"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "I crossed the rope bridge of wonder to fetch you this:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Here's a fact with a soft glow, warm from the oven of my brain:"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Wheee, hold on tight, here comes a delightfully odd fact:"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Stand tall, because the answer arrives polished and proud:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "File that one away — it makes a great surprise at dinnertime."
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Bonk! That fact just landed right in your brain. 🍌"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Keep that one warm in your mind; it's a good one to share with a friend."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "There it is, shiny and true, just for you."
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Ta-da! Knowledge delivered by one slightly clever monkey. 🐒"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Pop that into your back pocket for the next rainy afternoon."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "And isn't that a delightful thing to suddenly know?"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Let that little spark of truth glow in your imagination a while."
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Mind = officially blown, banana-style. 🍌"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Funny how the smallest facts can feel the biggest, hm?"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "There you have it — toasty, true, and ready to share."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Curious, isn't it? The world is full of quiet little secrets like that."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Save that for a cozy chat with the {NOUN:character} by the fire."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Hold onto that — it might come in handy on some enchanted day."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Now go impress somebody — you've got a brand-new fact!"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Knowledge served fresh, no banana peels in this one. 🍌"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Snug little truth, all wrapped up for you."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Funny how knowing one thing opens a door to ten more questions."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Stash that with your other discoveries — the satchel's getting heavy!"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "A gentle little thing to know on a quiet day."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "The {NOUN:character} would love hearing that one, I bet."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "There's a quiet beauty in learning something new, isn't there?"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Pop that into your pocket of wonders alongside the other shiny bits."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Keep that one close; it's a comfy thing to know."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "And the world tips its hat to you for asking such a good thing."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Score! That's the kind of thing that wins quiz night."
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "That fact's been bonking around my brain all day — glad it's yours now! 🐒"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Share that with the {NOUN:character} over a cup of something warm."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Funny the things we never knew we wanted to know, until we do."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "That's a keeper. Tuck it under your hat for safekeeping."
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Fact delivered, banana intact. You're welcome! 🍌"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "There's a touch of wonder in that one — feel it?"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "And off it floats into your ever-growing balloon of facts!"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "The world quietly hands us these little marvels if we just ask."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Chalk up one more fact — you're unstoppable today!"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Curious minds get the good stuff, and that was the good stuff."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Snug as a blanket, that fact, and now it's yours."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Mark the spot on your map; you found something worth keeping."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Big brain energy, achieved! Go you. 🍌"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Plop! One fresh fact, served on a banana leaf. 🐒"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Let it glow a moment before you go — facts deserve that."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A delightful crumb of truth, baked fresh just now!"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "There's something gentle about learning a new little truth."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Stow that away; it'll keep you good company later."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The world keeps its best surprises for the ones who wonder."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "A warm thought to walk away with. Take it slow."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Quest complete! That treasure's tucked safely in your bag now."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Knowledge: collected. You absolute champion of curiosity!"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "And my work here is done — back to my banana hammock. 🐒"
     }
   ],
   "signOffs": [
@@ -920,6 +1514,600 @@
         "bittersweet"
       ],
       "text": "The {NOUN:character} who first told me that has drifted far past the {NOUN:place} now, {CONN} the warmth of it lingers."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "I tucked this fact under my hat just for you, and out it pops:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The dust of an old spellbook settled, and underneath it shimmered this:"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "I dug this up on an expedition through the {NOUN:place}, and here it is:"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Lean in close, because not everybody gets to hear this one:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Here's something snug and true to nibble on like a midnight snack:"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "After three maps and one wrong turn, I found this treasure of a fact:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "I kept this warm in my pocket all day waiting for you to ask:"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Okay okay okay, I can barely sit still telling you this:"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "This one's been quietly waiting to be remembered, and here it is:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Snuggle up, because I've got a soft warm fact to share:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A daydream bumped into a fact, and this is what they made together:"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Plot twist incoming, and it's gloriously true:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The stars over the {NOUN:place} winked, and this is what they meant:"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "I remember learning this one long ago, and it still makes me smile:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Tickle the truth and it giggles out something like this:"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Shhh, the {NOUN:character} doesn't want everyone knowing this, but you should:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Out of a puff of glittery smoke, the answer appeared:"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "A gentle breeze carried this old truth back to me to give to you:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A curious little cloud asked the same thing, so here's what I told it:"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The answer keeps to the shadows, but tonight it steps into the light:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "I asked the moon, and the moon glowed brighter and showed me this:"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "This little truth has a quiet kind of beauty to it:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A jellybean of a fact, sweet and small, just for you:"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "A locked little secret just turned its key for you:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "A friendly {NOUN:character} from a fairy tale whispered this answer:"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "I've carried this fact a long way, and now it's yours to keep:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A bubble popped and out floated this delightful truth:"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Step into the secret circle, and I'll let you in on this:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The enchanted lantern flickered, and inside its glow I saw this:"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Some answers feel like an old friend, and this is one of them:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A grasshopper hummed it, a beetle agreed, so here it is:"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The riddle leaned over and murmured its answer to me:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "I sprinkled a pinch of imagination, and the truth bloomed:"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "A soft little memory of a fact, dusted off just for you:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A pinwheel spun, and when it stopped it pointed at this:"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Only the moon and I knew this, and now you do too:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "A pixie tapped my shoulder and pointed me to this truth:"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "There's a quiet wonder in this one, and I wanted you to feel it:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A kite tugged its string toward this happy little fact:"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The fog parted just enough to reveal this answer to us:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "The {NOUN:profession} of the enchanted forest left this clue behind:"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "A fact like a falling leaf, gentle and worth catching:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A wind-up music box chimed, and out spun this little truth:"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Lean a little closer, for what I know is not widely told:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "A rainbow tipped over and spilled this answer onto my paws:"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Hold this one softly, the way you'd hold a snowflake:"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A snail wearing a tiny hat told me, so I trust it completely:"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The keyhole of knowledge clicked, and this slipped through:"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "I peeked into a wishing well and the answer floated up to meet me:"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "And that's a fact you can tuck into your pocket for later. 🐒"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Now you know something the {NOUN:character} down the street probably doesn't!"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Sprinkle that knowledge wherever you go — it sparkles a little."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Add that to your map of cool things you've discovered!"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "A little nugget for your collection — clink, into the jar it goes."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The more you know, the more curious the world gets, doesn't it?"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Boom — another fact unlocked. You're getting wiser by the minute!"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "That's the kind of fact that's fun to whisper to a {NOUN:character}."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "One more treasure for the explorer's satchel — well earned!"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Tuck that away; it'll keep nicely until you want it again."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Strange and wonderful, the things the world keeps hidden in plain sight."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Mark it down: you learned that today, and that counts!"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "And that's why I'm the smartest monkey in this particular jungle. 🐒"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A bright little fact, fresh off the vine!"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "That one belongs in your journal of brave discoveries."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "And there it goes, twirling into your collection of curious things."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Some facts make you stop and look at the world a bit longer."
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Another one for the win column — you're on a roll!"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "That fact has a little shimmer to it, don't you think?"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Boop! That's the sound of a fact bouncing into your head. 🐒"
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "Catch it before it floats away — it's yours now!"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "Ta-da — your brain just got a teeny bit bigger!"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "And that, my friend, is one of the world's little riddles, solved."
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "That fact is so good I almost want to eat it like a banana. 🍌"
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Onward, explorer — one fact richer than a minute ago!"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "There — a warm little fact to carry into the rest of your day."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "The deeper you dig, the stranger and lovelier it gets."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Let that knowledge twinkle quietly until you need it again."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "A perfectly peculiar fact, polished and handed to you."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Pin that to your discovery board — it earned its spot!"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "And just like that, you're the expert in the room!"
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "Some truths feel like finding a doorway you never noticed before."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Hold that thought like a warm stone in your hand."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Another step deeper into the unknown — well played!"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "A soft, true thing to carry with you. Mind how you go."
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "That fact's so neat I did a little monkey dance. 🐒"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Slip that into the satchel of marvels you carry everywhere."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "And there it is — true as a teapot and twice as charming."
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Isn't it lovely, how much wonder hides in ordinary things?"
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "That'd make a fine story to tell the {NOUN:character} at bedtime."
+    },
+    {
+      "tone": [
+        "mysterious"
+      ],
+      "text": "And somewhere a little door of curiosity just creaked open."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "Pour yourself something warm and let that one sink in."
+    },
+    {
+      "tone": [
+        "adventure"
+      ],
+      "text": "Another flag planted on the mountain of things you know!"
+    },
+    {
+      "tone": [
+        "triumphant"
+      ],
+      "text": "And that's how you grow a clever head — one fact at a time!"
+    },
+    {
+      "tone": [
+        "silly"
+      ],
+      "text": "Whoosh — that fact slid right down the knowledge banana slide! 🍌"
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "That fact has a little sparkle of stardust on it, if you ask me."
+    },
+    {
+      "tone": [
+        "whimsical"
+      ],
+      "text": "And there — neatly wrapped with a bow of curiosity!"
+    },
+    {
+      "tone": [
+        "wistful"
+      ],
+      "text": "Funny how a single fact can make the whole world feel bigger."
+    },
+    {
+      "tone": [
+        "cozy"
+      ],
+      "text": "That'd be a fine thing to share with the {NOUN:profession} someday."
+    },
+    {
+      "tone": [
+        "magical"
+      ],
+      "text": "Carry that little spark home and let it light up your day."
     }
   ],
   "responseWraps": [

@@ -822,6 +822,606 @@
       ],
       "match_type": "input_contains",
       "text": "(all the probabilities of every possible outcome always add up to exactly 1)"
+    },
+    {
+      "id": "gen_aside_001",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(numbers never lie, but they sure can surprise you 🐒)"
+    },
+    {
+      "id": "gen_aside_002",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(math: the only place where order really matters and also sometimes doesn't)"
+    },
+    {
+      "id": "gen_aside_003",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(every big number is just a tiny number wearing more digits)"
+    },
+    {
+      "id": "gen_aside_004",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I double-checked this on all ten of my fingers)"
+    },
+    {
+      "id": "gen_aside_005",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the answer was hiding in the question the whole time)"
+    },
+    {
+      "id": "gen_aside_006",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(somewhere a calculator is nodding in agreement)"
+    },
+    {
+      "id": "gen_aside_007",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(math is just careful counting with a fancy hat on)"
+    },
+    {
+      "id": "gen_aside_008",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(if you doubt me, try it backwards — math works both ways)"
+    },
+    {
+      "id": "gen_aside_009",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this would've taken the ancient Romans a very long afternoon)"
+    },
+    {
+      "id": "gen_aside_010",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(numbers are tiny machines and you just turned one on)"
+    },
+    {
+      "id": "gen_aside_011",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the cool part: this answer is true in every country)"
+    },
+    {
+      "id": "gen_aside_012",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(math has no opinions, only answers)"
+    },
+    {
+      "id": "gen_aside_013",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(a banana told me to check, and I did, and I'm right)"
+    },
+    {
+      "id": "gen_aside_014",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(reverse it to undo it — that's the secret handshake of math)"
+    },
+    {
+      "id": "gen_aside_015",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this exact answer was true a million years ago too)"
+    },
+    {
+      "id": "gen_aside_016",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(estimating first is like a weather forecast for your answer)"
+    },
+    {
+      "id": "gen_aside_017",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(small steps, big answer — that's how math sneaks up on you)"
+    },
+    {
+      "id": "gen_aside_018",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I love when the numbers click together like puzzle pieces)"
+    },
+    {
+      "id": "gen_aside_019",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this answer would taste the same in any language)"
+    },
+    {
+      "id": "gen_aside_020",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(fun thing about math: nobody can argue with it)"
+    },
+    {
+      "id": "gen_aside_021",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(every answer leaves a trail you can follow back)"
+    },
+    {
+      "id": "gen_aside_022",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I checked twice so you only had to ask once)"
+    },
+    {
+      "id": "gen_aside_023",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this is the kind of fact that stays put — no expiry date)"
+    },
+    {
+      "id": "gen_aside_024",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(a guess gets you close; the math gets you certain)"
+    },
+    {
+      "id": "gen_aside_025",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(somewhere an abacus just clicked in approval)"
+    },
+    {
+      "id": "gen_aside_026",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the neat trick: rounding first tells you if the real answer looks right)"
+    },
+    {
+      "id": "gen_aside_027",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(math doesn't care how fast you go, only that you arrive)"
+    },
+    {
+      "id": "gen_aside_028",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this answer would survive a trip to Mars unchanged)"
+    },
+    {
+      "id": "gen_aside_029",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I like to imagine the numbers high-fiving when it works out)"
+    },
+    {
+      "id": "gen_aside_030",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(every problem is just a story numbers are telling)"
+    },
+    {
+      "id": "gen_aside_031",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(do it again tomorrow and you'll get the very same answer — promise)"
+    },
+    {
+      "id": "gen_aside_032",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(numbers are patient; they wait forever for you to add them up)"
+    },
+    {
+      "id": "gen_aside_033",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(a good estimate is your answer's shadow — it shows up first)"
+    },
+    {
+      "id": "gen_aside_034",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this is true whether you whisper it or shout it)"
+    },
+    {
+      "id": "gen_aside_035",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the answer didn't change while we talked — that's the beauty of it)"
+    },
+    {
+      "id": "gen_aside_036",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(math is like a recipe: same steps, same result, every single time)"
+    },
+    {
+      "id": "gen_aside_037",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I solved it sitting in a tree, for the record)"
+    },
+    {
+      "id": "gen_aside_038",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(checking your work is just being kind to future you)"
+    },
+    {
+      "id": "gen_aside_039",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this answer is older than dinosaurs and just as true)"
+    },
+    {
+      "id": "gen_aside_040",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(numbers don't get tired, but my fingers do, so I used my head)"
+    },
+    {
+      "id": "gen_aside_041",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(every step has a reason — math never just guesses)"
+    },
+    {
+      "id": "gen_aside_042",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the answer fits like the last piece of a jigsaw)"
+    },
+    {
+      "id": "gen_aside_043",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I'd bet a whole banana on this one)"
+    },
+    {
+      "id": "gen_aside_044",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this would balance perfectly on a see-saw of logic)"
+    },
+    {
+      "id": "gen_aside_045",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(math: the language even aliens would probably understand)"
+    },
+    {
+      "id": "gen_aside_046",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(slow and steady gets the same answer as fast and clever)"
+    },
+    {
+      "id": "gen_aside_047",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the answer was waiting; we just walked over to meet it)"
+    },
+    {
+      "id": "gen_aside_048",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(no batteries required for this one — just thinking)"
+    },
+    {
+      "id": "gen_aside_049",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(every right answer used to be a question that gave up)"
+    },
+    {
+      "id": "gen_aside_050",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I checked it against the universe and the universe agrees)"
+    },
+    {
+      "id": "gen_aside_051",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(round numbers feel tidy, but the in-between ones are just as honest)"
+    },
+    {
+      "id": "gen_aside_052",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this answer can't be bribed, rushed, or talked out of it)"
+    },
+    {
+      "id": "gen_aside_053",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the same math your grandparents learned still works perfectly)"
+    },
+    {
+      "id": "gen_aside_054",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(undoing a problem proves you really solved it)"
+    },
+    {
+      "id": "gen_aside_055",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I pictured the numbers as bananas and it still came out the same)"
+    },
+    {
+      "id": "gen_aside_056",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this is a fact you can carry in your pocket forever)"
+    },
+    {
+      "id": "gen_aside_057",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(big problems are just small problems holding hands)"
+    },
+    {
+      "id": "gen_aside_058",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the answer doesn't blink — it's been the same the whole time)"
+    },
+    {
+      "id": "gen_aside_059",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(every calculator on Earth would land on this exact spot)"
+    },
+    {
+      "id": "gen_aside_060",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(math is a maze where every wall is honest)"
+    },
+    {
+      "id": "gen_aside_061",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I like answers I can prove with a quick double-check)"
+    },
+    {
+      "id": "gen_aside_062",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this number would survive being translated into emoji)"
+    },
+    {
+      "id": "gen_aside_063",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the trick to trusting an answer is being able to redo it)"
+    },
+    {
+      "id": "gen_aside_064",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(numbers don't have a favorite — they treat everyone fairly)"
+    },
+    {
+      "id": "gen_aside_065",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I solved it before my banana even peeled — okay, almost)"
+    },
+    {
+      "id": "gen_aside_066",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this answer has no batteries to run out and no mood to ruin it)"
+    },
+    {
+      "id": "gen_aside_067",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(math feels like magic until you see the steps, then it's just clever)"
+    },
+    {
+      "id": "gen_aside_068",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the same answer pops out no matter who asks)"
+    },
+    {
+      "id": "gen_aside_069",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I sanity-checked by guessing first, and the guess was close)"
+    },
+    {
+      "id": "gen_aside_070",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(numbers stack up like building blocks — neat and dependable)"
+    },
+    {
+      "id": "gen_aside_071",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this answer would be the same on a Tuesday or a Sunday)"
+    },
+    {
+      "id": "gen_aside_072",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the cool secret: writing it down makes hard math get easy)"
+    },
+    {
+      "id": "gen_aside_073",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I trust this answer more than I trust the weather)"
+    },
+    {
+      "id": "gen_aside_074",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(math is the one game where everybody can win)"
+    },
+    {
+      "id": "gen_aside_075",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the answer doesn't care if you were nervous about it)"
+    },
+    {
+      "id": "gen_aside_076",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(every answer is a little door; the steps are the key)"
+    },
+    {
+      "id": "gen_aside_077",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I counted on tree branches when I ran out of fingers)"
+    },
+    {
+      "id": "gen_aside_078",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this would still be right if you wrote it on the moon)"
+    },
+    {
+      "id": "gen_aside_079",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(checking twice never once made a problem wronger)"
+    },
+    {
+      "id": "gen_aside_080",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(numbers are the quietest, most reliable friends you'll ever have)"
+    },
+    {
+      "id": "gen_aside_081",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this answer was true before anyone was around to ask it)"
+    },
+    {
+      "id": "gen_aside_082",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I love a problem that ends with a satisfying little click)"
+    },
+    {
+      "id": "gen_aside_083",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the answer is the answer in every alphabet ever invented)"
+    },
+    {
+      "id": "gen_aside_084",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(a rough estimate is the appetizer; the exact answer is the meal)"
+    },
+    {
+      "id": "gen_aside_085",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(math never sends you a different bill on the second try)"
+    },
+    {
+      "id": "gen_aside_086",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this one held up when I poked at it from every side)"
+    },
+    {
+      "id": "gen_aside_087",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(numbers don't sleep, so the answer was ready when you asked)"
+    },
+    {
+      "id": "gen_aside_088",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the steps are like footprints — follow them back any time)"
+    },
+    {
+      "id": "gen_aside_089",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I'd carve this answer in stone, that's how sure I am)"
+    },
+    {
+      "id": "gen_aside_090",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(math is the rare puzzle that's always solvable if you keep going)"
+    },
+    {
+      "id": "gen_aside_091",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the answer is patient, but I got it for you fast anyway)"
+    },
+    {
+      "id": "gen_aside_092",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this fact doesn't wobble — it stands up straight every time)"
+    },
+    {
+      "id": "gen_aside_093",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I imagined stacking it up as bananas and the pile matched)"
+    },
+    {
+      "id": "gen_aside_094",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(every answer has a back door you can use to check it)"
+    },
+    {
+      "id": "gen_aside_095",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this would still be true if all the calculators vanished tomorrow)"
+    },
+    {
+      "id": "gen_aside_096",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(numbers play fair: same input, same answer, no surprises)"
+    },
+    {
+      "id": "gen_aside_097",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(I like to redo the tricky ones just to hear the click again)"
+    },
+    {
+      "id": "gen_aside_098",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(the answer would be the same whether you whispered or hollered the question)"
+    },
+    {
+      "id": "gen_aside_099",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(a good guess warms you up; the real math finishes the job)"
+    },
+    {
+      "id": "gen_aside_100",
+      "triggers": [],
+      "match_type": "any",
+      "text": "(this answer is yours to keep — it won't change its mind)"
     }
   ]
 }

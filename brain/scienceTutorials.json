@@ -7348,6 +7348,3081 @@
       "formula": null,
       "body": "Supercooling is when a very pure, undisturbed liquid is chilled below its normal freezing point yet stays liquid, because it has no speck or jolt to trigger the first crystals. Freezing usually needs a starting point such as a dust grain or a scratch, and without one the molecules cannot get organized. A bottle of very clean water can sometimes be cooled below freezing and then snap into ice the instant you tap it or drop in a single crystal.",
       "tryIt": "Try asking: what is freezing point depression"
+    },
+    {
+      "id": "inertia_basics",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is inertia",
+        "how does inertia work",
+        "explain inertia"
+      ],
+      "title": "Inertia",
+      "formula": null,
+      "body": "Inertia is the lazy streak in everything: an object keeps doing what it's already doing unless a force changes it. A still object stays still, and a moving one keeps moving in a straight line. The more mass something has, the more inertia it has, so heavy things are harder to start or stop.",
+      "example": "When a bus stops suddenly, your body lurches forward because your inertia keeps you moving even though the bus stopped.",
+      "tryIt": "Try: 'why do I slide forward when a car brakes?'"
+    },
+    {
+      "id": "newton_first_law",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is newton's first law",
+        "explain newton's first law",
+        "what is the law of inertia"
+      ],
+      "title": "Newton's First Law",
+      "formula": null,
+      "body": "Newton's first law says an object won't change its motion unless a force pushes or pulls it. No force? Then a resting thing stays at rest and a moving thing keeps gliding at the same speed and direction. Forces are what make things speed up, slow down, or turn.",
+      "example": "A hockey puck on smooth ice slides for a long time because almost no force slows it down.",
+      "tryIt": "Try: 'why does a ball eventually stop rolling?'"
+    },
+    {
+      "id": "net_force_meaning",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is net force",
+        "explain net force",
+        "how do forces add up"
+      ],
+      "title": "Net Force",
+      "formula": null,
+      "body": "When several forces push on one object, you add them up (counting direction) to get the net force. That single combined force decides what happens. If the forces cancel out, the net force is zero and motion doesn't change. If they don't cancel, the object accelerates in the leftover direction.",
+      "example": "In tug-of-war, if both teams pull equally hard the rope doesn't move because the net force is zero.",
+      "tryIt": "Try: 'what happens when two forces are equal and opposite?'"
+    },
+    {
+      "id": "balanced_unbalanced_forces",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what are balanced forces",
+        "explain balanced and unbalanced forces",
+        "difference between balanced and unbalanced forces"
+      ],
+      "title": "Balanced vs Unbalanced Forces",
+      "formula": null,
+      "body": "Balanced forces are evenly matched, so they cancel and the object's motion stays the same. Unbalanced forces don't cancel, leaving a net force that changes the motion, making the object speed up, slow down, or change direction. Only unbalanced forces cause acceleration.",
+      "example": "A book resting on a table has gravity pulling down and the table pushing up equally, so forces are balanced and it stays put.",
+      "tryIt": "Try: 'why does a pushed box start moving?'"
+    },
+    {
+      "id": "static_vs_kinetic_friction",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is static friction",
+        "difference between static and kinetic friction",
+        "explain kinetic friction"
+      ],
+      "title": "Static vs Kinetic Friction",
+      "formula": null,
+      "body": "Static friction holds a still object in place and must be overcome before it starts sliding. Once it's moving, kinetic friction takes over and is usually a bit weaker. That's why something is harder to get moving than to keep moving.",
+      "example": "It takes a big shove to start a heavy couch sliding, but once it's moving it slides more easily.",
+      "tryIt": "Try: 'why is it harder to start pushing than to keep pushing?'"
+    },
+    {
+      "id": "air_resistance",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is air resistance",
+        "how does air resistance work",
+        "explain air resistance"
+      ],
+      "title": "Air Resistance",
+      "formula": null,
+      "body": "Air resistance is friction from air pushing back on things moving through it. The faster you go and the bigger your surface facing the air, the stronger it gets. It's why a feather flutters down slowly while a rock drops fast, and why parachutes work.",
+      "example": "Sticking your hand out a moving car window, you feel the air pushing it back.",
+      "tryIt": "Try: 'why does a parachute slow you down?'"
+    },
+    {
+      "id": "mass_vs_weight",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is the difference between mass and weight",
+        "explain mass vs weight",
+        "is mass the same as weight"
+      ],
+      "title": "Mass vs Weight",
+      "formula": null,
+      "body": "Mass is how much stuff is in an object and never changes no matter where you are. Weight is how hard gravity pulls on that mass, so weight changes with gravity. On the Moon your mass stays the same, but you weigh about six times less because the Moon's gravity is weaker.",
+      "example": "An astronaut with the same mass on Earth and the Moon weighs much less on the Moon.",
+      "tryIt": "Try: 'would I weigh less on the Moon?'"
+    },
+    {
+      "id": "velocity_vs_speed",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is the difference between speed and velocity",
+        "explain velocity vs speed",
+        "is velocity the same as speed"
+      ],
+      "title": "Speed vs Velocity",
+      "formula": null,
+      "body": "Speed tells you how fast something moves. Velocity tells you how fast AND which direction. So two cars going 50 km/h have the same speed, but if one heads north and one heads south, they have different velocities. Direction is the key difference.",
+      "example": "A car driving in a circle at a steady 30 km/h has constant speed but changing velocity because its direction keeps turning.",
+      "tryIt": "Try: 'can velocity change while speed stays the same?'"
+    },
+    {
+      "id": "circular_motion",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is circular motion",
+        "explain circular motion",
+        "how does circular motion work"
+      ],
+      "title": "Circular Motion",
+      "formula": null,
+      "body": "Circular motion is when something travels along a curved path around a center point. Even at constant speed, it's always accelerating because its direction keeps changing. A force pointing toward the center is what keeps bending the path into a circle.",
+      "example": "The Moon stays in circular motion around Earth because gravity keeps pulling it inward.",
+      "tryIt": "Try: 'why is moving in a circle always accelerating?'"
+    },
+    {
+      "id": "projectile_motion",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is projectile motion",
+        "explain projectile motion",
+        "how does a thrown ball move"
+      ],
+      "title": "Projectile Motion",
+      "formula": null,
+      "body": "When you throw something, it moves forward and falls down at the same time. Its forward motion stays steady while gravity pulls it down faster and faster, bending the path into a smooth curved arc. That curve is why everything thrown eventually comes back down.",
+      "example": "A thrown basketball arcs up, slows at the top, then curves down into the hoop.",
+      "tryIt": "Try: 'why does a thrown ball follow a curve?'"
+    },
+    {
+      "id": "normal_force",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is normal force",
+        "explain normal force",
+        "how does normal force work"
+      ],
+      "title": "Normal Force",
+      "formula": null,
+      "body": "The normal force is the push a surface gives back to an object resting on it, pointing straight away from the surface. It's why you don't sink through the floor: the floor pushes up just as hard as gravity pulls you down, balancing things out.",
+      "example": "A book on a table is held up by the table's normal force pushing up on it.",
+      "tryIt": "Try: 'what stops me from falling through the floor?'"
+    },
+    {
+      "id": "tension_force",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is tension in physics",
+        "explain tension force",
+        "how does tension work"
+      ],
+      "title": "Tension",
+      "formula": null,
+      "body": "Tension is the pulling force carried along a rope, string, or cable when it's stretched tight. It pulls equally on whatever is attached at both ends. A rope can only pull, never push, so tension always points along the rope away from the object.",
+      "example": "In tug-of-war, the tight rope carries tension that pulls on both teams.",
+      "tryIt": "Try: 'can a rope push something?'"
+    },
+    {
+      "id": "hookes_law_concept",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is hooke's law",
+        "explain hooke's law",
+        "how does hooke's law work"
+      ],
+      "title": "Hooke's Law",
+      "formula": null,
+      "body": "Hooke's law says a spring's pull-back force grows in step with how far you stretch or squash it. Pull twice as far and it pulls back twice as hard. This works only up to a point; stretch too far and the spring bends out of shape and stops obeying the rule.",
+      "example": "A bathroom scale uses a spring that squashes more as you weigh more, showing your weight.",
+      "tryIt": "Try: 'does a spring pull twice as hard if stretched twice as far?'"
+    },
+    {
+      "id": "power_physics",
+      "topic": "physics_energy",
+      "intent": "teach",
+      "triggers": [
+        "what is power in physics",
+        "explain power in physics",
+        "what does power mean"
+      ],
+      "title": "Power (Physics)",
+      "formula": null,
+      "body": "Power is how fast energy is used or work is done. Doing the same job quickly takes more power than doing it slowly. Two engines might do the same total work, but the more powerful one finishes sooner. Power is measured in watts.",
+      "example": "Running up the stairs uses more power than walking up, even though the work done is the same.",
+      "tryIt": "Try: 'what's the difference between energy and power?'"
+    },
+    {
+      "id": "insulation_concept",
+      "topic": "physics_energy",
+      "intent": "teach",
+      "triggers": [
+        "what is insulation",
+        "explain thermal insulation",
+        "how does insulation work"
+      ],
+      "title": "Insulation",
+      "formula": null,
+      "body": "Insulation slows the flow of heat by using materials that conduct poorly, often trapping pockets of air. Trapped air is a great insulator because it doesn't move heat easily. That's why fluffy coats, foam, and double windows keep warmth where you want it.",
+      "example": "A puffy jacket keeps you warm by trapping air that slows heat escaping from your body.",
+      "tryIt": "Try: 'why does a fluffy coat keep me warm?'"
+    },
+    {
+      "id": "wave_basics",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is a wave",
+        "explain waves",
+        "how do waves work"
+      ],
+      "title": "Waves",
+      "formula": null,
+      "body": "A wave is a traveling disturbance that carries energy from place to place without moving the material itself very far. The water or rope just wiggles up and down or back and forth while the energy moves through it. Sound, light, and ripples are all waves.",
+      "example": "A floating duck bobs in place as ocean waves pass under it; the wave moves but the water mostly stays put.",
+      "tryIt": "Try: 'does a wave carry water across the ocean?'"
+    },
+    {
+      "id": "transverse_waves",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is a transverse wave",
+        "explain transverse waves",
+        "how do transverse waves work"
+      ],
+      "title": "Transverse Waves",
+      "formula": null,
+      "body": "In a transverse wave, the material wiggles up and down (or side to side) while the wave travels at a right angle to that wiggle. Light and the wave you make by shaking a rope are transverse. The crests and troughs are the high and low points.",
+      "example": "Shake one end of a rope up and down and a transverse wave travels along it.",
+      "tryIt": "Try: 'which way do the bits move in a rope wave?'"
+    },
+    {
+      "id": "longitudinal_waves",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is a longitudinal wave",
+        "explain longitudinal waves",
+        "how do longitudinal waves work"
+      ],
+      "title": "Longitudinal Waves",
+      "formula": null,
+      "body": "In a longitudinal wave, the material squishes and stretches back and forth in the same direction the wave travels, making compressions and rarefactions. Sound is the classic example, pushing air particles forward and back.",
+      "example": "Push and pull a slinky along its length and you see compressions travel down it like sound through air.",
+      "tryIt": "Try: 'how does a slinky show a sound wave?'"
+    },
+    {
+      "id": "frequency_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is frequency",
+        "explain frequency of a wave",
+        "how is frequency measured"
+      ],
+      "title": "Frequency",
+      "formula": null,
+      "body": "Frequency is how many wave cycles pass a point each second, measured in hertz. High frequency means lots of fast wiggles; low frequency means few slow ones. For sound, higher frequency means higher pitch.",
+      "example": "A high-pitched whistle has a higher frequency than a deep drum.",
+      "tryIt": "Try: 'what makes a sound high or low pitched?'"
+    },
+    {
+      "id": "amplitude_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is amplitude",
+        "explain amplitude",
+        "how does amplitude work"
+      ],
+      "title": "Amplitude",
+      "formula": null,
+      "body": "Amplitude is how big a wave is, measured from the calm middle to a peak. Bigger amplitude means more energy. For sound that means louder; for light it means brighter. The wiggle's height, not its spacing, sets the amplitude.",
+      "example": "Shouting makes sound waves with bigger amplitude than whispering, so they sound louder.",
+      "tryIt": "Try: 'what makes a sound louder?'"
+    },
+    {
+      "id": "wave_speed_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is wave speed",
+        "explain how fast waves travel",
+        "what affects wave speed"
+      ],
+      "title": "Wave Speed",
+      "formula": null,
+      "body": "Wave speed is how fast a wave's energy travels through a material. It depends mostly on what the wave is moving through, not on how hard you make the wave. Sound zips faster through water and solids than through air.",
+      "example": "Sound travels much faster through a metal rail than through the air, so you'd hear it through the rail first.",
+      "tryIt": "Try: 'does sound travel faster in air or water?'"
+    },
+    {
+      "id": "reflection_waves",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is reflection",
+        "explain reflection of waves",
+        "how does reflection work"
+      ],
+      "title": "Reflection",
+      "formula": null,
+      "body": "Reflection is when a wave bounces off a surface instead of passing through. Light reflecting lets you see things and makes mirrors work; sound reflecting makes echoes. The wave bounces off at the same angle it hit, like a ball off a wall.",
+      "example": "A mirror works because light bounces off its smooth shiny surface back to your eyes.",
+      "tryIt": "Try: 'why can I see myself in a mirror?'"
+    },
+    {
+      "id": "refraction_waves",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is refraction",
+        "explain refraction",
+        "how does refraction work"
+      ],
+      "title": "Refraction",
+      "formula": null,
+      "body": "Refraction is the bending of a wave as it passes from one material into another and changes speed. Light slows down entering water and bends, which is why a straw in a glass looks broken at the surface.",
+      "example": "A straw in a glass of water looks bent at the waterline because light refracts as it leaves the water.",
+      "tryIt": "Try: 'why does a straw look bent in water?'"
+    },
+    {
+      "id": "diffraction_waves",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is diffraction",
+        "explain diffraction",
+        "how does diffraction work"
+      ],
+      "title": "Diffraction",
+      "formula": null,
+      "body": "Diffraction is how waves spread out and bend around edges or through gaps. It's why you can hear someone around a corner even when you can't see them: sound waves bend around the corner more easily than light does.",
+      "example": "You can hear a voice from around a corner because sound waves diffract around the edge.",
+      "tryIt": "Try: 'why can I hear around corners but not see around them?'"
+    },
+    {
+      "id": "interference_waves",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is wave interference",
+        "explain interference",
+        "how do waves interfere"
+      ],
+      "title": "Interference",
+      "formula": null,
+      "body": "When two waves overlap, they add together. Crests meeting crests make a bigger wave (constructive), while a crest meeting a trough can cancel out (destructive). This combining is called interference and explains everything from louder spots to noise-canceling headphones.",
+      "example": "Noise-canceling headphones make an opposite sound wave to cancel out unwanted noise.",
+      "tryIt": "Try: 'how do noise-canceling headphones work?'"
+    },
+    {
+      "id": "sound_waves",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is sound",
+        "how does sound work",
+        "explain sound waves"
+      ],
+      "title": "Sound",
+      "formula": null,
+      "body": "Sound is a wave made of vibrations traveling through a material, usually air. A vibrating object pushes and pulls the air, sending ripples of pressure to your ears. No material means no sound, which is why space is silent.",
+      "example": "A drum makes sound because its skin vibrates and shakes the air around it.",
+      "tryIt": "Try: 'why is there no sound in space?'"
+    },
+    {
+      "id": "pitch_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is pitch",
+        "explain pitch in sound",
+        "how does pitch work"
+      ],
+      "title": "Pitch",
+      "formula": null,
+      "body": "Pitch is how high or low a sound seems, and it depends on the sound wave's frequency. Fast vibrations make high-pitched sounds; slow vibrations make low ones. Tightening or shortening a string raises its pitch by speeding up its vibration.",
+      "example": "A tightly stretched guitar string vibrates faster and plays a higher note.",
+      "tryIt": "Try: 'why does a thinner string sound higher?'"
+    },
+    {
+      "id": "loudness_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is loudness",
+        "explain loudness",
+        "how does volume work"
+      ],
+      "title": "Loudness",
+      "formula": null,
+      "body": "Loudness is how strong a sound seems, and it depends on the sound wave's amplitude, or how much energy it carries. Bigger vibrations move more air and sound louder. Loudness is measured in decibels, and very loud sounds can damage your ears.",
+      "example": "Banging a drum harder makes a bigger vibration and a louder sound.",
+      "tryIt": "Try: 'why is a hard drum hit louder than a soft one?'"
+    },
+    {
+      "id": "echo_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is an echo",
+        "explain echoes",
+        "how do echoes work"
+      ],
+      "title": "Echo",
+      "formula": null,
+      "body": "An echo is sound that bounces off a far surface and comes back to you a moment later. The delay happens because sound takes time to travel there and back. You need a hard surface far enough away to hear the return clearly.",
+      "example": "Shout in a canyon and your voice bounces off the far wall and comes back to you.",
+      "tryIt": "Try: 'why do I hear my voice come back in a canyon?'"
+    },
+    {
+      "id": "ultrasound_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is ultrasound",
+        "explain ultrasound",
+        "how does ultrasound work"
+      ],
+      "title": "Ultrasound",
+      "formula": null,
+      "body": "Ultrasound is sound too high-pitched for humans to hear, above about 20,000 hertz. It bounces off objects and echoes back, so machines use it to make pictures inside the body or measure distances. Bats and dolphins use it naturally to navigate.",
+      "example": "Doctors use ultrasound to see a baby inside the womb by bouncing high sound waves off it.",
+      "tryIt": "Try: 'how do doctors see a baby before it's born?'"
+    },
+    {
+      "id": "echolocation_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is echolocation",
+        "explain echolocation",
+        "how does echolocation work"
+      ],
+      "title": "Echolocation",
+      "formula": null,
+      "body": "Echolocation is finding things by sending out sounds and listening for the echoes that bounce back. The timing and direction of the returning echoes reveal where objects are and how far away. Bats and dolphins use it to hunt and navigate in the dark.",
+      "example": "A bat squeaks in the dark and uses the returning echoes to map insects and walls around it.",
+      "tryIt": "Try: 'how do bats fly in the dark without crashing?'"
+    },
+    {
+      "id": "visible_light",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is visible light",
+        "explain visible light",
+        "how does light work"
+      ],
+      "title": "Visible Light",
+      "formula": null,
+      "body": "Visible light is the part of the electromagnetic spectrum our eyes can detect, made of all the colors from red to violet. Each color is light of a different wavelength. Mixed together they look white, and they all travel at the same blazing speed.",
+      "example": "White sunlight is actually all the rainbow colors mixed together.",
+      "tryIt": "Try: 'is white light really many colors?'"
+    },
+    {
+      "id": "color_and_light",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "why do things have color",
+        "how does color work",
+        "explain color"
+      ],
+      "title": "Color",
+      "formula": null,
+      "body": "Objects have color because they absorb some light wavelengths and reflect others. The colors that bounce back are what you see. A red apple reflects red light and soaks up the rest; a black object soaks up almost everything, reflecting little.",
+      "example": "A leaf looks green because it reflects green light and absorbs the other colors.",
+      "tryIt": "Try: 'why is grass green?'"
+    },
+    {
+      "id": "prism_dispersion",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "how does a prism work",
+        "what is dispersion of light",
+        "explain how a prism makes rainbows"
+      ],
+      "title": "Dispersion (Prisms)",
+      "formula": null,
+      "body": "A prism splits white light into a rainbow because each color bends by a slightly different amount as it slows down in the glass. Violet bends most and red least, fanning the colors apart. This separating of light is called dispersion.",
+      "example": "Sunlight through a glass prism spreads into a band of rainbow colors on the wall.",
+      "tryIt": "Try: 'how does a prism make a rainbow?'"
+    },
+    {
+      "id": "rainbow_formation",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "how do rainbows form",
+        "why do rainbows appear",
+        "explain rainbows"
+      ],
+      "title": "Rainbows",
+      "formula": null,
+      "body": "Rainbows form when sunlight enters raindrops, bends, bounces off the back, and bends again on the way out, splitting into colors. Each raindrop sends one color toward your eyes, and millions of drops together paint the full arc.",
+      "example": "You see a rainbow when the Sun is behind you and rain is falling in front of you.",
+      "tryIt": "Try: 'why do rainbows appear after rain?'"
+    },
+    {
+      "id": "infrared_light",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is infrared",
+        "explain infrared light",
+        "how does infrared work"
+      ],
+      "title": "Infrared",
+      "formula": null,
+      "body": "Infrared is invisible light with wavelengths just longer than red. Warm objects give it off, so cameras that 'see' infrared can spot heat in the dark. TV remotes use infrared to send signals to your television.",
+      "example": "A thermal camera shows people glowing in the dark because their bodies give off infrared.",
+      "tryIt": "Try: 'how do night-vision cameras see heat?'"
+    },
+    {
+      "id": "ultraviolet_light",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is ultraviolet",
+        "explain uv light",
+        "how does ultraviolet work"
+      ],
+      "title": "Ultraviolet (UV)",
+      "formula": null,
+      "body": "Ultraviolet is invisible light with wavelengths just shorter than violet, carrying more energy than visible light. Too much from the Sun causes sunburn, which is why sunscreen blocks it. Some animals, like bees, can actually see UV patterns on flowers.",
+      "example": "You can get a sunburn on a cloudy day because invisible UV light still reaches your skin.",
+      "tryIt": "Try: 'why can I get sunburned on a cloudy day?'"
+    },
+    {
+      "id": "how_eyes_see_light",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "how do eyes see",
+        "explain how we see",
+        "how does vision work"
+      ],
+      "title": "How We See",
+      "formula": null,
+      "body": "You see when light bounces off objects, enters your eye, and lands on the retina at the back. Special cells turn that light into signals your brain reads as images. Without light there's nothing to bounce, which is why you can't see in total darkness.",
+      "example": "In a completely dark room you can't see anything because no light is bouncing off objects into your eyes.",
+      "tryIt": "Try: 'why can't I see in a totally dark room?'"
+    },
+    {
+      "id": "shadows_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "how do shadows form",
+        "why do shadows happen",
+        "explain shadows"
+      ],
+      "title": "Shadows",
+      "formula": null,
+      "body": "A shadow forms where an object blocks light from reaching a surface. Because light travels in straight lines, it can't bend around solid things, leaving a dark patch shaped like the blocker. Move the light closer and the shadow grows bigger.",
+      "example": "Standing in sunlight, your body blocks the light and casts a shadow on the ground.",
+      "tryIt": "Try: 'why is my shadow longer in the evening?'"
+    },
+    {
+      "id": "opaque_transparent",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is the difference between transparent and opaque",
+        "explain transparent translucent opaque",
+        "why can i see through some things"
+      ],
+      "title": "Transparent, Translucent, Opaque",
+      "formula": null,
+      "body": "Materials handle light in three ways. Transparent ones like clear glass let light pass straight through so you see clearly. Translucent ones like frosted glass scatter light so things look blurry. Opaque ones like wood block light completely, casting solid shadows.",
+      "example": "You see clearly through a window, blurrily through frosted glass, and not at all through a wooden door.",
+      "tryIt": "Try: 'why can I see through glass but not wood?'"
+    },
+    {
+      "id": "electrical_resistance",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "what is resistance",
+        "explain electrical resistance",
+        "how does resistance work"
+      ],
+      "title": "Resistance",
+      "formula": null,
+      "body": "Resistance is how much a material fights the flow of electric current. High resistance slows current down and often turns electrical energy into heat. Thin or long wires resist more, while thick short ones resist less, like wide pipes letting water flow freely.",
+      "example": "A toaster's wire has high resistance, so it heats up and glows when current pushes through.",
+      "tryIt": "Try: 'why does a toaster wire get hot?'"
+    },
+    {
+      "id": "series_circuit",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "what is a series circuit",
+        "explain series circuits",
+        "how does a series circuit work"
+      ],
+      "title": "Series Circuit",
+      "formula": null,
+      "body": "In a series circuit, parts are connected one after another in a single loop, so the same current flows through every part. If one part breaks, the whole circuit stops, like old holiday lights where one dead bulb killed the whole string.",
+      "example": "In old string lights wired in series, one burnt-out bulb made the entire string go dark.",
+      "tryIt": "Try: 'why did old holiday lights all go out if one broke?'"
+    },
+    {
+      "id": "parallel_circuit",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "what is a parallel circuit",
+        "explain parallel circuits",
+        "how does a parallel circuit work"
+      ],
+      "title": "Parallel Circuit",
+      "formula": null,
+      "body": "In a parallel circuit, parts sit on separate branches, each with its own path for current. If one branch breaks, the others keep working. That's why your home is wired in parallel: one switched-off lamp doesn't darken the whole house.",
+      "example": "Turning off one lamp at home doesn't affect the others because the house is wired in parallel.",
+      "tryIt": "Try: 'why can I turn off one light without the rest going dark?'"
+    },
+    {
+      "id": "conductors_insulators",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "what is the difference between conductors and insulators",
+        "explain conductors and insulators",
+        "what are conductors"
+      ],
+      "title": "Conductors vs Insulators",
+      "formula": null,
+      "body": "Conductors let electric current flow easily because their electrons move freely; metals like copper are great conductors. Insulators block current because their electrons are locked in place; rubber and plastic are good insulators, which is why wires are coated in them.",
+      "example": "Electrical wires use copper to carry current and plastic coating to keep it safely contained.",
+      "tryIt": "Try: 'why are wires made of metal but covered in plastic?'"
+    },
+    {
+      "id": "battery_concept",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "how does a battery work",
+        "what is a battery",
+        "explain batteries"
+      ],
+      "title": "Batteries",
+      "formula": null,
+      "body": "A battery stores chemical energy and turns it into electrical energy on demand. Inside, chemical reactions push electrons out one end and pull them in the other, driving current around a circuit. When the chemicals are used up, the battery goes dead.",
+      "example": "A AA battery powers a toy until its chemicals run out and it needs replacing.",
+      "tryIt": "Try: 'why do batteries eventually die?'"
+    },
+    {
+      "id": "gen2_scitut_0",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "what is magnetism",
+        "explain magnets",
+        "how do magnets work"
+      ],
+      "title": "Magnetism",
+      "formula": null,
+      "body": "Magnetism is a force that pulls or pushes certain metals like iron. Every magnet has a north and a south pole. Opposite poles attract and like poles repel. The invisible region where the force acts is called a magnetic field.",
+      "example": "Two magnets snap together when opposite poles face, but push apart when same poles meet.",
+      "tryIt": "Try: 'why do two magnets sometimes push apart?'"
+    },
+    {
+      "id": "electric_motor",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "how does an electric motor work",
+        "what is an electric motor",
+        "explain electric motors"
+      ],
+      "title": "Electric Motors",
+      "formula": null,
+      "body": "An electric motor turns electrical energy into spinning motion. Current flowing through a coil makes it an electromagnet, and a nearby magnet pushes and pulls it so the coil spins around. That spin powers fans, toys, and electric cars.",
+      "example": "A toy car's wheels turn because an electric motor inside converts battery power into spinning motion.",
+      "tryIt": "Try: 'how does electricity make wheels spin?'"
+    },
+    {
+      "id": "generator_concept",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "how does a generator work",
+        "what is a generator",
+        "explain electric generators"
+      ],
+      "title": "Generators",
+      "formula": null,
+      "body": "A generator is like a motor run backward: instead of using electricity to make motion, it uses motion to make electricity. Spinning a coil near a magnet pushes electrons along the wire, creating current. Power plants spin huge generators to make our electricity.",
+      "example": "A bike's light powers itself with a small generator that spins as the wheel turns.",
+      "tryIt": "Try: 'how does spinning make electricity?'"
+    },
+    {
+      "id": "electrical_safety",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "why is electricity dangerous",
+        "explain electrical safety",
+        "how does electricity hurt you"
+      ],
+      "title": "Electrical Safety",
+      "formula": null,
+      "body": "Electricity can be dangerous because the human body conducts current, and even a small amount can hurt your heart or burn you. Water makes it worse by helping current flow. That's why you keep electrical things away from water and never poke metal into outlets.",
+      "example": "You should never use a hairdryer near a full sink because water helps electricity reach you.",
+      "tryIt": "Try: 'why is electricity dangerous near water?'"
+    },
+    {
+      "id": "fuses_breakers",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "what is a fuse",
+        "how does a circuit breaker work",
+        "explain fuses and breakers"
+      ],
+      "title": "Fuses and Breakers",
+      "formula": null,
+      "body": "Fuses and circuit breakers protect wiring from too much current. If the current gets dangerously high, a fuse melts or a breaker trips, instantly cutting the circuit before wires overheat and start a fire. Breakers can be reset; fuses must be replaced.",
+      "example": "If you plug in too many appliances, a breaker trips and shuts off power to prevent overheating.",
+      "tryIt": "Try: 'why does a breaker shut off power sometimes?'"
+    },
+    {
+      "id": "grounding_concept",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "what is grounding",
+        "explain electrical grounding",
+        "why are plugs grounded"
+      ],
+      "title": "Grounding",
+      "formula": null,
+      "body": "Grounding gives stray electric current a safe path straight into the earth instead of through a person. Appliances have a third prong connected to ground, so if something inside goes wrong, the current rushes harmlessly into the ground rather than shocking you.",
+      "example": "The third prong on a plug is the ground wire, sending dangerous stray current safely into the earth.",
+      "tryIt": "Try: 'what is the third prong on a plug for?'"
+    },
+    {
+      "id": "lightning_electricity",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "what causes lightning",
+        "how does lightning work",
+        "explain lightning"
+      ],
+      "title": "Lightning",
+      "formula": null,
+      "body": "Lightning is a giant spark of static electricity. Clouds build up huge amounts of charge as ice and water bump around inside them. When the charge gets strong enough, it leaps as a brilliant bolt to another cloud or the ground, heating the air so fast it bangs as thunder.",
+      "example": "During a storm, charge builds in clouds until it discharges as a lightning bolt to the ground.",
+      "tryIt": "Try: 'is lightning just giant static electricity?'"
+    },
+    {
+      "id": "simple_machines",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what are simple machines",
+        "explain simple machines",
+        "what is a simple machine"
+      ],
+      "title": "Simple Machines",
+      "formula": null,
+      "body": "Simple machines are basic tools that make work easier by changing the size or direction of a force. The six classics are the lever, wheel and axle, pulley, inclined plane, wedge, and screw. They don't reduce total work, but they spread it out so it feels easier.",
+      "example": "A ramp, a screwdriver, and a seesaw are all simple machines that make a job easier.",
+      "tryIt": "Try: 'how do simple machines make work easier?'"
+    },
+    {
+      "id": "lever_concept",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "how does a lever work",
+        "what is a lever",
+        "explain levers"
+      ],
+      "title": "Levers",
+      "formula": null,
+      "body": "A lever is a stiff bar that pivots on a point called a fulcrum. Pushing down on one end lifts a load on the other. By placing the fulcrum cleverly, a small effort over a long distance can move a heavy load a short distance.",
+      "example": "A seesaw is a lever; sitting farther from the middle lets you lift a heavier friend.",
+      "tryIt": "Try: 'how can a small push lift something heavy?'"
+    },
+    {
+      "id": "pulley_concept",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "how does a pulley work",
+        "what is a pulley",
+        "explain pulleys"
+      ],
+      "title": "Pulleys",
+      "formula": null,
+      "body": "A pulley is a wheel with a rope over it that changes the direction of your pull. Pulling down to lift something up is easier than pushing up. Combining several pulleys lets you lift heavy loads with much less force, spread over more rope.",
+      "example": "A flagpole uses a pulley so you can pull down on the rope to raise the flag up.",
+      "tryIt": "Try: 'why is pulling down easier than lifting up?'"
+    },
+    {
+      "id": "inclined_plane",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is an inclined plane",
+        "how does a ramp work",
+        "explain inclined planes"
+      ],
+      "title": "Inclined Plane",
+      "formula": null,
+      "body": "An inclined plane is a ramp that lets you raise something by pushing it up a gentle slope instead of lifting it straight up. It takes less force, but you push over a longer distance, so the total work stays about the same.",
+      "example": "Pushing a heavy box up a ramp into a truck is easier than lifting it straight up.",
+      "tryIt": "Try: 'why is a ramp easier than lifting straight up?'"
+    },
+    {
+      "id": "wedge_concept",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is a wedge",
+        "how does a wedge work",
+        "explain wedges"
+      ],
+      "title": "Wedge",
+      "formula": null,
+      "body": "A wedge is like a moving ramp with a sharp edge that splits or pushes things apart. As you drive it in, it turns your forward push into a strong sideways force. Knives, axes, and door stops are all wedges.",
+      "example": "An axe is a wedge that splits wood by pushing the two sides apart as it sinks in.",
+      "tryIt": "Try: 'how does an axe split wood?'"
+    },
+    {
+      "id": "screw_machine",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "how does a screw work",
+        "what is a screw as a machine",
+        "explain screws"
+      ],
+      "title": "Screw",
+      "formula": null,
+      "body": "A screw is an inclined plane wrapped around a rod into a spiral ridge. Turning it many times pulls it deep into material with great gripping force, while you only have to apply a gentle twisting effort. That's how it holds things tightly together.",
+      "example": "Twisting a screw into wood pulls it in firmly with much less force than hammering.",
+      "tryIt": "Try: 'why is a screw stronger than a nail?'"
+    },
+    {
+      "id": "wheel_and_axle",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is a wheel and axle",
+        "how does a wheel and axle work",
+        "explain wheel and axle"
+      ],
+      "title": "Wheel and Axle",
+      "formula": null,
+      "body": "A wheel and axle is a big wheel attached to a smaller rod (the axle). Turning the large wheel a little makes the axle turn with extra force, or turning the axle spins the wheel fast over a distance. Doorknobs and steering wheels use this idea.",
+      "example": "A doorknob is a wheel and axle; turning the wide knob easily twists the thin shaft inside.",
+      "tryIt": "Try: 'why is a wide doorknob easy to turn?'"
+    },
+    {
+      "id": "gears_concept",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "how do gears work",
+        "what are gears",
+        "explain gears"
+      ],
+      "title": "Gears",
+      "formula": null,
+      "body": "Gears are toothed wheels that lock together so one turns the next. A small gear driving a big one trades speed for turning force; a big gear driving a small one trades force for speed. That's how bikes and clocks adjust their power and pace.",
+      "example": "Shifting a bike to a low gear makes pedaling easier on a hill by trading speed for force.",
+      "tryIt": "Try: 'why does a low gear make hills easier on a bike?'"
+    },
+    {
+      "id": "air_pressure",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is air pressure",
+        "explain air pressure",
+        "how does air pressure work"
+      ],
+      "title": "Air Pressure",
+      "formula": null,
+      "body": "Air pressure is the weight of the atmosphere pressing on everything from all directions. You don't usually feel it because it pushes evenly. Differences in air pressure drive winds and let straws and suction cups work by letting outside air push things along.",
+      "example": "Sucking a straw lowers the pressure inside, so outside air pressure pushes the drink up.",
+      "tryIt": "Try: 'how does a straw actually work?'"
+    },
+    {
+      "id": "buoyancy_concept",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is buoyancy",
+        "explain buoyancy",
+        "why do things float"
+      ],
+      "title": "Buoyancy",
+      "formula": null,
+      "body": "Buoyancy is the upward push a liquid or gas gives to objects in it. The fluid pushes up with a force equal to the weight of the fluid the object shoves aside. If that push beats the object's weight, it floats; if not, it sinks.",
+      "example": "A heavy steel ship floats because its hollow shape pushes aside enough water to lift it.",
+      "tryIt": "Try: 'why does a giant metal ship float?'"
+    },
+    {
+      "id": "density_floating",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "why do some things float and others sink",
+        "explain density and floating",
+        "how does density affect floating"
+      ],
+      "title": "Density and Floating",
+      "formula": null,
+      "body": "Whether something floats depends on its density compared to the liquid. If an object is less dense than water, it floats; if it's denser, it sinks. Density is how much mass is packed into a space, so a light, spread-out object floats while a heavy, compact one sinks.",
+      "example": "A cork floats but a pebble of the same size sinks because the pebble is denser.",
+      "tryIt": "Try: 'why does a cork float but a stone sinks?'"
+    },
+    {
+      "id": "pendulum_concept",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "how does a pendulum work",
+        "what is a pendulum",
+        "explain pendulums"
+      ],
+      "title": "Pendulum",
+      "formula": null,
+      "body": "A pendulum is a weight that swings from a fixed point. Gravity pulls it back toward the middle, so it swings past and back over and over. Surprisingly, the length of the string, not the weight, sets how long each swing takes.",
+      "example": "A grandfather clock uses a swinging pendulum to tick off steady, even seconds.",
+      "tryIt": "Try: 'does a heavier pendulum swing faster?'"
+    },
+    {
+      "id": "speed_concept",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is speed",
+        "explain speed",
+        "how is speed measured"
+      ],
+      "title": "Speed",
+      "formula": null,
+      "body": "Speed tells you how much distance something covers in a certain time. Go farther in the same time and your speed is higher. We measure it in units like kilometers per hour or meters per second. Average speed smooths out the fast and slow parts of a trip.",
+      "example": "A car covering 60 km in one hour has a speed of 60 km/h.",
+      "tryIt": "Try: 'how do I work out how fast something is going?'"
+    },
+    {
+      "id": "acceleration_due_to_gravity",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "how fast do things fall",
+        "what is g",
+        "explain acceleration due to gravity"
+      ],
+      "title": "Acceleration Due to Gravity",
+      "formula": null,
+      "body": "Near Earth's surface, gravity speeds up every falling object at the same rate, about 9.8 meters per second faster each second. Heavy or light, they fall the same if air resistance is ignored. That steady speed-up is why falling feels faster the longer you drop.",
+      "example": "Without air, a feather and a hammer dropped together would hit the ground at the exact same time.",
+      "tryIt": "Try: 'do heavy things really fall faster than light ones?'"
+    },
+    {
+      "id": "weight_force",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is weight",
+        "explain weight as a force",
+        "how does weight work"
+      ],
+      "title": "Weight",
+      "formula": null,
+      "body": "Weight is the force of gravity pulling on an object's mass. It points straight down toward Earth's center. Because it depends on gravity, the same object weighs less on the Moon and would weigh more on a bigger planet, even though its mass never changes.",
+      "example": "A backpack feels heavy because gravity pulls down on all the mass inside it.",
+      "tryIt": "Try: 'why does my backpack feel heavy?'"
+    },
+    {
+      "id": "force_definition",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is a force",
+        "explain forces",
+        "what does force mean"
+      ],
+      "title": "Force",
+      "formula": null,
+      "body": "A force is a push or a pull that can start motion, stop it, change its direction, or change an object's shape. Forces have both strength and direction. You can't always see them, but you see their effects whenever something speeds up, slows, or bends.",
+      "example": "Kicking a ball applies a force that sends it flying in a new direction.",
+      "tryIt": "Try: 'what can a force do to an object?'"
+    },
+    {
+      "id": "drag_force",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is drag",
+        "explain drag force",
+        "how does drag work"
+      ],
+      "title": "Drag",
+      "formula": null,
+      "body": "Drag is the resisting force a fluid like air or water puts on something moving through it. It grows fast as you speed up and pushes opposite to your motion. Smooth, pointy shapes have less drag, which is why race cars and fish are streamlined.",
+      "example": "A streamlined sports car shape cuts through air with less drag than a boxy truck.",
+      "tryIt": "Try: 'why are fast cars shaped pointy?'"
+    },
+    {
+      "id": "thrust_force",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is thrust",
+        "explain thrust",
+        "how does thrust work"
+      ],
+      "title": "Thrust",
+      "formula": null,
+      "body": "Thrust is the forward push that drives vehicles like rockets, planes, and boats. It comes from pushing something backward, so by Newton's third law the vehicle is pushed forward in return. Rockets throw hot gas down to thrust themselves up.",
+      "example": "A rocket blasts hot gas downward, and the reaction thrust pushes the rocket up into the sky.",
+      "tryIt": "Try: 'how does a rocket push itself up?'"
+    },
+    {
+      "id": "lift_force",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is lift",
+        "how do planes fly",
+        "explain lift force"
+      ],
+      "title": "Lift",
+      "formula": null,
+      "body": "Lift is the upward force that holds an airplane in the air. A wing's shape and tilt make air move faster over the top and push more underneath, creating an upward force. When lift beats the plane's weight, it rises.",
+      "example": "An airplane's wings generate lift as air rushes over and under them at takeoff speed.",
+      "tryIt": "Try: 'what holds a heavy plane up in the air?'"
+    },
+    {
+      "id": "equilibrium_forces",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is equilibrium in physics",
+        "explain equilibrium",
+        "when is an object in equilibrium"
+      ],
+      "title": "Equilibrium",
+      "formula": null,
+      "body": "An object is in equilibrium when all the forces on it cancel out, giving zero net force. It can be sitting still or moving at a steady speed in a straight line. Either way, nothing changes its motion because the forces are perfectly balanced.",
+      "example": "A lamp hanging steadily from the ceiling is in equilibrium: gravity down balances the cord's pull up.",
+      "tryIt": "Try: 'can a moving object be in equilibrium?'"
+    },
+    {
+      "id": "center_of_mass",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is center of mass",
+        "explain center of gravity",
+        "how does center of mass work"
+      ],
+      "title": "Center of Mass",
+      "formula": null,
+      "body": "The center of mass is the balance point of an object, where its weight is evenly spread. If you support an object right under its center of mass, it balances. When this point sits over the base, the object is stable; if it tips past the edge, it falls.",
+      "example": "You can balance a ruler on your finger if your finger is right under its center of mass.",
+      "tryIt": "Try: 'why does a tower fall when it leans too far?'"
+    },
+    {
+      "id": "stability_concept",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what makes something stable",
+        "explain stability",
+        "why do things tip over"
+      ],
+      "title": "Stability",
+      "formula": null,
+      "body": "Something is stable when it's hard to tip over, which happens with a low center of mass and a wide base. Tall, top-heavy objects tip easily because a small lean pushes their center of mass past the edge of the base. Race cars are low and wide to stay stable.",
+      "example": "A race car is low and wide so it stays stable and won't tip over in sharp turns.",
+      "tryIt": "Try: 'why are race cars low and wide?'"
+    },
+    {
+      "id": "torque_concept",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is torque",
+        "explain torque",
+        "how does torque work"
+      ],
+      "title": "Torque",
+      "formula": null,
+      "body": "Torque is the turning power of a force. Pushing farther from the pivot point makes more torque, so it's easier to spin or twist something. That's why a long wrench loosens a tight bolt better than a short one, and why door handles sit far from the hinges.",
+      "example": "A long wrench loosens a stubborn bolt more easily than a short one because it gives more torque.",
+      "tryIt": "Try: 'why is a long wrench easier than a short one?'"
+    },
+    {
+      "id": "weightlessness_concept",
+      "topic": "physics_mechanics",
+      "intent": "teach",
+      "triggers": [
+        "what is weightlessness",
+        "why do astronauts float",
+        "explain weightlessness"
+      ],
+      "title": "Weightlessness",
+      "formula": null,
+      "body": "Weightlessness is the floating feeling you get in free fall, when nothing is pushing up against gravity. Astronauts in orbit aren't beyond gravity; they're falling around Earth along with their spacecraft, so there's no support force and everything floats.",
+      "example": "Astronauts float inside the space station because they and the station are both falling around Earth together.",
+      "tryIt": "Try: 'is there really no gravity in space?'"
+    },
+    {
+      "id": "law_of_reflection",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is the law of reflection",
+        "explain how light reflects",
+        "how does light bounce off mirrors"
+      ],
+      "title": "Law of Reflection",
+      "formula": null,
+      "body": "The law of reflection says light bounces off a smooth surface at the same angle it arrived. A ray coming in steeply leaves just as steeply on the other side. Smooth mirrors keep the rays neat so you see clear images; rough surfaces scatter them.",
+      "example": "A ball thrown at a wall at an angle bounces off at the matching angle, just like light on a mirror.",
+      "tryIt": "Try: 'why does light bounce off a mirror at an angle?'"
+    },
+    {
+      "id": "lens_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "how does a lens work",
+        "what is a lens",
+        "explain lenses"
+      ],
+      "title": "Lenses",
+      "formula": null,
+      "body": "A lens is a curved piece of clear material that bends light to focus it. Convex lenses bulge out and bring light together to magnify or focus; concave lenses curve in and spread light apart. Glasses, cameras, and your own eye all use lenses.",
+      "example": "A magnifying glass uses a convex lens to bend light and make tiny print look bigger.",
+      "tryIt": "Try: 'how does a magnifying glass make things bigger?'"
+    },
+    {
+      "id": "laser_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "what is a laser",
+        "how does a laser work",
+        "explain lasers"
+      ],
+      "title": "Lasers",
+      "formula": null,
+      "body": "A laser makes a tight, straight beam of light where all the waves march in perfect step at a single color. That's different from a flashlight, whose light spreads out and mixes colors. Lasers stay narrow over long distances and pack lots of energy into a small spot.",
+      "example": "A laser pointer makes a tiny bright dot far across a room, while a flashlight beam spreads out and fades.",
+      "tryIt": "Try: 'why is a laser beam so narrow and a flashlight isn't?'"
+    },
+    {
+      "id": "fiber_optics",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "how do fiber optics work",
+        "what is fiber optic",
+        "explain fiber optic cables"
+      ],
+      "title": "Fiber Optics",
+      "formula": null,
+      "body": "Fiber optic cables carry information as flashes of light down thin glass strands. The light bounces along inside the fiber by total internal reflection, staying trapped even around bends. This lets data travel fast over huge distances with little loss.",
+      "example": "Internet data zooms through fiber optic cables as light bouncing along thin glass threads.",
+      "tryIt": "Try: 'how does light carry the internet?'"
+    },
+    {
+      "id": "hearing_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "how do ears hear",
+        "explain how hearing works",
+        "how do we hear sound"
+      ],
+      "title": "How We Hear",
+      "formula": null,
+      "body": "You hear when sound waves enter your ear and vibrate the eardrum. Tiny bones pass the vibration to a fluid-filled spiral that turns it into nerve signals your brain reads as sound. Louder sounds vibrate the eardrum harder; higher pitches vibrate it faster.",
+      "example": "A loud clap shakes your eardrum hard, and your brain hears it as a sharp bang.",
+      "tryIt": "Try: 'how does my ear turn vibrations into sound?'"
+    },
+    {
+      "id": "solar_energy_physics",
+      "topic": "physics_energy",
+      "intent": "teach",
+      "triggers": [
+        "how do solar panels work",
+        "what is solar energy",
+        "explain solar panels"
+      ],
+      "title": "Solar Energy",
+      "formula": null,
+      "body": "Solar panels turn sunlight straight into electricity. Light hitting special materials in the panel knocks electrons loose, and that flow of electrons becomes current. The brighter the sunlight, the more electricity the panel makes.",
+      "example": "On a sunny day, rooftop solar panels make electricity to power the home.",
+      "tryIt": "Try: 'how does sunlight become electricity?'"
+    },
+    {
+      "id": "friction_heat",
+      "topic": "physics_energy",
+      "intent": "teach",
+      "triggers": [
+        "why does friction make heat",
+        "explain friction and heat",
+        "how does rubbing make heat"
+      ],
+      "title": "Friction and Heat",
+      "formula": null,
+      "body": "Friction turns motion energy into heat. As surfaces rub, their tiny bumps scrape and grab, making particles jiggle faster, which we feel as warmth. That's why brakes get hot, sticks can start fires, and your hands warm up when you rub them.",
+      "example": "A bike's brakes get hot after a long downhill because friction turns motion into heat.",
+      "tryIt": "Try: 'why do brakes get hot?'"
+    },
+    {
+      "id": "sound_needs_medium",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "can sound travel in space",
+        "why is space silent",
+        "explain why sound needs a medium"
+      ],
+      "title": "Sound Needs a Medium",
+      "formula": null,
+      "body": "Sound is a vibration passed from particle to particle, so it needs a material like air, water, or solids to travel through. In the vacuum of space there are almost no particles, so sound has nothing to move through and can't travel at all.",
+      "example": "In space, an explosion would be completely silent because there's no air to carry the sound.",
+      "tryIt": "Try: 'why would an explosion in space be silent?'"
+    },
+    {
+      "id": "light_speed_concept",
+      "topic": "physics_waves",
+      "intent": "teach",
+      "triggers": [
+        "how fast is light",
+        "what is the speed of light",
+        "explain speed of light"
+      ],
+      "title": "Speed of Light",
+      "formula": null,
+      "body": "Light is the fastest thing in the universe, traveling about 300,000 kilometers every second. Nothing can go faster. It's so fast that light from the Sun, 150 million kilometers away, reaches us in about eight minutes.",
+      "example": "Sunlight you feel right now actually left the Sun about eight minutes ago.",
+      "tryIt": "Try: 'how long does sunlight take to reach Earth?'"
+    },
+    {
+      "id": "electric_charge_transfer",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "how do objects become charged",
+        "explain charging by rubbing",
+        "why does rubbing make static"
+      ],
+      "title": "Charging by Friction",
+      "formula": null,
+      "body": "Rubbing two materials together can transfer electrons from one to the other. The one that gains electrons becomes negatively charged and the one that loses them becomes positively charged. This is how you build up static electricity that makes hair rise or balloons stick.",
+      "example": "Rubbing a balloon on your hair moves electrons to the balloon, charging it so it lifts your hair.",
+      "tryIt": "Try: 'why does my hair stand up near a charged balloon?'"
+    },
+    {
+      "id": "how_speakers_work",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "how do speakers work",
+        "explain how speakers make sound",
+        "what makes a speaker work"
+      ],
+      "title": "How Speakers Work",
+      "formula": null,
+      "body": "A speaker turns electricity into sound. An electric signal flows through a coil that becomes an electromagnet, pushing and pulling against a magnet so the cone vibrates. Those vibrations shake the air, sending out the sound waves you hear.",
+      "example": "A speaker cone vibrates in and out thousands of times a second to play music.",
+      "tryIt": "Try: 'how does electricity turn into music?'"
+    },
+    {
+      "id": "how_microphones_work",
+      "topic": "physics_electricity",
+      "intent": "teach",
+      "triggers": [
+        "how do microphones work",
+        "explain microphones",
+        "what does a microphone do"
+      ],
+      "title": "How Microphones Work",
+      "formula": null,
+      "body": "A microphone does the opposite of a speaker: it turns sound into electricity. Sound waves vibrate a thin part inside, and that motion creates a matching electric signal. The signal can then be recorded, amplified, or sent far away.",
+      "example": "Singing into a microphone makes a part vibrate, creating an electric signal recorded as your voice.",
+      "tryIt": "Try: 'how does a microphone capture my voice?'"
+    },
+    {
+      "id": "gen2_scitut_1",
+      "topic": "biology_cells",
+      "intent": "teach",
+      "triggers": [
+        "what are mitochondria",
+        "what do mitochondria do",
+        "explain mitochondria"
+      ],
+      "title": "Mitochondria: The Powerhouse",
+      "formula": null,
+      "body": "Mitochondria are tiny bean-shaped parts inside cells that make energy. They take in food and oxygen and turn them into a fuel the cell can use, called ATP. That's why people call them the powerhouse of the cell. Busy cells like muscle cells have lots of them.",
+      "example": "Mitochondria are like little power plants making electricity for a whole city of cells.",
+      "tryIt": "Try: 'what do mitochondria do'"
+    },
+    {
+      "id": "ribosomes",
+      "topic": "biology_cells",
+      "intent": "teach",
+      "triggers": [
+        "what are ribosomes",
+        "what do ribosomes do",
+        "explain ribosomes"
+      ],
+      "title": "Ribosomes: Protein Builders",
+      "formula": null,
+      "body": "Ribosomes are tiny machines in the cell that build proteins. They read the instructions copied from DNA and link together building blocks called amino acids, one by one, like stringing beads. Proteins do almost every job in the body, so ribosomes are very busy.",
+      "example": "A ribosome works like a tiny factory line snapping LEGO bricks into a long chain.",
+      "tryIt": "Try: 'what do ribosomes do'"
+    },
+    {
+      "id": "cytoplasm",
+      "topic": "biology_cells",
+      "intent": "teach",
+      "triggers": [
+        "what is cytoplasm",
+        "what does cytoplasm do",
+        "explain cytoplasm"
+      ],
+      "title": "Cytoplasm",
+      "formula": null,
+      "body": "Cytoplasm is the jelly-like goo that fills the inside of a cell. It holds all the tiny parts in place and lets them float and move around. Many of the cell's chemical jobs happen right in this jelly.",
+      "example": "Cytoplasm is like the clear jelly in a fruit cup that holds the pieces in place.",
+      "tryIt": "Try: 'what is cytoplasm'"
+    },
+    {
+      "id": "cell_wall",
+      "topic": "biology_cells",
+      "intent": "teach",
+      "triggers": [
+        "what is a cell wall",
+        "what does a cell wall do",
+        "explain cell wall"
+      ],
+      "title": "The Cell Wall",
+      "formula": null,
+      "body": "Plant cells have a tough outer layer called the cell wall, just outside the membrane. It's stiff and strong, giving the plant its shape and helping it stand up straight. Animal cells don't have one, which is why animals are soft and bendy.",
+      "example": "A cell wall is like a cardboard box around a softer bag inside.",
+      "tryIt": "Try: 'what does a cell wall do'"
+    },
+    {
+      "id": "vacuole",
+      "topic": "biology_cells",
+      "intent": "teach",
+      "triggers": [
+        "what is a vacuole",
+        "what does a vacuole do",
+        "explain vacuole"
+      ],
+      "title": "The Vacuole",
+      "formula": null,
+      "body": "A vacuole is a storage bubble inside a cell. It holds water, food, or waste until the cell needs it. Plant cells usually have one big vacuole full of water that helps keep the plant firm and crisp.",
+      "example": "A vacuole is like a water tank inside the cell; when it's full, the plant stands up tall.",
+      "tryIt": "Try: 'what does a vacuole do'"
+    },
+    {
+      "id": "plant_vs_animal_cells",
+      "topic": "biology_cells",
+      "intent": "teach",
+      "triggers": [
+        "how are plant and animal cells different",
+        "plant cell vs animal cell",
+        "explain plant and animal cells"
+      ],
+      "title": "Plant Cells vs Animal Cells",
+      "formula": null,
+      "body": "Plant and animal cells share many parts, like a nucleus and mitochondria. But plant cells also have a stiff cell wall, green chloroplasts for making food, and one big water-filled vacuole. Animal cells are softer, can't make their own food, and have smaller vacuoles.",
+      "example": "A plant cell is like a box with a sunlight kitchen; an animal cell is a soft bag that has to go find food.",
+      "tryIt": "Try: 'how are plant and animal cells different'"
+    },
+    {
+      "id": "cell_division",
+      "topic": "biology_cells",
+      "intent": "teach",
+      "triggers": [
+        "what is cell division",
+        "how do cells divide",
+        "explain cell division"
+      ],
+      "title": "Cell Division",
+      "formula": null,
+      "body": "Cell division is how one cell becomes two. The cell copies its DNA, then splits down the middle, giving each new cell a full set of instructions. This is how you grow bigger and how cuts heal up.",
+      "example": "When you scrape your knee, cells divide to fill in the gap with fresh skin.",
+      "tryIt": "Try: 'how do cells divide'"
+    },
+    {
+      "id": "cell_specialization",
+      "topic": "biology_cells",
+      "intent": "teach",
+      "triggers": [
+        "what is cell specialization",
+        "why are cells different",
+        "explain specialized cells"
+      ],
+      "title": "Specialized Cells",
+      "formula": null,
+      "body": "Your body has many kinds of cells, each shaped for a special job. Nerve cells are long and stringy to carry messages, red blood cells are round to carry oxygen, and muscle cells can squeeze and stretch. Different shapes help them do their jobs well.",
+      "example": "A red blood cell is like a tiny disc-shaped truck carrying oxygen all over your body.",
+      "tryIt": "Try: 'why are cells different'"
+    },
+    {
+      "id": "tissues",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is a tissue",
+        "what are tissues",
+        "explain tissues"
+      ],
+      "title": "Tissues",
+      "formula": null,
+      "body": "When many cells of the same kind work together, they form a tissue. Muscle tissue moves your body, and skin tissue covers and protects you. Tissues are a step up from single cells in how your body is built.",
+      "example": "One thread is like a cell; weave many together and you get cloth, like a tissue.",
+      "tryIt": "Try: 'what are tissues'"
+    },
+    {
+      "id": "organs",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is an organ",
+        "what are organs",
+        "explain organs"
+      ],
+      "title": "Organs",
+      "formula": null,
+      "body": "An organ is a body part made of different tissues working together to do a big job. Your heart pumps blood, your lungs take in air, and your stomach digests food. Each organ has its own important role.",
+      "example": "Your heart is an organ; its muscle tissue squeezes to push blood around your whole body.",
+      "tryIt": "Try: 'what are organs'"
+    },
+    {
+      "id": "organ_systems",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is an organ system",
+        "what are organ systems",
+        "explain organ systems"
+      ],
+      "title": "Organ Systems",
+      "formula": null,
+      "body": "Organs that team up to do a big job form an organ system. The digestive system breaks down food, and the circulatory system moves blood. Many systems working together keep your whole body running smoothly.",
+      "example": "Your mouth, stomach, and intestines work together as one digestive system.",
+      "tryIt": "Try: 'what are organ systems'"
+    },
+    {
+      "id": "skeletal_system",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is the skeletal system",
+        "what do bones do",
+        "explain the skeleton"
+      ],
+      "title": "The Skeletal System",
+      "formula": null,
+      "body": "Your skeleton is the frame of bones inside your body. It holds you up, gives you shape, and protects soft parts like your brain and heart. Bones also make blood cells inside the soft marrow in their centers.",
+      "example": "Your skull is like a helmet of bone protecting your brain.",
+      "tryIt": "Try: 'what do bones do'"
+    },
+    {
+      "id": "muscular_system",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is the muscular system",
+        "how do muscles work",
+        "explain muscles"
+      ],
+      "title": "How Muscles Work",
+      "formula": null,
+      "body": "Muscles move your body by pulling on bones. They can only pull, not push, so they work in pairs: one pulls a bone one way, and another pulls it back. When a muscle gets a message from the brain, it squeezes shorter.",
+      "example": "To bend your arm, one muscle pulls it up; to straighten it, another pulls it back down.",
+      "tryIt": "Try: 'how do muscles work'"
+    },
+    {
+      "id": "nervous_system",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is the nervous system",
+        "how does the nervous system work",
+        "explain nervous system"
+      ],
+      "title": "The Nervous System",
+      "formula": null,
+      "body": "The nervous system is your body's message network. Your brain, spinal cord, and nerves send fast signals to control your body. When you touch something hot, nerves zip the message to your brain so you pull your hand away.",
+      "example": "Nerves work like wires carrying lightning-fast messages from your toes to your brain.",
+      "tryIt": "Try: 'how does the nervous system work'"
+    },
+    {
+      "id": "neurons",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is a neuron",
+        "how do neurons work",
+        "explain neurons"
+      ],
+      "title": "Neurons",
+      "formula": null,
+      "body": "A neuron is a special nerve cell that carries messages as tiny electric signals. It has long branches to pass signals to the next neuron. Billions of them connect together to make your brain think and your body move.",
+      "example": "Neurons pass messages like kids whispering down a line, one to the next.",
+      "tryIt": "Try: 'how do neurons work'"
+    },
+    {
+      "id": "reflexes",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is a reflex",
+        "how do reflexes work",
+        "explain reflexes"
+      ],
+      "title": "Reflexes",
+      "formula": null,
+      "body": "A reflex is a super-fast reaction your body does without thinking. When you touch something sharp, your spinal cord sends the pull-away signal before your brain even notices. Reflexes protect you from danger in a flash.",
+      "example": "Your knee kicks out when a doctor taps it; that's a reflex, not a choice.",
+      "tryIt": "Try: 'how do reflexes work'"
+    },
+    {
+      "id": "digestive_system",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is the digestive system",
+        "how does digestion work",
+        "explain digestion"
+      ],
+      "title": "How Digestion Works",
+      "formula": null,
+      "body": "Digestion is how your body breaks food into tiny pieces it can use. It starts in your mouth, where chewing and spit begin the job. Then food travels to the stomach and intestines, where it's broken down and the good stuff is soaked up into your blood.",
+      "example": "Your stomach mashes food into a soupy mush before sending it on.",
+      "tryIt": "Try: 'how does digestion work'"
+    },
+    {
+      "id": "stomach",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what does the stomach do",
+        "how does the stomach work",
+        "explain the stomach"
+      ],
+      "title": "The Stomach",
+      "formula": null,
+      "body": "The stomach is a stretchy bag that mashes and mixes your food. It makes strong acid that breaks food into a thick liquid and kills germs. After a couple of hours, it sends the mush on to your intestines.",
+      "example": "Your stomach churns food like a washing machine swishing clothes.",
+      "tryIt": "Try: 'what does the stomach do'"
+    },
+    {
+      "id": "intestines",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what do intestines do",
+        "how do intestines work",
+        "explain intestines"
+      ],
+      "title": "The Intestines",
+      "formula": null,
+      "body": "The intestines are long, coiled tubes where most digestion finishes. The small intestine soaks up nutrients from food into your blood. The large intestine takes back water and turns what's left into waste.",
+      "example": "Your small intestine is so long that, stretched out, it would be taller than a giraffe.",
+      "tryIt": "Try: 'what do intestines do'"
+    },
+    {
+      "id": "liver",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what does the liver do",
+        "how does the liver work",
+        "explain the liver"
+      ],
+      "title": "The Liver",
+      "formula": null,
+      "body": "The liver is a large organ that cleans your blood and stores energy. It filters out harmful stuff, makes a juice called bile to help digest fat, and keeps your blood sugar steady. It's one of your body's hardest workers.",
+      "example": "The liver acts like a recycling center, cleaning and sorting what's in your blood.",
+      "tryIt": "Try: 'what does the liver do'"
+    },
+    {
+      "id": "gen2_scitut_2",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is the respiratory system",
+        "how do we breathe",
+        "explain breathing"
+      ],
+      "title": "How We Breathe",
+      "formula": null,
+      "body": "Breathing brings oxygen into your body and pushes out waste gas. When you breathe in, air goes down your windpipe into your lungs. There, oxygen passes into your blood and carbon dioxide passes out to be breathed away.",
+      "example": "Your lungs fill like balloons when you breathe in and empty when you breathe out.",
+      "tryIt": "Try: 'how do we breathe'"
+    },
+    {
+      "id": "lungs",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what do lungs do",
+        "how do lungs work",
+        "explain lungs"
+      ],
+      "title": "The Lungs",
+      "formula": null,
+      "body": "Your lungs are two spongy organs that pull oxygen out of the air. Inside are millions of tiny air sacs where oxygen slips into your blood. A muscle below your lungs, the diaphragm, pulls down to suck air in.",
+      "example": "The tiny air sacs in your lungs, spread out flat, could cover a tennis court.",
+      "tryIt": "Try: 'how do lungs work'"
+    },
+    {
+      "id": "circulatory_system",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is the circulatory system",
+        "how does blood move",
+        "explain circulation"
+      ],
+      "title": "The Circulatory System",
+      "formula": null,
+      "body": "The circulatory system moves blood around your body in tubes called blood vessels. Your heart pumps the blood, which carries oxygen and food to every cell. It also picks up waste to be cleaned out.",
+      "example": "Your blood vessels are like roads, and blood is the delivery trucks bringing supplies everywhere.",
+      "tryIt": "Try: 'how does blood move'"
+    },
+    {
+      "id": "blood",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is blood made of",
+        "what does blood do",
+        "explain blood"
+      ],
+      "title": "What Blood Does",
+      "formula": null,
+      "body": "Blood is a red liquid that carries oxygen, food, and warmth around your body. Red blood cells carry oxygen, white blood cells fight germs, and tiny platelets help cuts stop bleeding. The watery part, called plasma, carries everything along.",
+      "example": "When you get a scrape, platelets rush in to plug the leak and form a scab.",
+      "tryIt": "Try: 'what does blood do'"
+    },
+    {
+      "id": "blood_vessels",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what are blood vessels",
+        "arteries and veins",
+        "explain blood vessels"
+      ],
+      "title": "Arteries and Veins",
+      "formula": null,
+      "body": "Blood vessels are the tubes that carry blood around your body. Arteries carry blood away from the heart, veins carry it back, and tiny capillaries connect them. Together they reach every part of you.",
+      "example": "You can see veins as faint blue lines under the skin on your wrist.",
+      "tryIt": "Try: 'what are blood vessels'"
+    },
+    {
+      "id": "gen2_scitut_3",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is the immune system",
+        "how does the immune system work",
+        "explain immune system"
+      ],
+      "title": "The Immune System",
+      "formula": null,
+      "body": "Your immune system is your body's defense team against germs. White blood cells hunt down and destroy bacteria and viruses that make you sick. When you get better after being sick, your immune system did the work.",
+      "example": "White blood cells are like tiny soldiers patrolling your body for invaders.",
+      "tryIt": "Try: 'how does the immune system work'"
+    },
+    {
+      "id": "white_blood_cells",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what are white blood cells",
+        "what do white blood cells do",
+        "explain white blood cells"
+      ],
+      "title": "White Blood Cells",
+      "formula": null,
+      "body": "White blood cells are the germ-fighters in your blood. Some swallow up bacteria, and others make special weapons called antibodies that stick to invaders. When you're sick, your body makes extra to win the fight.",
+      "example": "A white blood cell can wrap around a germ and gobble it up like a hungry blob.",
+      "tryIt": "Try: 'what do white blood cells do'"
+    },
+    {
+      "id": "kidneys",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what do kidneys do",
+        "how do kidneys work",
+        "explain kidneys"
+      ],
+      "title": "The Kidneys",
+      "formula": null,
+      "body": "Your two kidneys are blood filters about the size of your fists. They clean waste and extra water out of your blood and turn it into pee. This keeps the right amount of water and salt in your body.",
+      "example": "Kidneys work like coffee filters, letting clean liquid through and catching the junk.",
+      "tryIt": "Try: 'how do kidneys work'"
+    },
+    {
+      "id": "skin",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what does skin do",
+        "how does skin work",
+        "explain skin"
+      ],
+      "title": "Your Skin",
+      "formula": null,
+      "body": "Skin is your body's largest organ and its outer shield. It keeps germs out, holds water in, and helps you feel touch, heat, and cold. It even helps cool you down by making sweat.",
+      "example": "On a hot day, your skin sweats to cool you off, like a built-in fan.",
+      "tryIt": "Try: 'what does skin do'"
+    },
+    {
+      "id": "brain_bio",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what does the brain do",
+        "how does the brain work",
+        "explain the brain"
+      ],
+      "title": "The Brain",
+      "formula": null,
+      "body": "Your brain is the boss of your body and the home of your thoughts. It controls your movements, holds your memories, and lets you feel and think. It sends and gets messages through the nerves all over your body.",
+      "example": "Your brain decides to wiggle your toes and sends the message in a split second.",
+      "tryIt": "Try: 'how does the brain work'"
+    },
+    {
+      "id": "five_senses",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what are the five senses",
+        "how do senses work",
+        "explain the senses"
+      ],
+      "title": "The Five Senses",
+      "formula": null,
+      "body": "Your senses tell your brain about the world around you. Sight, hearing, smell, taste, and touch each use a special body part to send messages to your brain. Together they help you understand and stay safe.",
+      "example": "Your nose smells dinner, then sends the message to your brain that food is ready.",
+      "tryIt": "Try: 'how do senses work'"
+    },
+    {
+      "id": "how_eyes_see",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "how do eyes see",
+        "how does sight work",
+        "explain how we see"
+      ],
+      "title": "How Eyes See",
+      "formula": null,
+      "body": "Your eyes work like little cameras. Light bounces off things and enters your eye, where a lens focuses it onto the back wall. Special cells there turn the light into signals your brain reads as pictures.",
+      "example": "In a dark room your pupils get bigger to let in more light, like opening a window wider.",
+      "tryIt": "Try: 'how do eyes see'"
+    },
+    {
+      "id": "how_ears_hear",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "how do ears hear",
+        "how does hearing work",
+        "explain how we hear"
+      ],
+      "title": "How Ears Hear",
+      "formula": null,
+      "body": "Sounds are tiny waves moving through the air. Your ear catches them, and they make a thin skin called the eardrum wobble. That wobble turns into signals your brain understands as sound.",
+      "example": "When you bang a drum, the air shakes, and your eardrum shakes too so you hear it.",
+      "tryIt": "Try: 'how do ears hear'"
+    },
+    {
+      "id": "taste_buds",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "how does taste work",
+        "what are taste buds",
+        "explain taste"
+      ],
+      "title": "Taste Buds",
+      "formula": null,
+      "body": "Your tongue is covered in tiny bumps holding taste buds. They sense flavors like sweet, salty, sour, bitter, and savory and tell your brain. Smell helps too, which is why food seems flavorless when your nose is stuffy.",
+      "example": "Hold your nose while eating a jellybean and you can barely taste the flavor.",
+      "tryIt": "Try: 'what are taste buds'"
+    },
+    {
+      "id": "how_smell_works",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "how does smell work",
+        "how do we smell",
+        "explain smell"
+      ],
+      "title": "How Smell Works",
+      "formula": null,
+      "body": "Smelling happens when tiny bits float off objects into the air and reach your nose. Special cells high in your nose catch these bits and send signals to your brain. That's how you can smell cookies baking from another room.",
+      "example": "Tiny scent particles drift off a flower and into your nose so you smell it.",
+      "tryIt": "Try: 'how do we smell'"
+    },
+    {
+      "id": "teeth",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what do teeth do",
+        "why do we have teeth",
+        "explain teeth"
+      ],
+      "title": "Teeth",
+      "formula": null,
+      "body": "Teeth break food into smaller pieces so you can swallow and digest it. Sharp front teeth cut, pointed teeth tear, and flat back teeth grind. Teeth are coated in enamel, the hardest stuff in your whole body.",
+      "example": "You bite an apple with your front teeth and chew it with your back teeth.",
+      "tryIt": "Try: 'why do we have teeth'"
+    },
+    {
+      "id": "bones_growth",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "how do bones grow",
+        "why do bones get bigger",
+        "explain bone growth"
+      ],
+      "title": "How Bones Grow",
+      "formula": null,
+      "body": "When you're young, your bones grow longer at soft areas near their ends called growth plates. New bone is added there as you get taller. Around the end of your teens, these plates harden and you stop growing taller.",
+      "example": "A growing kid's bones stretch a little longer each year, like a plant growing taller.",
+      "tryIt": "Try: 'how do bones grow'"
+    },
+    {
+      "id": "why_we_eat",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "why do we eat",
+        "why does the body need food",
+        "explain why we eat"
+      ],
+      "title": "Why We Eat",
+      "formula": null,
+      "body": "Food gives your body energy and the building blocks to grow and repair. Your body breaks food down and uses it to power your muscles, brain, and every cell. Without food, you'd run out of energy and couldn't grow.",
+      "example": "Eating is like putting fuel in a car so it can keep going.",
+      "tryIt": "Try: 'why do we eat'"
+    },
+    {
+      "id": "why_we_breathe_oxygen",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "why do we need oxygen",
+        "why do we breathe air",
+        "explain why we need oxygen"
+      ],
+      "title": "Why We Need Oxygen",
+      "formula": null,
+      "body": "Your cells need oxygen to turn food into energy. Without oxygen, your mitochondria couldn't make the fuel your body runs on. That's why you can't hold your breath for long; your cells get hungry for oxygen fast.",
+      "example": "A candle needs air to burn, and your cells need oxygen to make energy.",
+      "tryIt": "Try: 'why do we need oxygen'"
+    },
+    {
+      "id": "sweat",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "why do we sweat",
+        "what is sweat for",
+        "explain sweating"
+      ],
+      "title": "Why We Sweat",
+      "formula": null,
+      "body": "Sweating cools you down when you get too hot. Your skin lets out salty water, and as it dries off your skin, it carries heat away. That's why you sweat when you run around or when it's hot outside.",
+      "example": "Stepping out of a pool, you feel cold as the water evaporates, just like sweat cooling you.",
+      "tryIt": "Try: 'why do we sweat'"
+    },
+    {
+      "id": "hair_growth",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "how does hair grow",
+        "why does hair grow",
+        "explain hair growth"
+      ],
+      "title": "How Hair Grows",
+      "formula": null,
+      "body": "Hair grows from tiny pockets in your skin called follicles. New cells push up from the bottom, and the part you see is actually dead and that's why a haircut doesn't hurt. Hair helps keep your head warm and protects your skin.",
+      "example": "Trimming your hair doesn't hurt because the part you cut is already dead.",
+      "tryIt": "Try: 'how does hair grow'"
+    },
+    {
+      "id": "body_temperature",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "why is the body warm",
+        "how does the body stay warm",
+        "explain body temperature"
+      ],
+      "title": "Body Temperature",
+      "formula": null,
+      "body": "Your body keeps itself at a steady warm temperature, around 37 degrees Celsius. Your cells make heat as they work, and your body adjusts to stay just right. If you're too hot you sweat, and if you're too cold you shiver.",
+      "example": "Shivering on a cold day is your muscles shaking to make heat and warm you up.",
+      "tryIt": "Try: 'how does the body stay warm'"
+    },
+    {
+      "id": "fever",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is a fever",
+        "why do we get fevers",
+        "explain fever"
+      ],
+      "title": "What a Fever Is",
+      "formula": null,
+      "body": "A fever is when your body gets warmer than usual, often because you're fighting germs. Your body turns up the heat on purpose because many germs don't like it warm. A fever is a sign your immune system is at work.",
+      "example": "When you're sick, your body heats up to make the germs uncomfortable.",
+      "tryIt": "Try: 'why do we get fevers'"
+    },
+    {
+      "id": "dna_basics",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": [
+        "what is DNA",
+        "what does DNA do",
+        "explain DNA"
+      ],
+      "title": "What DNA Is",
+      "formula": null,
+      "body": "DNA is the instruction book inside every cell that tells your body how to grow and work. It's a long, twisted ladder shape, and the rungs spell out a code. This code decides things like your eye color and height.",
+      "example": "DNA is like a recipe book your body follows to build you.",
+      "tryIt": "Try: 'what does DNA do'"
+    },
+    {
+      "id": "dna_double_helix",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": [
+        "what is the double helix",
+        "why is DNA twisted",
+        "explain double helix"
+      ],
+      "title": "The Double Helix",
+      "formula": null,
+      "body": "DNA is shaped like a twisted ladder, called a double helix. The two long sides twist around each other, and rungs made of paired chemicals connect them. This twist lets a huge amount of code pack into a tiny cell.",
+      "example": "Imagine a rope ladder grabbed at both ends and twisted; that's the shape of DNA.",
+      "tryIt": "Try: 'what is the double helix'"
+    },
+    {
+      "id": "gen2_scitut_4",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": [
+        "what is a gene",
+        "what do genes do",
+        "explain genes"
+      ],
+      "title": "Genes",
+      "formula": null,
+      "body": "A gene is a short section of DNA that holds instructions for one feature, like the color of your hair. You have thousands of genes, each carrying a small piece of the plan for your body. Together, all your genes make you who you are.",
+      "example": "One gene might carry the instructions for whether you have curly or straight hair.",
+      "tryIt": "Try: 'what do genes do'"
+    },
+    {
+      "id": "chromosomes",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": [
+        "what is a chromosome",
+        "what are chromosomes",
+        "explain chromosomes"
+      ],
+      "title": "Chromosomes",
+      "formula": null,
+      "body": "A chromosome is a tightly packed bundle of DNA inside a cell. People have 46 of them, arranged in 23 pairs. Packing DNA into chromosomes keeps the long strands neat and easy to copy when cells divide.",
+      "example": "A chromosome is like winding a very long string neatly around a spool.",
+      "tryIt": "Try: 'what are chromosomes'"
+    },
+    {
+      "id": "inheritance",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": [
+        "what is inheritance",
+        "why do we look like our parents",
+        "explain inheritance"
+      ],
+      "title": "Why We Look Like Our Parents",
+      "formula": null,
+      "body": "You get your genes from your parents, half from each. That's why you might have your mom's nose or your dad's eyes. These passed-down instructions are why families often share looks and traits.",
+      "example": "You might have your grandma's curly hair because her genes were passed down to you.",
+      "tryIt": "Try: 'why do we look like our parents'"
+    },
+    {
+      "id": "dominant_recessive",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": [
+        "what are dominant and recessive genes",
+        "dominant vs recessive",
+        "explain dominant genes"
+      ],
+      "title": "Dominant and Recessive Genes",
+      "formula": null,
+      "body": "You get two copies of each gene, one from each parent. Some genes are strong, or dominant, and show up even if there's just one copy. Others are quiet, or recessive, and only show when both copies match.",
+      "example": "Brown eyes are dominant, so a child often gets them even if only one parent has them.",
+      "tryIt": "Try: 'dominant vs recessive'"
+    },
+    {
+      "id": "traits",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": [
+        "what is a trait",
+        "what are traits",
+        "explain traits"
+      ],
+      "title": "Traits",
+      "formula": null,
+      "body": "A trait is a feature you can see or measure, like hair color, height, or whether you can roll your tongue. Many traits come from your genes, but some are also shaped by how you live. Traits are what make each person unique.",
+      "example": "Being able to roll your tongue into a U is a trait some people have and some don't.",
+      "tryIt": "Try: 'what are traits'"
+    },
+    {
+      "id": "identical_twins",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": [
+        "why are twins identical",
+        "how do identical twins happen",
+        "explain identical twins"
+      ],
+      "title": "Identical Twins",
+      "formula": null,
+      "body": "Identical twins come from one fertilized egg that splits into two. Because they start from the same cell, they share the same DNA. That's why they look so much alike, though tiny differences can still appear.",
+      "example": "Identical twins share the same genes, so they often look like mirror images.",
+      "tryIt": "Try: 'how do identical twins happen'"
+    },
+    {
+      "id": "why_no_two_alike",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": [
+        "why is everyone different",
+        "why are people unique",
+        "explain why people are different"
+      ],
+      "title": "Why Everyone Is Different",
+      "formula": null,
+      "body": "Each person gets a special mix of genes from their parents, shuffled in a new way. With so many ways to combine genes, almost no two people are exactly alike. Even how we grow up adds to our differences.",
+      "example": "Brothers and sisters share parents but still look and act differently because their gene mix is different.",
+      "tryIt": "Try: 'why are people unique'"
+    },
+    {
+      "id": "photosynthesis_kid",
+      "topic": "biology_plants",
+      "intent": "teach",
+      "triggers": [
+        "what is photosynthesis",
+        "how do plants make food",
+        "explain photosynthesis"
+      ],
+      "title": "How Plants Make Food",
+      "formula": null,
+      "body": "Plants make their own food using sunlight, in a process called photosynthesis. Their green leaves catch sunlight and mix water from the roots with a gas from the air to make sugar. They also release oxygen, which we breathe.",
+      "example": "A plant on a sunny windowsill is busy making sugar food from light and air.",
+      "tryIt": "Try: 'how do plants make food'"
+    },
+    {
+      "id": "plant_roots",
+      "topic": "biology_plants",
+      "intent": "teach",
+      "triggers": [
+        "what do roots do",
+        "why do plants have roots",
+        "explain plant roots"
+      ],
+      "title": "Plant Roots",
+      "formula": null,
+      "body": "Roots are the part of a plant that grows underground. They drink up water and minerals from the soil and anchor the plant so it doesn't fall over. Some roots, like carrots, also store food for the plant.",
+      "example": "A carrot is actually a fat root that stores food underground.",
+      "tryIt": "Try: 'why do plants have roots'"
+    },
+    {
+      "id": "plant_stem",
+      "topic": "biology_plants",
+      "intent": "teach",
+      "triggers": [
+        "what does a stem do",
+        "why do plants have stems",
+        "explain plant stems"
+      ],
+      "title": "Plant Stems",
+      "formula": null,
+      "body": "The stem holds a plant up and connects its parts. Inside are tiny tubes that carry water up from the roots and food down from the leaves. The stem lifts leaves toward the sunlight they need.",
+      "example": "Put a white flower in colored water and the stem carries the color up to the petals.",
+      "tryIt": "Try: 'what does a stem do'"
+    },
+    {
+      "id": "plant_leaves",
+      "topic": "biology_plants",
+      "intent": "teach",
+      "triggers": [
+        "what do leaves do",
+        "why do plants have leaves",
+        "explain leaves"
+      ],
+      "title": "Leaves",
+      "formula": null,
+      "body": "Leaves are a plant's food factories. They're flat and wide to catch lots of sunlight, which they use to make food. Tiny holes on leaves let gases in and out and let water escape.",
+      "example": "Leaves are flat and spread out so they soak up as much sunlight as possible.",
+      "tryIt": "Try: 'why do plants have leaves'"
+    },
+    {
+      "id": "chlorophyll_kid",
+      "topic": "biology_plants",
+      "intent": "teach",
+      "triggers": [
+        "why are plants green",
+        "what is chlorophyll",
+        "explain why plants are green"
+      ],
+      "title": "Why Plants Are Green",
+      "formula": null,
+      "body": "Plants are green because of a substance in their leaves called chlorophyll. Chlorophyll soaks up red and blue light to make food and bounces green light back, so leaves look green to us. It's the key tool plants use to capture sunlight.",
+      "example": "In autumn, chlorophyll fades and the hidden orange and red colors in leaves show through.",
+      "tryIt": "Try: 'why are plants green'"
+    },
+    {
+      "id": "flowers_purpose",
+      "topic": "biology_plants",
+      "intent": "teach",
+      "triggers": [
+        "why do plants have flowers",
+        "what are flowers for",
+        "explain flowers"
+      ],
+      "title": "Why Plants Have Flowers",
+      "formula": null,
+      "body": "Flowers help plants make seeds so new plants can grow. Their bright colors and sweet smells invite bees and other animals to visit. As animals move from flower to flower, they help the plants make seeds.",
+      "example": "A bright flower attracts a bee, which then helps the plant make seeds.",
+      "tryIt": "Try: 'what are flowers for'"
+    },
+    {
+      "id": "seeds",
+      "topic": "biology_plants",
+      "intent": "teach",
+      "triggers": [
+        "what is a seed",
+        "how do seeds grow",
+        "explain seeds"
+      ],
+      "title": "Seeds",
+      "formula": null,
+      "body": "A seed is a tiny package that holds a baby plant and some food to start it growing. When a seed gets water, warmth, and air, it sprouts and pushes out roots and a shoot. That's how a giant tree can begin as a small seed.",
+      "example": "A whole oak tree starts inside one little acorn.",
+      "tryIt": "Try: 'how do seeds grow'"
+    },
+    {
+      "id": "seed_dispersal",
+      "topic": "biology_plants",
+      "intent": "teach",
+      "triggers": [
+        "how do seeds spread",
+        "what is seed dispersal",
+        "explain seed dispersal"
+      ],
+      "title": "How Seeds Spread",
+      "formula": null,
+      "body": "Plants spread their seeds so new plants don't crowd the parent. Some seeds float on the wind, some hitch a ride on animal fur, and some are eaten and pooped out far away. Spreading out helps plants find new places to grow.",
+      "example": "A dandelion's fluffy seeds float away on the wind to land somewhere new.",
+      "tryIt": "Try: 'how do seeds spread'"
+    },
+    {
+      "id": "how_plants_grow",
+      "topic": "biology_plants",
+      "intent": "teach",
+      "triggers": [
+        "how do plants grow",
+        "what do plants need to grow",
+        "explain plant growth"
+      ],
+      "title": "What Plants Need to Grow",
+      "formula": null,
+      "body": "Plants need a few key things to grow: sunlight, water, air, and nutrients from the soil. With these, they make their own food and grow taller and stronger. Take any one away and a plant struggles.",
+      "example": "A plant kept in a dark closet turns pale and weak because it can't make food without light.",
+      "tryIt": "Try: 'what do plants need to grow'"
+    },
+    {
+      "id": "why_leaves_change_color",
+      "topic": "biology_plants",
+      "intent": "teach",
+      "triggers": [
+        "why do leaves change color",
+        "why do leaves turn orange",
+        "explain fall leaves"
+      ],
+      "title": "Why Leaves Change Color",
+      "formula": null,
+      "body": "In autumn, days get shorter and trees stop making green chlorophyll. As the green fades, the yellow and orange colors that were hiding in the leaf show through. Some trees even make new red colors before the leaves drop.",
+      "example": "Maple leaves turn fiery red and orange in fall once the green disappears.",
+      "tryIt": "Try: 'why do leaves change color'"
+    },
+    {
+      "id": "trees_oxygen",
+      "topic": "biology_plants",
+      "intent": "teach",
+      "triggers": [
+        "why are trees important",
+        "how do trees help us",
+        "explain why trees matter"
+      ],
+      "title": "Why Trees Matter",
+      "formula": null,
+      "body": "Trees give off oxygen that animals and people need to breathe. They also take in carbon dioxide, give shade, and are homes for birds, bugs, and squirrels. A single big tree helps the whole world around it.",
+      "example": "Sitting under a tree's shade on a hot day, you're also breathing the oxygen it makes.",
+      "tryIt": "Try: 'how do trees help us'"
+    },
+    {
+      "id": "how_trees_drink",
+      "topic": "biology_plants",
+      "intent": "teach",
+      "triggers": [
+        "how do trees drink water",
+        "how does water reach tall trees",
+        "explain how trees get water"
+      ],
+      "title": "How Trees Drink Water",
+      "formula": null,
+      "body": "Trees pull water up from their roots all the way to their highest leaves. As water leaves the leaves into the air, it gently tugs more water up through tiny tubes inside, like sipping through a straw. This works even on the tallest trees.",
+      "example": "A tall tree pulls water up dozens of feet, like a giant slow straw.",
+      "tryIt": "Try: 'how do trees drink water'"
+    },
+    {
+      "id": "food_chain",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "what is a food chain",
+        "how does a food chain work",
+        "explain food chains"
+      ],
+      "title": "Food Chains",
+      "formula": null,
+      "body": "A food chain shows who eats whom in nature. It starts with plants, which make food from sunlight, then to animals that eat plants, then to animals that eat those animals. Energy passes along the chain link by link.",
+      "example": "Grass is eaten by a rabbit, the rabbit is eaten by a fox; that's a food chain.",
+      "tryIt": "Try: 'how does a food chain work'"
+    },
+    {
+      "id": "food_web",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "what is a food web",
+        "how is a food web different from a food chain",
+        "explain food webs"
+      ],
+      "title": "Food Webs",
+      "formula": null,
+      "body": "A food web is many food chains linked together. In real nature, most animals eat more than one thing and are eaten by more than one thing. A web shows all these connections at once, like a tangle of crisscrossing lines.",
+      "example": "A fox eats rabbits and mice, and an owl eats mice too, so their food chains overlap in a web.",
+      "tryIt": "Try: 'what is a food web'"
+    },
+    {
+      "id": "producers",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "what is a producer",
+        "what are producers",
+        "explain producers"
+      ],
+      "title": "Producers",
+      "formula": null,
+      "body": "Producers are living things that make their own food, mostly plants. They use sunlight to build sugar through photosynthesis. Because they start every food chain, all the other animals depend on them.",
+      "example": "Grass and trees are producers, making food that feeds everything above them in the chain.",
+      "tryIt": "Try: 'what are producers'"
+    },
+    {
+      "id": "consumers",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "what is a consumer",
+        "what are consumers",
+        "explain consumers"
+      ],
+      "title": "Consumers",
+      "formula": null,
+      "body": "Consumers are living things that eat other living things for energy, since they can't make their own food. Animals are all consumers. Some eat plants, some eat other animals, and some eat both.",
+      "example": "A deer is a consumer that eats plants, and a wolf is a consumer that eats the deer.",
+      "tryIt": "Try: 'what are consumers'"
+    },
+    {
+      "id": "herbivore_carnivore_omnivore",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "what is a herbivore",
+        "herbivore carnivore omnivore",
+        "explain herbivores and carnivores"
+      ],
+      "title": "Herbivores, Carnivores, and Omnivores",
+      "formula": null,
+      "body": "Animals are grouped by what they eat. Herbivores eat only plants, carnivores eat only meat, and omnivores eat both. Their teeth and bodies are often built for the kind of food they eat.",
+      "example": "A rabbit is a herbivore, a lion is a carnivore, and a bear is an omnivore that eats both.",
+      "tryIt": "Try: 'herbivore carnivore omnivore'"
+    },
+    {
+      "id": "predator_prey",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "what is a predator",
+        "predator and prey",
+        "explain predator and prey"
+      ],
+      "title": "Predator and Prey",
+      "formula": null,
+      "body": "A predator is an animal that hunts and eats other animals, and the prey is the animal that gets eaten. Predators help keep prey numbers from growing too large. This balance keeps nature healthy.",
+      "example": "A hawk is the predator and a mouse is the prey when the hawk swoops down to catch it.",
+      "tryIt": "Try: 'predator and prey'"
+    },
+    {
+      "id": "gen2_scitut_5",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "what is an ecosystem",
+        "what makes up an ecosystem",
+        "explain ecosystems"
+      ],
+      "title": "Ecosystems",
+      "formula": null,
+      "body": "An ecosystem is all the living things in an area plus the nonliving parts like water, soil, and air. The plants, animals, and surroundings all depend on each other. A pond, a forest, and a desert are each their own ecosystem.",
+      "example": "A pond ecosystem includes fish, frogs, plants, water, and the mud at the bottom.",
+      "tryIt": "Try: 'what makes up an ecosystem'"
+    },
+    {
+      "id": "habitat",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "what is a habitat",
+        "what is an animal's habitat",
+        "explain habitats"
+      ],
+      "title": "Habitats",
+      "formula": null,
+      "body": "A habitat is the home where a plant or animal lives. It gives them everything they need, like food, water, shelter, and space. Different animals need different habitats, which is why polar bears live in cold places and camels in deserts.",
+      "example": "A fish's habitat is water; it couldn't survive in a dry desert.",
+      "tryIt": "Try: 'what is a habitat'"
+    },
+    {
+      "id": "adaptation",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "what is an adaptation",
+        "how do animals adapt",
+        "explain adaptations"
+      ],
+      "title": "Adaptations",
+      "formula": null,
+      "body": "An adaptation is a special feature or behavior that helps a living thing survive where it lives. Over many generations, animals and plants develop these helpful traits. A thick coat keeps an arctic fox warm, and a cactus stores water for the desert.",
+      "example": "A polar bear's thick white fur is an adaptation that keeps it warm and hidden in the snow.",
+      "tryIt": "Try: 'how do animals adapt'"
+    },
+    {
+      "id": "camouflage",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "what is camouflage",
+        "how does camouflage work",
+        "explain camouflage"
+      ],
+      "title": "Camouflage",
+      "formula": null,
+      "body": "Camouflage is when an animal's colors or patterns help it blend into its surroundings. This helps it hide from predators or sneak up on prey. A creature that's hard to see is harder to catch or escape from.",
+      "example": "A green grasshopper is hard to spot when it's sitting on a green leaf.",
+      "tryIt": "Try: 'how does camouflage work'"
+    },
+    {
+      "id": "migration",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "what is migration",
+        "why do animals migrate",
+        "explain migration"
+      ],
+      "title": "Migration",
+      "formula": null,
+      "body": "Migration is when animals travel long distances at certain times of year. They move to find food, warmer weather, or a safe place to have babies. Birds often fly south for winter and back north when it warms up.",
+      "example": "Geese fly south every fall to escape the cold and find food.",
+      "tryIt": "Try: 'why do animals migrate'"
+    },
+    {
+      "id": "hibernation",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "what is hibernation",
+        "why do animals hibernate",
+        "explain hibernation"
+      ],
+      "title": "Hibernation",
+      "formula": null,
+      "body": "Hibernation is a deep, long sleep some animals take to survive cold winters when food is hard to find. Their heartbeat and breathing slow way down to save energy. They live off body fat stored up before winter.",
+      "example": "A bear eats lots in the fall, then sleeps through much of the winter in its den.",
+      "tryIt": "Try: 'why do animals hibernate'"
+    },
+    {
+      "id": "life_cycle_butterfly",
+      "topic": "biology_life_cycles",
+      "intent": "teach",
+      "triggers": [
+        "how does a caterpillar become a butterfly",
+        "what is a butterfly life cycle",
+        "explain butterfly life cycle"
+      ],
+      "title": "How a Caterpillar Becomes a Butterfly",
+      "formula": null,
+      "body": "A butterfly grows through four stages. It starts as an egg, hatches into a hungry caterpillar, then wraps into a case called a chrysalis. Inside, it changes completely and finally comes out as a butterfly.",
+      "example": "A fuzzy caterpillar forms a chrysalis and weeks later a colorful butterfly flies out.",
+      "tryIt": "Try: 'how does a caterpillar become a butterfly'"
+    },
+    {
+      "id": "metamorphosis",
+      "topic": "biology_life_cycles",
+      "intent": "teach",
+      "triggers": [
+        "what is metamorphosis",
+        "what does metamorphosis mean",
+        "explain metamorphosis"
+      ],
+      "title": "Metamorphosis",
+      "formula": null,
+      "body": "Metamorphosis is a big body change some animals go through as they grow up. They look totally different at the end than at the start. Butterflies and frogs both go through metamorphosis.",
+      "example": "A tadpole goes through metamorphosis, growing legs and losing its tail to become a frog.",
+      "tryIt": "Try: 'what is metamorphosis'"
+    },
+    {
+      "id": "life_cycle_frog",
+      "topic": "biology_life_cycles",
+      "intent": "teach",
+      "triggers": [
+        "how does a tadpole become a frog",
+        "what is a frog life cycle",
+        "explain frog life cycle"
+      ],
+      "title": "How a Tadpole Becomes a Frog",
+      "formula": null,
+      "body": "Frogs start as eggs laid in water. They hatch into tadpoles that swim and breathe with gills like fish. Slowly they grow legs, lose their tails, and develop lungs to become frogs that can hop on land.",
+      "example": "A tadpole in a pond slowly grows back legs, then front legs, until it's a tiny frog.",
+      "tryIt": "Try: 'how does a tadpole become a frog'"
+    },
+    {
+      "id": "egg_to_chicken",
+      "topic": "biology_life_cycles",
+      "intent": "teach",
+      "triggers": [
+        "how does an egg become a chicken",
+        "what is a chicken life cycle",
+        "explain chicken life cycle"
+      ],
+      "title": "From Egg to Chicken",
+      "formula": null,
+      "body": "A chick grows inside an egg, fed by the yellow yolk. After about three weeks, it's big enough to peck its way out of the shell. The fluffy chick then grows into a full-sized chicken.",
+      "example": "A chick uses a tiny bump on its beak to chip out of the eggshell when it's ready to hatch.",
+      "tryIt": "Try: 'how does an egg become a chicken'"
+    },
+    {
+      "id": "insect_life_cycle",
+      "topic": "biology_life_cycles",
+      "intent": "teach",
+      "triggers": [
+        "what is an insect life cycle",
+        "how do insects grow",
+        "explain insect life cycle"
+      ],
+      "title": "How Insects Grow",
+      "formula": null,
+      "body": "Many insects change a lot as they grow. They often start as an egg, become a wormy larva, rest in a pupa, then turn into an adult. Others, like grasshoppers, hatch as tiny versions of the adult and just get bigger.",
+      "example": "A fly starts as an egg, becomes a maggot, then a pupa, and finally a buzzing fly.",
+      "tryIt": "Try: 'how do insects grow'"
+    },
+    {
+      "id": "how_we_grow",
+      "topic": "biology_life_cycles",
+      "intent": "teach",
+      "triggers": [
+        "how do humans grow",
+        "why do kids grow up",
+        "explain human growth"
+      ],
+      "title": "How Humans Grow",
+      "formula": null,
+      "body": "People grow as their cells divide and make more cells. Eating healthy food and sleeping well give your body what it needs to grow taller and stronger. You grow fastest as a baby and again as a teenager.",
+      "example": "Your shoes get too small over a year because your foot bones keep growing.",
+      "tryIt": "Try: 'how do humans grow'"
+    },
+    {
+      "id": "living_vs_nonliving",
+      "topic": "biology_basics",
+      "intent": "teach",
+      "triggers": [
+        "what makes something alive",
+        "living vs nonliving",
+        "explain living things"
+      ],
+      "title": "Living vs Nonliving",
+      "formula": null,
+      "body": "Living things grow, need food and water, and can make more of themselves. Nonliving things, like rocks and toys, don't do any of that. Plants, animals, and even tiny germs are all alive.",
+      "example": "A tree is living because it grows and makes seeds; a rock is nonliving because it doesn't.",
+      "tryIt": "Try: 'living vs nonliving'"
+    },
+    {
+      "id": "five_kingdoms",
+      "topic": "biology_basics",
+      "intent": "teach",
+      "triggers": [
+        "how are living things grouped",
+        "what are the kingdoms of life",
+        "explain living thing groups"
+      ],
+      "title": "Groups of Living Things",
+      "formula": null,
+      "body": "Scientists sort all living things into big groups. The main ones are animals, plants, fungi like mushrooms, and tiny creatures too small to see, like bacteria. Sorting them helps us study and understand them.",
+      "example": "A dog, a fern, a mushroom, and a germ each belong to a different big group of life.",
+      "tryIt": "Try: 'what are the kingdoms of life'"
+    },
+    {
+      "id": "vertebrates",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "what is a vertebrate",
+        "what are vertebrates",
+        "explain vertebrates"
+      ],
+      "title": "Vertebrates",
+      "formula": null,
+      "body": "Vertebrates are animals with a backbone, a row of bones down their backs. This includes mammals, birds, fish, reptiles, and amphibians. The backbone helps support their bodies and protect the spinal cord.",
+      "example": "You're a vertebrate; run your fingers down your back and you can feel the bones of your spine.",
+      "tryIt": "Try: 'what are vertebrates'"
+    },
+    {
+      "id": "invertebrates",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "what is an invertebrate",
+        "what are invertebrates",
+        "explain invertebrates"
+      ],
+      "title": "Invertebrates",
+      "formula": null,
+      "body": "Invertebrates are animals without a backbone. Most animals on Earth are invertebrates, like insects, spiders, worms, snails, and jellyfish. Some have hard shells outside their bodies for protection instead of bones inside.",
+      "example": "A snail is an invertebrate; it has a hard shell outside instead of bones inside.",
+      "tryIt": "Try: 'what are invertebrates'"
+    },
+    {
+      "id": "mammals",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "what is a mammal",
+        "what makes an animal a mammal",
+        "explain mammals"
+      ],
+      "title": "Mammals",
+      "formula": null,
+      "body": "Mammals are warm-blooded animals that have hair or fur and feed their babies milk. Dogs, whales, bats, and people are all mammals. Most mammals give birth to live babies instead of laying eggs.",
+      "example": "A whale is a mammal even though it lives in the sea, because it breathes air and feeds its calf milk.",
+      "tryIt": "Try: 'what makes an animal a mammal'"
+    },
+    {
+      "id": "birds",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "what makes a bird a bird",
+        "what are birds",
+        "explain birds"
+      ],
+      "title": "Birds",
+      "formula": null,
+      "body": "Birds are animals with feathers, beaks, and wings, and they lay eggs. Feathers keep them warm and help most of them fly. Birds are the only animals alive today that have feathers.",
+      "example": "A penguin is a bird even though it can't fly; it still has feathers and lays eggs.",
+      "tryIt": "Try: 'what makes a bird a bird'"
+    },
+    {
+      "id": "reptiles",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "what is a reptile",
+        "what are reptiles",
+        "explain reptiles"
+      ],
+      "title": "Reptiles",
+      "formula": null,
+      "body": "Reptiles are scaly, cold-blooded animals like snakes, lizards, turtles, and crocodiles. Cold-blooded means they rely on their surroundings to warm up, so they often bask in the sun. Most lay eggs with leathery shells.",
+      "example": "A lizard sits on a warm rock in the sun to heat up its cold-blooded body.",
+      "tryIt": "Try: 'what are reptiles'"
+    },
+    {
+      "id": "amphibians",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "what is an amphibian",
+        "what are amphibians",
+        "explain amphibians"
+      ],
+      "title": "Amphibians",
+      "formula": null,
+      "body": "Amphibians, like frogs and salamanders, live part of their lives in water and part on land. They usually start in water with gills, then grow lungs to breathe air. Their skin is moist and often helps them breathe too.",
+      "example": "A frog starts life as a water-breathing tadpole and later hops around on land.",
+      "tryIt": "Try: 'what are amphibians'"
+    },
+    {
+      "id": "fish_breathe",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "how do fish breathe",
+        "what are gills",
+        "explain how fish breathe"
+      ],
+      "title": "How Fish Breathe",
+      "formula": null,
+      "body": "Fish breathe underwater using body parts called gills. Water flows over the gills, which pull oxygen out of it. That's why fish can live in water but can't breathe air the way we do.",
+      "example": "A fish gulps water and its gills grab the oxygen, then push the water back out.",
+      "tryIt": "Try: 'how do fish breathe'"
+    },
+    {
+      "id": "insects_body",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "what is an insect",
+        "what makes a bug an insect",
+        "explain insects"
+      ],
+      "title": "What Makes an Insect",
+      "formula": null,
+      "body": "An insect is a small animal with six legs and a body in three parts: head, middle, and back end. Most have antennae to feel and smell, and many have wings. Ants, bees, and beetles are all insects.",
+      "example": "A spider isn't an insect because it has eight legs, not six.",
+      "tryIt": "Try: 'what makes a bug an insect'"
+    },
+    {
+      "id": "warm_cold_blooded",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "what is warm blooded",
+        "warm blooded vs cold blooded",
+        "explain warm and cold blooded"
+      ],
+      "title": "Warm-Blooded and Cold-Blooded",
+      "formula": null,
+      "body": "Warm-blooded animals keep their bodies the same warm temperature no matter the weather, like birds and mammals. Cold-blooded animals, like fish and reptiles, change temperature with their surroundings. That's why a lizard suns itself to warm up.",
+      "example": "You stay warm in winter, but a snake gets slow and cold until it can warm up in the sun.",
+      "tryIt": "Try: 'warm blooded vs cold blooded'"
+    },
+    {
+      "id": "bees_honey",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "how do bees make honey",
+        "why do bees make honey",
+        "explain how bees make honey"
+      ],
+      "title": "How Bees Make Honey",
+      "formula": null,
+      "body": "Bees gather sweet nectar from flowers and bring it back to their hive. They store it in honeycomb and fan it with their wings to dry it into thick honey. Bees save honey as food for the cold months when flowers are gone.",
+      "example": "Bees turn flower nectar into honey to eat over the winter when there are no flowers.",
+      "tryIt": "Try: 'how do bees make honey'"
+    },
+    {
+      "id": "spider_webs",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "how do spiders make webs",
+        "why do spiders make webs",
+        "explain spider webs"
+      ],
+      "title": "How Spiders Make Webs",
+      "formula": null,
+      "body": "Spiders make silk inside their bodies and squeeze it out through tiny spinners at their back end. They weave the silk into sticky webs to catch insects to eat. The spider knows where its own non-sticky paths are so it doesn't get stuck.",
+      "example": "A spider builds a sticky web overnight to trap flies for breakfast.",
+      "tryIt": "Try: 'how do spiders make webs'"
+    },
+    {
+      "id": "animal_communication",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "how do animals talk to each other",
+        "how do animals communicate",
+        "explain animal communication"
+      ],
+      "title": "How Animals Communicate",
+      "formula": null,
+      "body": "Animals share messages in many ways without using words. They use sounds, body movements, colors, and even smells. A dog wags its tail when happy, and a bee dances to tell other bees where flowers are.",
+      "example": "A honeybee does a special wiggle dance to tell the hive where to find flowers.",
+      "tryIt": "Try: 'how do animals communicate'"
+    },
+    {
+      "id": "how_bats_see",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "how do bats fly in the dark",
+        "what is echolocation",
+        "explain how bats find food"
+      ],
+      "title": "How Bats See in the Dark",
+      "formula": null,
+      "body": "Bats find their way in the dark using sound, called echolocation. They make squeaks too high for us to hear, then listen for the echoes that bounce back. The echoes tell them where bugs and walls are.",
+      "example": "A bat squeaks and listens for the echo to find a moth in total darkness.",
+      "tryIt": "Try: 'what is echolocation'"
+    },
+    {
+      "id": "germs",
+      "topic": "biology_microbes",
+      "intent": "teach",
+      "triggers": [
+        "what are germs",
+        "what is a germ",
+        "explain germs"
+      ],
+      "title": "Germs",
+      "formula": null,
+      "body": "Germs are tiny living things, too small to see, that can sometimes make you sick. The main kinds are bacteria and viruses. Washing your hands removes germs so they can't get into your body and cause trouble.",
+      "example": "Washing your hands before eating rinses away germs that could make you sick.",
+      "tryIt": "Try: 'what are germs'"
+    },
+    {
+      "id": "viruses_kid",
+      "topic": "biology_microbes",
+      "intent": "teach",
+      "triggers": [
+        "what is a virus",
+        "how do viruses make you sick",
+        "explain viruses"
+      ],
+      "title": "Viruses",
+      "formula": null,
+      "body": "A virus is a tiny germ even smaller than bacteria. It can't grow on its own, so it sneaks into your cells and uses them to make copies of itself. That's what gives you colds and the flu.",
+      "example": "A cold virus gets into your nose cells and makes copies, giving you a runny nose.",
+      "tryIt": "Try: 'how do viruses make you sick'"
+    },
+    {
+      "id": "yeast",
+      "topic": "biology_microbes",
+      "intent": "teach",
+      "triggers": [
+        "how does bread rise",
+        "what does yeast do",
+        "explain yeast"
+      ],
+      "title": "How Bread Rises",
+      "formula": null,
+      "body": "Yeast is a tiny living fungus used to make bread rise. As yeast eats sugar in the dough, it gives off a gas that fills the dough with bubbles. Those bubbles make the bread puff up big and fluffy.",
+      "example": "Yeast burps tiny gas bubbles into bread dough, making it grow before baking.",
+      "tryIt": "Try: 'how does bread rise'"
+    },
+    {
+      "id": "why_we_get_sick",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "why do we get sick",
+        "what makes us sick",
+        "explain getting sick"
+      ],
+      "title": "Why We Get Sick",
+      "formula": null,
+      "body": "You get sick when germs like bacteria or viruses get inside your body and multiply. Your body notices and your immune system fights back, which can make you feel tired, achy, or feverish. Once your body wins, you feel better.",
+      "example": "Catching a cold means a virus got into your body, and your immune system is busy fighting it off.",
+      "tryIt": "Try: 'why do we get sick'"
+    },
+    {
+      "id": "why_wash_hands",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "why should we wash our hands",
+        "why is washing hands important",
+        "explain washing hands"
+      ],
+      "title": "Why We Wash Our Hands",
+      "formula": null,
+      "body": "Your hands touch lots of things and pick up germs along the way. Washing with soap and water lifts those germs off and rinses them down the drain. Clean hands keep germs out of your mouth and away from your food.",
+      "example": "Soap grabs onto germs so the water can wash them off your hands.",
+      "tryIt": "Try: 'why is washing hands important'"
+    },
+    {
+      "id": "why_exercise",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "why is exercise good",
+        "why should we exercise",
+        "explain why exercise helps"
+      ],
+      "title": "Why Exercise Helps",
+      "formula": null,
+      "body": "Moving your body makes your heart, muscles, and bones stronger. Exercise pumps more oxygen around, helps you sleep, and even lifts your mood. The more you use your body, the healthier it gets.",
+      "example": "Running around at recess makes your heart stronger and helps you sleep better at night.",
+      "tryIt": "Try: 'why should we exercise'"
+    },
+    {
+      "id": "healthy_eating",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "why is healthy food good",
+        "why eat fruits and vegetables",
+        "explain healthy eating"
+      ],
+      "title": "Why Healthy Food Matters",
+      "formula": null,
+      "body": "Different foods give your body different things it needs. Fruits and vegetables have vitamins that keep you healthy, while bread and pasta give quick energy. Eating a mix of foods helps your body grow strong and work well.",
+      "example": "An orange gives you vitamin C, which helps your body fight off colds.",
+      "tryIt": "Try: 'why eat fruits and vegetables'"
+    },
+    {
+      "id": "vitamins",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what are vitamins",
+        "why do we need vitamins",
+        "explain vitamins"
+      ],
+      "title": "Vitamins",
+      "formula": null,
+      "body": "Vitamins are special bits in food that your body needs in tiny amounts to stay healthy. Each one has a job, like helping your eyes, bones, or blood. You get them by eating a variety of foods, especially fruits and vegetables.",
+      "example": "Carrots have vitamin A, which helps keep your eyes working well.",
+      "tryIt": "Try: 'why do we need vitamins'"
+    },
+    {
+      "id": "proteins_food",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "what is protein",
+        "why do we need protein",
+        "explain protein"
+      ],
+      "title": "Protein",
+      "formula": null,
+      "body": "Protein is a part of food that your body uses to build and repair muscles and other parts. It's like the building bricks your body needs to grow. Foods like eggs, beans, fish, and meat are full of protein.",
+      "example": "After a tooth-and-nail soccer game, protein from your dinner helps repair tired muscles.",
+      "tryIt": "Try: 'why do we need protein'"
+    },
+    {
+      "id": "water_in_body",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "why do we need water",
+        "why is water important for the body",
+        "explain why we need water"
+      ],
+      "title": "Why We Need Water",
+      "formula": null,
+      "body": "Your body is mostly water, and it uses water for nearly everything. Water carries food and waste, keeps you cool through sweat, and helps your brain work. That's why you feel thirsty and tired when you don't drink enough.",
+      "example": "On a hot day you drink water to replace what you lost as sweat.",
+      "tryIt": "Try: 'why do we need water'"
+    },
+    {
+      "id": "why_blood_is_red",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "why is blood red",
+        "what makes blood red",
+        "explain why blood is red"
+      ],
+      "title": "Why Blood Is Red",
+      "formula": null,
+      "body": "Blood is red because of a special stuff in red blood cells called hemoglobin that carries oxygen. When hemoglobin grabs oxygen, it turns bright red. That's why fresh blood from a cut looks red.",
+      "example": "Blood loaded with oxygen from your lungs is bright red as it leaves your heart.",
+      "tryIt": "Try: 'why is blood red'"
+    },
+    {
+      "id": "why_scabs_form",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "why do cuts form scabs",
+        "what is a scab",
+        "explain scabs"
+      ],
+      "title": "Why Cuts Form Scabs",
+      "formula": null,
+      "body": "When you get a cut, tiny cell pieces called platelets rush to plug the hole and stop the bleeding. The plug dries into a hard scab that covers the cut like a bandage. Underneath, your skin quietly heals before the scab falls off.",
+      "example": "A scab on your knee protects the new skin growing underneath until it's ready.",
+      "tryIt": "Try: 'what is a scab'"
+    },
+    {
+      "id": "how_food_becomes_energy",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "how does food turn into energy",
+        "how do we get energy from food",
+        "explain how food gives energy"
+      ],
+      "title": "How Food Becomes Energy",
+      "formula": null,
+      "body": "After you eat, your body breaks food into tiny pieces and sends them into your blood. Cells take in these pieces along with oxygen and burn them to make energy. This energy powers everything you do, from running to thinking.",
+      "example": "Eating breakfast gives your cells fuel so you have energy to play all morning.",
+      "tryIt": "Try: 'how does food turn into energy'"
+    },
+    {
+      "id": "how_wounds_heal",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "how do cuts heal",
+        "how does the body heal",
+        "explain healing"
+      ],
+      "title": "How the Body Heals",
+      "formula": null,
+      "body": "When you hurt yourself, your body gets right to work fixing the damage. Blood plugs any leaks, germ-fighting cells clean the area, and new cells grow to fill the gap. Bit by bit, the hurt part is rebuilt good as new.",
+      "example": "A scraped knee slowly heals as new skin cells grow to fill the spot.",
+      "tryIt": "Try: 'how do cuts heal'"
+    },
+    {
+      "id": "why_we_have_two_eyes",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "why do we have two eyes",
+        "why two eyes instead of one",
+        "explain why we have two eyes"
+      ],
+      "title": "Why We Have Two Eyes",
+      "formula": null,
+      "body": "Having two eyes lets you judge how far away things are. Each eye sees a slightly different view, and your brain combines them to sense depth. That's why catching a ball is harder with one eye closed.",
+      "example": "Close one eye and try to touch two fingertips together; it's trickier than with both eyes open.",
+      "tryIt": "Try: 'why do we have two eyes'"
+    },
+    {
+      "id": "how_we_balance",
+      "topic": "biology_body",
+      "intent": "teach",
+      "triggers": [
+        "how do we balance",
+        "how do we keep our balance",
+        "explain balance"
+      ],
+      "title": "How We Balance",
+      "formula": null,
+      "body": "Deep inside your ears are tiny tubes filled with fluid that sense which way your head tilts. They send signals to your brain, which works with your eyes and muscles to keep you steady. That's how you stay upright when you walk or stand on one foot.",
+      "example": "Spinning in circles confuses the fluid in your ears, which is why you feel dizzy afterward.",
+      "tryIt": "Try: 'how do we balance'"
+    },
+    {
+      "id": "genetics_eye_color",
+      "topic": "biology_genetics",
+      "intent": "teach",
+      "triggers": [
+        "why do we have different eye colors",
+        "what decides eye color",
+        "explain eye color"
+      ],
+      "title": "What Decides Eye Color",
+      "formula": null,
+      "body": "Your eye color comes from genes you got from your parents. Genes control how much of a brown coloring, called melanin, is in your eyes. Lots of melanin makes brown eyes, while a little makes blue or green eyes.",
+      "example": "Two brown-eyed parents can have a blue-eyed child if both carry a hidden blue-eye gene.",
+      "tryIt": "Try: 'what decides eye color'"
+    },
+    {
+      "id": "why_animals_have_fur",
+      "topic": "biology_animals",
+      "intent": "teach",
+      "triggers": [
+        "why do animals have fur",
+        "what is fur for",
+        "explain animal fur"
+      ],
+      "title": "Why Animals Have Fur",
+      "formula": null,
+      "body": "Fur keeps animals warm by trapping a layer of cozy air next to their skin. It can also help them hide with its color and protect their skin. Animals in cold places often have thick, fluffy fur.",
+      "example": "A husky's thick fur keeps it warm even in freezing snow.",
+      "tryIt": "Try: 'why do animals have fur'"
+    },
+    {
+      "id": "plant_animal_helpers",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "how do plants and animals help each other",
+        "what is symbiosis",
+        "explain plants and animals helping"
+      ],
+      "title": "How Plants and Animals Help Each Other",
+      "formula": null,
+      "body": "In nature, plants and animals often help each other out. Plants give animals food and shelter, and animals help plants by spreading their seeds and pollen. Both sides win in these teamwork partnerships.",
+      "example": "A bee gets sweet nectar from a flower, and in return it carries pollen to help the plant make seeds.",
+      "tryIt": "Try: 'how do plants and animals help each other'"
+    },
+    {
+      "id": "why_ecosystems_balance",
+      "topic": "biology_ecology",
+      "intent": "teach",
+      "triggers": [
+        "why is nature balanced",
+        "what is balance in nature",
+        "explain balance in nature"
+      ],
+      "title": "Balance in Nature",
+      "formula": null,
+      "body": "In a healthy ecosystem, the number of plants and animals stays roughly balanced. Predators keep plant-eaters from becoming too many, and plants feed the plant-eaters. If one part changes a lot, it can shake up the whole web.",
+      "example": "If all the foxes vanished, rabbits might grow so many they'd eat all the grass.",
+      "tryIt": "Try: 'what is balance in nature'"
     }
   ]
 }
