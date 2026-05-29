@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '88'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '89'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1852,11 +1852,15 @@ const Brain = (() => {
     if (/^\s*knock[\s,]+knock\b/i.test(lower)) {
       return "Who's there? 🐒";
     }
-    if (/\b(tell|know|got|hear|heard|another|more|say|share)\b.*\bjoke|\bjoke(s)?\b\s*(please|joe)?[\s!.?]*$|^(make me laugh|something funny|say something funny|be funny|cheer me up with a joke)/i.test(lower)
+    // Definition questions ("what is a joke/riddle") answer the question, not
+    // a cute deflection. (v89)
+    const _isDefQ = /^(what|what'?s|whats|what\s+are|what're|define|the meaning of|meaning of)\b/i.test(lower);
+    if (!_isDefQ
+        && /\b(tell|know|got|hear|heard|another|more|say|share)\b.*\bjoke|\bjoke(s)?\b\s*(please|joe)?[\s!.?]*$|^(make me laugh|something funny|say something funny|be funny|cheer me up with a joke)/i.test(lower)
         && !/why did|what do you call|knock knock/i.test(lower)) {
       return pick(JOKES);
     }
-    if (/\briddle\b|^(riddle me this|stump me|give me a brain teaser|brain teaser)/i.test(lower)) {
+    if (!_isDefQ && /\briddle\b|^(riddle me this|stump me|give me a brain teaser|brain teaser)/i.test(lower)) {
       return pick(RIDDLES);
     }
 
