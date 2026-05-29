@@ -3029,12 +3029,21 @@ class MonkeyJoe:
         return None
 
     def apply_contextual_followup(self, q: str) -> str:
-        """If short follow-up, append last topic."""
-        words = q.split()
-        if len(words) <= 3 and self.last_topic_label:
-            has_question_words = re.match(r'^(what|who|how|why|where|when|is|are|do|does|can|could|would|should|will|did|was|were)', q)
-            if not has_question_words:
-                return q + ' ' + self.last_topic_label
+        """Append last topic ONLY when the input looks like a follow-up — an
+        explicit connector or a bare 1-2 word noun phrase. The old "any
+        ≤3-word non-question" rule glued the prior topic onto unrelated
+        remarks ("you like bananas" → "...masseter", "you loco" →
+        "...potassium"). (v78, Bug B)"""
+        if not self.last_topic_label:
+            return q
+        if self.last_topic_label in q:
+            return q
+        if re.match(r'^(and|also|plus|or|what about|how about|and what about|what of|and the|and its)\b', q):
+            return q + ' ' + self.last_topic_label
+        words = q.strip().split()
+        if len(words) <= 2 and not re.match(
+                r"^(you|u|i|we|it|he|she|they|me|my|your|do|does|are|is|am|was|were|the|a|an|no|yes|ok|okay|cool|nice|hi|hey|hello|yo|sup|loco|crazy|nuts|stop|why|how|what|who|when|where)\b", q):
+            return q + ' ' + self.last_topic_label
         return q
 
     def is_casual_statement(self, text: str) -> bool:
@@ -3058,6 +3067,8 @@ class MonkeyJoe:
         # reach the knowledge scorer (where it dumped a random fact). (v76)
         return bool(
             re.match(r"^(you'?re|you are|you look|you seem|you sound|you keep|you always|you never|ur)\b", lower)
+            # Verbless slang aimed at Joe — "you loco", "you crazy", "you nuts". (v78 Bug B)
+            or re.match(r"^(you|u|ur|yall|y'all)\s+(so\s+|real\s+|kinda\s+|pretty\s+)?(loco|crazy|nuts|silly|wild|funny|weird|goofy|wack|wacky|bananas|bonkers|insane|ridiculous|cray|cray cray|dumb|smart|cool|hilarious)\b", lower)
             or re.match(r"^i('?m| am| was)\s+(just\s+|only\s+)?(saying|sayin|joking|jokin|kidding|kiddin|chatting|chattin|talking|talkin|messing|messin|playing|playin|teasing|teasin|testing|goofing|trolling)\b", lower)
             or re.match(r"^(stop|quit|cut it out|chill|relax|calm down|knock it off|be quiet|shush|hush)\b", lower)
             or re.match(r"^(that'?s|thats|that is|this is|this'?s|it'?s|its|it is)\s+(so |really |very |kinda |kind of |pretty |super |a bit )?(crazy|silly|funny|weird|wrong|random|nonsense|nuts|wild|insane|ridiculous|bananas|goofy|odd|strange)\b", lower)
@@ -3194,6 +3205,45 @@ class MonkeyJoe:
                 "Aw 🐒❤️ You're the best!",
                 "I like you too! 🐒",
                 "🐒❤️ Right back at you, friend!"])
+
+        # Persona: Joe's own tastes/behavior — "do you like bananas", "you like
+        # bananas", "do you bite", "your favorite food". Answer in character
+        # instead of dumping a keyword fact (bananas→potassium, bite→masseter).
+        # (v78, Bugs A/C)
+        pm = (re.match(r"^(?:so[, ]+)?do(?:es)?\s+(?:you|u|ya)\s+(like|love|enjoy|eat|prefer|hate|bite|scratch|kick|chase|fancy|dig)\b\s*(.*)$", lower)
+              or re.match(r"^(?:so[, ]+)?(?:what|which)\s+do(?:es)?\s+(?:you|u|ya)\s+(like|love|enjoy|eat|drink|prefer|hate|fancy|dig)\b\s*(.*)$", lower)
+              or re.match(r"^(?:you|u)\s+(like|love|enjoy|eat|prefer|hate|bite|scratch|kick|chase|fancy|dig)\s+(.+)$", lower))
+        if pm:
+            verb = pm.group(1)
+            obj = re.sub(r'[?.!]+$', '', pm.group(2) or '')
+            obj = re.sub(r'^(to |a |an |the |some |any |my )', '', obj).strip()
+            if re.search(r'\bbanana', lower):
+                return random.choice([
+                    "Bananas?! 🍌 I'm a monkey — I'd eat them all day. Hands-down favorite.",
+                    "Do I like bananas?? 🐒🍌 Is the jungle green? I LOVE them.",
+                    "Bananas are basically my whole personality 🍌 Best snack in the canopy."])
+            if verb in ('bite', 'scratch', 'kick', 'chase'):
+                return random.choice([
+                    "Haha, nah — I'm a friendly monkey, all chatter and no bite. 🐒 I'd rather split a banana!",
+                    "Me? Bite? 🙈 Never. I'm a lover, not a biter — bananas only.",
+                    "Nope, totally gentle here 🐒 The most dangerous thing I do is steal bananas."])
+            if verb == 'hate':
+                return random.choice([
+                    "I try not to hate anything — except maybe an empty banana peel. 🐒",
+                    "Hate's a strong word! I'm a pretty chill monkey 🍌 What's up?"])
+            if verb == 'eat':
+                return random.choice([
+                    "Mostly bananas 🍌 — I'm a monkey, after all! Fruit, nuts, and a good story for dessert.",
+                    "Bananas, bananas, and more bananas 🍌 Maybe a mango when I'm feeling fancy."])
+            return random.choice([
+                (obj[0].upper() + obj[1:] + '? ' if obj else '') + "I'm a banana monkey at heart 🍌, but I'm easy to please. What about you?",
+                "I'm pretty into bananas, naps, and a good story 🐒 What's your favorite?",
+                "If it's a snack, I'm probably a fan 🍌 Bananas first, always."])
+        if re.search(r'\byour\s+favou?rite\b', lower):
+            return random.choice([
+                "Bananas. No contest. 🍌🐒",
+                "Easy — bananas! 🍌 (and banana-yellow, if we're picking colors.)",
+                "My favorite anything? Usually bananas 🍌 What's yours?"])
 
         # Positive feedback ("I like it", "that was great", "love it") — warm
         # reply instead of falling into the knowledge scorer; offer more if a
@@ -3382,6 +3432,8 @@ class MonkeyJoe:
                 if not re.search(r'\b' + re.escape(cat_q['category']) + r's?\b', hay):
                     clause = re.split(r'(?<=[.!?])\s+', best_fact.get('answer', ''))[0]
                     return f"Hmm, I don't think there's a {cat_q['category']} called \"{cat_q['name']}\". What I've got for \"{cat_q['name']}\" is: {clause} 🐒"
+            # Bug E: don't re-serve the exact fact Joe just gave.
+            prev_fact_answer = self.last_fact_answer
             self.last_topic_label = best_fact['keywords'][0] if best_fact.get('keywords') else None
             self.last_fact_answer = best_fact.get('answer', '')
             if self.last_topic_label:
@@ -3396,6 +3448,12 @@ class MonkeyJoe:
                 # Summarize very long answers
                 sentences = answer.split('. ')
                 answer = '. '.join(sentences[:3]) + '.'
+            # Bug E: about to reprint the exact fact just given → don't.
+            if answer == prev_fact_answer:
+                return random.choice([
+                    "I think I just covered that one 🐒 — want me to dig at it differently, or search the web for more?",
+                    "That's the same thing I just told you 🙈 Ask a different way and I'll give it another shot!",
+                    "Ha, déjà vu 🐒 I already shared what I've got on that — want me to search the web for the rest?"])
             # Phase 3: maybe wrap in flavor, then maybe append story hook.
             if focused is None and self._should_flavor(lower):
                 answer = self._flavor_fact(answer, None)

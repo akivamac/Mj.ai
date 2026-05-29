@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '77'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '78'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1657,6 +1657,51 @@ const Brain = (() => {
       }
     }
 
+    // ── Persona: Joe's own tastes / behavior (v78, Bugs A/C) ─────
+    // "do you like bananas", "you like bananas", "do you bite", "what's your
+    // favorite food" — answer in character instead of dumping a keyword-matched
+    // fact (bananas→potassium, bite→masseter jaw muscle). Runs before the
+    // casual guard + knowledge so it always wins.
+    {
+      const pm = lower.match(/^(?:so[, ]+)?do(?:es)?\s+(?:you|u|ya)\s+(like|love|enjoy|eat|prefer|hate|bite|scratch|kick|chase|fancy|dig)\b\s*(.*)$/i)
+              || lower.match(/^(?:so[, ]+)?(?:what|which)\s+do(?:es)?\s+(?:you|u|ya)\s+(like|love|enjoy|eat|drink|prefer|hate|fancy|dig)\b\s*(.*)$/i)
+              || lower.match(/^(?:you|u)\s+(like|love|enjoy|eat|prefer|hate|bite|scratch|kick|chase|fancy|dig)\s+(.+)$/i);
+      const favM = /\byour\s+favou?rite\b/i.test(lower);
+      if (pm) {
+        const verb = pm[1];
+        const obj = (pm[2] || '').replace(/[?.!]+$/, '').replace(/^(to\s+|a\s+|an\s+|the\s+|some\s+|any\s+|my\s+)/, '').trim();
+        const aboutBanana = /\bbanana/i.test(lower);
+        if (aboutBanana) return pick([
+          "Bananas?! 🍌 I'm a monkey — I'd eat them all day. Hands-down favorite.",
+          "Do I like bananas?? 🐒🍌 Is the jungle green? I LOVE them.",
+          "Bananas are basically my whole personality 🍌 Best snack in the canopy."
+        ]);
+        if (/^(bite|scratch|kick|chase)$/.test(verb)) return pick([
+          "Haha, nah — I'm a friendly monkey, all chatter and no bite. 🐒 I'd rather split a banana!",
+          "Me? Bite? 🙈 Never. I'm a lover, not a biter — bananas only.",
+          "Nope, totally gentle here 🐒 The most dangerous thing I do is steal bananas."
+        ]);
+        if (verb === 'hate') return pick([
+          "I try not to hate anything — except maybe an empty banana peel. 🐒",
+          "Hate's a strong word! I'm a pretty chill monkey 🍌 What's up?"
+        ]);
+        if (verb === 'eat') return pick([
+          "Mostly bananas 🍌 — I'm a monkey, after all! Fruit, nuts, and a good story for dessert.",
+          "Bananas, bananas, and more bananas 🍌 Maybe a mango when I'm feeling fancy."
+        ]);
+        return pick([
+          (obj ? obj.charAt(0).toUpperCase() + obj.slice(1) + '? ' : '') + "I'm a banana monkey at heart 🍌, but I'm easy to please. What about you?",
+          "I'm pretty into bananas, naps, and a good story 🐒 What's your favorite?",
+          "If it's a snack, I'm probably a fan 🍌 Bananas first, always."
+        ]);
+      }
+      if (favM) return pick([
+        "Bananas. No contest. 🍌🐒",
+        "Easy — bananas! 🍌 (and banana-yellow, if we're picking colors.)",
+        "My favorite anything? Usually bananas 🍌 What's yours?"
+      ]);
+    }
+
     // Positive feedback ("I like it", "that was great", "love it", "cool
     // story") — respond warmly instead of falling into the knowledge scorer
     // (the "i like it" → Euler's-number bug). If a story is live, offer more.
@@ -2181,13 +2226,23 @@ const Brain = (() => {
     }
 
     // ── Context-aware follow-up handling ──────────────────────────
-    // If this is a very short follow-up (under 4 words, no question words), append last topic
+    // Append the last topic ONLY when the input actually looks like a
+    // follow-up — an explicit connector ("and size?", "what about color"), or
+    // a bare 1-2 word noun phrase. The old "any ≤3-word non-question" rule was
+    // too greedy: it glued the prior topic onto unrelated remarks like "you
+    // like bananas" → "...masseter" and "you loco" → "...potassium". (v78 Bug B)
     function applyContextualFollowUp(q) {
-      if (_lastTopicLabel && q.includes(_lastTopicLabel)) return q;
-      const wordCount = q.split(/\s+/).length;
-      const hasQuestionWords = /^(what|who|how|why|where|when|is|are|do|does|can|could|would|should|will|did|was|were)/.test(q);
-      if (wordCount <= 3 && !hasQuestionWords && _lastTopicLabel) {
-        // Append last topic to boost relevance (e.g., "and size?" becomes "and size elephant")
+      if (!_lastTopicLabel) return q;
+      if (q.includes(_lastTopicLabel)) return q;
+      // Explicit follow-up connector.
+      if (/^(and|also|plus|or|what about|how about|and what about|what of|and the|and its)\b/.test(q)) {
+        return q + ' ' + _lastTopicLabel;
+      }
+      // Bare 1-2 word topic-ish phrase — not a pronoun/greeting/verb opener
+      // (those are conversational remarks, not topic follow-ups).
+      const words = q.trim().split(/\s+/);
+      if (words.length <= 2 &&
+          !/^(you|u|i|we|it|he|she|they|me|my|your|do|does|are|is|am|was|were|the|a|an|no|yes|ok|okay|cool|nice|hi|hey|hello|yo|sup|loco|crazy|nuts|stop|why|how|what|who|when|where)\b/.test(q)) {
         return q + ' ' + _lastTopicLabel;
       }
       return q;
@@ -2214,6 +2269,9 @@ const Brain = (() => {
       // question, so it must never reach the knowledge scorer (where it dumped
       // a random fact). Catch the common second/first-person openers. (v76)
       const aimedAtJoe = /^(you'?re|you are|you look|you seem|you sound|you keep|you always|you never|ur)\b/.test(lower)
+        // Verbless slang aimed at Joe — "you loco", "you crazy", "you nuts".
+        // (v78 Bug B: "you loco" was inheriting the prior topic and dumping a fact.)
+        || /^(you|u|ur|yall|y'all)\s+(so\s+|real\s+|kinda\s+|pretty\s+)?(loco|crazy|nuts|silly|wild|funny|weird|goofy|wack|wacky|bananas|bonkers|insane|ridiculous|cray|cray cray|dumb|smart|cool|funny|hilarious)\b/.test(lower)
         || /^i('?m| am| was)\s+(just\s+|only\s+)?(saying|sayin|joking|jokin|kidding|kiddin|chatting|chattin|talking|talkin|messing|messin|playing|playin|teasing|teasin|testing|goofing|trolling)\b/.test(lower)
         || /^(stop|quit|cut it out|chill|relax|calm down|knock it off|be quiet|shush|hush)\b/.test(lower)
         || /^(that'?s|thats|that is|this is|this'?s|it'?s|its|it is)\s+(so |really |very |kinda |kind of |pretty |super |a bit )?(crazy|silly|funny|weird|wrong|random|nonsense|nuts|wild|insane|ridiculous|bananas|goofy|odd|strange)\b/.test(lower);
@@ -2285,6 +2343,10 @@ const Brain = (() => {
             return `Hmm, I don't think there's a ${catQ.category} called "${catQ.name}". What I've got for "${catQ.name}" is: ${clause} 🐒`;
           }
         }
+        // Bug E: don't re-serve the exact fact Joe just gave. A follow-up that
+        // lands on the same fact ("where can I see that flame?") should not
+        // reprint it verbatim — acknowledge + offer to dig/search instead.
+        const prevFactAnswer = _lastFactAnswer;
         _lastTopicKeywords = bestFact.keywords;
         _lastTopicLabel    = bestFact.keywords[0];
         _lastFactAnswer    = bestFact.answer;
@@ -2302,6 +2364,14 @@ const Brain = (() => {
             const covered = intentResult.words.some(w => answerLower.includes(w));
             if (!covered) return '__SEARCH__:' + input;
           }
+        }
+        // Bug E: about to reprint the exact fact just given → don't.
+        if (out === prevFactAnswer) {
+          return pick([
+            "I think I just covered that one 🐒 — want me to dig at it differently, or search the web for more?",
+            "That's the same thing I just told you 🙈 Ask a different way and I'll give it another shot!",
+            "Ha, déjà vu 🐒 I already shared what I've got on that — want me to search the web for the rest?"
+          ]);
         }
         if (out === bestFact.answer && shouldFlavor(lower)) {
           out = flavorFact(out, null);
