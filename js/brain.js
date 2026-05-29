@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '87'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '88'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1320,6 +1320,28 @@ const Brain = (() => {
     'saying','say','said','thinking','being','doing','going','telling','talking'
   ]);
 
+  // Kid-friendly riddles (v88) — question + answer in one line (no state).
+  const RIDDLES = [
+    "What has keys but can't open a single lock? 🤔 (A piano! 🎹)",
+    "What has hands but cannot clap? 🤔 (A clock! 🕐)",
+    "What gets wetter the more it dries? 🤔 (A towel! 🧻)",
+    "What has a head and a tail but no body? 🤔 (A coin! 🪙)",
+    "What has to be broken before you can use it? 🤔 (An egg! 🥚)",
+    "What goes up but never comes down? 🤔 (Your age! 🎂)",
+    "What has many teeth but can't bite? 🤔 (A comb! 💈)",
+    "What has one eye but cannot see? 🤔 (A needle! 🧵)",
+    "What can travel around the world while staying in one corner? 🤔 (A stamp! 📮)",
+    "What has a neck but no head? 🤔 (A bottle! 🍶)",
+    "What has words but never speaks? 🤔 (A book! 📖)",
+    "The more you take, the more you leave behind. What are they? 🤔 (Footsteps! 👣)",
+    "What has a thumb and four fingers but isn't alive? 🤔 (A glove! 🧤)",
+    "What kind of band never plays music? 🤔 (A rubber band! ➰)",
+    "What has legs but doesn't walk? 🤔 (A table! 🪑)",
+    "What can you catch but not throw? 🤔 (A cold! 🤧)",
+    "What building has the most stories? 🤔 (A library! 📚)",
+    "What is full of holes but still holds water? 🤔 (A sponge! 🧽)"
+  ];
+
   // Kid-friendly joke bank (v86). Clean puns + animal/monkey jokes.
   const JOKES = [
     "Why did the banana go to the doctor? It wasn't peeling well! 🍌",
@@ -1833,6 +1855,9 @@ const Brain = (() => {
     if (/\b(tell|know|got|hear|heard|another|more|say|share)\b.*\bjoke|\bjoke(s)?\b\s*(please|joe)?[\s!.?]*$|^(make me laugh|something funny|say something funny|be funny|cheer me up with a joke)/i.test(lower)
         && !/why did|what do you call|knock knock/i.test(lower)) {
       return pick(JOKES);
+    }
+    if (/\briddle\b|^(riddle me this|stump me|give me a brain teaser|brain teaser)/i.test(lower)) {
+      return pick(RIDDLES);
     }
 
     // Empathy + common-kid conversational gaps (v86) — these used to fall to

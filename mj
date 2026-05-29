@@ -2990,6 +2990,26 @@ class MonkeyJoe:
 
     # Sub-topic intent words (v77 parity, Bugs 3/5). Compact mirror of the
     # web intentMap — order matters (lifespan before habitat for "how long").
+    _RIDDLES = [
+        "What has keys but can't open a single lock? 🤔 (A piano! 🎹)",
+        "What has hands but cannot clap? 🤔 (A clock! 🕐)",
+        "What gets wetter the more it dries? 🤔 (A towel! 🧻)",
+        "What has a head and a tail but no body? 🤔 (A coin! 🪙)",
+        "What has to be broken before you can use it? 🤔 (An egg! 🥚)",
+        "What goes up but never comes down? 🤔 (Your age! 🎂)",
+        "What has many teeth but can't bite? 🤔 (A comb! 💈)",
+        "What has one eye but cannot see? 🤔 (A needle! 🧵)",
+        "What can travel around the world while staying in one corner? 🤔 (A stamp! 📮)",
+        "What has a neck but no head? 🤔 (A bottle! 🍶)",
+        "What has words but never speaks? 🤔 (A book! 📖)",
+        "The more you take, the more you leave behind. What are they? 🤔 (Footsteps! 👣)",
+        "What has a thumb and four fingers but isn't alive? 🤔 (A glove! 🧤)",
+        "What kind of band never plays music? 🤔 (A rubber band! ➰)",
+        "What can you catch but not throw? 🤔 (A cold! 🤧)",
+        "What building has the most stories? 🤔 (A library! 📚)",
+        "What is full of holes but still holds water? 🤔 (A sponge! 🧽)",
+    ]
+
     _JOKES = [
         "Why did the banana go to the doctor? It wasn't peeling well! 🍌",
         "What do you call a monkey that loves chips? A chip-monk! 🐒",
@@ -3356,6 +3376,8 @@ class MonkeyJoe:
         if (re.search(r'\b(tell|know|got|hear|heard|another|more|say|share)\b.*\bjoke|\bjokes?\b\s*(please|joe)?[\s!.?]*$|^(make me laugh|something funny|say something funny|be funny)', lower)
                 and not re.search(r'why did|what do you call|knock knock', lower)):
             return random.choice(self._JOKES)
+        if re.search(r'\briddle\b|^(riddle me this|stump me|give me a brain teaser|brain teaser)', lower):
+            return random.choice(self._RIDDLES)
 
         # Empathy + common-kid conversational gaps (v86).
         if re.search(r"^(i'?m|i am|im|feeling|feel|so|really|getting)\b.*\bbored\b|^bored\b", lower):
