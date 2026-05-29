@@ -1,5 +1,9 @@
 const Files = (() => {
 
+  // Escape user-controlled text (filenames, CSV cells) before innerHTML. (v82)
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
   const store = {};
   // Restore files from localStorage on load
   try { for (const k of Object.keys(localStorage)) { if (k.startsWith('mj_file_')) { const id = k.slice(8); try { store[id] = JSON.parse(localStorage.getItem(k)); } catch(e) {} } } } catch(e) {}
@@ -520,20 +524,28 @@ const Files = (() => {
     if (f.ext === 'html') {
       const iframe = document.createElement('iframe');
       iframe.style.cssText = 'width:100%;height:100%;border:none;border-radius:6px;';
+      // Sandbox with NO allow-scripts so previewing a saved HTML file can't run
+      // arbitrary JS in the app's origin. (v82 audit fix)
+      iframe.setAttribute('sandbox', '');
       iframe.srcdoc = f.content;
       body.appendChild(iframe);
     } else if (f.ext === 'svg') {
+      // Render SVG via an <img> data-URI — images never execute embedded
+      // <script>/onload, unlike innerHTML'd SVG. (v82 audit fix)
+      const img = document.createElement('img');
+      img.style.cssText = 'max-width:100%;max-height:100%;display:block;margin:auto;';
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(f.content);
       const div = document.createElement('div');
       div.style.cssText = 'display:flex;align-items:center;justify-content:center;height:100%;';
-      div.innerHTML = f.content;
+      div.appendChild(img);
       body.appendChild(div);
     } else if (f.ext === 'csv') {
       const rows = f.content.trim().split('\n').map(r => r.split(','));
       let html = '<table style="width:100%;border-collapse:collapse;font-size:0.85rem;">';
       rows.forEach((row, i) => {
         html += '<tr>' + row.map(cell => i === 0
-          ? `<th style="padding:8px;border:1px solid var(--border);background:var(--surface);text-align:left">${cell}</th>`
-          : `<td style="padding:8px;border:1px solid var(--border);">${cell}</td>`
+          ? `<th style="padding:8px;border:1px solid var(--border);background:var(--surface);text-align:left">${esc(cell)}</th>`
+          : `<td style="padding:8px;border:1px solid var(--border);">${esc(cell)}</td>`
         ).join('') + '</tr>';
       });
       html += '</table>';
@@ -578,7 +590,7 @@ const Files = (() => {
       const newBase = renameMatch[1].trim().replace(/\s+/g,'-');
       f.filename = newBase.endsWith('.'+f.ext) ? newBase : newBase+'.'+f.ext;
       store[id] = f;
-      return '__HTML__:' + buildCard(id, f) + '<br><small style="color:var(--text-muted)">✓ Renamed to ' + f.filename + '</small>';
+      return '__HTML__:' + buildCard(id, f) + '<br><small style="color:var(--text-muted)">✓ Renamed to ' + esc(f.filename) + '</small>';
     }
 
     // Make dark / light
@@ -601,7 +613,7 @@ const Files = (() => {
       if (newColor) {
         f.content = f.content.replace(/#5469d4|#e94560|#40c4ff|#69f0ae|#ffa000|#f06292/g, newColor);
         store[id] = f;
-        return '__HTML__:' + buildCard(id, f) + `<br><small style="color:var(--text-muted)">✓ Color changed to ${colorMatch[1]}</small>`;
+        return '__HTML__:' + buildCard(id, f) + `<br><small style="color:var(--text-muted)">✓ Color changed to ${esc(colorMatch[1])}</small>`;
       }
     }
 
@@ -674,7 +686,7 @@ const Files = (() => {
     return `<div class="file-card">
       <div class="file-card-icon">${extIcon(f.ext)}</div>
       <div class="file-card-info">
-        <span class="file-card-name">${f.filename}</span>
+        <span class="file-card-name">${esc(f.filename)}</span>
         <div class="file-card-actions">
           <button class="file-btn" onclick="Files.view('${id}')">👁 View</button>
           <button class="file-btn file-btn-dl" onclick="Files.download('${id}')">⬇ Download</button>

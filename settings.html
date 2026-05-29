@@ -366,12 +366,14 @@
     const hidden = Chat.getHiddenChats();
     if (hidden.length) {
       hiddenList.innerHTML = '';
+      const escH = s => String(s == null ? '' : s).replace(/[&<>"']/g, ch =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
       hidden.forEach(c => {
         const row = document.createElement('div');
         row.className = 'hidden-chat-row';
         row.innerHTML = `
-          <span class="hidden-chat-name">${c.title}</span>
-          <button class="edit-btn" data-id="${c.id}">Restore</button>
+          <span class="hidden-chat-name">${escH(c.title)}</span>
+          <button class="edit-btn" data-id="${escH(c.id)}">Restore</button>
         `;
         row.querySelector('button').addEventListener('click', () => {
           Chat.restoreChat(c.id);

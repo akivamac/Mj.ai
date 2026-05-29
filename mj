@@ -2997,6 +2997,14 @@ class MonkeyJoe:
         'sound': ['sound', 'noise', 'call', 'roar', 'bark', 'sing', 'growl', 'howl', 'chirp'],
         'baby': ['baby', 'young', 'cub', 'pup', 'born', 'birth', 'offspring', 'reproduce', 'gestation'],
         'sleep': ['sleep', 'rest', 'nocturnal', 'hibernate', 'nap'],
+        # Expanded to match the web intentMap so sub-topic extraction matches. (v82)
+        'color': ['color', 'colour', 'red', 'blue', 'green', 'black', 'white', 'pink', 'yellow', 'orange', 'purple', 'brown', 'look like', 'appearance', 'markings', 'spots', 'stripes'],
+        'smell': ['smell', 'scent', 'nose', 'sniff', 'sense of smell', 'olfactory'],
+        'intelligence': ['smart', 'intelligent', 'clever', 'brain', 'learn', 'memory', 'problem solving', 'iq', 'cognitive'],
+        'history_of': ['history', 'origin', 'invented', 'discovered', 'created', 'founded', 'first', 'ancient', 'began', 'started'],
+        'how_works': ['mechanism', 'process', 'function', 'operate'],
+        'comparison': ['vs', 'versus', 'difference', 'compare', 'similar'],
+        'examples': ['example', 'examples', 'types', 'kinds', 'varieties'],
     }
 
     def _get_intent(self, q):
@@ -3047,7 +3055,12 @@ class MonkeyJoe:
             return q
         if self.last_topic_label in q:
             return q
-        if re.match(r'^(and|also|plus|or|what about|how about|and what about|what of|and the|and its)\b', q):
+        # Pronoun / starter follow-up ("what do they eat", "and the babies",
+        # "how about color") → append the topic for the scorer. Mirrors the web
+        # detectFollowUp; only used for the knowledge lookup. (v82 parity)
+        pronoun = ['they ', 'their ', 'them ', 'it ', 'its ', 'the animal', 'the creature', 'those animals', 'that animal']
+        starter = ['and ', 'also ', 'but what', 'what about ', 'how about ', 'tell me more', 'more about', 'what else', 'same with', 'what do they', 'how do they', 'where do they', 'can they', 'do they ']
+        if any(p in q for p in pronoun) or any(q.startswith(s) for s in starter):
             return q + ' ' + self.last_topic_label
         words = q.strip().split()
         if len(words) <= 2 and not re.match(
@@ -3065,11 +3078,14 @@ class MonkeyJoe:
         has_question = any(lower.startswith(q) for q in question_starters) or lower.endswith('?')
         if has_question:
             return False
-        # Check for casual/opinion words
+        # Check for casual/opinion words. Synced to the web list (v82): dropped
+        # 'like'/'ok' (too greedy), added funny/weird/agree/i guess/i bet/etc.,
+        # and require >= 4 words so short inputs don't false-trigger.
         casual_words = ['cool', 'awesome', 'nice', 'great', 'love', 'hate', 'think', 'feel',
-                       'like', 'wow', 'lol', 'haha', 'interesting', 'yeah', 'yep', 'nope',
-                       'okay', 'ok', 'sure', 'thanks', 'thank you', 'no way', 'really', 'seriously']
-        if any(w in lower for w in casual_words):
+                       'wow', 'lol', 'haha', 'interesting', 'yeah', 'yep', 'nope',
+                       'okay', 'sure', 'thanks', 'thank you', 'no way', 'really', 'seriously',
+                       'funny', 'weird', 'agree', 'i guess', 'i bet', 'gonna tell', 'tell on you']
+        if len(lower.split()) >= 4 and any(w in lower for w in casual_words):
             return True
         # Conversational remark aimed AT Joe — "you are being crazy", "you're
         # funny", "i was just saying hi", "stop it", "that's silly". Must never
@@ -3271,6 +3287,10 @@ class MonkeyJoe:
 
         # R1 (v79): "are you <state>" about Joe → playful reply, not a fact.
         state_m = re.match(r"^(?:so[, ]+)?(?:are|r)\s+(?:you|u|ya)\s+(?:really\s+|even\s+|still\s+|so\s+|getting\s+|feeling\s+|a\s+little\s+|a\s+bit\s+|kinda\s+|kind\s+of\s+)?([a-z][a-z' ]*?)[\s?.!]*$", lower)
+        # Bail on action requests ("are you going to help me", "are you able to
+        # draw") — don't answer those as a mood. (v82 audit fix)
+        if state_m and re.search(r'\b(going to|gonna|able to|free to|willing to|planning to|trying to|allowed to|supposed to|going)\b', state_m.group(1)):
+            state_m = None
         if state_m:
             st = state_m.group(1).strip()
             if re.search(r'\b(excited|pumped|thrilled|happy|glad|ready|hyped|stoked)\b', st):
@@ -3285,7 +3305,7 @@ class MonkeyJoe:
                 return random.choice(["A little! 🐒 Goofy's kind of my whole brand. 🍌", "Guilty 🙈🐒 A wild monkey's gotta be a little loco. What's up?"])
             if re.search(r'\b(hungry|starving|peckish)\b', st):
                 return "Always — got a banana? 🍌🐒"
-            if re.search(r'\b(ok|okay|alright|good|fine|well|sure)\b', st):
+            if re.search(r'\b(ok|okay|alright|good|fine|well|sure|doing (ok|good|well|fine))\b', st):
                 return "I'm great, thanks for asking! 🐒 How are YOU?"
             return random.choice(["Me? Just a happy monkey here to help 🐒 What's on your mind?", "Could be! 🐒 Hard to say — I'm mostly bananas and good intentions. What's up?"])
 
@@ -3313,12 +3333,15 @@ class MonkeyJoe:
                 "🐒💛 You're the best. What's next?",
                 "Glad you think so! 🐒 Ask me anything."])
 
-        # Check greetings first (from rules.json)
-        if self.rules and 'greetings' in self.rules:
+        # Check greetings first (from rules.json). Match ONLY when the whole
+        # message is a greeting (+ up to two trailing name/vocative words), so
+        # "hi can you help me make a book" falls through to the story handler
+        # instead of being swallowed as a greeting. Mirrors the web regex. (v82)
+        if self.rules and 'greetings' in self.rules and len(lower) < 40:
             for greeting in self.rules.get('greetings', []):
-                if_words = greeting.get('if', [])
-                for word in if_words:
-                    if lower == word or lower.startswith(word + ' ') or lower.startswith(word + '!') or lower.startswith(word + ','):
+                for word in greeting.get('if', []):
+                    pat = r"^" + re.escape(word) + r"(\s*,?\s+(monkey joe|[a-z']+(\s+[a-z']+)?))?[\s,!.?]*$"
+                    if re.match(pat, lower):
                         responses = greeting.get('responses', [])
                         if self.memory.should_welcome_back():
                             return self._with_procedural(self.memory.format_welcome_back())
@@ -3417,6 +3440,21 @@ class MonkeyJoe:
                     return self._maybe_garnish_science(sci_resp, user_input, lower)
                 return sci_resp
 
+        # Terminal/command dispatcher — fires when input looks like a command OR
+        # is a question ABOUT a command (gated on a command-context word so
+        # "what is a cat" stays the animal). Mirrors the web; terminal.json was
+        # loaded but never read in the CLI. (v82 parity)
+        terms = self.terminal.get('commands') if isinstance(self.terminal, dict) else self.terminal
+        if terms:
+            about_command = bool(re.search(r'\b(command|terminal|cli|command line|shell|bash)\b', lower))
+            for entry in terms:
+                trigs = entry.get('triggers') or []
+                direct = any(lower == t or lower.startswith(t + ' ') or lower.startswith(t + ':')
+                             or (re.match(r'^(run|execute|use|type)\s', lower) and t in lower) for t in trigs)
+                asked = about_command and any(self._word_contains(lower, t) for t in trigs)
+                if direct or asked:
+                    return entry.get('response', '')
+
         # Rejection of the previous answer/story — "that doesn't go with my
         # drawing", "that story doesn't fit", "not what I drew", "wrong story".
         # Catch before the keyword scorer ("match"→pattern-matching fact). (v80 A)
@@ -3444,8 +3482,11 @@ class MonkeyJoe:
         # Meta: user says they're improving/building/working on Joe (often
         # naming Claude/Akiva). Without this it hits the Anthropic fact via its
         # "claude" keyword and dumps the founding story. (v77, Bug 1)
-        improve_you = (re.search(r"\b(make|making|made|get|getting|help|helping)\b.*\byou\b.*\b(better|smarter|smart)\b", lower)
-                       or re.search(r"\b(better|smarter)\b.*\byou\b", lower))
+        # Require an explicit make/improve verb targeting "you" — the old bare
+        # "better...you" alternative misfired on "is dark chocolate better for
+        # you". (v82 audit fix)
+        improve_you = (re.search(r"\b(make|making|made|help|helping)\b.*\byou\b.*\b(better|smarter|smart)\b", lower)
+                       or re.search(r"\bmake\s+you\s+(better|smarter)\b", lower))
         verb_you = re.search(r"\b(improv\w*|upgrad\w*|fix\w*|building|build|train\w*|teach\w*|tweak\w*|tun\w*|perfect\w*|polish\w*)\s+(you|joe|monkey joe)\b", lower)
         working_ctx = re.search(r"\bwork(ing)?\s+(on|with)\b", lower) and re.search(r"\b(claude|you|joe|monkey joe)\b", lower)
         if improve_you or verb_you or working_ctx:
@@ -3833,14 +3874,10 @@ class MonkeyJoe:
                     print("Joe: I know! Akiva built me and keeps making me smarter. 🐒 Thanks!\n")
                     continue
 
-                # Personal preference questions to Joe
-                joe_preferences = ['do you like', 'do you enjoy', 'do you love', 'do you hate',
-                                   'do you play', 'do you watch', 'do you eat', 'do you drink',
-                                   'do you sleep', 'do you dream', 'do you have a favorite',
-                                   'whats your favorite', "what's your favorite", 'do you prefer']
-                if any(p in lower_input for p in joe_preferences):
-                    print(f"Joe: {random.choice(['I' + chr(39) + 'm a rules-based assistant — I don' + chr(39) + 't have preferences or feelings! But I can tell you facts about almost anything. 🐒', 'Ha! I wish. I don' + chr(39) + 't experience things — but ask me about it and I' + chr(39) + 'll tell you everything I know!', 'No feelings here, just facts! Ask me anything though. 🐒'])}\n")
-                    continue
+                # (Removed the REPL "joe_preferences" pre-handler — it printed a
+                # generic "no preferences" reply that shadowed respond()'s
+                # in-character persona handler. Preference questions now flow to
+                # respond() like the web. v82 audit fix.)
 
                 # Self-referential questions about Joe
                 joe_self = [

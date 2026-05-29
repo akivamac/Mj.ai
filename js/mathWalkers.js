@@ -157,8 +157,9 @@ const MathWalkers = (() => {
   // walkUnitConvert: show the multiplication + cancellation.
   function walkUnitConvert(nums, fromUnit, toUnit, factor) {
     if (!nums || !nums.length) return null;
+    if (!Number.isFinite(factor)) return null; // no valid factor → don't show bogus "undefined" steps (v82)
     const v = nums[0];
-    const ans = v * (factor || 1);
+    const ans = v * factor;
     return {
       answer: ans,
       steps: [

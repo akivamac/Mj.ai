@@ -89,8 +89,11 @@ const Photo = (() => {
   }
 
   function isCanvasUsed() {
-    const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    return data.some(v => v !== 0);
+    // getImageData throws a SecurityError on a tainted canvas — guard it. (v82)
+    try {
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      return data.some(v => v !== 0);
+    } catch (_) { return false; }
   }
 
   return { init };

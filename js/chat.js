@@ -4,6 +4,11 @@ const Chat = (() => {
   let activeId = null;
   let activeProjectId = null; // project scope for new chats
 
+  // Escape user-controlled text before it goes into an innerHTML template —
+  // chat/project titles and file names come from user input. (v82 audit fix)
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
   async function init() {
     [chats, projects] = await Promise.all([Storage.loadChats(), Storage.loadProjects()]);
     activeId = Storage.getActiveChat();
@@ -33,7 +38,7 @@ const Chat = (() => {
       const proj = projects.find(p => p.id === chat.projectId);
       if (proj) {
         const el = document.getElementById('chat-title');
-        el.innerHTML = `<span class="breadcrumb-project" data-pid="${proj.id}">${proj.name}</span><span class="breadcrumb-sep">›</span>${title}`;
+        el.innerHTML = `<span class="breadcrumb-project" data-pid="${esc(proj.id)}">${esc(proj.name)}</span><span class="breadcrumb-sep">›</span>${esc(title)}`;
         el.querySelector('.breadcrumb-project').addEventListener('click', () => openProjectPage(proj.id));
         return;
       }
@@ -118,8 +123,8 @@ const Chat = (() => {
     const item = document.createElement('div');
     item.className = 'chat-item' + (chat.id === activeId ? ' active' : '');
     item.innerHTML = `
-      <span class="chat-item-title">${chat.starred ? "⭐ " : ""}${chat.title || "New Chat"}</span>
-      <button class="chat-menu-btn" data-id="${chat.id}">⋮</button>
+      <span class="chat-item-title">${chat.starred ? "⭐ " : ""}${esc(chat.title || "New Chat")}</span>
+      <button class="chat-menu-btn" data-id="${esc(chat.id)}">⋮</button>
     `;
     item.querySelector('.chat-item-title').addEventListener('click', () => switchChat(chat.id));
     item.querySelector('.chat-menu-btn').addEventListener('click', e => {
@@ -149,8 +154,8 @@ const Chat = (() => {
       const card = document.createElement('div');
       card.className = 'project-card';
       card.innerHTML = `
-        <button class="project-card-menu" data-pid="${proj.id}">⋯</button>
-        <div class="project-card-name">${proj.name}</div>
+        <button class="project-card-menu" data-pid="${esc(proj.id)}">⋯</button>
+        <div class="project-card-name">${esc(proj.name)}</div>
         <div class="project-card-meta">Updated ${lastUpdated}</div>
       `;
       card.addEventListener('click', e => {
@@ -196,7 +201,7 @@ const Chat = (() => {
         if (d < 86400000) return Math.floor(d/3600000) + ' hr ago';
         return Math.floor(d/86400000) + ' days ago';
       })() : '';
-      item.innerHTML = `<div class="project-chat-item-title">${c.title}</div>${ago ? `<div class="project-chat-item-meta">Last message ${ago}</div>` : ''}`;
+      item.innerHTML = `<div class="project-chat-item-title">${esc(c.title || 'New Chat')}</div>${ago ? `<div class="project-chat-item-meta">Last message ${ago}</div>` : ''}`;
       item.addEventListener('click', () => { switchChat(c.id); showPanel('chat'); });
       list.appendChild(item);
     });

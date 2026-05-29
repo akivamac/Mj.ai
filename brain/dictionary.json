@@ -350,7 +350,8 @@
         "sea_creature"
       ],
       "tone": [
-        "silly"
+        "silly",
+        "whimsical"
       ]
     },
     {
@@ -5941,18 +5942,6 @@
       ],
       "tone": [
         "cozy"
-      ]
-    },
-    {
-      "word": "octopus",
-      "pos": "noun",
-      "themes": [
-        "character",
-        "animal",
-        "sea_creature"
-      ],
-      "tone": [
-        "whimsical"
       ]
     },
     {

@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '81'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '82'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -240,7 +240,7 @@ const Brain = (() => {
     };
     let best = null, bestScore = 0;
     for (const [lang, re] of Object.entries(sigs)) {
-      const g = new RegExp(re.source, (re.flags || '') + (re.flags.includes('g') ? '' : 'g'));
+      const g = new RegExp(re.source, [...new Set(((re.flags || '') + 'g').split(''))].join(''));
       const matches = code.match(g);
       const score = matches ? matches.length : 0;
       if (score > bestScore) { bestScore = score; best = lang; }
@@ -677,9 +677,12 @@ const Brain = (() => {
     if (TEACH_RE.test(input) && mathGate()) return 'TEACH';
     if (DEFINE_RE.test(input) && mathGate() && input.length < 80) return 'DEFINE';
     // Bare math noun phrase ("pythagorean theorem", "quadratic formula") with
-    // no question words — treat as DEFINE so the tutorial bank can answer.
-    if (input.length < 40 && mathGate()
-        && !/\?$/.test(input) && /^[a-z' \-]+$/i.test(input.trim())) return 'DEFINE';
+    // no question words — treat as DEFINE so the tutorial bank can answer. Gate
+    // on an ACTUAL tutorial-trigger hit (not just any math keyword), so casual
+    // phrases like "prime real estate" / "my favorite number" don't claim the
+    // turn only to fall through. (v82 audit fix)
+    if (input.length < 40 && !/\?$/.test(input) && /^[a-z' \-]+$/i.test(input.trim())
+        && mathTutorials && mathTutorials.tutorials && findByTriggers(mathTutorials.tutorials, lower, 2)) return 'DEFINE';
     return null;
   }
 
@@ -873,11 +876,13 @@ const Brain = (() => {
     const lc = input.toLowerCase();
     const out = {};
     if (!variables) return out;
+    const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     for (const v of variables) {
       const name = v.name, label = (v.label || '').toLowerCase();
-      // Try `name = N` first
-      let m = new RegExp('\\b' + name + '\\s*=\\s*(-?\\d+(?:\\.\\d+)?)', 'i').exec(input);
-      if (!m && label) m = new RegExp('\\b' + label.replace(/\s+/g, '\\s+') + '\\s*(?:=|is|of)?\\s*(-?\\d+(?:\\.\\d+)?)', 'i').exec(lc);
+      // Try `name = N` first. Escape name/label so a regex special (e.g. a
+      // label with "(" or "+") can't throw an uncaught error. (v82 audit fix)
+      let m = new RegExp('\\b' + escRe(name) + '\\s*=\\s*(-?\\d+(?:\\.\\d+)?)', 'i').exec(input);
+      if (!m && label) m = new RegExp('\\b' + escRe(label).replace(/\s+/g, '\\s+') + '\\s*(?:=|is|of)?\\s*(-?\\d+(?:\\.\\d+)?)', 'i').exec(lc);
       if (m) { out[name] = parseFloat(m[1]); if (label) out[label] = parseFloat(m[1]); }
     }
     return out;
@@ -1558,11 +1563,10 @@ const Brain = (() => {
       return r.text;
     }
 
-    // ── Follow-up context injection ──────────────────────────
-    if (_lastTopicLabel && detectFollowUp(lower)) {
-      // inject last topic so "what do they eat?" becomes "what do they eat elephant"
-      lower = lower + ' ' + _lastTopicLabel;
-    }
+    // Follow-up context injection used to MUTATE `lower` here, which polluted
+    // every downstream conversational handler (persona/casual/meta saw
+    // "it is cool elephant"). The topic is now injected ONLY for the knowledge
+    // scorer, inside applyContextualFollowUp(). (v82 audit fix)
 
     // "Yes" context — if Joe just offered to search, treat as search confirmation
     if (/^(yes|yeah|sure|ok|okay|yep|yup|do it|go ahead)[\s!.]*$/.test(lower)) {
@@ -1742,7 +1746,10 @@ const Brain = (() => {
       // R1: "are you <state>" about Joe (excited, riled up, real, crazy…) →
       // playful reply instead of a keyword fact ("excited"→chameleon). (v79)
       const stateM = lower.match(/^(?:so[, ]+)?(?:are|r)\s+(?:you|u|ya)\s+(?:really\s+|even\s+|still\s+|so\s+|getting\s+|feeling\s+|a\s+little\s+|a\s+bit\s+|kinda\s+|kind\s+of\s+)?([a-z][a-z' ]*?)[\s?.!]*$/i);
-      if (stateM) {
+      // Bail when it's actually an action request ("are you going to help me",
+      // "are you able to draw") — let those fall through, don't answer as a
+      // mood. (v82 audit fix)
+      if (stateM && !/\b(going to|gonna|able to|free to|willing to|planning to|trying to|allowed to|supposed to|going)\b/.test(stateM[1])) {
         const st = stateM[1].trim();
         if (/\b(excited|pumped|thrilled|happy|glad|ready|hyped|stoked)\b/.test(st)) return pick([
           "Always a little excited to chat with you! 🐒",
@@ -1836,8 +1843,11 @@ const Brain = (() => {
     // Claude or Akiva). Without this it hits the Anthropic fact via its
     // "claude" keyword and dumps the founding story. (v77, Bug 1)
     {
-      const improveYou = /\b(make|making|made|get|getting|help|helping)\b.*\byou\b.*\b(better|smarter|smart)\b/i.test(lower)
-                      || /\b(better|smarter)\b.*\byou\b/i.test(lower);
+      // Require an explicit make/improve verb targeting "you" — the old bare
+      // "better...you" alternative misfired on "is dark chocolate better for
+      // you", "what's better for you". (v82 audit fix)
+      const improveYou = /\b(make|making|made|help|helping)\b.*\byou\b.*\b(better|smarter|smart)\b/i.test(lower)
+                      || /\bmake\s+you\s+(better|smarter)\b/i.test(lower);
       const verbYou = /\b(improv\w*|upgrad\w*|fix\w*|building|build|train\w*|teach\w*|tweak\w*|tun\w*|perfect\w*|polish\w*)\s+(you|joe|monkey joe)\b/i.test(lower);
       const workingCtx = /\bwork(ing)?\s+(on|with)\b/i.test(lower) && /\b(claude|you|joe|monkey joe)\b/i.test(lower);
       if (improveYou || verbYou || workingCtx) {
@@ -2338,10 +2348,11 @@ const Brain = (() => {
     function applyContextualFollowUp(q) {
       if (!_lastTopicLabel) return q;
       if (q.includes(_lastTopicLabel)) return q;
-      // Explicit follow-up connector.
-      if (/^(and|also|plus|or|what about|how about|and what about|what of|and the|and its)\b/.test(q)) {
-        return q + ' ' + _lastTopicLabel;
-      }
+      // Pronoun / starter follow-up ("what do they eat", "and the babies",
+      // "how about color") → append the topic so the scorer can resolve it.
+      // This runs ONLY for the knowledge lookup (callers pass `lower` here),
+      // never for the conversational handlers, which see the original input.
+      if (detectFollowUp(q)) return q + ' ' + _lastTopicLabel;
       // Bare 1-2 word topic-ish phrase — not a pronoun/greeting/verb opener
       // (those are conversational remarks, not topic follow-ups).
       const words = q.trim().split(/\s+/);
@@ -2545,8 +2556,11 @@ const Brain = (() => {
       'look up', 'search for', 'search the web for',
       'link to', 'photo of', 'picture of', 'image of',
       'show me', 'can you find', 'find me', 'find a link',
-      'get me a link', 'find info', 'find monkeys', 'find a'
+      'get me a link', 'find info'
     ];
+    // (Dropped the bare 'find a'/'find monkeys' substrings — they fired on
+    // "where can I find a good recipe". Start-anchored "find X" is handled
+    // below. v82 audit fix.)
     if (actionTriggers.some(t => input.includes(t))) return true;
 
     // "find X" at start of input

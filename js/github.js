@@ -43,5 +43,5 @@ const GitHub = (() => {
     }
   }
 
-  return { pushFile, getFile: (id) => null };
+  return { pushFile };
 })();
