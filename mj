@@ -3072,7 +3072,7 @@ class MonkeyJoe:
         # Positive feedback ("I like it", "that was great", "love it") — warm
         # reply instead of falling into the knowledge scorer; offer more if a
         # story is live. (v60 parity — the "i like it" Euler's-number bug.)
-        if re.match(r"^(i\s+(really\s+)?(like|love|loved|liked)\s+(it|that|this(\s+one|\s+story)?)|that('?s|\s+was)(\s+so|\s+really)?\s+(great|good|cool|awesome|nice|fun|lovely|sweet|amazing)|(so\s+|really\s+)?(good|great|cool|awesome|nice|lovely|fun)\s+(story|one|job)|love\s+it|loved\s+it|nice\s+one|well\s+done|good\s+job)[\s!.?]*$", lower):
+        if re.match(r"^((i\s+)?(really\s+)?(like|love|loved|liked|loving|enjoy|enjoyed)\s+(it|that|this(\s+one|\s+story)?)|that('?s|\s+was)(\s+so|\s+really)?\s+(great|good|cool|awesome|nice|fun|lovely|sweet|amazing|perfect)|(so\s+|really\s+)?(good|great|cool|awesome|nice|lovely|fun)\s+(story|one|job|tale)|nice\s+one|well\s+done|good\s+job)[\s!.?]*$", lower):
             if self.story_session:
                 return random.choice([
                     "Yay, so glad you liked it! 🐒 Want another? Just say 'another'.",

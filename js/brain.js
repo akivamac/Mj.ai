@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '65'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '66'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1558,7 +1558,7 @@ const Brain = (() => {
     // Positive feedback ("I like it", "that was great", "love it", "cool
     // story") — respond warmly instead of falling into the knowledge scorer
     // (the "i like it" → Euler's-number bug). If a story is live, offer more.
-    if (/^(i\s+(really\s+)?(like|love|loved|liked)\s+(it|that|this(\s+one|\s+story)?)|that('?s|\s+was)(\s+so|\s+really)?\s+(great|good|cool|awesome|nice|fun|lovely|sweet|amazing)|(so\s+|really\s+)?(good|great|cool|awesome|nice|lovely|fun)\s+(story|one|job)|love\s+it|loved\s+it|nice\s+one|well\s+done|good\s+job)[\s!.?]*$/i.test(lower)) {
+    if (/^((i\s+)?(really\s+)?(like|love|loved|liked|loving|enjoy|enjoyed)\s+(it|that|this(\s+one|\s+story)?)|that('?s|\s+was)(\s+so|\s+really)?\s+(great|good|cool|awesome|nice|fun|lovely|sweet|amazing|perfect)|(so\s+|really\s+)?(good|great|cool|awesome|nice|lovely|fun)\s+(story|one|job|tale)|nice\s+one|well\s+done|good\s+job)[\s!.?]*$/i.test(lower)) {
       if (_storySession) {
         return pick([
           "Yay, so glad you liked it! 🐒 Want another? Just say 'another'.",
