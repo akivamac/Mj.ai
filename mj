@@ -300,6 +300,11 @@ class MathEngine:
     @staticmethod
     def _preprocess(s):
         t = s.lower()
+        # unicode math operators -> ASCII (×, ÷, ⋅, •, ·, ∗, minus-sign)
+        t = re.sub(r'[×⋅∗•·]', '*', t)
+        t = re.sub(r'÷', '/', t)
+        t = re.sub(r'[−–—]', '-', t)
+        t = re.sub(r'(\d)\s*x\s*(?=\d)', r'\1*', t)  # "300 x 7" -> "300*7"
         t = re.sub(r'\bdivided by\b', '/', t)
         t = re.sub(r'\bmultiplied by\b', '*', t)
         t = re.sub(r'\btimes\b', '*', t)
@@ -312,7 +317,7 @@ class MathEngine:
         t = re.sub(r'\bcubed\b', '^3', t)
         t = re.sub(r'(\d+(?:\.\d+)?)\s*%\s*of\s+', r'(\1/100)*', t)
         t = re.sub(r'(\d+(?:\.\d+)?)\s*%(?!\s*\d)', r'(\1/100)', t)
-        t = re.sub(r"^(what\s+is|what's|whats|calculate|compute|evaluate|solve|how much is|how much)\s+", '', t, flags=re.I)
+        t = re.sub(r"^(what\s+is|what'?s|whats|what about|how about|and what(?:'?s| is| about)?|calculate|compute|evaluate|work out|solve|how much is|how much)\s+", '', t, flags=re.I)
         t = re.sub(r'[?.]+$', '', t).strip()
         t = re.sub(r'\bpi\b', '(' + str(math.pi) + ')', t)
         t = re.sub(r"\beuler('s)?\s+number\b", '(' + str(math.e) + ')', t)

@@ -17,6 +17,10 @@ const MathEngine = (() => {
 
   function preprocess(s) {
     let t = s.toLowerCase();
+    // unicode math operators → ASCII (×, ÷, ⋅, •, ·, ∗, minus-sign)
+    t = t.replace(/[×⋅∗•·]/g, '*').replace(/÷/g, '/').replace(/[−–—]/g, '-');
+    // "300 x 7" / "6x4" — ascii x between two numbers means multiply
+    t = t.replace(/(\d)\s*x\s*(?=\d)/g, '$1*');
     // word ops → symbols
     t = t.replace(/\bdivided by\b/g, '/');
     t = t.replace(/\bmultiplied by\b/g, '*');
@@ -33,7 +37,7 @@ const MathEngine = (() => {
     // standalone "X%" → "(X/100)"
     t = t.replace(/(\d+(?:\.\d+)?)\s*%(?!\s*\d)/g, '($1/100)');
     // strip common request wrappers
-    t = t.replace(/^(what\s+is|what's|whats|calculate|compute|evaluate|solve|how much is|how much)\s+/i, '');
+    t = t.replace(/^(what\s+is|what'?s|whats|what about|how about|and what(?:'?s| is| about)?|calculate|compute|evaluate|work out|solve|how much is|how much)\s+/i, '');
     t = t.replace(/[?.]+$/, '').trim();
     // π and e
     t = t.replace(/\bpi\b/g, '(' + Math.PI + ')');
