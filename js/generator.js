@@ -211,7 +211,7 @@ const Generator = (() => {
       pool = templates.stories || [];
     }
     if (opts.tone) {
-      const toned = pool.filter(s => s.tone && s.tone.includes(opts.tone));
+      const toned = pool.filter(s => s && typeof s === 'object' && s.tone && s.tone.includes(opts.tone));
       if (toned.length) return pick(toned);
     }
     return pick(pool);

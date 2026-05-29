@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '64'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '65'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -150,7 +150,12 @@ const Brain = (() => {
       const i = haystack.indexOf(needle, from);
       if (i < 0) return false;
       const before = i === 0 ? ' ' : haystack[i - 1];
-      const after  = i + needle.length >= haystack.length ? ' ' : haystack[i + needle.length];
+      let endIdx = i + needle.length;
+      // Tolerate a single trailing plural 's' on the matched word so a
+      // singular trigger ("punnett square") matches a plural query
+      // ("punnett squares"). (v64)
+      if (haystack[endIdx] === 's' && needle.slice(-1) !== 's') endIdx += 1;
+      const after = endIdx >= haystack.length ? ' ' : haystack[endIdx];
       if (!/[a-z]/i.test(before) && !/[a-z]/i.test(after)) return true;
       from = i + 1;
     }
@@ -648,12 +653,16 @@ const Brain = (() => {
     if (isComputable && WORKED_RE.test(input)) return 'WORKED';
     if (isComputable) return 'COMPUTE';
 
-    // Teaching paths require a math keyword to avoid hijacking general chat.
-    if (TEACH_RE.test(input) && hasMathKeyword(lower)) return 'TEACH';
-    if (DEFINE_RE.test(input) && hasMathKeyword(lower) && input.length < 80) return 'DEFINE';
+    // Teaching paths require a math keyword OR a direct tutorial-trigger hit —
+    // the latter so newly-added tutorial topics are reachable without growing
+    // the keyword list (v64). gate = keyword OR a tutorial whose triggers match.
+    const mathGate = () => hasMathKeyword(lower) ||
+      !!(mathTutorials && mathTutorials.tutorials && findByTriggers(mathTutorials.tutorials, lower, 2));
+    if (TEACH_RE.test(input) && mathGate()) return 'TEACH';
+    if (DEFINE_RE.test(input) && mathGate() && input.length < 80) return 'DEFINE';
     // Bare math noun phrase ("pythagorean theorem", "quadratic formula") with
     // no question words — treat as DEFINE so the tutorial bank can answer.
-    if (input.length < 40 && hasMathKeyword(lower)
+    if (input.length < 40 && mathGate()
         && !/\?$/.test(input) && /^[a-z' \-]+$/i.test(input.trim())) return 'DEFINE';
     return null;
   }
@@ -826,7 +835,10 @@ const Brain = (() => {
     // Formula shorthand can fire without keyword matches (the formula
     // name like "F=ma" is the keyword — the tutorial's triggers match it).
     if (SCI_FORMULA_SHORTHAND_RE.test(input)) return 'SCIENCE_FORMULA';
-    if (!hasSciKeyword(lower)) return null;
+    // Gate on a science keyword OR a direct tutorial-trigger hit, so new
+    // tutorial topics (Punnett squares, mitosis, …) are reachable. (v64)
+    const sciTutHit = !!(scienceTutorials && scienceTutorials.tutorials && findByTriggers(scienceTutorials.tutorials, lower, 2));
+    if (!hasSciKeyword(lower) && !sciTutHit) return null;
     if (SCI_FORMULA_RE.test(input)) return 'SCIENCE_FORMULA';
     if (SCI_TEACH_RE.test(input))   return 'SCIENCE_TEACH';
     if (SCI_DEFINE_RE.test(input) && input.length < 100) return 'SCIENCE_DEFINE';
@@ -1192,7 +1204,10 @@ const Brain = (() => {
 
   function ruleMatches(ruleIf, lower) {
     const r = ruleIf.toLowerCase();
-    if (RULE_EXACT_WORDS.has(r)) {
+    // Any very short trigger (≤3 chars: "gm","gn","cya","bye","ok"...) must be
+    // the WHOLE message — otherwise it substring-matches inside common words
+    // (gm→magma/pigment/segment, gn→sign/design) and hijacks them. (v64)
+    if (RULE_EXACT_WORDS.has(r) || r.length <= 3) {
       // Strip punctuation + a trailing vocative; require the remainder to
       // equal the trigger. "what?" matches; "what is a derivative" doesn't.
       const stripped = lower

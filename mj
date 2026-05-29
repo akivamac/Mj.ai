@@ -1568,7 +1568,7 @@ class MonkeyJoe:
         else:
             pool = t.get('stories', [])
         if opts.get('tone'):
-            toned = [s for s in pool if opts['tone'] in (s.get('tone') or [])]
+            toned = [s for s in pool if opts['tone'] in ((s.get('tone') if isinstance(s, dict) else None) or [])]
             if toned: return self._pick(toned)
         return self._pick(pool) if pool else None
 
@@ -1824,13 +1824,17 @@ class MonkeyJoe:
         is_computable = compute or eq_like or stats_like or prime_like or factor_like
         if is_computable and self._WORKED_RE.search(input_str): return 'WORKED'
         if is_computable: return 'COMPUTE'
-        if self._TEACH_RE.search(input_str) and any(k in lower for k in self._MATH_KEYWORDS):
+        # Gate = math keyword OR a direct tutorial-trigger hit, so new tutorial
+        # topics are reachable without growing the keyword list (v64).
+        def math_gate():
+            if any(k in lower for k in self._MATH_KEYWORDS): return True
+            tuts = (self.math_tutorials or {}).get('tutorials') or []
+            return bool(self._find_by_triggers(tuts, lower, 2))
+        if self._TEACH_RE.search(input_str) and math_gate():
             return 'TEACH'
-        if self._DEFINE_RE.match(input_str) and any(k in lower for k in self._MATH_KEYWORDS) and len(input_str) < 80:
+        if self._DEFINE_RE.match(input_str) and math_gate() and len(input_str) < 80:
             return 'DEFINE'
-        # Bare math noun phrase ("pythagorean theorem") with no question mark
-        # → DEFINE so the tutorial bank can answer.
-        if (len(input_str) < 40 and any(k in lower for k in self._MATH_KEYWORDS)
+        if (len(input_str) < 40 and math_gate()
             and not input_str.endswith('?')
             and re.fullmatch(r"[a-z' \-]+", input_str.strip(), re.I)):
             return 'DEFINE'
@@ -1929,7 +1933,10 @@ class MonkeyJoe:
 
     def _classify_science_intent(self, input_str, lower):
         if self._SCI_FORMULA_SHORTHAND_RE.search(input_str): return 'SCIENCE_FORMULA'
-        if not any(k in lower for k in self._SCI_KEYWORDS): return None
+        # Gate on a science keyword OR a direct tutorial-trigger hit so new
+        # tutorial topics (Punnett squares, mitosis, …) are reachable. (v64)
+        sci_tut_hit = bool(self._find_by_triggers((self.science_tutorials or {}).get('tutorials') or [], lower, 2))
+        if not any(k in lower for k in self._SCI_KEYWORDS) and not sci_tut_hit: return None
         if self._SCI_FORMULA_RE.search(input_str): return 'SCIENCE_FORMULA'
         if self._SCI_TEACH_RE.search(input_str):   return 'SCIENCE_TEACH'
         if self._SCI_DEFINE_RE.match(input_str) and len(input_str) < 100:
@@ -2242,7 +2249,12 @@ class MonkeyJoe:
             j = haystack.find(needle, i)
             if j < 0: return False
             before = haystack[j-1] if j > 0 else ' '
-            after  = haystack[j + len(needle)] if j + len(needle) < len(haystack) else ' '
+            end = j + len(needle)
+            # Tolerate a single trailing plural 's' so a singular trigger
+            # ("punnett square") matches a plural query ("punnett squares"). v64
+            if end < len(haystack) and haystack[end] == 's' and not needle.endswith('s'):
+                end += 1
+            after = haystack[end] if end < len(haystack) else ' '
             if not before.isalpha() and not after.isalpha(): return True
             i = j + 1
         return False
