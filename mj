@@ -1350,10 +1350,13 @@ class MonkeyJoe:
     ]
     _CONT_TRAIL = r'(\s+(please|now|joe|please now))?[\s!.?]*$'
     _CONTINUATION_PATTERNS = [
-        r'^(continue|keep going|go on|continue the story)' + _CONT_TRAIL,
+        r'^(continue|keep going|keep writing|go on|continue the (story|book|tale))' + _CONT_TRAIL,
         r'^what happens next' + _CONT_TRAIL,
         r'^(tell me more|more please|more story|i want more|more!?)[\s!.?]*$',
-        r'^next (chapter|part|page)' + _CONT_TRAIL,
+        # chapter/part continuations incl. "make/write the next chapter" (v66)
+        r'^(make|write|do|give me|create|start|add|spin|read)\s+(me\s+)?(the\s+|a\s+|another\s+)?(next\s+)?(chapter|part|page|section)' + _CONT_TRAIL,
+        r'^(the\s+)?next (chapter|part|page|section)' + _CONT_TRAIL,
+        r'^(another|one more) (chapter|part|page|section|bit)' + _CONT_TRAIL,
         r'^(the next part|then what|and then\??|and\?)[\s!.?]*$'
     ]
     _RESET_PATTERNS = [

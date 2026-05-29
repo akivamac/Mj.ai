@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '66'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '67'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -474,10 +474,15 @@ const Brain = (() => {
   // Trailing politeness/filler that shouldn't block a continuation match.
   const TRAIL = '(\\s+(please|now|joe|please now))?[\\s!.?]*$';
   const continuationPatterns = [
-    new RegExp('^(continue|keep going|go on|continue the story)' + TRAIL, 'i'),
+    new RegExp('^(continue|keep going|keep writing|go on|continue the (story|book|tale))' + TRAIL, 'i'),
     new RegExp('^what happens next' + TRAIL, 'i'),
     /^(tell me more|more please|more story|i want more|more!?)[\s!.?]*$/i,
-    new RegExp('^next (chapter|part|page)' + TRAIL, 'i'),
+    // chapter/part continuations, incl. "make/write/give me the next chapter",
+    // "another chapter", "the next page" — book mode (v66). Without these,
+    // "make the next chapter" fell through to the coding-fact scorer.
+    new RegExp('^(make|write|do|give me|create|start|add|spin|read)\\s+(me\\s+)?(the\\s+|a\\s+|another\\s+)?(next\\s+)?(chapter|part|page|section)' + TRAIL, 'i'),
+    new RegExp('^(the\\s+)?next (chapter|part|page|section)' + TRAIL, 'i'),
+    new RegExp('^(another|one more) (chapter|part|page|section|bit)' + TRAIL, 'i'),
     /^(the next part|then what|and then\??|and\?)[\s!.?]*$/i
   ];
   function detectStoryContinuation(input) {
