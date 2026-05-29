@@ -3599,6 +3599,23 @@ class MonkeyJoe:
 
         # Math dispatcher (v55) — slots between coding and knowledge so
         # `is 91 prime` and `25% of 80` win over generic fact lookup.
+        # Counting & sequence (v95)
+        m = re.match(r'^count(?:\s+up)?\s+(?:from\s+(\d+)\s+)?to\s+(\d+)', lower)
+        if m:
+            a = int(m.group(1)) if m.group(1) else 1; b = int(m.group(2))
+            if b > a + 100: b = a + 100
+            return ', '.join(str(i) for i in range(a, b + 1)) + '! 🐒'
+        m = re.match(r'^count\s+down\s+from\s+(\d+)', lower)
+        if m:
+            a = min(int(m.group(1)), 100)
+            return ', '.join(str(i) for i in range(a, -1, -1)) + ' — liftoff! 🚀🐒'
+        m = re.search(r"\bwhat(?:'?s)?\s+comes?\s+after\s+(-?\d+)", lower)
+        if m:
+            return f'{int(m.group(1)) + 1}! 🐒'
+        m = re.search(r"\bwhat(?:'?s)?\s+comes?\s+before\s+(-?\d+)", lower)
+        if m:
+            return f'{int(m.group(1)) - 1}! 🐒'
+
         # Even/odd parity (v90)
         parity_m = re.search(r'\bis\s+(-?\d+)\s+(?:an?\s+)?(?:even|odd)(?:\s+number)?\b|\bis\s+(-?\d+)\s+(?:even or odd|odd or even)\b', lower)
         if parity_m:

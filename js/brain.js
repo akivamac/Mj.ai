@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '94'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '95'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -2233,6 +2233,28 @@ const Brain = (() => {
         && !classifyMathIntent(input, lower)) {
       const exp = _explainLastMath(_lastMathContext);
       if (exp) { _lastMathAge = 99; return exp; }
+    }
+
+    // Counting & sequence (v95): "count to N", "count down from N", "what
+    // comes after/before N".
+    {
+      let m = lower.match(/^count(?:\s+up)?\s+(?:from\s+(\d+)\s+)?to\s+(\d+)/);
+      if (m) {
+        let a = m[1] != null ? parseInt(m[1], 10) : 1, b = parseInt(m[2], 10);
+        if (b > a + 100) b = a + 100; // cap output
+        const seq = []; for (let i = a; i <= b; i++) seq.push(i);
+        return seq.join(', ') + '! 🐒';
+      }
+      m = lower.match(/^count\s+down\s+from\s+(\d+)/);
+      if (m) {
+        let a = parseInt(m[1], 10); if (a > 100) a = 100;
+        const seq = []; for (let i = a; i >= 0; i--) seq.push(i);
+        return seq.join(', ') + ' — liftoff! 🚀🐒';
+      }
+      m = lower.match(/\bwhat(?:'?s)?\s+comes?\s+after\s+(-?\d+)/);
+      if (m) return `${parseInt(m[1], 10) + 1}! 🐒`;
+      m = lower.match(/\bwhat(?:'?s)?\s+comes?\s+before\s+(-?\d+)/);
+      if (m) return `${parseInt(m[1], 10) - 1}! 🐒`;
     }
 
     // Even/odd parity ("is 17 even or odd", "is 4 even") (v90)
