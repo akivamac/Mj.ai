@@ -382,6 +382,17 @@ const Chat = (() => {
         } else {
           addMessage('joe', "I can make: html, css, js, ts, md, txt, json, py, sh, svg, csv files. Which type do you want?");
         }
+      } else if (raw && raw.startsWith('__SAVESTORY__:')) {
+        let info = null;
+        try { info = JSON.parse(raw.slice('__SAVESTORY__:'.length)); } catch (e) {}
+        if (info && info.content) {
+          addMessage('joe', info.intro || "Here's your story, all in one file! 🐒");
+          const result = Files.createRaw(info.ext, info.name, info.content);
+          if (result.startsWith('__HTML__:')) addMessage('joe', result.slice(9), true);
+          else addMessage('joe', result);
+        } else {
+          addMessage('joe', "I don't have a story to save yet — start one with 'tell me a story about a fox'! 🐒");
+        }
       } else if (raw && raw.startsWith('__SEARCH__:')) {
         const query = raw.slice(11);
         const result = await Search.ask(query);

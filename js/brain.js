@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '67'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '68'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1177,6 +1177,41 @@ const Brain = (() => {
     }
   }
 
+  // Accumulate generated story/chapter text so the user can later say
+  // "put it all together in a file" and get the whole book. (v68)
+  function _recordChapter(text) {
+    if (_storySession && text) {
+      if (!Array.isArray(_storySession.chapters)) _storySession.chapters = [];
+      _storySession.chapters.push(text);
+    }
+  }
+
+  // Build a __SAVESTORY__ envelope from the accumulated chapters, or null if
+  // there's nothing to save yet.
+  function _assembleBook() {
+    if (!_storySession || !Array.isArray(_storySession.chapters) || !_storySession.chapters.length) return null;
+    const chapters = _storySession.chapters;
+    const subj = (_storySession.subject || '').replace(/^(a|an|the)\s+/i, '').trim();
+    const title = subj ? subj.replace(/\b\w/g, c => c.toUpperCase()) : 'My Story';
+    let body = `# ${title}\n\n`;
+    chapters.forEach((c, i) => { body += `## Chapter ${i + 1}\n\n${c}\n\n`; });
+    const name = (subj || 'my-story').toLowerCase().replace(/\s+/g, '-');
+    const n = chapters.length;
+    return '__SAVESTORY__:' + JSON.stringify({
+      ext: 'md', name, content: body,
+      intro: `Here's "${title}" — all ${n} chapter${n === 1 ? '' : 's'} in one file! 🐒`
+    });
+  }
+  const saveStoryPatterns = [
+    /\bput (it|them|this|the (story|book|chapters?)) (all )?together\b/i,
+    /\b(save|compile|export|download)\b.*\b(story|book|it|this|chapters?)\b/i,
+    /\bmake (a|the|me a) (file|book|document|pdf)\b.*\b(it|this|story|book)\b/i,
+    /\bturn (it|this|the (story|book)) into a (file|book|document|pdf)\b/i,
+    /\b(it|this|the (story|book)|all of it|everything)\b.*\b(in|into|as|to)\b.*\bfile\b/i,
+    /\bsave (it|this|the (story|book))\b/i,
+    /\bthe whole (story|book)\b/i
+  ];
+
   // ── Rule matching (v58 fix) ─────────────────────────────
   // The rules.json `rules` array is matched BEFORE the math/science/
   // knowledge dispatchers, so a bare substring rule like "what" would
@@ -1376,6 +1411,7 @@ const Brain = (() => {
         _storySession.place      = r.place     || _storySession.place;
         _storySession.chapter    = num;
         _storySession.chapterMode = true;
+        _recordChapter(r.text);
         return `Chapter ${num}\n\n${r.text}`;
       }
       return NO_STORY_MSG;
@@ -1396,9 +1432,19 @@ const Brain = (() => {
           _storySession.chapter = (_storySession.chapter ?? 1) + 1;
           prefix = `Chapter ${_storySession.chapter}\n\n`;
         }
+        _recordChapter(r.text);
         return prefix + r.text;
       }
       return NO_STORY_MSG;
+    }
+
+    // "Put it all together in a file" — compile the book the user wrote across
+    // chapters into a single downloadable file. (v68)
+    if (_storySession && saveStoryPatterns.some(re => re.test(lower))) {
+      const env = _assembleBook();
+      if (env) return env;
+      // session but no captured chapters yet
+      return "I haven't written any chapters yet — say 'make a story about a fox', then 'next chapter' a few times, then ask me to put it in a file! 🐒";
     }
 
     // "Make it longer" / "bigger" — upgrade the CURRENT story instead of
@@ -1639,6 +1685,7 @@ const Brain = (() => {
       });
       _storySession.character = r.character || _storySession.character;
       _storySession.place     = r.place     || _storySession.place;
+      _recordChapter(r.text);
       return r.text;
     }
 
@@ -1715,6 +1762,7 @@ const Brain = (() => {
           chapterMode: !!chMatch,
           mode:        r.mode || mode || 'regular'
         };
+        _recordChapter(r.text);
         const prefix = _storySession.chapterMode ? `Chapter ${_storySession.chapter}\n\n` : '';
         return prefix + r.text;
       }

@@ -684,5 +684,19 @@ const Files = (() => {
   }
 
   function getFile(id) { return store[id] || null; }
-  return { create, view, download, parse, edit, getFile };
+
+  // Create a file from EXACT content (no template) — used to save a generated
+  // story/book the user assembled across chapters. (v68)
+  function createRaw(ext, name, content) {
+    ext = (ext || 'txt').toLowerCase();
+    const mimeTypes = { html:'text/html', css:'text/css', js:'text/javascript', ts:'text/plain', md:'text/markdown', txt:'text/plain', json:'application/json', py:'text/plain', sh:'text/plain', svg:'image/svg+xml', csv:'text/csv' };
+    const base = (name || 'untitled').replace(/[^a-z0-9._-]+/gi, '-').replace(/^-+|-+$/g, '') || 'untitled';
+    const filename = base.endsWith('.' + ext) ? base : base + '.' + ext;
+    const id = 'f' + Date.now();
+    store[id] = { filename, content: String(content || ''), mime: mimeTypes[ext] || 'text/plain', ext };
+    try { localStorage.setItem('mj_file_' + id, JSON.stringify(store[id])); } catch (e) {}
+    return '__HTML__:' + buildCard(id, store[id]);
+  }
+
+  return { create, createRaw, view, download, parse, edit, getFile };
 })();
