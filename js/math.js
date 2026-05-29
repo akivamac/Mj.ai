@@ -40,6 +40,12 @@ const MathEngine = (() => {
     // "square root of N" / "cube root of N" → sqrt(N) / N^(1/3)
     t = t.replace(/\b(?:the\s+)?square\s+root\s+of\s+(\d+(?:\.\d+)?)/g, 'sqrt($1)');
     t = t.replace(/\b(?:the\s+)?cube\s+root\s+of\s+(\d+(?:\.\d+)?)/g, '($1)^(1/3)');
+    // "half of N", "double N", "triple N", "round N"
+    t = t.replace(/\b(?:a\s+)?half\s+of\s+(\d+(?:\.\d+)?)/g, '($1)/2');
+    t = t.replace(/\bdouble\s+(\d+(?:\.\d+)?)/g, '($1)*2');
+    t = t.replace(/\btriple\s+(\d+(?:\.\d+)?)/g, '($1)*3');
+    t = t.replace(/\bquadruple\s+(\d+(?:\.\d+)?)/g, '($1)*4');
+    t = t.replace(/\bround\s+(\d+(?:\.\d+)?)/g, 'round($1)');
     // "X% of Y" → "(X/100)*Y"
     t = t.replace(/(\d+(?:\.\d+)?)\s*%\s*of\s+/g, '($1/100)*');
     // standalone "X%" → "(X/100)"

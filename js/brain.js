@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '89'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '90'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -2151,6 +2151,16 @@ const Brain = (() => {
         && !classifyMathIntent(input, lower)) {
       const exp = _explainLastMath(_lastMathContext);
       if (exp) { _lastMathAge = 99; return exp; }
+    }
+
+    // Even/odd parity ("is 17 even or odd", "is 4 even") (v90)
+    const parityM = lower.match(/\bis\s+(-?\d+)\s+(?:an?\s+)?(even|odd)(\s+number)?\b|\bis\s+(-?\d+)\s+(even or odd|odd or even)\b/);
+    if (parityM) {
+      const n = parseInt(parityM[1] != null ? parityM[1] : parityM[4], 10);
+      if (Number.isFinite(n)) {
+        const isEven = n % 2 === 0;
+        return `${n} is ${isEven ? 'even' : 'odd'}! 🐒 ${isEven ? "It splits into two equal halves." : "It can't split evenly into two."}`;
+      }
     }
 
     const mathIntent = classifyMathIntent(input, lower);

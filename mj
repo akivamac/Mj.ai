@@ -326,6 +326,12 @@ class MathEngine:
         # "square root of N" / "cube root of N"
         t = re.sub(r'\b(?:the\s+)?square\s+root\s+of\s+(\d+(?:\.\d+)?)', r'sqrt(\1)', t)
         t = re.sub(r'\b(?:the\s+)?cube\s+root\s+of\s+(\d+(?:\.\d+)?)', r'(\1)^(1/3)', t)
+        # "half of N", "double N", "triple N", "round N"
+        t = re.sub(r'\b(?:a\s+)?half\s+of\s+(\d+(?:\.\d+)?)', r'(\1)/2', t)
+        t = re.sub(r'\bdouble\s+(\d+(?:\.\d+)?)', r'(\1)*2', t)
+        t = re.sub(r'\btriple\s+(\d+(?:\.\d+)?)', r'(\1)*3', t)
+        t = re.sub(r'\bquadruple\s+(\d+(?:\.\d+)?)', r'(\1)*4', t)
+        t = re.sub(r'\bround\s+(\d+(?:\.\d+)?)', r'round(\1)', t)
         t = re.sub(r'(\d+(?:\.\d+)?)\s*%\s*of\s+', r'(\1/100)*', t)
         t = re.sub(r'(\d+(?:\.\d+)?)\s*%(?!\s*\d)', r'(\1/100)', t)
         t = re.sub(r"^(what\s+is|what'?s|whats|what about|how about|and what(?:'?s| is| about)?|calculate|compute|evaluate|work out|solve|how much is|how much)\s+", '', t, flags=re.I)
@@ -3518,6 +3524,13 @@ class MonkeyJoe:
 
         # Math dispatcher (v55) — slots between coding and knowledge so
         # `is 91 prime` and `25% of 80` win over generic fact lookup.
+        # Even/odd parity (v90)
+        parity_m = re.search(r'\bis\s+(-?\d+)\s+(?:an?\s+)?(?:even|odd)(?:\s+number)?\b|\bis\s+(-?\d+)\s+(?:even or odd|odd or even)\b', lower)
+        if parity_m:
+            n = int(parity_m.group(1) if parity_m.group(1) is not None else parity_m.group(2))
+            even = (n % 2 == 0)
+            return f"{n} is {'even' if even else 'odd'}! 🐒 " + ("It splits into two equal halves." if even else "It can't split evenly into two.")
+
         math_intent = self._classify_math_intent(user_input, lower)
         if math_intent:
             math_resp = self._handle_math_intent(math_intent, user_input, lower)
