@@ -130,8 +130,10 @@ const Generator = (() => {
     if (!answer) return '';
     let cleaned = answer.replace(/\s*\([^)]*\d[^)]*\)/g, '');
     cleaned = cleaned.replace(/\s+/g, ' ').trim();
-    const m = cleaned.match(/^[^.!?]+[.!?]/);
-    let first = m ? m[0].trim() : cleaned;
+    // First sentence — split on sentence-ending punctuation FOLLOWED by a
+    // space, so a decimal point ("98.7%") isn't read as a sentence end and
+    // truncated to "98." (Bug 4).
+    let first = (cleaned.split(/(?<=[.!?])\s+/)[0] || cleaned).trim();
     if (first.length > 120) {
       const cut = first.slice(0, 120);
       const lastSpace = cut.lastIndexOf(' ');

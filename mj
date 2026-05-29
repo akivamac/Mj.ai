@@ -1491,8 +1491,11 @@ class MonkeyJoe:
         if not answer: return ''
         cleaned = re.sub(r'\s*\([^)]*\d[^)]*\)', '', answer)
         cleaned = re.sub(r'\s+', ' ', cleaned).strip()
-        m = re.match(r'^[^.!?]+[.!?]', cleaned)
-        first = m.group(0).strip() if m else cleaned
+        # First sentence — split on sentence-ending punctuation FOLLOWED by a
+        # space, so a decimal point ("98.7%") isn't read as a sentence end and
+        # truncated to "98." (Bug 4).
+        parts = re.split(r'(?<=[.!?])\s+', cleaned)
+        first = (parts[0] if parts else cleaned).strip()
         if len(first) > 120:
             cut = first[:120]
             last_space = cut.rfind(' ')
@@ -2941,7 +2944,10 @@ class MonkeyJoe:
         # punctuation ("c++", "c#") whose trailing \b wouldn't behave. (v60)
         try:
             if re.fullmatch(r'[a-z0-9 ]+', kl):
-                return bool(re.search(r'\b' + re.escape(kl) + r'\b', ql))
+                # Optional plural suffix so "horse" matches "horses" at full
+                # strength instead of only a weak stem hit. (v77, Bug 5)
+                plural = '' if kl.endswith('s') else r'(?:s|es)?'
+                return bool(re.search(r'\b' + re.escape(kl) + plural + r'\b', ql))
             return bool(re.search(r'\b' + re.escape(kl), ql))
         except Exception:
             return kl in ql
@@ -2969,6 +2975,58 @@ class MonkeyJoe:
                             break
             best = max(best, score)
         return best
+
+    # Sub-topic intent words (v77 parity, Bugs 3/5). Compact mirror of the
+    # web intentMap — order matters (lifespan before habitat for "how long").
+    _INTENT_MAP = {
+        'diet': ['eat', 'diet', 'food', 'feed', 'prey', 'herbivore', 'carnivore', 'omnivore', 'drink', 'nutrition', 'meal', 'graze', 'hunt', 'forage'],
+        'size': ['big', 'large', 'small', 'tall', 'heavy', 'weight', 'size', 'long', 'huge', 'tiny', 'height', 'biggest', 'largest', 'smallest'],
+        'speed': ['fast', 'speed', 'quick', 'slow', 'mph', 'fastest', 'slowest'],
+        'lifespan': ['lifespan', 'how old', 'how long', 'live to', 'years old', 'longest living', 'oldest'],
+        'habitat': ['live', 'habitat', 'where', 'home', 'found', 'region', 'continent', 'native to', 'come from'],
+        'danger': ['dangerous', 'attack', 'bite', 'sting', 'venom', 'poison', 'deadly', 'aggressive'],
+        'sound': ['sound', 'noise', 'call', 'roar', 'bark', 'sing', 'growl', 'howl', 'chirp'],
+        'baby': ['baby', 'young', 'cub', 'pup', 'born', 'birth', 'offspring', 'reproduce', 'gestation'],
+        'sleep': ['sleep', 'rest', 'nocturnal', 'hibernate', 'nap'],
+    }
+
+    def _get_intent(self, q):
+        # Disambiguate "how long do they LIVE" (lifespan) from "how long IS it"
+        # (size) — bare "long" lives in the size list and would otherwise win.
+        if re.search(r'\bhow long\b', q) and re.search(r'\b(live|lives|living|life|last|survive)\b', q):
+            return self._INTENT_MAP['lifespan']
+        for intent, words in self._INTENT_MAP.items():
+            for w in words:
+                if w in q:
+                    return words
+        return None
+
+    @staticmethod
+    def _extract_focused(answer, intent_words):
+        """Return just the sentence(s) relevant to a sub-topic intent, or
+        None. Word-boundary match so 'hunt' doesn't hit 'hunting'. (Bug 3)"""
+        sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', answer) if s.strip()]
+        if len(sentences) <= 2:
+            return None
+        hits = []
+        for s in sentences:
+            sl = s.lower()
+            if any(re.search(r'\b' + re.escape(w) + r'\b', sl) for w in intent_words):
+                hits.append(s)
+        if not hits or len(hits) > (len(sentences) + 1) // 2:
+            return None
+        return ' '.join(hits)
+
+    @staticmethod
+    def _detect_category_q(q):
+        """'is there a <category> called <name>' / 'is a <name> a <category>'."""
+        m = re.search(r'\bis\s+there\s+(?:a|an)\s+([a-z]+)\s+(?:called|named)\s+(?:a |an |the )?([a-z]+)', q, re.I)
+        if m:
+            return {'category': m.group(1), 'name': m.group(2)}
+        m = re.search(r'\bis\s+(?:a |an |the )?([a-z]+)\s+(?:a|an)\s+(?:kind\s+of\s+|type\s+of\s+|sort\s+of\s+|species\s+of\s+)?([a-z]+)\b', q, re.I)
+        if m:
+            return {'category': m.group(2), 'name': m.group(1)}
+        return None
 
     def apply_contextual_followup(self, q: str) -> str:
         """If short follow-up, append last topic."""
@@ -3265,6 +3323,20 @@ class MonkeyJoe:
                 "My bad! 🐒 Tell me what you meant and I'll have another go.",
                 "Yeah, that wasn't my best. 🐒 Want to ask me again a different way?"])
 
+        # Meta: user says they're improving/building/working on Joe (often
+        # naming Claude/Akiva). Without this it hits the Anthropic fact via its
+        # "claude" keyword and dumps the founding story. (v77, Bug 1)
+        improve_you = (re.search(r"\b(make|making|made|get|getting|help|helping)\b.*\byou\b.*\b(better|smarter|smart)\b", lower)
+                       or re.search(r"\b(better|smarter)\b.*\byou\b", lower))
+        verb_you = re.search(r"\b(improv\w*|upgrad\w*|fix\w*|building|build|train\w*|teach\w*|tweak\w*|tun\w*|perfect\w*|polish\w*)\s+(you|joe|monkey joe)\b", lower)
+        working_ctx = re.search(r"\bwork(ing)?\s+(on|with)\b", lower) and re.search(r"\b(claude|you|joe|monkey joe)\b", lower)
+        if improve_you or verb_you or working_ctx:
+            return random.choice([
+                "Aw, thanks for working on me! 🐒 Every tweak makes me a little less of a goofball. What should we try?",
+                "🐒 You and Claude are making me smarter? I'm honored! Ask me something and let's see how I'm doing.",
+                "Heck yeah — better Monkey Joe incoming! 🍌 What do you want me to handle better?",
+                "That means a lot! 🐒 Throw something at me and let's test the new me."])
+
         # Check for casual statements (not questions)
         if self.is_casual_statement(lower):
             casual_responses = [
@@ -3299,19 +3371,33 @@ class MonkeyJoe:
                 best_score = score
                 best_fact = fact
 
-        # Return answer if score >= 2.5 (higher threshold prevents weak matches)
-        if best_fact and best_score >= 2.5:
+        # Return answer if score >= 1.5 (parity with the web threshold so the
+        # sub-topic extraction / category checks actually run; below this is a
+        # soft topic suggestion). (v77)
+        if best_fact and best_score >= 1.5:
+            # Bug 7: category question whose asserted type the fact contradicts.
+            cat_q = self._detect_category_q(lower)
+            if cat_q and len(cat_q['name']) >= 3 and len(cat_q['category']) >= 3:
+                hay = (best_fact.get('answer', '') + ' ' + ' '.join(best_fact.get('keywords', []))).lower()
+                if not re.search(r'\b' + re.escape(cat_q['category']) + r's?\b', hay):
+                    clause = re.split(r'(?<=[.!?])\s+', best_fact.get('answer', ''))[0]
+                    return f"Hmm, I don't think there's a {cat_q['category']} called \"{cat_q['name']}\". What I've got for \"{cat_q['name']}\" is: {clause} 🐒"
             self.last_topic_label = best_fact['keywords'][0] if best_fact.get('keywords') else None
             self.last_fact_answer = best_fact.get('answer', '')
             if self.last_topic_label:
                 self.memory.record_topic(self.last_topic_label)
             answer = best_fact.get('answer', '')
-            # Summarize very long answers
-            if len(answer) > 500:
+            # Bug 3/5: narrow sub-topic question → just the focused sentence(s).
+            intent_words = self._get_intent(lower)
+            focused = self._extract_focused(answer, intent_words) if intent_words else None
+            if focused:
+                answer = focused
+            elif len(answer) > 500:
+                # Summarize very long answers
                 sentences = answer.split('. ')
                 answer = '. '.join(sentences[:3]) + '.'
             # Phase 3: maybe wrap in flavor, then maybe append story hook.
-            if self._should_flavor(lower):
+            if focused is None and self._should_flavor(lower):
                 answer = self._flavor_fact(answer, None)
                 self._recent_flavor_age = 0
             return self._maybe_append_story_hook(answer, best_fact)

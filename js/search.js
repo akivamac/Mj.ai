@@ -22,8 +22,14 @@ const Search = (() => {
     document.getElementById('search-modal').classList.remove('hidden');
     const allowed = await new Promise(resolve => { pendingResolve = resolve; });
     if (!allowed) return null;
-    window.open(`https://duckduckgo.com/?q=${encodeURIComponent(query)}`, '_blank');
-    return "I opened DuckDuckGo in a new tab for you! 🔍";
+    const url = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
+    // window.open can be blocked by a popup blocker (returns null) — fall back
+    // to a clickable link so Joe never goes silent on "allow". (Bug 6)
+    let win = null;
+    try { win = window.open(url, '_blank'); } catch (_) { win = null; }
+    return win
+      ? "I opened DuckDuckGo in a new tab for you! 🔍"
+      : `Your browser blocked the popup, but here's the search — tap to open: ${url}`;
   }
 
   return { init, ask };

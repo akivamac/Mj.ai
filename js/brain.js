@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '76'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '77'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1687,6 +1687,24 @@ const Brain = (() => {
       ]);
     }
 
+    // Meta: user says they're improving/building/working on Joe (often naming
+    // Claude or Akiva). Without this it hits the Anthropic fact via its
+    // "claude" keyword and dumps the founding story. (v77, Bug 1)
+    {
+      const improveYou = /\b(make|making|made|get|getting|help|helping)\b.*\byou\b.*\b(better|smarter|smart)\b/i.test(lower)
+                      || /\b(better|smarter)\b.*\byou\b/i.test(lower);
+      const verbYou = /\b(improv\w*|upgrad\w*|fix\w*|building|build|train\w*|teach\w*|tweak\w*|tun\w*|perfect\w*|polish\w*)\s+(you|joe|monkey joe)\b/i.test(lower);
+      const workingCtx = /\bwork(ing)?\s+(on|with)\b/i.test(lower) && /\b(claude|you|joe|monkey joe)\b/i.test(lower);
+      if (improveYou || verbYou || workingCtx) {
+        return pick([
+          "Aw, thanks for working on me! 🐒 Every tweak makes me a little less of a goofball. What should we try?",
+          "🐒 You and Claude are making me smarter? I'm honored! Ask me something and let's see how I'm doing.",
+          "Heck yeah — better Monkey Joe incoming! 🍌 What do you want me to handle better?",
+          "That means a lot! 🐒 Throw something at me and let's test the new me."
+        ]);
+      }
+    }
+
     // Emoji-only or emoji-heavy check
     if (rules && rules.emojis) {
       for (const [emoji, responses] of Object.entries(rules.emojis)) {
@@ -2093,8 +2111,8 @@ const Brain = (() => {
       size:      ['big', 'large', 'small', 'tall', 'heavy', 'weight', 'size', 'long', 'wide', 'huge', 'giant', 'tiny', 'height', 'diameter', 'measure', 'biggest', 'largest', 'smallest', 'massive'],
       color:     ['color', 'colour', 'red', 'blue', 'green', 'black', 'white', 'pink', 'yellow', 'orange', 'purple', 'brown', 'look like', 'appearance', 'markings', 'spots', 'stripes'],
       speed:     ['fast', 'speed', 'run', 'swim', 'fly', 'quick', 'slow', 'mph', 'km/h', 'velocity', 'fastest', 'slowest'],
+      lifespan:  ['lifespan', 'how old', 'how long', 'live to', 'years old', 'longest living', 'oldest'],
       habitat:   ['live', 'habitat', 'where', 'home', 'found', 'region', 'country', 'continent', 'environment', 'range', 'native to', 'come from', 'origin'],
-      lifespan:  ['lifespan', 'how old', 'how long', 'age', 'live to', 'years old', 'longest living', 'oldest'],
       danger:    ['dangerous', 'attack', 'bite', 'sting', 'venom', 'poison', 'kill', 'hurt', 'safe', 'deadly', 'aggressive', 'threat'],
       sound:     ['sound', 'noise', 'call', 'roar', 'bark', 'sing', 'communicate', 'talk', 'vocalize', 'growl', 'purr', 'howl', 'chirp'],
       baby:      ['baby', 'young', 'cub', 'pup', 'foal', 'calf', 'born', 'birth', 'newborn', 'offspring', 'reproduce', 'pregnancy', 'gestation'],
@@ -2109,6 +2127,11 @@ const Brain = (() => {
     };
 
     function getIntent(q) {
+      // Disambiguate "how long do they LIVE" (lifespan) from "how long IS it"
+      // (size) — bare "long" lives in the size list and would otherwise win.
+      if (/\bhow long\b/.test(q) && /\b(live|lives|living|life|last|survive)\b/.test(q)) {
+        return { intent: 'lifespan', words: intentMap.lifespan };
+      }
       for (const [intent, words] of Object.entries(intentMap)) {
         if (words.some(w => q.includes(w))) return { intent, words };
       }
@@ -2134,7 +2157,11 @@ const Brain = (() => {
             const esc = kl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             // Word-boundary on BOTH sides for alphanumeric keywords, so short
             // keywords like "act" don't match inside "actually" (v59 fix).
-            const re = /^[a-z0-9 ]+$/.test(kl) ? new RegExp('\\b' + esc + '\\b') : new RegExp(esc);
+            // Allow an optional plural suffix so keyword "horse" matches query
+            // "horses" at full strength instead of a weak 0.5 prefix → search
+            // (v77, Bug 5).
+            const plural = kl.endsWith('s') ? '' : '(?:s|es)?';
+            const re = /^[a-z0-9 ]+$/.test(kl) ? new RegExp('\\b' + esc + plural + '\\b') : new RegExp(esc);
             exactMatch = re.test(q);
           } catch(e) { exactMatch = q.includes(kl); }
           if (exactMatch) { score += 2; continue; } // exact match worth 2
@@ -2210,6 +2237,34 @@ const Brain = (() => {
       const variants   = [contextualQ, stripped, expanded, strExpanded];
       if (topic) variants.push(topic, expandSynonyms(topic));
 
+      // Pull just the sentence(s) relevant to a sub-topic intent out of a long
+      // fact, so "what do chimps eat" returns the Diet line, not the whole
+      // encyclopedia entry. Word-boundary match so "hunt" doesn't hit
+      // "hunting" in an unrelated sentence. (v77, Bug 3)
+      function extractFocused(answer, intentWords) {
+        const sentences = answer.split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(Boolean);
+        if (sentences.length <= 2) return null; // too short to bother trimming
+        const hits = sentences.filter(s => {
+          const sl = s.toLowerCase();
+          return intentWords.some(w => {
+            const esc = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            return new RegExp('\\b' + esc + '\\b').test(sl);
+          });
+        });
+        if (!hits.length || hits.length > Math.ceil(sentences.length / 2)) return null;
+        return hits.join(' ');
+      }
+
+      // "is there a <category> called <name>" / "is a <name> a <category>".
+      // (v77, Bug 7)
+      function detectCategoryQ(q) {
+        let m = q.match(/\bis\s+there\s+(?:a|an)\s+([a-z]+)\s+(?:called|named)\s+(?:a |an |the )?([a-z]+)/i);
+        if (m) return { category: m[1], name: m[2] };
+        m = q.match(/\bis\s+(?:a |an |the )?([a-z]+)\s+(?:a|an)\s+(?:kind\s+of\s+|type\s+of\s+|sort\s+of\s+|species\s+of\s+)?([a-z]+)\b/i);
+        if (m) return { category: m[2], name: m[1] };
+        return null;
+      }
+
       let bestFact = null, bestScore = 0;
       const allFacts = (knowledge.facts || []).concat((coding && coding.facts) || []);
       for (const fact of allFacts) {
@@ -2219,18 +2274,36 @@ const Brain = (() => {
 
       // Improved threshold: require >= 1.5 for knowledge match, fall back to search for weak matches (0.5-1.5)
       if (bestFact && bestScore >= 1.5) {
-        const intentResult = getIntent(lower);
-        if (intentResult) {
-          const answerLower = bestFact.answer.toLowerCase();
-          const covered = intentResult.words.some(w => answerLower.includes(w));
-          if (!covered) return '__SEARCH__:' + input;
+        // Bug 7: category question whose asserted type the fact contradicts —
+        // don't dump the entry as if it answered; surface what we have + hedge.
+        const catQ = detectCategoryQ(lower);
+        if (catQ && catQ.name.length >= 3 && catQ.category.length >= 3) {
+          const hay = (bestFact.answer + ' ' + (bestFact.keywords || []).join(' ')).toLowerCase();
+          const escCat = catQ.category.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          if (!new RegExp('\\b' + escCat + 's?\\b').test(hay)) {
+            const clause = bestFact.answer.split(/(?<=[.!?])\s+/)[0];
+            return `Hmm, I don't think there's a ${catQ.category} called "${catQ.name}". What I've got for "${catQ.name}" is: ${clause} 🐒`;
+          }
         }
         _lastTopicKeywords = bestFact.keywords;
         _lastTopicLabel    = bestFact.keywords[0];
         _lastFactAnswer    = bestFact.answer;
         if (typeof Memory !== 'undefined') Memory.recordTopic(bestFact.keywords[0]);
         let out = bestFact.answer;
-        if (shouldFlavor(lower)) {
+        // Bug 3/5: narrow sub-topic question → return just the focused
+        // sentence(s). If the topic isn't covered at all, search instead.
+        const intentResult = getIntent(lower);
+        if (intentResult) {
+          const focused = extractFocused(bestFact.answer, intentResult.words);
+          if (focused) {
+            out = focused;
+          } else {
+            const answerLower = bestFact.answer.toLowerCase();
+            const covered = intentResult.words.some(w => answerLower.includes(w));
+            if (!covered) return '__SEARCH__:' + input;
+          }
+        }
+        if (out === bestFact.answer && shouldFlavor(lower)) {
           out = flavorFact(out, null);
           _recentFlavorAge = 0;
         }
