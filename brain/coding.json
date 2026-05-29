@@ -8177,7 +8177,7 @@
     {
       "keywords": [
         "group by",
-        "having",
+        "having clause",
         "aggregate",
         "where vs having"
       ],
@@ -22835,7 +22835,7 @@
     },
     {
       "keywords": [
-        "HAVING",
+        "having clause",
         "filter groups"
       ],
       "answer": "HAVING filters groups after GROUP BY, the way WHERE filters individual rows before grouping. You use HAVING to keep, say, only departments with more than 10 employees: GROUP BY dept HAVING COUNT(*) > 10. You cannot use aggregates in WHERE, which is exactly why HAVING exists."
@@ -27715,7 +27715,6 @@
     },
     {
       "keywords": [
-        "timedelta",
         "timedelta"
       ],
       "answer": "datetime.timedelta represents a span of time and supports arithmetic, so datetime.now() + timedelta(days=7) gives next week. You can build one from days, hours, minutes, seconds, and more, and subtracting two datetimes yields a timedelta. Read .total_seconds() to get the whole duration as a float."
@@ -28093,7 +28092,6 @@
     },
     {
       "keywords": [
-        "frozenset",
         "frozenset"
       ],
       "answer": "frozenset is an immutable set, so it is hashable and can be a dictionary key or an element of another set. Build one with frozenset(iterable). Use it when you need a fixed set of items as a key, such as caching results by the set of arguments regardless of order."
@@ -28226,7 +28224,6 @@
     },
     {
       "keywords": [
-        "sys.argv",
         "sys.argv"
       ],
       "answer": "sys.argv is the list of command-line arguments, where sys.argv[0] is the script name and the rest are the user's arguments as strings. It is fine for trivial scripts, but for anything with options or flags, argparse handles parsing, defaults, and help for you. Remember the arguments are always strings until you convert them."
@@ -28366,7 +28363,6 @@
     },
     {
       "keywords": [
-        "textwrap",
         "textwrap"
       ],
       "answer": "The textwrap module reflows and reformats plain text. wrap returns a list of lines fit to a width, fill returns them joined, dedent removes common leading whitespace (great for triple-quoted strings in code), and shorten truncates with an ellipsis. It is handy for terminal output and cleaning up indented literals."
@@ -28394,7 +28390,6 @@
     },
     {
       "keywords": [
-        "bytearray",
         "bytearray"
       ],
       "answer": "bytearray is the mutable cousin of bytes, so you can change individual byte values in place and extend it without making new objects. This makes it efficient for building up binary buffers or modifying data byte by byte. Slicing and indexing return integers for single bytes and bytearrays for ranges."
@@ -28422,7 +28417,6 @@
     },
     {
       "keywords": [
-        "divmod",
         "divmod"
       ],
       "answer": "divmod(a, b) returns the quotient and remainder as a tuple in one call: divmod(17, 5) gives (3, 2). It is handy for converting totals into units, like divmod(total_seconds, 60) to get minutes and remaining seconds. It avoids computing // and % separately and reads more clearly."
@@ -28667,7 +28661,6 @@
     },
     {
       "keywords": [
-        "staticmethod classmethod",
         "staticmethod classmethod"
       ],
       "answer": "@staticmethod defines a method that takes neither self nor cls, just a function grouped under the class for organization. @classmethod receives the class as cls and is the idiomatic way to write alternative constructors, like a from_string factory that returns cls(...). cls respects subclassing, so factories return the right subtype."
@@ -28772,7 +28765,6 @@
     },
     {
       "keywords": [
-        "StopIteration",
         "StopIteration"
       ],
       "answer": "StopIteration is the signal an iterator raises when it has no more items, which for loops catch automatically to end. Since Python 3.7, letting StopIteration leak out of a generator turns into a RuntimeError instead of silently ending the generator, preventing a confusing class of bugs. Use return inside a generator to stop it cleanly."
@@ -28912,7 +28904,6 @@
     },
     {
       "keywords": [
-        "contextvars",
         "contextvars"
       ],
       "answer": "The contextvars module provides context-local variables that work correctly with async tasks and threads, unlike thread-locals which break across awaits. A ContextVar holds a value scoped to the current execution context, and each task gets its own copy. It is how libraries propagate request data through async code cleanly."
@@ -29059,7 +29050,6 @@
     },
     {
       "keywords": [
-        "fileinput",
         "fileinput"
       ],
       "answer": "The fileinput module loops over lines from multiple files, or from standard input if no files are given, like a typical Unix filter. fileinput.input() with inplace=True even lets you edit files in place by printing the replacement for each line. It is a quick way to build grep- or sed-style command-line tools."

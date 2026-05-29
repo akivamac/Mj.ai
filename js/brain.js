@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '85'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '86'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1320,6 +1320,40 @@ const Brain = (() => {
     'saying','say','said','thinking','being','doing','going','telling','talking'
   ]);
 
+  // Kid-friendly joke bank (v86). Clean puns + animal/monkey jokes.
+  const JOKES = [
+    "Why did the banana go to the doctor? It wasn't peeling well! 🍌",
+    "What do you call a monkey that loves chips? A chip-monk! 🐒",
+    "Why don't scientists trust atoms? Because they make up everything! ⚛️",
+    "What do you call a bear with no teeth? A gummy bear! 🐻",
+    "Why did the math book look so sad? It had too many problems. 📖",
+    "What's orange and sounds like a parrot? A carrot! 🥕",
+    "Why can't you give Elsa a balloon? Because she'll let it go! 🎈",
+    "How does the ocean say hi? It waves! 🌊",
+    "Why did the scarecrow win an award? He was outstanding in his field! 🌾",
+    "What do you call cheese that isn't yours? Nacho cheese! 🧀",
+    "Why don't eggs tell jokes? They'd crack each other up! 🥚",
+    "What's a monkey's favorite kind of music? Jungle beats! 🥁🐒",
+    "Why did the bicycle fall over? It was two-tired! 🚲",
+    "What do you call a sleeping dinosaur? A dino-snore! 🦕",
+    "Why did the cookie go to the nurse? It was feeling crummy! 🍪",
+    "What has hands but can't clap? A clock! 🕐",
+    "Why was the broom late? It over-swept! 🧹",
+    "What do you call a fish with no eyes? A fsh! 🐟",
+    "How do you make a tissue dance? Put a little boogie in it! 💃",
+    "Why did the banana split? Because it saw the milkshake! 🍌",
+    "What kind of tree fits in your hand? A palm tree! 🌴",
+    "Why don't skeletons fight each other? They don't have the guts! 💀",
+    "What do you call a dog that does magic? A labracadabrador! 🐕",
+    "Why did the student eat his homework? The teacher said it was a piece of cake! 🍰",
+    "What's brown and sticky? A stick! 🪵",
+    "Why was the math teacher suspicious of the equals sign? It was always up to something. ➗",
+    "What do you call a monkey at the North Pole? Lost! 🐒❄️",
+    "How do you catch a squirrel? Climb a tree and act like a nut! 🐿️",
+    "Why did the tomato turn red? It saw the salad dressing! 🍅",
+    "What do you call a pile of cats? A meow-ntain! 🐱"
+  ];
+
   function ruleMatches(ruleIf, lower) {
     const r = ruleIf.toLowerCase();
     // Any very short trigger (≤3 chars: "gm","gn","cya","bye","ok"...) must be
@@ -1789,6 +1823,34 @@ const Brain = (() => {
           "No can do — I'd just get banana all over everything 🍌🐒 Want the recipe or a fun fact instead?"
         ]);
       }
+    }
+
+    // Jokes (v86) — a kids' bot should have these. Fires on explicit asks;
+    // "knock knock" plays along.
+    if (/^\s*knock[\s,]+knock\b/i.test(lower)) {
+      return "Who's there? 🐒";
+    }
+    if (/\b(tell|know|got|hear|heard|another|more|say|share)\b.*\bjoke|\bjoke(s)?\b\s*(please|joe)?[\s!.?]*$|^(make me laugh|something funny|say something funny|be funny|cheer me up with a joke)/i.test(lower)
+        && !/why did|what do you call|knock knock/i.test(lower)) {
+      return pick(JOKES);
+    }
+
+    // Empathy + common-kid conversational gaps (v86) — these used to fall to
+    // the IDK fallback. Warm, in-character, offers something to do.
+    {
+      if (/^(i'?m|i am|im|feeling|feel|so|really|getting)\b.*\bbored\b|^bored\b/i.test(lower))
+        return pick(["Let's fix that! 🐒 Want a story, a fun fact, a joke, or some math?",
+          "Boredom? Not on my watch 🍌 I can tell you a joke, spin a story, or hit you with a wild fact — pick one!"]);
+      if (/\b(bad|rough|terrible|awful|horrible|worst)\s+day\b|^(i'?m|i am|im|feeling|feel)\s+(sad|down|upset|unhappy|blue|low|lonely)\b/i.test(lower))
+        return pick(["Aw, I'm sorry to hear that 🐒💛 Want a joke to lift the mood, or a cozy story?",
+          "That's rough — sending you a banana and a hug 🍌🤗 Want me to cheer you up with a joke or a fun fact?"]);
+      if (/\b(scared|afraid|frightened|nervous|anxious|worried)\b/i.test(lower) && /^(i|im|i'?m|feeling|feel)\b/i.test(lower))
+        return pick(["It's totally okay to feel that way 🐒 Want a cozy story or a fun fact to take your mind off it?",
+          "Deep breath — you've got this 🐒💛 I can keep you company with a story or a silly joke if you'd like."]);
+      if (/\b(help|with)\b.*\bhomework\b|^help me (study|learn)\b/i.test(lower))
+        return "Sure, happy to help! 🐒 I'm best at math, science, and facts — what's the subject or question?";
+      if (/^(sing|can you sing|will you sing)\b/i.test(lower))
+        return "Monkeys aren't exactly songbirds 🙈🐒 — but I can spin you a story, tell a joke, or do some math!";
     }
 
     // Positive feedback ("I like it", "that was great", "love it", "cool

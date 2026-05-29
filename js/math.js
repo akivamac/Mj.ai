@@ -37,6 +37,9 @@ const MathEngine = (() => {
     t = t.replace(/\bto the power of\b/g, '^');
     t = t.replace(/\bsquared\b/g, '^2');
     t = t.replace(/\bcubed\b/g, '^3');
+    // "square root of N" / "cube root of N" → sqrt(N) / N^(1/3)
+    t = t.replace(/\b(?:the\s+)?square\s+root\s+of\s+(\d+(?:\.\d+)?)/g, 'sqrt($1)');
+    t = t.replace(/\b(?:the\s+)?cube\s+root\s+of\s+(\d+(?:\.\d+)?)/g, '($1)^(1/3)');
     // "X% of Y" → "(X/100)*Y"
     t = t.replace(/(\d+(?:\.\d+)?)\s*%\s*of\s+/g, '($1/100)*');
     // standalone "X%" → "(X/100)"

@@ -323,6 +323,9 @@ class MathEngine:
         t = re.sub(r'\bto the power of\b', '^', t)
         t = re.sub(r'\bsquared\b', '^2', t)
         t = re.sub(r'\bcubed\b', '^3', t)
+        # "square root of N" / "cube root of N"
+        t = re.sub(r'\b(?:the\s+)?square\s+root\s+of\s+(\d+(?:\.\d+)?)', r'sqrt(\1)', t)
+        t = re.sub(r'\b(?:the\s+)?cube\s+root\s+of\s+(\d+(?:\.\d+)?)', r'(\1)^(1/3)', t)
         t = re.sub(r'(\d+(?:\.\d+)?)\s*%\s*of\s+', r'(\1/100)*', t)
         t = re.sub(r'(\d+(?:\.\d+)?)\s*%(?!\s*\d)', r'(\1/100)', t)
         t = re.sub(r"^(what\s+is|what'?s|whats|what about|how about|and what(?:'?s| is| about)?|calculate|compute|evaluate|work out|solve|how much is|how much)\s+", '', t, flags=re.I)
@@ -2987,6 +2990,34 @@ class MonkeyJoe:
 
     # Sub-topic intent words (v77 parity, Bugs 3/5). Compact mirror of the
     # web intentMap — order matters (lifespan before habitat for "how long").
+    _JOKES = [
+        "Why did the banana go to the doctor? It wasn't peeling well! 🍌",
+        "What do you call a monkey that loves chips? A chip-monk! 🐒",
+        "Why don't scientists trust atoms? Because they make up everything! ⚛️",
+        "What do you call a bear with no teeth? A gummy bear! 🐻",
+        "Why did the math book look so sad? It had too many problems. 📖",
+        "What's orange and sounds like a parrot? A carrot! 🥕",
+        "How does the ocean say hi? It waves! 🌊",
+        "Why did the scarecrow win an award? He was outstanding in his field! 🌾",
+        "What do you call cheese that isn't yours? Nacho cheese! 🧀",
+        "Why don't eggs tell jokes? They'd crack each other up! 🥚",
+        "What's a monkey's favorite kind of music? Jungle beats! 🥁🐒",
+        "Why did the bicycle fall over? It was two-tired! 🚲",
+        "What do you call a sleeping dinosaur? A dino-snore! 🦕",
+        "Why did the cookie go to the nurse? It was feeling crummy! 🍪",
+        "What has hands but can't clap? A clock! 🕐",
+        "What do you call a fish with no eyes? A fsh! 🐟",
+        "Why did the banana split? Because it saw the milkshake! 🍌",
+        "What kind of tree fits in your hand? A palm tree! 🌴",
+        "Why don't skeletons fight each other? They don't have the guts! 💀",
+        "What do you call a dog that does magic? A labracadabrador! 🐕",
+        "What's brown and sticky? A stick! 🪵",
+        "What do you call a monkey at the North Pole? Lost! 🐒❄️",
+        "How do you catch a squirrel? Climb a tree and act like a nut! 🐿️",
+        "Why did the tomato turn red? It saw the salad dressing! 🍅",
+        "What do you call a pile of cats? A meow-ntain! 🐱",
+    ]
+
     _INTENT_MAP = {
         'diet': ['eat', 'diet', 'food', 'feed', 'prey', 'herbivore', 'carnivore', 'omnivore', 'drink', 'nutrition', 'meal', 'graze', 'hunt', 'forage'],
         'size': ['big', 'large', 'small', 'tall', 'heavy', 'weight', 'size', 'long', 'huge', 'tiny', 'height', 'biggest', 'largest', 'smallest'],
@@ -3318,6 +3349,28 @@ class MonkeyJoe:
                 "Haha, I'd love to — but I'm a monkey in a screen, no hands and definitely no kitchen 🐒 I can hand you a recipe, a story, or some math though! 🍌",
                 "If only! 🙈 I'm all paws and pixels in here. Can't cook, but I'll happily tell you HOW, or spin you a story while you do. 🐒",
                 "No can do — I'd just get banana all over everything 🍌🐒 Want the recipe or a fun fact instead?"])
+
+        # Jokes (v86). "knock knock" plays along.
+        if re.match(r'^\s*knock[\s,]+knock\b', lower):
+            return "Who's there? 🐒"
+        if (re.search(r'\b(tell|know|got|hear|heard|another|more|say|share)\b.*\bjoke|\bjokes?\b\s*(please|joe)?[\s!.?]*$|^(make me laugh|something funny|say something funny|be funny)', lower)
+                and not re.search(r'why did|what do you call|knock knock', lower)):
+            return random.choice(self._JOKES)
+
+        # Empathy + common-kid conversational gaps (v86).
+        if re.search(r"^(i'?m|i am|im|feeling|feel|so|really|getting)\b.*\bbored\b|^bored\b", lower):
+            return random.choice(["Let's fix that! 🐒 Want a story, a fun fact, a joke, or some math?",
+                "Boredom? Not on my watch 🍌 I can tell you a joke, spin a story, or hit you with a wild fact — pick one!"])
+        if re.search(r"\b(bad|rough|terrible|awful|horrible|worst)\s+day\b|^(i'?m|i am|im|feeling|feel)\s+(sad|down|upset|unhappy|blue|low|lonely)\b", lower):
+            return random.choice(["Aw, I'm sorry to hear that 🐒💛 Want a joke to lift the mood, or a cozy story?",
+                "That's rough — sending you a banana and a hug 🍌🤗 Want me to cheer you up with a joke or a fun fact?"])
+        if re.search(r"\b(scared|afraid|frightened|nervous|anxious|worried)\b", lower) and re.match(r"^(i|im|i'?m|feeling|feel)\b", lower):
+            return random.choice(["It's totally okay to feel that way 🐒 Want a cozy story or a fun fact to take your mind off it?",
+                "Deep breath — you've got this 🐒💛 I can keep you company with a story or a silly joke if you'd like."])
+        if re.search(r"\b(help|with)\b.*\bhomework\b|^help me (study|learn)\b", lower):
+            return "Sure, happy to help! 🐒 I'm best at math, science, and facts — what's the subject or question?"
+        if re.match(r"^(sing|can you sing|will you sing)\b", lower):
+            return "Monkeys aren't exactly songbirds 🙈🐒 — but I can spin you a story, tell a joke, or do some math!"
 
         # Positive feedback ("I like it", "that was great", "love it") — warm
         # reply instead of falling into the knowledge scorer; offer more if a
