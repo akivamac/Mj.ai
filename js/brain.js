@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '78'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '79'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -442,6 +442,13 @@ const Brain = (() => {
     let raw = null;
     let m = lower.match(/\babout\s+(?:a|an|the|some|my|your)?\s*([a-z][a-z\s\-']*?)(?:\s*[?.!,;]|$)/);
     if (m) raw = m[1].trim();
+    // "tell me a story about it/that/this" — resolve the pronoun to whatever we
+    // were just talking about; never weave the literal word "it" into a story
+    // ("said the it softly"). Falls back to no-subject if there's nothing to
+    // resolve to. (v79 R5)
+    if (raw && /^(it|that|this|them|those|these|one|him|her|its)$/.test(raw)) {
+      raw = _storyHookSubject || _lastTopicLabel || (_storySession && _storySession.subject) || null;
+    }
     if (!raw) {
       m = lower.match(/\b(?:a|an|the)\s+([a-z\-]+)\s+(?:story|tale|adventure)\b/);
       if (m) {
@@ -1124,8 +1131,9 @@ const Brain = (() => {
     const lead = /^(it'?s|its|that'?s|thats|i drew|i made|this is|here'?s|looks like|a|an|the|my|some|just|kind of)\s+/;
     s = s.replace(lead, '').replace(lead, '');
     // Cut trailing modifier clauses ("…floating in the wind", "…with horns
-    // on a stick", "…that flies") so the subject stays a clean noun phrase.
-    s = s.split(/\s+(?:floating|flying|sitting|standing|with|that|which|who|on|in|under|over|near|by|made of|holding|wearing|doing|and)\b/)[0];
+    // on a stick", "…that flies") AND restatement clauses ("the sea it's the
+    // ocean" → "sea") so the subject stays a clean noun phrase. (v79 R8)
+    s = s.split(/\s+(?:floating|flying|sitting|standing|with|that|which|who|on|in|under|over|near|by|made of|holding|wearing|doing|and|it'?s|its|thats|that'?s)\b/)[0];
     // Drop "top/part/picture of (a)" framing → keep the head noun.
     s = s.replace(/^(top|bottom|side|part|picture|drawing|image|photo|sketch)\s+of\s+(?:a|an|the)?\s*/, '');
     // Cap to 4 words.
@@ -1604,7 +1612,11 @@ const Brain = (() => {
           // joe") counts as a name/nickname, so the whole message still reads
           // as just-a-greeting. (v76: was a fixed list that missed "ape".)
           const re = new RegExp(
-            '^' + escW + "(\\s*,?\\s+(monkey joe|[a-z']+))?[\\s,!.?]*$",
+            // Allow up to TWO trailing words after the greeting so "hello cute
+            // monkey" / "hi little buddy" still read as just-a-greeting, not a
+            // request. (v79 R3) Three+ trailing words won't match → real
+            // requests like "hello can you help me" still fall through.
+            '^' + escW + "(\\s*,?\\s+(monkey joe|[a-z']+(\\s+[a-z']+)?))?[\\s,!.?]*$",
             'i'
           );
           return re.test(lower);
@@ -1663,6 +1675,25 @@ const Brain = (() => {
     // fact (bananas→potassium, bite→masseter jaw muscle). Runs before the
     // casual guard + knowledge so it always wins.
     {
+      // R4a: "what do monkeys eat" — Joe IS a monkey, answer in character
+      // (was hitting the harpy-eagle fact, which eats monkeys). (v79)
+      if (/^(?:so[, ]+)?(?:what|which)\s+do\s+(monkeys|apes)\s+(eat|drink|like)\b/i.test(lower)) {
+        return pick([
+          "We monkeys munch fruit, leaves, seeds, nuts, and bugs 🐒 — but let's be honest, it's mostly bananas 🍌",
+          "Fruit, nuts, leaves, the odd insect… and BANANAS 🍌🐒 Always bananas.",
+          "Speaking as a monkey: bananas first, then whatever fruit's in reach 🍌🐒"
+        ]);
+      }
+      // R7: compliments aimed at Joe → say thanks in character. (v79)
+      if (/\b(you'?re|you are|youre|ur|yer)\s+(so\s+|really\s+|very\s+|super\s+|pretty\s+|such\s+a\s+|a\s+)?(cute|adorable|sweet|lovely|nice|kind|awesome|amazing|wonderful|the\s+best|best|great|funny|hilarious|smart|clever|cool|good|fun|cutest|precious|charming|the\s+cutest)\b/i.test(lower)
+          && !/\?\s*$/.test(lower)) {
+        return pick([
+          "Aw, thanks! 🐒💛 You're pretty great yourself.",
+          "Stop it, you 🙈🐒 (don't stop, actually). Thank you!",
+          "🐒💛 That made my whole jungle day. What can I do for you?",
+          "Thanks! I try 🐒 Now — what's on your mind?"
+        ]);
+      }
       const pm = lower.match(/^(?:so[, ]+)?do(?:es)?\s+(?:you|u|ya)\s+(like|love|enjoy|eat|prefer|hate|bite|scratch|kick|chase|fancy|dig)\b\s*(.*)$/i)
               || lower.match(/^(?:so[, ]+)?(?:what|which)\s+do(?:es)?\s+(?:you|u|ya)\s+(like|love|enjoy|eat|drink|prefer|hate|fancy|dig)\b\s*(.*)$/i)
               || lower.match(/^(?:you|u)\s+(like|love|enjoy|eat|prefer|hate|bite|scratch|kick|chase|fancy|dig)\s+(.+)$/i);
@@ -1700,6 +1731,50 @@ const Brain = (() => {
         "Easy — bananas! 🍌 (and banana-yellow, if we're picking colors.)",
         "My favorite anything? Usually bananas 🍌 What's yours?"
       ]);
+
+      // R1: "are you <state>" about Joe (excited, riled up, real, crazy…) →
+      // playful reply instead of a keyword fact ("excited"→chameleon). (v79)
+      const stateM = lower.match(/^(?:so[, ]+)?(?:are|r)\s+(?:you|u|ya)\s+(?:really\s+|even\s+|still\s+|so\s+|getting\s+|feeling\s+|a\s+little\s+|a\s+bit\s+|kinda\s+|kind\s+of\s+)?([a-z][a-z' ]*?)[\s?.!]*$/i);
+      if (stateM) {
+        const st = stateM[1].trim();
+        if (/\b(excited|pumped|thrilled|happy|glad|ready|hyped|stoked)\b/.test(st)) return pick([
+          "Always a little excited to chat with you! 🐒",
+          "You bet — ready and bouncing 🐒🍌 What's up?"
+        ]);
+        if (/\b(riled|mad|angry|upset|grumpy|annoyed|cranky|frustrated)\b/.test(st)) return pick([
+          "Nah, I'm chill 🐒 Takes a LOT to rile a monkey. What's going on?",
+          "Not at all! Cool as a cucumber over here 🐒 (a banana-shaped one)."
+        ]);
+        if (/\b(tired|sleepy|bored|busy)\b/.test(st)) return "Never too tired for you! 🐒 What do you need?";
+        if (/\b(real|alive|a robot|a bot|human|fake)\b/.test(st)) return pick([
+          "Real enough to chat with you! 🐒 I'm a friendly bundle of rules and bananas Akiva built.",
+          "I'm a real friendly monkey in here! 🐒 Real enough to brighten your day, anyway."
+        ]);
+        if (/\b(crazy|loco|nuts|silly|wild|goofy|wacky|bananas|bonkers|insane)\b/.test(st)) return pick([
+          "A little! 🐒 Goofy's kind of my whole brand. 🍌",
+          "Guilty 🙈🐒 A wild monkey's gotta be a little loco. What's up?"
+        ]);
+        if (/\b(hungry|starving|peckish)\b/.test(st)) return "Always — got a banana? 🍌🐒";
+        if (/\b(ok|okay|alright|good|fine|well|doing (ok|good|well)|sure)\b/.test(st)) return "I'm great, thanks for asking! 🐒 How are YOU?";
+        // generic fallback for any other "are you X"
+        return pick([
+          "Me? Just a happy monkey here to help 🐒 What's on your mind?",
+          "Could be! 🐒 Hard to say — I'm mostly bananas and good intentions. What's up?"
+        ]);
+      }
+
+      // R2: requests for Joe to DO a real-world task (cook/clean) → he can't
+      // (no hands!), but offers what he can. Gated on food/chore words so it
+      // never swallows "make me a story/file". (v79)
+      if (/\b(cook|bake|fry|boil|grill|microwave|heat\s*up|reheat|make|fix|get|bring|fetch|prepare|whip\s*up|warm\s*up|serve)\b/i.test(lower)
+            && /\b(egg|eggs|breakfast|brunch|lunch|dinner|supper|meal|food|toast|coffee|tea|sandwich|snack|pancakes?|bacon|soup|rice|dish|dishes|nuggets?)\b/i.test(lower)
+          || /\b(clean|wash|vacuum|mop|sweep|fold|iron|dust|scrub|tidy|do)\b\s+(my|the|up|some)\b.*\b(room|dishes|laundry|clothes|floor|house|mess|bed|car)\b/i.test(lower)) {
+        return pick([
+          "Haha, I'd love to — but I'm a monkey in a screen, no hands and definitely no kitchen 🐒 I can hand you a recipe, a story, or some math though! 🍌",
+          "If only! 🙈 I'm all paws and pixels in here. Can't cook, but I'll happily tell you HOW, or spin you a story while you do. 🐒",
+          "No can do — I'd just get banana all over everything 🍌🐒 Want the recipe or a fun fact instead?"
+        ]);
+      }
     }
 
     // Positive feedback ("I like it", "that was great", "love it", "cool
@@ -2091,7 +2166,11 @@ const Brain = (() => {
     function expandSynonyms(q) {
       let result = q;
       for (const [syn, canonical] of Object.entries(synonymMap)) {
-        if (result.includes(syn)) result = result + ' ' + canonical;
+        // Word-boundary match on the ORIGINAL query — substring matching let
+        // "wibbleflux" trigger the "flu"→"virus" synonym and falsely score the
+        // antibiotics fact. (v79)
+        const esc = syn.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        if (new RegExp('\\b' + esc + '\\b').test(q)) result += ' ' + canonical;
       }
       return result;
     }
@@ -2392,7 +2471,10 @@ const Brain = (() => {
       return '__SEARCH__:' + input.replace(/^(find a link to|find me|find a|find|look up|show me|get me|can you find|s[ea]rch for|s[ea]rch the web for)\s+/i, '');
     }
 
-    return withProcedural("Hmm, I don't know that one yet 🐒 Try asking me to search the web for it, or ask Akiva to add it to my brain!");
+    // Plain IDK — no procedural micro-story prepend here. Prepending a whimsical
+    // story sentence to "I don't know" reads as two contradictory messages
+    // (esp. when the user just asked for a story). (v79 R6)
+    return "Hmm, I don't know that one yet 🐒 Try asking me to search the web for it, or ask Akiva to add it to my brain!";
   }
 
   function detectEmotion(lower, original) {
