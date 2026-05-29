@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '95'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '96'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -2255,6 +2255,25 @@ const Brain = (() => {
       if (m) return `${parseInt(m[1], 10) + 1}! 🐒`;
       m = lower.match(/\bwhat(?:'?s)?\s+comes?\s+before\s+(-?\d+)/);
       if (m) return `${parseInt(m[1], 10) - 1}! 🐒`;
+    }
+
+    // Numeric comparison (v96): "which is bigger 7 or 9", "is 100 bigger than 50"
+    {
+      const nums = (lower.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+      const hasCmp = /\b(bigger|larger|greater|higher|biggest|largest|smaller|less|lower|smallest|fewer)\b/.test(lower);
+      const hasQ = /\b(which|what'?s|what is|whats|is)\b/.test(lower);
+      if (hasCmp && hasQ && nums.length === 2 && !/[+*/^%]/.test(lower)) {
+        const [a, b] = nums;
+        const big = /\b(bigger|larger|greater|higher|biggest|largest|more)\b/.test(lower);
+        if (a === b) return `They're equal — both ${a}! 🐒`;
+        if (/\bthan\b/.test(lower)) {
+          const yes = big ? a > b : a < b;
+          return yes ? `Yes! ${a} is ${big ? 'bigger' : 'smaller'} than ${b}. 🐒`
+                     : `Nope — ${big ? Math.max(a, b) : Math.min(a, b)} is the ${big ? 'bigger' : 'smaller'} one. 🐒`;
+        }
+        const ans = big ? Math.max(a, b) : Math.min(a, b);
+        return `${ans}! 🐒 (the ${big ? 'bigger' : 'smaller'} of ${a} and ${b})`;
+      }
     }
 
     // Even/odd parity ("is 17 even or odd", "is 4 even") (v90)

@@ -3616,6 +3616,24 @@ class MonkeyJoe:
         if m:
             return f'{int(m.group(1)) - 1}! 🐒'
 
+        # Numeric comparison (v96)
+        _nums = [float(x) if '.' in x else int(x) for x in re.findall(r'-?\d+(?:\.\d+)?', lower)]
+        if (re.search(r'\b(bigger|larger|greater|higher|biggest|largest|smaller|less|lower|smallest|fewer)\b', lower)
+                and re.search(r"\b(which|what'?s|what is|whats|is)\b", lower)
+                and len(_nums) == 2 and not re.search(r'[+*/^%]', lower)):
+            a, b = _nums
+            big = bool(re.search(r'\b(bigger|larger|greater|higher|biggest|largest|more)\b', lower))
+            word = 'bigger' if big else 'smaller'
+            if a == b:
+                return "They're equal — both {}! 🐒".format(a)
+            if re.search(r'\bthan\b', lower):
+                yes = (a > b) if big else (a < b)
+                if yes:
+                    return 'Yes! {} is {} than {}. 🐒'.format(a, word, b)
+                return 'Nope — {} is the {} one. 🐒'.format(max(a, b) if big else min(a, b), word)
+            ans = max(a, b) if big else min(a, b)
+            return '{}! 🐒 (the {} of {} and {})'.format(ans, word, a, b)
+
         # Even/odd parity (v90)
         parity_m = re.search(r'\bis\s+(-?\d+)\s+(?:an?\s+)?(?:even|odd)(?:\s+number)?\b|\bis\s+(-?\d+)\s+(?:even or odd|odd or even)\b', lower)
         if parity_m:
