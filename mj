@@ -53,7 +53,10 @@ KW_STOPWORDS = set((
     "in on at for with as be this that what who how why when where which can will "
     "would should could not no yes ok okay just also then than was were has have "
     "had get got one some any all more most such only into out up down by from "
-    "about good bad nice cool love hate want need make made thing things stuff great best"
+    "about good bad nice cool love hate want need make made thing things stuff great best "
+    # conversational filler — never a real fact keyword (defends against
+    # generated keyword pollution like "saying" on the division-by-zero fact)
+    "saying say said thinking being doing going telling talking"
 ).split())
 
 def log_file(filepath):
@@ -2990,7 +2993,17 @@ class MonkeyJoe:
         casual_words = ['cool', 'awesome', 'nice', 'great', 'love', 'hate', 'think', 'feel',
                        'like', 'wow', 'lol', 'haha', 'interesting', 'yeah', 'yep', 'nope',
                        'okay', 'ok', 'sure', 'thanks', 'thank you', 'no way', 'really', 'seriously']
-        return any(w in lower for w in casual_words)
+        if any(w in lower for w in casual_words):
+            return True
+        # Conversational remark aimed AT Joe — "you are being crazy", "you're
+        # funny", "i was just saying hi", "stop it", "that's silly". Must never
+        # reach the knowledge scorer (where it dumped a random fact). (v76)
+        return bool(
+            re.match(r"^(you'?re|you are|you look|you seem|you sound|you keep|you always|you never|ur)\b", lower)
+            or re.match(r"^i('?m| am| was)\s+(just\s+|only\s+)?(saying|sayin|joking|jokin|kidding|kiddin|chatting|chattin|talking|talkin|messing|messin|playing|playin|teasing|teasin|testing|goofing|trolling)\b", lower)
+            or re.match(r"^(stop|quit|cut it out|chill|relax|calm down|knock it off|be quiet|shush|hush)\b", lower)
+            or re.match(r"^(that'?s|thats|that is|this is|this'?s|it'?s|its|it is)\s+(so |really |very |kinda |kind of |pretty |super |a bit )?(crazy|silly|funny|weird|wrong|random|nonsense|nuts|wild|insane|ridiculous|bananas|goofy|odd|strange)\b", lower)
+        )
 
     def _handle_memory_command(self, user_input, lower):
         """Memory command dispatcher — mirror of handleMemoryCommand in

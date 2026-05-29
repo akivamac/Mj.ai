@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '75'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '76'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1277,7 +1277,10 @@ const Brain = (() => {
     'would','should','could','not','no','yes','ok','okay','just','also','then','than',
     'was','were','has','have','had','get','got','one','some','any','all','more','most',
     'such','only','into','out','up','down','by','from','about','good','bad','nice','cool',
-    'love','hate','want','need','make','made','thing','things','stuff','great','best'
+    'love','hate','want','need','make','made','thing','things','stuff','great','best',
+    // conversational filler that should never carry a fact (defends against
+    // generated keyword pollution like "saying" on the division-by-zero fact)
+    'saying','say','said','thinking','being','doing','going','telling','talking'
   ]);
 
   function ruleMatches(ruleIf, lower) {
@@ -1596,10 +1599,12 @@ const Brain = (() => {
       for (const g of rules.greetings) {
         const matched = g.if.some(w => {
           const escW = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          // Allow an optional comma before a vocative ("hi, friend") and a
-          // leading comma/space generally (v59 fix).
+          // Allow an optional comma before a vocative ("hi, friend", "hello
+          // ape", "yo monkey joe") — any single trailing word (or "monkey
+          // joe") counts as a name/nickname, so the whole message still reads
+          // as just-a-greeting. (v76: was a fixed list that missed "ape".)
           const re = new RegExp(
-            '^' + escW + "(\\s*,?\\s+(joe|monkey joe|there|friend|buddy|pal))?[\\s,!.?]*$",
+            '^' + escW + "(\\s*,?\\s+(monkey joe|[a-z']+))?[\\s,!.?]*$",
             'i'
           );
           return re.test(lower);
@@ -2175,6 +2180,22 @@ const Brain = (() => {
           "🐒 Fair enough! Anything I can help with?",
           "Cool — ask me something! 🐒",
           "Interesting! What's on your mind? 🐒"
+        ]);
+      }
+      // Conversational remark aimed AT Joe — "you are being crazy", "you're
+      // funny", "i was just saying hi", "stop it", "that's silly". Not a
+      // question, so it must never reach the knowledge scorer (where it dumped
+      // a random fact). Catch the common second/first-person openers. (v76)
+      const aimedAtJoe = /^(you'?re|you are|you look|you seem|you sound|you keep|you always|you never|ur)\b/.test(lower)
+        || /^i('?m| am| was)\s+(just\s+|only\s+)?(saying|sayin|joking|jokin|kidding|kiddin|chatting|chattin|talking|talkin|messing|messin|playing|playin|teasing|teasin|testing|goofing|trolling)\b/.test(lower)
+        || /^(stop|quit|cut it out|chill|relax|calm down|knock it off|be quiet|shush|hush)\b/.test(lower)
+        || /^(that'?s|thats|that is|this is|this'?s|it'?s|its|it is)\s+(so |really |very |kinda |kind of |pretty |super |a bit )?(crazy|silly|funny|weird|wrong|random|nonsense|nuts|wild|insane|ridiculous|bananas|goofy|odd|strange)\b/.test(lower);
+      if (!hasQ && aimedAtJoe) {
+        return pick([
+          "Ha! Maybe a little 🐒 I'm just a monkey with a big pile of facts. What can I help with?",
+          "🐒 Fair! I do get carried away. Ask me something and I'll behave.",
+          "Hehe, you might be right 🍌 What's on your mind?",
+          "🐒 Guilty! Want a fact, a story, or some math to settle me down?"
         ]);
       }
     }

@@ -2108,7 +2108,6 @@
       "keywords": [
         "cognitive biases",
         "heuristics",
-        "thinking",
         "behavioral economics",
         "decision making"
       ],
@@ -6776,8 +6775,7 @@
     {
       "keywords": [
         "zero divided by zero",
-        "division by zero",
-        "saying"
+        "division by zero"
       ],
       "answer": "Division by zero is undefined in standard arithmetic. Saying x/0 = ∞ leads to contradictions (e.g., if 1/0 = ∞ and 2/0 = ∞ then 1 = 2). 0/0 is called an 'indeterminate form' because different limits approaching 0/0 give different answers. In calculus, 0/0 limits are resolved with L'Hôpital's rule. Some mathematical structures (Riemann sphere) define 1/0 = ∞ consistently, but ordinary numbers don't allow it."
     },
