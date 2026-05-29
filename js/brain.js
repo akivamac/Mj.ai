@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '96'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '97'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -1927,6 +1927,22 @@ const Brain = (() => {
     if (synM) {
       const w = synM[1], syns = SYNONYMS[w];
       return syns ? `A few words like "${w}": ${syns.slice(0, 4).join(', ')} 🐒` : `Hmm, I can't think of a good synonym for "${w}" right now 🐒`;
+    }
+    // Fun utilities (v97): coin flip, dice, random number
+    {
+      const rnd = (lo, hi) => lo + Math.floor(Math.random() * (hi - lo + 1));
+      if (/\b(flip|toss)\s+(a\s+|the\s+)?coin\b|\bcoin\s+(flip|toss)\b|^heads or tails\b/i.test(lower))
+        return rnd(0, 1) ? "🪙 Heads!" : "🪙 Tails!";
+      if (/\broll\s+(a\s+|the\s+|some\s+|two\s+|2\s+)?(dice|die|d6)\b|\bdice roll\b|^roll\b/i.test(lower)) {
+        if (/\b(two|2)\b/.test(lower)) { const a = rnd(1, 6), b = rnd(1, 6); return `🎲🎲 You rolled ${a} and ${b} — that's ${a + b}!`; }
+        return `🎲 You rolled a ${rnd(1, 6)}!`;
+      }
+      if (/\b(pick|choose|think of|give me|generate|gimme)\b.*\bnumber\b|\brandom number\b/i.test(lower)) {
+        const rm = lower.match(/(?:between|from)\s+(-?\d+)\s+(?:and|to)\s+(-?\d+)/);
+        let lo = 1, hi = 100;
+        if (rm) { lo = parseInt(rm[1], 10); hi = parseInt(rm[2], 10); if (lo > hi) [lo, hi] = [hi, lo]; }
+        return `🐒 How about... ${rnd(lo, hi)}!`;
+      }
     }
 
     // Empathy + common-kid conversational gaps (v86) — these used to fall to

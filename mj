@@ -3446,6 +3446,22 @@ class MonkeyJoe:
             w = syn_m.group(1); syns = self._SYNONYMS.get(w)
             return f'A few words like \"{w}\": {", ".join(syns[:4])} 🐒' if syns else f'Hmm, I can\'t think of a good synonym for \"{w}\" right now 🐒'
 
+        # Fun utilities (v97): coin flip, dice, random number
+        if re.search(r'\b(flip|toss)\s+(a\s+|the\s+)?coin\b|\bcoin\s+(flip|toss)\b|^heads or tails\b', lower):
+            return "🪙 Heads!" if random.randint(0, 1) else "🪙 Tails!"
+        if re.search(r'\broll\s+(a\s+|the\s+|some\s+|two\s+|2\s+)?(dice|die|d6)\b|\bdice roll\b|^roll\b', lower):
+            if re.search(r'\b(two|2)\b', lower):
+                x, y = random.randint(1, 6), random.randint(1, 6)
+                return f"🎲🎲 You rolled {x} and {y} — that's {x + y}!"
+            return f"🎲 You rolled a {random.randint(1, 6)}!"
+        if re.search(r'\b(pick|choose|think of|give me|generate|gimme)\b.*\bnumber\b|\brandom number\b', lower):
+            rm = re.search(r'(?:between|from)\s+(-?\d+)\s+(?:and|to)\s+(-?\d+)', lower)
+            lo, hi = (1, 100)
+            if rm:
+                lo, hi = int(rm.group(1)), int(rm.group(2))
+                if lo > hi: lo, hi = hi, lo
+            return f"🐒 How about... {random.randint(lo, hi)}!"
+
         # Empathy + common-kid conversational gaps (v86).
         if re.search(r"^(i'?m|i am|im|feeling|feel|so|really|getting)\b.*\bbored\b|^bored\b", lower):
             return random.choice(["Let's fix that! 🐒 Want a story, a fun fact, a joke, or some math?",
