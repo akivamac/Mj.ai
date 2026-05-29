@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '70'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '71'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -636,7 +636,7 @@ const Brain = (() => {
     'square root','cube root','exponential','factorial','sequence',
     'theorem','formula','calculus','statistics','stats'];
   const TEACH_RE  = /\b(how (?:do|does|to) .+|explain|teach me|i (?:don't|do not|dont) (?:get|understand)|confused about|why (?:is|does|do)|what does it mean|walk me through|help me with|show me)\b/i;
-  const DEFINE_RE = /^(what is (?:a |an |the )?|what's (?:a |an |the )?|whats (?:a |an |the )?|define )/i;
+  const DEFINE_RE = /^(what is (?:a |an |the )?|what are (?:a |an |the )?|what's (?:a |an |the )?|what're (?:a |an |the )?|whats (?:a |an |the )?|define )/i;
   const WORKED_RE = /\b(show (?:your |the )?work|step by step|show me how|show me|walk me through|how do I solve|why is .* equal|with work|with steps)\b/i;
   const MATH_SKIP_RE = /\b(just|quick|briefly|short|tldr|tl;dr)\b/i;
 
@@ -828,7 +828,7 @@ const Brain = (() => {
   ];
 
   const SCI_TEACH_RE  = /\b(how (?:do|does|to) .+|explain|teach me|i (?:don't|do not|dont) (?:get|understand)|confused about|why (?:is|does|do)|walk me through|help me with)\b/i;
-  const SCI_DEFINE_RE = /^(what is (?:a |an |the )?|what's (?:a |an |the )?|whats (?:a |an |the )?|define )/i;
+  const SCI_DEFINE_RE = /^(what is (?:a |an |the )?|what are (?:a |an |the )?|what's (?:a |an |the )?|what're (?:a |an |the )?|whats (?:a |an |the )?|define )/i;
   const SCI_FORMULA_RE = /\b(plug in|with [a-z]+\s*=|using [a-z]+\s*=|where [a-z]+\s*=|=\s*\d|compute (?:the )?(?:force|energy|momentum|power|work|velocity|acceleration|pressure|wavelength|frequency))/i;
   // Formula shorthand: at least 2 `letter=number` clauses anywhere in input.
   // E.g. "F=ma with m=5 a=3" or "PV=nRT P=101 V=2 n=0.5 T=300"

@@ -1814,7 +1814,7 @@ class MonkeyJoe:
         'square root','cube root','exponential','factorial','sequence',
         'theorem','formula','calculus','statistics','stats']
     _TEACH_RE  = re.compile(r"\b(how (?:do|does|to) .+|explain|teach me|i (?:don't|do not|dont) (?:get|understand)|confused about|why (?:is|does|do)|what does it mean|walk me through|help me with|show me)\b", re.I)
-    _DEFINE_RE = re.compile(r"^(what is (?:a |an |the )?|what's (?:a |an |the )?|whats (?:a |an |the )?|define )", re.I)
+    _DEFINE_RE = re.compile(r"^(what is (?:a |an |the )?|what are (?:a |an |the )?|what's (?:a |an |the )?|what're (?:a |an |the )?|whats (?:a |an |the )?|define )", re.I)
     _WORKED_RE = re.compile(r"\b(show (?:your |the )?work|step by step|show me how|show me|walk me through|how do I solve|why is .* equal|with work|with steps)\b", re.I)
 
     def _classify_math_intent(self, input_str, lower):
@@ -1931,7 +1931,7 @@ class MonkeyJoe:
         'electromagnetic','spectrum'
     ]
     _SCI_TEACH_RE   = re.compile(r"\b(how (?:do|does|to) .+|explain|teach me|i (?:don't|do not|dont) (?:get|understand)|confused about|why (?:is|does|do)|walk me through|help me with)\b", re.I)
-    _SCI_DEFINE_RE  = re.compile(r"^(what is (?:a |an |the )?|what's (?:a |an |the )?|whats (?:a |an |the )?|define )", re.I)
+    _SCI_DEFINE_RE  = re.compile(r"^(what is (?:a |an |the )?|what are (?:a |an |the )?|what's (?:a |an |the )?|what're (?:a |an |the )?|whats (?:a |an |the )?|define )", re.I)
     _SCI_FORMULA_RE = re.compile(r"\b(plug in|with [a-z]+\s*=|using [a-z]+\s*=|where [a-z]+\s*=|=\s*\d|compute (?:the )?(?:force|energy|momentum|power|work|velocity|acceleration|pressure|wavelength|frequency))", re.I)
     _SCI_FORMULA_SHORTHAND_RE = re.compile(r"([a-z]+\s*=\s*-?\d+(?:\.\d+)?[\s,]*){2,}", re.I)
 
