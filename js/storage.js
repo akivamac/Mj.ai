@@ -4,7 +4,24 @@ const Storage = (() => {
 
   // ── Brain (always localStorage — loaded from JSON files) ──
   function getBrain(key)       { const r = LS.getItem(PREFIX+'brain_'+key); if (r) try { return JSON.parse(r); } catch(_) {} return null; }
-  function setBrain(key, data) { LS.setItem(PREFIX+'brain_'+key, JSON.stringify(data)); }
+  // ⚠️ setItem MUST stay quota-safe. The brain JSONs total >10MB while
+  // localStorage quota is ~5MB; an uncaught QuotaExceededError here once
+  // escaped Brain.load() and killed app.js init — send button + Enter key
+  // went completely dead. Caching is best-effort only: on quota failure,
+  // evict the brain cache and retry once, then give up silently (the data
+  // is still held in memory; next load just re-fetches, and the HTTP cache
+  // + ?v= versioning makes that cheap).
+  function setBrain(key, data) {
+    const k = PREFIX+'brain_'+key, v = JSON.stringify(data);
+    try { LS.setItem(k, v); return; } catch(_) {}
+    try {
+      for (let i = LS.length - 1; i >= 0; i--) {
+        const name = LS.key(i);
+        if (name && name.startsWith(PREFIX+'brain_')) LS.removeItem(name);
+      }
+      LS.setItem(k, v);
+    } catch(_) { console.warn('localStorage quota exceeded — skipping brain cache for', key); }
+  }
 
   // ── Settings ───────────────────────────────────────────────
   function getMcpUrl()      { return LS.getItem(PREFIX+'mcp_url') || ''; }

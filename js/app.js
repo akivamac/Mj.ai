@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  await Brain.load();
-  MCP.init();
-  Search.init();
-  Draw.init();
-  Photo.init();
-  await Chat.init();
-
+  // ⚠️ Wire the input + send-button listeners BEFORE any await/init call.
+  // We've been burned twice by inits throwing (stale cached JS, then a
+  // localStorage QuotaExceededError in Brain.load) — anything that throws
+  // above the addEventListener lines leaves the send button dead and makes
+  // Enter insert a plain newline. Keep this wiring first, and keep the init
+  // chain below inside try/catch. Do not move listener setup after an await.
   const input = document.getElementById('user-input');
   const sendBtn = document.getElementById('send-btn');
   const newChatBtn = document.getElementById('new-chat-btn');
@@ -25,6 +24,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   input.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
   });
+
+  try {
+    await Brain.load();
+    MCP.init();
+    Search.init();
+    Draw.init();
+    Photo.init();
+    await Chat.init();
+  } catch (e) {
+    console.error('Init failed — chat input stays alive, but some features may be degraded:', e);
+  }
 
   input.addEventListener('input', () => {
     input.style.height = 'auto';

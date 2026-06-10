@@ -146,7 +146,20 @@ State is module-level (JS) / instance-level (Python): `_recentFlavorAge`, `_stor
 
 ## Brain versioning
 Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file OR any local `js/*.js` changes (it doubles as the asset cache-bust version — see below).
-Currently: `'59'`
+Currently: `'100'`
+
+## Dead-input failure class (recurred twice — don't reintroduce)
+Symptom: send button does nothing, Enter inserts a newline. Cause is always
+the same shape: something throws inside `app.js`'s DOMContentLoaded handler
+*before* the input listeners attach. Triggers so far: (1) stale cached JS
+from a missed `?v=` bump, (2) `QuotaExceededError` from `Storage.setBrain`
+once the brain JSONs (>10MB) outgrew the ~5MB localStorage quota.
+Guards now in place — keep both when editing:
+- `js/app.js`: listener wiring comes FIRST, init chain is wrapped in
+  try/catch. Never move listener setup after an `await`.
+- `js/storage.js`: `setBrain` is best-effort (try/catch + evict-and-retry).
+  localStorage caching of brain files is an optimization, never a
+  correctness requirement — `Brain.load()` must work from fetch alone.
 
 ## Cache-busting (important)
 `index.html` loads every local `js/*.js` with a `?v=NN` query string that
