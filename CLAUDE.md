@@ -139,14 +139,14 @@ Scope cuts (deliberate): no general CAS, no symbolic simplification past collect
 Three mechanics make Joe feel less like a lookup table:
 
 1. **Fact-answer flavoring**: 25% chance to wrap a knowledge response in a lead-in / sign-off / before-after-sandwich from `brain/responseFlavors.json` (40 leadIns + 40 signOffs + 20 responseWraps, slot-templated like `templates.json`). Drops to 5% if recently flavored. Skip-words (`just`, `quick`, `briefly`, `short`, `tldr`, `tl;dr`) turn it off. Never flavors IDK / search / file / push responses.
-2. **Procedural personality beats**: 30% chance to prepend a one-sentence microStory to greetings, the IDK fallback, and ~26 of the conversational rules in `rules.json` marked with `procedural: true`. (Web-only for per-rule flag; the Python `mj` CLI doesn't iterate the rules array, so it gets the procedural treatment on greetings and IDK only.)
+2. **Personality beats (v101)**: 30% chance to prepend a beat to greetings and the `procedural: true` rules in `rules.json`. Beats come from `templates.greetingBeats` — 24 purpose-written, in-character Joe asides ("I was just napping in a banana tree.") with a 5-deep no-repeat ring. Do NOT swap back to random microStories here: a slot-filled story fragment before "Hey! What's up?" reads as a non-sequitur (the "comfitmaker kept the cheeky cumulus in a teacup" incident). Web + `mj` CLI both ported.
 3. **Story-from-fact hook**: after a strong fact hit, 15% chance to append "Want a story about that? Just say 'tell me a story about it' 🐒". The hooked subject + keywords persist for 2 turns. A short affirmative ("yes", "sure", "tell me a story about it") within that window triggers a fact-woven story about the subject.
 
 State is module-level (JS) / instance-level (Python): `_recentFlavorAge`, `_storyHookSubject`, `_storyHookKeywords`, `_storyHookAge`. Both tick at the top of every `respond()`.
 
 ## Brain versioning
 Bump `BRAIN_VERSION` in `brain.js` whenever any brain JSON file OR any local `js/*.js` changes (it doubles as the asset cache-bust version — see below).
-Currently: `'100'`
+Currently: `'101'`
 
 ## Dead-input failure class (recurred twice — don't reintroduce)
 Symptom: send button does nothing, Enter inserts a newline. Cause is always

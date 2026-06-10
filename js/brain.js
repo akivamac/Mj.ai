@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '100'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '101'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -602,16 +602,22 @@ const Brain = (() => {
     return answer + "\n\nWant a story about that? Just say 'tell me a story about it' 🐒";
   }
 
-  // 30% chance to prepend a microStory to short canned replies (greetings,
-  // thanks, "good job"). Skip if dictionary/templates not loaded.
+  // 30% chance to prepend a personality beat to short canned replies
+  // (greetings, thanks, "good job"). v101: beats come from the
+  // purpose-written templates.greetingBeats pool — NOT random microStories.
+  // A random slot-filled story fragment before "Hey! What's up?" read as a
+  // non-sequitur ("The comfitmaker kept the cheeky cumulus in a teacup…"),
+  // so don't wire Generator.generateStory back in here.
+  let _recentGreetingBeats = [];
   function withProcedural(text) {
-    if (!templates || !dictionary) return text;
+    const beats = templates && templates.greetingBeats;
+    if (!Array.isArray(beats) || !beats.length) return text;
     if (Math.random() >= PROCEDURAL_CHANCE) return text;
-    if (typeof Generator === 'undefined' || !Generator.generateStory) return text;
-    const tone = pick([null, 'silly', 'cozy', 'whimsical']);
-    const r = Generator.generateStory({ mode: 'micro', tone });
-    if (!r || !r.text || r.text.startsWith('I want to tell stories')) return text;
-    return r.text + ' ' + text;
+    const fresh = beats.filter(b => !_recentGreetingBeats.includes(b));
+    const beat = pick(fresh.length ? fresh : beats);
+    _recentGreetingBeats.push(beat);
+    if (_recentGreetingBeats.length > 5) _recentGreetingBeats.shift();
+    return beat + ' ' + text;
   }
 
   // Detect a short affirmative reply that should trigger the story-hook

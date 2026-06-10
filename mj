@@ -1820,14 +1820,22 @@ class MonkeyJoe:
         return answer + "\n\nWant a story about that? Just say 'tell me a story about it' 🐒"
 
     def _with_procedural(self, text):
-        """Maybe prepend a one-sentence microStory to a short canned reply."""
-        if not self.templates or not self.dictionary: return text
+        """Maybe prepend a personality beat to a short canned reply.
+
+        v101: beats come from the purpose-written templates['greetingBeats']
+        pool — NOT random microStories. A random slot-filled story fragment
+        before a greeting read as a non-sequitur; don't wire generate_story
+        back in here.
+        """
+        beats = (self.templates or {}).get('greetingBeats') or []
+        if not beats: return text
         if random.random() >= self.PROCEDURAL_CHANCE: return text
-        tone = random.choice([None, 'silly', 'cozy', 'whimsical'])
-        r = self.generate_story({'mode': 'micro', 'tone': tone})
-        out = (r or {}).get('text', '')
-        if not out or out.startswith('I want to tell stories'): return text
-        return out + ' ' + text
+        if not hasattr(self, '_recent_greeting_beats'): self._recent_greeting_beats = []
+        fresh = [b for b in beats if b not in self._recent_greeting_beats]
+        beat = random.choice(fresh or beats)
+        self._recent_greeting_beats.append(beat)
+        if len(self._recent_greeting_beats) > 5: self._recent_greeting_beats.pop(0)
+        return beat + ' ' + text
 
     _STORY_HOOK_YES_RE = re.compile(
         r'^(yes|yeah|sure|yep|yup|ok|okay|go on|do it|please do|tell me|'
