@@ -1,5 +1,5 @@
 const Brain = (() => {
-  const BRAIN_VERSION = '101'; // bump when brain JSON files change (and the ?v= in index.html)
+  const BRAIN_VERSION = '102'; // bump when brain JSON files change (and the ?v= in index.html)
 
   // Confirmation state for "forget everything" — set when Joe asks, cleared
   // on next turn.
@@ -624,7 +624,9 @@ const Brain = (() => {
   // follow-up (only valid within 2 turns of the hook firing).
   function isStoryHookYes(lower) {
     if (_storyHookAge > 2 || !_storyHookSubject) return false;
-    return /^(yes|yeah|sure|yep|yup|ok|okay|go on|do it|please do|tell me|tell me a story(?: about it)?|story please)[\s!.?]*$/i.test(lower);
+    // "tell me" alone is too loose — "tell me more about dogs" would fire.
+    // Require "a story" or "story" to follow "tell me". (v102)
+    return /^(yes|yeah|sure|yep|yup|ok|okay|go on|do it|please do|tell me (?:a story(?: about it)?|it)|story please)[\s!.?]*$/i.test(lower);
   }
 
   // ── Phase 6 (v55): math dispatcher ───────────────────────
@@ -1526,6 +1528,12 @@ const Brain = (() => {
       const memOut = handleMemoryCommand(input, input.toLowerCase().trim());
       if (memOut !== null) return memOut;
     }
+    // Normalize Unicode superscript digits (⁰¹²³⁴⁵⁶⁷⁸⁹) to ^N so the
+    // math engine handles expressions like "6486⁵" correctly. (v102)
+    if (/[⁰¹²³⁴⁵⁶⁷⁸⁹]/.test(input)) {
+      const _supMap = {'⁰':'0','¹':'1','²':'2','³':'3','⁴':'4','⁵':'5','⁶':'6','⁷':'7','⁸':'8','⁹':'9'};
+      input = input.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]+/g, m => '^' + m.split('').map(c => _supMap[c]).join(''));
+    }
     let lower = input.toLowerCase().trim();
 
     // Get user account name for personalization
@@ -1664,7 +1672,7 @@ const Brain = (() => {
     // "Yes" context — if Joe just offered to search, treat as search confirmation
     if (/^(yes|yeah|sure|ok|okay|yep|yup|do it|go ahead)[\s!.]*$/.test(lower)) {
       const lastJoe = [...history].reverse().find(m => m.role === 'joe');
-      if (lastJoe && lastJoe.content && lastJoe.content.includes('search the web for it')) {
+      if (lastJoe && lastJoe.content && /search the web for/i.test(lastJoe.content)) {
         // Find the topic from earlier in conversation
         const userMsgs = history.filter(m => m.role === 'user');
         const lastUser = userMsgs[userMsgs.length - 2];
@@ -2340,14 +2348,28 @@ const Brain = (() => {
       }
     }
 
-    const mathIntent = classifyMathIntent(input, lower);
+    // Pre-process math input: strip "step by step" / "show work" markers
+    // and leading conversational negations ("no, ") so expressions like
+    // "no, what's 4-2" and "37463654 ÷ 67348860 step by step" both
+    // route to the right intent instead of falling to IDK. (v102)
+    const _hadWorkedMarker = WORKED_RE.test(input);
+    const _mathInput = input
+      .replace(/^((no|nope|nah|ok|okay|wait|so|uh|right|hey|hi|and|but|well|hmm)[,!.\s]+)+/i, '')
+      .replace(/\b(show (?:your |the )?work|step by step|show me how|show me|walk me through|how do i solve|with work|with steps)\b/gi, '')
+      .trim();
+    const _mathLower = _mathInput.toLowerCase();
+
+    let mathIntent = classifyMathIntent(_mathInput, _mathLower);
+    // If the original had a "step by step" marker but it was stripped before
+    // classification, force COMPUTE → WORKED so the user gets stepped output.
+    if (mathIntent === 'COMPUTE' && _hadWorkedMarker) mathIntent = 'WORKED';
     if (mathIntent) {
-      const mathOut = handleMathIntent(mathIntent, input, lower);
+      const mathOut = handleMathIntent(mathIntent, _mathInput, _mathLower);
       if (mathOut) {
         // COMPUTE/WORKED answers may get a one-line voice garnish.
         // TEACH/DEFINE already end on a tryIt prompt — don't double up.
         return (mathIntent === 'COMPUTE' || mathIntent === 'WORKED')
-          ? maybeGarnishMath(mathOut, input, lower)
+          ? maybeGarnishMath(mathOut, _mathInput, _mathLower)
           : mathOut;
       }
     }
@@ -2655,8 +2677,13 @@ const Brain = (() => {
       // Bare 1-2 word topic-ish phrase — not a pronoun/greeting/verb opener
       // (those are conversational remarks, not topic follow-ups).
       const words = q.trim().split(/\s+/);
+      // Only inject context when the phrase looks like a genuine topic
+      // continuation. Skip when every word is a stopword (e.g. "not much")
+      // and exclude common conversational fillers so random one-word inputs
+      // like "yaping" or "talking" don't inherit the prior topic. (v102)
       if (words.length <= 2 &&
-          !/^(you|u|i|we|it|he|she|they|me|my|your|do|does|are|is|am|was|were|the|a|an|no|yes|ok|okay|cool|nice|hi|hey|hello|yo|sup|loco|crazy|nuts|stop|why|how|what|who|when|where)\b/.test(q)) {
+          !words.every(w => KW_STOPWORDS.has(w)) &&
+          !/^(you|u|i|we|it|he|she|they|me|my|your|do|does|are|is|am|was|were|the|a|an|no|not|nope|nah|yes|ok|okay|cool|nice|hi|hey|hello|yo|sup|loco|crazy|nuts|stop|why|how|what|who|when|where|much|well|fine|oh|hmm|hm|ah|so|uh|mm|right|just)\b/.test(q)) {
         return q + ' ' + _lastTopicLabel;
       }
       return q;
@@ -2784,9 +2811,9 @@ const Brain = (() => {
         // Bug E: about to reprint the exact fact just given → don't.
         if (out === prevFactAnswer) {
           return pick([
-            "I think I just covered that one 🐒 — want me to dig at it differently, or search the web for more?",
-            "That's the same thing I just told you 🙈 Ask a different way and I'll give it another shot!",
-            "Ha, déjà vu 🐒 I already shared what I've got on that — want me to search the web for the rest?"
+            "I think I just covered that one 🐒 — want me to search the web for it?",
+            "Ha, déjà vu 🐒 I already shared what I've got on that — want me to search the web for it?",
+            "Same thing I just told you 🙈 — want me to search the web for more on that?"
           ]);
         }
         if (out === bestFact.answer && shouldFlavor(lower)) {
