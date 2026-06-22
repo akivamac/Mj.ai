@@ -199,15 +199,22 @@ const JoeBrain = (() => {
     return out;
   }
 
-  function sample(logits, temperature = 0.8) {
+  function sample(logits, temperature = 0.8, recentIds = [], penalty = 1.3) {
     const V = logits.length;
+    // Repetition penalty — divide logit of recently used tokens
+    const penalized = new Float32Array(logits);
+    for (const id of recentIds) {
+      penalized[id] = penalized[id] > 0
+        ? penalized[id] / penalty
+        : penalized[id] * penalty;
+    }
     // Apply temperature
     let max = -Infinity;
-    for (let i = 0; i < V; i++) max = Math.max(max, logits[i]);
+    for (let i = 0; i < V; i++) max = Math.max(max, penalized[i]);
     const probs = new Float32Array(V);
     let sum = 0;
     for (let i = 0; i < V; i++) {
-      probs[i] = Math.exp((logits[i] - max) / temperature);
+      probs[i] = Math.exp((penalized[i] - max) / temperature);
       sum += probs[i];
     }
     for (let i = 0; i < V; i++) probs[i] /= sum;
@@ -258,10 +265,12 @@ const JoeBrain = (() => {
     if (!ready) throw new Error('Model not loaded');
     const ids = encode(prompt);
     const seqLen = cfg.seq_len;
+    const recentWindow = 20; // penalize tokens seen in last 20 positions
     for (let i = 0; i < maxNew; i++) {
       const ctx = ids.slice(-seqLen);
       const logits = forward(ctx);
-      const next = sample(logits, temperature);
+      const recent = ids.slice(-recentWindow);
+      const next = sample(logits, temperature, recent, 1.3);
       ids.push(next);
       yield idToChar[next] ?? '?';
     }
