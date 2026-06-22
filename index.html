@@ -364,6 +364,8 @@
         messages.scrollTop = messages.scrollHeight;
         // Stop at newline after some content
         if (reply.length > 10 && ch === '\n') break;
+        // Yield to browser every 5 chars so page doesn't freeze
+        if (reply.length % 5 === 0) await new Promise(r => setTimeout(r, 0));
       }
     } catch (e) {
       bubble.textContent = '[error: ' + e.message + ']';
