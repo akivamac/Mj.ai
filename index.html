@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joe Brain</title>
+  <style>
+    :root {
+      --bg: #f5f5f0;
+      --sidebar-bg: #ebebeb;
+      --surface: #ffffff;
+      --border: #d8d8d0;
+      --text: #1a1a1a;
+      --text-muted: #666;
+      --accent: #5c8acc;
+      --accent-light: #6d9be8;
+      --user-bubble: #e8e8e2;
+      --joe-bubble: #ffffff;
+      --radius: 12px;
+      --sidebar-w: 220px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    #sidebar {
+      width: var(--sidebar-w);
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+      transition: margin-left 0.2s;
+      flex-shrink: 0;
+    }
+    #sidebar.hidden { margin-left: calc(-1 * var(--sidebar-w)); }
+
+    #sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1rem; font-weight: bold; }
+
+    #sidebar-footer {
+      padding: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    #model-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    #status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #ccc;
+      flex-shrink: 0;
+    }
+    #status-dot.loading { background: #f0a500; animation: pulse 1s infinite; }
+    #status-dot.ready   { background: #4caf50; }
+    #status-dot.error   { background: #e53935; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* Settings panel */
+    #settings-panel {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+    }
+    #settings-panel label { display: block; margin-bottom: 4px; color: var(--text-muted); }
+    #settings-panel input[type=range] { width: 100%; }
+    #temp-val { font-weight: bold; }
+
+    /* Main */
+    #main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    #topbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    #sidebar-toggle {
+      background: none; border: none;
+      font-size: 1.2rem; cursor: pointer; color: var(--text-muted);
+    }
+    #chat-title { font-size: 0.95rem; font-weight: bold; }
+
+    /* Messages */
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .msg {
+      display: flex;
+      flex-direction: column;
+      max-width: 80%;
+    }
+    .msg.user { align-self: flex-end; align-items: flex-end; }
+    .msg.joe  { align-self: flex-start; align-items: flex-start; }
+
+    .bubble {
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .msg.user .bubble {
+      background: var(--user-bubble);
+      border-bottom-right-radius: 4px;
+    }
+    .msg.joe .bubble {
+      background: var(--joe-bubble);
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+      padding: 0 2px;
+    }
+
+    /* Typing indicator */
+    .typing-dots span {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      margin: 0 2px;
+      animation: bounce 1.2s infinite;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
+
+    /* Input */
+    #input-area {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    #user-input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      resize: none;
+      outline: none;
+      background: var(--bg);
+      max-height: 120px;
+      overflow-y: auto;
+    }
+    #user-input:focus { border-color: var(--accent); }
+
+    #send-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      width: 40px; height: 40px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    #send-btn:disabled { background: #ccc; cursor: not-allowed; }
+    #send-btn:hover:not(:disabled) { background: var(--accent-light); }
+
+    /* Welcome */
+    #welcome {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      gap: 8px;
+      text-align: center;
+      padding: 20px;
+    }
+    #welcome h2 { font-size: 1.4rem; color: var(--text); }
+    #welcome p  { font-size: 0.9rem; max-width: 300px; }
+  </style>
+</head>
+<body>
+
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <span class="logo">🧠 Joe Brain</span>
+  </div>
+
+  <div id="settings-panel">
+    <label>Temperature: <span id="temp-val">0.8</span></label>
+    <input type="range" id="temp-slider" min="0.1" max="1.5" step="0.05" value="0.8" />
+    <label style="margin-top:10px;">Max tokens: <span id="tokens-val">120</span></label>
+    <input type="range" id="tokens-slider" min="20" max="400" step="10" value="120" />
+  </div>
+
+  <div style="flex:1"></div>
+
+  <div id="sidebar-footer">
+    <div id="model-status">
+      <div id="status-dot" class="loading"></div>
+      <span id="status-text">Loading model...</span>
+    </div>
+  </div>
+</aside>
+
+<main id="main">
+  <div id="topbar">
+    <button id="sidebar-toggle">☰</button>
+    <span id="chat-title">Joe Brain</span>
+  </div>
+
+  <div id="messages">
+    <div id="welcome">
+      <h2>🧠 Joe Brain</h2>
+      <p>A tiny neural network trained from scratch. Still learning — be patient with it!</p>
+    </div>
+  </div>
+
+  <div id="input-area">
+    <textarea id="user-input" placeholder="Type something..." rows="1" disabled></textarea>
+    <button id="send-btn" disabled>➤</button>
+  </div>
+</main>
+
+<script src="js/model.js"></script>
+<script>
+  const $ = id => document.getElementById(id);
+
+  // UI refs
+  const messages   = $('messages');
+  const input      = $('user-input');
+  const sendBtn    = $('send-btn');
+  const statusDot  = $('status-dot');
+  const statusText = $('status-text');
+  const tempSlider = $('temp-slider');
+  const tempVal    = $('temp-val');
+  const tokSlider  = $('tokens-slider');
+  const tokVal     = $('tokens-val');
+
+  // Sidebar toggle
+  $('sidebar-toggle').addEventListener('click', () => {
+    $('sidebar').classList.toggle('hidden');
+  });
+
+  // Sliders
+  tempSlider.addEventListener('input', () => { tempVal.textContent = tempSlider.value; });
+  tokSlider.addEventListener('input',  () => { tokVal.textContent  = tokSlider.value; });
+
+  // Auto-resize textarea
+  input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  });
+
+  // Send on Enter (Shift+Enter = newline)
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+  });
+  sendBtn.addEventListener('click', send);
+
+  // ── Chat ──────────────────────────────────────────────────────────────────
+
+  let context = '';   // rolling context fed to the model
+
+  function addMsg(role, text) {
+    const welcome = $('welcome');
+    if (welcome) welcome.remove();
+
+    const div = document.createElement('div');
+    div.className = `msg ${role}`;
+    div.innerHTML = `<div class="msg-label">${role === 'user' ? 'You' : '🧠 Joe'}</div>
+                     <div class="bubble"></div>`;
+    div.querySelector('.bubble').textContent = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+    return div.querySelector('.bubble');
+  }
+
+  function addTyping() {
+    const welcome = $('welcome');
+    if (welcome) welcome.remove();
+
+    const div = document.createElement('div');
+    div.className = 'msg joe';
+    div.id = 'typing-indicator';
+    div.innerHTML = `<div class="msg-label">🧠 Joe</div>
+                     <div class="bubble"><div class="typing-dots">
+                       <span></span><span></span><span></span>
+                     </div></div>`;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+    return div;
+  }
+
+  async function send() {
+    const text = input.value.trim();
+    if (!text || !JoeBrain.ready) return;
+
+    input.value = '';
+    input.style.height = 'auto';
+    sendBtn.disabled = true;
+    input.disabled = true;
+
+    addMsg('user', text);
+
+    // Build prompt: append user turn and let model continue
+    context += '\nUser: ' + text + '\nJoe:';
+
+    const typing = addTyping();
+
+    // Stream generation
+    const temperature = parseFloat(tempSlider.value);
+    const maxNew = parseInt(tokSlider.value);
+
+    let reply = '';
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+
+    // Replace typing indicator with streaming bubble
+    typing.querySelector('.bubble').replaceWith(bubble);
+
+    try {
+      for (const ch of JoeBrain.generateStream(context.slice(-300), { maxNew, temperature })) {
+        reply += ch;
+        bubble.textContent = reply;
+        messages.scrollTop = messages.scrollHeight;
+        // Stop at newline after some content
+        if (reply.length > 10 && ch === '\n') break;
+      }
+    } catch (e) {
+      bubble.textContent = '[error: ' + e.message + ']';
+    }
+
+    context += reply;
+
+    sendBtn.disabled = false;
+    input.disabled = false;
+    input.focus();
+  }
+
+  // ── Load model ────────────────────────────────────────────────────────────
+
+  (async () => {
+    try {
+      statusDot.className = 'loading';
+      statusText.textContent = 'Loading model...';
+      await JoeBrain.load('data/model.json', 'data/tokenizer.json');
+      statusDot.className = 'ready';
+      statusText.textContent = 'Model ready';
+      input.disabled = false;
+      sendBtn.disabled = false;
+      input.placeholder = 'Type something...';
+      input.focus();
+    } catch (e) {
+      statusDot.className = 'error';
+      statusText.textContent = 'Failed to load model';
+      console.error(e);
+    }
+  })();
+</script>
+</body>
+</html>
