@@ -261,20 +261,32 @@ const JoeBrain = (() => {
     return ids.map(i => idToChar[i] ?? '?').join('');
   }
 
+  // Characters to never generate
+  const BANNED_CHARS = new Set(['😂','🍌','📁','💻','👨','👧','👦','👩','🔍','✏️','📷','💬','🐒','😂','⌋','⌊','∛','√','∫','≤','≥','∧','∨','∩','∪','⇒','↔','→','∂','ℵ','ℏ','Λ','Σ','Ω','Φ','Δ','Γ','Θ','α','β','γ','δ','ε','ζ','η','θ','λ','μ','ν','ξ','π','ρ','σ','τ','φ','χ','ψ','ω','⁰','¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹','₀','₁','₂','₃','₄','₅','₆','₇','₈','₉']);
+
   function* generateStream(prompt, { maxNew = 200, temperature = 0.8 } = {}) {
     if (!ready) throw new Error('Model not loaded');
     const ids = encode(prompt);
     const seqLen = cfg.seq_len;
+
+    // Build set of banned token IDs
+    const bannedIds = new Set();
+    for (const ch of BANNED_CHARS) {
+      const id = charToId[ch];
+      if (id !== undefined) bannedIds.add(id);
+    }
+
     for (let i = 0; i < maxNew; i++) {
       const ctx = ids.slice(-seqLen);
       const logits = forward(ctx);
 
-      // Count how many times each id appears in last 10 tokens
+      // Ban blacklisted chars
+      for (const id of bannedIds) logits[id] = -1e9;
+
+      // Ban any token seen 3+ times in last 10
       const recent10 = ids.slice(-10);
       const counts = {};
       for (const id of recent10) counts[id] = (counts[id] || 0) + 1;
-
-      // Hard ban any token that appeared 3+ times in last 10
       for (const [id, cnt] of Object.entries(counts)) {
         if (cnt >= 3) logits[parseInt(id)] = -1e9;
       }
