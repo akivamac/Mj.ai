@@ -251,7 +251,7 @@
     <div id="welcome">
       <h2>🧠 Joe Brain</h2>
       <p>A tiny neural network trained from scratch. Still learning — be patient with it!</p>
-      <p style="font-size:0.7rem;color:#aaa">v11</p>
+      <p style="font-size:0.7rem;color:#aaa">v12</p>
     </div>
   </div>
 
@@ -366,10 +366,10 @@
           if (ticks % 5 === 0) await new Promise(r => setTimeout(r, 0));
           continue;
         }
+        if (ch === '\n') { if (reply.length > 20) break; else continue; }
         reply += ch;
         bubble.textContent = reply || '…';
         messages.scrollTop = messages.scrollHeight;
-        if (reply.length > 10 && ch === '\n') break;
         if (ticks % 5 === 0) await new Promise(r => setTimeout(r, 0));
       }
       if (!reply) bubble.textContent = '...';
