@@ -269,11 +269,10 @@ const JoeBrain = (() => {
     const ids = encode(prompt);
     const seqLen = cfg.seq_len;
 
-    // Build set of banned token IDs
+    // Build set of banned token IDs — ban all non-ASCII chars
     const bannedIds = new Set();
-    for (const ch of BANNED_CHARS) {
-      const id = charToId[ch];
-      if (id !== undefined) bannedIds.add(id);
+    for (const [ch, id] of Object.entries(charToId)) {
+      if (ch.charCodeAt(0) > 127) bannedIds.add(id);
     }
 
     for (let i = 0; i < maxNew; i++) {
