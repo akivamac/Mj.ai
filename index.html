@@ -251,7 +251,7 @@
     <div id="welcome">
       <h2>🧠 Joe Brain</h2>
       <p>A tiny neural network trained from scratch. Still learning — be patient with it!</p>
-      <p style="font-size:0.7rem;color:#aaa">v10</p>
+      <p style="font-size:0.7rem;color:#aaa">v11</p>
     </div>
   </div>
 
@@ -362,7 +362,7 @@
       let ticks = 0;
       for (const ch of JoeBrain.generateStream(context.slice(-300), { maxNew, temperature })) {
         ticks++;
-        if (ch.charCodeAt(0) > 127) {
+        if (ch.charCodeAt(0) > 8000) {
           if (ticks % 5 === 0) await new Promise(r => setTimeout(r, 0));
           continue;
         }
