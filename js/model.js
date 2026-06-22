@@ -265,12 +265,20 @@ const JoeBrain = (() => {
     if (!ready) throw new Error('Model not loaded');
     const ids = encode(prompt);
     const seqLen = cfg.seq_len;
-    const recentWindow = 20; // penalize tokens seen in last 20 positions
     for (let i = 0; i < maxNew; i++) {
       const ctx = ids.slice(-seqLen);
       const logits = forward(ctx);
-      const recent = ids.slice(-recentWindow);
-      const next = sample(logits, temperature, recent, 1.3);
+      const recent = ids.slice(-30);
+
+      // Hard-block: if last 3 chars are the same, ban that token entirely
+      const last3 = ids.slice(-3);
+      let bannedId = null;
+      if (last3.length === 3 && last3[0] === last3[1] && last3[1] === last3[2]) {
+        bannedId = last3[0];
+        logits[bannedId] = -1e9;
+      }
+
+      const next = sample(logits, temperature, recent, 2.5);
       ids.push(next);
       yield idToChar[next] ?? '?';
     }
