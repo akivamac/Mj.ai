@@ -251,7 +251,7 @@
     <div id="welcome">
       <h2>🧠 Joe Brain</h2>
       <p>A tiny neural network trained from scratch. Still learning — be patient with it!</p>
-      <p style="font-size:0.7rem;color:#aaa">v8</p>
+      <p style="font-size:0.7rem;color:#aaa">v9</p>
     </div>
   </div>
 
@@ -359,11 +359,10 @@
     typing.querySelector('.bubble').replaceWith(bubble);
 
     try {
-      let tokenCount = 0;
       for (const ch of JoeBrain.generateStream(context.slice(-300), { maxNew, temperature })) {
+        // Skip non-ASCII characters inline as a safety net
+        if (ch.charCodeAt(0) > 127) continue;
         reply += ch;
-        tokenCount++;
-        if (tokenCount === 1) reply = '[v8 ch1=' + ch.charCodeAt(0) + '] ' + ch;
         bubble.textContent = reply;
         messages.scrollTop = messages.scrollHeight;
         if (reply.length > 10 && ch === '\n') break;
