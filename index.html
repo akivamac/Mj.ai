@@ -251,7 +251,7 @@
     <div id="welcome">
       <h2>🧠 Joe Brain</h2>
       <p>A tiny neural network trained from scratch. Still learning — be patient with it!</p>
-      <p style="font-size:0.7rem;color:#aaa">v12</p>
+      <p style="font-size:0.7rem;color:#aaa">v13</p>
     </div>
   </div>
 
@@ -342,8 +342,8 @@
 
     addMsg('user', text);
 
-    // Build prompt: append user turn and let model continue
-    context += '\nUser: ' + text + '\nJoe:';
+    // Seed with the exact format from training data
+    context = 'User: ' + text + '\nJoe:';
 
     const typing = addTyping();
 
@@ -366,8 +366,8 @@
           if (ticks % 5 === 0) await new Promise(r => setTimeout(r, 0));
           continue;
         }
-        if (ch === '\n') { if (reply.length > 20) break; else continue; }
-        reply += ch;
+        if (ch === '\n' && reply.length > 5) break;
+        if (ch !== '\n') reply += ch;
         bubble.textContent = reply || '…';
         messages.scrollTop = messages.scrollHeight;
         if (ticks % 5 === 0) await new Promise(r => setTimeout(r, 0));
