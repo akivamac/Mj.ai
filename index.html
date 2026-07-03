@@ -225,10 +225,12 @@
   </div>
 
   <div id="settings-panel">
-    <label>Temperature: <span id="temp-val">0.8</span></label>
-    <input type="range" id="temp-slider" min="0.1" max="1.5" step="0.05" value="0.8" />
+    <label>Temperature: <span id="temp-val">0.9</span></label>
+    <input type="range" id="temp-slider" min="0.1" max="1.5" step="0.05" value="0.9" />
     <label style="margin-top:10px;">Max tokens: <span id="tokens-val">120</span></label>
     <input type="range" id="tokens-slider" min="20" max="400" step="10" value="120" />
+    <label style="margin-top:10px;">Top-K: <span id="topk-val">40</span></label>
+    <input type="range" id="topk-slider" min="1" max="100" step="1" value="40" />
   </div>
 
   <div style="flex:1"></div>
@@ -261,7 +263,6 @@
   </div>
 </main>
 
-<script src="js/model.js?v=7"></script>
 <script>
   const $ = id => document.getElementById(id);
 
@@ -275,6 +276,8 @@
   const tempVal    = $('temp-val');
   const tokSlider  = $('tokens-slider');
   const tokVal     = $('tokens-val');
+  const topkSlider = $('topk-slider');
+  const topkVal    = $('topk-val');
 
   // Sidebar toggle
   $('sidebar-toggle').addEventListener('click', () => {
@@ -284,6 +287,7 @@
   // Sliders
   tempSlider.addEventListener('input', () => { tempVal.textContent = tempSlider.value; });
   tokSlider.addEventListener('input',  () => { tokVal.textContent  = tokSlider.value; });
+  topkSlider.addEventListener('input', () => { topkVal.textContent = topkSlider.value; });
 
   // Auto-resize textarea
   input.addEventListener('input', () => {
@@ -299,7 +303,7 @@
 
   // ── Chat ──────────────────────────────────────────────────────────────────
 
-  let context = '';   // rolling context fed to the model
+  let history = [];  // [{role, text}, ...]
 
   function addMsg(role, text) {
     const welcome = $('welcome');
@@ -331,76 +335,104 @@
     return div;
   }
 
+  let sending = false;
+
   async function send() {
     const text = input.value.trim();
-    if (!text || !JoeBrain.ready) return;
+    if (!text || sending) return;
 
+    sending = true;
     input.value = '';
     input.style.height = 'auto';
     sendBtn.disabled = true;
     input.disabled = true;
 
     addMsg('user', text);
-
-    // Seed with the exact format from training data
-    context = 'User: ' + text + '\nJoe:';
+    history.push(['user', text]);
 
     const typing = addTyping();
 
-    // Stream generation
     const temperature = parseFloat(tempSlider.value);
     const maxNew = parseInt(tokSlider.value);
+    const topK = parseInt(topkSlider.value);
 
     let reply = '';
     const bubble = document.createElement('div');
     bubble.className = 'bubble';
-
-    // Replace typing indicator with streaming bubble
     typing.querySelector('.bubble').replaceWith(bubble);
 
     try {
-      let ticks = 0;
-      for (const ch of JoeBrain.generateStream(context.slice(-300), { maxNew, temperature })) {
-        ticks++;
-        if (ch.charCodeAt(0) > 8000) {
-          if (ticks % 5 === 0) await new Promise(r => setTimeout(r, 0));
-          continue;
+      const resp = await fetch('/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          msg: text,
+          history: history.slice(0, -1),
+          temperature,
+          max_new: maxNew,
+          top_k: topK
+        })
+      });
+
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const {done, value} = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, {stream: true});
+
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          const data = JSON.parse(line.slice(6));
+          if (data.done) {
+            reply = data.reply;
+          } else if (data.char !== undefined) {
+            reply += data.char;
+            bubble.textContent = reply || '...';
+            messages.scrollTop = messages.scrollHeight;
+          }
         }
-        if (ch === '\n' && reply.length > 5) break;
-        if (ch !== '\n') reply += ch;
-        bubble.textContent = reply || '…';
-        messages.scrollTop = messages.scrollHeight;
-        if (ticks % 5 === 0) await new Promise(r => setTimeout(r, 0));
       }
+
       if (!reply) bubble.textContent = '...';
+      else bubble.textContent = reply;
+
+      history.push(['joe', reply]);
+
     } catch (e) {
       bubble.textContent = '[error: ' + e.message + ']';
     }
 
-    context += reply;
-
+    sending = false;
     sendBtn.disabled = false;
     input.disabled = false;
     input.focus();
   }
 
-  // ── Load model ────────────────────────────────────────────────────────────
+  // ── Check server ──────────────────────────────────────────────────────────
 
   (async () => {
     try {
       statusDot.className = 'loading';
-      statusText.textContent = 'Loading model...';
-      await JoeBrain.load('data/model.json', 'data/tokenizer.json');
-      statusDot.className = 'ready';
-      statusText.textContent = 'Model ready';
-      input.disabled = false;
-      sendBtn.disabled = false;
-      input.placeholder = 'Type something...';
-      input.focus();
+      statusText.textContent = 'Connecting...';
+      const resp = await fetch('/ping');
+      const data = await resp.json();
+      if (data.ok) {
+        statusDot.className = 'ready';
+        statusText.textContent = 'Model ready';
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.placeholder = 'Type something...';
+        input.focus();
+      }
     } catch (e) {
       statusDot.className = 'error';
-      statusText.textContent = 'Failed to load model';
-      console.error(e);
+      statusText.textContent = 'Server not running';
     }
   })();
 </script>
