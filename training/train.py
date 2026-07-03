@@ -42,7 +42,7 @@ def git_push(step):
     import subprocess
     try:
         repo = os.path.expanduser('~/github-projects/joe-brain')
-        subprocess.run(['git', '-C', repo, 'add', 'data/model.json', 'data/tokenizer.json'], check=True)
+        subprocess.run(['git', '-C', repo, 'add', 'data/model.npz', 'data/tokenizer.json'], check=True)
         subprocess.run(['git', '-C', repo, 'commit', '-m', f'chore: auto-save model at step {step}'], check=True)
         subprocess.run(['git', '-C', repo, 'push', 'origin', 'new-monkey'], check=True)
         print(f"  [pushed to github at step {step}]")
